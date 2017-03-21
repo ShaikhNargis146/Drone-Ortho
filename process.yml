@@ -1,0 +1,5 @@
+apps:
+  - script: "app.js"
+    name: "GTEM 83"
+    watch: true
+    args: "--prod"

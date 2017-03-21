@@ -1,0 +1,65 @@
+{
+  "title": "Create Enquiry",
+  "name": "Enquiry",
+  "jsonPage": "viewEnquiry",
+  "desciption": "",
+  "pageType": "create",
+  "urlFields": ["Enquiry"],
+    "fields": [{
+        "name": "Name",
+        "type": "text",
+        "tableRef": "name",
+        "placeholder": "Enter Name",
+        "id": "name",
+        "validation": ["required", "trim", "unique"],
+        "url": ""
+    }, {
+        "name": "Email",
+        "type": "text",
+        "tableRef": "email",
+        "placeholder": "Enter Email",
+        "id": "email",
+        "validation": ["", "trim", "unique"],
+        "url": ""
+    }, {
+        "name": "query",
+        "type": "text",
+        "tableRef": "query",
+        "placeholder": "Enter query",
+        "id": "query",
+        "validation": ["required", "trim", "unique"],
+        "url": ""
+    },
+     {
+        "name": "User",
+        "type": "selectFromTable",
+        "tableRef": "user",
+        "searchApi": "searchCall",
+        "placeholder": "Enter User",
+        "id": "User",
+        "validation": ["required", "trim"],
+        "url": "User/search"
+    } ],
+    "action": [{
+        "name": "submit",
+        "action": "submitEnquiry",
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewEnquiry"
+            }
+        }
+    }, {
+        "name": "cancel",
+        "sideMenuRedirect": true,
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewEnquiry"
+            }
+        }
+    }],
+    "apiCall": {
+        "url": "Enquiry/save"
+    }
+}

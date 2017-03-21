@@ -1,0 +1,79 @@
+{
+    "title": "Edit UserForm",
+    "name": "UserForm",
+    "jsonPage": "viewUserForm",
+    "desciption": "",
+    "pageType": "edit",
+    "urlFields": ["_id"],
+    "fields": [{
+        "name": "Form",
+        "type": "text",
+        "tableRef": "form",
+        "placeholder": "Enter Form",
+        "id": "Form",
+        "validation": ["required", "trim", "unique"],
+        "url": ""
+    },{
+        "name": "Status",
+        "type": "text",
+        "tableRef": "status",
+        "placeholder": "Enter status",
+        "id": "status",
+        "validation": ["required", "trim", "unique"],
+        "url": ""
+    }, {
+        "name": "Result",
+        "type": "text",
+        "tableRef": "result",
+        "placeholder": "Enter Result",
+        "id": "Result",
+        "validation": ["", "trim", "unique"],
+        "url": ""
+    },{
+        "name": "User",
+        "type": "selectFromTable",
+        "tableRef": "user",
+        "searchApi": "searchCall",
+        "placeholder": "Enter User",
+        "id": "User",
+        "validation": ["required", "trim"],
+        "url": "User/search"
+    },
+     {
+        "name": "formSubmissionDate",
+        "type": "date",
+        "tableRef": "formSubmissionDate",
+        "placeholder": "Enter formSubmissionDate",
+        "id": "formSubmissionDate",
+        "validation": ["", "trim", ""],
+        "url": ""
+    }],
+    "action": [{
+        "name": "submit",
+        "action": "submitUserForm",
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewUserForm"
+            }
+        }
+    }, {
+        "name": "cancel",
+        "sideMenuRedirect": true,
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewUserForm"
+            }
+        }
+    }],
+    "apiCall": {
+        "url": "UserForm/save",
+        "params": "_id"
+    },
+    "preApi": {
+        "url": "UserForm/getOne",
+        "params": "_id"
+    }
+
+}

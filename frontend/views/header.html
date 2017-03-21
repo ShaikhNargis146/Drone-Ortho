@@ -1,0 +1,51 @@
+<header ng-controller="headerctrl">
+    <nav class="navbar navbar-default">
+        <div class="container ">
+            <!--<div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-collapse" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" ui-sref="home"><img src="frontend/img/logo.png" alt="logo" width="20"> </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="nav-collapse">
+               <div ng-include="template.menu" class="template menu"></div>
+        </div>-->
+            <div class="head-content" ng-init="openmenu=false">
+                <button type="button" class="navbar btn-header" ng-class="{'hamburger-cross' : openmenu == true, '': openmenu == false}"
+                    ng-click="openmenu=!openmenu">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+               </button>
+                <div class="header-logo">
+                    <img ui-sref="home" class="img-responsive img-logo" src="frontend/img/123.png" alt="">
+                </div>
+                <ul class="list-inline pull-right header-list">
+                    <li ng-click="login();" class="btn btn-white">Log in</li>
+                    <li class="btn btn-join list-padding" ui-sref="member-page">Join</li>
+                </ul>
+            </div>
+            <div class="sidemenu" ng-show="openmenu">
+                <div class="text-center " ng-class="{'slide-down': openmenu == true}">
+                    <ul class="list-unstyled">
+                        <li ui-sref="home" class="btn header-btn">HOME</li>
+                        <li ui-sref="about" class="btn header-btn">ABOUT UNIFLI</li>
+                        <li ui-sref="service" class="btn header-btn">SERVICES</li>
+                        <li ui-sref="how-we-work" class="btn header-btn">HOW WE WORK</li>
+                        <li ui-sref="member-page" class="btn header-btn">MEMBERSHIP</li>
+                        <li ui-sref="google-map" class="btn header-btn">GOOGLE MAPS AREA CALCULATOR</li>
+                        <li ui-sref="support-dfm" class="btn header-btn">SUPPORT</li>
+                            <li ui-sref="contactus" class="btn header-btn">CONTACT US</li>
+                             <li ui-sref="privacypolicy" class="btn header-btn">PRIVACY POLICY</li>
+                             <li ui-sref="terms-and-conditions" class="btn header-btn">TERMS & CONDITIONS</li>
+                             
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

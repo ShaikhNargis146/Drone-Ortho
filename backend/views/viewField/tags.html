@@ -1,0 +1,5 @@
+<span ng-repeat="tag in form.model track by $index">
+       <span ng-if="$index<form.model.length-1">{{tag.name}},</span>
+
+   <span ng-if="$index==form.model.length-1">{{tag.name}}</span>
+</span>
