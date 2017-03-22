@@ -1,5 +1,4 @@
-
-var initMap=function(){};
+var initMap = function () {};
 angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ui.bootstrap', 'ngAnimate', 'ngSanitize', 'angular-flexslider', 'ksSwiper', 'ngMap'])
 
     .controller('HomeCtrl', function ($scope, TemplateService, NavigationService, $timeout) {
@@ -147,40 +146,46 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
 
 
-function initMap() {
-    alert("ghsgajhgas");
-    if (typeof google === 'object' && typeof google.maps === 'object') {
-        var map = new google.maps.Map(document.getElementById('map'), {
-            center: {
-                lat: -34.397,
-                lng: 150.644
-            },
-            zoom: 8
-        });
+        function initMap() {
+            alert("ghsgajhgas");
+            if (typeof google === 'object' && typeof google.maps === 'object') {
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    center: {
+                        lat: -34.397,
+                        lng: 150.644
+                    },
+                    zoom: 8
+                });
 
-       var drawingManager = new google.maps.drawing.DrawingManager({
-    drawingMode: google.maps.drawing.OverlayType.MARKER,
-    drawingControl: true,
-    drawingControlOptions: {
-      position: google.maps.ControlPosition.TOP_CENTER,
-      drawingModes: ['marker', 'circle', 'polygon', 'polyline', 'rectangle']
-    },
-    markerOptions: {icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'},
-    circleOptions: {
-      fillColor: '#ffff00',
-      fillOpacity: 1,
-      strokeWeight: 5,
-      clickable: false,
-      editable: true,
-      zIndex: 1
-    }
-  });
-  drawingManager.setMap(map);
-    }
-}
-setTimeout(function(){
-    initMap();
-}, 1000);
+                var drawingManager = new google.maps.drawing.DrawingManager({
+                    drawingMode: google.maps.drawing.OverlayType.MARKER,
+                    drawingControl: true,
+                    drawingControlOptions: {
+                        position: google.maps.ControlPosition.TOP_CENTER,
+                        drawingModes: ['marker', 'circle', 'polygon', 'polyline', 'rectangle']
+                    },
+                    markerOptions: {
+                        icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+                    },
+                    circleOptions: {
+                        fillColor: '#ffff00',
+                        fillOpacity: 1,
+                        strokeWeight: 5,
+                        clickable: false,
+                        editable: true,
+                        zIndex: 1
+                    }
+                });
+                drawingManager.setMap(map);
+            }
+            google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon) {
+                var coordinates = (polygon.getPath().getArray());
+                console.log(coordinates);
+            });
+        }
+        setTimeout(function () {
+            initMap();
+        }, 1000);
 
 
         $scope.googleMapsUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCGSUwk7KdhoDlwzq7CSpeJDcOjKzu-xRA";
@@ -310,13 +315,23 @@ setTimeout(function(){
         }
 
     })
-    .controller('ContactUsCtrl', function ($scope, TemplateService, NavigationService, $timeout) {
+    .controller('ContactUsCtrl', function ($scope,$state, TemplateService, NavigationService, $timeout) {
         $scope.template = TemplateService.changecontent("contactus"); //Use same name of .html file
         $scope.menutitle = NavigationService.makeactive("ContactUs"); //This is the Title of the Website
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
 
         $scope.formSubmitted = false;
+        $scope.saveContact=function(formData){
+        NavigationService.apiCallWithData("ContactUs/save", formData, function (data) {
+            if (data.value === true) {
+                console.log("data saved successfully",data)
+                $state.go('home');
+            } else {
+                //  toastr.warning('Error submitting the form', 'Please try again');
+            }
+        });
+        }
 
 
     })

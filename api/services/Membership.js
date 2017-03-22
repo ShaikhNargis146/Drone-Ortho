@@ -6,12 +6,45 @@ var schema = new Schema({
         required: true,
     },
     email: {
+       type: String,
+        validate: validators.isEmail(),
+        unique: true
+    },
+    organization: {
+        type: String,
+        default: ""
+    },
+     designation: {
+        type: String,
+        default: ""
+    },
+     mobile: {
+        type: String,
+        default: ""
+    },
+     phone: {
+        type: String,
+        default: ""
+    },
+    address: {
         type: String,
     },
-   
-    query: {
+    city: {
         type: String,
     },
+    state: {
+        type: String,
+    },
+    zip: {
+        type: String,
+    },
+    website: {
+        type: String,
+    },
+    droneType: {
+        type: String,
+    },
+    
      user: {
         type: Schema.Types.ObjectId,
         ref: 'User',
@@ -24,7 +57,7 @@ schema.plugin(deepPopulate, {});
 schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 
-module.exports = mongoose.model('Enquiry', schema);
+module.exports = mongoose.model('Membership', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema));
 var model = {
