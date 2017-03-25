@@ -51,6 +51,13 @@ var navigationservice = angular.module('navigationservice', [])
 
                 });
             },
+            profile: function (url, formData, callback) {
+                $http.post(adminurl + url, formData).then(function (data) {
+                    data = data.data;
+                    // $.jStorage.set("user", data.data);
+                    callback(data);
+                });
+            },
 
         };
     });

@@ -2,6 +2,93 @@
 @media (max-width: $screen-md-max) {}
 
 @media (max-width: $screen-sm-max) {
+         
+        //  home start
+// .mtop-member2{
+//         padding-top: 54%;
+// }
+.support-heading {
+    padding-top: 33%;
+}
+.support-heading2{
+      padding-top: 26% !important;
+
+}
+.mtop-member2{
+     padding-top: 36% !important;
+
+}
+        .slide-down {
+    margin-top: 14% !important;
+}
+
+.line-after:after {
+    content: "";
+   
+    width: 28%;
+  
+    top: 31px;
+    right: 5px;
+}
+.load {
+    width: 31% !important;
+    position: absolute;
+    left: 36%;
+    bottom: -71px;
+}
+.newsletter2{
+    text-align: center;
+}
+.my-read{
+    width: 38%;
+}
+.droning {
+    
+    margin-top: -154px;
+}
+.more-info-drones p {
+    padding-right: 55px;
+}
+.read{
+        width: 27%;
+}
+.section-blog {
+   
+    top: 22%;
+    left:25%;
+}
+.sec-4{
+    // min-height: 0px !important;
+    min-height: 748px !important;
+}
+.surveying-info{
+    width: 68%;
+}
+.support-section{
+        margin-top: -283px;
+}
+.contact-section{
+          background-position: -450px;
+              margin-top: -77px;
+}
+.contact {
+    margin-top: 95%;
+     
+}
+.top-spacings {
+    padding-top: 127px;
+}
+.fc-img h2:before{
+        width: 91%;
+    left: 9px;
+}
+// ser
+
+.support-left3{
+        padding-left: 30px !important;
+}
+
+
     // about.html changes
     .p-120 {
         padding: 0 68px;
@@ -156,10 +243,10 @@ h2.step.step-2-top:before{
      padding: 40px 0px; 
 }
 .support-heading {
-    padding-top: 60%;
+    padding-top: 33%;
 }
 .mtop-member {
-    padding-top: 40%;
+    padding-top: 53%;
 }
 .p-minheight{
         min-height: 130px;
@@ -171,11 +258,33 @@ h2.step.step-2-top:before{
     background-position: center center;
 }
 .support-left {
-    padding-left: 160px;
+    padding-left: 153px;
+}
+.mt10 {
+    margin-top: 40px;
+}
+.support-left2{
+        padding-left: 0px;
+}
+.policy-heading {
+    padding-top: 33%;
+}
+// hom start
+.fc-img {
+    margin-top: -10px;
 }
 }
 
+
+
+
+
 @media (max-width: $screen-xs-max) {
+
+
+.mt10 {
+    margin-top: 28px;
+}
     // about.html changes
     .p-120 {
         padding: 0 !important;
@@ -273,8 +382,15 @@ h2.step.step-2-top:before{
             text-align: center;
         }
         p {
-            padding: 10px 0;
+            padding: 12px 0;
         }
+        span{
+      color: #74ada9;
+      font-size: 10px;
+ }
+ .privacy{
+     margin-left: 70px;
+ }
     }
     //footer
     //header
@@ -508,6 +624,7 @@ h2.step.step-top:before{
 h2.step.step-2-top:before{
     display: none;
 }
+
 .w-50 {
     width: 65%;
     margin-top: 17px;
@@ -540,6 +657,7 @@ h2.step.step-2-top:before{
     margin: 0px 10px;
 }
 
+
 .service-data {
     padding: 0px 0px;
     /* text-align: justify; */
@@ -564,16 +682,165 @@ h2.step.step-2-top:before{
 .support-left {
     padding-left: 23px;
 }
+// home start
+.line-after:after{
+    display: none;
 }
-// 
+.f-size {
+    font-size: 46px !important;
+}
 
 
+.sec-4{
+    // min-height: 0px !important;
+    min-height: 0px !important;
+}
 
-// h2.step.step-left:before{
-//     display: none;
+
+.fc-img {
+    margin-top: -28px;
+}
+
+.thumbs{
+    padding: 10px 0px !important;
+}
+
+.surveying-info {
+    width: 80% !important;
+    padding: 16px;
+} 
+.view-top{
+    margin-top: -63px;
+}
+.view-top2{
+    margin-top: -30px;
+}
+.view-top3{
+    margin-top: -60px;
+}
+
+.newsletter{
+    margin: 0 0px;
+}
+.top-spacings {
+    // padding-top: 32px;
+    padding-top: 0px;
+    margin-top: -25px;
+}
+.font-mb{
+    font-size: 12px;
+}
+.more-info-drones p {
+    padding-right: 0px;
+}
+.left-spacing {
+    padding-left: 20px;
+    text-align: center
+}
+.button {
+    width: 31%;
+}
+.text-right {
+   text-align: center;
+}
+.text-left{
+
+        margin-right: 137px;
+    text-align: center;
+}
+
+.contact {
+    margin-top: 50%;
+}
+.top-spac{
+    margin-left: 84px;
+    padding-top: 33px;
+    margin-top: 0px !important;
+}
+.newsletter-mb{
+    margin-left: 82px;
+    margin-top: 23px;
+}
+.newsletter button {
+   
+    width: 25%;
+}
+.contact-section{
+    background-position: center center;
+    background-size: cover;
+}
+.contact {
+    color:#04423b !important;
+}
+.fc-img h2:before {
+    
+    left: 48px;
+}
+.dots{
+    display: none;
+}
+.fly-2{
+display: none;
+}
+.rw-padd{
+    padding-left: 0px;
+}
+.convert{
+    margin-top: 40px;
+}
+.cad-draf{
+       margin-top: -15px;
+}
+.my-read{
+        width: 50%;
+}
+.top-padd{
+   
+    margin-top: 0px;
+}
+.space-top{
+        padding-top: 148px !important;
+    // margin-top: -25px !important;
+}
+.support-img img {
+    margin: 50px auto;
+}
+.fc-img h2:before {
+    width: 65%;
+}
+.support-section {
+    margin-top: 25px;
+}
+// .load2 {
+//     width: 12% !important;
 // }
-// h2.step.step-left:after {
-//     display: none;
+
+.read {
+    width: 33%;
+}
+.section-blog {
+    top: -1%;
+    left: 15%;
+}
+.surveying-info {
+    width: 96% !important;
+    padding: 7px;
+}
+.sep-22{
+        margin: -15px;
+}
+.mtop-member2 {
+    padding-top: 69% !important;
+}
+.support-heading2 {
+    padding-top: 40% !important;
+}
+
+.support-heading{
+     padding-top: 65% !important;
+}
+// .support-heading2 {
+//     padding-top: 66% !important;
 // }
 
-// 
+}

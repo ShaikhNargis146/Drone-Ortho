@@ -4,7 +4,7 @@
                     <h1 class="m-0">become a member</h1>
         </div>
         <div class="signup-container">
-              <form  name="member" ng-submit="test(xs)" novalidate>
+              <form  name="member" ng-submit="test(xs,formData)" novalidate>
 
                 <div class="member-form">
                     <div class="row">
@@ -13,21 +13,23 @@
                        <div class="form-group">
                       <input type="text" placeholder="Name" value="" class="member-input"  name="name" ng-model="formData.name" required>
                        </div>
-                       
                         <div class="form-group">
-                            <input type="text" placeholder="Organization" value="" class="member-input" name="Organization"  ng-model="formData.Organization">
+                      <input type="password" placeholder="Password" value="" class="member-input"  name="name" ng-model="formData.password" required>
+                       </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Organization" value="" class="member-input" name="Organization"  ng-model="formData.organization">
                         </div>
                         <div class="form-group">
                              <input type="text" only-Digits ng-model="formData.phone" name="phone" placeholder="Phone" value="" class="member-input" name="Phone"  minlength="8" maxlength="15">
                         </div>
                         <div class="form-group">
-                             <input type="text" placeholder="Address" value="" class="member-input" name="Address"  ng-model="formData.Address">
+                             <input type="text" placeholder="Address" value="" class="member-input" name="Address"  ng-model="formData.address">
                         </div>
                         <div class="form-group">
-                            <input type="text" placeholder="State" value="" class="member-input" name="State" required ng-model="formData.State">
+                            <input type="text" placeholder="State" value="" class="member-input" name="State" required ng-model="formData.state">
                         </div>
                         <div class="form-group">
-                            <input type="text"  placeholder="Website"   class="member-input" name="Website"  ng-model="formData.Website">
+                            <input type="text"  placeholder="Website"   class="member-input" name="Website"  ng-model="formData.website">
                               <!--<span style="color:red" ng-show="form1.web.$error.url">
         Sorry Not a Valid URL, Don't Forget to Use http://</span>-->
                         </div>
@@ -51,7 +53,7 @@
                                <option value="STANDARD">STANDARD</option>
                                <option value="PREMIUM">PREMIUM</option>
                            </select>-->
-                              <select name="" id="menulist" class="dropdown-member" required >                  
+                              <select name="" ng-model="formData.plan.planType" id="menulist" class="dropdown-member" required >                  
                                 <option selected>plan</option>
                                <option value="1">TRIAL </option>
                                <option value="2">STANDARD</option>
@@ -70,21 +72,24 @@
                 <div class="col-md-6">
                 <div class="member-col">
                     <div class="form-group">
-                      <input type="email"  placeholder="Email"  class="member-input" name="email" required ng-model="formData.Email">
+                      <input type="email"  placeholder="Email"  class="member-input" name="email" required ng-model="formData.email">
                        <!--<span style="color:red" ng-show="form1.mail.$error.email">
         Sorry Not a Valid Email, Don't Forget to .com</span>-->
                        </div>
                         <div class="form-group">
-                            <input type="text" placeholder="Designation" value="" class="member-input" name="Designation" required ng-model="formData.Designation">
+                      <input type="password" placeholder="confirm Password" value="" class="member-input"  name="name" ng-model="formData.confirmPassword" required>
+                       </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Designation" value="" class="member-input" name="Designation" required ng-model="formData.designation">
                         </div>
                         <div class="form-group">
-                             <input type="text"  only-Digits ng-model="formdata.mobile" name="mobile" placeholder="Mobile" value="" class="member-input" name="Mobile" required minlength="10" maxlength="10" ng-model="formData.mobile">
+                             <input type="text"  only-Digits ng-model="formData.mobile" name="mobile" placeholder="Mobile" value="" class="member-input" name="Mobile" required minlength="10" maxlength="10" ng-model="formData.mobile">
                         </div>
                         <div class="form-group">
-                             <input type="text" placeholder="City" value="" class="member-input" name="City" ng-model="formData.City">
+                             <input type="text" placeholder="City" value="" class="member-input" name="City" ng-model="formData.city">
                         </div>
                         <div class="form-group">
-                            <input type="text"  only-Digits ng-model="zip" name="zip" placeholder="Zip" class="member-input"  ng-model="formData.Zip">
+                            <input type="text"  only-Digits ng-model="formData.zip" name="zip" placeholder="Zip" class="member-input">
                         </div>
                         <div class="form-group">
                             <input type="text" placeholder="Type of Drone" value="" class="member-input" name="drone" required ng-model="formData.drone">
@@ -94,7 +99,7 @@
                         <input type="text" class="coupon-box" placeholder="Coupon Code" >
                         </div>
                         <div class="form-group">
-                           <input type="text" placeholder="$500" value="" class="member-input" only-Digits  ng-model="formData.money">
+                           <input type="text" placeholder="$500" value="" class="member-input" only-Digits ng-model="formData.plan.money">
                         </div>
                 </div>
                 </div>

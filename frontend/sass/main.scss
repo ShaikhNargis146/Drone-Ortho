@@ -1,4 +1,3 @@
-
 $output-bourbon-deprecation-warnings: false;
 @import "../../bower_components/bourbon/app/assets/stylesheets/bourbon";
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/mixins";
@@ -81,7 +80,7 @@ p {
 }
 
 .inline-block {
-    display: inline-block;
+    display: inline-block !important;
 }
 
 .float-r {
@@ -250,7 +249,7 @@ a,
 }
 
 .slide-down {
-    margin-top: 8% !important;
+    margin-top: 11% !important;
 }
 
 .mt15 {
@@ -567,12 +566,14 @@ a,
 
 .btn-view {
     border: none;
-    padding-bottom: 5px;
+    // padding-bottom: 5px;
+    padding-bottom: 48px;
     background: transparent;
     border-bottom: 2px solid #5eb8ae;
     font-size: 16px;
     font-weight: 400;
     color: $brand-primary;
+    width: 100px;
 }
 
 .btn-view1 {
@@ -723,6 +724,9 @@ a,
 }
 
 //scss for how-we-work
+.support-heading2 {
+         padding-top: 54%;
+}
 .bg-work {
     background: url("../img/work.jpg");
     background-repeat: no-repeat;
@@ -842,6 +846,7 @@ h2.step.step-2-top:before {
     background-size: cover;
     width: 100%;
     margin-top: -110px;
+    background-position: center center;
 }
 
 .member-heading {
@@ -1299,6 +1304,7 @@ h2.step.step-2-top:before {
     background-size: cover;
     width: 100%;
     margin-top: -110px;
+        background-position: center center;
 }
 
 .service-drone {
@@ -1482,6 +1488,7 @@ h2.step.step-2-top:before {
 }
 
 // scss for footer
+
 footer {
     background: #0f1613;
     p {
@@ -1495,6 +1502,24 @@ footer {
         padding: 12px 0px;
         font-size: 24px;
     }
+    .sp-terms {
+             border-left: 1px solid #74ada9;
+    padding-left: 12px;
+    margin-left: 12px;
+    
+ }
+ a{
+      color: #74ada9;
+      font-size: 16px;
+      font-family: 'Abel', sans-serif;
+  text-decoration: none;
+    font-weight: 400;
+ }
+ a:hover{
+     text-decoration: none;
+     cursor: pointer;
+     color: #74ada9;
+ }
 }
 
 // Ready Modal Css
@@ -1534,9 +1559,9 @@ footer {
 //         background-image: url("../img/section1-hover.png");
 //     }
 // }
-.doneLoading:hover {
-    cursor: pointer;
-}
+// .doneLoading:hover {
+//     cursor: pointer;
+// }
 
 .member-input2 {
     border: 2px solid rgba(5, 77, 73, 0.5);
@@ -1554,12 +1579,16 @@ footer {
 .modal-backdrop.in {
     opacity: 0.9;
 }
+.f-size{
+    font-size: 65px !important;
+}
 #map {
     height: 250px;
     img {
     opacity: 1;
 }
 }
+
 @import "fancybox-override";
 @import "ruchi";
 @import "mobile";

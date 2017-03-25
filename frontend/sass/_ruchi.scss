@@ -4,7 +4,7 @@
 .pads{ padding: 0 90px; }
 
 .product{
-    background: url("../frontend/img/product/bg.jpg") no-repeat;
+    background: url("../img/product/product2.jpg") no-repeat;
     background-size: cover;
     margin-top: -110px;
 
@@ -34,7 +34,7 @@
 .section-blog{ 
     position: absolute;
     top: 45%;
-    left: 20%;
+    left: 28%;
     }
 
 
@@ -90,7 +90,7 @@
     transform: translate(-50%,-50%);
    }
     .video{
-        background: url("../frontend/img/product/man.png") no-repeat;
+        background: url("../img/product/man.png") no-repeat;
         background-size: contain;
         background-position: center;
         padding: 28vh 0;
@@ -146,15 +146,15 @@
 
 .padding-l{ padding-left: 70px;}
 
-.flight{ background-image: url("../frontend/img/product/v1.png");}
+.flight{ background-image: url("../img/product/v1.png");}
 
-.propeller{ background-image: url("../frontend/img/product/v2.png");}
+.propeller{ background-image: url("../img/product/v2.png");}
 
-.motor{ background-image: url("../frontend/img/product/v3.png");}
+.motor{ background-image: url("../img/product/v3.png");}
 
-.weight{ background-image: url("../frontend/img/product/v5.png");}
+.weight{ background-image: url("../img/product/v5.png");}
 
-.autonomous{ background-image: url("../frontend/img/product/v7.png");}
+.autonomous{ background-image: url("../img/product/v7.png");}
 
 .images{
    width: auto;
@@ -165,21 +165,21 @@
    background-size: cover;
 }
 
-.drone1{ background-image: url("../frontend/img/product/image1.jpg"); }
+.drone1{ background-image: url("../img/product/image1.jpg"); }
 
-.drone2{ background-image: url("../frontend/img/product/image2.jpg"); }
+.drone2{ background-image: url("../img/product/image2.jpg"); }
 
-.drone3{ background-image: url("../frontend/img/product/image3.jpg"); }
+.drone3{ background-image: url("../img/product/image3.jpg"); }
 
-.drone4{ background-image: url("../frontend/img/product/image4.jpg"); }
+.drone4{ background-image: url("../img/product/image4.jpg"); }
 
-.drone5{ background-image: url("../frontend/img/product/image5.jpg"); }
+.drone5{ background-image: url("../img/product/image5.jpg"); }
 
-.drone6{ background-image: url("../frontend/img/product/image6.jpg"); }
+.drone6{ background-image: url("../img/product/image6.jpg"); }
 
-.drone7{ background-image: url("../frontend/img/product/image7.jpg"); }
+.drone7{ background-image: url("../img/product/image7.jpg"); }
 
-.drone8{ background-image: url("../frontend/img/product/image99.jpg"); }
+.drone8{ background-image: url("../img/product/image99.jpg"); }
 
 .feature-images { padding: 40px;}
 
@@ -195,7 +195,7 @@
 
 
 #fancybox-loading, .fancybox-close, .fancybox-next span, .fancybox-prev span {
-    background-image: url("../frontend/img/fancybox_sprite.png") !important;
+    background-image: url("../img/fancybox_sprite.png") !important;
 }
 
 
@@ -291,7 +291,7 @@
 //about//
 
 .aboutus{
-    background-image: url("../frontend/img/aboutus.jpg");
+    background-image: url("../img/aboutus2.jpg");
 
     h1{ color: #fff !important; }
     }
@@ -311,25 +311,25 @@
 }
 .story-imgs{ margin: -5px 0px 0 5px; }
 
-.leaf{ background-image: url("../frontend/img/aboutus/leaf.png");}
+.leaf{ background-image: url("../img/aboutus/leaf.png");}
 
-.thumb{ background-image: url("../frontend/img/aboutus/thumbs.png");}
+.thumb{ background-image: url("../img/aboutus/thumbs.png");}
 
-.drop { background-image: url("../frontend/img/aboutus/drop.png");}
+.drop { background-image: url("../img/aboutus/drop.png");}
 
-.clock { background-image: url("../frontend/img/aboutus/clock.png");}
+.clock { background-image: url("../img/aboutus/clock.png");}
 
-.box { background-image: url("../frontend/img/aboutus/box.png");}
+.box { background-image: url("../img/aboutus/box.png");}
 
-.computer { background-image: url("../frontend/img/aboutus/computer.png");}
+.computer { background-image: url("../img/aboutus/computer.png");}
 
-.bird { background-image: url("../frontend/img/aboutus/bird.png");}
+.bird { background-image: url("../img/aboutus/bird.png");}
 
-.tag { background-image: url("../frontend/img/aboutus/tag.png");}
+.tag { background-image: url("../img/aboutus/tag.png");}
 
-.s { background-image: url("../frontend/img/aboutus/s.png");}
+.s { background-image: url("../img/aboutus/s.png");}
 
-.bulb { background-image: url("../frontend/img/aboutus/bulb.png");}
+.bulb { background-image: url("../img/aboutus/bulb.png");}
 
 .story-info{
     width: 77%;
@@ -392,7 +392,7 @@
     }
 }
 
-.drone-section{ background-image: url("../frontend/img/6sec.jpg"); }
+.drone-section{ background-image: url("../img/6sec.jpg"); }
 
 .about-short{
     ul{ padding: 0px;
@@ -487,7 +487,7 @@ li{
 }
 
 .newsletter{
-    margin: 40px 0;
+    margin: 88px 0;
     label{
         display: block;
         font-family: 'Abel', sans-serif;
@@ -498,11 +498,12 @@ li{
 
 
     input{
-    width: 70%;
-    padding: 10px;
+    width: 60%;
+    padding: 7px;
     margin: 10px 0;
     border: 1px solid #5fb8ae;
     background-color: transparent;
+     margin-right: -5px;
     &:focus{
         outline: 0;
     }
@@ -511,18 +512,19 @@ li{
          background-color: #5fb8ae;
           width: 20%;
           font-family: abel;
+          padding: 8px !important;
     }
 }
 
 .droning{
-    background-image: url("../frontend/img/new/drones.png");
+    background-image: url("../img/new/drones.png");
     margin-top: -130px;
     }
 
-.support-section{ background-image: url("../frontend/img/new/support.png"); }
+.support-section{ background-image: url("../img/new/support.png"); }
 
 .contact-section{
-    background-image: url("../frontend/img/new/contact.png");
+    background-image: url("../img/new/contact.png");
     margin-top: -57px;
     h2{
         padding: 210px 20px 0 0;
@@ -586,7 +588,7 @@ li{
 
 .surveying-info{
     position: absolute;
-    bottom: -40px;
+    bottom: -54px;
     left: 50%;
     padding: 40px;
     width: 50%;

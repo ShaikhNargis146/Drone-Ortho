@@ -1,22 +1,30 @@
 var initMap = function () {};
-angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ui.bootstrap', 'ngAnimate', 'ngSanitize', 'angular-flexslider', 'ksSwiper', 'ngMap'])
+angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ui.bootstrap', , 'ngSanitize', 'angular-flexslider', 'ksSwiper', 'ngMap'])
 
-    .controller('HomeCtrl', function ($scope, TemplateService, NavigationService, $timeout) {
+    .controller('HomeCtrl', function ($scope, TemplateService, NavigationService, $timeout,$state) {
         $scope.template = TemplateService.changecontent("home"); //Use same name of .html file
         $scope.menutitle = NavigationService.makeactive("Home"); //This is the Title of the Website
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.subscribe = function (email) {
-            console.log("email", email);
-            if (email.email) {
+        $scope.subscribe = function (formData) {
+            console.log("email", formData);
+            if (formData.email) {
+                 NavigationService.apiCallWithData("NewsLetter/save", formData, function (data) {
+                if (data.value === true) {
+                    console.log("data saved successfully", data)
+                    $state.go('home');
+                } else {
+                    //  toastr.warning('Error submitting the form', 'Please try again');
+                }
+            }); 
                 $scope.show = true;
                 $timeout(function () {
                     $scope.show = false;
                     $scope.subscribeForm = {};
                 }, 2000);
             }
-
         }
+        
         // $scope.mySlides = [
         //     'http://flexslider.woothemes.com/images/kitchen_adventurer_cheesecake_brownie.jpg',
         //     'http://flexslider.woothemes.com/images/kitchen_adventurer_lemon.jpg',
@@ -31,8 +39,69 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             five: "frontend/views/content/section/section5.html",
             six: "frontend/views/content/section/section6.html"
         };
+    
     })
 
+    .controller('headerctrl', function ($scope, $uibModal, $state, $window, TemplateService, NavigationService) {
+        $scope.template = TemplateService;
+        $scope.profile = {};
+        $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            $(window).scrollTop(0);
+        });
+        $.fancybox.close(true);
+        $scope.login = function () {
+            $scope.loginModal = $uibModal.open({
+                animation: true,
+                templateUrl: 'frontend/views/content/Modal/login.html',
+                scope: $scope,
+                windowClass: "login-modal"
+
+            });
+        };
+
+        
+
+
+        $scope.loginclose = function (formData) {
+            console.log(formData);
+            if (formData) {
+                NavigationService.profile("User/login", formData, function (data) {
+                    if (data.value === true) {
+                        console.log("login", data.data)
+                        $scope.loginModal.close();
+                          $.jStorage.set("user", data.data);
+                          $scope.template.userProfile = data.data;
+                        // toastr.success('You have been successfully logged in', 'Login Success';
+                      
+                    } else if (data.value === false) {
+                        // toastr.warning(data.error.message, 'Login Failure');
+                    } else {
+                        // toastr.warning('Something went wrong', 'Please try again');
+                    }
+                });
+            }
+        };
+        $scope.accessToken = $.jStorage.get("accessToken");
+        if ($.jStorage.get('user')) {
+            $scope.template.userProfile = $.jStorage.get('user');
+        }
+        $scope.logout = function () {
+            $.jStorage.flush();
+            $scope.template.userProfile = null;
+        };
+
+        $(window).scroll(function () {
+            var scroll = $(window).scrollTop();
+
+            if (scroll >= 100) {
+                $(".img-logo").addClass("small-logo");
+            } else {
+                $(".img-logo").removeClass("small-logo");
+            }
+        });
+
+
+    })
     .controller('FormCtrl', function ($scope, TemplateService, NavigationService, $timeout) {
         $scope.template = TemplateService.changecontent("form"); //Use same name of .html file
         $scope.menutitle = NavigationService.makeactive("Form"); //This is the Title of the Website
@@ -132,22 +201,67 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.formSubmitted = true;
         }
     })
-    .controller('Google-MapCtrl', function ($scope, TemplateService, NavigationService, $timeout) {
+    .controller('Google-MapCtrl', function ($scope, TemplateService, $uibModal, NavigationService, $timeout) {
         $scope.template = TemplateService.changecontent("google-map"); //Use same name of .html file
         $scope.menutitle = NavigationService.makeactive("Google-Map"); //This is the Title of the Website
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
 
         $scope.formSubmitted = false;
-
+$scope.mapData={};
         $scope.submitForm = function (data) {
             console.log(data);
             $scope.formSubmitted = true;
         }
+        $scope.login = function (formData) {
+            $scope.mapData=formData;
+            $scope.loginModal = $uibModal.open({
+                animation: true,
+                templateUrl: 'frontend/views/content/Modal/login.html',
+                scope: $scope,
+                windowClass: "login-modal"
 
-
+            });
+        };
+         $scope.submitMapCalc = function (formData) {
+            console.log(formData);
+              if (formData) {
+                NavigationService.profile("GoogleAreaCalc/save", formData, function (data) {
+                    if (data.value === true) {
+                        console.log("GoogleAreaCalc saved successfully");
+                        $state.go("home");
+                        // toastr.success('You have been successfully logged in', 'Login Success';
+                    } else if (data.value === false) {
+                        // toastr.warning(data.error.message, 'Login Failure');
+                    } else {
+                        // toastr.warning('Something went wrong', 'Please try again');
+                    }
+                });
+            }
+          
+        }
+           $scope.loginclose = function (formData) {
+            console.log(formData);
+            if (formData) {
+                NavigationService.profile("User/login", formData, function (data) {
+                    if (data.value === true) {
+                        console.log("login", data.data)
+                        $scope.loginModal.close();
+                          $.jStorage.set("user", data.data);
+                          $scope.template.userProfile = data.data;
+                        // toastr.success('You have been successfully logged in', 'Login Success';
+                    } else if (data.value === false) {
+                        // toastr.warning(data.error.message, 'Login Failure');
+                    } else {
+                        // toastr.warning('Something went wrong', 'Please try again');
+                    }
+                });
+            }
+        };
+        if ($.jStorage.get('user')) {
+            $scope.template.userProfile = $.jStorage.get('user');
+        }
         function initMap() {
-            alert("ghsgajhgas");
             if (typeof google === 'object' && typeof google.maps === 'object') {
                 var map = new google.maps.Map(document.getElementById('map'), {
                     center: {
@@ -180,7 +294,20 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             }
             google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon) {
                 var coordinates = (polygon.getPath().getArray());
-                console.log(coordinates);
+                var z = google.maps.geometry.spherical.computeArea(polygon.getPath().getArray());
+                var area = google.maps.geometry.spherical.computeArea(polygon.getPath());
+                console.log("area", area);
+                $scope.mapData.sqft= Number(area) * Number(10.763910417);
+               $scope.mapData.acreage= Number(area) * Number(0.00024711);
+                console.log("area",$scope.mapData.sqft );                
+                var vertices = polygon.getPath();
+                var contentString;
+                for (var i = 0; i < vertices.getLength(); i++) {
+                    var xy = vertices.getAt(i);
+                    contentString += '<br>' + 'Coordinate ' + i + ':<br>' + xy.lat() + ',' +
+                        xy.lng();
+                }
+                console.log("contentString", contentString)
             });
         }
         setTimeout(function () {
@@ -315,42 +442,52 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
 
     })
-    .controller('ContactUsCtrl', function ($scope,$state, TemplateService, NavigationService, $timeout) {
+    .controller('ContactUsCtrl', function ($scope, $state, TemplateService, NavigationService, $timeout) {
         $scope.template = TemplateService.changecontent("contactus"); //Use same name of .html file
         $scope.menutitle = NavigationService.makeactive("ContactUs"); //This is the Title of the Website
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
 
         $scope.formSubmitted = false;
-        $scope.saveContact=function(formData){
-        NavigationService.apiCallWithData("ContactUs/save", formData, function (data) {
-            if (data.value === true) {
-                console.log("data saved successfully",data)
-                $state.go('home');
-            } else {
-                //  toastr.warning('Error submitting the form', 'Please try again');
-            }
-        });
+        $scope.saveContact = function (formData) {
+            NavigationService.apiCallWithData("ContactUs/save", formData, function (data) {
+                if (data.value === true) {
+                    console.log("data saved successfully", data)
+                    $state.go('home');
+                } else {
+                    //  toastr.warning('Error submitting the form', 'Please try again');
+                }
+            });
         }
 
 
     })
-    .controller('MemberCtrl', function ($scope, TemplateService, NavigationService, $timeout, $uibModal) {
+    .controller('MemberCtrl', function ($scope, TemplateService, $state, NavigationService, $timeout, $uibModal) {
         $scope.template = TemplateService.changecontent("member"); //Use same name of .html file
         $scope.menutitle = NavigationService.makeactive("Member"); //This is the Title of the Website
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.test = function (size) {
+        $scope.formData = {};
+        $scope.test = function (size, formData) {
+            NavigationService.apiCallWithData("User/registerUser", formData, function (data) {
+                if (data.value === true) {
+                    console.log("data saved successfully", data)
+                    $scope.formData = {};
+                    $scope.testModal = $uibModal.open({
+                        animation: true,
+                        templateUrl: 'frontend/views/content/Modal/modsub.html',
+                        scope: $scope,
+                        size: size,
+                        windowClass: "test-modal"
 
-            $scope.testModal = $uibModal.open({
-                animation: true,
-                templateUrl: 'frontend/views/content/Modal/modsub.html',
-                scope: $scope,
-                size: size,
-                windowClass: "test-modal"
-
+                    });
+                } else {
+                    //  toastr.warning('Error submitting the form', 'Please try again');
+                }
             });
         };
+
+
         //         $scope.dropdownList=[{
         //             plan:'Trial'
         //         },{
@@ -394,37 +531,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.formSubmitted = true;
         }
     })
-    .controller('headerctrl', function ($scope, $uibModal, TemplateService) {
-        $scope.template = TemplateService;
-        $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-            $(window).scrollTop(0);
-        });
-        $.fancybox.close(true);
-        $scope.login = function () {
-            $scope.loginModal = $uibModal.open({
-                animation: true,
-                templateUrl: 'frontend/views/content/Modal/login.html',
-                scope: $scope,
-                windowClass: "login-modal"
 
-            });
-        };
-
-        $scope.loginclose = function () {
-            $scope.loginModal.close();
-        };
-        $(window).scroll(function () {
-            var scroll = $(window).scrollTop();
-
-            if (scroll >= 100) {
-                $(".img-logo").addClass("small-logo");
-            } else {
-                $(".img-logo").removeClass("small-logo");
-            }
-        });
-
-
-    })
 
     .controller('languageCtrl', function ($scope, TemplateService, $translate, $rootScope) {
 

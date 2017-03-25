@@ -1,14 +1,9 @@
 URLSlugs = require('mongoose-url-slugs');
 
 var schema = new Schema({
-    firstName: {
+   name: {
         type: String,
         required: true,
-        excel: true,
-    },
-     lastName: {
-        type: String,
-        excel: true,
     },
     email: {
         type: String,
@@ -16,6 +11,36 @@ var schema = new Schema({
         excel: "User Email",
         unique: true
     },
+      organization: {
+        type: String,
+        default: ""
+    },
+     designation: {
+        type: String,
+        default: ""
+    },
+     address: {
+        type: String,
+    },
+    city: {
+        type: String,
+    },
+    state: {
+        type: String,
+    },
+    zip: {
+        type: String,
+    },
+    website: {
+        type: String,
+    },
+    droneType: {
+        type: String,
+    },
+     plan: [{
+        planType:String,
+        amount:String
+     }],
     dob: {
         type: Date,
         excel: {
@@ -54,6 +79,10 @@ var schema = new Schema({
         type: String,
         default: ""
     },
+      phone: {
+        type: String,
+        default: ""
+    },
     otp: {
         type: String,
         default: ""
@@ -81,13 +110,13 @@ var schema = new Schema({
 schema.plugin(deepPopulate, {
     populate: {
         'user': {
-            select: 'firstName _id'
+            select: 'name _id'
         }
     }
 });
 schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
-schema.plugin(URLSlugs('firstName', {field: 'myslug'}));
+schema.plugin(URLSlugs('name', {field: 'myslug'}));
 
 module.exports = mongoose.model('User', schema);
 
@@ -96,7 +125,7 @@ var model = {
    doLogin: function (data, callback) {
 console.log("data",data)
         User.findOne({
-            email: data.email,
+            name: data.name,
             password: md5(data.password)
         }).exec(function (err, found) {
             if (err) {
