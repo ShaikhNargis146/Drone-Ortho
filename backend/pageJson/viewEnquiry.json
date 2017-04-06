@@ -61,7 +61,7 @@
         "action": "createEnquiry"
     }],
     "apiCall": {
-        "url": "Enquiry/search",
+        "url": "ContactUs/search",
         "params": "_id"
     }
 }
