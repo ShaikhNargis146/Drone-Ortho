@@ -1,6 +1,6 @@
 var initMap = function () {};
 var codeAddress = function () {};
-var deleteMarkers=function(){};
+//var deleteMarkers=function(){};
 angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ui.bootstrap', , 'ngSanitize', 'angular-flexslider', 'ksSwiper', 'ngMap'])
 
     .controller('HomeCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
@@ -378,26 +378,26 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
         }
 
-        function deleteMarkers() {
-            markers = [];
-        }
-        $scope.codeAddress = function () {
-            console.log("hey m in codeAddress()");
-            var address = document.getElementById('address').value;
-            geocoder.geocode({
-                'address': address
-            }, function (results, status) {
-                if (status == 'OK') {
-                    map.setCenter(results[0].geometry.location);
-                    var marker = new google.maps.Marker({
-                        map: map,
-                        position: results[0].geometry.location
-                    });
-                } else {
-                    alert('Geocode was not successful for the following reason: ' + status);
-                }
-            });
-        }
+        // function deleteMarkers() {
+        //     markers = [];
+        // }
+        // $scope.codeAddress = function () {
+        //     console.log("hey m in codeAddress()");
+        //     var address = document.getElementById('address').value;
+        //     geocoder.geocode({
+        //         'address': address
+        //     }, function (results, status) {
+        //         if (status == 'OK') {
+        //             map.setCenter(results[0].geometry.location);
+        //             var marker = new google.maps.Marker({
+        //                 map: map,
+        //                 position: results[0].geometry.location
+        //             });
+        //         } else {
+        //             alert('Geocode was not successful for the following reason: ' + status);
+        //         }
+        //     });
+        // }
         setTimeout(function () {
             initMap();
         }, 1000);
