@@ -504,7 +504,7 @@ $scope.mapData={};
 
     })
 
-    .controller('Blog-IndividualCtrl', function ($scope, TemplateService, NavigationService, $timeout) {
+    .controller('Blog-IndividualCtrl', function ($scope, TemplateService, NavigationService, $timeout,$stateParams) {
         $scope.template = TemplateService.changecontent("blog-individual"); //Use same name of .html file
         $scope.menutitle = NavigationService.makeactive("Blog-Individual"); //This is the Title of the Website
         TemplateService.title = $scope.menutitle;
@@ -515,7 +515,138 @@ $scope.mapData={};
         $scope.submitForm = function (data) {
             console.log(data);
             $scope.formSubmitted = true;
-        }
+        };
+        $scope.stateId=$stateParams.id;
+        if($stateParams.id){
+            switch ($stateParams.id) {
+                case '1':
+                 $scope.blogShow=false;
+                console.log("im in case1");
+                $scope.blogDetail={
+                    "image":"frontend/img/new/7.jpg",
+                    "title":"AN ASSORTMENT OF APPLICATION",
+                    "date":" ",
+                    "desc1":"Need an orthomosaic to be created from your high qulity dron images?",
+                     "desc2":"or would you prefer to organize and analyze your dron data through Drone File Management Systems? UNIFLI lets you handle it all with a single click.",
+                      "desc3":"Get one-click applications that are intelligently design to decipher and deliver the data that you need, in a formaat you prefer. That means you can create complex databases,generate orthorectified and georeferenced maps, and seamlessly share this multiple platforms. ",
+                      "desc4":"Finding experts to help you create 3D elevation models and study topographic information can be a tricky task, in a highly competitive market. Our in-house applications also let you visualize topographic information and create elevation extractions without any hassles, so you can generate detailed reports in any format that you need."
+                }
+                    
+                    break;
+                      case '2':
+                       $scope.blogShow=false;
+                      console.log("im in case2");
+                $scope.blogDetail={
+                    "id":'2',
+                    "image":"frontend/img/new/13.jpg",
+                    "title":"COMPLETE THE CIRCLE WITH CAD LINEWORK",
+               
+                    // "desc4":"Need an orthomosaic to be created from your high qulity dron images?",
+                    "desc1":"When we say comprehensive, we mean it.",
+                     "desc2":"We’ve integrated our premium CAD drafting service as part of the options available at UNIFLI, so you don’t have to find new vendors for any of your CAD requirements.",
+                      "desc3":"Armed with our Google Maps Area Calculator, sending a CAD request in UNIFLI is now super simple. Just select the area of land for CAD linework through the application, and send a quick request for CAD drafting - that’s all it takes. You’ll receive your CAD files in 48 hours or less, helping you dedicate more time to your projects and less time running around.",
+                      "desc5":"UNIFLI is the future - a winning solution that keeps your business running, anytime, anywhere.",
+                       "desc6":"With a global presence and competitive teams of highly qualified engineers, analysts and support executives, we’re in the process of ushering a new age of technological excellence in the surveying industry.",
+                        "desc7":"Need more details? Send us an email!"
+                }
+                    
+                    break;
+                    case '3':
+                     $scope.blogShow=false;
+                      console.log("im in case3");
+                $scope.blogDetail={
+                    "image":"frontend/img/new/11.jpg",
+                    "title":"THIS ONE STOP SHOP IS THE SOLUTION<br> TO ALL YOUR DRONE SURVEYING PROBLEMS!",
+                  
+                    "desc1":"The World of land surveying has changed, and how!",
+                     "desc2":"Thanks to newer and more efficient technologies like drones and data capturing, it's much easier land and collate, analyze and curate data in highly effective ways like never before.",
+                      "desc3":"But regardless of all these developments, there's still a major problem that surveyors and engineers have to deal with-time.",
+                      "desc4":"With tens and hundreds of vendor handling individual parts of surveying life cycle, it becomes highly cumebersome for any surveyor to manage multiple work processes and deliverables.Add training quality control and feedback to the mix, and you have a cocktail that's an operational nightmare.",
+                       "desc5":"wouldn't it be simpler to have one-stop-shop that can help you, end to end?",
+                        "desc6":"That's what we do at UNIFLI."
+                }
+                    
+                    break;
+                       case '4':
+                      console.log("im in case3");
+                      $scope.blogShow=true;
+                $scope.blogDetail=[
+                    {
+                    "image":"frontend/img/new/copy.jpg",
+                    "title":"HOW PART 107 IS PAYING THE WAY<br>FOR COMMERCIAL DRONE OPERTORS",
+                      "title2":"For Starters, What’s Part 107?",
+                       "title3":"What Does Part 107 Cover?",
+                    // "date":"September 22,",
+                    "desc1":"If you’re an aspiring drone pilot, the time is right for you to fly high. ",
+                     "desc2":"Last year, in June 2016, FAA published it’s regulations (Part 107) for small unmanned aircraft systems, setting the playing field for greater and widespread use of drones in commercial and hobbyist projects.",
+                      "desc3":"What this means is that the days of complex restrictions on the commercial use of drones are officially numbered, and industries are poised to embrace this massive technological advantage in multiple ways.",
+                      "desc4":"Here’s a quick breakdown of what Part 107 covers, and what it means for commercial drone pilots.",
+                    
+                      "desc5":"Part 107 is a section from the Code of Federal Regulations, and is outlined in Chapter 14 where it defines FAA’s UAS rules for the usage of commercial small aircraft (read: drones). It was officially brought into effect last year, in 2016.",
+                      "desc6":"It reduces the restrictions on commercial drone pilots, making it easy for enthusiasts and beginners to get started with becoming expert drone operators.",
+                      "desc7":"Let’s get down to the specifics of what Part 107 covers.",
+                      "desc8":"It’s easier to be an operator now",
+                      "desc9":"Operators and drone pilots need to be at least 16 years of age, and should be proficient in English. They need to obtain a Remote Pilot Airman Certificate<br> (with sUAS rating) to validate that they’re mentally and physically capable of operating the drone. "
+
+                    },
+                      {
+                    "image":"frontend/img/new/10.jpg",
+                    "title4":"All aircraft must be registered",
+                    "title5":"There are defined operational guidelines (and limitations)",
+                    "desc1":"Unlike the previous restrictions, operators just need to pass an FAA approved test on aeronautical knowledge to officially become drone pilots. This doesn’t apply to people who already hold a Part 61 certification. ",
+                     "desc2":"All documents related to the aircraft need to be provided to the FAA on request., and operators should run a preliminary check on their aircraft before flight. ",
+                      "desc3":"Any unmanned aerial vehicle or drone must be registered with the FAA, with aircraft markings in place. FAA has removed the need for an airworthiness certificate, making it easier and simpler for pilots and operators to register their UAVs.",
+                      "desc4":"The sUAS needs a waiver if it weights more than 55 lbs.",
+                       "desc5":"There are clearly defined operational guidelines under Part 107, making it easier for pilots to understand their limitations and avoid damage to their equipment or injury.",
+                        "desc6":"- All operators need to maintain their sUAS and UAVs within their visual line of sight- Aircraft should be operated only during daylight hours<br>- UAVs and sUAS should not be operated over people not involved in the exercise<br>- Operations should be held within a maximum allowed altitude of 400 feet<br>- Air speed should not exceed a maximum of 100mph<br>- All aircraft must yield right of way to other manned or unmanned vehicles<br>- Any activities in Class A airspace is strictly forbidden<br>- With prior approval from ATC, operations in Class B, C, D, E airspaces will be allowed<br>- Visual observers aren’t mandatorily required",
+                         "desc7":"This officially paves the way for exciting applications across multiple industries, increasing the scope of drone usages in the coming future. ",
+                    },
+                      {
+                    "image":"frontend/img/new/img.jpg",
+                    "title6":"Here's the good part.",
+                   "desc1":"- Operators need not file a NOTAM(Notice to Aiemen)befire commencing work<br>- Liability insurance isn't mandatory for carrying out operations<br>- The extensive license process has been replaced with a simple FAA aeronautical test<br>- The regulations make crisis management and industrial inspection easier<br>- Part 107 allows drones to carry loads that don't cross 55 ibs overall (BIG NEWS!)<br>- The regulations make drone accessible to a bigger audience, for educational purpose   ",
+                     "desc2":"This is the first step towards a new technological revolution, one that holds limitless scope for applications accorss different verticals and industries.",
+                      "desc3":"Really, if you've always wanted to be a professional drone operator, now's the time.",
+                      "desc4":"Here’s a link that comprehensively covers the specifics of what you need to know. "
+                    }
+                    
+                ]
+                    
+                    break;
+            
+            
+                default:
+                    break;
+            }
+        };
+      $scope.alsodata=[
+          {
+                   "id":"4",
+                    "image":"frontend/img/new/1.jpg",
+                    "title":"How Part 107 Is Paying The Way For Commercial Drone Operators",
+                    // "date":"September 22,",
+          },
+          {
+              "id":"1",
+                    "image":"frontend/img/new/2.jpg",
+                    "title":"An Assortment Of Applications",
+                    // "date":"September 22,",
+          },
+          {
+              "id":"2",
+                    "image":"frontend/img/new/ssss.jpg",
+                    "title":"Complete The Circle With CAD Linework",
+                    // "date":"September 22,",
+          },
+          {
+               "id":"3",
+                    "image":"frontend/img/new/4.jpg",
+                    "title":"This One Stop Shop Is The Solution To All Your Drone Surveying Problems!",
+                    // "date":"September 22,",
+          }
+
+      ]
+
     })
 
     .controller('BlogCtrl', function ($scope, TemplateService, NavigationService, $timeout) {

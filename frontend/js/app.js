@@ -41,7 +41,7 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
             controller: 'AboutusCtrl'
         })
          .state('blog-individual', {
-            url: "/blog-individual",
+            url: "/blog-individual/:id",
             templateUrl: templateURL,
             controller: 'Blog-IndividualCtrl'
         })

@@ -566,8 +566,8 @@ a,
 
 .btn-view {
     border: none;
-    // padding-bottom: 5px;
-    padding-bottom: 48px;
+    padding-bottom: 5px;
+    // padding-bottom: 48px;
     background: transparent;
     border-bottom: 2px solid #5eb8ae;
     font-size: 16px;
@@ -1588,6 +1588,26 @@ footer {
     opacity: 1;
 }
 }
+
+.service-content--pointer:hover{
+    cursor:pointer;
+}
+.service-content-arrow{
+       
+    margin-top: 15px;
+  opacity: 0;
+    color: #04423b;
+}
+.view-data.active{
+    .service-content-arrow{
+        opacity: 1;
+    }
+}
+.support-icon:hover{
+    cursor:pointer;
+}
+
+
 
 @import "fancybox-override";
 @import "ruchi";
