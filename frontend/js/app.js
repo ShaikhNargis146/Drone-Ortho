@@ -76,7 +76,17 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
             templateUrl: templateURL,
             controller: 'How-We-WorkCtrl'
         })
-        .state('mycart', {
+        .state('checkout', {
+            url: "/checkout",
+            templateUrl: templateURL,
+            controller: 'CheckoutCtrl'
+        })
+        .state('continue', {
+            url: "/continue",
+            templateUrl: templateURL,
+            controller: 'ContinueCtrl'
+        })
+         .state('mycart', {
             url: "/mycart",
             templateUrl: templateURL,
             controller: 'MycartCtrl'
@@ -87,7 +97,7 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
             controller: 'MemberPageCtrl'
         })
         .state('member', {
-            url: "/member",
+            url: "/member/:id",
             templateUrl: templateURL,
             controller: 'MemberCtrl'
         })
