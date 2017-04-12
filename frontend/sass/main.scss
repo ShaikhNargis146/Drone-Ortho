@@ -1588,6 +1588,17 @@ footer {
     opacity: 1;
 }
 }
+// google input change
+#pac-input{
+    height: 34px;
+    position: absolute;
+    padding: 8px;
+    right: 10px !important;
+    left: auto !important;
+    top: 10px !important;
+    font-size: 12px;
+}
+// google input change end
 
 .service-content--pointer:hover{
     cursor:pointer;

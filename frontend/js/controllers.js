@@ -1,7 +1,9 @@
 var initMap = function () {};
+var codeAddress = function () {};
+//var deleteMarkers=function(){};
 angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ui.bootstrap', , 'ngSanitize', 'angular-flexslider', 'ksSwiper', 'ngMap'])
 
-    .controller('HomeCtrl', function ($scope, TemplateService, NavigationService, $timeout,$state) {
+    .controller('HomeCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         $scope.template = TemplateService.changecontent("home"); //Use same name of .html file
         $scope.menutitle = NavigationService.makeactive("Home"); //This is the Title of the Website
         TemplateService.title = $scope.menutitle;
@@ -9,14 +11,14 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.subscribe = function (formData) {
             console.log("email", formData);
             if (formData.email) {
-                 NavigationService.apiCallWithData("NewsLetter/save", formData, function (data) {
-                if (data.value === true) {
-                    console.log("data saved successfully", data)
-                    $state.go('home');
-                } else {
-                    //  toastr.warning('Error submitting the form', 'Please try again');
-                }
-            }); 
+                NavigationService.apiCallWithData("NewsLetter/save", formData, function (data) {
+                    if (data.value === true) {
+                        console.log("data saved successfully", data)
+                        $state.go('home');
+                    } else {
+                        //  toastr.warning('Error submitting the form', 'Please try again');
+                    }
+                });
                 $scope.show = true;
                 $timeout(function () {
                     $scope.show = false;
@@ -24,7 +26,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }, 2000);
             }
         }
-        
+
         // $scope.mySlides = [
         //     'http://flexslider.woothemes.com/images/kitchen_adventurer_cheesecake_brownie.jpg',
         //     'http://flexslider.woothemes.com/images/kitchen_adventurer_lemon.jpg',
@@ -39,7 +41,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             five: "frontend/views/content/section/section5.html",
             six: "frontend/views/content/section/section6.html"
         };
-    
+
     })
 
     .controller('headerctrl', function ($scope, $uibModal, $state, $window, TemplateService, NavigationService) {
@@ -59,7 +61,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
         };
 
-        
+
 
 
         $scope.loginclose = function (formData) {
@@ -69,10 +71,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     if (data.value === true) {
                         console.log("login", data.data)
                         $scope.loginModal.close();
-                          $.jStorage.set("user", data.data);
-                          $scope.template.userProfile = data.data;
+                        $.jStorage.set("user", data.data);
+                        $scope.template.userProfile = data.data;
                         // toastr.success('You have been successfully logged in', 'Login Success';
-                      
+
                     } else if (data.value === false) {
                         // toastr.warning(data.error.message, 'Login Failure');
                     } else {
@@ -208,13 +210,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.navigation = NavigationService.getnav();
 
         $scope.formSubmitted = false;
-$scope.mapData={};
+        $scope.mapData = {};
         $scope.submitForm = function (data) {
             console.log(data);
             $scope.formSubmitted = true;
         }
         $scope.login = function (formData) {
-            $scope.mapData=formData;
+            $scope.mapData = formData;
             $scope.loginModal = $uibModal.open({
                 animation: true,
                 templateUrl: 'frontend/views/content/Modal/login.html',
@@ -223,9 +225,9 @@ $scope.mapData={};
 
             });
         };
-         $scope.submitMapCalc = function (formData) {
+        $scope.submitMapCalc = function (formData) {
             console.log(formData);
-              if (formData) {
+            if (formData) {
                 NavigationService.profile("GoogleAreaCalc/save", formData, function (data) {
                     if (data.value === true) {
                         console.log("GoogleAreaCalc saved successfully");
@@ -238,17 +240,17 @@ $scope.mapData={};
                     }
                 });
             }
-          
+
         }
-           $scope.loginclose = function (formData) {
+        $scope.loginclose = function (formData) {
             console.log(formData);
             if (formData) {
                 NavigationService.profile("User/login", formData, function (data) {
                     if (data.value === true) {
                         console.log("login", data.data)
                         $scope.loginModal.close();
-                          $.jStorage.set("user", data.data);
-                          $scope.template.userProfile = data.data;
+                        $.jStorage.set("user", data.data);
+                        $scope.template.userProfile = data.data;
                         // toastr.success('You have been successfully logged in', 'Login Success';
                     } else if (data.value === false) {
                         // toastr.warning(data.error.message, 'Login Failure');
@@ -261,16 +263,22 @@ $scope.mapData={};
         if ($.jStorage.get('user')) {
             $scope.template.userProfile = $.jStorage.get('user');
         }
+
+
+        var geocoder;
+        var map
+        var markers = [];
+
         function initMap() {
             if (typeof google === 'object' && typeof google.maps === 'object') {
-                var map = new google.maps.Map(document.getElementById('map'), {
+                map = new google.maps.Map(document.getElementById('map'), {
                     center: {
                         lat: -34.397,
                         lng: 150.644
                     },
                     zoom: 8
                 });
-
+                geocoder = new google.maps.Geocoder();
                 var drawingManager = new google.maps.drawing.DrawingManager({
                     drawingMode: google.maps.drawing.OverlayType.MARKER,
                     drawingControl: true,
@@ -297,9 +305,9 @@ $scope.mapData={};
                 var z = google.maps.geometry.spherical.computeArea(polygon.getPath().getArray());
                 var area = google.maps.geometry.spherical.computeArea(polygon.getPath());
                 console.log("area", area);
-                $scope.mapData.sqft= Number(area) * Number(10.763910417);
-               $scope.mapData.acreage= Number(area) * Number(0.00024711);
-                console.log("area",$scope.mapData.sqft );                
+                $scope.mapData.sqft = Number(area) * Number(10.763910417);
+                $scope.mapData.acreage = Number(area) * Number(0.00024711);
+                console.log("area", $scope.mapData.sqft);
                 var vertices = polygon.getPath();
                 var contentString;
                 for (var i = 0; i < vertices.getLength(); i++) {
@@ -309,7 +317,87 @@ $scope.mapData={};
                 }
                 console.log("contentString", contentString)
             });
+            /////////////////////////////////////////////////////////////////////////
+            // Create the search box and link it to the UI element.
+            var input = document.getElementById('pac-input');
+            var searchBox = new google.maps.places.SearchBox(input);
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+            // Bias the SearchBox results towards current map's viewport.
+            map.addListener('bounds_changed', function () {
+                searchBox.setBounds(map.getBounds());
+            });
+
+
+            // Listen for the event fired when the user selects a prediction and retrieve
+            // more details for that place.
+            searchBox.addListener('places_changed', function () {
+                var places = searchBox.getPlaces();
+
+                if (places.length == 0) {
+                    return;
+                }
+
+                // Clear out the old markers.
+                markers.forEach(function (marker) {
+                    marker.setMap(null);
+                });
+                markers = [];
+
+                // For each place, get the icon, name and location.
+                var bounds = new google.maps.LatLngBounds();
+                places.forEach(function (place) {
+                    if (!place.geometry) {
+                        console.log("Returned place contains no geometry");
+                        return;
+                    }
+                    var icon = {
+                        url: place.icon,
+                        size: new google.maps.Size(71, 71),
+                        origin: new google.maps.Point(0, 0),
+                        anchor: new google.maps.Point(17, 34),
+                        scaledSize: new google.maps.Size(25, 25)
+                    };
+
+                    // Create a marker for each place.
+                    markers.push(new google.maps.Marker({
+                        map: map,
+                        icon: icon,
+                        title: place.name,
+                        position: place.geometry.location
+                    }));
+
+                    if (place.geometry.viewport) {
+                        // Only geocodes have viewport.
+                        bounds.union(place.geometry.viewport);
+                    } else {
+                        bounds.extend(place.geometry.location);
+                    }
+                });
+                map.fitBounds(bounds);
+            });
         }
+
+        // function deleteMarkers() {
+        //     markers = [];
+        // }
+        // $scope.codeAddress = function () {
+        //     console.log("hey m in codeAddress()");
+        //     var address = document.getElementById('address').value;
+        //     geocoder.geocode({
+        //         'address': address
+        //     }, function (results, status) {
+        //         if (status == 'OK') {
+        //             map.setCenter(results[0].geometry.location);
+        //             var marker = new google.maps.Marker({
+        //                 map: map,
+        //                 position: results[0].geometry.location
+        //             });
+        //         } else {
+        //             alert('Geocode was not successful for the following reason: ' + status);
+        //         }
+        //     });
+        // }
         setTimeout(function () {
             initMap();
         }, 1000);
