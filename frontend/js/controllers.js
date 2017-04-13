@@ -56,12 +56,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             if($scope.showMenu == false){
                // alert('test');
                 $scope.showMenu = true;
-                $('body').css('overflow-y', 'hidden');
                 $('.repeated-item').addClass('no-menu-scroll');
             }else{
                 $scope.showMenu = false;
                 $('.repeated-item').removeClass('no-menu-scroll');
-                $('body').css('overflow-y', 'scroll');
             }
         }
         $.fancybox.close(true);
