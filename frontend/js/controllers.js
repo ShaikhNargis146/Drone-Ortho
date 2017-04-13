@@ -50,6 +50,20 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             $(window).scrollTop(0);
         });
+        $scope.showMenu = false;
+        $scope.getMenu = function(){
+            console.log('amit');
+            if($scope.showMenu == false){
+               // alert('test');
+                $scope.showMenu = true;
+                $('body').css('overflow-y', 'hidden');
+                $('.repeated-item').addClass('no-menu-scroll');
+            }else{
+                $scope.showMenu = false;
+                $('.repeated-item').removeClass('no-menu-scroll');
+                $('body').css('overflow-y', 'scroll');
+            }
+        }
         $.fancybox.close(true);
         $scope.login = function () {
             $scope.loginModal = $uibModal.open({

@@ -297,6 +297,12 @@ a,
         color: #fff;
     }
 }
+.no-menu-scroll {
+    .bg-calculator {
+        overflow: hidden;
+        height: 100vh;
+    }
+}
 
 .head-content {
     margin-top: 15px;
@@ -1006,7 +1012,8 @@ h2.step.step-2-top:before {
     // color: #054d49;
     //font-size: 20px;
     font-family: share tech;
-    padding-top: 10px;
+    padding-top: 15px;
+    //  padding-top: 10px;
     width: 100%;
     padding-left: 6px;
 }
@@ -1597,6 +1604,7 @@ footer {
     left: auto !important;
     top: 10px !important;
     font-size: 12px;
+        width: 200px;
 }
 // google input change end
 

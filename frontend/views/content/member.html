@@ -34,17 +34,7 @@
                                     <!--<span style="color:red" ng-show="form1.web.$error.url">
         Sorry Not a Valid URL, Don't Forget to Use http://</span>-->
                                 </div>
-                                <div class="form-group radio member-form-m30" ng-if="id==2">
-                                    <h4 class="inline-block">Do You Have UNIFLI Drone?</h4>
-                                    <input type="radio" id="radio1" value="yes" ng-model="formData.uniDrone" required>
-                                    <label for="radio1" class="pl-10">
-                    <span></span> Yes </label>
-                                    <input type="radio" id="radio2" value="no" ng-model="formData.uniDrone" required>
-                                    <label for="radio2">
-                    <span></span> No </label>
-                                </div>
-
-                                <div class="form-group dropdown-margin" ng-if="id==2">
+                                                  <div class="form-group dropdown-margin" ng-if="id==2">
                                     <i class="fa fa-caret-down member-arrow" aria-hidden="true"></i>
 
                                     <!--<select  class="dropdown-member"   ng-model="formData.plan" required>
@@ -55,12 +45,23 @@
                                <option value="PREMIUM">PREMIUM</option>
                            </select>-->
                                     <select name="" ng-model="formData.plan.planType" id="menulist" class="dropdown-member" required>                  
-                                <option selected>plan</option>
+                                <option disabled value="" selected>plan</option>
                                <option value="1">TRIAL </option>
                                <option value="2">STANDARD</option>
                                <option value="3">PREMIUM</option>
                            </select>
                                 </div>
+                                <div class="form-group radio member-form-m30" ng-if="id==2">
+                                    <h4 class="inline-block">Do You Have UNIFLI Drone?</h4>
+                                    <input type="radio" id="radio1" value="yes" ng-model="formData.uniDrone" required>
+                                    <label for="radio1" class="pl-10">
+                    <span></span> Yes </label>
+                                    <input type="radio" id="radio2" value="no" ng-model="formData.uniDrone" required>
+                                    <label for="radio2">
+                    <span></span> No </label>
+                                </div>
+
+              
                                 <!--<option value="1" ng-repeat="option in dropdownList" >{{option.plan}} </option>-->
                                 <!--<select  id="menulist" class="dropdown-member" name="users" required ng-model="formData.userSelect">-->
                                 <div class="form-group checkbox">
@@ -97,10 +98,10 @@
                                 <div class="form-group">
                                     <input type="text" placeholder="Type of Drone" value="" class="member-input" name="drone" required ng-model="formData.drone">
                                 </div>
-                                <div class="form-group member-form-m30" ng-if="id==2">
+                                <!--<div class="form-group member-form-m30" ng-if="id==2">
                                     <h4 class="inline-block member-right">Do You Have coupon?</h4>
                                     <input type="text" class="coupon-box" placeholder="Coupon Code">
-                                </div>
+                                </div>-->
                                 <div class="form-group" ng-if="id==2">
                                     <input type="text" placeholder="$500" value="" class="member-input" only-Digits ng-model="formData.plan.money">
                                 </div>
