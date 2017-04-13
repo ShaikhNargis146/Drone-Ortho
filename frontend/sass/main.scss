@@ -298,9 +298,10 @@ a,
     }
 }
 .no-menu-scroll {
-    .bg-calculator {
+    .content.template {
         overflow: hidden;
-        height: 100vh;
+        height: 50vh;
+        min-height: 150px;
     }
 }
 
