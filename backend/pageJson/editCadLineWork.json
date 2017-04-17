@@ -1,0 +1,52 @@
+{
+    "title": "Edit CadLineWork",
+    "name": "CadLineWork",
+    "jsonPage": "viewCadLineWork",
+    "desciption": "",
+    "pageType": "edit",
+    "urlFields": ["_id"],
+    "fields": [{
+        "name": "status",
+        "type": "text",
+        "tableRef": "status",
+        "placeholder": "Enter status",
+        "id": "status",
+        "url": ""
+    }, {
+        "name": "Email",
+        "type": "text",
+        "tableRef": "email",
+        "placeholder": "Enter Email",
+        "id": "email",
+        "validation": ["", "trim", "unique"],
+        "url": ""
+    }],
+    "action": [{
+        "name": "submit",
+        "action": "submitCadLineWork",
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewCadLineWork"
+            }
+        }
+    }, {
+        "name": "cancel",
+        "sideMenuRedirect": true,
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewCadLineWork"
+            }
+        }
+    }],
+    "apiCall": {
+        "url": "CadLineWork/save",
+        "params": "_id"
+    },
+    "preApi": {
+        "url": "CadLineWork/getOne",
+        "params": "_id"
+    }
+
+}

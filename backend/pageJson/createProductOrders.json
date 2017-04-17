@@ -1,0 +1,46 @@
+{
+  "title": "Create NewsLetter",
+  "name": "NewsLetter",
+  "jsonPage": "viewNewsLetter",
+  "desciption": "",
+  "pageType": "create",
+  "urlFields": ["NewsLetter"],
+    "fields": [{
+        "name": "status",
+        "type": "text",
+        "tableRef": "status",
+        "placeholder": "Enter status",
+        "id": "status",
+        "url": ""
+    }, {
+        "name": "Email",
+        "type": "text",
+        "tableRef": "email",
+        "placeholder": "Enter Email",
+        "id": "email",
+        "validation": ["", "trim", "unique"],
+        "url": ""
+    }],
+    "action": [{
+        "name": "submit",
+        "action": "submitNewsLetter",
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewNewsLetter"
+            }
+        }
+    }, {
+        "name": "cancel",
+        "sideMenuRedirect": true,
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewNewsLetter"
+            }
+        }
+    }],
+    "apiCall": {
+        "url": "NewsLetter/save"
+    }
+}

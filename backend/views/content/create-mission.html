@@ -1,0 +1,55 @@
+<!--<body class="page-body scroll-x">-->
+
+<div class="page-container">
+    <!-- add class "sidebar-collapsed" to close sidebar by default, "chat-visible" to make chat appear always -->
+    <!-- Add "fixed" class to make the sidebar fixed always to the browser viewport. -->
+    <!-- Adding class "toggle-others" will keep only one menu item open at a time. -->
+    <!-- Adding class "collapsed" collapse sidebar root elements and show only icons. -->
+
+
+    <!--<div class="main-content">-->
+
+    <div class="page-title">
+        <div class="title-env">
+            <h1 class="title">Create Mission</h1>
+        </div>
+    </div>
+    <!-- Responsive Table -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body ">
+                    <div class="">
+                        <h4 for="">Create Mission</h4>
+                        <p class="bg-muted create-p">
+                            Select all mission files at once <br> DDMS currently requires images to be geotagged or that
+                            you include a .tlog or CSV file with location data.<br> Please, do not reload this page during
+                            upload. If your upload is interrupted, return to the mission page and select all original mission
+                            files. Files will be reuploaded, but duplicates will automatically be skipped.<br>
+                        </p>
+                    </div>
+                    <div class="mt10">
+                        <h5 for="">Description</h5>
+                        <div class="col-sm-12 nopad mb10">
+                            <textarea class="form-control" ng-model="formdata.description" cols="5" id="description"></textarea>
+                        </div>
+
+                    </div>
+                    <div class=" mt10">
+                        <h5 for="">Upload</h5>
+                        <div class="col-sm-12 nopad mb10">
+                        <upload-image ng-model="formData.files" multiple="true" ng-disabled="type.disabled"></upload-image>aaaa
+
+             <input type="file" class="form-control" id="file1" name="file" ng-model="formdata.files"  multiple
+            ng-files="getTheFiles($files)"/>
+                        </div>
+                    </div>
+                    <!--<a href="javascript:;" onclick="jQuery('#modal-4').modal('show', {backdrop: 'static'});" class=""><button class="btn btn-danger mb10 upload">Upload, <b>and process mosaic</b> </button></a>-->
+                     <a class=""><button class="btn btn-danger mb10 upload" ng-click="uploadFiles(formdata)">Upload, <b>and process mosaic</b> </button></a>
+                </div>
+            </div>
+            </form>
+        </div>
+       
+    </div>
+</div>

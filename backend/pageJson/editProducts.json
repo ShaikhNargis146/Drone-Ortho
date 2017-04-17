@@ -1,0 +1,72 @@
+{
+    "title": "Edit Products",
+    "name": "Products",
+    "jsonPage": "viewProducts",
+    "desciption": "",
+    "pageType": "edit",
+    "urlFields": ["_id"],
+    "fields": [ {
+            "name": "Products Name",
+            "type": "text",
+            "tableRef": "name",
+            "placeholder": "Enter name",
+            "id": "input1",
+            "validation": ["required", "trim", "unique"],
+            "url": ""
+        }, {
+            "name": "Details",
+            "type": "textarea",
+            "tableRef": "description",
+            "placeholder": "Enter details",
+            "id": "input2",
+            "validation": ["required", "trim", "unique"],
+            "url": ""
+        }, 
+         {
+        "name": "image(1924 x 534px)",
+        "type": "image",
+        "tableRef": "imageDetailView",
+        "option": "single",
+        "size": "1924 x 534px",
+        "placeholder": "Enter imageDetailView",
+        "id": "imageDetailView",
+        "validation": ["", "trim", ""],
+        "url": ""
+    },
+        {
+        "name": "price",
+        "type": "text",
+        "tableRef": "price",
+        "placeholder": "Enter price",
+        "id": "price",
+        "url": ""
+    }],
+    "action": [{
+        "name": "submit",
+        "action": "submitProducts",
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewProducts"
+            }
+        }
+    }, {
+        "name": "cancel",
+        "sideMenuRedirect": true,
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewProducts"
+            }
+        }
+    }],
+    "apiCall": {
+        "url": "Products/save",
+        "params": "_id"
+    },
+    "preApi": {
+        "url": "Products/getOne",
+        "params": "_id"
+    }
+
+}

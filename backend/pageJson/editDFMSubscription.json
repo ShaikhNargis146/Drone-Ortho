@@ -1,0 +1,99 @@
+{
+    "title": "Edit DFMSubscription",
+    "name": "DFMSubscription",
+    "jsonPage": "viewDFMSubscription",
+    "desciption": "",
+    "pageType": "edit",
+    "urlFields": ["_id"],
+     "fields": [{
+            "name": "User",
+            "type": "selectFromTable",
+            "tableRef": "user",
+            "searchApi": "searchCall",
+            "placeholder": "Enter User",
+            "id": "user",
+            "url": "User/search"
+        }, {
+            "name": "Expiry Date",
+            "type": "date",
+            "tableRef": "expiryDate",
+            "placeholder": "Enter expiry Date",
+            "id": "expiryDate",
+            "url": ""
+        },
+        {
+            "name": "amount",
+            "type": "number",
+            "tableRef": "amount",
+            "placeholder": "Enter amount",
+            "id": "amount",
+            "url": ""
+        },
+        {
+            "name": "transactionId",
+            "type": "text",
+            "tableRef": "transactionId",
+            "placeholder": "Enter transactionId",
+            "id": "transactionId",
+            "url": ""
+        }, {
+            "name": "Plan",
+            "type": "selectFromTable",
+            "tableRef": "plan",
+            "searchApi": "searchCall",
+            "placeholder": "Enter plan",
+            "id": "plan",
+            "url": "Plan/search"
+        }, {
+            "name": "DiscountAmount",
+            "type": "number",
+            "tableRef": "DiscountAmount",
+            "placeholder": "Enter DiscountAmount",
+            "id": "DiscountAmount",
+            "url": ""
+        }, {
+            "name": "CouponCode",
+            "type": "selectFromTable",
+            "tableRef": "discountCoupon",
+            "searchApi": "searchCall",
+            "placeholder": "Enter discountCoupon",
+            "id": "discountCoupon",
+            "url": "CouponCode/search"
+        }, {
+            "name": "status",
+            "type": "text",
+            "tableRef": "status",
+            "placeholder": "Enter status",
+            "id": "status",
+            "url": ""
+        }
+    ],
+    "action": [{
+        "name": "submit",
+        "action": "submitDFMSubscription",
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewDFMSubscription"
+            }
+        }
+    }, {
+        "name": "cancel",
+        "sideMenuRedirect": true,
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewDFMSubscription"
+            }
+        }
+    }],
+    "apiCall": {
+        "url": "DFMSubscription/save",
+        "params": "_id"
+    },
+    "preApi": {
+        "url": "DFMSubscription/getOne",
+        "params": "_id"
+    }
+
+}

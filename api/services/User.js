@@ -1,7 +1,7 @@
 URLSlugs = require('mongoose-url-slugs');
 
 var schema = new Schema({
-   name: {
+    name: {
         type: String,
         required: true,
     },
@@ -11,15 +11,15 @@ var schema = new Schema({
         excel: "User Email",
         unique: true
     },
-      organization: {
+    organization: {
         type: String,
         default: ""
     },
-     designation: {
+    designation: {
         type: String,
         default: ""
     },
-     address: {
+    address: {
         type: String,
     },
     city: {
@@ -34,13 +34,16 @@ var schema = new Schema({
     website: {
         type: String,
     },
-    droneType: {
-        type: String,
+    cartProducts: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Products',
+        index: true
+    }],
+    cart: {
+        totalAmount: String,
+        DiscountAmount: String,
+        discountCoupon: String
     },
-     plan: [{
-        planType:String,
-        amount:String
-     }],
     dob: {
         type: Date,
         excel: {
@@ -79,7 +82,7 @@ var schema = new Schema({
         type: String,
         default: ""
     },
-      phone: {
+    phone: {
         type: String,
         default: ""
     },
@@ -116,14 +119,16 @@ schema.plugin(deepPopulate, {
 });
 schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
-schema.plugin(URLSlugs('name', {field: 'myslug'}));
+schema.plugin(URLSlugs('name', {
+    field: 'myslug'
+}));
 
 module.exports = mongoose.model('User', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "user", "user"));
 var model = {
-   doLogin: function (data, callback) {
-console.log("data",data)
+    doLogin: function (data, callback) {
+        console.log("data", data)
         User.findOne({
             name: data.name,
             password: md5(data.password)
@@ -135,7 +140,7 @@ console.log("data",data)
                 if (found) {
                     var foundObj = found.toObject();
                     delete foundObj.password;
-                        callback(null, foundObj);
+                    callback(null, foundObj);
                 } else {
                     callback({
                         message: "Incorrect Credentials!"
@@ -146,10 +151,10 @@ console.log("data",data)
         });
     },
 
-  getByUrl: function (data, callback) {
-    this.findOne({
-      "myslug": data.myslug
-        }, function(err, deleted) {
+    getByUrl: function (data, callback) {
+        this.findOne({
+            "myslug": data.myslug
+        }, function (err, deleted) {
             if (err) {
                 callback(err, null);
             } else {
@@ -209,7 +214,7 @@ console.log("data",data)
             }
         });
     },
-        registerUser: function (data, callback) {
+    registerUser: function (data, callback) {
         var user = this(data);
         user.accessToken = [uid(16)];
         user.password = md5(user.password);

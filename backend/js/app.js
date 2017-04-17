@@ -23,6 +23,16 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
         templateUrl: "views/template.html",
         controller: 'DashboardCtrl',
     })
+      .state('mission', {
+        url: "/mission",
+        templateUrl: "views/template.html",
+        controller: 'missionCtrl',
+    })
+      .state('createmission', {
+        url: "/createmission",
+        templateUrl: "views/template.html",
+        controller: 'createmissionCtrl',
+    })
 
     .state('login', {
         url: "/login",
@@ -221,7 +231,7 @@ firstapp.directive('uploadImage', function ($http, $filter, $timeout) {
                 var Template = this;
                 image.hide = true;
                 var formData = new FormData();
-                formData.append('file', image.file, image.name);
+                formData.append('file', image.file, image.file.name);
                 $http.post(uploadurl, formData, {
                     headers: {
                         'Content-Type': undefined
@@ -233,13 +243,13 @@ firstapp.directive('uploadImage', function ($http, $filter, $timeout) {
                     if ($scope.isMultiple) {
                         if ($scope.inObject) {
                             $scope.model.push({
-                                "image": data[0]
+                                "image": data.data[0]
                             });
                         } else {
                             if (!$scope.model) {
                                 $scope.clearOld();
                             }
-                            $scope.model.push(data[0]);
+                            $scope.model.push(data.data[0]);
                         }
                     } else {
                         if (_.endsWith(data.data[0], ".pdf")) {
@@ -716,3 +726,17 @@ firstapp.filter('urlencoder', function () {
         return window.encodeURIComponent(input);
     };
 });
+
+ firstapp.directive('ngFiles', ['$parse', function ($parse) {
+
+            function fn_link(scope, element, attrs) {
+                var onChange = $parse(attrs.ngFiles);
+                element.on('change', function (event) {
+                    onChange(scope, { $files: event.target.files });
+                });
+            };
+
+            return {
+                link: fn_link
+            }
+        } ])

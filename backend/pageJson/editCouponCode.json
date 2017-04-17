@@ -1,0 +1,60 @@
+{
+    "title": "Edit CouponCode",
+    "name": "CouponCode",
+    "jsonPage": "viewCouponCode",
+    "desciption": "",
+    "pageType": "edit",
+    "urlFields": ["_id"],
+    "fields": [{
+        "name": "name",
+        "type": "text",
+        "tableRef": "name",
+        "placeholder": "Enter name",
+        "id": "name",
+        "url": ""
+    }, {
+        "name": "couponCode",
+        "type": "text",
+        "tableRef": "couponCode",
+        "placeholder": "Enter couponCode",
+        "id": "couponCode",
+        "validation": ["", "trim", "unique"],
+        "url": ""
+    }, {
+        "name": "amountDiscounted",
+        "type": "number",
+        "tableRef": "amountDiscounted",
+        "placeholder": "Enter amountDiscounted",
+        "id": "amountDiscounted",
+        "url": ""
+    }
+    ],
+    "action": [{
+        "name": "submit",
+        "action": "submitCouponCode",
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewCouponCode"
+            }
+        }
+    }, {
+        "name": "cancel",
+        "sideMenuRedirect": true,
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewCouponCode"
+            }
+        }
+    }],
+    "apiCall": {
+        "url": "CouponCode/save",
+        "params": "_id"
+    },
+    "preApi": {
+        "url": "CouponCode/getOne",
+        "params": "_id"
+    }
+
+}

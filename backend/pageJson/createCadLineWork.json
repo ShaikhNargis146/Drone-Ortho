@@ -1,0 +1,46 @@
+{
+  "title": "Create CadLineWork",
+  "name": "CadLineWork",
+  "jsonPage": "viewCadLineWork",
+  "desciption": "",
+  "pageType": "create",
+  "urlFields": ["CadLineWork"],
+    "fields": [{
+        "name": "Address",
+        "type": "text",
+        "tableRef": "address",
+        "placeholder": "Enter address",
+        "id": "status",
+        "url": ""
+    }, {
+        "name": "amount",
+        "type": "text",
+        "tableRef": "amount",
+        "placeholder": "Enter amount",
+        "id": "amount",
+        "validation": ["", "trim", "unique"],
+        "url": ""
+    }],
+    "action": [{
+        "name": "submit",
+        "action": "submitCadLineWork",
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewCadLineWork"
+            }
+        }
+    }, {
+        "name": "cancel",
+        "sideMenuRedirect": true,
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewCadLineWork"
+            }
+        }
+    }],
+    "apiCall": {
+        "url": "CadLineWork/save"
+    }
+}

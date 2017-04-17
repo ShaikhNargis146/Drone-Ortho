@@ -1,0 +1,58 @@
+{
+    "title": "Edit Plan",
+    "name": "Plan",
+    "jsonPage": "viewPlan",
+    "desciption": "",
+    "pageType": "edit",
+    "urlFields": ["_id"],
+    "fields": [{
+        "name": "name",
+        "type": "text",
+        "tableRef": "name",
+        "placeholder": "Enter name",
+        "id": "name",
+        "url": ""
+    }, {
+        "name": "description",
+        "type": "text",
+        "tableRef": "description",
+        "placeholder": "Enter description",
+        "id": "description",
+        "url": ""
+    }, {
+        "name": "price",
+        "type": "number",
+        "tableRef": "price",
+        "placeholder": "Enter price",
+        "id": "price",
+        "url": ""
+    }],
+    "action": [{
+        "name": "submit",
+        "action": "submitPlan",
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewPlan"
+            }
+        }
+    }, {
+        "name": "cancel",
+        "sideMenuRedirect": true,
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewPlan"
+            }
+        }
+    }],
+    "apiCall": {
+        "url": "Plan/save",
+        "params": "_id"
+    },
+    "preApi": {
+        "url": "Plan/getOne",
+        "params": "_id"
+    }
+
+}

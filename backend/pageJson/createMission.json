@@ -1,0 +1,64 @@
+{
+  "title": "Create Mission",
+  "name": "Mission",
+  "jsonPage": "viewMission",
+  "desciption": "",
+  "pageType": "create",
+  "urlFields": ["Mission"],
+  "fields": [{
+            "name": "User",
+            "type": "selectFromTable",
+            "tableRef": "user",
+            "searchApi": "searchCall",
+            "placeholder": "Enter User",
+            "id": "user",
+            "url": "User/search"
+        }, {
+            "name": "description",
+            "type": "text",
+            "tableRef": "expirdescriptionyDate",
+            "placeholder": "Enter description",
+            "id": "description",
+            "url": ""
+        }, {
+        "name": "file",
+        "type": "image",
+        "tableRef": "files",
+        "option": "single",
+        "size": "",
+        "placeholder": "Enter file",
+        "id": "file",
+        "validation": ["", "trim", ""],
+        "url": ""
+    },{
+            "name": "status",
+            "type": "text",
+            "tableRef": "status",
+            "placeholder": "Enter status",
+            "id": "status",
+            "url": ""
+        }
+    ],
+    "action": [{
+        "name": "submit",
+        "action": "submitMission",
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewMission"
+            }
+        }
+    }, {
+        "name": "cancel",
+        "sideMenuRedirect": true,
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewMission"
+            }
+        }
+    }],
+    "apiCall": {
+        "url": "Mission/save"
+    }
+}
