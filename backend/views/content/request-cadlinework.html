@@ -1,38 +1,54 @@
 
+
     <div class="settings-pane">
+
         <a href="#" data-toggle="settings-pane" data-animate="true">
 			&times;
 		</a>
+
         <div class="settings-pane-inner">
+
             <div class="row">
+
                 <div class="col-md-4">
+
                     <div class="user-info">
+
                         <div class="user-image">
                             <a href="extra-profile.html">
                                 <img src="assets/images/user-2.png" class="img-responsive img-circle" />
                             </a>
                         </div>
+
                         <div class="user-details">
+
                             <h3>
-                               
-                                 <!--<a href="extra-profile.html">John Smith</a>-->
-                                  <a href="">John Smith</a>
-                                <!-- Available statuses: is-online, is-idle, is-busy and is-offline -->
-                                <span class="user-status is-online"></span>
-                            </h3>
+								<a href="extra-profile.html">John Smith</a>
+
+								<!-- Available statuses: is-online, is-idle, is-busy and is-offline -->
+								<span class="user-status is-online"></span>
+							</h3>
+
                             <p class="user-title">Web Developer</p>
+
                             <div class="user-links">
                                 <a href="extra-profile.html" class="btn btn-primary">Edit Profile</a>
                                 <a href="extra-profile.html" class="btn btn-success">Upgrade</a>
                             </div>
+
                         </div>
+
                     </div>
+
                 </div>
+
                 <div class="col-md-8 link-blocks-env">
+
                     <div class="links-block left-sep">
                         <h4>
-                            <span>Notifications</span>
-                        </h4>
+							<span>Notifications</span>
+						</h4>
+
                         <ul class="list-unstyled">
                             <li>
                                 <input type="checkbox" class="cbr cbr-primary" checked="checked" id="sp-chk1" />
@@ -52,12 +68,14 @@
                             </li>
                         </ul>
                     </div>
+
                     <div class="links-block left-sep">
                         <h4>
-                            <a href="#">
-                                <span>Help Desk</span>
-                            </a>
-                        </h4>
+							<a href="#">
+								<span>Help Desk</span>
+							</a>
+						</h4>
+
                         <ul class="list-unstyled">
                             <li>
                                 <a href="#">
@@ -81,20 +99,32 @@
                             </li>
                         </ul>
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
+
     <div class="page-container">
+        <!-- add class "sidebar-collapsed" to close sidebar by default, "chat-visible" to make chat appear always -->
+
+        <!-- Add "fixed" class to make the sidebar fixed always to the browser viewport. -->
+        <!-- Adding class "toggle-others" will keep only one menu item open at a time. -->
+        <!-- Adding class "collapsed" collapse sidebar root elements and show only icons. -->
         <div class="sidebar-menu toggle-others fixed">
+
             <div class="sidebar-menu-inner">
-                <header class="logo-env">
+
+                   <header class="logo-env">
                     <!-- logo -->
                     <div class="logo">
-                        <a href="dashboard-1.html" class="logo-expanded">
+                        <a href="dashboard.html" class="logo-expanded">
                             <img src="assets/images/logo.png" width="80" alt="" />
                         </a>
-                        <a href="dashboard-1.html" class="logo-collapsed">
+                        <a href="dashboard.html" class="logo-collapsed">
                             <img src="assets/images/logo.png" width="40" alt="" />
                         </a>
                     </div>
@@ -110,28 +140,35 @@
                     </div>
                     <!-- This will open the popup with user profile settings, you can use for any purpose, just be creative -->
                 </header>
+
                 <section class="sidebar-user-info">
                     <div class="sidebar-user-info-inner">
-                        <a href="#" class="user-profile">
-                            <img src="http://themes.laborator.co/xenon/assets/images/user-4.png" width="60" height="60" class="img-circle img-corona"
-                                alt="user-pic">
-                                <span> <strong>John Smith</strong>Page admin</span> </a>
+                        <a href="#" class="user-profile"> <img src="http://themes.laborator.co/xenon/assets/images/user-4.png" width="60" height="60" class="img-circle img-corona" alt="user-pic"> <span> <strong>John Smith</strong>
+                    Page admin
+                    </span> </a>
                     </div>
                 </section>
+
+
                 <ul id="main-menu" class="main-menu">
                     <!-- add class "multiple-expanded" to allow multiple submenus to open -->
                     <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-                   
-					<li class="active  has">
+                   	   <li class=" has">
+                        <a href="dashboard.html">
+                            <i class="linecons-cog"></i>
+                            <span class="title">Dashboard</span>
+                        </a>
+                    </li>
+                       <li class="  has">
                         <a href="missions.html">
                             <i class="fa-globe"></i>
                             <span class="title">Missions</span>
                         </a>
                     </li>
-                    <li class="  has">
+                    <li class="active  has">
                         <a href="request-cadlinework.html">
                             <i class="fa-won"></i>
-                            <span class="title">Request Cad Line Work</span>
+                            <span class="title">Request CAD Line Work</span>
                         </a>
                     </li>
                     <li class=" has">
@@ -146,7 +183,7 @@
                             <span class="title">Invoicing / Receipts</span>
                         </a>
                     </li>
-                     <li class=" has">
+                      <li class=" has">
                         <a href="plans.html">
                             <i class="fa-copy"></i>
                             <span class="title"> Plans</span>
@@ -166,26 +203,36 @@
                     </li>
 
                 </ul>
+
             </div>
+
         </div>
+
         <div class="main-content">
+
             <nav class="navbar user-info-navbar" role="navigation">
                 <!-- User Info, Notifications and Menu Bar -->
+
                 <!-- Left links for user info navbar -->
                 <ul class="user-info-menu left-links list-inline list-unstyled">
+
                     <li class="hidden-sm hidden-xs">
                         <a href="#" data-toggle="sidebar">
                             <i class="fa-bars"></i>
                         </a>
                     </li>
+
                     <li class="dropdown hover-line">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa-envelope-o"></i>
                             <span class="badge badge-green">15</span>
                         </a>
+
                         <ul class="dropdown-menu messages">
                             <li>
+
                                 <ul class="dropdown-menu-list list-unstyled ps-scrollbar">
+
                                     <li class="active">
                                         <!-- "active" class means message is unread -->
                                         <a href="#">
@@ -193,45 +240,54 @@
 												<strong>Luc Chartier</strong>
 												<span class="light small">- yesterday</span>
                                             </span>
+
                                             <span class="line desc small">
 												This ain’t our first item, it is the best of the rest.
 											</span>
                                         </a>
                                     </li>
+
                                     <li class="active">
                                         <a href="#">
                                             <span class="line">
 												<strong>Salma Nyberg</strong>
 												<span class="light small">- 2 days ago</span>
                                             </span>
+
                                             <span class="line desc small">
 												Oh he decisively impression attachment friendship so if everything.
 											</span>
                                         </a>
                                     </li>
+
                                     <li>
                                         <a href="#">
                                             <span class="line">
 												Hayden Cartwright
 												<span class="light small">- a week ago</span>
                                             </span>
+
                                             <span class="line desc small">
 												Whose her enjoy chief new young. Felicity if ye required likewise so doubtful.
 											</span>
                                         </a>
                                     </li>
+
                                     <li>
                                         <a href="#">
                                             <span class="line">
 												Sandra Eberhardt
 												<span class="light small">- 16 days ago</span>
                                             </span>
+
                                             <span class="line desc small">
 												On so attention necessary at by provision otherwise existence direction.
 											</span>
                                         </a>
                                     </li>
+
                                     <!-- Repeated -->
+
                                     <li class="active">
                                         <!-- "active" class means message is unread -->
                                         <a href="#">
@@ -239,46 +295,56 @@
 												<strong>Luc Chartier</strong>
 												<span class="light small">- yesterday</span>
                                             </span>
+
                                             <span class="line desc small">
 												This ain’t our first item, it is the best of the rest.
 											</span>
                                         </a>
                                     </li>
+
                                     <li class="active">
                                         <a href="#">
                                             <span class="line">
 												<strong>Salma Nyberg</strong>
 												<span class="light small">- 2 days ago</span>
                                             </span>
+
                                             <span class="line desc small">
 												Oh he decisively impression attachment friendship so if everything.
 											</span>
                                         </a>
                                     </li>
+
                                     <li>
                                         <a href="#">
                                             <span class="line">
 												Hayden Cartwright
 												<span class="light small">- a week ago</span>
                                             </span>
+
                                             <span class="line desc small">
 												Whose her enjoy chief new young. Felicity if ye required likewise so doubtful.
 											</span>
                                         </a>
                                     </li>
+
                                     <li>
                                         <a href="#">
                                             <span class="line">
 												Sandra Eberhardt
 												<span class="light small">- 16 days ago</span>
                                             </span>
+
                                             <span class="line desc small">
 												On so attention necessary at by provision otherwise existence direction.
 											</span>
                                         </a>
                                     </li>
+
                                 </ul>
+
                             </li>
+
                             <li class="external">
                                 <a href="mailbox-main.html">
                                     <span>All Messages</span>
@@ -287,80 +353,100 @@
                             </li>
                         </ul>
                     </li>
+
                     <li class="dropdown hover-line">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa-bell-o"></i>
                             <span class="badge badge-purple">7</span>
                         </a>
+
                         <ul class="dropdown-menu notifications">
                             <li class="top">
                                 <p class="small">
                                     <a href="#" class="pull-right">Mark all Read</a> You have <strong>3</strong> new notifications.
                                 </p>
                             </li>
+
                             <li>
                                 <ul class="dropdown-menu-list list-unstyled ps-scrollbar">
                                     <li class="active notification-success">
                                         <a href="#">
                                             <i class="fa-user"></i>
+
                                             <span class="line">
 												<strong>New user registered</strong>
 											</span>
+
                                             <span class="line small time">
 												30 seconds ago
 											</span>
                                         </a>
                                     </li>
+
                                     <li class="active notification-secondary">
                                         <a href="#">
                                             <i class="fa-lock"></i>
+
                                             <span class="line">
 												<strong>Privacy settings have been changed</strong>
 											</span>
+
                                             <span class="line small time">
 												3 hours ago
 											</span>
                                         </a>
                                     </li>
+
                                     <li class="notification-primary">
                                         <a href="#">
                                             <i class="fa-thumbs-up"></i>
+
                                             <span class="line">
 												<strong>Someone special liked this</strong>
 											</span>
+
                                             <span class="line small time">
 												2 minutes ago
 											</span>
                                         </a>
                                     </li>
+
                                     <li class="notification-danger">
                                         <a href="#">
                                             <i class="fa-calendar"></i>
+
                                             <span class="line">
 												John cancelled the event
 											</span>
+
                                             <span class="line small time">
 												9 hours ago
 											</span>
                                         </a>
                                     </li>
+
                                     <li class="notification-info">
                                         <a href="#">
                                             <i class="fa-database"></i>
+
                                             <span class="line">
 												The server is status is stable
 											</span>
+
                                             <span class="line small time">
 												yesterday at 10:30am
 											</span>
                                         </a>
                                     </li>
+
                                     <li class="notification-warning">
                                         <a href="#">
                                             <i class="fa-envelope-o"></i>
+
                                             <span class="line">
 												New comments waiting approval
 											</span>
+
                                             <span class="line small time">
 												last week
 											</span>
@@ -368,6 +454,7 @@
                                     </li>
                                 </ul>
                             </li>
+
                             <li class="external">
                                 <a href="#">
                                     <span>View all notifications</span>
@@ -376,18 +463,27 @@
                             </li>
                         </ul>
                     </li>
+
+
+
                 </ul>
+
+
                 <!-- Right links for user info navbar -->
                 <ul class="user-info-menu right-links list-inline list-unstyled">
                     <li class="search-form">
                         <!-- You can add "always-visible" to show make the search input visible -->
+
                         <form name="userinfo_search_form" method="get" action="extra-search.html">
                             <input type="text" name="s" class="form-control search-field" placeholder="Type to search..." />
+
                             <button type="submit" class="btn btn-link">
 								<i class="linecons-search"></i>
 							</button>
                         </form>
+
                     </li>
+
                     <li class="dropdown user-profile">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="assets/images/user-4.png" alt="user-image" class="img-circle img-inline userpic-32" width="28" />
@@ -396,7 +492,19 @@
 								<i class="fa-angle-down"></i>
 							</span>
                         </a>
+
                         <ul class="dropdown-menu user-profile-menu list-unstyled">
+ <li class="">
+                               <a href="profile.html">
+                                   <i class="fa-user"></i> Profile
+                               </a>
+                           </li>
+
+                           <li class="">
+                               <a href="account.html">
+                                   <i class="fa-credit-card"></i> Account
+                               </a>
+                           </li>
                             <li class="last">
                                 <a href="extra-lockscreen.html">
                                     <i class="fa-lock"></i> Logout
@@ -404,288 +512,277 @@
                             </li>
                         </ul>
                     </li>
+
+
+
                 </ul>
+
             </nav>
+
             <div class="page-title">
+
                 <div class="title-env">
-                    <h1 class="title">Missions</h1>
-                </div>
-				
+                    <h1 class="title">REQUEST CAD LINE WORK</h1>
+                    <p class="head-bod">Request CAD linework link works really simple. Just choose and confirm your mission to proceed to complete your request.
+You can also request for a CAD file from a link which goes out to your email after every successful orthomosaic completion.</p>
+                    </div>
+                <!-- <div class="breadcrumb-env">
+
+								<ol class="breadcrumb bc-1" >
+									<li>
+							<a href="dashboard.html"><i class="fa-home"></i>Home</a>
+						</li>
+								<li>
+
+										<a href="ui-panels.html">UI Elements</a>
+								</li>
+							<li class="active">
+
+										<strong>Mission</strong>
+								</li>
+								</ol>
+
+				</div> -->
+
+
 
             </div>
+
             <!-- Responsive Table -->
             <div class="row">
                 <div class="col-md-12">
+
                     <div class="panel panel-default">
-                        <div class="panel-body">
+
+
+                        <div class="panel-body text-center ">
                             <div class="row">
+									<label class="col-md-2 control-label">Mission</label>
 
-                               
-                                <!--<div class="col-md-8">
-                                <div class="form-group  ">
-                                    <h4 for="expenses">CAD Linework Expenses : $25,21,545</h4>
+									<div class="col-md-8">
+										<select class="form-control">
+                                            <option>select</option>
+											<option>M-121</option>
+											<option>M-121</option>
+											<option>M-123</option>
+
+										</select>
+
+                                        </div>
+
 								</div>
-                                </div>-->
-                              <div class="col-md-6">
-                                    <div class="breadcrumb-env "> <button class="btn btn-primary create">Create Mission</button> </div>
-                                </div>
-                                    <div class="col-md-6">
-                                <section class="search-env" >
-						<form method="get" action="" enctype="application/x-www-form-urlencoded">
-							<input type="text" class="form-control input-lg" placeholder="Search..." name="s"  />
-							
-							<button type="submit" class="btn-unstyled">
-								<i class="linecons-search"></i>
-							</button>
-						</form>
-                                </section>
-                                </div>
-				
-				   <div class="col-md-4">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <input type="text" placeholder="From Date" class="form-control datepicker" data-format="D, dd MM yyyy">
-                                            <div class="input-group-addon"> <a href="#"><i class="linecons-calendar"></i></a> </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <input type="text" placeholder="To Date" class="form-control datepicker" data-format="D, dd MM yyyy">
-                                            <div class="input-group-addon"> <a href="#"><i class="linecons-calendar"></i></a> </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                 <div class="form-group">
-                                        <select class="form-control"> 
-                                            <option>Select Status</option> 
-                                            <option>Replied</option> 
-                                            <option>Resolved</option>
-                                            <option>In Process</option>
-                                            <option>Closed</option>
-                                            <option>No Reply</option>
-                                            </select>
-                                    </div>
-                         
-                                </div>
-                                </div>
-                            </div>
-                            <div style="  overflow: scroll;">
-                                 <table cellspacing="0" class="table table-small-font table-bordered table-striped">
-                                    <thead style="white-space:nowrap;">
-                                        <tr>
-                                            <th>Mission Id</th>
-                                             <th>User Id</th>
-                                            <th data-priority="1">CAD Linework</th>
-                                            <th data-priority="3">Uploaded</th>
-                                            <th data-priority="1">collected</th>
-                                            <th data-priority="3">Mission Address</th>
-                                            <th data-priority="3">Status</th>
-                                            <th data-priority="6">Date of completion</th>
-                                            <th data-priority="6">Completed Apps</th>
-                                            <th data-priority="6">Shared Map</th>
-                                            <th data-priority="6">Sharing</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody style="white-space:nowrap;">
-                                        <tr>
-                                            <th><a href="#" class="id-underline">M-120</th>
-                                            <td>4032016</td>
-                                            <td>In Process</td>
-                                            <td>4/01/2016</td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                            <td>Queued</td>
-                                            <td>________</td>
-                                            <td><button type="button" class="btn btn-gray">
-								
-							Orthomosaic</button></td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                        </tr>
-                                        <tr>
-                                            <th><a href="#" class="id-underline">M- 121</th>
-                                            <td>5042016</td>
-                                           <td><a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});"   class="btn btn-default request-button" >Request CAD Linework</a></td>
-                                            <td>5/02/2016</td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                            <td>Waiting</td>
-                                            <td>________</td>
-                                            <td><button type="button" class="btn btn-gray">
-								
-							NDVI</button></td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                        </tr>
-                                        <tr>
-                                            <th><a href="#" class="id-underline">M- 122</th>
-                                            <td>8052016</td>
-                                            <td>Completed</td>
-                                            <td>4/03/2016</td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                            <td>Error</td>
-                                            <td>________</td>
-                                            <td><button type="button"  class="btn btn-gray">
-								
-							DEM</button></td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                        </tr>
-                                        <tr>
-                                            <th><a href="#" class="id-underline">M- 123</th>
-                                            <td>9062016</td>
-                                            <td>In Q.C.</td>
-                                            <td>5/04/2016</td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                            <td>Ready</td>
-                                            <td>________</td>
-                                             <td><button type="button"class="btn btn-gray">
-								
-							DVI</button></td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                        </tr>
-                                        <tr>
-                                            <th><a href="#" class="id-underline">M- 124</th>
-                                            <td>4012016</td>
-                                           <td><a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});"   class="btn btn-default request-button" >Request CAD Linework</a></td>
-                                            <td>8/05/2016 </td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                            <td>Ready</td>
-                                            <td>________</td>
-                                             <td><button type="button"  class="btn btn-gray">
-								
-						DSM	</button></td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                        </tr>
-                                        <tr>
-                                            <th><a href="#" class="id-underline">M- 125</th>
-                                            <td>4032016</td>
-                                            <td>Completed</td>
-                                            <td>9/06/2016</td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                            <td>Waiting</td>
-                                            <td>________</td>
-                                            <td><button type="button"  class="btn btn-gray">
-								
-							Map Viewer</button></td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                        </tr>
-                                        <tr>
-                                            <th><a href="#" class="id-underline">M- 126</th>
-                                            <td>4032016</td>
-                                            <td>In Q.C.</td>
-                                            <td>4/01/2016</td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                            <td>Waiting</td>
-                                            <td>________</td>
-                                             <td><button type="button"  class="btn btn-gray">
-								
-							Point Cloud</button></td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                        </tr>
-                                        <!-- Repeat -->
-                                        <tr>
-                                            <th><a href="#" class="id-underline">M- 127</th>
-                                            <td>4032016</td>
-                                            <td>In Process</td>
-                                            <td>4/01/2016</td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                            <td>Waiting</td>
-                                            <td>________</td>
-                                            <td>
-                                                <li class="dropdown" style="list-style-type:none;">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">DEM<b class="caret"></b></a>
-                                                    <ul class="dropdown-menu">
-                                                        <li>
-                                                            <a href="#">ORTHOMOSAIC</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#">DEM</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#">NDVI</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#">MAP VIEWER</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#">DVI</a>
-                                                        </li>
-                                                         <li>
-                                                            <a href="#">DSM</a>
-                                                        </li>
-                                                         <li>
-                                                            <a href="#">3D MODE</a>
-                                                        </li>
-                                                         <li>
-                                                            <a href="#">KMZ EXPORT</a>
-                                                        </li>
-                                                         <li>
-                                                            <a href="#">POINT CLOUD</a>
-                                                        </li>
-                                                          <li>
-                                                            <a href="#">VOLUME CALCULATOR</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                        </tr>
 
-                                    </tbody>
-                                </table>
-                            </div>
-							
+                                    <div class="proceed">
+                                <button type="button"  class="btn btn-blue " onclick="jQuery('#modal-4').modal('show', {backdrop: 'static'});" >Proceed</button>
+                                    </div>
+
                             </div>
 
-<div class="modal fade" id="modal-6">
+                            <script type="text/javascript">
+                                // This JavaScript Will Replace Checkboxes in dropdown toggles
+                                jQuery(document).ready(function($) {
+                                    setTimeout(function() {
+                                        $(".checkbox-row input").addClass('cbr');
+                                        cbr_replace();
+                                    }, 0);
+                                });
+                            </script>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Footer -->
+            <!-- Choose between footer styles: "footer-type-1" or "footer-type-2" -->
+            <!-- Add class "sticky" to  always stick the footer to the end of page (if page contents is small) -->
+            <!-- Or class "fixed" to  always fix the footer to the end of page -->
+
+
+            <div class="footer-inner">
+
+                <!-- Add your copyright text here -->
+
+
+                <!-- Go to Top Link, just add rel="go-top" to any link to add this functionality -->
+                <!-- <div class="go-up">
+
+						<a href="#" rel="go-top">
+							<i class="fa-angle-up"></i>
+						</a>
+
+					</div> -->
+
+            </div>
+
+            </footer>
+        </div>
+
+
+        <div id="chat" class="fixed">
+            <!-- start: Chat Section -->
+
+            <div class="chat-inner">
+
+
+                <h2 class="chat-header">
+					<a  href="#" class="chat-close" data-toggle="chat">
+						<i class="fa-plus-circle rotate-45deg"></i>
+					</a>
+
+					Chat
+					<span class="badge badge-success is-hidden">0</span>
+				</h2>
+
+                <script type="text/javascript">
+                    // Here is just a sample how to open chat conversation box
+                    jQuery(document).ready(function($) {
+                        var $chat_conversation = $(".chat-conversation");
+
+                        $(".chat-group a").on('click', function(ev) {
+                            ev.preventDefault();
+
+                            $chat_conversation.toggleClass('is-open');
+
+                            $(".chat-conversation textarea").trigger('autosize.resize').focus();
+                        });
+
+                        $(".conversation-close").on('click', function(ev) {
+                            ev.preventDefault();
+                            $chat_conversation.removeClass('is-open');
+                        });
+                    });
+                </script>
+
+
+                <div class="chat-group">
+                    <strong>Favorites</strong>
+
+                    <a href="#"><span class="user-status is-online"></span> <em>Catherine J. Watkins</em></a>
+                    <a href="#"><span class="user-status is-online"></span> <em>Nicholas R. Walker</em></a>
+                    <a href="#"><span class="user-status is-busy"></span> <em>Susan J. Best</em></a>
+                    <a href="#"><span class="user-status is-idle"></span> <em>Fernando G. Olson</em></a>
+                    <a href="#"><span class="user-status is-offline"></span> <em>Brandon S. Young</em></a>
+                </div>
+
+
+                <div class="chat-group">
+                    <strong>Work</strong>
+
+                    <a href="#"><span class="user-status is-busy"></span> <em>Rodrigo E. Lozano</em></a>
+                    <a href="#"><span class="user-status is-offline"></span> <em>Robert J. Garcia</em></a>
+                    <a href="#"><span class="user-status is-offline"></span> <em>Daniel A. Pena</em></a>
+                </div>
+
+
+                <div class="chat-group">
+                    <strong>Other</strong>
+
+                    <a href="#"><span class="user-status is-online"></span> <em>Dennis E. Johnson</em></a>
+                    <a href="#"><span class="user-status is-online"></span> <em>Stuart A. Shire</em></a>
+                    <a href="#"><span class="user-status is-online"></span> <em>Janet I. Matas</em></a>
+                    <a href="#"><span class="user-status is-online"></span> <em>Mindy A. Smith</em></a>
+                    <a href="#"><span class="user-status is-busy"></span> <em>Herman S. Foltz</em></a>
+                    <a href="#"><span class="user-status is-busy"></span> <em>Gregory E. Robie</em></a>
+                    <a href="#"><span class="user-status is-busy"></span> <em>Nellie T. Foreman</em></a>
+                    <a href="#"><span class="user-status is-busy"></span> <em>William R. Miller</em></a>
+                    <a href="#"><span class="user-status is-idle"></span> <em>Vivian J. Hall</em></a>
+                    <a href="#"><span class="user-status is-offline"></span> <em>Melinda A. Anderson</em></a>
+                    <a href="#"><span class="user-status is-offline"></span> <em>Gary M. Mooneyham</em></a>
+                    <a href="#"><span class="user-status is-offline"></span> <em>Robert C. Medina</em></a>
+                    <a href="#"><span class="user-status is-offline"></span> <em>Dylan C. Bernal</em></a>
+                    <a href="#"><span class="user-status is-offline"></span> <em>Marc P. Sanborn</em></a>
+                    <a href="#"><span class="user-status is-offline"></span> <em>Kenneth M. Rochester</em></a>
+                    <a href="#"><span class="user-status is-offline"></span> <em>Rachael D. Carpenter</em></a>
+                </div>
+
+            </div>
+
+            <!-- conversation template -->
+            <div class="chat-conversation">
+
+                <div class="conversation-header">
+                    <a href="#" class="conversation-close">
+						&times;
+					</a>
+
+                    <span class="user-status is-online"></span>
+                    <span class="display-name">Arlind Nushi</span>
+                    <small>Online</small>
+                </div>
+
+                <ul class="conversation-body">
+                    <li>
+                        <span class="user">Arlind Nushi</span>
+                        <span class="time">09:00</span>
+                        <p>Are you here?</p>
+                    </li>
+                    <li class="odd">
+                        <span class="user">Brandon S. Young</span>
+                        <span class="time">09:25</span>
+                        <p>This message is pre-queued.</p>
+                    </li>
+                    <li>
+                        <span class="user">Brandon S. Young</span>
+                        <span class="time">09:26</span>
+                        <p>Whohoo!</p>
+                    </li>
+                    <li class="odd">
+                        <span class="user">Arlind Nushi</span>
+                        <span class="time">09:27</span>
+                        <p>Do you like it?</p>
+                    </li>
+                </ul>
+
+                <div class="chat-textarea">
+                    <textarea class="form-control autogrow" placeholder="Type your message"></textarea>
+                </div>
+
+            </div>
+
+            <!-- end: Chat Section -->
+        </div>
+
+    </div>
+
+  <div class="modal fade" id="modal-4" data-backdrop="static">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				
+
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title">Mission Address</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Mission Address:</h4>
 				</div>
-				
+
+
 				<div class="modal-body">
-				
-				
-				
+
+
+
 					<div class="row">
 						<div class="col-md-12">
-							
+
 							<div class="form-group">
-								
-								
-								<input type="text" class="form-control" id="field-3" placeholder="Address">
-							</div>	
-							
+
+								<!--<label>Mission ID: M-121</label>-->
+
+                                <div><p>Please confirm your Mission Id. If you want to process a CAD file request for this project, please click on Confirm and Proceed.</p></div>
+
+							</div>
+
 						</div>
 					</div>
-				
-					
+
+
 				</div>
-				
+
 				<div class="modal-footer">
-					
-					<button type="button" class="btn btn-info">Save</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal">Confirm &amp; Proceed</button>
 				</div>
 			</div>
 		</div>
 	</div>
-    </div>
+
    

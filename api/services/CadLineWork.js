@@ -1,6 +1,6 @@
 var schema = new Schema({
     address: String,
-    acreAge: String,
+    acreage: String,
     contours: Boolean,
     contoursDensity: String,
     draftingDensity: String,

@@ -16,6 +16,38 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("missions");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        var formData = {}
+        NavigationService.apiCall("Mission/search", formData, function (data) {
+            if (data.value === true) {
+                $scope.missionData = data.data.results;
+                console.log("data found successfully", $scope.missionData);
+            } else {
+                //  toastr.warning('Error submitting the form', 'Please try again');
+            }
+        });
+    })
+    .controller('CadlineworkappCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("cad-linework-app");
+        $scope.menutitle = NavigationService.makeactive("cadlineworkapp");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+          var formData = {}
+        NavigationService.apiCall("CadLineWork/search", formData, function (data) {
+            if (data.value === true) {
+                $scope.cadLineWorkData = data.data.results;
+                console.log("data found successfully", $scope.missionData);
+            } else {
+                //  toastr.warning('Error submitting the form', 'Please try again');
+            }
+        });
+    })
+    .controller('Dfmsubscription', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("dfm-subscription");
+        $scope.menutitle = NavigationService.makeactive("dfmsubscription");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
     })
 
     .controller('createmissionCtrl', function ($scope, $http, TemplateService, NavigationService, $timeout, $state) {
@@ -30,29 +62,62 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 $scope.formdata.append(key, value);
             });
         };
-
+        var nonce = "F6xfnbeo7vqZh";
+        var timestamp = "20170202213339";
+        var secretkey = "XgHBGF6H7vlRxLuqIXwa8cG6hb3m41njBy9k49SZAiTodaVimqL7iR20qcenqUmh";
+        var publickey = "qw6FfDjo6YLo2mEeyi8uZYMv1fNnSBw8Drw7m27VsIG7UUTKppvOSTELH5XZpNzA";
+        var key;
+        var payloadhash;
+        var signString;
         // NOW UPLOAD THE FILES.
         $scope.uploadFiles = function (formdata) {
+            key = nonce + timestamp + secretkey;
+            payloadhash = CryptoJS.HmacSHA256(key, nonce)
+            signString = "GET" + "\\n" +
+                "https://app.unifli.aero/api/missions/" + "\\n" +
+                timestamp + "\\n" +
+                publickey + "\\n" +
+                nonce + "\\n" +
+                "X-E38-Date:" + timestamp + "\\n" +
+                "X-E38-Nonce:" + nonce + "\\n" +
+                payloadhash
+            var signature = CryptoJS.HmacSHA256(key, signString)
+            console.log("signature", signature);
+
             $scope.formdata.append("description", formdata.description)
             var request = {
-                method: 'POST',
-                url: adminurl + 'Mission/save',
-                data: $scope.formdata,
+                method: 'GET',
+                url: 'https://app.unifli.aero/api/missions/',
                 headers: {
-                    'Content-Type': undefined
+                    "Content-type": undefined,
+                    "X-E38-Date": "20170202213339",
+                    "X-E38-Nonce": "F6xfnbeo7vqZh",
+                    "Authorization": signature
                 }
             };
 
             // SEND THE FILES.
             $http(request)
                 .then(function (d) {
-                    console.log(d);
-                    if (d.data.value === true) {
-                        $state.go('mission');
-                    }
-                });
+                    console.log("res", d);
 
+                });
         }
+    })
+
+    .controller('missionanalyzeCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("mission-analyze");
+        $scope.menutitle = NavigationService.makeactive("missions");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+    })
+    .controller('missiondetailCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("mission-detail");
+        $scope.menutitle = NavigationService.makeactive("missions");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
     })
     .controller('AccessController', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         // if ($.jStorage.get("accessToken")) {

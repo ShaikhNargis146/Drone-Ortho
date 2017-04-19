@@ -14,9 +14,7 @@
                         </div>
                         <div class="user-details">
                             <h3>
-                               
-                                 <!--<a href="extra-profile.html">John Smith</a>-->
-                                  <a href="">John Smith</a>
+                                <a href="extra-profile.html">John Smith</a>
                                 <!-- Available statuses: is-online, is-idle, is-busy and is-offline -->
                                 <span class="user-status is-online"></span>
                             </h3>
@@ -91,10 +89,10 @@
                 <header class="logo-env">
                     <!-- logo -->
                     <div class="logo">
-                        <a href="dashboard-1.html" class="logo-expanded">
+                        <a href="dashboard.html" class="logo-expanded">
                             <img src="assets/images/logo.png" width="80" alt="" />
                         </a>
-                        <a href="dashboard-1.html" class="logo-collapsed">
+                        <a href="dashboard.html" class="logo-collapsed">
                             <img src="assets/images/logo.png" width="40" alt="" />
                         </a>
                     </div>
@@ -115,14 +113,19 @@
                         <a href="#" class="user-profile">
                             <img src="http://themes.laborator.co/xenon/assets/images/user-4.png" width="60" height="60" class="img-circle img-corona"
                                 alt="user-pic">
-                                <span> <strong>John Smith</strong>Page admin</span> </a>
+                            <span> <strong>John Smith</strong>Page admin</span> </a>
                     </div>
                 </section>
                 <ul id="main-menu" class="main-menu">
                     <!-- add class "multiple-expanded" to allow multiple submenus to open -->
                     <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-                   
-					<li class="active  has">
+                    <li class=" has">
+                        <a href="dashboard.html">
+                            <i class="linecons-cog"></i>
+                            <span class="title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class=" has">
                         <a href="missions.html">
                             <i class="fa-globe"></i>
                             <span class="title">Missions</span>
@@ -131,7 +134,7 @@
                     <li class="  has">
                         <a href="request-cadlinework.html">
                             <i class="fa-won"></i>
-                            <span class="title">Request Cad Line Work</span>
+                            <span class="title">Request CAD Line Work</span>
                         </a>
                     </li>
                     <li class=" has">
@@ -140,13 +143,13 @@
                             <span class="title">CAD Linework Application</span>
                         </a>
                     </li>
-                    <li class=" has">
+                    <li class="active has">
                         <a href="invoicing-receipts.html">
                             <i class="fa-file-text-o"></i>
                             <span class="title">Invoicing / Receipts</span>
                         </a>
                     </li>
-                     <li class=" has">
+                    <li class=" has">
                         <a href="plans.html">
                             <i class="fa-copy"></i>
                             <span class="title"> Plans</span>
@@ -158,13 +161,12 @@
                             <span class="title">Support</span>
                         </a>
                     </li>
-                      <li class=" has">
+                    <li class=" has">
                         <a href="raise-ticket.html">
                             <i class="fa-ticket"></i>
-                            <span class="title"> Raise a Ticket</span>
+                            <span class="title">Raise a Ticket</span>
                         </a>
                     </li>
-
                 </ul>
             </div>
         </div>
@@ -397,6 +399,16 @@
 							</span>
                         </a>
                         <ul class="dropdown-menu user-profile-menu list-unstyled">
+                            <li class="">
+                                <a href="profile.html">
+                                    <i class="fa-user"></i> Profile
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="account.html">
+                                    <i class="fa-credit-card"></i> Account
+                                </a>
+                            </li>
                             <li class="last">
                                 <a href="extra-lockscreen.html">
                                     <i class="fa-lock"></i> Logout
@@ -408,10 +420,8 @@
             </nav>
             <div class="page-title">
                 <div class="title-env">
-                    <h1 class="title">Missions</h1>
+                    <h1 class="title">Invoicing / Receipts</h1>
                 </div>
-				
-
             </div>
             <!-- Responsive Table -->
             <div class="row">
@@ -419,29 +429,22 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <div class="row">
-
-                               
                                 <!--<div class="col-md-8">
                                 <div class="form-group  ">
-                                    <h4 for="expenses">CAD Linework Expenses : $25,21,545</h4>
+                                    <h4 for="expenses">Total Expenses : $25,21,545</h4>
 								</div>
                                 </div>-->
-                              <div class="col-md-6">
-                                    <div class="breadcrumb-env "> <button class="btn btn-primary create">Create Mission</button> </div>
-                                </div>
-                                    <div class="col-md-6">
-                                <section class="search-env" >
-						<form method="get" action="" enctype="application/x-www-form-urlencoded">
-							<input type="text" class="form-control input-lg" placeholder="Search..." name="s"  />
-							
-							<button type="submit" class="btn-unstyled">
+                                <div class="col-md-12">
+                                    <section class="search-env">
+                                        <form method="get" action="" enctype="application/x-www-form-urlencoded">
+                                            <input type="text" class="form-control input-lg" placeholder="Search..." name="s" />
+                                            <button type="submit" class="btn-unstyled">
 								<i class="linecons-search"></i>
 							</button>
-						</form>
-                                </section>
+                                        </form>
+                                    </section>
                                 </div>
-				
-				   <div class="col-md-4">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <div class="input-group">
                                             <input type="text" placeholder="From Date" class="form-control datepicker" data-format="D, dd MM yyyy">
@@ -458,234 +461,168 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                 <div class="form-group">
-                                        <select class="form-control"> 
-                                            <option>Select Status</option> 
-                                            <option>Replied</option> 
+                                    <div class="form-group">
+                                        <select class="form-control">
+                                            <option>Select Status</option>
+                                            <option>Replied</option>
                                             <option>Resolved</option>
                                             <option>In Process</option>
                                             <option>Closed</option>
                                             <option>No Reply</option>
                                             </select>
                                     </div>
-                         
                                 </div>
+                                <div class="col-md-4  pull-right">
+                                    <div class="form-group">
+                                        <select class="form-control">
+                                            <option>Download as</option>
+											<option>xl</option>
+											<option>csv</option>
+										</select>
+                                    </div>
                                 </div>
                             </div>
                             <div style="  overflow: scroll;">
-                                 <table cellspacing="0" class="table table-small-font table-bordered table-striped">
+                                <table cellspacing="0" class="table table-small-font table-bordered table-striped">
+                                    <!--<thead style="white-space:nowrap;">
+                                        <tr>
+                                            <th>Tickets ID</th>
+                                            <th data-priority="1">Ticket Details</th>
+                                            <th data-priority="3">Date of Receipt</th>
+                                            <th data-priority="1">Ticket Raised For</th>
+                                            <th data-priority="1">User ID</th>
+                                            <th data-priority="1">Tickets Status</th>
+                                            <th data-priority="1">Ticket Closing Date</th>
+                                        </tr>
+                                    </thead>-->
                                     <thead style="white-space:nowrap;">
                                         <tr>
-                                            <th>Mission Id</th>
-                                             <th>User Id</th>
-                                            <th data-priority="1">CAD Linework</th>
-                                            <th data-priority="3">Uploaded</th>
-                                            <th data-priority="1">collected</th>
-                                            <th data-priority="3">Mission Address</th>
-                                            <th data-priority="3">Status</th>
-                                            <th data-priority="6">Date of completion</th>
-                                            <th data-priority="6">Completed Apps</th>
-                                            <th data-priority="6">Shared Map</th>
-                                            <th data-priority="6">Sharing</th>
+                                            <th>Payment ID</th>
+                                            <th data-priority="1">Sold Items</th>
+                                            <th data-priority="3">Cost</th>
+                                            <th data-priority="1">Coupon Code</th>
+                                            <th data-priority="1">Discount </th>
+                                            <th data-priority="1">Amount Paid</th>
+                                            <th data-priority="1">Transaction Date</th>
+                                            <th data-priority="1">Payment Status</th>
+                                            <th data-priority="1">Payment Mode</th>
+                                            <th data-priority="1">Payment Date</th>
+                                            <th data-priority="1">Payment Receipt</th>
                                         </tr>
                                     </thead>
                                     <tbody style="white-space:nowrap;">
                                         <tr>
-                                            <th><a href="#" class="id-underline">M-120</th>
-                                            <td>4032016</td>
-                                            <td>In Process</td>
-                                            <td>4/01/2016</td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                            <td>Queued</td>
-                                            <td>________</td>
-                                            <td><button type="button" class="btn btn-gray">
-								
-							Orthomosaic</button></td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                        </tr>
-                                        <tr>
-                                            <th><a href="#" class="id-underline">M- 121</th>
-                                            <td>5042016</td>
-                                           <td><a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});"   class="btn btn-default request-button" >Request CAD Linework</a></td>
-                                            <td>5/02/2016</td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                            <td>Waiting</td>
-                                            <td>________</td>
-                                            <td><button type="button" class="btn btn-gray">
-								
-							NDVI</button></td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                        </tr>
-                                        <tr>
-                                            <th><a href="#" class="id-underline">M- 122</th>
-                                            <td>8052016</td>
-                                            <td>Completed</td>
-                                            <td>4/03/2016</td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                            <td>Error</td>
-                                            <td>________</td>
-                                            <td><button type="button"  class="btn btn-gray">
-								
-							DEM</button></td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                        </tr>
-                                        <tr>
-                                            <th><a href="#" class="id-underline">M- 123</th>
-                                            <td>9062016</td>
-                                            <td>In Q.C.</td>
-                                            <td>5/04/2016</td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                            <td>Ready</td>
-                                            <td>________</td>
-                                             <td><button type="button"class="btn btn-gray">
-								
-							DVI</button></td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                        </tr>
-                                        <tr>
-                                            <th><a href="#" class="id-underline">M- 124</th>
-                                            <td>4012016</td>
-                                           <td><a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});"   class="btn btn-default request-button" >Request CAD Linework</a></td>
-                                            <td>8/05/2016 </td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                            <td>Ready</td>
-                                            <td>________</td>
-                                             <td><button type="button"  class="btn btn-gray">
-								
-						DSM	</button></td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                        </tr>
-                                        <tr>
-                                            <th><a href="#" class="id-underline">M- 125</th>
-                                            <td>4032016</td>
-                                            <td>Completed</td>
+                                            <td>P226</td>
+                                            <td>Drone</td>
+                                            <td>$500</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
                                             <td>9/06/2016</td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                            <td>Waiting</td>
-                                            <td>________</td>
-                                            <td><button type="button"  class="btn btn-gray">
-								
-							Map Viewer</button></td>
-                                            <td>_____</td>
-                                            <td>_____</td>
+                                            <td>Declined</td>
+                                            <td><button type="button" class="btn btn-gray">Pay now</button></td>
+                                            <td>9/06/2016</td>
+                                            <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
                                         </tr>
                                         <tr>
-                                            <th><a href="#" class="id-underline">M- 126</th>
-                                            <td>4032016</td>
-                                            <td>In Q.C.</td>
-                                            <td>4/01/2016</td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                            <td>Waiting</td>
-                                            <td>________</td>
-                                             <td><button type="button"  class="btn btn-gray">
-								
-							Point Cloud</button></td>
-                                            <td>_____</td>
-                                            <td>_____</td>
+                                            <td>P225</td>
+                                            <td>DFM</td>
+                                            <td>$500</td>
+                                             <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>9/06/2016</td>
+                                            <td>Received</td>
+                                            <td>Card</td>
+                                            <td>9/06/2016</td>
+                                            <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
+                                           
                                         </tr>
-                                        <!-- Repeat -->
                                         <tr>
-                                            <th><a href="#" class="id-underline">M- 127</th>
-                                            <td>4032016</td>
-                                            <td>In Process</td>
-                                            <td>4/01/2016</td>
-                                            <td>_____</td>
-                                            <td>_____</td>
-                                            <td>Waiting</td>
-                                            <td>________</td>
-                                            <td>
-                                                <li class="dropdown" style="list-style-type:none;">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">DEM<b class="caret"></b></a>
-                                                    <ul class="dropdown-menu">
-                                                        <li>
-                                                            <a href="#">ORTHOMOSAIC</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#">DEM</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#">NDVI</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#">MAP VIEWER</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#">DVI</a>
-                                                        </li>
-                                                         <li>
-                                                            <a href="#">DSM</a>
-                                                        </li>
-                                                         <li>
-                                                            <a href="#">3D MODE</a>
-                                                        </li>
-                                                         <li>
-                                                            <a href="#">KMZ EXPORT</a>
-                                                        </li>
-                                                         <li>
-                                                            <a href="#">POINT CLOUD</a>
-                                                        </li>
-                                                          <li>
-                                                            <a href="#">VOLUME CALCULATOR</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </td>
-                                            <td>_____</td>
-                                            <td>_____</td>
+                                            <td>P224</td>
+                                            <td>CAD Linework</td>
+                                            <td>$500</td>
+                                              <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>9/06/2016</td>
+                                            <td>Received</td>
+                                            <td>Wire</td>
+                                            <td>9/06/2016</td>
+                                            <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
+                                          
                                         </tr>
-
+                                        <tr>
+                                            <td>P223</td>
+                                            <td>CAD Linework</td>
+                                            <td>$500</td>
+                                             <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>9/06/2016</td>
+                                            <td>Unpaid</td>
+                                            <td><button type="button" class="btn btn-gray">Pay now</button></td>
+                                            <td>9/06/2016</td>
+                                            <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
+                                         
+                                        </tr>
+                                        <tr>
+                                            <td>P222</td>
+                                            <td>Drone</td>
+                                            <td>$500</td>
+                                             <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>9/06/2016</td>
+                                            <td>Received</td>
+                                            <td>Wire</td>
+                                            <td>9/06/2016</td>
+                                            <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
+                                         
+                                        </tr>
+                                        <tr>
+                                            <td>P221</td>
+                                            <td>DFM</td>
+                                            <td>$500</td>
+                                             <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>9/06/2016</td>
+                                            <td>Received</td>
+                                            <td>Card</td>
+                                            <td>9/06/2016</td>
+                                            <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
+                                           
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
-							
-                            </div>
-
-<div class="modal fade" id="modal-6">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title">Mission Address</h4>
-				</div>
-				
-				<div class="modal-body">
-				
-				
-				
-					<div class="row">
-						<div class="col-md-12">
-							
-							<div class="form-group">
-								
-								
-								<input type="text" class="form-control" id="field-3" placeholder="Address">
-							</div>	
-							
-						</div>
-					</div>
-				
-					
-				</div>
-				
-				<div class="modal-footer">
-					
-					<button type="button" class="btn btn-info">Save</button>
-				</div>
-			</div>
-		</div>
-	</div>
+                            <ul class="pagination">
+                                <li><a href="#">Previous</a></li>
+                                <li><a href="#">1</a></li>
+                                <li class="active"><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li class="disabled"><a href="#">4</a></li>
+                                <li><a href="#">Next</a></li>
+                            </ul>
+                        </div>
+                        <script type="text/javascript">
+                            // This JavaScript Will Replace Checkboxes in dropdown toggles
+                            jQuery(document).ready(function ($) {
+                                setTimeout(function () {
+                                    $(".checkbox-row input").addClass('cbr');
+                                    cbr_replace();
+                                }, 0);
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </footer>
     </div>
+    </div>
+    <!-- End: Footer Sticked Chat -->
+    </div>
+    <!-- Bottom Scripts -->
    

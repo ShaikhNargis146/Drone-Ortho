@@ -33,7 +33,26 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
         templateUrl: "views/template.html",
         controller: 'createmissionCtrl',
     })
-
+      .state('missionanalyze', {
+        url: "/missionanalyze",
+        templateUrl: "views/template.html",
+        controller: 'missionanalyzeCtrl',
+    })
+      .state('missiondetail', {
+        url: "/missiondetail",
+        templateUrl: "views/template.html",
+        controller: 'missiondetailCtrl',
+    })
+    .state('cadlineworkapp', {
+        url: "/cadlineworkapp",
+        templateUrl: "views/template.html",
+        controller: 'CadlineworkappCtrl',
+    })
+ .state('dfmsubscription', {
+        url: "/dfmsubscription",
+        templateUrl: "views/template.html",
+        controller: 'Dfmsubscription',
+    })
     .state('login', {
         url: "/login",
         templateUrl: "views/login.html",
@@ -224,6 +243,7 @@ firstapp.directive('uploadImage', function ($http, $filter, $timeout) {
             }
             $scope.clearOld = function () {
                 $scope.model = [];
+                  $scope.uploadStatus = "removed";
             };
             $scope.uploadNow = function (image) {
                 $scope.uploadStatus = "uploading";

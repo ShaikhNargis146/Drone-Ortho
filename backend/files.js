@@ -34,7 +34,7 @@ module.exports = [
     "bower_components/intl-tel-input/lib/libphonenumber/build/utils.js",
     "bower_components/intl-tel-input/build/js/intlTelInput.js",
     "bower_components/international-phone-number/releases/international-phone-number.js",
-
+    "bower_components/crypto-js/crypto-js.js",
     'backend/js/app.js',
     'backend/js/language.js',
     'backend/js/controllers.js',

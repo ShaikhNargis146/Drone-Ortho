@@ -29,14 +29,14 @@ var navigationservice = angular.module('navigationservice', [])
             {
                 name: "CadLineWork",
                 classis: "active",
-                sref: "#!/page/viewCadLineWork//",
+                sref: "#!/cadlineworkapp",
                 icon: "phone"
             },
 
             {
                 name: "DFMSubscription",
                 classis: "active",
-                sref: "#!/page/viewDFMSubscription//",
+                sref: "#!/dfmsubscription",
                 icon: "phone"
             },
 

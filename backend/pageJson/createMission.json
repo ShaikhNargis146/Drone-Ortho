@@ -43,7 +43,7 @@
         "name": "submit",
         "action": "submitMission",
         "stateName": {
-            "page": "page",
+            "page": "mission",
             "json": {
                 "id": "viewMission"
             }
@@ -52,7 +52,7 @@
         "name": "cancel",
         "sideMenuRedirect": true,
         "stateName": {
-            "page": "page",
+            "page": "mission",
             "json": {
                 "id": "viewMission"
             }
