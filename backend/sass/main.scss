@@ -1265,6 +1265,17 @@ body {
     background-color: #7c38bc;
     color: #fff;
 }
+.img-box{
+    position: relative;
+    i.fa-times{
+        position: absolute;
+        padding: 3px;
+        background-color: white;
+        top: 15px;
+        right:6px;
+        font-size: 13px;
+    }
+}
 /* Start writing sass here */
 
 @import "fancybox-override";

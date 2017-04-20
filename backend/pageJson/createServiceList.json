@@ -1,18 +1,17 @@
 {
-  "title": "Create Mission",
-  "name": "Mission",
-  "jsonPage": "viewMission",
+  "title": "Create ServiceList",
+  "name": "ServiceList",
+  "jsonPage": "viewServiceList",
   "desciption": "",
   "pageType": "create",
-  "urlFields": ["Mission"],
+  "urlFields": ["ServiceList"],
   "fields": [{
-            "name": "User",
-            "type": "selectFromTable",
-            "tableRef": "user",
-            "searchApi": "searchCall",
-            "placeholder": "Enter User",
-            "id": "user",
-            "url": "User/search"
+            "name": "Name",
+            "type": "text",
+            "tableRef": "name",
+            "placeholder": "Enter Name",
+            "id": "name",
+            "url": ""
         }, {
             "name": "description",
             "type": "text",
@@ -24,41 +23,34 @@
         "name": "file",
         "type": "image",
         "tableRef": "files",
-        "option": "multiple",
+        "option": "single",
         "size": "",
         "placeholder": "Enter file",
         "id": "file",
         "validation": ["", "trim", ""],
         "url": ""
-    },{
-            "name": "status",
-            "type": "text",
-            "tableRef": "status",
-            "placeholder": "Enter status",
-            "id": "status",
-            "url": ""
-        }
+    }
     ],
     "action": [{
         "name": "submit",
-        "action": "submitMission",
+        "action": "submitServiceList",
         "stateName": {
-            "page": "mission",
+            "page": "ServiceList",
             "json": {
-                "id": "viewMission"
+                "id": "viewServiceList"
             }
         }
     }, {
         "name": "cancel",
         "sideMenuRedirect": true,
         "stateName": {
-            "page": "mission",
+            "page": "ServiceList",
             "json": {
-                "id": "viewMission"
+                "id": "viewServiceList"
             }
         }
     }],
     "apiCall": {
-        "url": "Mission/save"
+        "url": "ServiceList/save"
     }
 }

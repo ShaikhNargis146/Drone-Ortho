@@ -16,12 +16,15 @@ var schema = new Schema({
         type: String
     }],
     status: String,
-    orthomosaic: String,
-    mapViewer: String,
-    DVI: String,
-    DSM: String,
-    threedMode: String,
-    KMZ: String
+    others: [{
+        name:String,//orthomosaic,mapViewer,DVI,DSM,threedMode,KMZ
+        file:String,
+        data:Schema.Types.Mixed,
+        status: {
+            type:String,
+            enum: [""]
+        }
+    }]
 });
 
 schema.plugin(deepPopulate, {});

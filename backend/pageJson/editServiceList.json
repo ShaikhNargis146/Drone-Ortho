@@ -1,0 +1,61 @@
+{
+    "title": "Edit ServiceList",
+    "name": "ServiceList",
+    "jsonPage": "viewServiceList",
+    "desciption": "",
+    "pageType": "edit",
+    "urlFields": ["_id"],
+    "fields": [{
+            "name": "Name",
+            "type": "text",
+            "tableRef": "name",
+            "placeholder": "Enter Name",
+            "id": "name",
+            "url": ""
+        }, {
+            "name": "description",
+            "type": "text",
+            "tableRef": "expirdescriptionyDate",
+            "placeholder": "Enter description",
+            "id": "description",
+            "url": ""
+        }, {
+        "name": "file",
+        "type": "image",
+        "tableRef": "files",
+        "option": "single",
+        "size": "",
+        "placeholder": "Enter file",
+        "id": "file",
+        "validation": ["", "trim", ""],
+        "url": ""
+    }],
+    "action": [{
+        "name": "submit",
+        "action": "submitServiceList",
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewServiceList"
+            }
+        }
+    }, {
+        "name": "cancel",
+        "sideMenuRedirect": true,
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewServiceList"
+            }
+        }
+    }],
+    "apiCall": {
+        "url": "ServiceList/save",
+        "params": "_id"
+    },
+    "preApi": {
+        "url": "ServiceList/getOne",
+        "params": "_id"
+    }
+
+}

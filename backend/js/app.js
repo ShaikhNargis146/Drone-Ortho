@@ -19,97 +19,97 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
     $stateProvider
 
         .state('dashboard', {
-        url: "/dashboard",
-        templateUrl: "views/template.html",
-        controller: 'DashboardCtrl',
-    })
-      .state('mission', {
-        url: "/mission",
-        templateUrl: "views/template.html",
-        controller: 'missionCtrl',
-    })
-      .state('createmission', {
-        url: "/createmission",
-        templateUrl: "views/template.html",
-        controller: 'createmissionCtrl',
-    })
-      .state('missionanalyze', {
-        url: "/missionanalyze",
-        templateUrl: "views/template.html",
-        controller: 'missionanalyzeCtrl',
-    })
-      .state('missiondetail', {
-        url: "/missiondetail",
-        templateUrl: "views/template.html",
-        controller: 'missiondetailCtrl',
-    })
-    .state('cadlineworkapp', {
-        url: "/cadlineworkapp",
-        templateUrl: "views/template.html",
-        controller: 'CadlineworkappCtrl',
-    })
- .state('dfmsubscription', {
-        url: "/dfmsubscription",
-        templateUrl: "views/template.html",
-        controller: 'Dfmsubscription',
-    })
-    .state('login', {
-        url: "/login",
-        templateUrl: "views/login.html",
-        controller: 'LoginCtrl'
-    })
+            url: "/dashboard",
+            templateUrl: "views/template.html",
+            controller: 'DashboardCtrl',
+        })
+        .state('mission', {
+            url: "/mission",
+            templateUrl: "views/template.html",
+            controller: 'missionCtrl',
+        })
+        .state('createmission', {
+            url: "/createmission",
+            templateUrl: "views/template.html",
+            controller: 'createmissionCtrl',
+        })
+        .state('missionanalyze', {
+            url: "/missionanalyze",
+            templateUrl: "views/template.html",
+            controller: 'missionanalyzeCtrl',
+        })
+        .state('missiondetail', {
+            url: "/missiondetail",
+            templateUrl: "views/template.html",
+            controller: 'missiondetailCtrl',
+        })
+        .state('cadlineworkapp', {
+            url: "/cadlineworkapp",
+            templateUrl: "views/template.html",
+            controller: 'CadlineworkappCtrl',
+        })
+        .state('dfmsubscription', {
+            url: "/dfmsubscription",
+            templateUrl: "views/template.html",
+            controller: 'Dfmsubscription',
+        })
+        .state('login', {
+            url: "/login",
+            templateUrl: "views/login.html",
+            controller: 'LoginCtrl'
+        })
 
-    .state('page', {
-        url: "/page/:id/{page:.*}/{keyword:.*}",
-        templateUrl: "views/template.html",
-        controller: 'PageJsonCtrl'
-    })
+        .state('page', {
+            url: "/page/:id/{page:.*}/{keyword:.*}",
+            templateUrl: "views/template.html",
+            controller: 'PageJsonCtrl'
+        })
 
-    .state('loginapp', {
-        url: "/login/:id",
-        templateUrl: "views/login.html",
-        controller: 'LoginCtrl'
-    })
+        .state('loginapp', {
+            url: "/login/:id",
+            templateUrl: "views/login.html",
+            controller: 'LoginCtrl'
+        })
 
-    .state('country-list', {
-        url: "/country-list/{page:.*}/{keyword:.*}",
-        templateUrl: "views/template.html",
-        controller: 'CountryCtrl',
-        params: {
-            page: "1",
-            keyword: ""
-        }
-    })
+        .state('country-list', {
+            url: "/country-list/{page:.*}/{keyword:.*}",
+            templateUrl: "views/template.html",
+            controller: 'CountryCtrl',
+            params: {
+                page: "1",
+                keyword: ""
+            }
+        })
 
-    .state('createcountry', {
-        url: "/country-create",
-        templateUrl: "views/template.html",
-        controller: 'CreateCountryCtrl'
-    })
+        .state('createcountry', {
+            url: "/country-create",
+            templateUrl: "views/template.html",
+            controller: 'CreateCountryCtrl'
+        })
 
-    .state('editcountry', {
-        url: "/country-edit/:id",
-        templateUrl: "views/template.html",
-        controller: 'EditCountryCtrl'
-    })
+        .state('editcountry', {
+            url: "/country-edit/:id",
+            templateUrl: "views/template.html",
+            controller: 'EditCountryCtrl'
+        })
 
-    .state('schema-creator', {
-        url: "/schema-creator",
-        templateUrl: "views/template.html",
-        controller: 'SchemaCreatorCtrl'
-    })
+        .state('schema-creator', {
+            url: "/schema-creator",
+            templateUrl: "views/template.html",
+            controller: 'SchemaCreatorCtrl'
+        })
 
-    .state('excel-upload', {
-        url: "/excel-upload/:model",
-        templateUrl: "views/template.html",
-        controller: 'ExcelUploadCtrl'
-    })
+        .state('excel-upload', {
+            url: "/excel-upload/:model",
+            templateUrl: "views/template.html",
+            controller: 'ExcelUploadCtrl'
+        })
 
-    .state('jagz', {
-        url: "/jagz",
-        templateUrl: "views/jagz.html",
-        controller: 'JagzCtrl'
-    });
+        .state('jagz', {
+            url: "/jagz",
+            templateUrl: "views/jagz.html",
+            controller: 'JagzCtrl'
+        });
 
     $urlRouterProvider.otherwise("/dashboard");
     $locationProvider.html5Mode(isproduction);
@@ -182,15 +182,14 @@ firstapp.directive('uploadImage', function ($http, $filter, $timeout) {
         },
         link: function ($scope, element, attrs) {
             console.log($scope.model);
-            $scope.showImage = function () {
-            };
+            $scope.showImage = function () {};
             $scope.check = true;
             if (!$scope.type) {
                 $scope.type = "image";
             }
             $scope.isMultiple = false;
             $scope.inObject = false;
-            if (attrs.multiple || attrs.multiple === "") {
+            if (attrs.multiple == "true") {
                 $scope.isMultiple = true;
                 $("#inputImage").attr("multiple", "ADD");
             }
@@ -243,8 +242,17 @@ firstapp.directive('uploadImage', function ($http, $filter, $timeout) {
             }
             $scope.clearOld = function () {
                 $scope.model = [];
-                  $scope.uploadStatus = "removed";
+                $scope.uploadStatus = "removed";
             };
+            $scope.removeImage = function (index) {
+                $scope.image = [];
+                $scope.model.splice(index, 1);
+                _.each($scope.model, function (n) {
+                    $scope.image.push({
+                        url: n
+                    });
+                });
+            }
             $scope.uploadNow = function (image) {
                 $scope.uploadStatus = "uploading";
 
@@ -278,7 +286,7 @@ firstapp.directive('uploadImage', function ($http, $filter, $timeout) {
                             $scope.type = "image";
                         }
                         $scope.model = data.data[0];
-                        console.log($scope.model,'model means blob')
+                        console.log($scope.model, 'model means blob')
 
                     }
                     $timeout(function () {
@@ -747,16 +755,18 @@ firstapp.filter('urlencoder', function () {
     };
 });
 
- firstapp.directive('ngFiles', ['$parse', function ($parse) {
+firstapp.directive('ngFiles', ['$parse', function ($parse) {
 
-            function fn_link(scope, element, attrs) {
-                var onChange = $parse(attrs.ngFiles);
-                element.on('change', function (event) {
-                    onChange(scope, { $files: event.target.files });
-                });
-            };
+    function fn_link(scope, element, attrs) {
+        var onChange = $parse(attrs.ngFiles);
+        element.on('change', function (event) {
+            onChange(scope, {
+                $files: event.target.files
+            });
+        });
+    };
 
-            return {
-                link: fn_link
-            }
-        } ])
+    return {
+        link: fn_link
+    }
+}])
