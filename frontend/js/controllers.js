@@ -687,7 +687,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     $scope.blogShow = false;
                     console.log("im in case3");
                     $scope.blogDetail = {
-                        "image": "frontend/img/new/11.jpg",
+                        "image": "frontend/img/new/58.jpg",
                         "title": "THIS ONE STOP SHOP IS THE SOLUTION<br> TO ALL YOUR DRONE SURVEYING PROBLEMS!",
 
                         "desc1": "The World of land surveying has changed, and how!",
@@ -770,7 +770,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             },
             {
                 "id": "3",
-                "image": "frontend/img/new/4.jpg",
+                "image": "frontend/img/new/42.jpg",
                 "title": "This One Stop Shop Is The Solution To All Your Drone Surveying Problems!",
                 // "date":"September 22,",
             }
