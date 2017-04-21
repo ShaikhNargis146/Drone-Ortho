@@ -111,27 +111,19 @@
                                             <td>_____</td>
                                             <td>_____</td>
                                             <td>{{mis.status}}</td>
-                                            <td>________</td>
+                                            <td>_____</td>
                                             <td>
                                                        <div class="form-group ">
-                                                    <select class="form-control select-w sel-app" onChange="window.location.href = this.value">
+                                            <select class="form-control select-w sel-app" onChange="window.location.href = this.value">
                                                            <option class="" selected disabled>Select Apps to Use</option>
-														<option  value="#!/missionanalyze">MAP VIEWER</option>
-														<option   value="#!/missionanalyze">DVI</option>
-                                                        <option  value="#!/missionanalyze">DSM</option>
-                                                        <option  value="#!/missionanalyze">3D MODE</option>
-                                                        <option  value="#!/missionanalyze">KMZ EXPORT</option>
-                                                        <option value="#!/missionanalyze">POINT CLOUD</option>
-                                                        <option value="#!/missionanalyze">VOLUME CALCULATOR</option>
-                                                       
+                                                        <option  value="#!/missionanalyze/{{mis._id}}" ng-repeat="x in serviceListData">{{x.name}}</option>
 													</select>
-
                                                 </div>
                                             </td>
                                              
-                                            <td><a ui-sref="missionanalyze" ><button type="button" class="btn btn-gray">
+                                            <td><a ui-sref="missionanalyze({missionId:mis._id})" ng-repeat="m in mis.others"><button type="button" class="btn btn-gray ma5">
 
-					Orthomosaic		</button></a></td>
+					{{m.name}}	</button></a></td>
                                     <td>_____</td>
                                     <td>_____</td>
                             </tr>
@@ -142,25 +134,25 @@
                                     <td>_____</td>
                                     <td>_____</td>
                                     <td>Waiting</td>
-                                    <td>________</td>
+                                    <td>____</td>
                                     <td>
                                         <div class="form-group ">
                                             <select class="form-control select-w sel-app" onChange="window.location.href = this.value">
                                                            <option class="" selected disabled>Select Apps to Use</option>
-														<option  value="#!/missionanalyze">MAP VIEWER</option>
-														<option   value="#!/missionanalyze">DVI</option>
-                                                        <option  value="#!/missionanalyze">DSM</option>
-                                                        <option  value="#!/missionanalyze">3D MODE</option>
-                                                        <option  value="#!/missionanalyze">KMZ EXPORT</option>
-                                                        <option  value="#!/missionanalyze">POINT CLOUD</option>
-                                                        <option  value="#!/missionanalyze">VOLUME CALCULATOR</option>
+														<option  value="#!/missionanalyze({missionId:missionId})">MAP VIEWER</option>
+														<option   value="#!/missionanalyze({missionId:missionId})">DVI</option>
+                                                        <option  value="#!/missionanalyze({missionId:missionId})">DSM</option>
+                                                        <option  value="#!/missionanalyze({missionId:missionId})">3D MODE</option>
+                                                        <option  value="#!/missionanalyze({missionId:missionId})">KMZ EXPORT</option>
+                                                        <option  value="#!/missionanalyze({missionId:missionId})">POINT CLOUD</option>
+                                                        <option  value="#!/missionanalyze({missionId:missionId})">VOLUME CALCULATOR</option>
                                                        
 													</select>
 
                                         </div>
                                     </td>
                                     <td>
-                                        <a ui-sref="missionanalyze">
+                                        <a ui-sref="missionanalyze({missionId:missionId})">
                                             <button type="button" class="btn btn-gray">
 
 						NDVI	</button></a>
@@ -172,21 +164,21 @@
                                 <th><a ui-sref="missiondetail" class="id-underline">M-122</th>
                                             <td>Completed</td>
                                             <td>4/03/2016</td>
-                                            <td>_____</td>
+                                            <td>____</td>
                                             <td>_____</td>
                                             <td>Error</td>
-                                            <td>________</td>
+                                            <td>_____</td>
                                              <td>
                                                        <div class="form-group ">
                                                     <select class="form-control select-w sel-app" onChange="window.location.href = this.value">
                                                            <option class="" selected disabled>Select Apps to Use</option>
-														<option  value="#!/missionanalyze">MAP VIEWER</option>
-														<option   value="#!/missionanalyze">DVI</option>
-                                                        <option  value="#!/missionanalyze">DSM</option>
-                                                        <option  value="#!/missionanalyze">3D MODE</option>
-                                                        <option  value="#!/missionanalyze">KMZ EXPORT</option>
-                                                        <option value="#!/missionanalyze">POINT CLOUD</option>
-                                                        <option value="#!/missionanalyze">VOLUME CALCULATOR</option>
+														<option  value="#!/missionanalyze({missionId:missionId})">MAP VIEWER</option>
+														<option   value="#!/missionanalyze({missionId:missionId})">DVI</option>
+                                                        <option  value="#!/missionanalyze({missionId:missionId})">DSM</option>
+                                                        <option  value="#!/missionanalyze({missionId:missionId})">3D MODE</option>
+                                                        <option  value="#!/missionanalyze({missionId:missionId})">KMZ EXPORT</option>
+                                                        <option value="#!/missionanalyze({missionId:missionId})">POINT CLOUD</option>
+                                                        <option value="#!/missionanalyze({missionId:missionId})">VOLUME CALCULATOR</option>
                                                        
 													</select>
 
@@ -208,24 +200,24 @@
                                             <td>_____</td>
                                             <td>_____</td>
                                             <td>Ready</td>
-                                            <td>________</td>
+                                            <td>_____</td>
                                              <td>
                                                        <div class="form-group ">
                                                     <select class="form-control select-w sel-app" onChange="window.location.href = this.value">
                                                            <option class="" selected disabled>Select Apps to Use</option>
-														<option  value="#!/missionanalyze">MAP VIEWER</option>
-														<option   value="#!/missionanalyze">DVI</option>
-                                                        <option  value="#!/missionanalyze">DSM</option>
-                                                        <option  value="#!/missionanalyze">3D MODE</option>
-                                                        <option  value="#!/missionanalyze">KMZ EXPORT</option>
-                                                        <option value="#!/missionanalyze">POINT CLOUD</option>
-                                                        <option value="#!/missionanalyze">VOLUME CALCULATOR</option>
+														<option  value="#!/missionanalyze({missionId:missionId})">MAP VIEWER</option>
+														<option   value="#!/missionanalyze({missionId:missionId})">DVI</option>
+                                                        <option  value="#!/missionanalyze({missionId:missionId})">DSM</option>
+                                                        <option  value="#!/missionanalyze({missionId:missionId})">3D MODE</option>
+                                                        <option  value="#!/missionanalyze({missionId:missionId})">KMZ EXPORT</option>
+                                                        <option value="#!/missionanalyze({missionId:missionId})">POINT CLOUD</option>
+                                                        <option value="#!/missionanalyze({missionId:missionId})">VOLUME CALCULATOR</option>
                                                        
 													</select>
 
                                                 </div>
                                             </td>
-                                            <td><a ui-sref="missionanalyze"><button type="button"class="btn btn-gray">
+                                            <td><a ui-sref="missionanalyze({missionId:missionId})"><button type="button"class="btn btn-gray">
 
 							Point Cloud</button></a></td>
                                     <td>_____</td>
@@ -238,24 +230,24 @@
                                     <td>_____</td>
                                     <td>_____</td>
                                     <td>Ready</td>
-                                    <td>________</td>
+                                    <td>_____</td>
                                     <td>
                                         <div class="form-group ">
                                             <select class="form-control select-w sel-app" onChange="window.location.href = this.value">
                                                            <option class="" selected disabled>Select Apps to Use</option>
-														<option  value="#!/missionanalyze">MAP VIEWER</option>
-														<option   value="#!/missionanalyze">DVI</option>
-                                                        <option  value="#!/missionanalyze">DSM</option>
-                                                        <option  value="#!/missionanalyze">3D MODE</option>
-                                                        <option  value="#!/missionanalyze">KMZ EXPORT</option>
-                                                        <option value="#!/missionanalyze">POINT CLOUD</option>
-                                                        <option value="#!/missionanalyze">VOLUME CALCULATOR</option>
+														<option  value="#!/missionanalyze({missionId:missionId})">MAP VIEWER</option>
+														<option   value="#!/missionanalyze({missionId:missionId})">DVI</option>
+                                                        <option  value="#!/missionanalyze({missionId:missionId})">DSM</option>
+                                                        <option  value="#!/missionanalyze({missionId:missionId})">3D MODE</option>
+                                                        <option  value="#!/missionanalyze({missionId:missionId})">KMZ EXPORT</option>
+                                                        <option value="#!/missionanalyze({missionId:missionId})">POINT CLOUD</option>
+                                                        <option value="#!/missionanalyze({missionId:missionId})">VOLUME CALCULATOR</option>
                                                        
 													</select>
 
                                         </div>
                                     </td>
-                                    <td><a ui-sref="missionanalyze"><button type="button" class="btn btn-gray">
+                                    <td><a ui-sref="missionanalyze({missionId:missionId})"><button type="button" class="btn btn-gray">
 
 						DSM	</button></a></td>
                                     <td>_____</td>
@@ -268,18 +260,18 @@
                                             <td>_____</td>
                                             <td>_____</td>
                                             <td>Waiting</td>
-                                            <td>________</td>
+                                            <td>_____</td>
                                              <td>
                                                        <div class="form-group ">
                                                     <select class="form-control select-w sel-app" onChange="window.location.href = this.value">
                                                            <option class="" selected disabled>Select Apps to Use</option>
-														<option  value="#!/missionanalyze">MAP VIEWER</option>
-														<option   value="#!/missionanalyze">DVI</option>
-                                                        <option  value="#!/missionanalyze">DSM</option>
-                                                        <option  value="#!/missionanalyze">3D MODE</option>
-                                                        <option  value="#!/missionanalyze">KMZ EXPORT</option>
-                                                        <option value="#!/missionanalyze">POINT CLOUD</option>
-                                                        <option value="#!/missionanalyze">VOLUME CALCULATOR</option>
+														<option  value="#!/missionanalyze({missionId:missionId})">MAP VIEWER</option>
+														<option   value="#!/missionanalyze({missionId:missionId})">DVI</option>
+                                                        <option  value="#!/missionanalyze({missionId:missionId})">DSM</option>
+                                                        <option  value="#!/missionanalyze({missionId:missionId})">3D MODE</option>
+                                                        <option  value="#!/missionanalyze({missionId:missionId})">KMZ EXPORT</option>
+                                                        <option value="#!/missionanalyze({missionId:missionId})">POINT CLOUD</option>
+                                                        <option value="#!/missionanalyze({missionId:missionId})">VOLUME CALCULATOR</option>
                                                        
 													</select>
 
@@ -298,18 +290,18 @@
                                             <td>_____</td>
                                             <td>_____</td>
                                             <td>Waiting</td>
-                                            <td>________</td>
+                                            <td>_____</td>
                                               <td>
                                                        <div class="form-group ">
                                                     <select class="form-control select-w sel-app" onChange="window.location.href = this.value">
                                                            <option class="" selected disabled>Select Apps to Use</option>
-														<option  value="#!/missionanalyze">MAP VIEWER</option>
-														<option   value="#!/missionanalyze">DVI</option>
-                                                        <option  value="#!/missionanalyze">DSM</option>
-                                                        <option  value="#!/missionanalyze">3D MODE</option>
-                                                        <option  value="#!/missionanalyze">KMZ EXPORT</option>
-                                                        <option value="#!/missionanalyze">POINT CLOUD</option>
-                                                        <option value="#!/missionanalyze">VOLUME CALCULATOR</option>
+														<option  value="#!/missionanalyze({missionId:missionId})">MAP VIEWER</option>
+														<option   value="#!/missionanalyze({missionId:missionId})">DVI</option>
+                                                        <option  value="#!/missionanalyze({missionId:missionId})">DSM</option>
+                                                        <option  value="#!/missionanalyze({missionId:missionId})">3D MODE</option>
+                                                        <option  value="#!/missionanalyze({missionId:missionId})">KMZ EXPORT</option>
+                                                        <option value="#!/missionanalyze({missionId:missionId})">POINT CLOUD</option>
+                                                        <option value="#!/missionanalyze({missionId:missionId})">VOLUME CALCULATOR</option>
                                                        
 													</select>
 
@@ -329,24 +321,24 @@
                                             <td>_____</td>
                                             <td>_____</td>
                                             <td>Waiting</td>
-                                            <td>________</td>
+                                            <td>_____</td>
                                             <td>
                                                        <div class="form-group ">
                                                     <select class="form-control select-w sel-app" onChange="window.location.href = this.value">
                                                            <option class="" selected disabled>Select Apps to Use</option>
-														<option  value="#!/missionanalyze">MAP VIEWER</option>
-														<option   value="#!/missionanalyze">DVI</option>
-                                                        <option  value="#!/missionanalyze">DSM</option>
-                                                        <option  value="#!/missionanalyze">3D MODE</option>
-                                                        <option  value="#!/missionanalyze">KMZ EXPORT</option>
-                                                        <option value="#!/missionanalyze">POINT CLOUD</option>
-                                                        <option value="#!/missionanalyze">VOLUME CALCULATOR</option>
+														<option  value="#!/missionanalyze({missionId:missionId})">MAP VIEWER</option>
+														<option   value="#!/missionanalyze({missionId:missionId})">DVI</option>
+                                                        <option  value="#!/missionanalyze({missionId:missionId})">DSM</option>
+                                                        <option  value="#!/missionanalyze({missionId:missionId})">3D MODE</option>
+                                                        <option  value="#!/missionanalyze({missionId:missionId})">KMZ EXPORT</option>
+                                                        <option value="#!/missionanalyze({missionId:missionId})">POINT CLOUD</option>
+                                                        <option value="#!/missionanalyze({missionId:missionId})">VOLUME CALCULATOR</option>
                                                        
 													</select>
 
                                                 </div>
                                             </td>
-                                            <td><a ui-sref="missionanalyze"><button type="button"  class="btn btn-gray">
+                                            <td><a ui-sref="missionanalyze({missionId:missionId})"><button type="button"  class="btn btn-gray">
 
               KMZ EXPORT</button></a></td>
                                     <td>_____</td>

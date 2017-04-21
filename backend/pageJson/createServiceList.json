@@ -15,18 +15,18 @@
         }, {
             "name": "description",
             "type": "text",
-            "tableRef": "expirdescriptionyDate",
+            "tableRef": "description",
             "placeholder": "Enter description",
             "id": "description",
             "url": ""
         }, {
-        "name": "file",
+        "name": "thumbnail",
         "type": "image",
-        "tableRef": "files",
+        "tableRef": "thumbnail",
         "option": "single",
         "size": "",
         "placeholder": "Enter file",
-        "id": "file",
+        "id": "thumbnail",
         "validation": ["", "trim", ""],
         "url": ""
     }
@@ -35,7 +35,7 @@
         "name": "submit",
         "action": "submitServiceList",
         "stateName": {
-            "page": "ServiceList",
+            "page": "page",
             "json": {
                 "id": "viewServiceList"
             }

@@ -17,12 +17,16 @@ var schema = new Schema({
     }],
     status: String,
     others: [{
-        name:String,//orthomosaic,mapViewer,DVI,DSM,threedMode,KMZ
-        file:String,
-        data:Schema.Types.Mixed,
+        serviceId: {
+            type: Schema.Types.ObjectId,
+            ref: 'ServiceList',
+            index: true
+        },
+        name: String, //orthomosaic,mapViewer,DVI,DSM,threedMode,KMZ
+        file: String,
+        data: Schema.Types.Mixed,
         status: {
-            type:String,
-            enum: [""]
+            type: String
         }
     }]
 });

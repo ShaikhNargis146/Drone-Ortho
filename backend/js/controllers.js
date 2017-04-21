@@ -10,17 +10,26 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     })
 
 
-    .controller('missionCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+    .controller('missionCtrl', function ($scope, TemplateService, NavigationService,shareMission, $timeout, $state) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("missions");
         $scope.menutitle = NavigationService.makeactive("missions");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         var formData = {}
+        $scope.missionData={};
         NavigationService.apiCall("Mission/search", formData, function (data) {
             if (data.value === true) {
                 $scope.missionData = data.data.results;
                 console.log("data found successfully", $scope.missionData);
+                
+            } else {
+                //  toastr.warning('Error submitting the form', 'Please try again');
+            }
+        });
+         NavigationService.apiCall("ServiceList/search", formData, function (data) {
+            if (data.value === true) {
+                $scope.serviceListData = data.data.results;
             } else {
                 //  toastr.warning('Error submitting the form', 'Please try again');
             }
@@ -32,7 +41,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("cadlineworkapp");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-          var formData = {}
+        var formData = {}
         NavigationService.apiCall("CadLineWork/search", formData, function (data) {
             if (data.value === true) {
                 $scope.cadLineWorkData = data.data.results;
@@ -105,12 +114,49 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
     })
 
-    .controller('missionanalyzeCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+    .controller('missionanalyzeCtrl', function ($scope, $stateParams, shareMission,TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("mission-analyze");
         $scope.menutitle = NavigationService.makeactive("missions");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        var formData = {}
+        formData._id = $stateParams.missionId;
+        NavigationService.apiCall("Mission/getOne", formData, function (data) {
+            if (data.value === true) {
+                $scope.missionDetails = data.data;
+                shareMission.setval( $scope.missionDetails)
+                console.log("data found successfully", $scope.missionDetails);
+            } else {
+                //  toastr.warning('Error submitting the form', 'Please try again');
+            }
+        });
+        NavigationService.apiCall("ServiceList/getByMission", formData, function (data) {
+            if (data.value === true) {
+                $scope.serviceListData = data.data;
+                $scope.serviceListData = _.chunk($scope.serviceListData, 2);
+                console.log("data found successfully", $scope.serviceListData);
+            } else {
+                //  toastr.warning('Error submitting the form', 'Please try again');
+            }
+        });
+        $scope.serviceRequest = function (serviceReq) {
+            others = {};
+            others.serviceId = serviceReq._id;
+            others.name = serviceReq.name;
+            others.status = "requested";
+             $scope.missionDetails.others.push(others);
+            NavigationService.apiCall("Mission/save",  $scope.missionDetails, function (data) {
+                if (data.value === true) {
+                    console.log("data saved successfully");
+                    $state.reload();
+                } else {
+                    //  toastr.warning('Error submitting the form', 'Please try again');
+                }
+            });
+
+        }
+
     })
     .controller('missiondetailCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file

@@ -34,7 +34,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             controller: 'createmissionCtrl',
         })
         .state('missionanalyze', {
-            url: "/missionanalyze",
+            url: "/missionanalyze/:missionId",
             templateUrl: "views/template.html",
             controller: 'missionanalyzeCtrl',
         })
@@ -769,4 +769,18 @@ firstapp.directive('ngFiles', ['$parse', function ($parse) {
     return {
         link: fn_link
     }
-}])
+}]);
+
+firstapp.factory('shareMission', function(){
+    var missionData={},setval,getval;
+    setval=function(obj){
+       missionData=obj;
+    }
+    getval=function(){
+        return missionData;
+    }
+  return {
+      setval:setval,
+      getval:getval
+  };
+});
