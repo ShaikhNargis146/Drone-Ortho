@@ -1,4 +1,11 @@
 var schema = new Schema({
+    firstName: String,
+    lastName: String,
+    mobile: String,
+    email: {
+        type: String,
+        validate: validators.isEmail(),
+    },
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User',
@@ -13,7 +20,7 @@ var schema = new Schema({
         type: Number,
         default: 0
     },
-    DiscountAmount: {
+    discountAmount: {
         type: Number,
         default: 0
     },
@@ -23,18 +30,22 @@ var schema = new Schema({
         default: 0
     },
     billingAddress: {
-        address:String,
-        city:String,
-        zip:String,
-        state:String,
-        country:String
+        address: String,
+        streetAddress: String,
+        landmark: String,
+        city: String,
+        zip: String,
+        state: String,
+        country: String
     },
     shippingAddress: {
-        address:String,
-        city:String,
-        zip:String,
-        state:String,
-        country:String
+        address: String,
+        streetAddress: String,
+        landmark: String,
+        city: String,
+        zip: String,
+        state: String,
+        country: String
     },
     taxAmount: {
         type: Number,

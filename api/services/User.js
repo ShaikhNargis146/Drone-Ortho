@@ -252,7 +252,18 @@ var model = {
             data.googleAccessToken = accessToken;
             data.save(function () {});
         });
-    }
+    },
+    getcart: function (data, callback) {
+        this.findOne({
+            "_id": data._id
+        }, function (err, deleted) {
+            if (err) {
+                callback(err, null);
+            } else {
+                callback(null, deleted);
+            }
+        }).populate('cartProducts');
+    },
 
 };
 module.exports = _.assign(module.exports, exports, model);

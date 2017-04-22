@@ -132,7 +132,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
 
 
-    .controller('ProductCtrl', function ($scope, TemplateService, NavigationService, $timeout) {
+    .controller('ProductCtrl', function ($scope, TemplateService, $state, NavigationService, $timeout) {
         $scope.template = TemplateService.changecontent("product"); //Use same name of .html file
         $scope.menutitle = NavigationService.makeactive("Product"); //This is the Title of the Website
         TemplateService.title = $scope.menutitle;
@@ -143,7 +143,51 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.classb = '';
         $scope.classc = '';
 
+        NavigationService.callApi("Products/search", function (data) {
+            if (data.value === true) {
+                $scope.productData = data.data.results;
+                $scope.productData = _.chunk($scope.productData, 3)
+                console.log("data found successfully")
+            } else {
+                //  toastr.warning('Error submitting the form', 'Please try again');
+            }
+        });
+        $scope.viewDetail = 1;
+        $scope.showDetails = function (data) {
+            $scope.viewDetail = data;
+            console.log($scope.viewDetail);
+        }
 
+        $scope.addToCart = function (data) {
+            var formdata = {};
+            formdata = $.jStorage.get('user')
+            console.log(formdata);
+            formdata.cartProducts.push($scope.productData[0][data - 1]._id);
+            if (formdata.cart) {
+                console.log("formdata.cart", formdata.cart);
+                formdata.cart.totalAmount = Number(formdata.cart.totalAmount) + Number($scope.productData[0][data - 1].price);
+
+            } else {
+                formdata.cart = {};
+                formdata.cart.totalAmount = Number($scope.productData[0][data - 1].price);
+            }
+            NavigationService.apiCallWithData("User/save", formdata, function (data) {
+                if (data.value === true) {
+                    NavigationService.apiCallWithData("User/getOne", formdata, function (data) {
+                        if (data.value === true) {
+                            console.log("data saved successfully", data)
+                            $.jStorage.set("user", data.data);
+                            $scope.template.userProfile = data.data;
+                            //  $state.go('mycart');
+                        }
+                    });
+
+                    $state.go('mycart');
+                } else {
+                    //  toastr.warning('Error submitting the form', 'Please try again');
+                }
+            });
+        }
         $scope.tabchange = function (tab, a) {
             $scope.tab = tab;
             if (a == 1) {
@@ -493,7 +537,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.formSubmitted = true;
         }
     })
-    .controller('MycartCtrl', function ($scope, TemplateService, NavigationService, $timeout) {
+    .controller('MycartCtrl', function ($scope, TemplateService, $filter, $state, NavigationService, $timeout) {
         $scope.template = TemplateService.changecontent("mycart"); //Use same name of .html file
         $scope.menutitle = NavigationService.makeactive("Mycart"); //This is the Title of the Website
         TemplateService.title = $scope.menutitle;
@@ -505,18 +549,84 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             console.log(data);
             $scope.formSubmitted = true;
         }
+        var formdata = {};
+        $scope.myCart = {}
+        formdata._id = $.jStorage.get('user')._id;
+        NavigationService.apiCallWithData("User/getcart", formdata, function (data) {
+            if (data.value === true) {
+                console.log("data saved successfully", data)
+                $scope.myCart = data.data;
+
+                //  $state.go('mycart');
+            }
+        });
+        $scope.addQuantity = function (data) {
+            $scope.myCart.cartProducts[data].quantity++;
+            // console.log("myCart.cartProducts", $scope.myCart.cartProducts[data]);
+        }
+        $scope.reduceQuantity = function (data) {
+            if ($scope.myCart.cartProducts[data].quantity > 1) {
+                $scope.myCart.cartProducts[data].quantity--;
+            }
+            // console.log("myCart.cartProducts", $scope.myCart.cartProducts[data])
+        }
+        $scope.checkout = function (formdata) {
+            formdata.cart.totalAmount = $filter('sumFilter')(formdata.cartProducts)
+            NavigationService.apiCallWithData("User/save", formdata, function (data) {
+                if (data.value === true) {
+                    NavigationService.apiCallWithData("User/getOne", formdata, function (data) {
+                        if (data.value === true) {
+                            console.log("data saved successfully", data)
+                            $.jStorage.set("user", data.data);
+                            $scope.template.userProfile = data.data;
+                            //  $state.go('mycart');
+                        }
+                    });
+                    $state.go('checkout');
+                } else {
+                    //  toastr.warning('Error submitting the form', 'Please try again');
+                }
+            });
+        }
+
     })
     .controller('CheckoutCtrl', function ($scope, TemplateService, NavigationService, $timeout) {
         $scope.template = TemplateService.changecontent("checkout"); //Use same name of .html file
         $scope.menutitle = NavigationService.makeactive("Checkout"); //This is the Title of the Website
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-
+        $scope.formdata = {};
         $scope.formSubmitted = false;
 
         $scope.submitForm = function (data) {
             console.log(data);
             $scope.formSubmitted = true;
+        }
+        $scope.sameAsBil = function (data) {
+            if (document.getElementById("agree").checked) {
+                $scope.formdata.shippingAddress = data;
+            } else {
+                $scope.formdata.shippingAddress = {};
+            }
+        }
+        var formdata = {};
+        $scope.myCart = {}
+        $scope.myCart = $.jStorage.get('user');
+        $scope.saveOrder = function (formdata) {
+            formdata.products = $scope.myCart.cartProducts;
+            formdata.user = $scope.myCart._id;
+            formdata.totalAmount = $scope.myCart.cart.totalAmount;
+            if ($scope.myCart.cart.discountCoupon) {
+                formdata.discountCoupon = $scope.myCart.cart.discountCoupon;
+            }
+            if ($scope.myCart.cart.discountAmount) {
+                formdata.discountAmount = $scope.myCart.cart.discountAmount;
+            }
+            NavigationService.apiCallWithData("ProductOrders/save", formdata, function (data) {
+                if (data.value === true) {
+                    console.log("data saved successfully")
+                }
+            });
         }
     })
     .controller('ContinueCtrl', function ($scope, TemplateService, NavigationService, $timeout) {

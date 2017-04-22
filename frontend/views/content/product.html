@@ -189,34 +189,34 @@ Autonomous</h4>
 
     <div class="package product-margin">
             <h2 class="text-center">Choose Your Package</h2>
-         <div class="tab makeActive-service" ng-init="viewDetail=1">
+         <div class="tab makeActive-service" >
                 
-                  <ul class="list-inline row-flex">
-                      <li class="package-bg col-flex text-center view-data"  ng-click="viewDetail = 1;" ng-class="{'active': viewDetail==1, '': viewDetail!==1}">
+                  <ul class="list-inline row-flex" ng-repeat="prod in productData">
+                      <li class="package-bg col-flex text-center view-data"  ng-click="showDetails(viewDetail=1)">
                          <div class="support-icon w0">
-                            <h3 class="text-uppercase white">Package 1</h3>
-                            <h4 class="white bordernone">UAV ONLY (Default)</h4>
+                            <h3 class="text-uppercase white">{{prod[0].name}}</h3>
+                            <h4 class="white bordernone">{{prod[0].description}}</h4>
                          </div>
                      </li>
 
-                     <li class="package-bg col-flex  text-center  view-data" ng-click="viewDetail=2;" ng-class="{'active': viewDetail==2, '': viewDetail!==2}">               
+                     <li class="package-bg col-flex  text-center  view-data" ng-click="showDetails(viewDetail=2)">               
                          <div class="support-icon w0">
-                           <h3 class="text-uppercase white"> Package 2</h3>
-                             <h4 class="white bordernone">UAV WITH SINGLE ROVER</h4>
+                           <h3 class="text-uppercase white">{{prod[1].name}}</h3>
+                             <h4 class="white bordernone">{{prod[1].description}}</h4>
                          </div>
                      </li>
 
-                     <li class="package-bg col-flex text-center view-data" ng-click="viewDetail=3;" ng-class="{'active': viewDetail==3, '': viewDetail!==3}">
+                     <li class="package-bg col-flex text-center view-data" ng-click="showDetails(viewDetail=3)">
                         <div class="support-icon w0">
-                        <h3 class="text-uppercase white">Package 3</h3>
-                           <h4 class="white bordernone">UAV WITH DUAL ROVERS</h4>
+                        <h3 class="text-uppercase white">{{prod[2].name}}</h3>
+                           <h4 class="white bordernone">{{prod[2].description}}</h4>
                         </div>
                      </li>
                   </ul>
                </div>
 
 
-            <div class="design" ng-show="viewDetail==1">
+            <div class="design" ng-if="viewDetail==1">
                <div class="pack-one text-center">
                    <div class="image-one inline-block">
                     <img src="frontend/img/product/drones.png" class="img-responsive" alt="">
@@ -231,13 +231,13 @@ Autonomous</h4>
               </div>
                <div class="pad-overall">
                 <h2 class="text-center text-uppercase">uav only</h2>
-                <button class="button text-uppercase" ui-sref="mycart">buy now</button>
+                <button class="button text-uppercase" ng-click="addToCart(viewDetail)">buy now</button>
                </div>
             </div>
 
 
 
-    <div class="design" ng-show="viewDetail==2">
+    <div class="design" ng-if="viewDetail==2">
               <h3>UAV With Single Rovers</h3>
               <div class="uav-inner">
                   <div class="row">
@@ -268,12 +268,12 @@ Autonomous</h4>
              <h4>Juniper Allegro 2</h4>
              <p>Ergonomically styled, with a glove-friendly QWERTY + numeric keyboard that’s perfect for fast data entry and faster processing, the quintessential industry favorite Allegro 2 now comes with upgraded connectivity, battery power, display visibility, and a better touchscreen. Crafted for high volume data collection and maximum efficiency, the Allegro 2 remains the standard for drone data collection and analysis globally.</p>            
               </div>
-              <button class="button text-uppercase" ui-sref="mycart">buy now</button>
+              <button class="button text-uppercase" ng-click="addToCart(viewDetail)">buy now</button>
        </div>
                
 
 
-        <div class="design" ng-show="viewDetail==3">
+        <div class="design" ng-if="viewDetail==3">
               <h3>UAV With Dual Rovers</h3>
                 <div class="uav-inner">
                   <div class="row">
@@ -303,7 +303,7 @@ Autonomous</h4>
               <h4>Juniper Allegro 2</h4>
               <p>Ergonomically styled, with a glove-friendly QWERTY + numeric keyboard that’s perfect for fast data entry and faster processing, the quintessential industry favorite Allegro 2 now comes with upgraded connectivity, battery power, display visibility, and a better touchscreen. Crafted for high volume data collection and maximum efficiency, the Allegro 2 remains the standard for drone data collection and analysis globally.</p>            
               </div>
-              <button class="button text-uppercase" ui-sref="mycart">buy now</button>  
+              <button class="button text-uppercase" ng-click="addToCart(viewDetail)">buy now</button>  
          </div> 
 
 

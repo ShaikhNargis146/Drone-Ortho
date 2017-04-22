@@ -5,6 +5,7 @@ var schema = new Schema({
         unique: true
     },
     description: String,
+    package: String,
     image: {
         type: String,
         default: ""

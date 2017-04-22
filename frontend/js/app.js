@@ -242,4 +242,15 @@ firstapp.directive('onlyDigits', function() {
     };
 });
 
+firstapp.filter('sumFilter', function() {
+     
+     return function(cartProducts) {
+         var taxTotal = 0;
+         _.forEach(cartProducts,function(n){
+            taxTotal = taxTotal + (n.price*n.quantity); 
+         });
+         return taxTotal;
+     };
+ });
+
 

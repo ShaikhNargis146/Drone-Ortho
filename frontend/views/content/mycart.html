@@ -17,44 +17,23 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="mycart-row1">
-        <td>01</td>
-        <td>FC-250</td>
-        <td>UAV with Single Rover</td>
+      <tr class="mycart-row1" ng-repeat="cart in myCart.cartProducts">
+        <td>{{$index+1}}</td>
+        <td>{{cart.name}}</td>
+        <td>{{cart.package}}</td>
         <td class="qty-detail">
-        <i class="fa fa-minus-square" aria-hidden="true"></i>
-        <input class="form-control" type="text" value="03">
-        <i class="fa fa-plus-square" aria-hidden="true"></i>
+        <i class="fa fa-minus-square" ng-click="reduceQuantity($index)" aria-hidden="true"></i>
+        <input class="form-control" type="text" ng-model="cart.quantity" ng-init="cart.quantity=1">
+        <i class="fa fa-plus-square" ng-click="addQuantity($index)" aria-hidden="true"></i>
         </td>
-        <td>$1000</td>
-        <td>$3000</td>
+        <td>${{cart.price}}</td>
+        <td>${{cart.price*cart.quantity}}</td>
       </tr>
-      <tr class="mycart-row1">
-        <td>02</td>
-        <td>DFM</td>
-        <td>Premium</td>
-        <td class="qty-detail">  
-        <i class="fa fa-minus-square" aria-hidden="true"></i>
-        <input class="form-control" type="text" value="03">
-        <i class="fa fa-plus-square" aria-hidden="true"></i>
-        </td>
-        <td>$3000</td>
-        <td>$9000</td>
-      </tr>
-      <tr class="mycart-row1">
-        <td>02</td>
-        <td>CAD</td>
-        <td>CAD Line Work</td>
-        <td>01</td>
-        <td>$3000</td>
-        <td>$9000</td>
-      </tr>
-     
     </tbody>
     <tfoot>
        <tr class="mycart-row1">
        <td class="total" colspan="5">Total Amount:</td> 
-       <td class="text-center total">$12000</td>  
+       <td class="text-center total">${{myCart.cartProducts | sumFilter}}</td> 
       </tr>
     </tfoot>
   </table>
@@ -62,12 +41,12 @@
   <div class="row">
     <div class="col-md-6">
   <div class="clearfix">
-<div class="float-l mycart-coupon-box"><span class="weight-700">Apply coupon code :</span><input type="text" class="coupon-box ml-10"></div>
+<div class="float-l mycart-coupon-box"><span class="weight-700">Apply coupon code :</span><input type="text" class="coupon-box ml-10" ng-model="myCart.cart.discountCoupon"></div>
   </div>
     </div>
     <div class="col-md-6">
   <div>
-  <button type="submit" class="btn btn-main btn-mycart float-r" ui-sref="checkout">Checkout</button>
+  <button type="submit" class="btn btn-main btn-mycart float-r" ng-click="checkout(myCart)">Checkout</button>
   </div>
   <div>
   <!--<button type="submit" class="btn btn-main btn-back btn-mycart float-r">Back</button>-->
