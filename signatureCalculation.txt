@@ -1,0 +1,33 @@
+url = "https://app.unifli.aero/api/missions/"
+date = moment.utc().format('YYYY-MM-DD HH:mm:ss'); // timestamp with UTC time
+method = 'GET'
+nonce = '92301kjsadln98123124'
+publicToken = "TYQ8R9w3BZJ25zvKQhbFfE3XwAj2YtQAyUaVcOI3hsvEMTIo7p6FQRB3viqAgXRB";
+privateToken = "RNTY5FYNZHDnm7hWn3Z7v7qHaK8lkp2YAmAXR7Irp29wsmV47PA1JtJXQ5KwOdh2";
+header1 = "user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"
+header2 = "content-length: 2560"
+//get key+nonce+date
+hkey = privateToken + nonce + date;
+sign_parts = [method, url, date, publicToken, nonce, header1, header2]
+
+//join with \n
+sign_data = sign_parts.join("\r\n")
+//calc hmac
+sign = crypto.createHmac('sha256', hkey).update(sign_data).digest('hex')
+console.log("", url + sign);
+request({
+    url: url,
+    method: method,
+    headers: {
+        'X-E38-Date': date,
+        'X-E38-Nonce': nonce,
+        'authorization': "Signature token=" + publicToken + "; signature=" + sign + '; headers=user-agent,content-length'
+    }
+}, function (err, httpResponse) {
+    //err
+    res.json({
+        value: true,
+        data: httpResponse
+    });
+
+});

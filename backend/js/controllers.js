@@ -10,24 +10,24 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     })
 
 
-    .controller('missionCtrl', function ($scope, TemplateService, NavigationService,shareMission, $timeout, $state) {
+    .controller('missionCtrl', function ($scope, TemplateService, NavigationService, shareMission, $timeout, $state) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("missions");
         $scope.menutitle = NavigationService.makeactive("missions");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         var formData = {}
-        $scope.missionData={};
+        $scope.missionData = {};
         NavigationService.apiCall("Mission/search", formData, function (data) {
             if (data.value === true) {
                 $scope.missionData = data.data.results;
                 console.log("data found successfully", $scope.missionData);
-                
+
             } else {
                 //  toastr.warning('Error submitting the form', 'Please try again');
             }
         });
-         NavigationService.apiCall("ServiceList/search", formData, function (data) {
+        NavigationService.apiCall("ServiceList/search", formData, function (data) {
             if (data.value === true) {
                 $scope.serviceListData = data.data.results;
             } else {
@@ -71,35 +71,45 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 $scope.formdata.append(key, value);
             });
         };
+        var dt1 = new Date();
+        var utcDate = dt1.toUTCString();
         var nonce = "F6xfnbeo7vqZh";
-        var timestamp = "20170202213339";
-        var secretkey = "XgHBGF6H7vlRxLuqIXwa8cG6hb3m41njBy9k49SZAiTodaVimqL7iR20qcenqUmh";
-        var publickey = "qw6FfDjo6YLo2mEeyi8uZYMv1fNnSBw8Drw7m27VsIG7UUTKppvOSTELH5XZpNzA";
+        var timestamp = "20170503213339";
+        var secretkey = "RNTY5FYNZHDnm7hWn3Z7v7qHaK8lkp2YAmAXR7Irp29wsmV47PA1JtJXQ5KwOdh2";
+        var publickey = "TYQ8R9w3BZJ25zvKQhbFfE3XwAj2YtQAyUaVcOI3hsvEMTIo7p6FQRB3viqAgXRB";
         var key;
         var payloadhash;
+        var signArr = [];
         var signString;
+        var sha256 = CryptoJS.algo.SHA256.create();
+        sha256.update("{}");
+
+        var hash = sha256.finalize();
         // NOW UPLOAD THE FILES.
         $scope.uploadFiles = function (formdata) {
             key = nonce + timestamp + secretkey;
-            payloadhash = CryptoJS.HmacSHA256(key, nonce)
-            signString = "GET" + "\\n" +
-                "https://app.unifli.aero/api/missions/" + "\\n" +
-                timestamp + "\\n" +
-                publickey + "\\n" +
-                nonce + "\\n" +
-                "X-E38-Date:" + timestamp + "\\n" +
-                "X-E38-Nonce:" + nonce + "\\n" +
-                payloadhash
-            var signature = CryptoJS.HmacSHA256(key, signString)
+            payloadhash = CryptoJS.HmacSHA256(key, nonce + hash);
+            signArr = ["GET", "https://app.unifli.aero/api/missions/", timestamp, publickey, nonce, "user-agent:Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36", "content-length:3495"]
+            // signArr.push({"content-length":"3495"});
+            console.log("signArr---", signArr.join("\r\n"));
+            signString = "GET" + "\n" +
+                "https://app.unifli.aero/api/missions/" + "\n" +
+                timestamp + "\n" +
+                publickey + "\n" +
+                nonce + "\n" +
+                payloadhash + "\n" +
+                "user-agent:Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36" + "\n" +
+                "content-length:3495"
+            var signature = CryptoJS.HmacSHA256(key, signArr.join("\r\n"))
             console.log("signature", signature);
 
             $scope.formdata.append("description", formdata.description)
             var request = {
                 method: 'GET',
-                url: 'https://app.unifli.aero/api/missions/',
+                url: 'https://app.unifli.aero/api/missions/' + signature,
                 headers: {
                     "Content-type": undefined,
-                    "X-E38-Date": "20170202213339",
+                    "X-E38-Date": "timestamp",
                     "X-E38-Nonce": "F6xfnbeo7vqZh",
                     "Authorization": signature
                 }
@@ -114,7 +124,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
     })
 
-    .controller('missionanalyzeCtrl', function ($scope, $stateParams, shareMission,TemplateService, NavigationService, $timeout, $state) {
+    .controller('missionanalyzeCtrl', function ($scope, $stateParams, shareMission, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("mission-analyze");
         $scope.menutitle = NavigationService.makeactive("missions");
@@ -125,7 +135,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         NavigationService.apiCall("Mission/getOne", formData, function (data) {
             if (data.value === true) {
                 $scope.missionDetails = data.data;
-                shareMission.setval( $scope.missionDetails)
+                shareMission.setval($scope.missionDetails)
                 console.log("data found successfully", $scope.missionDetails);
             } else {
                 //  toastr.warning('Error submitting the form', 'Please try again');
@@ -145,8 +155,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             others.serviceId = serviceReq._id;
             others.name = serviceReq.name;
             others.status = "requested";
-             $scope.missionDetails.others.push(others);
-            NavigationService.apiCall("Mission/save",  $scope.missionDetails, function (data) {
+            $scope.missionDetails.others.push(others);
+            NavigationService.apiCall("Mission/save", $scope.missionDetails, function (data) {
                 if (data.value === true) {
                     console.log("data saved successfully");
                     $state.reload();

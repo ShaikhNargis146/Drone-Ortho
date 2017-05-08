@@ -27,7 +27,7 @@
                 <ul class="list-inline pull-right header-list">
                     <li ng-if="!template.userProfile" ng-click="login();" class="btn btn-white">Log in</li>
                     <li ng-if="template.userProfile" ng-click="logout();" class="btn btn-white">Log Out</li>                    
-                    <li class="btn btn-join list-padding" ui-sref="member-page">Join</li>
+                    <li class="btn btn-join list-padding" ui-sref="member({id:1})">Join</li>
                 </ul>
             </div>
             <div class="sidemenu" ng-show="showMenu">
