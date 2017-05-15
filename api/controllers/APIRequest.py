@@ -3,6 +3,7 @@ import hashlib
 from datetime import datetime
 # import requests
 import logging
+import sys
 
 def derived_key(key, nonce, date=None):
     print"this"
@@ -17,7 +18,7 @@ method = 'get'
 nonce = '92301kjsadln98123124'
 publicToken = 'TYQ8R9w3BZJ25zvKQhbFfE3XwAj2YtQAyUaVcOI3hsvEMTIo7p6FQRB3viqAgXRB'
 privateToken = 'RNTY5FYNZHDnm7hWn3Z7v7qHaK8lkp2YAmAXR7Irp29wsmV47PA1JtJXQ5KwOdh2'
-header1 = "user-agent: python-requests/2.13.0"
+header1 = "user-agent: "+sys.argv[1]
 header2 = "content-length: "
 
 

@@ -3,6 +3,9 @@ var request = require('request');
 var crypto = require('crypto');
 var moment = require('moment');
 var PythonShell = require('python-shell');
+var https = require("https");
+var unirest = require('unirest');
+
 PythonShell.defaultOptions = {
     scriptPath: '/home/wohlig/Documents/htdocs/unifli-backend/api/controllers'
 };
@@ -79,41 +82,113 @@ var controller = {
     },
 
     getSign: function (req, res) {
+        console.log('User-Agent: ' + req.headers['user-agent']);
+
         var returnSign;
         PythonShell.run('APIRequest.py', {
-            args: ['hello', 'world']
+            args: [req.headers['user-agent'], 'world']
         }, function (err, results) {
             if (err) throw err;
 
             // results is an array consisting of messages collected during execution 
             returnSign = results;
-            console.log('results:  %j', returnSign);
-            url = "https://app.unifli.aero/api/missions/"
-            date = returnSign[1]; // (new Date()).toISOString().slice(0, 19).replace(/[^0-9]/g, "") // moment.utc().format('YYYY-MM-DD HH:mm:ss'); // timestamp with UTC time
-            console.log('UTC/GMT 0: ' + date);
+            var newHeader = returnSign[3].replace(/'/g, '"');
+            newHeader = JSON.parse(newHeader);
+            newHeader["user-agent"] = req.headers['user-agent'];
+            console.log("newHeader--- ", newHeader);
+            var formdata = {};
+            formdata.description = "testing mission"
+            formdata.collected_at = returnSign[1];
+            formdata.box = {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [-70.6626883860171, -33.47000899895843,
+                            0.0
+                        ],
+                        [-70.6626883860171, -33.4577211167897,
+                            0.0
+                        ],
+                        [-70.6504005205141, -33.4577211167897,
+                            0.0
+                        ],
+                        [-70.6504005205141, -33.47000899895843,
+                            0.0
+                        ],
+                        [-70.6626883860171, -33.47000899895843,
+                            0.0
+                        ]
+                    ]
+                ]
+            };
+            var requestBody = {
+                url: "https://app.unifli.aero/api/missions/",
+                method: "GET",
+                headers: newHeader
+            };
+            // var api_options = {
+            //     hostname: "app.unifli.aero",
+            //     port: 443,
+            //     path: "/api/missions/",
+            //     method: 'GET',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //         'authorization': newHeader.authorization,
+            //         "X-E38-Nonce": "92301kjsadln98123124",
+            //         "X-E38-Date": returnSign[1]
+            //     }
+            // };
 
-            method = 'GET'
-           
-            request({
-                url: url,
-                method: method,
-                headers: returnSign[3],
-                timeout:"100",
-                verify: "False"
+            // unirest.get('https://app.unifli.aero/api/missions/')
+            //     .headers({
+            //         'Accept': 'application/json',
+            //         'Content-Type': 'application/json',
+            //         'authorization': newHeader.authorization,
+            //         "X-E38-Nonce": "92301kjsadln98123124",
+            //         "X-E38-Date": returnSign[1]
+            //     })
+            //     .end(function (response) {
+            //         console.log(response.body);
+            //     });
+
+            // Callback function is used to deal with response
+            // var callback = function (response) {
+            //     // Continuously update stream with data
+            //     var body = '';
+            //     response.on('data', function (data) {
+            //         body += data;
+            //     });
+
+            //     response.on('end', function () {
+            //         // Data received completely.
+            //         console.log(body);
+            //     });
+            // }
+            // var req = https.request(api_options, function (res) {
+            //     res.on('data', function (data) {
+            //         process.stdout.write(data);
+            //     });
+            // });
+            // // write data to request body
+            // req.write("abc");
+            // req.end();
+            request.get({
+                url: requestBody.url,
+                headers: newHeader
             }, function (err, httpResponse) {
-                //err
                 console.log(err);
-                res.json({
-                    value: true,
-                    data: httpResponse
-                });
-
+                res.callback(err, httpResponse);
             });
+            // var url = 'http://requestb.in/ze0r0vze'
+            // request(requestBody, function (error, response, body) {
+            //     if (!error) {
+            //         console.log(response);
+            //     }
+            // });
         });
 
 
     }
-
 
 };
 module.exports = _.assign(module.exports, controller);
