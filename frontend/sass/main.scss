@@ -1640,6 +1640,18 @@ footer {
 .click-p{
     color: #091c1a;
 }
+
+//shipping
+
+.shipping{
+   .padd30{
+    padding:30px;
+   } 
+   .border{
+    border:1px solid lightgray;
+   }
+}
+
 @import "fancybox-override";
 @import "ruchi";
 @import "mobile";

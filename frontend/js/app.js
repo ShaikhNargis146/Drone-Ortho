@@ -117,6 +117,11 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
             templateUrl: templateURL,
             controller: 'TermsandConditionsCtrl'
         })
+        .state('shipping', {
+            url: "/shipping",
+            templateUrl: templateURL,
+            controller: 'ShippingCtrl'
+        })
         .state('form', {
             url: "/form",
             templateUrl: templateURL,
