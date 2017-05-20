@@ -297,6 +297,7 @@ a,
         color: #fff;
     }
 }
+
 .no-menu-scroll {
     .content.template {
         overflow: hidden;
@@ -732,8 +733,9 @@ a,
 
 //scss for how-we-work
 .support-heading2 {
-         padding-top: 54%;
+    padding-top: 54%;
 }
+
 .bg-work {
     background: url("../img/work.jpg");
     background-repeat: no-repeat;
@@ -1312,7 +1314,7 @@ h2.step.step-2-top:before {
     background-size: cover;
     width: 100%;
     margin-top: -110px;
-        background-position: center center;
+    background-position: center center;
 }
 
 .service-drone {
@@ -1496,7 +1498,6 @@ h2.step.step-2-top:before {
 }
 
 // scss for footer
-
 footer {
     background: #0f1613;
     p {
@@ -1511,23 +1512,22 @@ footer {
         font-size: 24px;
     }
     .sp-terms {
-             border-left: 1px solid #74ada9;
-    padding-left: 12px;
-    margin-left: 12px;
-    
- }
- a{
-      color: #74ada9;
-      font-size: 16px;
-      font-family: 'Abel', sans-serif;
-  text-decoration: none;
-    font-weight: 400;
- }
- a:hover{
-     text-decoration: none;
-     cursor: pointer;
-     color: #74ada9;
- }
+        border-left: 1px solid #74ada9;
+        padding-left: 12px;
+        margin-left: 12px;
+    }
+    a {
+        color: #74ada9;
+        font-size: 16px;
+        font-family: 'Abel', sans-serif;
+        text-decoration: none;
+        font-weight: 400;
+    }
+    a:hover {
+        text-decoration: none;
+        cursor: pointer;
+        color: #74ada9;
+    }
 }
 
 // Ready Modal Css
@@ -1570,7 +1570,6 @@ footer {
 // .doneLoading:hover {
 //     cursor: pointer;
 // }
-
 .member-input2 {
     border: 2px solid rgba(5, 77, 73, 0.5);
     // border-bottom: 2px solid rgba(5, 77, 73, 0.5);
@@ -1587,17 +1586,20 @@ footer {
 .modal-backdrop.in {
     opacity: 0.9;
 }
-.f-size{
+
+.f-size {
     font-size: 65px !important;
 }
+
 #map {
     height: 250px;
     img {
-    opacity: 1;
+        opacity: 1;
+    }
 }
-}
+
 // google input change
-#pac-input{
+#pac-input {
     height: 25px;
     position: absolute;
     padding: 8px;
@@ -1605,53 +1607,138 @@ footer {
     left: auto !important;
     top: 5px !important;
     font-size: 12px;
-        width: 205px;
-        
+    width: 205px;
 }
 
 // google input change end
-
-.service-content--pointer:hover{
-    cursor:pointer;
+.service-content--pointer:hover {
+    cursor: pointer;
 }
-.service-content-arrow{
-       
+
+.service-content-arrow {
     margin-top: 15px;
-  opacity: 0;
+    opacity: 0;
     color: #04423b;
 }
-.view-data.active{
-    .service-content-arrow{
+
+.view-data.active {
+    .service-content-arrow {
         opacity: 1;
     }
 }
-.support-icon:hover{
-    cursor:pointer;
+
+.support-icon:hover {
+    cursor: pointer;
 }
-.mem-for{
+
+.mem-for {
     margin: 0 35px !important;
 }
-.total-amount{
+
+.total-amount {
     text-align: right;
 }
-.total-amt-cen{
+
+.total-amt-cen {
     font-size: 20px !important;
 }
-.click-p{
+
+.click-p {
     color: #091c1a;
 }
 
 //shipping
-
-.shipping{
-   .padd30{
-    padding:30px;
-   } 
-   .border{
-    border:1px solid lightgray;
-   }
+.mar-t {
+    margin-top: 40px;
+}
+.mar-b{
+    margin-bottom:40px;
+}
+.mar-l{
+    margin-left:80px;
+}
+.shipping-pay {
+    h3 {
+        color: darkgray!important;
+        margin: 0;
+    }
 }
 
+.padd30 {
+    padding: 10px 30px;
+}
+
+.shipping {
+    label {
+        color: gray;
+    }
+    h3 {
+        color: black;
+    }
+    .border {
+        border: 1px solid lightgray;
+        margin: 30px 150px;
+    }
+    .outerborder {
+        border: 3px solid lightgray;
+        padding: 5px 15px;
+    }
+    .border-bottom {
+        border-bottom: 1px solid lightgray;
+        h3 {
+            padding-left: 10px;
+        }
+        p {
+            color: black;
+            padding-right: 10px;
+        }
+    }
+}
+
+.select-bg {
+    background: none;
+    width: 255px;
+    color: gray;
+    height: 35px;
+}
+
+.phone-width {
+    width: 300px;
+}
+
+.shipping-checkbox {
+    label {
+        font-size: 25px;
+        padding-left: 77px;
+        padding-bottom: 10px;
+    }
+    input[type="checkbox"]{
+        height: 20px;
+        width: 20px;
+    }
+    .btn-size{
+    width: 200px;
+    height: 47px;
+    border-radius: 5px;
+    font-size: 24px;
+   
+    color: white;
+    border: none;
+    letter-spacing: 0.5px;
+    }
+    .btn-gray{
+ background-color: lightgray;
+    }
+    .btn-primary{
+        margin-left: 20px;
+background-color: #00bcd4;
+    }
+}
+.mar130{
+    margin-left: 130px;
+    margin-bottom: 20px;
+}
+//timeline
 @import "fancybox-override";
 @import "ruchi";
 @import "mobile";
