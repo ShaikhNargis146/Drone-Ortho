@@ -10780,7 +10780,8 @@ header.side-header {
   left: 0;
   position: fixed;
   top: 66px;
-  width: 220px;
+  width: 320px;
+  /*width:440px !important;*/
   z-index: 2147483644; }
 
 header.side-header.light-skin {

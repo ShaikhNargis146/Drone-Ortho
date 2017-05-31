@@ -424,6 +424,21 @@ $trans-black: rgba( black,
     z-index: 99 !important;
 }
 
+.side-header {
+    overflow-y: auto;
+    width: 440px;
+}
+
+// header.side-header {
+//   background: #263238 none repeat scroll 0 0;
+//   height: 100%;
+//   left: 0;
+//   position: fixed;
+//   top: 66px;
+//   width: 320px;
+//   /*width:440px !important;*/
+//   z-index: 2147483644; }
+
 .modal-content {
     overflow: hidden;
 }
@@ -736,10 +751,6 @@ form.search-form {
 
 .tableData {
     text-align: center;
-}
-
-.side-header {
-    overflow-y: auto;
 }
 
 // .form-control,
