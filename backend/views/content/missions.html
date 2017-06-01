@@ -1,7 +1,4 @@
 <div class="page-container">
-
-
-
     <div class="page-title">
         <div class="title-env">
             <h1 class="title">Missions</h1>
@@ -110,7 +107,6 @@
                         </thead>
                         <tbody style="white-space:nowrap;">
                             <tr ng-repeat="mis in missionData">
-                              
                                 <th><a ui-sref="missiondetail" class="id-underline">{{mis._id}}</th>
                                             <td>In Process</td>
                                             <td>{{mis.createdAt | date}}</td>
@@ -154,7 +150,6 @@
                                                         <option  value="#!/missionanalyze({missionId:missionId})">VOLUME CALCULATOR</option>
                                                        
 													</select>
-
                                         </div>
                                     </td>
                                     <td>
@@ -250,7 +245,6 @@
                                                         <option value="#!/missionanalyze({missionId:missionId})">VOLUME CALCULATOR</option>
                                                        
 													</select>
-
                                         </div>
                                     </td>
                                     <td><a ui-sref="missionanalyze({missionId:missionId})"><button type="button" class="btn btn-gray">
@@ -380,6 +374,4 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
