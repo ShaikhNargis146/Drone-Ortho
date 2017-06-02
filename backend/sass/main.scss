@@ -422,6 +422,8 @@ $trans-black: rgba( black,
 .side-header,
 .top-bar {
     z-index: 99 !important;
+    height: 85px;
+    border-bottom: 1px solid lightgray;
 }
 
 .side-header {
@@ -438,7 +440,6 @@ $trans-black: rgba( black,
 //   width: 320px;
 //   /*width:440px !important;*/
 //   z-index: 2147483644; }
-
 .modal-content {
     overflow: hidden;
 }
@@ -1212,7 +1213,10 @@ body {
     font-size: 12px;
     line-height: 120%;
 }
-.xe-widget.xe-counter, .xe-widget.xe-counter-block .xe-upper, .xe-widget.xe-progress-counter .xe-upper {
+
+.xe-widget.xe-counter,
+.xe-widget.xe-counter-block .xe-upper,
+.xe-widget.xe-progress-counter .xe-upper {
     background: #fff;
     padding: 28px;
     line-height: 1;
@@ -1221,18 +1225,22 @@ body {
     margin-bottom: 20px;
 }
 
-
 .xe-widget {
     position: relative;
 }
 
-.xe-widget.xe-counter .xe-label .num, .xe-widget.xe-counter-block .xe-upper .xe-label .num, .xe-widget.xe-progress-counter .xe-upper .xe-label .num {
+.xe-widget.xe-counter .xe-label .num,
+.xe-widget.xe-counter-block .xe-upper .xe-label .num,
+.xe-widget.xe-progress-counter .xe-upper .xe-label .num {
     display: block;
     font-size: 28px;
     font-weight: 400;
     color: #3e3f3f;
 }
-.xe-widget.xe-counter .xe-label span, .xe-widget.xe-counter-block .xe-upper .xe-label span, .xe-widget.xe-progress-counter .xe-upper .xe-label span {
+
+.xe-widget.xe-counter .xe-label span,
+.xe-widget.xe-counter-block .xe-upper .xe-label span,
+.xe-widget.xe-progress-counter .xe-upper .xe-label span {
     display: block;
     font-style: normal;
     font-size: 10px;
@@ -1246,6 +1254,7 @@ body {
     width: auto;
     background: none;
 }
+
 [class*=fa-] {
     display: inline-block;
     font: normal normal normal 14px/1 FontAwesome;
@@ -1261,35 +1270,112 @@ body {
     border-radius: 10px 10px 10px 10px;
     padding: 0px 10px;
 }
-.bg-lg{
+
+.bg-lg {
     font-size: 11px !important;
 }
- .btn.btn-icon-standalone span {
+
+.btn.btn-icon-standalone span {
     padding-left: 55px;
     padding-right: 13px;
 }
-.btn.btn-icon-standalone i, .btn.btn-icon-standalone span {
+
+.btn.btn-icon-standalone i,
+.btn.btn-icon-standalone span {
     display: block;
     padding: 12px 12px;
 }
+
 .btn.btn-purple {
     background-color: #7c38bc;
     color: #fff;
 }
-.img-box{
+
+.img-box {
     position: relative;
-    i.fa-times{
+    i.fa-times {
         position: absolute;
         padding: 3px;
         background-color: white;
         top: 15px;
-        right:6px;
+        right: 6px;
         font-size: 13px;
     }
 }
-.ma5{
+
+.ma5 {
     margin: 5px;
 }
+
+//kishori
+.search-env {
+    margin-bottom: 20px;
+}
+
+.paddt20 {
+    padding-top: 20px;
+}
+
+.margin-l {
+    // position: relative;
+    margin-left: 32%;
+    margin-top: 30px;
+    li {
+        padding-left: 34px;
+        padding-right: 23px;
+        position: relative;
+    }
+    i {
+        font-size: 19px;
+        position: relative;
+    }
+    .badge-green {
+        padding: 6px 4px;
+        font-size: 9px;
+        background-color: green;
+        border-radius: 50px;
+        position: absolute;
+        margin-top: -9px;
+        margin-left: -6px;
+    }
+    .badge-purpal{
+         padding: 6px 4px;
+        font-size: 9px;
+        background-color: purple;
+        border-radius: 50px;
+        position: absolute;
+        // margin-top: -9px;
+        // margin-left: -10px;
+        margin-top: -30px;
+        margin-left: 10px;
+    }
+}
+
+.list-style {
+    list-style-type: none;
+}
+.user-profile{
+    span{
+        color: black;
+    }
+}
+.marg-l{
+    margin-right: 150px !important;
+}
+.sidebar-user-info-inner{
+    background-color:rgba(0, 0, 0, 0.18) !important;
+    border-bottom: 1px solid gray;
+    border-top:1px solid gray;
+}
+.padd120{
+    padding:120px 40px;
+     border-bottom: 1px solid gray;
+    border-top:1px solid gray;
+}
+// .pagination{
+// padding-left: 55px;
+// }
+
 /* Start writing sass here */
 
 @import "fancybox-override";

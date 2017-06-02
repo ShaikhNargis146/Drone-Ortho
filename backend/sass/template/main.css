@@ -180,7 +180,7 @@ a {
 
 .menu-action {
     height: 12px;
-    left: 290px;
+    left: 315px;
     position: absolute;
     top: 50%;
     -webkit-transform: translateY(-50%);
@@ -446,7 +446,7 @@ header.side-header.light-skin {
     background-size: cover;
     display: table;
     float: left;
-    padding: 40px 30px 115px;
+    padding: 40px 30px 30px;
     position: relative;
     width: 100%;
     /*z-index: 0;*/
@@ -462,7 +462,6 @@ header.side-header.light-skin {
     background: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(38, 50, 56, 1) 100%);
     background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(38, 50, 56, 1) 100%);
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(38, 50, 56, 1) 100%);
-    
     content: "";
     height: 100%;
     left: 0;
@@ -476,7 +475,6 @@ header.side-header.light-skin {
     background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 1) 100%);
     background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 1) 100%);
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 1) 100%);
-    
 }
 
 .side-header.light-skin .admin-details h3 {
@@ -718,14 +716,33 @@ header.side-header.light-skin {
 
 .main-content {
     float: left;
-    /*padding: 106px 45px 110px 265px;*/
-    padding: 106px 35px 110px 500px;
+    padding: 106px 45px 110px 265px;
+    padding: 70px 0px 110px 469px;
     width: 100%;
     -webkit-transition: all 0.4s ease 0s;
     -moz-transition: all 0.4s ease 0s;
     -ms-transition: all 0.4s ease 0s;
     -o-transition: all 0.4s ease 0s;
     transition: all 0.4s ease 0s;
+}
+
+.padd40 {
+    padding: 40px;
+}
+
+/*.padd50 {
+    padding: 50px;
+}*/
+
+.panel-default {
+    border: none;
+}
+.title-env{
+    padding: 20px 41px;
+}
+.page-title {
+    background-color: rgba(255, 255, 255, 0.63);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 .breadcrumbs {
@@ -785,10 +802,13 @@ header.side-header.light-skin {
 
 .heading-profile {
     float: left;
-    padding-top: 10px;
+    /*padding-top: 10px;*/
+    padding: 40px 0px 0px 40px;
     width: 100%;
 }
-
+.padd30{
+    padding: 30px;
+}
 .heading-profile>h2 {
     color: #263238;
     float: left;
@@ -1332,7 +1352,6 @@ header.side-header.light-skin {
     background: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
     background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
-   
     content: "";
     height: 100%;
     left: 0;
@@ -10139,7 +10158,6 @@ footer li {
 .border-bottom {
     border-bottom: 1px solid rgba(128, 128, 128, 0.07);
     width: 310px;
-    
 }
 
 .creat-an-account>ul>li>a>i.fa-facebook {
@@ -12525,9 +12543,11 @@ ul.countdown>li>p {
     padding: 13px 30px 13px 60px;
     position: relative;
 }
-.btn-unstyle{
+
+.btn-unstyle {
     float: right;
 }
+
 .stepsForm .sf-steps-center>div {
     display: block;
     padding: 1rem 2rem 1rem 4rem;
@@ -14050,6 +14070,13 @@ li.L9 {
     float: left;
     padding: 40px;
     width: 100%;
+}
+.btn-search{
+    margin-top: -35px;
+    float:right;
+    margin-right:20px;
+    border:none;
+    background: none;
 }
 
 .lrg-btn {
@@ -19063,7 +19090,6 @@ li.L9 {
     left: 0;
     background: #fff;
     background: linear-gradient(135deg, #fff 45%, #aaa 50%, #ccc 56%, #fff 80%);
-  
     z-index: 1000;
     box-shadow: 1px 1px 1px rgba(0, 0, 0, .4);
     -webkit-transition-duration: .3s;

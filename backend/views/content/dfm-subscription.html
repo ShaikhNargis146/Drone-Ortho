@@ -8,7 +8,8 @@
             <!-- Responsive Table -->
             <div class="row">
                 <div class="col-md-12">
-                    <div class="panel panel-default">
+                    <div class="padd40">
+                    <div class="panel panel-default padd40">
                         <div class="panel-body">
                             <div class="row">
                                 <!--<div class="col-md-8">
@@ -22,8 +23,13 @@
                                         </div>
                                         <form method="get" action="" enctype="application/x-www-form-urlencoded">
                                             <input type="text" class="form-control input-lg" placeholder="Search..." name="s" />
-                                            <button type="submit" class="btn-unstyled">
+                                            <!--<button type="submit" class="btn-unstyled">
 								<i class="linecons-search"></i>
+							</button>-->
+                             <button type="submit" class="btn-unstyled btn-search">
+								<!--<i class="linecons-search"></i>-->
+                                  <i class="fa fa-search" aria-hidden="true"></i>
+                                                                    
 							</button>
                                         </form>
                                     </section>
@@ -136,6 +142,17 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                 
+                            </div>
+                            <div class="paddt20">
+                            <ul class="pagination">
+                    <li><a href="#">Previous</a></li>
+                    <li><a href="#">1</a></li>
+                    <li class="active"><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li class="disabled"><a href="#">4</a></li>
+                    <li><a href="#">Next</a></li>
+                </ul>
                             </div>
                             <div class="modal fade custom-width" id="modal-6">
                                 <div class="modal-dialog" style="width: 80%;">
@@ -287,14 +304,9 @@
                         </div>
                     </div>
                 </div>
-                <ul class="pagination">
-                    <li><a href="#">Previous</a></li>
-                    <li><a href="#">1</a></li>
-                    <li class="active"><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li class="disabled"><a href="#">4</a></li>
-                    <li><a href="#">Next</a></li>
-                </ul>
+                
+            </div>
+               
             </div>
             <script type="text/javascript">
                         // This JavaScript Will Replace Checkboxes in dropdown toggles

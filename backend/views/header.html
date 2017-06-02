@@ -1,12 +1,62 @@
 <div class="top-bar">
     <div class="logo">
         <a ui-sref="dashboard" title="Absolute"><img src="../backend/img/logo.png" alt="Absolute" height="40"></a>
-        <div class="menu-options"><span class="menu-action"><i></i></span></div>
+        <div class="menu-options"><span class="menu-action"><i></i></span>
+        </div>
+        
     </div>
     <div class="quick-links">
-        <ul>
+        <!--<ul>
             <li>
                 <a title="Logout" class="show-stats red-skin" ui-sref="login" tooltip-placement="left" uib-tooltip="Logout"><i class="fa fa-power-off"></i></a>
+            </li>
+        </ul>-->
+        <ul class="user-info-menu right-links list-inline list-unstyled marg-l">
+                    <li class="search-form">
+                        <!-- You can add "always-visible" to show make the search input visible -->
+                        <form name="userinfo_search_form" method="get" action="extra-search.html">
+                            <input type="text" name="s" class="form-control search-field" placeholder="Type to search..." />
+                            <button type="submit" class="btn btn-link">
+								<i class="linecons-search"></i>
+							</button>
+                        </form>
+                    </li>
+                    <li class="dropdown user-profile">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <!--<img src="backend/img/account.png" alt="user-image" class="img-circle img-inline userpic-32" width="28" />-->
+                            <span>
+								John Smith
+								<i class="fa-angle-down"></i>
+							</span>
+                        </a>
+                        <ul class="dropdown-menu user-profile-menu list-unstyled">
+                             <li class="">
+                              <a href="settings.html">
+                                  <i class="fa fa-cogs"></i>Settings
+                              </a>
+                          </li>
+                           
+                            <li class="last">
+                                <a href="#">
+                                    <i class="fa-lock"></i> Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+    </div>
+    <div class="margin-l">
+        <ul class="list-inline list-style">
+            <li class="">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-envelope-o" aria-hidden="true"></i><span class="badge badge-green">15</span>
+                </a>
+              
+            </li>
+            <li>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-bell" aria-hidden="true"></i>
+                    <span class="badge badge-purpal">15</span></a>
+               
             </li>
         </ul>
     </div>
@@ -18,6 +68,15 @@
         <h3 style="text-transform: capitalize;">{{template.profile.name}}</h3>
         <i></i>
     </div>
+     <div class="sidebar-user-info-inner">
+         <div class="padd120">
+                        <a href="#" class="user-profile">
+                            <img src="http://themes.laborator.co/xenon/assets/images/user-4.png" width="60" height="60" class="img-circle img-corona"
+                                alt="user-pic">
+                            <span> <strong>John Smith</strong>Page admin</span> </a>
+                           
+         </div>
+                    </div>
     <div class="menu-scroll">
         <div class="side-menus">
             <span>MAIN LINKS</span>
