@@ -1356,7 +1356,8 @@ body {
 }
 .user-profile{
     span{
-        color: black;
+        color: gray;
+        margin-left: 5px;
     }
 }
 .marg-l{
@@ -1374,6 +1375,121 @@ body {
 }
 .mar-tt{
     margin-top: 138px;
+}
+.user-info-navbar .user-info-menu>li.open {
+    border-left-color: #ddd;
+    border-right-color: #ddd;
+    z-index: 15;
+}
+.user-info-navbar .user-info-menu>li {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #fff;
+    border-top: 0;
+    border-bottom: 0;
+    display: block;
+    float: left;
+}
+ .dropdown-menu.user-profile-menu li a, {
+    /* display: block; */
+    color: #979898;
+    padding: 0;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+ .dropdown-menu.user-profile-menu li {
+    position: relative;
+    display: block;
+    padding: 0;
+    margin: 0;
+    padding: 15px 20px;
+    padding-bottom: 0;
+}
+// .search-form .search-field {
+//     position: absolute;
+//     top: 50%;
+//     right: 15px;
+//     margin-top: -15.5px;
+//     line-height: 1;
+//     height: 31px;
+//     // border: 1px solid #ddd;
+//     border: 0;
+//     padding: 0 10px;
+//     width: 170px;
+//     padding-right: 30px;
+//     font-size: 12px;
+//     z-index: 1;
+//     visibility: hidden;
+//     background: #f3f3f3;
+//     zoom: 1;
+//     filter: alpha(opacity=0);
+//     -webkit-opacity: 0;
+//     -moz-opacity: 0;
+//     opacity: 0;
+// }
+.search-field {
+    position: absolute;
+    background-color: gray;
+    width: 200px;
+   
+    top: 50%;
+    right: 15px;
+    margin-top: -15.5px;
+    line-height: 1;
+    height: 31px;
+    border: 1px solid #ddd;
+     border: 0;
+    padding: 0 10px;
+    width: 170px;
+    padding-right: 30px;
+    font-size: 12px;
+    z-index: 1;
+    //  background: #f3f3f3;
+    zoom: 1;
+    visibility: hidden;
+   
+   
+}
+.my-link{
+    &:focus{
+    .search-field{
+        visibility: visible;
+    }
+}
+}
+// .user-info-navbar {
+//     background-color: #fff;
+//     min-height: 0;
+//     border: 0;
+//     padding: 0;
+//     margin: -30px;
+//     margin-bottom: 30px;
+// }
+.search-field {
+    position: absolute;
+}
+.search-form .btn {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    height: auto;
+    color: #979898;
+    z-index: 2;
+}
+.user-info-navbar .user-info-menu>li>form {
+    position: relative;
+    display: block;
+    padding: 30px 20px;
+    padding-bottom: 26px;
+    margin: 0;
+    border-bottom: 1px solid #fff;
+}
+ .dropdown-menu.user-profile-menu  {
+    right: -1px;
+    left: auto;
+    width: 250px;
 }
 // .pagination{
 // padding-left: 55px;

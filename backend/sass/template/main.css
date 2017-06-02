@@ -363,7 +363,7 @@ form.search-form>button {
 }
 
 .quick-links>ul>li>a {
-    border: 1px solid #e8edf2;
+    /*border: 1px solid #e8edf2;*/
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     -ms-border-radius: 3px;
@@ -371,7 +371,7 @@ form.search-form>button {
     border-radius: 3px;
     color: #ffffff;
     cursor: pointer;
-    float: left;
+    /*float: left;*/
     font-size: 14px;
     height: 34px;
     line-height: 30px;
