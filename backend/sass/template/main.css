@@ -415,7 +415,8 @@ header.side-header {
     position: fixed;
     /*top: 66px;*/
     /*width: 220px;*/
-    width: 470px;
+    /*width: 470px;*/
+    width:365px !important;
     z-index: 2147483644;
 }
 
@@ -622,8 +623,8 @@ header.side-header.light-skin {
     color: #d1d1d1;
     float: left;
     font-family: Open sans;
-    /*font-size: 13px;*/
-    font-size: 17px;
+    font-size: 13px;
+    /*font-size: 17px;*/
     padding: 10px 30px;
     position: relative;
 }
@@ -716,8 +717,8 @@ header.side-header.light-skin {
 
 .main-content {
     float: left;
-    padding: 106px 45px 110px 265px;
-    padding: 70px 0px 110px 469px;
+    /*padding: 106px 45px 110px 265px;*/
+    padding: 70px 0px 110px 357px;
     width: 100%;
     -webkit-transition: all 0.4s ease 0s;
     -moz-transition: all 0.4s ease 0s;
