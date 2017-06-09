@@ -180,7 +180,8 @@ a {
 
 .menu-action {
     height: 12px;
-    left: 315px;
+    /*left: 315px;*/
+    left:204px;
     position: absolute;
     top: 50%;
     -webkit-transform: translateY(-50%);
@@ -431,7 +432,7 @@ header.side-header.light-skin {
 
 .side-header.light-skin .side-menus nav>ul>li>a {
     color: white;
-    line-height: 40px;
+    line-height: 24px;
 }
 
 .side-header.light-skin .side-menus nav>ul>li ul::before {
@@ -447,7 +448,8 @@ header.side-header.light-skin {
     background-size: cover;
     display: table;
     float: left;
-    padding: 40px 30px 30px;
+    /*padding: 40px 30px 30px;*/
+        padding: 23px 75px 0px 5px;
     position: relative;
     width: 100%;
     /*z-index: 0;*/
@@ -616,7 +618,7 @@ header.side-header.light-skin {
 .side-menus nav>ul>li {
     float: left;
     width: 100%;
-    line-height: 30px;
+    line-height: 24px;
 }
 
 .side-menus nav>ul>li>a {

@@ -1361,7 +1361,7 @@ body {
     }
 }
 .marg-l{
-    margin-right: 150px !important;
+    margin-right: 15px !important;
 }
 .sidebar-user-info-inner{
     background-color:rgba(0, 0, 0, 0.18) !important;
@@ -1374,7 +1374,7 @@ body {
     border-top:1px solid gray;
 }
 .mar-tt{
-    margin-top: 138px;
+    margin-top: 55px;
 }
 .user-info-navbar .user-info-menu>li.open {
     border-left-color: #ddd;
@@ -1452,7 +1452,7 @@ body {
    
    
 }
-.my-link{
+.search-form{
     &:focus{
     .search-field{
         visibility: visible;
