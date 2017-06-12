@@ -14,7 +14,7 @@ module.exports = [
     'bower_components/angular-flexslider/angular-flexslider.js',
     'bower_components/angular-ui-select/dist/select.min.js',
     'bower_components/angular-sanitize/angular-sanitize.min.js',
-    'bower_components/ui-router/release/angular-ui-router.min.js',
+    'bower_components/angular-ui-router/release/angular-ui-router.min.js',
     'bower_components/angular-bootstrap/ui-bootstrap.min.js',
     'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
     'bower_components/angular-flexslider/angular-flexslider.js',
@@ -33,8 +33,19 @@ module.exports = [
     "bower_components/angular-ui-sortable/sortable.js",
     "bower_components/intl-tel-input/lib/libphonenumber/build/utils.js",
     "bower_components/intl-tel-input/build/js/intlTelInput.js",
+
     "bower_components/international-phone-number/releases/international-phone-number.js",  
     "bower_components/angular-ui-select/dist/select.js",
+
+   
+    // "bower_components/crypto-js/hmac.js",
+    // "bower_components/crypto-js/core.js",
+    // "bower_components/crypto-js/md5.js",
+    // "bower_components/crypto-js/sha256.js",
+    // "bower_components/crypto-js/sha1.js",
+ 
+   
+
     'backend/js/app.js',
     'backend/js/language.js',
     'backend/js/controllers.js',
