@@ -1322,7 +1322,7 @@ body {
     margin-top: 30px;
     li {
         padding-left: 34px;
-        padding-right: 23px;
+        // padding-right: 23px;
         position: relative;
     }
     i {
@@ -1494,7 +1494,242 @@ body {
 // .pagination{
 // padding-left: 55px;
 // }
+.sidebar-user-info-inner{
+.user-profile img{
+    margin-right:20px;
+        border: 4px solid gray;
+}
 
+.user-profile span strong {
+    display: block;
+    font-size: 21px;
+    color: #fff;
+    font-weight: 300;
+    line-height: 0px;
+    
+}
+.user-profile span {
+    display: inline-block;
+    color: #979898;
+    vertical-align: middle;
+        padding-top: 18px;
+}
+.user-profile {
+    display: block;
+}
+}
+
+.user-info-navbar .user-info-menu>li {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #fff;
+    border-top: 0;
+    border-bottom: 0;
+    display: block;
+    float: left;
+}
+.user-info-navbar .user-info-menu>li.open {
+    border-left-color: #ddd;
+    border-right-color: #ddd;
+    z-index: 15;
+}
+
+.user-info-navbar .user-info-menu>li>a {
+    position: relative;
+    display: block;
+    padding: 30px 20px;
+    color: #979898;
+    border-bottom: 1px solid #fff;
+    top: 1px;
+    z-index: 5;
+    text-decoration: none;
+}
+ .page-title .title-env .title {
+  
+    font-size: 27px;
+}
+
+.profile-img {
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+}
+
+.user-img, .member-form-add-header .user-name {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.user-name a {
+    display: block;
+    font-size: 23px;
+    color:black;
+}
+.btn.btn-secondary {
+    background-color: #5ca323;
+  color: #fff;
+
+}
+.btn{
+   font-size:13px;
+}
+.form-control {
+        padding: 6px 12px;
+        line-height: 1.42857143;
+}
+.profile-input{
+      padding: 9px 0px 9px 25px;
+}
+.padd30{
+    padding: 30px;
+}
+.request-button {
+    background-color: #014c7e;
+    color: white;
+    margin-bottom: 10px;
+    
+}
+.request-button:hover {
+    background-color: #014c7e;
+    color: white;
+    margin-bottom: 10px;
+    
+}
+.create {
+    background-color: #014c7e;
+    border: none;
+}
+.create:hover {
+    background-color: #014c7e;
+    border: none;
+}
+.btn-info {
+    color: #fff;
+    background-color: #40bbea;
+    border:none;
+}
+.btn-info:hover {
+    color: #fff;
+    background-color: #40bbea;
+    border:none;
+}
+.slider {
+    background: green;
+    width: 44px;
+}
+// .switch input {
+//     display: none;
+// }
+//  input[type=checkbox] {
+//     margin: 4px 0 0;
+//     margin-top: 1px \9;
+//     line-height: normal;
+// }
+// input[type=checkbox], input[type=radio] {
+//     box-sizing: border-box;
+//     padding: 0;
+// }
+// .slider.round {
+//     border-radius: 34px;
+// }
+// .slider {
+//     margin-top: 7px;
+//     margin-left:10px;
+//     position: absolute;
+//     cursor: pointer;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+//     background: green;
+//     -webkit-transition: .4s;
+//     transition: .4s;
+//     height: 21px !important;
+// }
+// .slider.round:before {
+//     border-radius: 50%;
+// }
+// .slider:before {
+//     position: absolute;
+//     content: "";
+//     height: 12px;
+//     width: 12px;
+//     left: 4px;
+//     bottom: 4px;
+//     background-color: white;
+//     -webkit-transition: .4s;
+//     transition: .4s;
+// }
+// input:checked + .slider {
+//     background-color: red;
+//     width: 44px;
+// }
+// .slider.round {
+//     border-radius: 34px;
+// }
+// .slider {
+//     background: green;
+ 
+// }
+// .btn {
+//     // outline: 0;
+//     border: 1px solid transparent;
+//     // margin-bottom: 10px;
+// }
+// .switch {
+//     position: relative;
+//     display: inline-block;
+//     width: 60px;
+//     height: 34px;
+//     // margin-left: 15px;
+// }
+
+.checkboxThree {
+	width: 120px;
+	height: 40px;
+	background: #333;
+	margin: 20px 60px;
+
+	border-radius: 50px;
+	position: relative;
+}
+.checkboxThree:before {
+	content: 'On';
+	position: absolute;
+	top: 12px;
+	left: 13px;
+	height: 2px;
+	color: #26ca28;
+	font-size: 16px;
+}
+.checkboxThree:after {
+	content: 'Off';
+	position: absolute;
+	top: 12px;
+	left: 84px;
+	height: 2px;
+	color: #111;
+	font-size: 16px;
+}
+.checkboxThree label {
+	display: block;
+	width: 52px;
+	height: 22px;
+	border-radius: 50px;
+
+	transition: all .5s ease;
+	cursor: pointer;
+	position: absolute;
+	top: 9px;
+	z-index: 1;
+	left: 12px;
+	background: #ddd;
+}
+.checkboxThree input[type=checkbox]:checked + label {
+	left: 60px;
+	background: #26ca28;
+}
 /* Start writing sass here */
 
 @import "fancybox-override";

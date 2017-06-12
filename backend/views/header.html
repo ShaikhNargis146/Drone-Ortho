@@ -12,6 +12,7 @@
         </ul>-->
         <ul class="user-info-menu right-links list-inline list-unstyled marg-l">
             <li class="search-form">
+                <div>
                 <!-- You can add "always-visible" to show make the search input visible -->
                 <form name="userinfo_search_form" method="get" action="extra-search.html">
                     <input type="text" name="s" class="form-control search-field" placeholder="Type to search..." />
@@ -20,6 +21,7 @@
                                 <i class="fa fa-search linecons-search"></i>
 							</button>
                 </form>
+                </div>
             </li>
             <li class="dropdown user-profile  ">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -37,7 +39,7 @@
                         </a>
                     </li>
                     <li class="">
-                        <a href="account.html">
+                        <a ui-sref="account">
                             <i class="fa-credit-card"></i> Account
                         </a>
                     </li>
@@ -77,7 +79,7 @@
                 <a href="#" class="user-profile">
                     <img src="http://themes.laborator.co/xenon/assets/images/user-4.png" width="60" height="60" class="img-circle img-corona"
                         alt="user-pic">
-                    <span> <strong>John Smith</strong>Page admin</span> </a>
+                    <span> <strong>John Smith</strong><br> Page admin</span> </a>
             </div>
         </div>
         <div class="menu-scroll">

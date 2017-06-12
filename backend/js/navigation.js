@@ -32,6 +32,8 @@ var navigationservice = angular.module('navigationservice', [])
                 sref: "#!/cadlineworkapp",
                 icon: "phone"
             },
+            
+            
 
             {
                 name: "DFMSubscription",
@@ -77,6 +79,13 @@ var navigationservice = angular.module('navigationservice', [])
                 sref: "#!/page/viewNewsLetter//",
                 icon: "phone"
             },
+               {
+                name: "Profile",
+                classis: "active",
+                sref: "#!/profile",
+                icon: "phone"
+            },
+
 
             // {
             //     name: "Pages",

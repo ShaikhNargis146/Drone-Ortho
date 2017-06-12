@@ -109,7 +109,20 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             url: "/jagz",
             templateUrl: "views/jagz.html",
             controller: 'JagzCtrl'
+        })
+        
+          .state('profile', {
+            url: "/profile",
+            templateUrl: "views/template.html",
+            controller: 'ProfileCtrl'
+        })
+         .state('account', {
+            url: "/account",
+            templateUrl: "views/template.html",
+            controller: 'AccountCtrl'
         });
+        
+
 
     $urlRouterProvider.otherwise("/dashboard");
     $locationProvider.html5Mode(isproduction);

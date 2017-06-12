@@ -61,6 +61,7 @@
     "smart-app-banner": "^1.3.0",
     "svg-morpheus": "https://github.com/alexk111/SVG-Morpheus.git#~0.1.8",
     "ui-router": "*",
-    "tinymce": "4.3.12"
+    "tinymce": "4.3.12",
+    "highcharts-ng": "^1.1.0"
   }
 }
