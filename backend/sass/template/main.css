@@ -353,7 +353,7 @@ form.search-form>button {
 .quick-links>ul {
     float: left;
     list-style: outside none none;
-    margin: 0;
+    margin: 7px;
     padding: 0;
 }
 
@@ -613,6 +613,7 @@ header.side-header.light-skin {
     margin: 0;
     /*padding: 0;*/
     width: 100%;
+    padding-left: 22px;
 }
 
 .side-menus nav>ul>li {

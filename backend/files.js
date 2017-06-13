@@ -36,7 +36,7 @@ module.exports = [
 
     "bower_components/international-phone-number/releases/international-phone-number.js",  
     "bower_components/angular-ui-select/dist/select.js",
-
+    "bower_components/highcharts-ng/dist/highcharts-ng.js",
    
     // "bower_components/crypto-js/hmac.js",
     // "bower_components/crypto-js/core.js",
@@ -44,8 +44,6 @@ module.exports = [
     // "bower_components/crypto-js/sha256.js",
     // "bower_components/crypto-js/sha1.js",
  
-   
-
     'backend/js/app.js',
     'backend/js/language.js',
     'backend/js/controllers.js',

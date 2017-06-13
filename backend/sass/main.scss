@@ -9,6 +9,7 @@
 @import "../../bower_components/angular-toastr/dist/angular-toastr";
 @import "../../bower_components/angular-hotkeys/build/hotkeys";
 @import "../../bower_components/intl-tel-input/build/css/intlTelInput";
+@import "../../bower_components/highcharts-ng/dist/highcharts-ng";
 @import "icons";
 $blue: #1fc8ec;
 $orange: #f29c2c;
@@ -1618,6 +1619,10 @@ body {
     background: green;
     width: 44px;
 }
+input[type="checkbox"] {
+    /* margin: 4px 0 0; */
+    opacity: 0;
+}
 // .switch input {
 //     display: none;
 // }
@@ -1684,51 +1689,135 @@ body {
 //     height: 34px;
 //     // margin-left: 15px;
 // }
-
+.btn-default{
+    border:none;
+}
 .checkboxThree {
-	width: 120px;
-	height: 40px;
-	background: #333;
-	margin: 20px 60px;
+	width: 50px;
+	height: 22px;
+	background: lightgray;
+	margin: 6px 14px;
 
 	border-radius: 50px;
 	position: relative;
 }
+// .checkboxThree input[type=checkbox]:checked + label {
+// 	background: #26ca28;
+// }
 .checkboxThree:before {
-	content: 'On';
+	content: '';
 	position: absolute;
 	top: 12px;
 	left: 13px;
 	height: 2px;
 	color: #26ca28;
 	font-size: 16px;
+    background-color: green;
 }
+
 .checkboxThree:after {
-	content: 'Off';
+	content: '';
 	position: absolute;
 	top: 12px;
 	left: 84px;
 	height: 2px;
 	color: #111;
 	font-size: 16px;
+    background: red;
 }
 .checkboxThree label {
 	display: block;
-	width: 52px;
-	height: 22px;
+	width: 11px;
+	height: 11px;
 	border-radius: 50px;
 
 	transition: all .5s ease;
 	cursor: pointer;
 	position: absolute;
-	top: 9px;
+	top: 6px;
 	z-index: 1;
 	left: 12px;
-	background: #ddd;
+	background: green;
 }
 .checkboxThree input[type=checkbox]:checked + label {
-	left: 60px;
-	background: #26ca28;
+	left: 32px;
+	background: red;
+}
+.side-menus .menu-item-has-children > a::before {
+    background: rgba(139, 139, 140, 0.06) none repeat scroll 0 0;
+    content: "";
+    height: 1px;
+    left: 8%;
+    /* margin-left: -18px; */
+    position: absolute;
+    top: 99%;
+    -webkit-transition: all 0.4s ease 0s;
+    -moz-transition: all 0.4s ease 0s;
+    -ms-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+    width: 265px;
+}
+.user-info-navbar .user-info-menu>li .dropdown-menu.user-profile-menu li.last, .navbar.horizontal-menu .navbar-inner>.nav>li .dropdown-menu.user-profile-menu li.last {
+    background: #fafafa;
+}
+
+ .misn-div {
+    margin: 20px 0;
+}
+.btn.btn-icon-standalone {
+    padding: 0;
+    border: 0;
+    line-height: 1;
+    width:448px;
+    margin-bottom: 5px;
+    background: #013d5f;
+}
+// .btn.btn-icon-standalone span:hover {
+  
+//     border: 1px solid #013d5f;
+   
+//     margin-bottom: 5px;
+//     background: white;
+//     color:#013d5f;
+//     .btn.btn-icon-standalone i{
+//         background: #013d5f;
+
+//     }
+// }
+
+.btn.btn-icon-standalone i, .btn.btn-icon-standalone span {
+    display: block;
+    padding: 12px 12px;
+//   background: transparent;
+}
+
+.btn.btn-icon-standalone span {
+    padding-left: 55px;
+    padding-right: 13px;
+    background: #013d5f;
+}
+.bg-muted {
+    background-color: #d0d0d0;
+}
+.create-p {
+    padding: 20px;
+    font-size: 12px;
+    color:white;
+}
+.mt10{
+    margin-top:10px;
+}
+.mb10{
+  margin-bottom: 20px;
+}
+.btn-danger{
+ background: #013d5f;
+ border-color: #013d5f;
+}
+.btn-danger:hover{
+ background: #013d5f;
+ border-color: #013d5f;
 }
 /* Start writing sass here */
 
