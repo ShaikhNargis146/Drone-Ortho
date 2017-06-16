@@ -5,7 +5,7 @@ var moment = require('moment');
 var PythonShell = require('python-shell');
 var https = require("https");
 var unirest = require('unirest');
-
+var frmdt=require('form-data')
 PythonShell.defaultOptions = {
     scriptPath: './api/controllers'
 };
@@ -95,10 +95,10 @@ var controller = {
             var newHeader = returnSign[3].replace(/'/g, '"');
             newHeader = JSON.parse(newHeader);
             newHeader["user-agent"] = req.headers['user-agent'];
-            // console.log("newHeader--- ", newHeader);
-            var formdata = {};
-            formdata.description = "demonstration";
-            formdata.collected_at = returnSign[1];
+            // newHeader["content-length"]= '358';
+            // var formdata = {};
+            // formdata.description = "demonstration";
+            // formdata.collected_at = returnSign[1];
             // formdata.box = {
             //     "type": "Polygon",
             //     "coordinates": [
@@ -174,29 +174,34 @@ var controller = {
             // // write data to request body
             // req.write("abc");
             // req.end();
-            request.get({
-                url: requestBody.url,
+            // request.get({
+            //     url: requestBody.url,
+            //     headers: newHeader
+            // }, function (err, httpResponse) {
+
+            var formdata = {};
+            formdata.total_parts = "3";
+            formdata.downloadable = "true";
+            formdata.resource_type = "JPEG Image";
+
+            process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
+            var r=request.post({
+                url: "https://httpbin.org/post",
                 headers: newHeader
-            }, function (err, httpResponse) {
+            }, function (err, httpResponse1, body) {
+                console.log("error occured", err);
+                console.log("on other response", httpResponse1);
+                res.send(httpResponse1);
+            }); //{ "accept_parts": true, "id": "2403776b-6f01-4e1d-b4d5-ad1d4c695519", "expires_at": "2099-07-06T06:26:57.041459"}
+            var form=r.form();
+            form.append("total_parts","3");
+            form.append("downloadable","true");
+            form.append("resource_type","JPEG Image");
+            
 
-                var formdata = {};
-                formdata.total_parts = 1;
-                formdata.downloadable = true;
-                formdata.resource_type = "JPEG Image";
-                process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-                request.post({
-                    url: "https://app.unifli.aero/api/missions/d6f85c48-5b04-4600-acf2-2fa42526ba5c/processings/5bf99122-3c6f-4762-9f2c-d76155141d6b/chunked/",
-                    form: formdata,
-                    headers: newHeader,
-                    rejectUnauthorized: false,
-                }, function (err, httpResponse1, body) {
-                    console.log("error occired", err);
-                    console.log("on other responce", httpResponse1);
-                    res.callback(err, httpResponse1.body);
-                });
-
-                // res.callback(err, JSON.parse(httpResponse.body));
-            });
+            // res.callback(err, JSON.parse(httpResponse.body));
+            // });
             // var url = 'http://requestb.in/ze0r0vze'
             // request(requestBody, function (error, response, body) {
             //     if (!error) {

@@ -12,9 +12,9 @@ def derived_key(key, nonce, date=None):
     return hkey    
     
 #define things    
-url = "https://app.unifli.aero/api/missions/"
+url = "https://app.unifli.aero/api/missions/d6f85c48-5b04-4600-acf2-2fa42526ba5c/processings/5bf99122-3c6f-4762-9f2c-d76155141d6b/chunked/"
 date = datetime.utcnow().strftime("%Y%m%d%H%M%S")
-method = 'get'
+method = 'post'
 nonce = '92301kjsadln98123124'
 publicToken = 'TYQ8R9w3BZJ25zvKQhbFfE3XwAj2YtQAyUaVcOI3hsvEMTIo7p6FQRB3viqAgXRB'
 privateToken = 'RNTY5FYNZHDnm7hWn3Z7v7qHaK8lkp2YAmAXR7Irp29wsmV47PA1JtJXQ5KwOdh2'
