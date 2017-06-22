@@ -168,7 +168,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             };
           var request = {
                 method: 'POST',
-                url: 'http://app.unifli.aero/api/missions/d6f85c48-5b04-4600-acf2-2fa42526ba5c/processings/5bf99122-3c6f-4762-9f2c-d76155141d6b/chunked/',
+                url: 'https://app.unifli.aero/api/missions/d6f85c48-5b04-4600-acf2-2fa42526ba5c/processings/5bf99122-3c6f-4762-9f2c-d76155141d6b/chunked/',
                 headers: header,
                 data:dataString
             };
