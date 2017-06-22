@@ -1,0 +1,26 @@
+//header coming from python snippet and just added user-agent to it
+newHeader = {
+    authorization: 'Signature token=TYQ8R9w3BZJ25zvKQhbFfE3XwAj2YtQAyUaVcOI3hsvEMTIo7p6FQRB3viqAgXRB; signature = f71391996d3f36e598a101492574a1ac780c07b3339a6a6b1160eaa0d4b4356d;headers = user - agent, content - length',
+    'X-E38-Nonce': '92301kjsadln98123124',
+    'X-E38-Date': '20170620123845',
+    'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.104 Safari/537.36 '
+}
+//data tp be sent
+var dataString = {
+    "total_parts": "3",
+    "downloadable": "true",
+    "resource_type": "JPEG Image"
+};
+var options = {
+    url: 'https://app.unifli.aero/api/missions/d6f85c48-5b04-4600-acf2-2fa42526ba5c/processings/5bf99122-3c6f-4762-9f2c-d76155141d6b/chunked',
+    method: 'POST',
+    headers: newHeader,
+    form: dataString
+};
+request(options, function (error, response, body) {
+    if (!error) {
+        res.send(body);
+    } else {
+        res.send(body);
+    }
+});

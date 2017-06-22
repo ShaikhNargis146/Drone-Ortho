@@ -5,7 +5,8 @@ var moment = require('moment');
 var PythonShell = require('python-shell');
 var https = require("https");
 var unirest = require('unirest');
-var frmdt=require('form-data')
+var frmdt = require('form-data')
+// var pRequest = require('postman-request');
 PythonShell.defaultOptions = {
     scriptPath: './api/controllers'
 };
@@ -83,7 +84,6 @@ var controller = {
 
     getSign: function (req, res) {
         console.log('User-Agent: ' + req.headers['user-agent']);
-
         var returnSign;
         PythonShell.run('APIRequest.py', {
             args: [req.headers['user-agent'], 'world']
@@ -94,8 +94,11 @@ var controller = {
             returnSign = results;
             var newHeader = returnSign[3].replace(/'/g, '"');
             newHeader = JSON.parse(newHeader);
+            
             newHeader["user-agent"] = req.headers['user-agent'];
-            // newHeader["content-length"]= '358';
+             newHeader['Accept-Encoding']= 'gzip, deflate, br';
+            console.log("returnSign[4]", newHeader);
+            
             // var formdata = {};
             // formdata.description = "demonstration";
             // formdata.collected_at = returnSign[1];
@@ -186,19 +189,58 @@ var controller = {
 
             process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
-            var r=request.post({
-                url: "https://httpbin.org/post",
-                headers: newHeader
-            }, function (err, httpResponse1, body) {
-                console.log("error occured", err);
-                console.log("on other response", httpResponse1);
-                res.send(httpResponse1);
-            }); //{ "accept_parts": true, "id": "2403776b-6f01-4e1d-b4d5-ad1d4c695519", "expires_at": "2099-07-06T06:26:57.041459"}
-            var form=r.form();
-            form.append("total_parts","3");
-            form.append("downloadable","true");
-            form.append("resource_type","JPEG Image");
-            
+            // var formData = {
+            //     // Pass a simple key-value pair 
+            //     my_field: 'my_value'
+            // };
+            // request.post({
+            //     url: 'https://httpbin.org/post',
+            //     formData: formData
+            // }, function optionalCallback(err, httpResponse, body) {
+            //     if (err) {
+            //         return console.error('upload failed:', err);
+            //     }
+            //     // console.log('Upload successful!  Server responded with:', httpResponse);
+            //     res.send(httpResponse);
+            // });
+            var dataString = {
+                "total_parts": "3",
+                "downloadable": "true",
+                "resource_type": "JPEG Image"
+            };
+          console.log("Buffer.byteLength(jsonObject, 'utf8')",dataString.length,new Buffer.from(JSON.stringify(dataString)).length,Buffer.byteLength(JSON.stringify(dataString)));
+            // newHeader["content-length"] = Buffer.byteLength(JSON.stringify(dataString));
+
+            var options = {
+                url: 'https://httpbin.org/post',
+                method: 'POST',
+                headers: newHeader,
+                formData: dataString
+            };
+            request(options, function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    res.send(response.body);
+                    console.log("-----1",  JSON.stringify(JSON.parse(response.body)).length);
+                } else {
+                    res.send(response);
+                    console.log("-----2", body);
+                }
+            });
+
+            // var r = request.post({
+            //     url: "https://httpbin.org/post",
+            //     headers: newHeader
+            // }, function (err, httpResponse1, body) {
+            //     console.log("error occured", err);
+            //     console.log("on other response", httpResponse1);
+            //     res.send(httpResponse1);
+            // }); //{ "accept_parts": true, "id": "2403776b-6f01-4e1d-b4d5-ad1d4c695519", "expires_at": "2099-07-06T06:26:57.041459"}
+              // var form = r.form();
+            // form.append("total_parts", "3");
+            // form.append("downloadable", "true");
+            // form.append("resource_type", "JPEG Image");
+            // console.log(Buffer.byteLength(JSON.stringify(dataString)));
+
 
             // res.callback(err, JSON.parse(httpResponse.body));
             // });
