@@ -3,13 +3,11 @@ var schema = new Schema({
     missionId: String,
     DFMSubscription: {
         type: Schema.Types.ObjectId,
-        ref: 'DFMSubscription',
-        index: true
+        ref: 'DFMSubscription'
     },
     user: {
         type: Schema.Types.ObjectId,
-        ref: 'User',
-        index: true
+        ref: 'User'
     },
     description: String,
     files: [{
@@ -19,8 +17,7 @@ var schema = new Schema({
     others: [{
         serviceId: {
             type: Schema.Types.ObjectId,
-            ref: 'ServiceList',
-            index: true
+            ref: 'ServiceList'
         },
         name: String, //orthomosaic,mapViewer,DVI,DSM,threedMode,KMZ
         file: String,
