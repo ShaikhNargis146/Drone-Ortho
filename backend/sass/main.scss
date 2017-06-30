@@ -1929,8 +1929,13 @@ a:hover {
        
 }
 .btn-info {
+    
+}
+.input-group-btn:last-child > .btn {
+
         background-color: #18a8df !important;
     border-color: #1590be !important;
+
 }
 /* Start writing sass here */
 
