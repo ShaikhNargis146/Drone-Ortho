@@ -72,6 +72,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.navigation = NavigationService.getnav();
         var formData = {}
         $scope.missionData = {};
+                  $scope.open1 = function() {
+    $scope.popup1.opened = true;
+  };
         NavigationService.apiCall("Mission/search", formData, function (data) {
             if (data.value === true) {
                 $scope.missionData = data.data.results;
@@ -88,6 +91,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 //  toastr.warning('Error submitting the form', 'Please try again');
             }
         });
+   
+   
     })
     .controller('CadlineworkappCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file

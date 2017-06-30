@@ -45,20 +45,32 @@
                             </section>
                         </div>
                         <div class="col-md-4">
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                 <div class="input-group">
                                     <input type="text" placeholder="From Date" class="form-control datepicker" data-format="D, dd MM yyyy">
                                     <div class="input-group-addon"> <a href="#"><i class="linecons-calendar"></i></a> </div>
                                 </div>
-                            </div>
+                            </div>-->
+                                <p class="input-group">
+          <input type="text" class="form-control" placeholder="From Date" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" >
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
                         </div>
                         <div class="col-md-4">
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                 <div class="input-group">
                                     <input type="text" placeholder="To Date" class="form-control datepicker" data-format="D, dd MM yyyy">
                                     <div class="input-group-addon"> <a href="#"><i class="lineconcomples-calendar"></i></a> </div>
                                 </div>
-                            </div>
+                            </div>-->
+                            <p class="input-group">
+          <input type="text" class="form-control" placeholder="To Date" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" >
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">

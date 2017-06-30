@@ -14,9 +14,9 @@
             <li class="search-form">
                 <div>
                 <!-- You can add "always-visible" to show make the search input visible -->
-                <form name="userinfo_search_form" method="get" action="extra-search.html">
-                    <input type="text" name="s" class="form-control search-field" placeholder="Type to search..." />
-                    <button type="submit" class="btn btn-link my-link">
+                <form name="userinfo_search_form" ng-init="showSearch=false">
+                    <input type="text" name="s" class="form-control search-field" placeholder="Type to search..." ng-show="showSearch"/>
+                    <button type="submit" class="btn btn-link my-link" ng-click="showSearch=!showSearch">
 								<i class="linecons-search"></i>
                                 <i class="fa fa-search linecons-search"></i>
 							</button>
