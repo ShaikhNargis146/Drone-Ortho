@@ -120,8 +120,12 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             url: "/account",
             templateUrl: "views/template.html",
             controller: 'AccountCtrl'
+        })
+         .state('useraccount', {
+            url: "/useraccount",
+            templateUrl: "views/template.html",
+            controller: 'UseraccountCtrl'
         });
-        
 
 
     $urlRouterProvider.otherwise("/dashboard");
