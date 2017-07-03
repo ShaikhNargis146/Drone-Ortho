@@ -74,14 +74,16 @@ body {
 
 h1,
 h2,
-h3,
+
 h4,
 h5,
 h6 {
     font-family: Montserrat;
     color: #202020;
 }
-
+h3{
+    color: #979898 ;
+}
 p {
     font-family: Open sans;
     color: #777777;
@@ -502,11 +504,11 @@ header.side-header.light-skin {
 }
 
 .admin-details>span>img {
-    -webkit-border-radius: 50%;
+    /*-webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
-    border-radius: 50%;
+    border-radius: 50%;*/
     /*float: left;*/
     /*width: 59px;*/
     width: 82%;

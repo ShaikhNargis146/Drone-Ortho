@@ -72,9 +72,55 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.navigation = NavigationService.getnav();
         var formData = {}
         $scope.missionData = {};
-                  $scope.open1 = function() {
-    $scope.popup1.opened = true;
-  };
+
+        $scope.today = function () {
+            // $scope.dt = new Date();
+        };
+        $scope.today();
+
+        $scope.clear = function () {
+            $scope.dt = null;
+        };
+  // Disable weekend selection
+        function disabled(data) {
+            var date = data.date,
+                mode = data.mode;
+            return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+        }
+        $scope.open1 = function () {
+            $scope.popup1.opened = true;
+        };
+
+        $scope.open2 = function () {
+            $scope.popup2.opened = true;
+        };
+
+        $scope.popup1 = {
+            opened: false
+        };
+
+        $scope.popup2 = {
+            opened: false
+        };
+
+
+        function getDayClass(data) {
+            var date = data.date,
+                mode = data.mode;
+            if (mode === 'day') {
+                var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
+
+                for (var i = 0; i < $scope.events.length; i++) {
+                    var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
+
+                    if (dayToCheck === currentDay) {
+                        return $scope.events[i].status;
+                    }
+                }
+            }
+
+            return '';
+        }
         NavigationService.apiCall("Mission/search", formData, function (data) {
             if (data.value === true) {
                 $scope.missionData = data.data.results;
@@ -91,8 +137,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 //  toastr.warning('Error submitting the form', 'Please try again');
             }
         });
-   
-   
+
+
     })
     .controller('CadlineworkappCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
@@ -101,6 +147,35 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         var formData = {}
+         $scope.today = function () {
+            // $scope.dt = new Date();
+        };
+        $scope.today();
+
+        $scope.clear = function () {
+            $scope.dt = null;
+        };
+  // Disable weekend selection
+        function disabled(data) {
+            var date = data.date,
+                mode = data.mode;
+            return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+        }
+        $scope.open1 = function () {
+            $scope.popup1.opened = true;
+        };
+
+        $scope.open2 = function () {
+            $scope.popup2.opened = true;
+        };
+
+        $scope.popup1 = {
+            opened: false
+        };
+
+        $scope.popup2 = {
+            opened: false
+        };
         NavigationService.apiCall("CadLineWork/search", formData, function (data) {
             if (data.value === true) {
                 $scope.cadLineWorkData = data.data.results;
@@ -116,6 +191,35 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("dfmsubscription");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+         $scope.today = function () {
+            // $scope.dt = new Date();
+        };
+        $scope.today();
+
+        $scope.clear = function () {
+            $scope.dt = null;
+        };
+  // Disable weekend selection
+        function disabled(data) {
+            var date = data.date,
+                mode = data.mode;
+            return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+        }
+        $scope.open1 = function () {
+            $scope.popup1.opened = true;
+        };
+
+        $scope.open2 = function () {
+            $scope.popup2.opened = true;
+        };
+
+        $scope.popup1 = {
+            opened: false
+        };
+
+        $scope.popup2 = {
+            opened: false
+        };
     })
 
     .controller('ProfileCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
@@ -133,7 +237,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
     })
-      .controller('UseraccountCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+    .controller('UseraccountCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("useraccount");
         $scope.menutitle = NavigationService.makeactive("useraccount");
@@ -146,7 +250,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("createmission");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-       
+
     })
 
     .controller('missionanalyzeCtrl', function ($scope, $stateParams, shareMission, TemplateService, NavigationService, $timeout, $state) {
