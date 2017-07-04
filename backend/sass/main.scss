@@ -2065,8 +2065,19 @@ input:checked+.slider:before {
     margin: 0px 15px;
 }
 .slide-menu{
+    .admin-details > span > img {
+            float: right;
+                width: 41%;
+    }
+    .admin-details {
+            padding: 23px 9px 0px 5px;
+    }
     span{
-        display: none;
+        // display: none;
+    }
+     .side-menus span{
+         display: none;
+
     }
     .side-menus nav > ul > li {
     float: none;
@@ -2090,7 +2101,20 @@ input:checked+.slider:before {
    
     left: -25px !important;
 }
-
+.sidebar-user-info-inner .user-profile span strong {
+      display: none;
+}
+.sidebar-user-info-inner .user-profile span {
+    display: none;
+}
+.sidebar-user-info-inner .user-profile {
+    display: block;
+    text-align: right;
+    margin-right: -4px;
+}
+.sidebar-user-info-inner .user-profile img {
+    margin-right: 0px;
+}
 }
 .active{
 .menu-options {
