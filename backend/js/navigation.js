@@ -10,13 +10,13 @@ var navigationservice = angular.module('navigationservice', [])
                 name: "Users",
                 classis: "active",
                 sref: "#!/page/viewUser//",
-                icon: "phone"
+                icon: "user"
             },
             {
                 name: "Products",
                 classis: "active",
                 sref: "#!/page/viewProducts//",
-                icon: "phone"
+                icon: "tags"
             },
 
             // {
@@ -30,7 +30,7 @@ var navigationservice = angular.module('navigationservice', [])
                 name: "CadLineWork",
                 classis: "active",
                 sref: "#!/cadlineworkapp",
-                icon: "phone"
+                icon: "pencil"
             },
             
             
@@ -39,32 +39,32 @@ var navigationservice = angular.module('navigationservice', [])
                 name: "DFMSubscription",
                 classis: "active",
                 sref: "#!/dfmsubscription",
-                icon: "phone"
+                icon: "binoculars2"
             },
 
             {
                 name: "Mission",
                 classis: "active",
                 sref: "#!/mission",
-                icon: "phone"
+                icon: "copy"
             },
  {
                 name: "ServiceList",
                 classis: "active",
                 sref: "#!/page/viewServiceList//",
-                icon: "phone"
+                icon: "file"
             },
             {
                 name: "Plan",
                 classis: "active",
                 sref: "#!/page/viewPlan//",
-                icon: "phone"
+                icon: "clipboard"
             },
             {
                 name: "CouponCode",
                 classis: "active",
                 sref: "#!/page/viewCouponCode//",
-                icon: "phone"
+                icon: "lock"
             },
 
             {
@@ -77,13 +77,13 @@ var navigationservice = angular.module('navigationservice', [])
                 name: "News Letter",
                 classis: "active",
                 sref: "#!/page/viewNewsLetter//",
-                icon: "phone"
+                icon: "news"
             },
                {
                 name: "Profile",
                 classis: "active",
                 sref: "#!/profile",
-                icon: "phone"
+                icon: "profile"
             },
 
 
@@ -98,7 +98,7 @@ var navigationservice = angular.module('navigationservice', [])
                 name: "Slider",
                 classis: "active",
                 sref: "#!/page/viewSlider//",
-                icon: "phone"
+                icon: "recycle"
             },
 
             // ,

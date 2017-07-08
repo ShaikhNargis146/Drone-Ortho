@@ -1,151 +1,140 @@
 <div class="page-container">
     <div class="page-title">
-        <div class="title-env">
+        <div class="title-env padd-b">
             <h1 class="title">Account</h1>
         </div>
     </div>
     <!-- Responsive Table -->
     <div class="row">
-        <div class="padd40">
-            <div class="col-md-12">
-                <div class="panel panel-default">
-                  <div class="padd30">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Card Details</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class="btn btn-default request-button ">Add Card</a>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="">
-                                            <p>Card no:xxxxxxxxxxxx7887</p>
-                                            <p> Name on Card: Rajesh Sharma</p>
-                                        </div>
-                                    </div>
-                                    <div>
-                                    <div class="col-md-1 tog-btn"> <button class="btn btn-default"> <i class="fa fa-trash" aria-hidden="true"></i></button></div>
-                                    <div class="col-md-5">
-                                        <div class="">
-                                          <div class="checkboxThree">
-                                                 <input type="checkbox" value="1" id="checkboxThreeInput" >
-                                                 <label for="checkboxThreeInput"></label>
-                                             </div> 
-                                        </div>
-                                    </div>
-                                </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="c-details">
-                                            <p>Card no:xxxxxxxxxxxx7827</p>
-                                            <p> Name on Card: Rajesh Sharma</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-1 tog-btn"> <button class="btn btn-default"> <i class="fa fa-trash" aria-hidden="true"></i></button></div>
-                                    <div class="col-md-5">
-                                        <div class="">
-                                            <!--<label class="switch ">
-                                                         
-                                                
-                                                    <input type="checkbox">
-                                                    <div class="slider round"></div>
-                                  
-                                                    </label>-->
-
-
-                                             <div class="checkboxThree">
-                                                 <input type="checkbox" value="2" id="checkboxThreeInputt" >
-                                                 <label for="checkboxThreeInputt"></label>
-                                             </div>                                           
-                                                    
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <h4>DFM Stats</h4>
-                                <table class="table table-bordered table-striped account">
-                                    <tbody>
-                                        <tr>
-                                            <td>Status</td>
-                                            <td>Active</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Usage</td>
-                                            <td>43 days left</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Current Plan</td>
-                                            <td>Standard</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Auto Renewal</td>
-                                            <td>
-                                                <select class="form-control">
-  											<option>Yes</option>
-  											<option>No</option>
-                      </select></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <!--<button type="button" class="btn btn-info btn-single create">SAVE CHANGES</button>-->
-                                <button type="button" class="btn btn-info btn-single create">Save Changes</button>
-                                <a href="plans.html"><button type="button" class="btn btn-info btn-single pull-right create">Change Plan</button></a>
-                            </div>
-                        </div>
-                </div>
-                    </div>
-                </div>
-                </form>
-            </div>
-            <div class="modal fade custom-width" id="modal-6">
-                <div class="modal-dialog" style="width: 40%;">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">Add Card</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="col-md-12">
-                                <h4>Card Details</h4>
-                                <div class="account">
-                                    <div class="form-group">
-                                        <label class="control-label">Card Type:</label>
-                                        <select class="form-control" id="sboxit-1">
+         <div class="padd40">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body ">
+                          <div class="padd-18">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Card Details</h4>
+                            <div class="account">
+                                <div class="form-group">
+                                    <label class="control-label">Card Type:</label>
+                                    <select class="form-control" id="sboxit-1">
                                   <option>Master-card</option>
             											<option>visa</option>
               									</select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="CardNumber">Card Number:</label>
-                                        <input type="number" class="form-control" id="CardNumber" placeholder="Card Number">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="Code">Security Code:</label>
-                                        <input type="number" class="form-control" id="Code" placeholder="Security Code">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="name">Name on card:</label>
-                                        <input type="text" class="form-control" id="name" placeholder="Name on card">
-                                    </div>
-                                    <!--<div class="form-group">
+                                </div>
+                                <div class="form-group">
+                                    <label for="CardNumber">Card Number:</label>
+                                    <input type="number" class="form-control" id="CardNumber" placeholder="Card Number">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Code">Security Code:</label>
+                                    <input type="number" class="form-control" id="Code" placeholder="Security Code">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">Name on card:</label>
+                                    <input type="text" class="form-control" id="name" placeholder="Name on card">
+                                </div>
+                                <!--<div class="form-group">
                 									<button type="button" class="btn btn-info create btn-single">Submit</button>
 
                 								</div>-->
-                                    <div class="form-group">
-                                        <button type="button" class="btn btn-info btn-single create">Submit</button>
-                                    </div>
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-info btn-single create">Submit</button>
+                                    <button type="button" class="btn btn-info btn-single pull-right create" href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});">Add Card</button>
+
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>DFM Stats</h4>
+                            <table class="table table-bordered table-striped account">
+                                <tbody>
+                                    <tr>
+                                        <td>Status</td>
+                                        <td>Active</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Usage</td>
+                                        <td>43 days left</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Current Plan</td>
+                                        <td>Standard</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Auto Renewal</td>
+                                        <td>
+                                            <select class="form-control">
+  											<option>Yes</option>
+  											<option>No</option>
+                      </select></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!--<button type="button" class="btn btn-info btn-single create">SAVE CHANGES</button>-->
+                            <button type="button" class="btn btn-info btn-single create">Save Changes</button>
+                            <a href="plans.html"><button type="button" class="btn btn-info btn-single pull-right create">Change Plan</button></a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        </div>
     </div>
+</div>
+</div>
 
+        <div class="modal fade custom-width" id="modal-6">
+            <div class="modal-dialog" style="width: 40%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Add Card</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12">
+                            <h4>Card Details</h4>
+                            <div class="account">
+                                <div class="form-group">
+                                    <label class="control-label">Card Type:</label>
+                                    <select class="form-control" id="sboxit-1">
+                                  <option>Master-card</option>
+            											<option>visa</option>
+              									</select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="CardNumber">Card Number:</label>
+                                    <input type="number" class="form-control" id="CardNumber" placeholder="Card Number">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Code">Security Code:</label>
+                                    <input type="number" class="form-control" id="Code" placeholder="Security Code">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">Name on card:</label>
+                                    <input type="text" class="form-control" id="name" placeholder="Name on card">
+                                </div>
+                                <!--<div class="form-group">
+                									<button type="button" class="btn btn-info create btn-single">Submit</button>
+
+                								</div>-->
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-info btn-single create">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+                            // This JavaScript Will Replace Checkboxes in dropdown toggles
+                            jQuery(document).ready(function($) {
+                                setTimeout(function() {
+                                    $(".checkbox-row input").addClass('cbr');
+                                    cbr_replace();
+                                }, 0);
+                            });
+                        </script>
+   
