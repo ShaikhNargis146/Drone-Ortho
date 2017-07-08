@@ -11,8 +11,16 @@ var schema = new Schema({
     },
     description: String,
     files: [{
-        type: String
+        file: String,
+        status:{
+            type:String,
+            default:'Proceesing'
+        }
     }],
+    fileUploadStatus: {
+        type: String,
+        default: ''
+    },
     status: String,
     others: [{
         serviceId: {
@@ -34,7 +42,24 @@ schema.plugin(timestamps);
 module.exports = mongoose.model('Mission', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema));
-var model = {};
+var model = {
+    findMe: function (data, callback) {
+        this.getOne({
+            "_id": data._id
+        }, function (err, dataF) {
+            if (err) {
+                callback(err, null);
+            } else {
+                gfs.findOne({
+                    filename: dataF.files[0]
+                }, function (err, file) {
+                    console.log("file", file);
+                });
+                callback(null, dataF);
+            }
+        });
+    },
+};
 // cron.schedule('1 * * * * *', function () {
 //     Mission.find({}, function (err, found) {
 //         if (err) {

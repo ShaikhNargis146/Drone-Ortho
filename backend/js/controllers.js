@@ -134,7 +134,17 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("createmission");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-       
+        $scope.uploadMe = function (data) {
+            NavigationService.apiCall("Mission/createMission", data, function (data) {
+                // if (data.value === true) {
+                    console.log("data saved successfully");
+                        $("#modal-4").modal();
+                // } else {
+                //     //  toastr.warning('Error submitting the form', 'Please try again');
+                // }
+            });
+        }
+
     })
 
     .controller('missionanalyzeCtrl', function ($scope, $stateParams, shareMission, TemplateService, NavigationService, $timeout, $state) {
@@ -181,12 +191,24 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
 
     })
-    .controller('missiondetailCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+    .controller('missiondetailCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("mission-detail");
         $scope.menutitle = NavigationService.makeactive("missions");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        console.log("------", $stateParams.missionId);
+        var formData = {}
+        formData._id = $stateParams.missionId;
+        NavigationService.apiCall("Mission/getOne", formData, function (data) {
+            if (data.value === true) {
+                $scope.missionDetails = data.data;
+                console.log("data found successfully", $scope.missionDetails);
+            } else {
+                //  toastr.warning('Error submitting the form', 'Please try again');
+            }
+        });
+
     })
     .controller('AccessController', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         // if ($.jStorage.get("accessToken")) {

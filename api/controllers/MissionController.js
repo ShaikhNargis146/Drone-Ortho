@@ -11,16 +11,13 @@
 
 /*THESE GLOBAL VARIABLE EXAMPLES CHANGE THEM IN YOUR CODE SET BASED ON THE NEED*/
 var request = require('request');
-var crypto = require('crypto')
+var crypto = require('crypto');
+var cron = require('node-cron');
+var publicToken = "TYQ8R9w3BZJ25zvKQhbFfE3XwAj2YtQAyUaVcOI3hsvEMTIo7p6FQRB3viqAgXRB";
+var privateToken = "RNTY5FYNZHDnm7hWn3Z7v7qHaK8lkp2YAmAXR7Irp29wsmV47PA1JtJXQ5KwOdh2";
+var nonce = "92301kjsadln98123124";
+var userAgent = '';
 module.exports = _.cloneDeep(require("sails-wohlig-controller"));
-
-function getDateTime() {
-    d = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
-    d = d.replace(/:/g, "");
-    d = d.replace(/-/g, "");
-    d = d.replace(' ', '');
-    return d;
-}
 
 function getDateTime() {
     d = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
@@ -77,37 +74,96 @@ function sendRequest(url, method, userAgent, date, nonce, publicToken, sign, bod
             form: body
         },
         function (error, response, body) {
-            console.log(body)
-            return body
+            console.log("error",error);
+            console.log("JSON.parse(body)---",JSON.parse(body))
+            return JSON.parse(body)
         });
 
 }
+
+function checksum(str, algorithm, encoding) {
+    return crypto
+        .createHash(algorithm || 'md5')
+        .update(str, 'utf8')
+        .digest(encoding || 'hex')
+}
 var controller = {
+
+    // Creates mission on both the ends, DDMS server ,and on our server..
     createMission: function (req, res) {
         console.log("m in getData", req.body);
+        process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
         var url = "https://app.unifli.aero/api/missions/",
-            method = "get",
-            nonce = "92301kjsadln98123124",
-            publicToken = "TYQ8R9w3BZJ25zvKQhbFfE3XwAj2YtQAyUaVcOI3hsvEMTIo7p6FQRB3viqAgXRB",
-            privateToken = "RNTY5FYNZHDnm7hWn3Z7v7qHaK8lkp2YAmAXR7Irp29wsmV47PA1JtJXQ5KwOdh2",
+            method = "post",
             userAgent = req.headers['user-agent']
         date = getDateTime()
+        console.log("req.body.files", req.body.files.length);
 
         //assign request to var body here 
-        body = {
+        sentBody = {
             description: req.body.description,
             collected_at: date
         }
-
-        contentLength = calculateContentLength(body)
+        contentLength = calculateContentLength(sentBody)
 
         //E38 signing function
         sign = Event38Signer(url, date, method, nonce, publicToken, privateToken, userAgent, contentLength);
         //send request to server
-
         process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-        console.log("inside sendRequest", method, userAgent, date, nonce, sign, body, contentLength);
+        console.log("inside sendRequest", method, userAgent, date, nonce, sign, sentBody, contentLength);
 
+        request(
+            url, {
+                method: method,
+                headers: {
+                    'user-agent': userAgent,
+                    'X-E38-Date': date,
+                    'X-E38-Nonce': nonce,
+                    'authorization': "Signature token=" + publicToken + "; signature=" + sign + '; headers=user-agent,content-length',
+                    'content-length': contentLength
+                },
+                form: sentBody
+            },
+            function (error, response, body) {
+                var missionDetails = JSON.parse(body);
+                console.log("body", missionDetails)
+
+                req.body.missionId = missionDetails.id;
+                if (body && missionDetails.id) {
+                    Mission.saveData(req.body, res.callback);
+                    req.body.processingsId = missionDetails.processings[0].id;
+                    controller.initializeUpload(req, res);
+                } else {
+                    res.callback("Please provide Valid data", null);
+                }
+            });
+    },
+    // Initiallizing upload on DDMS server..
+    initializeUpload: function (req, res) {
+        console.log("m in initializeUpload", req.body);
+        process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
+        var url = "https://app.unifli.aero/api/missions/" + req.body.missionId + "/processings/" + req.body.processingsId + "/chunked/",
+            method = "post",
+            userAgent = req.headers['user-agent']
+        var fileLen = req.body.files.length
+        console.log("req.body.files", fileLen);
+        //assign request to var body here 
+        body = {
+            total_parts: 3,
+            downloadable: 'true',
+            resource_type: 'JPEG Image'
+        }
+
+        contentLength = calculateContentLength(body);
+
+        date = getDateTime();
+
+        //E38 signing function
+        sign = Event38Signer(url, date, method, nonce, publicToken, privateToken, userAgent, contentLength);
+
+        //send request to server
         request(
             url, {
                 method: method,
@@ -121,77 +177,111 @@ var controller = {
                 form: body
             },
             function (error, response, body) {
-               var missionDetails=JSON.parse(body);
-                console.log("body",missionDetails[0])
-                
-                req.body.missionId = missionDetails[0].id;
-                if (body && missionDetails[0].id) {
-                    Mission.saveData(req.body, res.callback);
+                console.log("response-", error);
+                var serverRes = JSON.parse(body);
+                console.log("body", serverRes)
+
+                req.body.chunkId = serverRes.id;
+                if (body && serverRes.id) {
+                    controller.uploadingFiles(req, res);
                 } else {
-                    res.callback("Please provide Valid AccessToken", null);
+                    res.callback("Please provide Valid data", null);
                 }
             });
+
     },
-    initializeUpload: function (req, res) {
-        console.log("m in getData");
-        var url = "https://app.unifli.aero/api/missions/d6f85c48-5b04-4600-acf2-2fa42526ba5c/processings/5bf99122-3c6f-4762-9f2c-d76155141d6b/chunked/",
-            method = "post",
-            nonce = "92301kjsadln98123124",
-            publicToken = "TYQ8R9w3BZJ25zvKQhbFfE3XwAj2YtQAyUaVcOI3hsvEMTIo7p6FQRB3viqAgXRB",
-            privateToken = "RNTY5FYNZHDnm7hWn3Z7v7qHaK8lkp2YAmAXR7Irp29wsmV47PA1JtJXQ5KwOdh2",
-            userAgent = req.headers['user-agent']
-
-        //assign request to var body here 
-        body = {
-            total_parts: '3',
-            downloadable: 'true',
-            resource_type: 'JPEG Image'
-        }
-
-        contentLength = calculateContentLength(body)
-
-        date = getDateTime()
-        //E38 signing function
-        sign = Event38Signer(url, date, method, nonce, publicToken, privateToken, userAgent, contentLength);
-        //send request to server
-
-        sendRequest(url, method, userAgent, date, nonce, publicToken, sign, body)
-    },
+    // Have to write upload..
     uploadingFiles: function (req, res) {
-        console.log("m in getData");
-        var url = "http://app.unifli.aero/api/chunked/dca3a410-feef-4cea-9afd-14ccf27ed7f5/",
+        console.log("m in uploadingFiles", req.body);
+        process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
+        // var url = "http://app.unifli.aero/api/chunked/" + req.body.chunkId + "/",
+       var url= "https://requestb.in/suvqqpsu",
             method = "post",
-            nonce = "92301kjsadln98123124",
-            publicToken = "TYQ8R9w3BZJ25zvKQhbFfE3XwAj2YtQAyUaVcOI3hsvEMTIo7p6FQRB3viqAgXRB",
-            privateToken = "RNTY5FYNZHDnm7hWn3Z7v7qHaK8lkp2YAmAXR7Irp29wsmV47PA1JtJXQ5KwOdh2",
             userAgent = req.headers['user-agent']
 
         //assign request to var body here 
-        body = {
-            total_parts: '3',
-            downloadable: 'true',
-            resource_type: 'JPEG Image'
-        }
+        var files = [];
+        Mission.findOne({
+            missionId: req.body.missionId
+        }).lean().exec(function (err, missionData) {
+            if (err || _.isEmpty(missionData)) {
+                res.callback(err, missionData);
+            } else {
+                //send request to server
+                files = missionData.files;
+                var i = 0;
+                async.eachSeries(files, function (image, callback) {
+                    console.log("files---", image);
+                    request(global["env"].realHost + '/api/upload/readFile?file=' + image).pipe(fs.createWriteStream(image)).on('finish', function (images) {
+                        // JSZip generates a readable stream with a "end" event,
+                        // but is piped here in a writable stream which emits a "finish" event.
 
-        contentLength = calculateContentLength(body)
+                        fs.readFile(image, function (err, imagesData) {
+                            if (err) {
+                                res.callback(err, null);
+                            } else {
+                                var folder = process.cwd() + "/filesForServer/";
+                                var path = image;
+                                var finalPath = folder + path;
+                                console.log(finalPath);
+                                fs.writeFile(finalPath, imagesData, 'binary', function (err) {
+                                    if (err) {
+                                        res.callback(err, null);
+                                    } else {
+                                        console.log(fs.statSync(image).size);
+                                        console.log(checksum(imagesData));
 
-        date = getDateTime()
-        //E38 signing function
-        sign = Event38Signer(url, date, method, nonce, publicToken, privateToken, userAgent, contentLength);
-        //send request to server
+                                        console.log(checksum(imagesData, 'sha256'));
+                                        gfs.findOne({
+                                            filename: image
+                                        }, function (err, file) {
+                                            console.log("file---", file);
+                                            body = {
+                                                part: 1,
+                                                upload: finalPath,
+                                                file_size: file.chunkSize,
+                                                checksum_sha256: checksum(imagesData, 'sha256'),
+                                                checksum_md5: checksum(imagesData)
+                                            }
 
-        sendRequest(url, method, userAgent, date, nonce, publicToken, sign, body)
+                                            contentLength = calculateContentLength(_.cloneDeep(body));
+                                            console.log("\n---", body);
+                                            date = getDateTime()
+
+                                            //E38 signing function
+                                            sign = Event38Signer(url, date, method, nonce, publicToken, privateToken, userAgent, contentLength);
+
+                                            var uploadRes = sendRequest(url, method, userAgent, date, nonce, publicToken, sign, _.cloneDeep(body))
+                                            console.log("uploadRes---", uploadRes)
+                                            fs.unlink(image);
+                                            i = i + 1;
+                                            callback();
+                                        });
+
+                                    }
+                                });
+                            }
+                        });
+
+                    });
+                }, function () {
+                    missionData.fileUploadStatus = 'uploaded';
+                    Mission.saveData(missionData, res.callback);
+                });
+            }
+        });
     },
-    getMissionFromServer:function(req,res){
-        
-         console.log("m in getData", req.body);
-        var url = "https://app.unifli.aero/api/missions/d6f85c48-5b04-4600-acf2-2fa42526ba5c/",
+    // Get mission from DDMS server byt its Id..
+    getMissionFromServer: function (req, res) {
+        console.log("m in getData", req.body);
+        var url = "https://app.unifli.aero/api/missions/720f4966-a3c5-4153-9a98-c5ff72314072/",
             method = "get",
             nonce = "92301kjsadln98123124",
             publicToken = "TYQ8R9w3BZJ25zvKQhbFfE3XwAj2YtQAyUaVcOI3hsvEMTIo7p6FQRB3viqAgXRB",
             privateToken = "RNTY5FYNZHDnm7hWn3Z7v7qHaK8lkp2YAmAXR7Irp29wsmV47PA1JtJXQ5KwOdh2",
             userAgent = req.headers['user-agent']
-        date = getDateTime()
+        date = getDateTime();
 
         //assign request to var body here 
         body = {
@@ -203,8 +293,8 @@ var controller = {
 
         //E38 signing function
         sign = Event38Signer(url, date, method, nonce, publicToken, privateToken, userAgent, contentLength);
-        //send request to server
 
+        //send request to server
         process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
         console.log("inside sendRequest", method, userAgent, date, nonce, sign, body, contentLength);
 
@@ -220,11 +310,167 @@ var controller = {
                 }
             },
             function (error, response, body) {
-               var missionDetails=JSON.parse(body);
-                console.log("body",missionDetails)
-               
+                var missionDetails = JSON.parse(body);
+                console.log("body", missionDetails)
+                callback(null, missionDetails)
             });
+    },
+
+    getMission: function (req, res) {
+        Mission.findMe(req.body, res.callback)
+    },
+
+    unknownF: function () {
+        var files = [];
+        Mission.find({
+            fileUploadStatus: ""
+        }, function (err, found) {
+            if (err) {
+                callback(err, null);
+            } else {
+                console.log(found);
+                async.eachSeries(found, function (itrData, callback) {
+                    console.log("files---", itrData);
+                    var url = "https://app.unifli.aero/api/missions/" + itrData.missionId + "/",
+                        method = "get",
+
+                        userAgent = req.headers['user-agent']
+                    date = getDateTime();
+
+                    //assign request to var body here 
+                    body = {
+                        // description: req.body.description,
+                        // collected_at: date
+                    }
+
+                    contentLength = calculateContentLength(body)
+
+                    //E38 signing function
+                    sign = Event38Signer(url, date, method, nonce, publicToken, privateToken, userAgent, contentLength);
+
+                    //send request to server
+                    process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+                    console.log("inside sendRequest", method, userAgent, date, nonce, sign, body, contentLength);
+
+                    sendRequest()
+
+
+
+
+                    files = itrData.files;
+                    async.eachSeries(files, function (image, callback1) {
+                        console.log("files---", image);
+                        request(global["env"].realHost + '/api/upload/readFile?file=' + image).pipe(fs.createWriteStream(image)).on('finish', function (images) {
+                            // JSZip generates a readable stream with a "end" event,
+                            // but is piped here in a writable stream which emits a "finish" event.
+                            fs.readFile(image, function (err, imagesData) {
+                                if (err) {
+                                    res.callback(err, null);
+                                } else {
+                                    //Remove image
+                                    console.log(checksum(imagesData));
+
+                                    console.log(checksum(imagesData, 'sha256'));
+                                    fs.unlink(image);
+                                    // zip.file("file", content); ... and other manipulations
+                                    callback1();
+                                }
+                            });
+                        });
+                    }, function () {
+                        //Generate Zip file
+                        // zip.generateNodeStream({
+                        //         type: 'nodebuffer',
+                        //         streamFiles: true
+                        //     })
+                        //     .pipe(fs.createWriteStream(finalPath))
+                        //     .on('finish', function (zipData) {
+                        //         // JSZip generates a readable stream with a "end" event,
+                        //         // but is piped here in a writable stream which emits a "finish" event.
+                        //         fs.readFile(finalPath, function (err, zip) {
+                        //             if (err) {
+                        //                 res.callback(err, null);
+                        //             } else {
+                        //                 res.set('Content-Type', "application/octet-stream");
+                        //                 res.set('Content-Disposition', "attachment;filename=" + path);
+                        //                 res.send(zip);
+                        //                 fs.unlink(finalPath);
+                        //             }
+                        //         });
+                        //     });
+                        callback();
+                    });
+                }, function () {
+                    console.log("m in found");
+
+                });
+            }
+        });
+    },
+
+    generateZip: function (req, res) {
+        // var JSZip = require("jszip");
+        // var type = req.query.type;
+        // var zip = new JSZip();
+        var folder = "./.tmp/";
+        // var path = _.capitalize(type) + "-" + moment().format("MMM-DD-YYYY-hh-mm-ss-a") + ".zip";
+        // var finalPath = folder + path;
+        var files = [];
+        Mission.findOne({
+            _id: req.body._id
+        }).lean().exec(function (err, assignementData) {
+            if (err || _.isEmpty(assignementData)) {
+                res.callback(err, assignementData);
+            } else {
+                files = assignementData.files;
+                async.eachSeries(files, function (image, callback) {
+                    console.log("files---", image);
+                    request(global["env"].realHost + '/api/upload/readFile?file=' + image).pipe(fs.createWriteStream(image)).on('finish', function (images) {
+                        // JSZip generates a readable stream with a "end" event,
+                        // but is piped here in a writable stream which emits a "finish" event.
+                        fs.readFile(image, function (err, imagesData) {
+                            if (err) {
+                                res.callback(err, null);
+                            } else {
+                                //Remove image
+                                console.log(fs.statSync(image).size);
+                                console.log(checksum(imagesData));
+
+                                console.log(checksum(imagesData, 'sha256'));
+                                fs.unlink(image);
+                                // zip.file("file", content); ... and other manipulations
+                                callback();
+                            }
+                        });
+                    });
+                }, function () {
+                    //Generate Zip file
+                    // zip.generateNodeStream({
+                    //         type: 'nodebuffer',
+                    //         streamFiles: true
+                    //     })
+                    //     .pipe(fs.createWriteStream(finalPath))
+                    //     .on('finish', function (zipData) {
+                    //         // JSZip generates a readable stream with a "end" event,
+                    //         // but is piped here in a writable stream which emits a "finish" event.
+                    //         fs.readFile(finalPath, function (err, zip) {
+                    //             if (err) {
+                    //                 res.callback(err, null);
+                    //             } else {
+                    //                 res.set('Content-Type', "application/octet-stream");
+                    //                 res.set('Content-Disposition', "attachment;filename=" + path);
+                    //                 res.send(zip);
+                    //                 fs.unlink(finalPath);
+                    //             }
+                    //         });
+                    //     });
+                });
+
+            }
+        });
+
     }
 
 };
+
 module.exports = _.assign(module.exports, controller);
