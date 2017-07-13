@@ -126,9 +126,9 @@ var navigationservice = angular.module('navigationservice', [])
             },
             profile: function (callback, errorCallback) {
                 var data = {
-                    accessToken: $.jStorage.get("accessToken")
+                    _id: $.jStorage.get("accessToken")
                 };
-                $http.post(adminurl + 'user/profile', data).then(function (data) {
+                $http.post(adminurl + 'user/getOne', data).then(function (data) {
                     data = data.data;
                     if (data.value === true) {
                         $.jStorage.set("profile", data.data);

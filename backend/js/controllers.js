@@ -81,7 +81,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.clear = function () {
             $scope.dt = null;
         };
-  // Disable weekend selection
+        // Disable weekend selection
         function disabled(data) {
             var date = data.date,
                 mode = data.mode;
@@ -147,7 +147,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         var formData = {}
-         $scope.today = function () {
+        $scope.today = function () {
             // $scope.dt = new Date();
         };
         $scope.today();
@@ -155,7 +155,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.clear = function () {
             $scope.dt = null;
         };
-  // Disable weekend selection
+        // Disable weekend selection
         function disabled(data) {
             var date = data.date,
                 mode = data.mode;
@@ -191,7 +191,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("dfmsubscription");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-         $scope.today = function () {
+        $scope.today = function () {
             // $scope.dt = new Date();
         };
         $scope.today();
@@ -199,7 +199,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.clear = function () {
             $scope.dt = null;
         };
-  // Disable weekend selection
+        // Disable weekend selection
         function disabled(data) {
             var date = data.date,
                 mode = data.mode;
@@ -222,12 +222,29 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
     })
 
-    .controller('ProfileCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+    .controller('ProfileCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state,toastr) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("profile");
         $scope.menutitle = NavigationService.makeactive("profile");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        NavigationService.profile(function () {
+            $scope.profileDetails = $.jStorage.get("profile");
+        }, function () {
+            $state.go("login");
+        });
+        $scope.saveProfile = function (profileDetails) {
+            NavigationService.apiCall("User/save", profileDetails, function (data) {
+                if (data.value === true) {
+                    console.log("data saved successfully");
+                  toastr.success("Profile updated successfully");
+                } else {
+                    //  toastr.warning('Error submitting the form', 'Please try again');
+                }
+            });
+
+        }
+
     })
 
     .controller('AccountCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
@@ -253,8 +270,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.uploadMe = function (data) {
             NavigationService.apiCall("Mission/createMission", data, function (data) {
                 // if (data.value === true) {
-                    console.log("data saved successfully");
-                        $("#modal-4").modal();
+                console.log("data saved successfully");
+                $("#modal-4").modal();
                 // } else {
                 //     //  toastr.warning('Error submitting the form', 'Please try again');
                 // }
@@ -326,11 +343,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     })
     .controller('AccessController', function ($scope, TemplateService, NavigationService, $timeout, $state) {
-        // if ($.jStorage.get("accessToken")) {
+        if ($.jStorage.get("accessToken")) {
 
-        // } else {
-        //     $state.go("login");
-        // }
+        } else {
+            $state.go("login");
+        }
     })
 
     .controller('JagzCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, $interval) {
@@ -895,24 +912,45 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     .controller('LoginCtrl', function ($scope, TemplateService, NavigationService, $timeout, $stateParams, $state, toastr) {
         //Used to name the .html file
+        $scope.template = TemplateService.changecontent("login");
         $scope.menutitle = NavigationService.makeactive("Login");
         TemplateService.title = $scope.menutitle;
         $scope.currentHost = window.location.origin;
-        if ($stateParams.id) {
-            if ($stateParams.id === "AccessNotAvailable") {
-                toastr.error("You do not have access for the Backend.");
-            } else {
-                NavigationService.parseAccessToken($stateParams.id, function () {
-                    NavigationService.profile(function () {
-                        $state.go("dashboard");
-                    }, function () {
-                        $state.go("login");
+        // if ($stateParams.id) {
+        //     if ($stateParams.id === "AccessNotAvailable") {
+        //         toastr.error("You do not have access for the Backend.");
+        //     } else {
+        //         NavigationService.parseAccessToken($stateParams.id, function () {
+        //             NavigationService.profile(function () {
+        //                 $state.go("dashboard");
+        //             }, function () {
+        //                 $state.go("login");
+        //             });
+        //         });
+        //     }
+        // } else {
+        //     NavigationService.removeAccessToken();
+        // }
+        $scope.login = function (formData) {
+            console.log("login", formData);
+            NavigationService.apiCall("User/login", formData, function (data) {
+                if (data.value === true) {
+                    $scope.profileDetails = data.data;
+                    NavigationService.parseAccessToken(data.data._id, function () {
+                        NavigationService.profile(function () {
+                            $scope.template.profile = data.data;
+                            $state.go("dashboard");
+                        }, function () {
+                            $state.go("login");
+                        });
                     });
-                });
-            }
-        } else {
-            NavigationService.removeAccessToken();
+                    console.log("profileDetails found successfully", $scope.profileDetails);
+                } else {
+                    //  toastr.warning('Error submitting the form', 'Please try again');
+                }
+            });
         }
+
 
     })
 

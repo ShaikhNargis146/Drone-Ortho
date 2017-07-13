@@ -12,12 +12,12 @@
                 <div class="panel panel-default">
                     <div class="panel-body ">
                         <div class="padd-18">
-                        <form class="" action="index.html" method="post">
+                        <form >
                             <div class="member-form-add-header">
                                 <div class="row">
                                     <div class="col-md-2 col-sm-4 pull-right">
                                         <div class="action-buttons">
-                                            <button type="submit" class="btn btn-block btn-secondary">Save Changes</button>
+                                            <button type="submit" ng-click="saveProfile(profileDetails)" class="btn btn-block btn-secondary">Save Changes</button>
                                             <button type="reset" class="btn btn-block btn-gray">Reset to Default</button>
                                         </div>
                                     </div>
@@ -26,7 +26,7 @@
                                             <img src="http://themes.laborator.co/xenon/assets/images/user-4.png" class="img-circle" alt="user-pic" />
                                         </div>
                                         <div class="user-name">
-                                            <a href="#">Jack Gates</a>
+                                            <a href="#">{{template.profile.name}}</a>
                                             <span>Administrator</span>
                                         </div>
                                     </div>
@@ -35,39 +35,39 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="col-sm-10 profile-input">
-                                        <input type="text" class="form-control" id="name" placeholder="Name">
+                                        <input type="text" class="form-control" id="name" ng-model="profileDetails.name" placeholder="Name">
                                     </div>
                                     <div class="col-sm-10 profile-input">
-                                        <input type="text" class="form-control" id="organization" placeholder="Organization">
+                                        <input type="text" class="form-control" id="organization" ng-model="profileDetails.organization" placeholder="Organization">
                                     </div>
                                     <div class="col-sm-10 profile-input">
-                                        <input type="number" class="form-control" id="phone" placeholder="Phone">
+                                        <input type="number" class="form-control" id="phone" ng-model="profileDetails.phone" placeholder="Phone">
                                     </div>
                                     <div class="col-sm-10 profile-input">
-                                        <input type="text" class="form-control" id="Address" placeholder="Address">
+                                        <input type="text" class="form-control" id="Address" ng-model="profileDetails.address" placeholder="Address">
                                     </div>
                                     <div class="col-sm-10 profile-input">
-                                        <input type="text" class="form-control" id="state" placeholder="State">
+                                        <input type="text" class="form-control" id="state" ng-model="profileDetails.state" placeholder="State">
                                     </div>
                                     <div class="col-sm-10 profile-input">
-                                        <input type="text" class="form-control" id="website" placeholder="Website">
+                                        <input type="text" class="form-control" id="website" ng-model="profileDetails.website" placeholder="Website">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="col-sm-10 profile-input">
-                                        <input type="email" class="form-control" id="Email" placeholder="Email">
+                                        <input type="email" class="form-control" id="Email" ng-model="profileDetails.email" placeholder="Email">
                                     </div>
                                     <div class="col-sm-10 profile-input">
-                                        <input type="text" class="form-control" id="designation" placeholder="Designation">
+                                        <input type="text" class="form-control" ng-model="profileDetails.designation" id="designation" placeholder="Designation">
                                     </div>
                                     <div class="col-sm-10 profile-input">
-                                        <input type="number" class="form-control" id="Mobile" placeholder="Mobile">
+                                        <input type="number" class="form-control" id="Mobile" ng-model="profileDetails.mobile" placeholder="Mobile">
                                     </div>
                                     <div class="col-sm-10 profile-input">
-                                        <input type="text" class="form-control" id="city" placeholder="city">
+                                        <input type="text" class="form-control" id="city" ng-model="profileDetails.city" placeholder="city">
                                     </div>
                                     <div class="col-sm-10 profile-input">
-                                        <input type="number" class="form-control" id="Zip" placeholder="Zip">
+                                        <input type="number" class="form-control" id="Zip" ng-model="profileDetails.zip" placeholder="Zip">
                                     </div>
                                 </div>
                             </div>

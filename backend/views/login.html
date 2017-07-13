@@ -1,27 +1,34 @@
-<div class="account-user-sec">
-    <div class="account-sec">
-        <div class="account-top-bar">
-            <div class="container">
-                <div class="logo">
-                    <a ui-sref="login" title="Absolute"><img src="/../frontend/img/logo.png" alt="Absolute" height="45"></a>
-                </div>
-            </div>
-        </div>
-        <div class="acount-sec">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 col-md-offset-4">
-                        <div class="contact-sec">
-                            <div class="widget-title text-center">
-                                <h3 class="text-center">Google Login</h3>
-                                <span>Login with your Google ID</span>
-                            </div>
-                            <div class="clearfix"></div>
-                            <a class="btn btn-google btn-icon btn-block" ng-href="{{currentHost}}/api/user/loginGoogle?returnUrl={{currentHost}}/backend/%23!/login"><i class=" fa fa-google "></i>Sign In with Google</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="page page-core page-login">
+
+    <div class="text-center">
+        <h3 class="text-light text-white"><span class="text-lightred">Unifli</span></h3>
     </div>
+    <div class="row">
+        <p ng-if="loginValidation != null" class="text-center" style="color:#d55a6a">{{loginValidation}}</p>
+    </div>
+    <div class="container w-420 p-15 bg-white mt-40 text-center">
+
+
+        <h2 class="text-light text-greensea">Log In</h2>
+
+        <form name="form" class="form-validation mt-20" novalidate>
+
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Name" ng-model="user.name" required>
+            </div>
+
+            <div class="form-group">
+                <input type="password" placeholder="Password" class="form-control" ng-model="user.password" required>
+            </div>
+
+            <div class="form-group text-left mt-20">
+                <button type="submit" class="btn btn-greensea b-0 br-2 mr-5" ng-click="login(user)" ng-disabled='form.$invalid'>Login</button>
+                <!--<label class="checkbox checkbox-custom checkbox-custom-sm inline-block">
+          <input type="checkbox"><i></i> Remember me
+        </label>-->
+                <!--<a ui-sref="core.forgotpass" class="pull-right mt-10">Forgot Password?</a>-->
+            </div>
+        </form>
+    </div>
+
 </div>
