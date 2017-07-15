@@ -5,14 +5,42 @@
     "sendIdWithCreate": true,
     "urlFields": ["_id"],
     "fields": [{
-        "name": "name",
-        "isSort": "",
-        "tableRef": "name"
-    }, {
-        "name": "price",
-        "isSort": "",
-        "tableRef": "price"
-    }],
+            "name": "Name",
+            "isSort": "",
+            "tableRef": "name"
+        },
+        {
+            "name": "Description",
+            "isSort": "",
+            "tableRef": "description"
+        },
+        {
+            "name": "Invitations",
+            "isSort": "",
+            "tableRef": "invitations"
+        },
+        {
+            "name": "Missions",
+            "isSort": "",
+            "tableRef": "missions"
+        },
+        {
+            "name": "Mosaic Per Month",
+            "isSort": "",
+            "tableRef": "MosaicPerMonth"
+        },
+        {
+            "name": "Mosaic",
+            "isSort": "",
+            "tableRef": "Mosaic"
+        },
+
+        {
+            "name": "Price",
+            "isSort": "",
+            "tableRef": "price"
+        }
+    ],
     "action": [{
         "name": "edit",
         "icon": "fa-pencil",

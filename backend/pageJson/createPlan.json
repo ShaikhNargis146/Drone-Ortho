@@ -6,27 +6,124 @@
     "pageType": "create",
     "urlFields": ["Plan"],
     "fields": [{
-        "name": "Name",
-        "type": "text",
-        "tableRef": "name",
-        "placeholder": "Enter name",
-        "id": "name",
-        "url": ""
-    }, {
-        "name": "Description",
-        "type": "text",
-        "tableRef": "description",
-        "placeholder": "Enter description",
-        "id": "description",
-        "url": ""
-    }, {
-        "name": "Price",
-        "type": "number",
-        "tableRef": "price",
-        "placeholder": "Enter price",
-        "id": "price",
-        "url": ""
-    }],
+            "name": "Name",
+            "type": "text",
+            "tableRef": "name",
+            "placeholder": "Enter name",
+            "id": "name",
+            "url": ""
+        }, {
+            "name": "Description",
+            "type": "text",
+            "tableRef": "description",
+            "placeholder": "Enter description",
+            "id": "description",
+            "url": ""
+        },
+        {
+            "name": "Invitations",
+            "type": "text",
+            "tableRef": "invitations",
+            "placeholder": "Enter Invitations",
+            "id": "invitations",
+            "url": ""
+        },
+        {
+            "name": "Missions",
+            "type": "text",
+            "tableRef": "missions",
+            "placeholder": "Enter Missions",
+            "id": "missions",
+            "url": ""
+        },
+        {
+            "name": "Upload Photo",
+            "type": "text",
+            "tableRef": "UploadPhoto",
+            "placeholder": "Upload Photo",
+            "id": "UploadPhoto",
+            "url": ""
+        },
+        {
+            "name": "Upload Size",
+            "type": "text",
+            "tableRef": "UploadSize",
+            "placeholder": "Upload Size",
+            "id": "UploadSize",
+            "url": ""
+        },
+        {
+            "name": "Mosaic Per Month",
+            "type": "text",
+            "tableRef": "MosaicPerMonth",
+            "placeholder": "Enter Mosaic Per Month",
+            "id": "MosaicPerMonth",
+            "url": ""
+        },
+        {
+            "name": "Mosaic",
+            "type": "text",
+            "tableRef": "Mosaic",
+            "placeholder": "Enter Mosaic",
+            "id": "Mosaic",
+            "url": ""
+        },
+        {
+            "name": "Missions Resolution",
+            "type": "text",
+            "tableRef": "missionsResolution",
+            "placeholder": "Enter missions Resolution",
+            "id": "missionsResolution",
+            "url": ""
+        },
+        {
+            "name": "Export KMZ",
+            "type": "text",
+            "tableRef": "exportKMZ",
+            "placeholder": "Enter Export KMZ",
+            "id": "exportKMZ",
+            "url": ""
+        },
+        {
+            "name": "Export Orthophoto",
+            "type": "text",
+            "tableRef": "exportOrthophoto",
+            "placeholder": "Enter Export Orthophoto",
+            "id": "exportOrthophoto",
+            "url": ""
+        },
+        {
+            "name": "Export DEM",
+            "type": "text",
+            "tableRef": "exportDEM",
+            "placeholder": "Enter Export DEM",
+            "id": "exportDEM",
+            "url": ""
+        },
+        {
+            "name": "Export PointCloud",
+            "type": "text",
+            "tableRef": "exportPointCloud",
+            "placeholder": "Enter ExportPointCloud",
+            "id": "exportPointCloud",
+            "url": ""
+        },
+        {
+            "name": "Unlimited Used Apps",
+            "type": "text",
+            "tableRef": "unlimitedUsedApps",
+            "placeholder": "Enter Unlimited Used Apps",
+            "id": "unlimitedUsedApps",
+            "url": ""
+        }, {
+            "name": "Price",
+            "type": "number",
+            "tableRef": "price",
+            "placeholder": "Enter price",
+            "id": "price",
+            "url": ""
+        }
+    ],
     "action": [{
         "name": "submit",
         "action": "submitPlan",
