@@ -746,18 +746,96 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         // }
 
     })
-     .controller('ShippingCtrl', function ($scope, TemplateService, NavigationService, $timeout) {
+    .controller('ShippingCtrl', function ($scope, TemplateService, NavigationService, $timeout, vsGooglePlaceUtility) {
         $scope.template = TemplateService.changecontent("shipping"); //Use same name of .html file
         $scope.menutitle = NavigationService.makeactive("Shipping"); //This is the Title of the Website
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-TemplateService.header = "";
+        TemplateService.header = "";
         $scope.formSubmitted = false;
-
+        $scope.formData = {};
         $scope.submitForm = function (data) {
             console.log(data);
             $scope.formSubmitted = true;
-        }
+        };
+        $scope.setShippingAddress = function (data) {
+            if (!$scope.formData.shippingAddress) {
+                $scope.formData.shippingAddress = {};
+            }
+            console.log("formddta", $scope.formData, "data", data);
+            if (document.getElementById("agree").checked) {
+                $scope.formData.shippingAddress.name = $scope.formData.address.name;
+                $scope.formData.shippingAddress.lname = $scope.formData.address.lname;
+                $scope.formData.shippingAddress.company = $scope.formData.address.company;
+                $scope.formData.shippingAddress.address1 = $scope.formData.address.address1;
+                $scope.formData.shippingAddress.apartment = $scope.formData.address.apartment;
+
+                $scope.formData.shippingAddress.city = $scope.formData.address.city;
+                $scope.formData.shippingAddress.state = $scope.formData.address.state;
+                $scope.formData.shippingAddress.country = $scope.formData.address.country;
+                $scope.formData.shippingAddress.phonenumber = $scope.formData.address.phonenumber;
+                $scope.formData.shippingAddress.zipCode = $scope.formData.address.zipcode;
+
+                console.log("formdafterdta", $scope.formData, "data", data);
+            } else {
+                $scope.formdata.shippingAddress = {};
+            }
+        };
+
+
+        $scope.autoLocation = function () {
+                //console.log("hiiiiiiiiiiiiiiiiiiiiiii");
+                var input = document.getElementById('locationCity');
+                var autocomplete = new google.maps.places.Autocomplete(input);
+                // google.maps.event.addListener(autocomplete, 'click', function () {
+                //     alert('CLicked');
+                // // });
+                autocomplete.addListener('place_changed', function () {
+                    $scope.addLocation();
+
+
+                });
+
+            },
+
+            $scope.addLocation = function () {
+
+                if (!_.isEmpty(document.getElementById("locationCity").value)) {
+                    var valText = document.getElementById("locationCity").value;
+                    console.log(valText)
+                    var valArr = [];
+                    //console.log(!/\d/.test(valText)); //returns true if contains numbers
+                    if (!/\d/.test(valText)) {
+                        valArr = valText.split(",");
+                        if (!/\d/.test(valArr[0])) {
+                            console.log("******lenght******", valArr.length)
+                            if (valArr.length == 3) {
+                                // $scope.arrLocation.push(valArr[0]);
+                                document.getElementById("locationCity").value = null;
+                                $scope.formData.address.city = valArr[0];
+                                $scope.formData.address.state = valArr[1];
+                                $scope.formData.address.country = valArr[2];
+                                $scope.$digest();
+                                console.log($scope.formData.address.city);
+                            } else {
+                                if (valArr.length == 2) {
+                                    console.log("*******inside else***", valArr.length);
+                                    console.log("valArr[0]", valArr[0]);
+                                    console.log("valArr[1]", valArr[1]);
+                                    // document.getElementById("locationCity").value = null;
+                                    $scope.formData.address.city = valArr[0];
+                                    $scope.formData.address.country = valArr[1];
+                                    $scope.$digest();
+                                }
+                            }
+                        }
+                        // document.getElementById("locationCity").value = null
+                    }
+                } else {
+                    // alert('Please enter the location');
+                    toastr.error('Please enter the location');
+                }
+            }
     })
 
     .controller('Blog-IndividualCtrl', function ($scope, TemplateService, NavigationService, $timeout, $stateParams) {
@@ -916,7 +994,7 @@ TemplateService.header = "";
             $scope.formSubmitted = true;
         }
     })
-   
+
 
     .controller('languageCtrl', function ($scope, TemplateService, $translate, $rootScope) {
 

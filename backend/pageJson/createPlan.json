@@ -6,21 +6,21 @@
     "pageType": "create",
     "urlFields": ["Plan"],
     "fields": [{
-        "name": "name",
+        "name": "Name",
         "type": "text",
         "tableRef": "name",
         "placeholder": "Enter name",
         "id": "name",
         "url": ""
     }, {
-        "name": "description",
+        "name": "Description",
         "type": "text",
         "tableRef": "description",
         "placeholder": "Enter description",
         "id": "description",
         "url": ""
     }, {
-        "name": "price",
+        "name": "Price",
         "type": "number",
         "tableRef": "price",
         "placeholder": "Enter price",

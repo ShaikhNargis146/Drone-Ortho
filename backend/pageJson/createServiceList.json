@@ -1,36 +1,36 @@
 {
-  "title": "Create ServiceList",
-  "name": "ServiceList",
-  "jsonPage": "viewServiceList",
-  "desciption": "",
-  "pageType": "create",
-  "urlFields": ["ServiceList"],
-  "fields": [{
-            "name": "Name",
-            "type": "text",
-            "tableRef": "name",
-            "placeholder": "Enter Name",
-            "id": "name",
-            "url": ""
-        }, {
-            "name": "description",
-            "type": "text",
-            "tableRef": "description",
-            "placeholder": "Enter description",
-            "id": "description",
-            "url": ""
-        }, {
-        "name": "thumbnail",
+    "title": "Create ServiceList",
+    "name": "ServiceList",
+    "jsonPage": "viewServiceList",
+    "desciption": "",
+    "pageType": "create",
+    "urlFields": ["ServiceList"],
+    "fields": [{
+        "name": "Name",
+        "type": "text",
+        "tableRef": "name",
+        "placeholder": "Enter Name",
+        "id": "name",
+        "url": ""
+    }, {
+        "name": "description",
+        "type": "text",
+        "tableRef": "description",
+        "placeholder": "Enter description",
+        "id": "description",
+        "url": ""
+    }, {
+        "name": "Thumbnail",
         "type": "image",
         "tableRef": "thumbnail",
-        "option": "single",
-        "size": "",
-        "placeholder": "Enter file",
+        "size": "1924 x 534px",
+        "placeholder": "Enter imageDetailView",
         "id": "thumbnail",
         "validation": ["", "trim", ""],
-        "url": ""
-    }
-    ],
+        "url": "",
+        "view": true,
+        "onView": true
+    }],
     "action": [{
         "name": "submit",
         "action": "submitServiceList",

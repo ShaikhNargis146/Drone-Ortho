@@ -6,22 +6,24 @@
     "pageType": "edit",
     "urlFields": ["_id"],
     "fields": [{
-            "name": "Name",
+            "name": "name",
             "type": "text",
             "tableRef": "name",
-            "placeholder": "Enter Name",
+            "placeholder": "Enter name",
             "id": "name",
             "validation": ["required", "trim", "unique"],
             "url": ""
-        }, {
-            "name": "Email",
+        },
+        {
+            "name": "email",
             "type": "text",
             "tableRef": "email",
-            "placeholder": "Enter Email",
+            "placeholder": "Enter email",
             "id": "email",
-            "validation": ["", "trim", "unique"],
+            "validation": ["required", "trim", "unique"],
             "url": ""
-        }, {
+        },
+        {
             "name": "query",
             "type": "text",
             "tableRef": "query",
@@ -31,14 +33,13 @@
             "url": ""
         },
         {
-            "name": "User",
-            "type": "selectFromTable",
+            "name": "user",
+            "type": "text",
             "tableRef": "user",
-            "searchApi": "searchCall",
-            "placeholder": "Enter User",
-            "id": "User",
-            "validation": ["required", "trim"],
-            "url": "User/search"
+            "placeholder": "Enter user",
+            "id": "user",
+            "validation": ["required", "trim", "unique"],
+            "url": ""
         }
     ],
     "action": [{
@@ -61,11 +62,11 @@
         }
     }],
     "apiCall": {
-        "url": "ContactUs/save",
+        "url": "Enquiry/save",
         "params": "_id"
     },
     "preApi": {
-        "url": "ContactUs/getOne",
+        "url": "Enquiry/getOne",
         "params": "_id"
     }
 

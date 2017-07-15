@@ -3,13 +3,15 @@ URLSlugs = require('mongoose-url-slugs');
 var schema = new Schema({
     name: {
         type: String,
-        required: true,
+
+    },
+    lastName: {
+        type: String,
     },
     email: {
         type: String,
         validate: validators.isEmail(),
-        excel: "User Email",
-        unique: true
+        excel: "User Email"
     },
     organization: {
         type: String,
@@ -59,20 +61,7 @@ var schema = new Schema({
     },
     photo: {
         type: String,
-        default: "",
-        excel: [{
-            name: "Photo Val"
-        }, {
-            name: "Photo String",
-            modify: function (val, data) {
-                return "http://abc/" + val;
-            }
-        }, {
-            name: "Photo Kebab",
-            modify: function (val, data) {
-                return data.name + " " + moment(data.dob).format("MMM DD YYYY");
-            }
-        }]
+
     },
     password: {
         type: String,
@@ -95,8 +84,7 @@ var schema = new Schema({
         default: ""
     },
     accessToken: {
-        type: [String],
-        index: true
+        type: [String]
     },
     googleAccessToken: String,
     googleRefreshToken: String,
@@ -104,21 +92,18 @@ var schema = new Schema({
         type: [{
             socialId: String,
             socialProvider: String
-        }],
-        index: true
+        }]
     },
-    accessLevel: {
-        type: String,
-        default: "User",
-        enum: ['User', 'Admin']
-    }
+
 });
 
+
 schema.plugin(deepPopulate, {
-    populate: {
-        'user': {
-            select: 'name _id'
+    Populate: {
+        'cartProducts': {
+            select: '_id name'
         }
+
     }
 });
 schema.plugin(uniqueValidator);
@@ -129,7 +114,7 @@ schema.plugin(URLSlugs('name', {
 
 module.exports = mongoose.model('User', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "user", "user"));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "cartProducts", "cartProducts"));
 var model = {
     doLogin: function (data, callback) {
         console.log("data", data)

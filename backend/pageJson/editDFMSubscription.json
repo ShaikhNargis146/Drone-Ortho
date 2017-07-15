@@ -5,7 +5,7 @@
     "desciption": "",
     "pageType": "edit",
     "urlFields": ["_id"],
-     "fields": [{
+    "fields": [{
             "name": "User",
             "type": "selectFromTable",
             "tableRef": "user",
@@ -22,18 +22,18 @@
             "url": ""
         },
         {
-            "name": "amount",
+            "name": "Amount",
             "type": "number",
             "tableRef": "amount",
-            "placeholder": "Enter amount",
+            "placeholder": "Enter Amount",
             "id": "amount",
             "url": ""
         },
         {
-            "name": "transactionId",
+            "name": "Transaction Id",
             "type": "text",
             "tableRef": "transactionId",
-            "placeholder": "Enter transactionId",
+            "placeholder": "Enter Transaction Id",
             "id": "transactionId",
             "url": ""
         }, {
@@ -52,18 +52,18 @@
             "id": "DiscountAmount",
             "url": ""
         }, {
-            "name": "CouponCode",
+            "name": "Coupon Code",
             "type": "selectFromTable",
             "tableRef": "discountCoupon",
             "searchApi": "searchCall",
-            "placeholder": "Enter discountCoupon",
+            "placeholder": "Enter Coupon Code",
             "id": "discountCoupon",
             "url": "CouponCode/search"
         }, {
-            "name": "status",
+            "name": "Status",
             "type": "text",
             "tableRef": "status",
-            "placeholder": "Enter status",
+            "placeholder": "Enter Status",
             "id": "status",
             "url": ""
         }

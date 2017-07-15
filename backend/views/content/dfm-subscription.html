@@ -17,46 +17,52 @@
 								</div>
                                 </div>-->
                             <div class="col-md-12">
-                                <section class="search-env">
-                                    <div class="clear-fix">
-                                    </div>
-                                    <form method="get" action="" enctype="application/x-www-form-urlencoded">
-                                        <input type="text" class="form-control input-lg" placeholder="Search..." name="s" />
-                                        <!--<button type="submit" class="btn-unstyled">
+                                <div class="text-right" style="padding-bottom: 20px">
+                                    <a>
+                                    <button  class="btn  ng-binding ng-scope btn-success" data-toggle="popover" data-trigger="hover"
+                                            ui-sref="page({id:'createDFMSubscription'})"
+                                            data-original-title="Create CadLineWork">DFM Subscriptions</button></div>
+                                </a>
+                                    <section class="search-env">
+                                        <div class="clear-fix">
+                                        </div>
+                                        <form method="get" action="" enctype="application/x-www-form-urlencoded">
+                                            <input type="text" class="form-control input-lg" placeholder="Search..." name="s" />
+                                            <!--<button type="submit" class="btn-unstyled">
 								<i class="linecons-search"></i>
 							</button>-->
-                                        <button type="submit" class="btn-unstyled btn-search">
+                                            <button type="submit" class="btn-unstyled btn-search">
 								<!--<i class="linecons-search"></i>-->
                                   <i class="fa fa-search" aria-hidden="true"></i>
                                                                     
 							</button>
-                                    </form>
-                                </section>
-                            </div>
-                            <!--<div><h3>Subscriber Details</h3></div>-->
-                            <div class="col-md-4">
+                                        </form>
+                                    </section>
+                                </div>
+                                <!--<div><h3>Subscriber Details</h3></div>-->
+                                <div class="col-md-4">
 
-                                <p class="input-group">
-                                    <input type="text" class="form-control" placeholder="From Date" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened"
-                                        datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats">
-                                    <span class="input-group-btn">
+                                    <p class="input-group">
+                                        <input type="text" class="form-control" placeholder="From Date" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened"
+                                            datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats">
+                                        <span class="input-group-btn">
             <button type="button" class="btn btn-default btn-gray" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
-                                </p>
-                            </div>
-                            <div class="col-md-4">
-                                <p class="input-group">
-                                    <input type="text" class="form-control" placeholder="To Date" uib-datepicker-popup ng-model="dt2" is-open="popup2.opened"
-                                        datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"
-                                    />
-                                    <span class="input-group-btn">
+                                    </p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p class="input-group">
+                                        <input type="text" class="form-control" placeholder="To Date" uib-datepicker-popup ng-model="dt2" is-open="popup2.opened"
+                                            datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"
+                                        />
+                                        <span class="input-group-btn">
             <button type="button" class="btn btn-default btn-gray" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
-                                </p>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <select class="form-control">
+                                    </p>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <select class="form-control">
                                             <option>Select Status</option>
                                             <option>Replied</option>
                                             <option>Resolved</option>
@@ -64,8 +70,10 @@
                                             <option>Closed</option>
                                             <option>No Reply</option>
                                             </select>
+                                    </div>
                                 </div>
                             </div>
+<<<<<<< HEAD
                         </div>
                         <div>
                             <h3>Subscriber Details</h3>
@@ -145,162 +153,243 @@
                                     </tr>
                                 </tbody>
                             </table>
+=======
+                            <div>
+                                <h3>Subscriber Details</h3>
+                            </div>
+                            <div style="  overflow: scroll;">
+                                <table cellspacing="0" class="table table-small-font table-bordered table-striped">
+                                    <thead style="white-space:nowrap;">
+                                        <tr>
+                                            <th>User ID</th>
+                                            <th data-priority="1">DFM Status</th>
+                                            <th data-priority="3">Transaction Date</th>
+                                            <th data-priority="1">Cost</th>
+                                            <th data-priority="1">DFM Plan</th>
+                                            <th data-priority="1">DFM Period</th>
+                                            <th data-priority="1">DFM Usage</th>
+                                            <th data-priority="1">Mission Created</th>
+                                            <th data-priority="1">Photos/Map Usage/Month</th>
+                                            <th data-priority="1">Payment ID</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="white-space:nowrap;">
+                                        <tr ng-repeat="dmf in dfmData">
+                                            <td>
+                                                <a href="#" class="id-underline">{{dmf.mission._id}}</a></th>
+                                            </td>
+                                            <td>{{dmf.status}}</td>
+                                            <td>{{dmf.createdAt | date}}</td>
+                                            <td>{{dmf.amount}}</td>
+                                            <td>Standard</td>
+                                            <td>2 Months</td>
+                                            <td>60 Days Left</td>
+                                            <td>1</td>
+                                            <td>_____</td>
+                                            <td>P226</td>
+                                        </tr>
+                                        <!--<tr>
+                                            <td>
+                                                <a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class=" id-underline">50220</a>
+                                            </td>
+                                            <td>Suspended</td>
+                                            <td>3/06/2016</td>
+                                            <td> $50</td>
+                                            <td>PRO</td>
+                                            <td>2 Months</td>
+                                            <td>57 Days Left</td>
+                                            <td>1</td>
+                                            <td>_____</td>
+                                            <td>P227</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class=" id-underline">40320</a>
+                                            </td>
+                                            <td>Active</td>
+                                            <td>1/06/2016</td>
+                                            <td>$50</td>
+                                            <td>Free</td>
+                                            <td>2 Months</td>
+                                            <td>52 Days Left</td>
+                                            <td>1</td>
+                                            <td>_____</td>
+                                            <td>P228</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class=" id-underline">90620</a>
+                                            </td>
+                                            <td>Suspended</td>
+                                            <td>28/05/2016</td>
+                                            <td>$50</td>
+                                            <td>Standard</td>
+                                            <td>2 Months</td>
+                                            <td>43 Days Left</td>
+                                            <td>1</td>
+                                            <td>_____</td>
+                                            <td>P229</td>
+                                        </tr>-->
+                                    </tbody>
+                                </table>
+>>>>>>> 7923557b945a3f4820527812ca7fce22e51f447f
 
-                        </div>
-                        <div class="paddt20">
-                            <ul class="pagination">
-                                <li><a href="#">Previous</a></li>
-                                <li><a href="#">1</a></li>
-                                <li class="active"><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li class="disabled"><a href="#">4</a></li>
-                                <li><a href="#">Next</a></li>
-                            </ul>
-                        </div>
-                        <div class="modal fade custom-width" id="modal-6">
-                            <div class="modal-dialog" style="width: 80%;">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h3 class="modal-title">Subscriber Details</h3>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="col-md-4">
-                                            <!--<h4>Card Details</h4>-->
-                                            <div class="account">
-                                                <div class="form-group">
-                                                    <label for="name">Name:</label>
-                                                    <input type="text" class="form-control" id="name" placeholder="Name">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="Number">User ID:</label>
-                                                    <input type="number" class="form-control" id="userid" placeholder="User ID">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="Number">Phone Number:</label>
-                                                    <input type="number" class="form-control" id="phonenumber" placeholder="Phone Number">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="Email">Phone Number:</label>
-                                                    <input type="email" class="form-control" id="email" placeholder="Email ">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="number"> card Details:</label>
-                                                    <input type="number" class="form-control" id="card" placeholder="Card Details">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Plan Details: Free</label>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Auto Renewal:</label>
-                                                    <select>
+                            </div>
+                            <div class="paddt20">
+                                <ul class="pagination">
+                                    <li><a href="#">Previous</a></li>
+                                    <li><a href="#">1</a></li>
+                                    <li class="active"><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li class="disabled"><a href="#">4</a></li>
+                                    <li><a href="#">Next</a></li>
+                                </ul>
+                            </div>
+                            <div class="modal fade custom-width" id="modal-6">
+                                <div class="modal-dialog" style="width: 80%;">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h3 class="modal-title">Subscriber Details</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="col-md-4">
+                                                <!--<h4>Card Details</h4>-->
+                                                <div class="account">
+                                                    <div class="form-group">
+                                                        <label for="name">Name:</label>
+                                                        <input type="text" class="form-control" id="name" placeholder="Name">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="Number">User ID:</label>
+                                                        <input type="number" class="form-control" id="userid" placeholder="User ID">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="Number">Phone Number:</label>
+                                                        <input type="number" class="form-control" id="phonenumber" placeholder="Phone Number">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="Email">Phone Number:</label>
+                                                        <input type="email" class="form-control" id="email" placeholder="Email ">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="number"> card Details:</label>
+                                                        <input type="number" class="form-control" id="card" placeholder="Card Details">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Plan Details: Free</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Auto Renewal:</label>
+                                                        <select>
                                                             <option>Yes</option>
                                                             <option>No</option>
                                                         </select>
-                                                </div>
-                                                <div>
-                                                    <input type="radio">Send Email Reminder</button>
-                                                </div>
-                                                <div> <input type="radio">Send Upgrade Email</button>
-                                                </div>
-                                                <div> <input type="radio">Manual Activation</button>
-                                                </div>
-                                                <!--<div class="form-group">
+                                                    </div>
+                                                    <div>
+                                                        <input type="radio">Send Email Reminder</button>
+                                                    </div>
+                                                    <div> <input type="radio">Send Upgrade Email</button>
+                                                    </div>
+                                                    <div> <input type="radio">Manual Activation</button>
+                                                    </div>
+                                                    <!--<div class="form-group">
                 									<button type="button" class="btn btn-info create btn-single">Submit</button>
 <<<<<<< HEAD
                 								</div>-->
-                                                <!--<div class="form-group">
+                                                    <!--<div class="form-group">
                                                         <button type="button" class="btn btn-info btn-single create">Submit</button>
                                                         <button type="button" class="btn btn-info btn-single pull-right create">Add Card</button>
                                                     </div>-->
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <!-- Bordered + Striped Table -->
+                                                <!--<strong>Bordered + Striped Table</strong>-->
+                                                <table class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Limit Name</th>
+                                                            <th>Usage Limit</th>
+                                                            <th>Used by you</th>
+                                                            <th>Ava Limit</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Invitations (per month)</td>
+                                                            <td>0</td>
+                                                            <td>0</td>
+                                                            <td>0</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Missions (Total)</td>
+                                                            <td>20</td>
+                                                            <td>0</td>
+                                                            <td>0</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Upload (max photos count)</td>
+                                                            <td>500</td>
+                                                            <td>Fisteku</td>
+                                                            <td>0</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Upload (max size)</td>
+                                                            <td>4.9GB</td>
+                                                            <td>Fisteku</td>
+                                                            <td>0</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Mosaic (per month)</td>
+                                                            <td>5</td>
+                                                            <td>5</td>
+                                                            <td>0</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Mosaic (resolution cm/px)</td>
+                                                            <td>15</td>
+                                                            <td>20</td>
+                                                            <td>0</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Export KMZ</td>
+                                                            <td>False</td>
+                                                            <td>Fisteku</td>
+                                                            <td>0</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Export Orthophoto</td>
+                                                            <td>True</td>
+                                                            <td>Fisteku</td>
+                                                            <td>0</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Export DEM</td>
+                                                            <td>False</td>
+                                                            <td>Fisteku</td>
+                                                            <td>0</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Export Point Cloud</td>
+                                                            <td>False</td>
+                                                            <td>Fisteku</td>
+                                                            <td>0</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Unlimited Used Apps</td>
+                                                            <td>Filan</td>
+                                                            <td>Raw Image Store Orthomosaic Crop 3d Model</td>
+                                                            <td>0</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
-                                        <div class="col-sm-8">
-                                            <!-- Bordered + Striped Table -->
-                                            <!--<strong>Bordered + Striped Table</strong>-->
-                                            <table class="table table-bordered table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Limit Name</th>
-                                                        <th>Usage Limit</th>
-                                                        <th>Used by you</th>
-                                                        <th>Ava Limit</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>Invitations (per month)</td>
-                                                        <td>0</td>
-                                                        <td>0</td>
-                                                        <td>0</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Missions (Total)</td>
-                                                        <td>20</td>
-                                                        <td>0</td>
-                                                        <td>0</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Upload (max photos count)</td>
-                                                        <td>500</td>
-                                                        <td>Fisteku</td>
-                                                        <td>0</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Upload (max size)</td>
-                                                        <td>4.9GB</td>
-                                                        <td>Fisteku</td>
-                                                        <td>0</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Mosaic (per month)</td>
-                                                        <td>5</td>
-                                                        <td>5</td>
-                                                        <td>0</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Mosaic (resolution cm/px)</td>
-                                                        <td>15</td>
-                                                        <td>20</td>
-                                                        <td>0</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Export KMZ</td>
-                                                        <td>False</td>
-                                                        <td>Fisteku</td>
-                                                        <td>0</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Export Orthophoto</td>
-                                                        <td>True</td>
-                                                        <td>Fisteku</td>
-                                                        <td>0</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Export DEM</td>
-                                                        <td>False</td>
-                                                        <td>Fisteku</td>
-                                                        <td>0</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Export Point Cloud</td>
-                                                        <td>False</td>
-                                                        <td>Fisteku</td>
-                                                        <td>0</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Unlimited Used Apps</td>
-                                                        <td>Filan</td>
-                                                        <td>Raw Image Store Orthomosaic Crop 3d Model</td>
-                                                        <td>0</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <div class="row">
+                                        <div class="modal-footer">
+                                            <div class="row">
 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -308,21 +397,20 @@
                         </div>
                     </div>
                 </div>
+
             </div>
 
         </div>
-
+        <script type="text/javascript">
+            // This JavaScript Will Replace Checkboxes in dropdown toggles
+            jQuery(document).ready(function ($) {
+                setTimeout(function () {
+                    $(".checkbox-row input").addClass('cbr');
+                    cbr_replace();
+                }, 0);
+            });
+        </script>
     </div>
-    <script type="text/javascript">
-                        // This JavaScript Will Replace Checkboxes in dropdown toggles
-                        jQuery(document).ready(function ($) {
-                            setTimeout(function () {
-                                $(".checkbox-row input").addClass('cbr');
-                                cbr_replace();
-                            }, 0);
-                        });
-                    </script>
-</div>
 </div>
 </div>
 </div>

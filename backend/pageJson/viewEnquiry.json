@@ -1,22 +1,20 @@
 {
     "title": "Enquiry",
-    "description": "List of Enquirys",
+    "description": "List of Enquiry",
     "pageType": "view",
     "sendIdWithCreate": true,
     "urlFields": ["_id"],
     "fields": [{
-        "name": "Name",
-        "isSort": "",
-        "tableRef": "name"
-    }, {
-        "name": "Email",
-        "isSort": "",
-        "tableRef": "email"
-    }, {
-        "name": "Mobile",
-        "isSort": "",
-        "tableRef": "mobile"
-    }],
+            "name": "Name",
+            "isSort": "",
+            "tableRef": "name"
+        },
+        {
+            "name": "email",
+            "isSort": "",
+            "tableRef": "email"
+        }
+    ],
     "action": [{
         "name": "edit",
         "icon": "fa-pencil",
@@ -40,20 +38,6 @@
         }
     }],
     "button": [{
-        "name": "Excel Export",
-        "icon": "print",
-        "class": "btn-danger",
-        "type": "redirect",
-        "action": "Enquiry/generateExcel",
-        "linkType": "admin"
-    }, {
-        "name": "Upload Excel",
-        "icon": "delete",
-        "class": "btn-warning",
-        "type": "redirect",
-        "action": "excel-upload/Enquiry",
-        "linkType": "internal"
-    }, {
         "name": "Create",
         "icon": "plus",
         "class": "btn-success",
@@ -61,7 +45,7 @@
         "action": "createEnquiry"
     }],
     "apiCall": {
-        "url": "ContactUs/search",
+        "url": "Enquiry/search",
         "params": "_id"
     }
 }

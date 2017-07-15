@@ -1,25 +1,23 @@
 var schema = new Schema({
     name: {
         type: String,
-        required: true,
-        unique: true
     },
-    description: String,
-    package: String,
-    image: {
+    email: {
+        type: String,
+    },
+    query: {
+        type: String,
+    },
+    user: {
         type: String,
 
-    },
-    price: {
-        type: Number,
-        default: 0
     }
 });
 
 schema.plugin(deepPopulate, {});
 schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
-module.exports = mongoose.model('Products', schema);
+module.exports = mongoose.model('Enquiry', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema));
 var model = {};

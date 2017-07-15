@@ -20,11 +20,12 @@ module.exports = [
     'bower_components/angulartics-google-analytics/dist/angulartics-ga.min.js',
     'bower_components/angular-swiper/dist/angular-swiper.js',
     'bower_components/ngmap/build/scripts/ng-map.min.js',
-        'bower_components/highcharts-ng/dist/highcharts-ng.js',
+    'bower_components/highcharts-ng/dist/highcharts-ng.js',
     //Work files
     'frontend/js/app.js',
     'frontend/js/language.js',
     'frontend/js/controllers.js',
     'frontend/js/templateservice.js',
     'frontend/js/navigation.js',
+    'frontend/js/vs-google-autocomplete.js'
 ];

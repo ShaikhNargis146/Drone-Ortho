@@ -1,100 +1,155 @@
 {
-  "title": "Create User",
-  "name": "User",
-  "jsonPage": "viewUser",
-  "desciption": "",
-  "pageType": "create",
-  "urlFields": ["User"],
+    "title": "Create User",
+    "name": "User",
+    "jsonPage": "viewUser",
+    "desciption": "",
+    "pageType": "create",
+    "urlFields": ["User"],
     "fields": [{
-        "name": "FirstName",
-        "type": "text",
-        "tableRef": "firstName",
-        "placeholder": "Enter firstName",
-        "id": "firstName",
-        "validation": ["required", "trim", "unique"],
-        "url": ""
-    }, 
-    {
-        "name": "LastName",
-        "type": "text",
-        "tableRef": "lastName",
-        "placeholder": "Enter lastName",
-        "id": "lastName",
-        "validation": ["required", "trim", "unique"],
-        "url": ""
-    }, {
-        "name": "Email",
-        "type": "text",
-        "tableRef": "email",
-        "placeholder": "Enter Email",
-        "id": "email",
-        "validation": ["", "trim", "unique"],
-        "url": ""
-    }, {
-        "name": "DOB",
-        "type": "date",
-        "tableRef": "dob",
-        "placeholder": "Enter DOB",
-        "id": "dob",
-        "validation": ["required", "trim", "unique"],
-        "url": ""
-    }, {
-        "name": "Photo",
-        "type": "image",
-        "tableRef": "photo",
-        "size":"250 x 250",
-        "placeholder": "Upload photo",
-        "id": "photo",
-        "view": true,
-        "disabled": true,
-        "validation": ["required", "trim", "unique"],
-        "url": ""
-    }, {
-        "name": "Password",
-        "type": "password",
-        "tableRef": "password",
-        "placeholder": "Enter password",
-        "id": "password",
-        "validation": ["", "trim", "unique"],
-        "url": ""
-    }, {
-        "name": "Forgot Password",
-        "type": "password",
-        "tableRef": "forgotPassword",
-        "placeholder": "Enter forgot password",
-        "id": "forgotPassword",
-        "validation": ["", "trim", "unique"],
-        "url": ""
-    }, {
-        "name": "Mobile",
-        "type": "text",
-        "tableRef": "mobile",
-        "placeholder": "Enter mobile",
-        "id": "mobile",
-        "validation": ["required", "trim", "unique"],
-        "url": ""
-    }, {
-        "name": "OTP",
-        "type": "text",
-        "tableRef": "otp",
-        "placeholder": "Enter Otp",
-        "id": "otp",
-        "disabled": false,
-        "validation": ["required", "trim", "unique"],
-        "url": ""
-    }, {
-        "name": "AccessLevel",
-        "type": "tags",
-        "tableRef": "accessLevel",
-        "placeholder": "Enter Title",
-        "id": "status",
-        "validation": ["", "trim", ""],
-        "url": "",
-        "dropDownField": "",
-        "dropDownType": "single",
-        "onView": true,
-        "dropDown": ["User", "Admin"]
-    }],
+            "name": "First Name",
+            "type": "text",
+            "tableRef": "name",
+            "placeholder": "Enter first Name",
+            "id": "name",
+            "validation": ["required", "trim", "unique"],
+            "url": ""
+        },
+
+        {
+            "name": "Last Name",
+            "type": "text",
+            "tableRef": "lastName",
+            "placeholder": "Enter last Name",
+            "id": "lastName",
+            "validation": ["", "trim", "unique"],
+            "url": ""
+        },
+        {
+            "name": "Email",
+            "type": "text",
+            "tableRef": "email",
+            "placeholder": "Enter Email",
+            "id": "email",
+            "validation": ["", "trim", "unique"],
+            "url": ""
+        }, {
+            "name": "Organization",
+            "type": "text",
+            "tableRef": "organization",
+            "placeholder": "Enter Organization",
+            "id": "organization",
+            "validation": ["", "trim", "unique"],
+            "url": ""
+        },
+        {
+            "name": "Designation",
+            "type": "text",
+            "tableRef": "designation",
+            "placeholder": "Enter Designation",
+            "id": "designation",
+            "validation": ["", "trim", "unique"],
+            "url": ""
+        },
+        {
+            "name": "Address",
+            "type": "text",
+            "tableRef": "address",
+            "placeholder": "Enter Address",
+            "id": "address",
+            "validation": ["", "trim", "unique"],
+            "url": ""
+        },
+        {
+            "name": "City",
+            "type": "text",
+            "tableRef": "city",
+            "placeholder": "Enter City",
+            "id": "city",
+            "validation": ["", "trim", "unique"],
+            "url": ""
+        },
+        {
+            "name": "State",
+            "type": "text",
+            "tableRef": "state",
+            "placeholder": "Enter State",
+            "id": "state",
+            "validation": ["", "trim", "unique"],
+            "url": ""
+        },
+        {
+            "name": "Zip",
+            "type": "text",
+            "tableRef": "zip",
+            "placeholder": "Enter zip",
+            "id": "zip",
+            "validation": ["", "trim", "unique"],
+            "url": ""
+        },
+        {
+            "name": "Website",
+            "type": "text",
+            "tableRef": "website",
+            "placeholder": "Enter website",
+            "id": "website",
+            "validation": ["", "trim", "unique"],
+            "url": ""
+        },
+        {
+            "name": "DOB",
+            "type": "date",
+            "tableRef": "dob",
+            "placeholder": "Enter DOB",
+            "id": "dob",
+            "validation": ["", "trim", "unique"],
+            "url": ""
+        }, {
+            "name": "Photo",
+            "type": "image",
+            "tableRef": "photo",
+
+            "placeholder": "Upload photo",
+            "id": "photo",
+            "view": true,
+
+
+            "url": ""
+        }, {
+            "name": "Password",
+            "type": "password",
+            "tableRef": "password",
+            "placeholder": "Enter password",
+            "id": "password",
+            "validation": ["", "trim", "unique"],
+            "url": ""
+        }, {
+            "name": "Mobile",
+            "type": "text",
+            "tableRef": "mobile",
+            "placeholder": "Enter mobile",
+            "id": "mobile",
+            "validation": ["", "trim", "unique"],
+            "url": ""
+        },
+        {
+            "name": "Phone",
+            "type": "text",
+            "tableRef": "phone",
+            "placeholder": "Enter phone",
+            "id": "phone",
+            "validation": ["", "trim", "unique"],
+            "url": ""
+        }, {
+            "name": "OTP",
+            "type": "text",
+            "tableRef": "otp",
+            "placeholder": "Enter Otp",
+            "id": "otp",
+            "disabled": false,
+            "validation": ["", "trim", "unique"],
+            "url": ""
+        }
+    ],
     "action": [{
         "name": "submit",
         "action": "submitUser",

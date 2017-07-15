@@ -1,26 +1,29 @@
 {
-  "title": "Create NewsLetter",
-  "name": "NewsLetter",
-  "jsonPage": "viewNewsLetter",
-  "desciption": "",
-  "pageType": "create",
-  "urlFields": ["NewsLetter"],
+    "title": "Create NewsLetter",
+    "name": "NewsLetter",
+    "jsonPage": "viewNewsLetter",
+    "desciption": "",
+    "pageType": "create",
+    "urlFields": ["NewsLetter"],
     "fields": [{
-        "name": "status",
-        "type": "text",
-        "tableRef": "status",
-        "placeholder": "Enter status",
-        "id": "status",
-        "url": ""
-    }, {
-        "name": "Email",
-        "type": "text",
-        "tableRef": "email",
-        "placeholder": "Enter Email",
-        "id": "email",
-        "validation": ["", "trim", "unique"],
-        "url": ""
-    }],
+            "name": "Email",
+            "type": "text",
+            "tableRef": "email",
+            "placeholder": "Enter email",
+            "id": "email",
+            "validation": ["required", "trim", "unique"],
+            "url": ""
+        },
+        {
+            "name": "Status",
+            "type": "text",
+            "tableRef": "status",
+            "placeholder": "Enter status",
+            "id": "status",
+            "validation": ["required", "trim", "unique"],
+            "url": ""
+        }
+    ],
     "action": [{
         "name": "submit",
         "action": "submitNewsLetter",

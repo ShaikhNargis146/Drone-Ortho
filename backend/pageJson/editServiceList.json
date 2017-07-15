@@ -19,17 +19,20 @@
             "placeholder": "Enter description",
             "id": "description",
             "url": ""
-        }, {
-        "name": "thumbnail",
-        "type": "image",
-        "tableRef": "thumbnail",
-        "option": "single",
-        "size": "",
-        "placeholder": "Enter file",
-        "id": "thumbnail",
-        "validation": ["", "trim", ""],
-        "url": ""
-    }],
+        },
+        {
+            "name": "Thumbnail",
+            "type": "image",
+            "tableRef": "thumbnail",
+            "size": "1924 x 534px",
+            "placeholder": "Enter Thumbnail",
+            "id": "thumbnail",
+            "validation": ["", "trim", ""],
+            "url": "",
+            "view": true,
+            "onView": true
+        }
+    ],
     "action": [{
         "name": "submit",
         "action": "submitServiceList",

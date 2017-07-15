@@ -5,7 +5,7 @@
     "desciption": "",
     "pageType": "edit",
     "urlFields": ["_id"],
-    "fields": [ {
+    "fields": [{
             "name": "Products Name",
             "type": "text",
             "tableRef": "name",
@@ -21,26 +21,28 @@
             "id": "input2",
             "validation": ["required", "trim", "unique"],
             "url": ""
-        }, 
-         {
-        "name": "image(1924 x 534px)",
-        "type": "image",
-        "tableRef": "imageDetailView",
-        "option": "single",
-        "size": "1924 x 534px",
-        "placeholder": "Enter imageDetailView",
-        "id": "imageDetailView",
-        "validation": ["", "trim", ""],
-        "url": ""
-    },
+        },
         {
-        "name": "price",
-        "type": "text",
-        "tableRef": "price",
-        "placeholder": "Enter price",
-        "id": "price",
-        "url": ""
-    }],
+            "name": "image(1924 x 534px)",
+            "type": "image",
+            "tableRef": "image",
+            "size": "1924 x 534px",
+            "placeholder": "Enter imageDetailView",
+            "id": "image",
+            "validation": ["", "trim", ""],
+            "url": "",
+            "view": true,
+            "onView": true
+        },
+        {
+            "name": "price",
+            "type": "text",
+            "tableRef": "price",
+            "placeholder": "Enter price",
+            "id": "price",
+            "url": ""
+        }
+    ],
     "action": [{
         "name": "submit",
         "action": "submitProducts",

@@ -7,7 +7,7 @@
     "fields": [{
         "name": "address",
         "isSort": "",
-        "tableRef": "emaddressail"
+        "tableRef": "address"
     }, {
         "name": "amount",
         "isSort": "",
