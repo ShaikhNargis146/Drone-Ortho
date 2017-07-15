@@ -4,6 +4,18 @@ var schema = new Schema({
         required: true,
     },
     description: String,
+    invitations:String,
+    missions:String,
+    UploadPhoto:String,
+    UploadSize:String,
+    MosaicPerMonth:String,
+    Mosaic:String,
+    missionsResolution :String,
+    exportKMZ :String,
+    exportOrthophoto:String,
+    exportDEM:String,
+    exportPointCloud:String,
+    unlimitedUsedApps:String,
     price: {
         type: Number,
         default: 0

@@ -598,6 +598,18 @@ var controller = {
             }
         });
 
+    },
+    getByUser:function (req, res) {
+        if (req.body) {
+            Mission.getByUser(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            });
+        }
     }
 
 };

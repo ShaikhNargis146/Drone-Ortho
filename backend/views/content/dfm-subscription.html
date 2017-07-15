@@ -87,14 +87,14 @@
                                     </tr>
                                 </thead>
                                 <tbody style="white-space:nowrap;">
-                                    <tr>
+                                    <tr ng-repeat="subs in subscriptionData">
                                         <td>
-                                            <a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class=" id-underline">40120</a>
+                                            <a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class=" id-underline">{{subs._id}}</a>
                                         </td>
-                                        <td>Active</td>
-                                        <td>9/06/2016</td>
-                                        <td>$50</td>
-                                        <td>Standard</td>
+                                        <td>{{subs.status}}</td>
+                                        <td>{{subs.transactionDate}}</td>
+                                        <td>{{subs.amount}}</td>
+                                        <td>{{subs.plan.name}}</td>
                                         <td>2 Months</td>
                                         <td>60 Days Left</td>
                                         <td>1</td>

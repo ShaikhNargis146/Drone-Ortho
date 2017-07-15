@@ -121,15 +121,19 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
             return '';
         }
-        NavigationService.apiCall("Mission/search", formData, function (data) {
-            if (data.value === true) {
-                $scope.missionData = data.data.results;
-                console.log("data found successfully", $scope.missionData);
+        if ($.jStorage.get("profile") && $.jStorage.get("profile").accessLevel == 'User') {
+            var formData = {};
+            formData.user = $.jStorage.get("profile")._id;
+            NavigationService.apiCall("Mission/getByUser", formData, function (data) {
+                if (data.value === true) {
+                    $scope.missionData = data.data;
+                    console.log("data found successfully", $scope.missionData);
 
-            } else {
-                //  toastr.warning('Error submitting the form', 'Please try again');
-            }
-        });
+                } else {
+                    //  toastr.warning('Error submitting the form', 'Please try again');
+                }
+            });
+        }
         NavigationService.apiCall("ServiceList/search", formData, function (data) {
             if (data.value === true) {
                 $scope.serviceListData = data.data.results;
@@ -220,9 +224,22 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.popup2 = {
             opened: false
         };
+        if ($.jStorage.get("profile") && $.jStorage.get("profile").accessLevel == 'User') {
+            var formData = {};
+            formData.user = $.jStorage.get("profile")._id;
+            NavigationService.apiCall("DFMSubscription/getByUser", formData, function (data) {
+                if (data.value === true) {
+                    $scope.subscriptionData = data.data;
+                    console.log("subscriptionData found successfully", $scope.subscriptionData);
+
+                } else {
+                    //  toastr.warning('Error submitting the form', 'Please try again');
+                }
+            });
+        }
     })
 
-    .controller('ProfileCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state,toastr) {
+    .controller('ProfileCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("profile");
         $scope.menutitle = NavigationService.makeactive("profile");
@@ -237,7 +254,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             NavigationService.apiCall("User/save", profileDetails, function (data) {
                 if (data.value === true) {
                     console.log("data saved successfully");
-                  toastr.success("Profile updated successfully");
+                    toastr.success("Profile updated successfully");
                 } else {
                     //  toastr.warning('Error submitting the form', 'Please try again');
                 }
@@ -268,14 +285,17 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         $scope.uploadMe = function (data) {
-            NavigationService.apiCall("Mission/createMission", data, function (data) {
-                // if (data.value === true) {
-                console.log("data saved successfully");
-                $("#modal-4").modal();
-                // } else {
-                //     //  toastr.warning('Error submitting the form', 'Please try again');
-                // }
-            });
+            if ($.jStorage.get("profile")) {
+                data.user = $.jStorage.get("profile")._id;
+                NavigationService.apiCall("Mission/createMission", data, function (data) {
+                    // if (data.value === true) {
+                    console.log("data saved successfully");
+                    $("#modal-4").modal();
+                    // } else {
+                    //     //  toastr.warning('Error submitting the form', 'Please try again');
+                    // }
+                });
+            }
         }
     })
 
@@ -709,30 +729,30 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }
             })
             if ($scope.json.json.name == "User") {
-                if (formData.password != formData.confirmpassword) {
-                    console.log(formData)
-                    toastr.error("Password mismatched ");
-                } else {
-                    NavigationService.apiCall($scope.json.json.apiCall.url, formData, function (data) {
+                // if (formData.password != formData.confirmpassword) {
+                //     console.log(formData)
+                //     toastr.error("Password mismatched ");
+                // } else {
+                NavigationService.apiCall($scope.json.json.apiCall.url, formData, function (data) {
 
-                        if (data.value === true) {
-                            $scope.json.json.action[0].stateName.json.keyword = "";
-                            $scope.json.json.action[0].stateName.json.page = "";
-                            $state.go($scope.json.json.action[0].stateName.page, $scope.json.json.action[0].stateName.json);
-                            var messText = "created";
-                            if ($scope.json.keyword._id) {
-                                messText = "edited";
-                            }
-                            toastr.success($scope.json.json.name + " " + formData.name + " " + messText + " successfully.");
-                        } else {
-                            var messText = "creating";
-                            if ($scope.json.keyword._id) {
-                                messText = "editing";
-                            }
-                            toastr.error("Failed " + messText + " " + $scope.json.json.name);
+                    if (data.value === true) {
+                        $scope.json.json.action[0].stateName.json.keyword = "";
+                        $scope.json.json.action[0].stateName.json.page = "";
+                        $state.go($scope.json.json.action[0].stateName.page, $scope.json.json.action[0].stateName.json);
+                        var messText = "created";
+                        if ($scope.json.keyword._id) {
+                            messText = "edited";
                         }
-                    });
-                }
+                        toastr.success($scope.json.json.name + " " + formData.name + " " + messText + " successfully.");
+                    } else {
+                        var messText = "creating";
+                        if ($scope.json.keyword._id) {
+                            messText = "editing";
+                        }
+                        toastr.error("Failed " + messText + " " + $scope.json.json.name);
+                    }
+                });
+                // }
             } else {
                 NavigationService.apiCall($scope.json.json.apiCall.url, formData, function (data) {
 

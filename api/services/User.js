@@ -44,6 +44,10 @@ var schema = new Schema({
         DiscountAmount: String,
         discountCoupon: String
     },
+     currentSubscription: {
+        type: Schema.Types.ObjectId,
+        ref: 'DFMSubscription'
+    },
     dob: {
         type: Date,
         excel: {

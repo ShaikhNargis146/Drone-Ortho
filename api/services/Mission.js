@@ -12,9 +12,9 @@ var schema = new Schema({
     description: String,
     files: [{
         file: String,
-        status:{
-            type:String,
-            default:'Proceesing'
+        status: {
+            type: String,
+            default: 'Proceesing'
         }
     }],
     fileUploadStatus: {
@@ -50,12 +50,24 @@ var model = {
             if (err) {
                 callback(err, null);
             } else {
-                gfs.findOne({
-                    filename: dataF.files[0]
-                }, function (err, file) {
-                    console.log("file", file);
-                });
                 callback(null, dataF);
+            }
+        });
+    },
+    getByUser: function (data, callback) {
+        this.find({
+            "user": data.user
+        }, function (err, dataF) {
+            if (err) {
+                callback(err, null);
+            } else {
+                if (dataF) {
+                    callback(null, dataF);
+                } else {
+                    callback({
+                        message: "Something went wrong!"
+                    }, null);
+                }
             }
         });
     },

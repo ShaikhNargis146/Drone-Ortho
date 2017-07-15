@@ -6,7 +6,7 @@ var uploadurl = imgurl;
 var navigationservice = angular.module('navigationservice', [])
 
     .factory('NavigationService', function ($http) {
-        var navigation = [{
+        var navigation1 = [{
                 name: "Users",
                 classis: "active",
                 sref: "#!/page/viewUser//",
@@ -32,8 +32,8 @@ var navigationservice = angular.module('navigationservice', [])
                 sref: "#!/cadlineworkapp",
                 icon: "pencil"
             },
-            
-            
+
+
 
             {
                 name: "DFMSubscription",
@@ -48,7 +48,7 @@ var navigationservice = angular.module('navigationservice', [])
                 sref: "#!/mission",
                 icon: "copy"
             },
- {
+            {
                 name: "ServiceList",
                 classis: "active",
                 sref: "#!/page/viewServiceList//",
@@ -79,7 +79,7 @@ var navigationservice = angular.module('navigationservice', [])
                 sref: "#!/page/viewNewsLetter//",
                 icon: "news"
             },
-               {
+            {
                 name: "Profile",
                 classis: "active",
                 sref: "#!/profile",
@@ -99,20 +99,25 @@ var navigationservice = angular.module('navigationservice', [])
                 classis: "active",
                 sref: "#!/page/viewSlider//",
                 icon: "recycle"
-            },
-
-            // ,
-            // {
-            //     name: "User Form",
-            //     classis: "active",
-            //     sref: "#!/page/viewUserForm//",
-            //     icon: "phone"
-            // }
+            }
         ];
+
 
         return {
             getnav: function () {
-                return navigation;
+                var navigation = [];
+                if ($.jStorage.get("profile") && $.jStorage.get("profile").accessLevel == 'User') {
+                    _.forEach(_.cloneDeep(navigation1), function (val) {
+                        if (_.isEqual(val.name, 'CadLineWork') || _.isEqual(val.name, 'DFMSubscription') || _.isEqual(val.name, 'Mission') || _.isEqual(val.name, 'Profile')) {
+                            console.log("val.name", val.name);
+                            navigation.push(val);
+                        }
+                    });
+                    return navigation;
+                } else if ($.jStorage.get("profile") && $.jStorage.get("profile").accessLevel == 'Admin') {
+                    return navigation1;
+
+                }
             },
 
             parseAccessToken: function (data, callback) {
@@ -139,14 +144,14 @@ var navigationservice = angular.module('navigationservice', [])
                 });
             },
             makeactive: function (menuname) {
-                for (var i = 0; i < navigation.length; i++) {
-                    if (navigation[i].name == menuname) {
-                        navigation[i].classis = "active";
-                    } else {
-                        navigation[i].classis = "";
+                    for (var i = 0; i < navigation1.length; i++) {
+                        if (navigation1[i].name == menuname) {
+                            navigation1[i].classis = "active";
+                        } else {
+                            navigation1[i].classis = "";
+                        }
                     }
-                }
-                return menuname;
+                    return menuname;
             },
 
             search: function (url, formData, i, callback) {

@@ -5,6 +5,8 @@ var schema = new Schema({
         index: true
     },
     expiryDate: Date,
+    transactionDate: Date,
+    
     amount: {
         type: Number,
         default: 0
@@ -33,5 +35,23 @@ schema.plugin(timestamps);
 module.exports = mongoose.model('DFMSubscription', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema));
-var model = {};
+var model = {
+   getByUser: function (data, callback) {
+        this.find({
+            "user": data.user
+        }, function (err, dataF) {
+            if (err) {
+                callback(err, null);
+            } else {
+                if (dataF) {
+                    callback(null, dataF);
+                } else {
+                    callback({
+                        message: "Something went wrong!"
+                    }, null);
+                }
+            }
+        });
+    },
+};
 module.exports = _.assign(module.exports, exports, model);
