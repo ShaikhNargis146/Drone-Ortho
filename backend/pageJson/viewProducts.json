@@ -36,26 +36,28 @@
         }
     }],
     "button": [{
-        "name": "Excel Export",
-        "icon": "print",
-        "class": "btn-danger",
-        "type": "redirect",
-        "action": "Products/generateExcel",
-        "linkType": "admin"
-    }, {
-        "name": "Upload Excel",
-        "icon": "delete",
-        "class": "btn-warning",
-        "type": "redirect",
-        "action": "excel-upload/Products",
-        "linkType": "internal"
-    }, {
-        "name": "Create",
-        "icon": "plus",
-        "class": "btn-success",
-        "type": "page",
-        "action": "createProducts"
-    }],
+            "name": "Excel Export",
+            "icon": "print",
+            "class": "btn-danger",
+            "type": "redirect",
+            "action": "Products/generateExcel",
+            "linkType": "admin"
+        }, {
+            "name": "Upload Excel",
+            "icon": "delete",
+            "class": "btn-warning",
+            "type": "redirect",
+            "action": "excel-upload/Products",
+            "linkType": "internal"
+        },
+        {
+            "name": "Create",
+            "icon": "plus",
+            "class": "btn-success",
+            "type": "page",
+            "action": "createProducts"
+        }
+    ],
     "apiCall": {
         "url": "Products/search",
         "params": "_id"

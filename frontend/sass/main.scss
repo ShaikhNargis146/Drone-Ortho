@@ -192,11 +192,14 @@ a,
     color: $brand-danger;
     .form-control {
         border-color: $brand-danger;
-        color: $brand-danger;
-        &::-webkit-input-placeholder {
-            color: $brand-danger;
-        }
+        color: $brand-danger; // &::-webkit-input-placeholder {
+        //     color: $brand-danger;
+        // }
     }
+}
+
+.errormsg {
+    color: $brand-danger!important;
 }
 
 .form-submission {
@@ -283,8 +286,7 @@ a,
 
 .navbar {
     position: relative;
-    min-height: 50px;
-    //margin-bottom: 20px;
+    min-height: 50px; //margin-bottom: 20px;
     border: 1px solid transparent;
 }
 
@@ -365,8 +367,7 @@ a,
     color: white;
     li {
         font-weight: 700;
-        padding: 2px 12px !important;
-        // font-size: 16px;
+        padding: 2px 12px !important; // font-size: 16px;
     }
 }
 
@@ -425,8 +426,7 @@ a,
 }
 
 .login-modal {
-    padding: 5px 75px;
-    // .modal-content {
+    padding: 5px 75px; // .modal-content {
     //     margin: 35% auto;
     //     width: 80%;
     //     border: none;
@@ -574,8 +574,7 @@ a,
 
 .btn-view {
     border: none;
-    padding-bottom: 5px;
-    // padding-bottom: 48px;
+    padding-bottom: 5px; // padding-bottom: 48px;
     background: transparent;
     border-bottom: 2px solid #5eb8ae;
     font-size: 16px;
@@ -970,8 +969,7 @@ h2.step.step-2-top:before {
     border: none;
     border-bottom: 2px solid rgba(5, 77, 73, 0.5) !important;
     -webkit-appearance: none;
-    position: relative;
-    //font-size: 20px;
+    position: relative; //font-size: 20px;
     color: #aaa;
     font-weight: 700;
     padding-left: 6px;
@@ -1011,12 +1009,10 @@ h2.step.step-2-top:before {
 
 .member-input {
     border: none;
-    border-bottom: 2px solid rgba(5, 77, 73, 0.5);
-    // color: #054d49;
+    border-bottom: 2px solid rgba(5, 77, 73, 0.5); // color: #054d49;
     //font-size: 20px;
     font-family: share tech;
-    padding-top: 15px;
-    //  padding-top: 10px;
+    padding-top: 15px; //  padding-top: 10px;
     width: 100%;
     padding-left: 6px;
 }
@@ -1190,8 +1186,7 @@ h2.step.step-2-top:before {
     .form-control {
         width: 22%;
         height: 30px;
-        padding: 6px 8px;
-        // font-size: 20px;
+        padding: 6px 8px; // font-size: 20px;
         display: inline-block;
         text-align: center;
         color: $brand-primary;
@@ -1409,8 +1404,7 @@ h2.step.step-2-top:before {
 }
 
 .support-list {
-    margin: 12px 0 10px;
-    //font-size: 17px;
+    margin: 12px 0 10px; //font-size: 17px;
     color: $brand-primary;
     display: inline-block;
 }
@@ -1501,8 +1495,7 @@ h2.step.step-2-top:before {
 footer {
     background: #0f1613;
     p {
-        margin: 0;
-        //  font-size: 16px;
+        margin: 0; //  font-size: 16px;
         color: #74ada9;
         padding: 18px 0px;
     }
@@ -1571,8 +1564,7 @@ footer {
 //     cursor: pointer;
 // }
 .member-input2 {
-    border: 2px solid rgba(5, 77, 73, 0.5);
-    // border-bottom: 2px solid rgba(5, 77, 73, 0.5);
+    border: 2px solid rgba(5, 77, 73, 0.5); // border-bottom: 2px solid rgba(5, 77, 73, 0.5);
     font-family: share tech;
     padding-top: 10px;
     width: 100%;
@@ -1651,12 +1643,15 @@ footer {
 .mar-t {
     margin-top: 40px;
 }
-.mar-b{
-    margin-bottom:40px;
+
+.mar-b {
+    margin-bottom: 40px;
 }
-.mar-l{
-    margin-left:80px;
+
+.mar-l {
+    margin-left: 80px;
 }
+
 .shipping-pay {
     h3 {
         color: darkgray!important;
@@ -1668,9 +1663,14 @@ footer {
     padding: 10px 30px;
 }
 
+.checkbox-font {
+    font-size: 120%;
+}
+
 .shipping {
     label {
         color: gray;
+        font-size: medium !important;
     }
     h3 {
         color: black;
@@ -1712,32 +1712,33 @@ footer {
         padding-left: 77px;
         padding-bottom: 10px;
     }
-    input[type="checkbox"]{
+    input[type="checkbox"] {
         height: 20px;
         width: 20px;
     }
-    .btn-size{
-    width: 200px;
-    height: 47px;
-    border-radius: 5px;
-    font-size: 24px;
-   
-    color: white;
-    border: none;
-    letter-spacing: 0.5px;
+    .btn-size {
+        width: 200px;
+        height: 47px;
+        border-radius: 5px;
+        font-size: 24px;
+        color: white;
+        border: none;
+        letter-spacing: 0.5px;
     }
-    .btn-gray{
- background-color: lightgray;
+    .btn-gray {
+        background-color: lightgray;
     }
-    .btn-primary{
+    .btn-primary {
         margin-left: 20px;
-background-color: #00bcd4;
+        background-color: #00bcd4;
     }
 }
-.mar130{
+
+.mar130 {
     margin-left: 130px;
     margin-bottom: 20px;
 }
+
 //timeline
 @import "fancybox-override";
 @import "ruchi";

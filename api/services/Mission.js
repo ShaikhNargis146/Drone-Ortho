@@ -12,9 +12,9 @@ var schema = new Schema({
     description: String,
     files: [{
         file: String,
-        status:{
-            type:String,
-            default:'Proceesing'
+        status: {
+            type: String,
+            default: 'Proceesing'
         }
     }],
     fileUploadStatus: {
@@ -41,7 +41,7 @@ schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('Mission', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "serviceId user DFMSubscription", "serviceId user DFMSubscriptions"));
 var model = {
     findMe: function (data, callback) {
         this.getOne({

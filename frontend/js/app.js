@@ -7,10 +7,12 @@ var firstapp = angular.module('firstapp', [
     'pascalprecht.translate',
     'angulartics',
     'angulartics.google.analytics',
-    'ngMap'
+    'ngMap',
+    'vsGoogleAutocomplete'
 ]);
 
-firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
+firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
+
     var templateURL = "frontend/views/template.html";
     // for http request with session
     $httpProvider.defaults.withCredentials = true;
@@ -20,7 +22,7 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
             templateUrl: templateURL,
             controller: 'HomeCtrl'
         })
-         .state('about', {
+        .state('about', {
             url: "/about",
             templateUrl: templateURL,
             controller: 'AboutCtrl'
@@ -40,17 +42,17 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
             templateUrl: templateURL,
             controller: 'AboutusCtrl'
         })
-         .state('blog-individual', {
+        .state('blog-individual', {
             url: "/blog-individual/:id",
             templateUrl: templateURL,
             controller: 'Blog-IndividualCtrl'
         })
-          .state('blog', {
+        .state('blog', {
             url: "/blog",
             templateUrl: templateURL,
             controller: 'BlogCtrl'
         })
-              .state('product', {
+        .state('product', {
             url: "/product",
             templateUrl: templateURL,
             controller: 'ProductCtrl'
@@ -60,13 +62,13 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
             templateUrl: templateURL,
             controller: 'Support-DfmCtrl'
         })
-         .state('support-dfm-2', {
+        .state('support-dfm-2', {
             url: "/support-dfm-2",
             templateUrl: templateURL,
             controller: 'supportDfm2Ctrl'
         })
-         
-         .state('service', {
+
+        .state('service', {
             url: "/service",
             templateUrl: templateURL,
             controller: 'ServiceCtrl'
@@ -79,19 +81,19 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
         .state('checkout', {
             url: "/checkout",
             templateUrl: templateURL,
-            controller: 'CheckoutCtrl'
+            controller: 'ShippingCtrl'
         })
         .state('continue', {
             url: "/continue",
             templateUrl: templateURL,
             controller: 'ContinueCtrl'
         })
-         .state('mycart', {
+        .state('mycart', {
             url: "/mycart",
             templateUrl: templateURL,
             controller: 'MycartCtrl'
         })
-         .state('member-page', {
+        .state('member-page', {
             url: "/member-page",
             templateUrl: templateURL,
             controller: 'MemberPageCtrl'
@@ -101,18 +103,18 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
             templateUrl: templateURL,
             controller: 'MemberCtrl'
         })
-         .state('contactus', {
+        .state('contactus', {
             url: "/contactus",
             templateUrl: templateURL,
             controller: 'ContactUsCtrl'
         })
 
-          .state('privacypolicy', {
+        .state('privacypolicy', {
             url: "/privacypolicy",
             templateUrl: templateURL,
             controller: 'PrivacyPolicyCtrl'
         })
-         .state('terms-and-conditions', {
+        .state('terms-and-conditions', {
             url: "/terms",
             templateUrl: templateURL,
             controller: 'TermsandConditionsCtrl'
@@ -131,17 +133,16 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
     $locationProvider.html5Mode(isproduction);
 });
 
-
-firstapp.directive('img', function($compile, $parse) {
+firstapp.directive('img', function ($compile, $parse) {
     return {
         restrict: 'E',
         replace: false,
-        link: function($scope, element, attrs) {
+        link: function ($scope, element, attrs) {
             var $element = $(element);
             if (!attrs.noloading) {
                 $element.after("<img src='frontend/img/loading.gif' class='loading' />");
                 var $loading = $element.next(".loading");
-                $element.load(function() {
+                $element.load(function () {
                     $loading.remove();
                     $(this).addClass("doneLoading");
                 });
@@ -152,11 +153,11 @@ firstapp.directive('img', function($compile, $parse) {
     };
 });
 
-firstapp.directive('fancybox', function($document) {
+firstapp.directive('fancybox', function ($document) {
     return {
         restrict: 'EA',
         replace: false,
-        link: function(scope, element, attr) {
+        link: function (scope, element, attr) {
             var $element = $(element);
             var target;
             if (attr.rel) {
@@ -178,34 +179,34 @@ firstapp.directive('fancybox', function($document) {
     };
 });
 firstapp.directive('fancyboxBox', function ($document) {
- return {
-   restrict: 'EA',
-   replace: false,
-   link: function (scope, element, attr) {
-     var $element = $(element);
-     var target;
-     if (attr.rel) {
-       target = $("[rel='" + attr.rel + "']");
-     } else {
-       target = element;
-     }
-
-     target.fancybox({
-       openEffect: 'fade',
-       closeEffect: 'fade',
-       closeBtn: true,
-       helpers: {
-         media: {}
-       }
-     });
-   }
- };
-});
-firstapp.directive('autoHeight', function($compile, $parse) {
     return {
         restrict: 'EA',
         replace: false,
-        link: function($scope, element, attrs) {
+        link: function (scope, element, attr) {
+            var $element = $(element);
+            var target;
+            if (attr.rel) {
+                target = $("[rel='" + attr.rel + "']");
+            } else {
+                target = element;
+            }
+
+            target.fancybox({
+                openEffect: 'fade',
+                closeEffect: 'fade',
+                closeBtn: true,
+                helpers: {
+                    media: {}
+                }
+            });
+        }
+    };
+});
+firstapp.directive('autoHeight', function ($compile, $parse) {
+    return {
+        restrict: 'EA',
+        replace: false,
+        link: function ($scope, element, attrs) {
             var $element = $(element);
             var windowHeight = $(window).height();
             $element.css("min-height", windowHeight);
@@ -213,16 +214,16 @@ firstapp.directive('autoHeight', function($compile, $parse) {
     };
 });
 
-firstapp.config(function($translateProvider) {
+firstapp.config(function ($translateProvider) {
     $translateProvider.translations('en', LanguageEnglish);
     $translateProvider.translations('hi', LanguageHindi);
     $translateProvider.preferredLanguage('en');
 });
-firstapp.directive('onlyDigits', function() {
+firstapp.directive('onlyDigits', function () {
     return {
         require: 'ngModel',
         restrict: 'A',
-        link: function(scope, element, attr, ctrl) {
+        link: function (scope, element, attr, ctrl) {
             var digits;
 
             function inputValue(val) {
@@ -247,15 +248,13 @@ firstapp.directive('onlyDigits', function() {
     };
 });
 
-firstapp.filter('sumFilter', function() {
-     
-     return function(cartProducts) {
-         var taxTotal = 0;
-         _.forEach(cartProducts,function(n){
-            taxTotal = taxTotal + (n.price*n.quantity); 
-         });
-         return taxTotal;
-     };
- });
+firstapp.filter('sumFilter', function () {
 
-
+    return function (cartProducts) {
+        var taxTotal = 0;
+        _.forEach(cartProducts, function (n) {
+            taxTotal = taxTotal + (n.price * n.quantity);
+        });
+        return taxTotal;
+    };
+});

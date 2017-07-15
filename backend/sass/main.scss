@@ -785,7 +785,7 @@ form.search-form {
 
 .dropdown-menu {
     // border-radius: 0;
-        position: absolute;
+    position: absolute;
     top: 100%;
     left: 0;
     z-index: 1000;
@@ -801,8 +801,8 @@ form.search-form {
     border: 1px solid #ccc;
     border: 1px solid #ddd;
     border-radius: 0;
-    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
-    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
     background-clip: padding-box;
 }
 
@@ -1280,7 +1280,7 @@ body {
     // /* text-rendering: auto; */
     // /* -webkit-font-smoothing: antialiased; */
     -moz-osx-font-smoothing: grayscale;
-    color:#ccc;
+    color: #ccc;
 }
 
 .ready-btn {
@@ -1334,11 +1334,13 @@ body {
 .paddt20 {
     padding-top: 20px;
 }
-.margin-l{
-    i:hover{
+
+.margin-l {
+    i:hover {
         color: black;
     }
 }
+
 .margin-l {
     // position: relative;
     margin-left: 31%;
@@ -1350,7 +1352,7 @@ body {
     i {
         font-size: 14px;
         position: relative;
-          color: #979898;
+        color: #979898;
     }
     .badge-green {
         padding: 3px 3px;
@@ -1403,7 +1405,9 @@ body {
 .mar-tt {
     margin-top: 55px;
 }
-.user-info-navbar .user-info-menu>li.search-form, .navbar.horizontal-menu .navbar-inner>.nav>li.search-form {
+
+.user-info-navbar .user-info-menu>li.search-form,
+.navbar.horizontal-menu .navbar-inner>.nav>li.search-form {
     position: relative;
     z-index: 5;
 }
@@ -2034,17 +2038,16 @@ input:checked+.slider:before {
 .retry:hover {
     color: #505050;
 }
-.status{
+
+.status {
     margin-left: 40px;
-
-
 }
 
 .succes {
     label {
         margin-top: 7px;
         margin-left: 40px;
-            color: #505050;
+        color: #505050;
     }
 }
 
@@ -2057,77 +2060,76 @@ input:checked+.slider:before {
     display: none;
 }
 
-.btn-success {
-    display: none;
-}
+// .btn-success {
+//     // display: none;
+// }
 .modal-header {
     padding: 15px 1px;
     margin: 0px 15px;
 }
-.slide-menu{
-    .admin-details > span > img {
-            float: right;
-                width: 41%;
+
+.slide-menu {
+    .admin-details>span>img {
+        float: right;
+        width: 41%;
     }
     .admin-details {
-            padding: 23px 9px 0px 5px;
+        padding: 23px 9px 0px 5px;
     }
-    span{
+    span {
         // display: none;
     }
-     .side-menus span{
-         display: none;
-
+    .side-menus span {
+        display: none;
     }
-    .side-menus nav > ul > li {
-    float: none;
-  
+    .side-menus nav>ul>li {
+        float: none;
     }
-  .side-menus nav > ul > li > a {
-    color: white;
-    line-height: 24px;
-    display: block;
-    position: static;
-    width: 100%;
-    text-align: right;
-        margin-left: -30px;
-}
-
-.padd40 {
-    /* padding: 40px; */
-    padding: 30px 30px 20px 107px;
-}
-.menu-action {
-   
-    left: -25px !important;
-}
-.sidebar-user-info-inner .user-profile span strong {
-      display: none;
-}
-.sidebar-user-info-inner .user-profile span {
-    display: none;
-}
-.sidebar-user-info-inner .user-profile {
-    display: block;
-    text-align: right;
-    margin-right: -4px;
-}
-.sidebar-user-info-inner .user-profile img {
-    margin-right: 0px;
-}
-}
-.active{
-.menu-options {
-
-    float: none !important;
+    .side-menus nav>ul>li>a {
+        color: white;
+        line-height: 24px;
+        display: block;
         position: static;
         width: 100%;
+        text-align: right;
+        margin-left: -30px;
+    }
+    .padd40 {
+        /* padding: 40px; */
+        padding: 30px 30px 20px 107px;
+    }
+    .menu-action {
+        left: -25px !important;
+    }
+    .sidebar-user-info-inner .user-profile span strong {
+        display: none;
+    }
+    .sidebar-user-info-inner .user-profile span {
+        display: none;
+    }
+    .sidebar-user-info-inner .user-profile {
+        display: block;
+        text-align: right;
+        margin-right: -4px;
+    }
+    .sidebar-user-info-inner .user-profile img {
+        margin-right: 0px;
+    }
 }
+
+.active {
+    .menu-options {
+        float: none !important;
+        position: static;
+        width: 100%;
+    }
 }
 
 .main-content.wide-content {
     padding-left: 123px;
 }
+
+
 /* Start writing sass here */
 
 @import "fancybox-override";

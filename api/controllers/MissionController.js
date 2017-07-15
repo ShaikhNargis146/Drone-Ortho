@@ -74,8 +74,8 @@ function sendRequest(url, method, userAgent, date, nonce, publicToken, sign, bod
             form: body
         },
         function (error, response, body) {
-            console.log("error",error);
-            console.log("JSON.parse(body)---",JSON.parse(body))
+            console.log("error", error);
+            console.log("JSON.parse(body)---", JSON.parse(body))
             return JSON.parse(body)
         });
 
@@ -97,8 +97,8 @@ var controller = {
         var url = "https://app.unifli.aero/api/missions/",
             method = "post",
             userAgent = req.headers['user-agent']
-        date = getDateTime()
-        console.log("req.body.files", req.body.files.length);
+        date = getDateTime();
+        // console.log("req.body.files", req.body.files.length);
 
         //assign request to var body here 
         sentBody = {
@@ -196,7 +196,7 @@ var controller = {
         process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
         // var url = "http://app.unifli.aero/api/chunked/" + req.body.chunkId + "/",
-       var url= "https://requestb.in/suvqqpsu",
+        var url = "https://requestb.in/suvqqpsu",
             method = "post",
             userAgent = req.headers['user-agent']
 

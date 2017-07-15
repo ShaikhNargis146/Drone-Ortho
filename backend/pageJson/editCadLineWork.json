@@ -6,21 +6,168 @@
     "pageType": "edit",
     "urlFields": ["_id"],
     "fields": [{
-        "name": "status",
-        "type": "text",
-        "tableRef": "status",
-        "placeholder": "Enter status",
-        "id": "status",
-        "url": ""
-    }, {
-        "name": "Email",
-        "type": "text",
-        "tableRef": "email",
-        "placeholder": "Enter Email",
-        "id": "email",
-        "validation": ["", "trim", "unique"],
-        "url": ""
-    }],
+            "name": "Address",
+            "type": "text",
+            "tableRef": "address",
+            "placeholder": "Enter Address",
+            "id": "address",
+            "url": ""
+        }, {
+            "name": "Acreage",
+            "type": "text",
+            "tableRef": "acreage",
+            "placeholder": "Enter Acreage",
+            "id": "acreage",
+            "validation": ["", "trim", "unique"],
+            "url": ""
+        },
+        {
+            "name": "Contours",
+            "type": "text",
+            "tableRef": "contours",
+            "placeholder": "Enter Contours",
+            "id": "contours",
+            "url": ""
+        },
+        {
+            "name": "Contours Density",
+            "type": "text",
+            "tableRef": "contoursDensity",
+            "placeholder": "Enter Contours Density",
+            "id": "contoursDensity",
+            "url": ""
+        },
+        {
+            "name": "Drafting Density",
+            "type": "text",
+            "tableRef": "draftingDensity",
+            "placeholder": "Enter Drafting Density",
+            "id": "draftingDensity",
+            "url": ""
+        },
+        {
+            "name": "Amount",
+            "type": "number",
+            "tableRef": "amount",
+            "placeholder": "Enter Amount",
+            "id": "amount",
+            "url": ""
+        },
+        {
+            "name": "Instruction",
+            "type": "text",
+            "tableRef": "instruction",
+            "placeholder": "Enter Instruction",
+            "id": "instruction",
+            "url": ""
+        },
+        {
+            "name": "Points",
+            "type": "box",
+            "tableRef": "points",
+            "validation": ["required", "trim", ""],
+            "fields": [{
+                "name": "Lat",
+                "type": "text",
+                "tableRef": "lat",
+                "placeholder": "Enter Lat",
+                "id": "lat",
+                "validation": ["", "trim", ""],
+                "url": "",
+                "onView": true
+            }, {
+                "name": "Lng",
+                "type": "text",
+                "tableRef": "lng",
+                "placeholder": "Enter Lng",
+                "id": "lng",
+                "validation": ["", "trim", ""],
+                "url": "",
+                "onView": true
+            }]
+        },
+        {
+            "name": "User",
+            "type": "tags",
+            "tableRef": "user",
+            "dropDownType": "single",
+            "dropDownField": "name",
+            "searchApi": "searchCall",
+            "placeholder": "Enter name",
+            "id": "user",
+            "validation": ["", "trim", ""],
+            "url": "User/search"
+        },
+        {
+            "name": "Discounted",
+            "type": "checkbox",
+            "tableRef": "isDiscounted",
+            "placeholder": "Enter Discounted",
+            "id": "isDiscounted",
+            "validation": ["", "trim", ""],
+            "url": ""
+        },
+        {
+            "name": "Status",
+            "type": "text",
+            "tableRef": "status",
+            "placeholder": "Enter Status",
+            "id": "status",
+            "url": ""
+        },
+        {
+            "name": "Map Center",
+            "type": "text",
+            "tableRef": "mapCenter",
+            "placeholder": "Enter Map Center",
+            "id": "mapCenter",
+            "url": ""
+        },
+        {
+            "name": "Cad File",
+            "type": "text",
+            "tableRef": "cadFile",
+            "placeholder": "Enter Cad File",
+            "id": "cadFile",
+            "url": ""
+        },
+        {
+            "name": "Name",
+            "type": "text",
+            "tableRef": "name",
+            "placeholder": "Enter Name",
+            "id": "name",
+            "url": ""
+        },
+        {
+            "name": "Mission",
+            "type": "tags",
+            "tableRef": "mission",
+            "dropDownType": "single",
+            "dropDownField": "missionId",
+            "searchApi": "searchCall",
+            "placeholder": "Enter mission",
+            "id": "mission",
+            "validation": ["", "trim", ""],
+            "url": "Mission/search"
+        },
+        {
+            "name": "transactionNo",
+            "type": "text",
+            "tableRef": "transactionNo",
+            "placeholder": "Enter transaction No",
+            "id": "transactionNo",
+            "url": ""
+        },
+        {
+            "name": "pdfFile",
+            "type": "text",
+            "tableRef": "pdfFile",
+            "placeholder": "Enter Pdf File",
+            "id": "pdfFile",
+            "url": ""
+        }
+    ],
     "action": [{
         "name": "submit",
         "action": "submitCadLineWork",

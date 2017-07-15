@@ -7,22 +7,25 @@
     "urlFields": ["DFMSubscription"],
     "fields": [{
             "name": "User",
-            "type": "selectFromTable",
+            "type": "tags",
             "tableRef": "user",
+            "dropDownType": "single",
+            "dropDownField": "name",
             "searchApi": "searchCall",
-            "placeholder": "Enter User",
+            "placeholder": "Enter name",
             "id": "user",
+            "validation": ["", "trim", ""],
             "url": "User/search"
         }, {
             "name": "Expiry Date",
             "type": "date",
             "tableRef": "expiryDate",
-            "placeholder": "Enter expiry Date",
+            "placeholder": "Enter Expiry Date",
             "id": "expiryDate",
             "url": ""
         },
         {
-            "name": "amount",
+            "name": "Amount",
             "type": "number",
             "tableRef": "amount",
             "placeholder": "Enter amount",
@@ -30,40 +33,46 @@
             "url": ""
         },
         {
-            "name": "transactionId",
+            "name": "Transaction Id",
             "type": "text",
             "tableRef": "transactionId",
-            "placeholder": "Enter transactionId",
+            "placeholder": "Enter Ttransaction Id",
             "id": "transactionId",
             "url": ""
         }, {
             "name": "Plan",
-            "type": "selectFromTable",
+            "type": "tags",
             "tableRef": "plan",
+            "dropDownType": "single",
+            "dropDownField": "name",
             "searchApi": "searchCall",
-            "placeholder": "Enter plan",
+            "placeholder": "Enter Plan",
             "id": "plan",
+            "validation": ["", "trim", ""],
             "url": "Plan/search"
         }, {
-            "name": "DiscountAmount",
+            "name": "Discount Amount",
             "type": "number",
             "tableRef": "DiscountAmount",
-            "placeholder": "Enter DiscountAmount",
+            "placeholder": "Enter Discount Amount",
             "id": "DiscountAmount",
             "url": ""
         }, {
-            "name": "CouponCode",
-            "type": "selectFromTable",
+            "name": "Coupon Code",
+            "type": "tags",
             "tableRef": "discountCoupon",
+            "dropDownType": "single",
+            "dropDownField": "name",
             "searchApi": "searchCall",
-            "placeholder": "Enter discountCoupon",
+            "placeholder": "Enter Coupon Code",
             "id": "discountCoupon",
+            "validation": ["", "trim", ""],
             "url": "CouponCode/search"
         }, {
-            "name": "status",
+            "name": "Status",
             "type": "text",
             "tableRef": "status",
-            "placeholder": "Enter status",
+            "placeholder": "Enter Status",
             "id": "status",
             "url": ""
         }
@@ -72,7 +81,7 @@
         "name": "submit",
         "action": "submitDFMSubscription",
         "stateName": {
-            "page": "page",
+            "page": "dfmsubscription",
             "json": {
                 "id": "viewDFMSubscription"
             }
@@ -81,7 +90,7 @@
         "name": "cancel",
         "sideMenuRedirect": true,
         "stateName": {
-            "page": "page",
+            "page": "dfmsubscription",
             "json": {
                 "id": "viewDFMSubscription"
             }

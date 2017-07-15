@@ -10,197 +10,180 @@
           <div class="text-center">
             <h3>Cart Total:$4560</h3>
           </div>
-         
-          <form>
-            <div class=" border">
-               <div class="border-bottom">
- <p class="pull-right">*Fields are required</p>
-            <h3>Address on File</h3>
-          
-          </div>
-          <div class="padd30">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="text">First Name*</label>
-                    <input type="text" class="form-control">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="text">Last Name*</label>
-                    <input type="text" class="form-control" >
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="company">Company</label>
-                <input type="text" class="form-control" placeholder="Company name">
-              </div>
-              <div class="form-group">
-                <label for="email">Street Address*</label>
-                <input type="text" class="form-control" placeholder="Street Address c/o">
-              </div>
-              <div class="form-group">
-                <label for="email">Apartment/suite</label>
-                <input type="text" class="form-control" placeholder="Apt, suit, (optional)">
-                <label>Please note that we cannot ship to a PO Box</label>
-              </div>
-              <div class="row">
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label for="email">Zip Code*</label>
-                    <input type="tel" class="form-control" >
-                  </div>
-                </div>
-                <div class="col-md-9">
-                  <div class="form-group">
-                    <label for="email">City*</label>
-                    <input type="text" class="form-control" >
-                  </div>
-                </div>
-              </div>
-          
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label >State*</label>
-                    <!--<input type="text" class="form-control" placeholder="State">-->
-                    <div>
-                    <select  class="select-bg">
-                      <option>Please Select</option>
-                      <option></option>
-                    </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="email">Country</label>
-                    <div>
-                      <select  class="select-bg">
-                      <option>Please Select</option>
-                      <option></option>
-                    </select>
-                    </div>
-                    <!--<input type="text" class="form-control" placeholder="Country">-->
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="email">Phone Number*</label>
-                <input type="tel" class="form-control phone-width" >
-                <label>Needed for delivery purposes
-              </div>
-            </div>
-        </div>
 
-    <div class="shipping-checkbox">
-      <label>Billing Address Same as Shipping?</label> <input type="checkbox">
-      <div class="mar-l ">
-      <button class="btn btn-default btn-gray btn-size">Back</button>
-      <button type="button" class="btn btn-primary btn-size">Save & Continue</button>
-    </div>
-    </div>
-    
-     <div class=" border">
-        
-               <div class="border-bottom">
- <p class="pull-right">*Fields are required</p>
-            <h3>Shipping Address  </h3>
-          
-          </div>
- <div class="padd30">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="text">First Name*</label>
-                    <input type="text" class="form-control">
-                  </div>
+          <form name="formName">
+            <div class="row">
+              <div class="col-md-6">
+
+                <div class="border-bottom">
+                  <p class="pull-right">*Fields are required</p>
+                  <h3>Address on File</h3>
+
                 </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="text">Last Name*</label>
-                    <input type="text" class="form-control" >
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="company">Company</label>
-                <input type="text" class="form-control" placeholder="Company name">
-              </div>
-              <div class="form-group">
-                <label for="email">Street Address*</label>
-                <input type="text" class="form-control" placeholder="Street Address c/o">
-              </div>
-              <div class="form-group">
-                <label for="email">Apartment/suite</label>
-                <input type="text" class="form-control" placeholder="Apt, suit, (optional)">
-                <label>Please note that we cannot ship to a PO Box</label>
-              </div>
-              <div class="row">
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label for="email">Zip Code*</label>
-                    <input type="tel" class="form-control" >
-                  </div>
-                </div>
-                <div class="col-md-9">
-                  <div class="form-group">
-                    <label for="email">City*</label>
-                    <input type="text" class="form-control" >
-                  </div>
-                </div>
-              </div>
-          
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label >State*</label>
-                    <!--<input type="text" class="form-control" placeholder="State">-->
-                    <div>
-                    <select  class="select-bg">
-                      <option>Please Select</option>
-                      <option></option>
-                    </select>
+                <div class="padd30">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group" ng-class="{'form-invalid': formName.name.$invalid && formName.name.$touched}">
+                        <label>First Name* </label>
+                        <input type="text" name="name" class="form-control" ng-model="formData.address.name" required>
+                        <span class="errormsg" ng-show="formName.name.$touched && formName.name.$invalid">The name is required.</span>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group" ng-class="{'form-invalid': formName.lname.$invalid && formName.lname.$touched}">
+                        <label>Last Name* </label>
+                        <input type="text" name="lname" class="form-control" ng-model="formData.address.lname" required>
+                        <span class="errormsg" ng-show="formName.lname.$touched && formName.lname.$invalid">The last name is required.</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="col-md-6">
                   <div class="form-group">
-                    <label for="email">Country</label>
-                    <div>
-                      <select  class="select-bg">
-                      <option>Please Select</option>
-                      <option></option>
-                    </select>
+                    <label for="company">Company</label>
+                    <input type="text" class="form-control" ng-model="formData.address.company" placeholder="Company name">
+                  </div>
+                  <div class="form-group" ng-class="{'form-invalid': formName.address1.$invalid && formName.address1.$touched}">
+                    <label>Street Address* </label>
+                    <input type="text" name="address1" class="form-control" ng-model="formData.address.address1" placeholder="Street Address c/o"
+                      required>
+                    <span class="errormsg" ng-show="formName.address1.$touched && formName.address1.$invalid">The Street Address* name is required.</span>
+                  </div>
+                  <div class="form-group">
+                    <label>Apartment/suite</label>
+                    <input type="text" class="form-control" ng-model="formData.address.apartment" placeholder="Apt, suit, (optional)">
+                    <label>Please note that we cannot ship to a PO Box</label>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label for="email ">City*</label>
+                      <div class="form-group ">
+                        <input type="text" ng-change="autoLocation()" class="form-control" id="locationCity" ng-model="formData.address.city">
+
+                      </div>
                     </div>
-                    <!--<input type="text" class="form-control" placeholder="Country">-->
+                    <div class="col-md-6">
+                      <div class="form-group ">
+                        <label for="email ">Zip Code</label>
+                        <input type="text " class="form-control " ng-model="formData.address.zipcode">
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group ">
+                        <label for="email ">Country</label>
+                        <input type="text " ng-readonly="true" class="form-control " ng-model="formData.address.country" aria-label="Readonly field">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group ">
+                        <label for="email ">State</label>
+                        <input type="text " ng-readonly="true" class="form-control " ng-model="formData.address.state" aria-label="Readonly field">
+                      </div>
+                    </div>
+
+                  </div>
+
+
+                  <div class="form-group" ng-class="{'form-invalid': formName.phonenumber.$invalid && formName.phonenumber.$touched}">
+                    <label>Phone Number* </label>
+                    <input type="text" name="phonenumber" class="form-control" ng-model="formData.address.phonenumber" required>
+                    <span class="errormsg" ng-show="formName.phonenumber.$touched && formName.phonenumber.$invalid">This Phone Number is required.</span>
                   </div>
                 </div>
+
+
+                <div class="shipping-checkbox checkbox-font">
+                  <label>Billing Address Same as Shipping?</label> <input type="checkbox" id="agree" ng-click="setShippingAddress(formData.address)">
+                </div>
               </div>
-              <div class="form-group">
-                <label for="email">Phone Number*</label>
-                <input type="tel" class="form-control phone-width" >
-                <label>Needed for delivery purposes</label>
+
+              <div class="col-md-6">
+
+
+                <div class="border-bottom">
+                  <p class="pull-right">*Fields are required</p>
+                  <h3>Shipping Address </h3>
+
+                </div>
+                <div class="padd30">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="text">First Name*</label>
+                        <input type="text" class="form-control" ng-model="formData.shippingAddress.name">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="text">Last Name*</label>
+                        <input type="text" class="form-control" ng-model="formData.shippingAddress.lname">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="company">Company</label>
+                    <input type="text" class="form-control" ng-model="formData.shippingAddress.company" placeholder="Company name">
+                  </div>
+                  <div class="form-group">
+                    <label for="address">Street Address*</label>
+                    <input type="text" class="form-control" ng-model="formData.shippingAddress.address1" placeholder="Street Address c/o">
+                  </div>
+                  <div class="form-group">
+                    <label>Apartment/suite</label>
+                    <input type="text" class="form-control" ng-model="formData.shippingAddress.apartment" placeholder=" Apt, suit, (optional) ">
+                    <label>Please note that we cannot ship to a PO Box</label>
+                  </div>
+                  <div class="row ">
+                    <div class="col-md-6 ">
+                      <div class="form-group ">
+                        <label for="email ">City*</label>
+                        <input type="text " class="form-control " ng-model="formData.shippingAddress.city">
+                      </div>
+                    </div>
+                    <div class="col-md-6 ">
+                      <div class="form-group ">
+                        <label for="email ">Zip Code*</label>
+                        <input type="tel " class="form-control " ng-model="formData.shippingAddress.zipCode">
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="row ">
+                    <div class="col-md-6 ">
+                      <div class="form-group ">
+                        <label for="email ">Country</label>
+                        <input type="text " ng-readonly="true" class="form-control " ng-model="formData.shippingAddress.country" aria-label="Readonly field">
+                      </div>
+                    </div>
+                    <div class="col-md-6 ">
+                      <div class="form-group ">
+                        <label for="email ">State</label>
+                        <input type="tel " class="form-control " ng-model="formData.shippingAddress.state">
+                      </div>
+                    </div>
+
+                  </div>
+
+
+                  <div class="form-group">
+                    <label>Phone Number* </label>
+                    <input type="text" name="phonenumber" class="form-control" ng-model="formData.shippingAddress.phonenumber" required>
+                  </div>
+                </div>
               </div>
             </div>
-     </div>
-     <div class="mar130 shipping-checkbox">
-     
-      <button type="button" class="btn btn-primary btn-size">Save & Continue</button>
-    </div>
+            <div class="text-center ">
+              <button class="btn btn-default btn-gray btn-size ">Back</button>
+              <button type="button " class="btn btn-primary btn-size ">Save & Continue</button>
+            </div>
+
+          </form>
         </div>
-              
-        </form>
       </div>
     </div>
   </div>
 </div>
-
-
+</div>
 
 <!--//timeline-->
-
-    	
-		

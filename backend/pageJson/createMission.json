@@ -1,28 +1,149 @@
 {
-  "title": "Create Mission",
-  "name": "Mission",
-  "jsonPage": "viewMission",
-  "desciption": "",
-  "pageType": "create",
-  "urlFields": ["Mission"],
-  "fields": [ {
-            "name": "description",
+    "title": "Create Mission",
+    "name": "Mission",
+    "jsonPage": "viewMission",
+    "desciption": "",
+    "pageType": "create",
+    "urlFields": ["Mission"],
+    "fields": [{
+            "name": "Mission Id",
+            "type": "text",
+            "tableRef": "missionId",
+            "placeholder": "Enter Mission Id",
+            "id": "missionId",
+            "url": ""
+        },
+        {
+            "name": "DFM Subscription",
+            "type": "tags",
+            "tableRef": "DFMSubscription",
+            "dropDownType": "single",
+            "dropDownField": "transactionId",
+            "searchApi": "searchCall",
+            "placeholder": "Enter DFM Subscription",
+            "id": "DFMSubscription",
+            "validation": ["", "trim", ""],
+            "url": "DFMSubscription/search"
+        },
+        {
+            "name": "User",
+            "type": "tags",
+            "tableRef": "user",
+            "dropDownType": "single",
+            "dropDownField": "name",
+            "searchApi": "searchCall",
+            "placeholder": "Enter user",
+            "id": "user",
+            "validation": ["", "trim", ""],
+            "url": "User/search"
+        },
+        {
+            "name": "Description",
             "type": "text",
             "tableRef": "description",
-            "placeholder": "Enter description",
+            "placeholder": "Enter Description",
             "id": "description",
             "url": ""
-        }, {
-        "name": "file",
-        "type": "image",
-        "tableRef": "files",
-        "option": "multiple",
-        "size": "",
-        "placeholder": "Enter file",
-        "id": "files",
-        "validation": ["", "trim", ""],
-        "url": ""
-    }
+        },
+        {
+            "name": "Files",
+            "type": "box",
+            "tableRef": "files",
+            "validation": ["", "trim", ""],
+            "fields": [{
+                "name": "File",
+                "type": "text",
+                "tableRef": "file",
+                "placeholder": "file",
+                "id": "file",
+                "validation": ["", "trim", ""],
+                "url": "",
+                "onView": true
+            }, {
+                "name": "Status",
+                "type": "text",
+                "tableRef": "status",
+                "placeholder": "Enter status",
+                "id": "status",
+                "validation": ["", "trim", ""],
+                "url": "",
+                "onView": true
+            }]
+        },
+        {
+            "name": "File Upload Status",
+            "type": "text",
+            "tableRef": "fileUploadStatus",
+            "placeholder": "Enter File Upload Status",
+            "id": "fileUploadStatus",
+            "url": ""
+        },
+        {
+            "name": "status",
+            "type": "text",
+            "tableRef": "status",
+            "placeholder": "Enter Status",
+            "id": "status",
+            "url": ""
+        },
+        {
+            "name": "Others",
+            "type": "box",
+            "tableRef": "others",
+            "validation": ["", "trim", ""],
+            "fields": [{
+                    "name": "Service Id",
+                    "type": "tags",
+                    "tableRef": "serviceId",
+                    "dropDownType": "single",
+                    "dropDownField": "name",
+                    "searchApi": "searchCall",
+                    "placeholder": "Enter Service id",
+                    "id": "serviceId",
+                    "validation": ["", "trim", ""],
+                    "url": "ServiceList/search"
+                }, {
+                    "name": "Name",
+                    "type": "text",
+                    "tableRef": "name",
+                    "placeholder": "Enter Name",
+                    "id": "name",
+                    "validation": ["", "trim", ""],
+                    "url": "",
+                    "onView": true
+                },
+                {
+                    "name": "File",
+                    "type": "text",
+                    "tableRef": "file",
+                    "placeholder": "fEnter File",
+                    "id": "file",
+                    "validation": ["", "trim", ""],
+                    "url": "",
+                    "onView": true
+                },
+                {
+                    "name": "Data",
+                    "type": "text",
+                    "tableRef": "data",
+                    "placeholder": "Data",
+                    "id": "data",
+                    "validation": ["", "trim", ""],
+                    "url": "",
+                    "onView": true
+                },
+                {
+                    "name": "Status",
+                    "type": "text",
+                    "tableRef": "status",
+                    "placeholder": "Enter Status",
+                    "id": "status",
+                    "validation": ["", "trim", ""],
+                    "url": "",
+                    "onView": true
+                }
+            ]
+        }
     ],
     "action": [{
         "name": "submit",

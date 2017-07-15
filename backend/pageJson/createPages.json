@@ -1,10 +1,10 @@
 {
-  "title": "Create Pages",
-  "name": "Pages",
-  "jsonPage": "viewPages",
-  "desciption": "",
-  "pageType": "create",
-  "urlFields": ["Pages"],
+    "title": "Create Pages",
+    "name": "Pages",
+    "jsonPage": "viewPages",
+    "desciption": "",
+    "pageType": "create",
+    "urlFields": ["Pages"],
     "fields": [{
         "name": "Name",
         "type": "text",
@@ -21,7 +21,7 @@
         "id": "input1",
         "validation": ["", "trim", ""],
         "url": ""
-    },{
+    }, {
         "name": "Tags",
         "type": "tags",
         "tableRef": "tags",

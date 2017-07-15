@@ -1,34 +1,33 @@
 {
-  "title": "Create CouponCode",
-  "name": "CouponCode",
-  "jsonPage": "viewCouponCode",
-  "desciption": "",
-  "pageType": "create",
-  "urlFields": ["CouponCode"],
-     "fields": [{
-        "name": "name",
+    "title": "Create CouponCode",
+    "name": "CouponCode",
+    "jsonPage": "viewCouponCode",
+    "desciption": "",
+    "pageType": "create",
+    "urlFields": ["CouponCode"],
+    "fields": [{
+        "name": "Name",
         "type": "text",
         "tableRef": "name",
-        "placeholder": "Enter name",
+        "placeholder": "Enter Name",
         "id": "name",
         "url": ""
     }, {
-        "name": "couponCode",
+        "name": "Coupon Code",
         "type": "text",
         "tableRef": "couponCode",
-        "placeholder": "Enter couponCode",
+        "placeholder": "Enter Coupon Code",
         "id": "couponCode",
         "validation": ["", "trim", "unique"],
         "url": ""
     }, {
-        "name": "amountDiscounted",
+        "name": "Amount Discounted",
         "type": "number",
         "tableRef": "amountDiscounted",
-        "placeholder": "Enter amountDiscounted",
+        "placeholder": "Enter Amount Discounted",
         "id": "amountDiscounted",
         "url": ""
-    }
-    ],
+    }],
     "action": [{
         "name": "submit",
         "action": "submitCouponCode",

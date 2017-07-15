@@ -29,14 +29,31 @@ var schema = new Schema({
         index: true
     },
     transactionNo: String,
-    pdfFile: String
+    pdfFile: String,
+    completionDate: Date
 });
 
+schema.plugin(deepPopulate, {
+    Populate: {
+        'user': {
+            select: '_id name'
+        }
+
+    }
+});
+schema.plugin(deepPopulate, {
+    Populate: {
+        'mission': {
+            select: '_id name'
+        }
+
+    }
+});
 schema.plugin(deepPopulate, {});
 schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('CadLineWork', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "user mission", "user mission"));
 var model = {};
 module.exports = _.assign(module.exports, exports, model);

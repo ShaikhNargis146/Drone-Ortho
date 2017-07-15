@@ -6,10 +6,10 @@
     "pageType": "edit",
     "urlFields": ["_id"],
     "fields": [{
-        "name": "status",
+        "name": "Status",
         "type": "text",
         "tableRef": "status",
-        "placeholder": "Enter status",
+        "placeholder": "Enter Status",
         "id": "status",
         "url": ""
     }, {

@@ -5,23 +5,24 @@
     "sendIdWithCreate": true,
     "urlFields": ["_id"],
     "fields": [{
-        "name": "FirstName",
-        "isSort": "",
-        "tableRef": "firstName"
-    },
-    {
-        "name": "LastName",
-        "isSort": "",
-        "tableRef": "lastName"
-    }, {
-        "name": "Email",
-        "isSort": "",
-        "tableRef": "email"
-    }, {
-        "name": "Mobile",
-        "isSort": "",
-        "tableRef": "mobile"
-    }],
+            "name": "FirstName",
+            "isSort": "",
+            "tableRef": "name"
+        },
+        {
+            "name": "LastName",
+            "isSort": "",
+            "tableRef": "lastName"
+        }, {
+            "name": "Email",
+            "isSort": "",
+            "tableRef": "email"
+        }, {
+            "name": "Mobile",
+            "isSort": "",
+            "tableRef": "mobile"
+        }
+    ],
     "action": [{
         "name": "edit",
         "icon": "fa-pencil",

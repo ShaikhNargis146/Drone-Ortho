@@ -5,13 +5,12 @@
     "desciption": "",
     "pageType": "create",
     "urlFields": ["Products"],
-  
-      "fields": [
-        {
+
+    "fields": [{
             "name": "Products Name",
             "type": "text",
             "tableRef": "name",
-            "placeholder": "Enter name",
+            "placeholder": "Enter Product Name",
             "id": "input1",
             "validation": ["required", "trim", "unique"],
             "url": ""
@@ -19,30 +18,32 @@
             "name": "Details",
             "type": "textarea",
             "tableRef": "description",
-            "placeholder": "Enter details",
+            "placeholder": "Enter Details",
             "id": "input2",
             "validation": ["required", "trim", "unique"],
             "url": ""
-        }, 
+        },
+
         {
-        "name": "image(1924 x 534px)",
-        "type": "image",
-        "tableRef": "imageDetailView",
-        "option": "single",
-        "size": "1924 x 534px",
-        "placeholder": "Enter imageDetailView",
-        "id": "imageDetailView",
-        "validation": ["", "trim", ""],
-        "url": ""
-    },
+            "name": "image(1924 x 534px)",
+            "type": "image",
+            "tableRef": "image",
+            "size": "1924 x 534px",
+            "placeholder": "Enter imageDetailView",
+            "id": "image",
+            "validation": ["", "trim", ""],
+            "url": "",
+            "view": true,
+            "onView": true
+        },
         {
-        "name": "price",
-        "type": "text",
-        "tableRef": "price",
-        "placeholder": "Enter price",
-        "id": "price",
-        "url": ""
-    }
+            "name": "Price",
+            "type": "text",
+            "tableRef": "price",
+            "placeholder": "Enter Price",
+            "id": "price",
+            "url": ""
+        }
     ],
     "action": [{
         "name": "submit",
