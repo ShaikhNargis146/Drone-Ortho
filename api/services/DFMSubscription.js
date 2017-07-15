@@ -27,7 +27,23 @@ var schema = new Schema({
         ref: 'CouponCode',
         index: true
     },
-    status: String
+    status: String,
+    autoRenewal:Boolean,
+    emailReminder:Boolean,
+    upgradeEmail:Boolean,
+    manualActivation:Boolean,
+    invitations:String,
+    missions:String,
+    UploadPhoto:String,
+    UploadSize:String,
+    MosaicPerMonth:String,
+    Mosaic:String,
+    missionsResolution :String,
+    exportKMZ :String,
+    exportOrthophoto:String,
+    exportDEM:String,
+    exportPointCloud:String,
+    unlimitedUsedApps:String,
 });
 
 schema.plugin(deepPopulate, {});
@@ -35,7 +51,7 @@ schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('DFMSubscription', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "plan user","plan user"));
 var model = {
    getByUser: function (data, callback) {
         this.find({

@@ -73,7 +73,6 @@
                                     </div>
                                 </div>
                             </div>
-<<<<<<< HEAD
                         </div>
                         <div>
                             <h3>Subscriber Details</h3>
@@ -97,8 +96,9 @@
                                 <tbody style="white-space:nowrap;">
                                     <tr ng-repeat="subs in subscriptionData">
                                         <td>
-                                            <a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class=" id-underline">{{subs._id}}</a>
+                                            <a  ng-click="getDetails(subs._id)" class=" id-underline">{{subs._id}}</a>
                                         </td>
+                                        <!--jQuery('#modal-6').modal('show', {backdrop: 'static'});-->
                                         <td>{{subs.status}}</td>
                                         <td>{{subs.transactionDate}}</td>
                                         <td>{{subs.amount}}</td>
@@ -153,88 +153,6 @@
                                     </tr>
                                 </tbody>
                             </table>
-=======
-                            <div>
-                                <h3>Subscriber Details</h3>
-                            </div>
-                            <div style="  overflow: scroll;">
-                                <table cellspacing="0" class="table table-small-font table-bordered table-striped">
-                                    <thead style="white-space:nowrap;">
-                                        <tr>
-                                            <th>User ID</th>
-                                            <th data-priority="1">DFM Status</th>
-                                            <th data-priority="3">Transaction Date</th>
-                                            <th data-priority="1">Cost</th>
-                                            <th data-priority="1">DFM Plan</th>
-                                            <th data-priority="1">DFM Period</th>
-                                            <th data-priority="1">DFM Usage</th>
-                                            <th data-priority="1">Mission Created</th>
-                                            <th data-priority="1">Photos/Map Usage/Month</th>
-                                            <th data-priority="1">Payment ID</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody style="white-space:nowrap;">
-                                        <tr ng-repeat="dmf in dfmData">
-                                            <td>
-                                                <a href="#" class="id-underline">{{dmf.mission._id}}</a></th>
-                                            </td>
-                                            <td>{{dmf.status}}</td>
-                                            <td>{{dmf.createdAt | date}}</td>
-                                            <td>{{dmf.amount}}</td>
-                                            <td>Standard</td>
-                                            <td>2 Months</td>
-                                            <td>60 Days Left</td>
-                                            <td>1</td>
-                                            <td>_____</td>
-                                            <td>P226</td>
-                                        </tr>
-                                        <!--<tr>
-                                            <td>
-                                                <a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class=" id-underline">50220</a>
-                                            </td>
-                                            <td>Suspended</td>
-                                            <td>3/06/2016</td>
-                                            <td> $50</td>
-                                            <td>PRO</td>
-                                            <td>2 Months</td>
-                                            <td>57 Days Left</td>
-                                            <td>1</td>
-                                            <td>_____</td>
-                                            <td>P227</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class=" id-underline">40320</a>
-                                            </td>
-                                            <td>Active</td>
-                                            <td>1/06/2016</td>
-                                            <td>$50</td>
-                                            <td>Free</td>
-                                            <td>2 Months</td>
-                                            <td>52 Days Left</td>
-                                            <td>1</td>
-                                            <td>_____</td>
-                                            <td>P228</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class=" id-underline">90620</a>
-                                            </td>
-                                            <td>Suspended</td>
-                                            <td>28/05/2016</td>
-                                            <td>$50</td>
-                                            <td>Standard</td>
-                                            <td>2 Months</td>
-                                            <td>43 Days Left</td>
-                                            <td>1</td>
-                                            <td>_____</td>
-                                            <td>P229</td>
-                                        </tr>-->
-                                    </tbody>
-                                </table>
->>>>>>> 7923557b945a3f4820527812ca7fce22e51f447f
-
-                            </div>
                             <div class="paddt20">
                                 <ul class="pagination">
                                     <li><a href="#">Previous</a></li>
@@ -258,40 +176,40 @@
                                                 <div class="account">
                                                     <div class="form-group">
                                                         <label for="name">Name:</label>
-                                                        <input type="text" class="form-control" id="name" placeholder="Name">
+                                                        <input type="text" class="form-control" id="name" ng-model="subscriptionDetails.user.name" placeholder="Name">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="Number">User ID:</label>
-                                                        <input type="number" class="form-control" id="userid" placeholder="User ID">
+                                                        <label for="text">User ID:</label>
+                                                        <input type="text" class="form-control" id="userid" ng-model="subscriptionDetails.user._id" placeholder="User ID">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="Number">Phone Number:</label>
-                                                        <input type="number" class="form-control" id="phonenumber" placeholder="Phone Number">
+                                                        <label for="text">Phone Number:</label>
+                                                        <input type="text" class="form-control" id="phonenumber" ng-model="subscriptionDetails.user.phone" placeholder="Phone Number">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="Email">Phone Number:</label>
-                                                        <input type="email" class="form-control" id="email" placeholder="Email ">
+                                                        <label for="Email">Email:</label>
+                                                        <input type="email" class="form-control" id="email" ng-model="subscriptionDetails.user.email" placeholder="Email ">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="number"> card Details:</label>
                                                         <input type="number" class="form-control" id="card" placeholder="Card Details">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>Plan Details: Free</label>
+                                                        <label>Plan Details: {{subscriptionDetails.plan.name}}</label>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Auto Renewal:</label>
-                                                        <select>
-                                                            <option>Yes</option>
-                                                            <option>No</option>
+                                                        <select ng-model="subscriptionDetails.autoRenewal">
+                                                            <option value="True">Yes</option>
+                                                            <option value="False">No</option>
                                                         </select>
                                                     </div>
                                                     <div>
-                                                        <input type="radio">Send Email Reminder</button>
+                                                        <input ng-model="subscriptionDetails.emailReminder" name="emailReminder" type="checkbox"/>Send Email Reminder
                                                     </div>
-                                                    <div> <input type="radio">Send Upgrade Email</button>
+                                                    <div> <input ng-model="subscriptionDetails.upgradeEmail" name="upgradeEmail"  type="checkbox"/>Send Upgrade Email
                                                     </div>
-                                                    <div> <input type="radio">Manual Activation</button>
+                                                    <div> <input ng-model="subscriptionDetails.manualActivation" name="manualActivation" type="checkbox"/>Manual Activation
                                                     </div>
                                                     <!--<div class="form-group">
                 									<button type="button" class="btn btn-info create btn-single">Submit</button>
@@ -318,68 +236,68 @@
                                                     <tbody>
                                                         <tr>
                                                             <td>Invitations (per month)</td>
-                                                            <td>0</td>
-                                                            <td>0</td>
+                                                            <td>{{subscriptionDetails.plan.invitations}}</td>
+                                                            <td>{{subscriptionDetails.invitations}}</td>
                                                             <td>0</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Missions (Total)</td>
-                                                            <td>20</td>
-                                                            <td>0</td>
+                                                            <td>{{subscriptionDetails.plan.missions}}</td>
+                                                            <td>{{subscriptionDetails.missions}}</td>
                                                             <td>0</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Upload (max photos count)</td>
-                                                            <td>500</td>
-                                                            <td>Fisteku</td>
+                                                            <td>{{subscriptionDetails.plan.UploadPhoto}}</td>
+                                                            <td>{{subscriptionDetails.UploadPhoto}}</td>
                                                             <td>0</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Upload (max size)</td>
-                                                            <td>4.9GB</td>
-                                                            <td>Fisteku</td>
+                                                            <td>{{subscriptionDetails.plan.UploadSize}}GB</td>
+                                                            <td>{{subscriptionDetails.UploadSize}}GB</td>
                                                             <td>0</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Mosaic (per month)</td>
-                                                            <td>5</td>
-                                                            <td>5</td>
+                                                            <td>{{subscriptionDetails.plan.MosaicPerMonth}}</td>
+                                                            <td>{{subscriptionDetails.MosaicPerMonth}}</td>
                                                             <td>0</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Mosaic (resolution cm/px)</td>
-                                                            <td>15</td>
-                                                            <td>20</td>
+                                                            <td>{{subscriptionDetails.plan.missionsResolution}}</td>
+                                                            <td>{{subscriptionDetails.missionsResolution}}</td>
                                                             <td>0</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Export KMZ</td>
-                                                            <td>False</td>
-                                                            <td>Fisteku</td>
+                                                            <td>{{subscriptionDetails.plan.exportKMZ}}</td>
+                                                            <td>{{subscriptionDetails.exportKMZ}}</td>
                                                             <td>0</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Export Orthophoto</td>
-                                                            <td>True</td>
-                                                            <td>Fisteku</td>
+                                                            <td>{{subscriptionDetails.plan.exportOrthophoto}}</td>
+                                                            <td>{{subscriptionDetails.exportOrthophoto}}</td>
                                                             <td>0</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Export DEM</td>
-                                                            <td>False</td>
-                                                            <td>Fisteku</td>
+                                                            <td>{{subscriptionDetails.plan.exportDEM}}</td>
+                                                            <td>{{subscriptionDetails.exportDEM}}</td>
                                                             <td>0</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Export Point Cloud</td>
-                                                            <td>False</td>
-                                                            <td>Fisteku</td>
+                                                            <td>{{subscriptionDetails.plan.exportPointCloud}}</td>
+                                                            <td>{{subscriptionDetails.exportPointCloud}}</td>
                                                             <td>0</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Unlimited Used Apps</td>
-                                                            <td>Filan</td>
-                                                            <td>Raw Image Store Orthomosaic Crop 3d Model</td>
+                                                            <td>{{subscriptionDetails.plan.unlimitedUsedApps}}</td>
+                                                            <td>{{subscriptionDetails.plan.unlimitedUsedApps}}</td> <!--<td>Raw Image Store Orthomosaic Crop 3d Model</td>-->
                                                             <td>0</td>
                                                         </tr>
                                                     </tbody>

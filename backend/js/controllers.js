@@ -121,7 +121,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
             return '';
         }
-        if ($.jStorage.get("profile") && $.jStorage.get("profile").accessLevel == 'User') {
+        if ($.jStorage.get("profile")) {
             var formData = {};
             formData.user = $.jStorage.get("profile")._id;
             NavigationService.apiCall("Mission/getByUser", formData, function (data) {
@@ -224,7 +224,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.popup2 = {
             opened: false
         };
-        if ($.jStorage.get("profile") && $.jStorage.get("profile").accessLevel == 'User') {
+        if ($.jStorage.get("profile")) {
             var formData = {};
             formData.user = $.jStorage.get("profile")._id;
             NavigationService.apiCall("DFMSubscription/getByUser", formData, function (data) {
@@ -232,6 +232,19 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     $scope.subscriptionData = data.data;
                     console.log("subscriptionData found successfully", $scope.subscriptionData);
 
+                } else {
+                    //  toastr.warning('Error submitting the form', 'Please try again');
+                }
+            });
+        };
+        $scope.getDetails = function (id) {
+            var formData = {};
+            formData._id = id;
+            NavigationService.apiCall("DFMSubscription/getOne", formData, function (data) {
+                if (data.value === true) {
+                    $scope.subscriptionDetails = data.data;
+                    console.log("subscriptionDetails found successfully", $scope.subscriptionDetails);
+                    $("#modal-6").modal();
                 } else {
                     //  toastr.warning('Error submitting the form', 'Please try again');
                 }
