@@ -35,7 +35,6 @@ schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('DFMSubscription', schema);
 
-<<<<<<< HEAD
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema));
 var model = {
    getByUser: function (data, callback) {
@@ -56,8 +55,5 @@ var model = {
         });
     },
 };
-=======
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "user plan discountCoupon", "user plan discountCoupon"));
-var model = {};
->>>>>>> 7923557b945a3f4820527812ca7fce22e51f447f
+
 module.exports = _.assign(module.exports, exports, model);
