@@ -51,20 +51,20 @@
                                 <tbody>
                                     <tr>
                                         <td>Status</td>
-                                        <td>Active</td>
+                                        <td>{{profileDetails.currentSubscription.status}}</td>
                                     </tr>
                                     <tr>
                                         <td>Usage</td>
-                                        <td>43 days left</td>
+                                        <td>{{profileDetails.currentSubscription.daysLeft}}43 days left</td>
                                     </tr>
                                     <tr>
                                         <td>Current Plan</td>
-                                        <td>Standard</td>
+                                        <td>{{profileDetails.currentSubscription.plan[0].name}}</td>
                                     </tr>
                                     <tr>
                                         <td>Auto Renewal</td>
                                         <td>
-                                            <select class="form-control">
+                                            <select ng-model="profileDetails.currentSubscription.autoRenewal" class="form-control">
   											<option>Yes</option>
   											<option>No</option>
                       </select></td>

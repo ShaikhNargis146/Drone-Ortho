@@ -102,7 +102,7 @@
                                         <td>{{subs.status}}</td>
                                         <td>{{subs.transactionDate}}</td>
                                         <td>{{subs.amount}}</td>
-                                        <td>{{subs.plan.name}}</td>
+                                        <td>{{subs.plan[0].name}}</td>
                                         <td>2 Months</td>
                                         <td>60 Days Left</td>
                                         <td>1</td>
@@ -195,7 +195,7 @@
                                                         <input type="number" class="form-control" id="card" placeholder="Card Details">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>Plan Details: {{subscriptionDetails.plan.name}}</label>
+                                                        <label>Plan Details: {{subscriptionDetails.plan[0].name}}</label>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Auto Renewal:</label>
@@ -236,68 +236,68 @@
                                                     <tbody>
                                                         <tr>
                                                             <td>Invitations (per month)</td>
-                                                            <td>{{subscriptionDetails.plan.invitations}}</td>
+                                                            <td>{{subscriptionDetails.plan[0].invitations}}</td>
                                                             <td>{{subscriptionDetails.invitations}}</td>
                                                             <td>0</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Missions (Total)</td>
-                                                            <td>{{subscriptionDetails.plan.missions}}</td>
+                                                            <td>{{subscriptionDetails.plan[0].missions}}</td>
                                                             <td>{{subscriptionDetails.missions}}</td>
                                                             <td>0</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Upload (max photos count)</td>
-                                                            <td>{{subscriptionDetails.plan.UploadPhoto}}</td>
+                                                            <td>{{subscriptionDetails.plan[0].UploadPhoto}}</td>
                                                             <td>{{subscriptionDetails.UploadPhoto}}</td>
                                                             <td>0</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Upload (max size)</td>
-                                                            <td>{{subscriptionDetails.plan.UploadSize}}GB</td>
+                                                            <td>{{subscriptionDetails.plan[0].UploadSize}}GB</td>
                                                             <td>{{subscriptionDetails.UploadSize}}GB</td>
                                                             <td>0</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Mosaic (per month)</td>
-                                                            <td>{{subscriptionDetails.plan.MosaicPerMonth}}</td>
+                                                            <td>{{subscriptionDetails.plan[0].MosaicPerMonth}}</td>
                                                             <td>{{subscriptionDetails.MosaicPerMonth}}</td>
                                                             <td>0</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Mosaic (resolution cm/px)</td>
-                                                            <td>{{subscriptionDetails.plan.missionsResolution}}</td>
+                                                            <td>{{subscriptionDetails.plan[0].missionsResolution}}</td>
                                                             <td>{{subscriptionDetails.missionsResolution}}</td>
                                                             <td>0</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Export KMZ</td>
-                                                            <td>{{subscriptionDetails.plan.exportKMZ}}</td>
+                                                            <td>{{subscriptionDetails.plan[0].exportKMZ}}</td>
                                                             <td>{{subscriptionDetails.exportKMZ}}</td>
                                                             <td>0</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Export Orthophoto</td>
-                                                            <td>{{subscriptionDetails.plan.exportOrthophoto}}</td>
+                                                            <td>{{subscriptionDetails.plan[0].exportOrthophoto}}</td>
                                                             <td>{{subscriptionDetails.exportOrthophoto}}</td>
                                                             <td>0</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Export DEM</td>
-                                                            <td>{{subscriptionDetails.plan.exportDEM}}</td>
+                                                            <td>{{subscriptionDetails.plan[0].exportDEM}}</td>
                                                             <td>{{subscriptionDetails.exportDEM}}</td>
                                                             <td>0</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Export Point Cloud</td>
-                                                            <td>{{subscriptionDetails.plan.exportPointCloud}}</td>
+                                                            <td>{{subscriptionDetails.plan[0].exportPointCloud}}</td>
                                                             <td>{{subscriptionDetails.exportPointCloud}}</td>
                                                             <td>0</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Unlimited Used Apps</td>
-                                                            <td>{{subscriptionDetails.plan.unlimitedUsedApps}}</td>
-                                                            <td>{{subscriptionDetails.plan.unlimitedUsedApps}}</td> <!--<td>Raw Image Store Orthomosaic Crop 3d Model</td>-->
+                                                            <td>{{subscriptionDetails.plan[0].unlimitedUsedApps}}</td>
+                                                            <td>{{subscriptionDetails.unlimitedUsedApps}}</td> <!--<td>Raw Image Store Orthomosaic Crop 3d Model</td>-->
                                                             <td>0</td>
                                                         </tr>
                                                     </tbody>
