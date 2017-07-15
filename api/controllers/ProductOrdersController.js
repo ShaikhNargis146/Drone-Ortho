@@ -1,6 +1,7 @@
 module.exports = _.cloneDeep(require("sails-wohlig-controller"));
 var ApiContracts = require('authorizenet').APIContracts;
 var ApiControllers = require('authorizenet').APIControllers;
+var SDKConstants = require('authorizenet').Constants;
 var constants = require('../controllers/constants');
 var utils = require('../controllers/utils');
 var upsAPI = require('shipping-ups');
@@ -13,6 +14,7 @@ var upsAPI = require('shipping-ups');
   });
 var controller = {
 chargeCreditCard:function (callback) {
+	
 	var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
 	merchantAuthenticationType.setName(constants.apiLoginKey);
 	merchantAuthenticationType.setTransactionKey(constants.transactionKey);
@@ -138,7 +140,7 @@ chargeCreditCard:function (callback) {
 		
 	var ctrl = new ApiControllers.CreateTransactionController(createRequest.getJSON());
 	//Defaults to sandbox
-	//ctrl.setEnvironment(SDKConstants.endpoint.production);
+		ctrl.setEnvironment(SDKConstants.endpoint.production);
 
 	ctrl.execute(function(){
 

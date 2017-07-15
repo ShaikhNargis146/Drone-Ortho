@@ -28,7 +28,7 @@ module.exports.globals = {
      *                                                                           *
      ****************************************************************************/
 
-    // async: true,
+     async: false,
 
     /****************************************************************************
      *                                                                           *
@@ -91,6 +91,7 @@ global["fs"] = require('fs');
 global["json2xls"] = require('json2xls');
 global["xlsx"] = require('node-xlsx').default;
 global["md5"] = require('md5');
+global["async"] = require('async');
 
 // passport Globals
 global["passport"] = require('passport');
