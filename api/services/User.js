@@ -30,6 +30,9 @@ var schema = new Schema({
     state: {
         type: String,
     },
+    country: {
+        type: String,
+    },
     zip: {
         type: String,
     },
@@ -46,7 +49,7 @@ var schema = new Schema({
         DiscountAmount: String,
         discountCoupon: String
     },
-     currentSubscription: {
+    currentSubscription: {
         type: Schema.Types.ObjectId,
         ref: 'DFMSubscription'
     },

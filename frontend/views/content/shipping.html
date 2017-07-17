@@ -54,7 +54,7 @@
                   </div>
                   <div class="row">
                     <div class="col-md-6">
-                      <label for="email ">City*</label>
+                      <label for="city ">City*</label>
                       <div class="form-group ">
                         <input type="text" ng-change="autoLocation()" class="form-control" id="locationCity" ng-model="formData.address.city">
 
@@ -62,7 +62,7 @@
                     </div>
                     <div class="col-md-6">
                       <div class="form-group ">
-                        <label for="email ">Zip Code</label>
+                        <label for="zip ">Zip Code</label>
                         <input type="text " class="form-control " ng-model="formData.address.zipcode">
                       </div>
                     </div>
@@ -71,13 +71,13 @@
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group ">
-                        <label for="email ">Country</label>
+                        <label for="country ">Country</label>
                         <input type="text " ng-readonly="true" class="form-control " ng-model="formData.address.country" aria-label="Readonly field">
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group ">
-                        <label for="email ">State</label>
+                        <label for="state ">State</label>
                         <input type="text " ng-readonly="true" class="form-control " ng-model="formData.address.state" aria-label="Readonly field">
                       </div>
                     </div>
@@ -137,14 +137,14 @@
                   <div class="row ">
                     <div class="col-md-6 ">
                       <div class="form-group ">
-                        <label for="email ">City*</label>
+                        <label for="city ">City*</label>
                         <input type="text " class="form-control " ng-model="formData.shippingAddress.city">
                       </div>
                     </div>
                     <div class="col-md-6 ">
                       <div class="form-group ">
-                        <label for="email ">Zip Code*</label>
-                        <input type="tel " class="form-control " ng-model="formData.shippingAddress.zipCode">
+                        <label for="zip ">Zip Code*</label>
+                        <input type="text " only-Digits class="form-control " ng-model="formData.shippingAddress.zipCode">
                       </div>
                     </div>
 
@@ -152,13 +152,13 @@
                   <div class="row ">
                     <div class="col-md-6 ">
                       <div class="form-group ">
-                        <label for="email ">Country</label>
+                        <label for="country ">Country</label>
                         <input type="text " ng-readonly="true" class="form-control " ng-model="formData.shippingAddress.country" aria-label="Readonly field">
                       </div>
                     </div>
                     <div class="col-md-6 ">
                       <div class="form-group ">
-                        <label for="email ">State</label>
+                        <label for="state ">State</label>
                         <input type="tel " class="form-control " ng-model="formData.shippingAddress.state">
                       </div>
                     </div>
@@ -168,14 +168,14 @@
 
                   <div class="form-group">
                     <label>Phone Number* </label>
-                    <input type="text" name="phonenumber" class="form-control" ng-model="formData.shippingAddress.phonenumber" required>
+                    <input type="text" name="phonenumber" class="form-control" ng-model="formData.shippingAddress.phonenumber">
                   </div>
                 </div>
               </div>
             </div>
             <div class="text-center ">
               <button class="btn btn-default btn-gray btn-size ">Back</button>
-              <button type="button " class="btn btn-primary btn-size ">Save & Continue</button>
+              <button type="button " class="btn btn-primary btn-size " ng-click="saveData(formData.address)">Save & Continue</button>
             </div>
 
           </form>
