@@ -20,15 +20,15 @@
                                         <a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class="btn btn-default request-button ">Add Card</a>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row"  ng-repeat="card in profileDetails.cardDetails">
                                     <div class="col-md-6">
                                         <div class="c-details">
-                                            <p>Card no:xxxxxxxxxxxx7887</p>
-                                            <p> Name on Card: Rajesh Sharma</p>
+                                            <p>Card no:xxxxxxxxxxxx7887{{card.cardNumber | limitTo :4:card.cardNumber.length-4}}</p>
+                                            <p> Name on Card: Rajesh Sharma{{card.nameOnCard}}</p>
                                         </div>
                                     </div>
                                     <div>
-                                    <div class="col-md-1 tog-btn"> <button class="btn btn-default"> <i class="fa fa-trash" aria-hidden="true"></i></button></div>
+                                    <div class="col-md-1 tog-btn"> <button class="btn btn-default"> <i class="fa fa-trash" ng-click="removeCard($index)" aria-hidden="true"></i></button></div>
                                     <div class="col-md-5">
                                         <div class="">
                                           <!--<div class="checkboxThree">
@@ -74,28 +74,28 @@
                             <div class="col-md-6">
                                 <h4>DFM Stats</h4>
                                 <table class="table table-bordered table-striped account">
-                                    <tbody>
-                                        <tr>
-                                            <td>Status</td>
-                                            <td>Active</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Usage</td>
-                                            <td>43 days left</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Current Plan</td>
-                                            <td>Standard</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Auto Renewal</td>
-                                            <td>
-                                                <select class="form-control">
+                                      <tbody>
+                                    <tr>
+                                        <td>Status</td>
+                                        <td>{{profileDetails.currentSubscription.status}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Usage</td>
+                                        <td>{{profileDetails.currentSubscription.daysLeft}}43 days left</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Current Plan</td>
+                                        <td>{{profileDetails.currentSubscription.plan[0].name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Auto Renewal</td>
+                                        <td>
+                                            <select ng-model="profileDetails.currentSubscription.autoRenewal" class="form-control">
   											<option>Yes</option>
   											<option>No</option>
                       </select></td>
-                                        </tr>
-                                    </tbody>
+                                    </tr>
+                                </tbody>
                                 </table>
                                 <!--<button type="button" class="btn btn-info btn-single create">SAVE CHANGES</button>-->
                                 <button type="button" class="btn btn-info btn-single create">Save Changes</button>
@@ -120,29 +120,29 @@
                                 <div class="account">
                                     <div class="form-group">
                                         <label class="control-label">Card Type:</label>
-                                        <select class="form-control" id="sboxit-1">
+                                        <select class="form-control" ng-model="cardDetails.cardType" id="sboxit-1">
                                   <option>Master-card</option>
             											<option>visa</option>
               									</select>
                                     </div>
                                     <div class="form-group">
                                         <label for="CardNumber">Card Number:</label>
-                                        <input type="number" class="form-control" id="CardNumber" placeholder="Card Number">
+                                        <input type="number" class="form-control" ng-model="cardDetails.cardNumber" id="CardNumber" placeholder="Card Number">
                                     </div>
                                     <div class="form-group">
                                         <label for="Code">Security Code:</label>
-                                        <input type="number" class="form-control" id="Code" placeholder="Security Code">
+                                        <input type="number" class="form-control" ng-model="cardDetails.securityCode" id="Code" placeholder="Security Code">
                                     </div>
                                     <div class="form-group">
                                         <label for="name">Name on card:</label>
-                                        <input type="text" class="form-control" id="name" placeholder="Name on card">
+                                        <input type="text" class="form-control" ng-model="cardDetails.nameOnCard" id="name" placeholder="Name on card">
                                     </div>
                                     <!--<div class="form-group">
                 									<button type="button" class="btn btn-info create btn-single">Submit</button>
 
                 								</div>-->
                                     <div class="form-group">
-                                        <button type="button" class="btn btn-info btn-single create">Submit</button>
+                                        <button type="button" ng-click="addCard(cardDetails)" class="btn btn-info btn-single create">Submit</button>
                                     </div>
                                 </div>
                             </div>

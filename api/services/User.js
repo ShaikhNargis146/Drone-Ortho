@@ -39,6 +39,12 @@ var schema = new Schema({
     website: {
         type: String,
     },
+    cardDetails: [{
+        cardType: String,
+        cardNumber: String,
+        securityCode: String,
+        nameOnCard: String
+    }],
     cartProducts: [{
         type: Schema.Types.ObjectId,
         ref: 'Products',
@@ -105,6 +111,9 @@ schema.plugin(deepPopulate, {
     Populate: {
         'cartProducts': {
             select: '_id name'
+        },
+        'currentSubscription.plan': {
+            select: '_id name'
         }
 
     }
@@ -117,7 +126,7 @@ schema.plugin(URLSlugs('name', {
 
 module.exports = mongoose.model('User', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "cartProducts", "cartProducts"));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "cartProducts currentSubscription.plan", "cartProducts currentSubscription.plan"));
 var model = {
     doLogin: function (data, callback) {
         console.log("data", data)

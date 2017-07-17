@@ -283,13 +283,55 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("account");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        NavigationService.profile(function () {
+            $scope.profileDetails = $.jStorage.get("profile");
+        }, function () {
+            $state.go("login");
+        });
     })
-    .controller('UseraccountCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+    .controller('UseraccountCtrl', function ($scope, TemplateService,toastr, NavigationService, $timeout, $state) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("useraccount");
         $scope.menutitle = NavigationService.makeactive("useraccount");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        $scope.profileDetails = {};
+        NavigationService.profile(function () {
+            $scope.profileDetails = $.jStorage.get("profile");
+        }, function () {
+            $state.go("login");
+        });
+        $scope.addCard = function (card) {
+            if(card && card.cardNumber){
+                $scope.profileDetails.cardDetails.push(card);
+                NavigationService.apiCall("User/save", $scope.profileDetails, function (data) {
+                    if (data.value === true) {
+                        $('#modal-6').modal('hide');
+                        $scope.cardDetails = null;
+                        card=null;
+                        console.log("data saved successfully");
+                        toastr.success("Card added successfully");
+                    } else {
+                        //  toastr.warning('Error submitting the form', 'Please try again');
+                    }
+                });
+            }else{  
+               toastr.warning('Error submitting the form', 'Please Provide card details');
+            }
+        };
+        $scope.removeCard = function (index) {
+            $scope.profileDetails.cardDetails.splice(index, 1);
+            NavigationService.apiCall("User/save", $scope.profileDetails, function (data) {
+                if (data.value === true) {
+                    $('#modal-6').modal('hide');
+                    $scope.cardDetails = {};
+                    console.log("data saved successfully");
+                    toastr.success("Card added successfully");
+                } else {
+                    //  toastr.warning('Error submitting the form', 'Please try again');
+                }
+            });
+        }
     })
     .controller('createmissionCtrl', function ($scope, $http, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
