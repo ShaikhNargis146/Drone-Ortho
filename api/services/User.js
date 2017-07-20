@@ -30,6 +30,9 @@ var schema = new Schema({
     state: {
         type: String,
     },
+    country: {
+        type: String,
+    },
     zip: {
         type: String,
     },

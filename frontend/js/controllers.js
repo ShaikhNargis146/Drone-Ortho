@@ -727,8 +727,63 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 } else {
                     //  toastr.warning('Error submitting the form', 'Please try again');
                 }
-            });
+            })
         };
+        $scope.getCity = function () {
+            console.log("hiiiiiiiiiiiiiiiiiiiiiii");
+            var input = document.getElementById('locationCity');
+            var autocomplete = new google.maps.places.Autocomplete(input);
+            // google.maps.event.addListener(autocomplete, 'click', function () {
+            //     alert('CLicked');
+            // // });
+            autocomplete.addListener('place_changed', function () {
+                $scope.addLocation();
+
+
+            });
+
+        }
+        $scope.dummy = {}
+        $scope.addLocation = function () {
+
+            if (!_.isEmpty(document.getElementById("locationCity").value)) {
+                var valText = document.getElementById("locationCity").value;
+                console.log(valText)
+                var valArr = [];
+                //console.log(!/\d/.test(valText)); //returns true if contains numbers
+                if (!/\d/.test(valText)) {
+                    valArr = valText.split(",");
+                    if (!/\d/.test(valArr[0])) {
+                        console.log("******lenght******", valArr.length)
+                        if (valArr.length == 3) {
+                            // $scope.arrLocation.push(valArr[0]);
+                            document.getElementById("locationCity").value = null;
+                            $scope.formData.city = valArr[0];
+                            $scope.formData.state = valArr[1];
+                            $scope.formData.country = valArr[2];
+                            console.log("country is:", $scope.formData.country)
+                            $scope.$digest();
+
+                        } else {
+                            if (valArr.length == 2) {
+                                console.log("*******inside else***", valArr.length);
+                                console.log("valArr[0]", valArr[0]);
+                                console.log("valArr[1]", valArr[1]);
+                                // document.getElementById("locationCity").value = null;
+                                $scope.formData.city = valArr[0];
+                                $scope.formData.state = "";
+                                $scope.$digest();
+                            }
+                        }
+                    }
+                    // document.getElementById("locationCity").value = null
+                }
+            } else {
+                // alert('Please enter the location');
+                toastr.error('Please enter the location');
+            }
+        }
+
 
 
         //         $scope.dropdownList=[{
@@ -746,7 +801,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         // }
 
     })
-    .controller('ShippingCtrl', function ($scope, TemplateService, NavigationService, $timeout, vsGooglePlaceUtility) {
+    .controller('ShippingCtrl', function ($scope, TemplateService, NavigationService, $timeout) {
         $scope.template = TemplateService.changecontent("shipping"); //Use same name of .html file
         $scope.menutitle = NavigationService.makeactive("Shipping"); //This is the Title of the Website
         TemplateService.title = $scope.menutitle;
@@ -758,6 +813,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             console.log(data);
             $scope.formSubmitted = true;
         };
+         $scope.saveData = function (data) {
+             console.log("$$$$data is:",data);
+         }
         $scope.setShippingAddress = function (data) {
             if (!$scope.formData.shippingAddress) {
                 $scope.formData.shippingAddress = {};
@@ -769,7 +827,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 $scope.formData.shippingAddress.company = $scope.formData.address.company;
                 $scope.formData.shippingAddress.address1 = $scope.formData.address.address1;
                 $scope.formData.shippingAddress.apartment = $scope.formData.address.apartment;
-
                 $scope.formData.shippingAddress.city = $scope.formData.address.city;
                 $scope.formData.shippingAddress.state = $scope.formData.address.state;
                 $scope.formData.shippingAddress.country = $scope.formData.address.country;
@@ -782,9 +839,27 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             }
         };
 
-
+        if ($.jStorage.get("user")) {
+            formdata = {};
+            formdata._id = $.jStorage.get("user")._id;
+            NavigationService.apiCallWithData("User/getOne", $.jStorage.get("user"), function (data) {
+                if (data.value === true) {
+                    $scope.userData = data.data.results;
+                    $scope.formData.address = {};
+                    $scope.formData.address.name = data.data.name;
+                    $scope.formData.address.city = data.data.city;
+                    $scope.formData.address.address1 = data.data.address;
+                    $scope.formData.address.state = data.data.state;
+                    $scope.formData.address.phonenumber = data.data.mobile;
+                    $scope.formData.address.company = data.data.organization;
+                    $scope.formData.address.country = data.data.country;
+                    console.log("data found successfully")
+                } else {
+                    //  toastr.warning('Error submitting the form', 'Please try again');
+                }
+            });
+        }
         $scope.autoLocation = function () {
-                //console.log("hiiiiiiiiiiiiiiiiiiiiiii");
                 var input = document.getElementById('locationCity');
                 var autocomplete = new google.maps.places.Autocomplete(input);
                 // google.maps.event.addListener(autocomplete, 'click', function () {
@@ -825,6 +900,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                                     // document.getElementById("locationCity").value = null;
                                     $scope.formData.address.city = valArr[0];
                                     $scope.formData.address.country = valArr[1];
+                                    $scope.formData.address.state = "";
                                     $scope.$digest();
                                 }
                             }
