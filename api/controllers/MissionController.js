@@ -13,6 +13,7 @@
 var request = require('request');
 var crypto = require('crypto');
 var cron = require('node-cron');
+var path = require('path');
 var publicToken = "TYQ8R9w3BZJ25zvKQhbFfE3XwAj2YtQAyUaVcOI3hsvEMTIo7p6FQRB3viqAgXRB";
 var privateToken = "RNTY5FYNZHDnm7hWn3Z7v7qHaK8lkp2YAmAXR7Irp29wsmV47PA1JtJXQ5KwOdh2";
 var nonce = "92301kjsadln98123124";
@@ -214,16 +215,14 @@ var controller = {
                 var i = 0;
                 async.waterfall([
                     function concatFiles(callback) {
-                        console.log("inside concatFiles create");
+                        console.log("inside concatFiles create", files);
                         async.concatLimit(files, 20, function (image, callback) {
-                            controller.uploadFileToServer(image, url, callback);
+                            controller.uploadFileToServer(image, url, userAgent, callback);
                         }, callback);
                     },
                     function saveMissionWithFile(returnVal, callback) {
                         console.log("inside saveMissionWithFile", returnVal);
-                        missionData.fileUploadStatus = 'uploaded';
-                        missionData.files = returnVal;
-                        Mission.saveData(missionData, res.callback);
+
                     }
                 ], function asyncComplete(err, savedDelivery) {
                     if (err) {
@@ -236,174 +235,148 @@ var controller = {
             }
         });
     },
-    uploadFileToServer: function (image, url, callback) {
+    uploadFileToServer: function (image, url, userAgent, callback) {
         var method = "post"
         async.waterfall([
-            function (callback) {
-                request(global["env"].realHost + '/api/upload/readFile?file=' + image.file).pipe(fs.createWriteStream(image.file)).on('finish', function (images) {
-                    callback(null, images, image);
-                }).on("error", function () {
-                    callback("Error while reading the file");
-                });
-            },
-            function (images, image, callback) {
-                fs.readFile(image.file, function (err, imagesData) {
-                    if (err) {
-                        callback(err, null);
-                    } else {
-                        var folder = process.cwd() + "/filesForServer/";
-                        var path = image.file;
-                        var finalPath = folder + path;
-                        console.log(finalPath);
-                        callback(null, finalPath, imagesData);
-                    }
-                });
-            },
-            function (finalPath, imagesData, callback) {
-                fs.writeFile(finalPath, imagesData, 'binary', function (err) {
-                    if (err) {
-                        res.callback(err, null);
-                    } else {
-                        console.log(fs.statSync(image.file).size);
-                        console.log(checksum(imagesData));
-
-                        console.log(checksum(imagesData, 'sha256'));
-                        gfs.findOne({
-                            filename: image.file
-                        }, function (err, file) {
-                            console.log("file---", file);
-                            body = {
-                                part: 1,
-                                upload: finalPath,
-                                file_size: file.chunkSize,
-                                checksum_sha256: checksum(imagesData, 'sha256'),
-                                checksum_md5: checksum(imagesData)
-                            }
-                            callback(null, body);
-                        });
-                    }
-                });
-            },
-            function (body, callback) {
-                contentLength = calculateContentLength(_.cloneDeep(body));
-                console.log("\n---", body);
-                date = getDateTime()
-
-                //E38 signing function
-                sign = Event38Signer(url, date, method, nonce, publicToken, privateToken, userAgent, contentLength);
-
-                request(
-                    url, {
-                        method: method,
-                        headers: {
-                            'user-agent': userAgent,
-                            'X-E38-Date': date,
-                            'X-E38-Nonce': nonce,
-                            'authorization': "Signature token=" + publicToken + "; signature=" + sign + '; headers=user-agent,content-length',
-                            'content-length': contentLength
-                        },
-                        form: _.cloneDeep(body)
-                    },
-                    function (error, response, body) {
-                        var uploadRes = JSON.parse(body);
-                        console.log("uploadRes", uploadRes)
-                        if (body) {
-                            image.status = "success";
-                            console.log("image", image);
-                            fs.unlink(image.file);
-                            callback(null, []);
+                function (callback) {
+                    request(global["env"].realHost + '/api/upload/readFile?file=' + image.file).pipe(fs.createWriteStream(image.file)).on('finish', function (images) {
+                        callback(null, images, image);
+                    }).on("error", function () {
+                        callback("Error while reading the file");
+                    });
+                },
+                function (images, image, callback) {
+                    console.log("image", image);
+                    fs.readFile(image.file, function (err, imagesData) {
+                        if (err) {
+                            callback(err, null);
                         } else {
-                            res.callback("Please provide Valid data", null);
+                            var dir = "./.tmp/filesToUpload/";
+                            if (!fs.existsSync(dir)) {
+                                fs.mkdirSync(dir);
+                            }
+                            var fileName = image.file;
+                            var folder = dir + fileName;
+                            var file = fs.createWriteStream(folder);
+                            console.log("folder", folder);
+                            callback(null, folder, imagesData, fileName, dir);
                         }
                     });
-            }
-        ], function (err, data) {
-            if (err) {
-                image.value = false;
-                console.log("------->>>", image);
-                data = image;
-                callback(null, err);
-            } else {
-                image.value = true;
-                data = image
-                callback(null, data);
-            }
-        });
+                },
+                function (folder, imagesData, fileName, dir, callback) {
+                    fs.writeFile(folder, imagesData, 'binary', function (err) {
+                        if (err) {
+                            console.log("fs.writeFile ---- error---")
+                            callback(err, null);
+                        } else {
+                            console.log(checksum(imagesData));
+                            console.log(checksum(imagesData, 'sha256'));
+                            gfs.findOne({
+                                filename: image.file
+                            }, function (err, file) {
+                                console.log("file---", file);
+                                body = {
+                                    part: 1,
+                                    file_size: file.chunkSize,
+                                    checksum_sha256: checksum(imagesData, 'sha256'),
+                                    checksum_md5: checksum(imagesData)
+                                }
+                                body = _.cloneDeep(body);
+                                var FormData = require('form-data');
+                                var form = new FormData();
+                                form.append('part', 1);
+                                form.append('file_size', file.length);
+                                form.append('checksum_sha256', checksum(imagesData, 'sha256'));
+                                form.append('checksum_md5', checksum(imagesData));
+                                form.append('upload', fs.createReadStream(path.join(dir, file.filename)))
+
+                                callback(null, body, file, dir, form);
+                            });
+                        }
+                    });
+                },
+                function (body, file, dir, form, callback) {
+                    console.log("body--", body);
+                    contentLength = calculateContentLength(_.cloneDeep(body));
+                    contentLength = contentLength + file.length;
+                    console.log("contentLength--", contentLength);
+                    var myFiles = fs.createReadStream(path.join(dir, file.filename));
+                    console.log("myFiles", myFiles);
+                    myFiles = _.cloneDeep(myFiles);
+                    body.upload = myFiles;
+                    date = getDateTime()
+                    //E38 signing function
 
 
-        // request(global["env"].realHost + '/api/upload/readFile?file=' + image.file).pipe(fs.createWriteStream(image.file)).on('finish', function (images) {
-        //     // JSZip generates a readable stream with a "end" event,
-        //     // but is piped here in a writable stream which emits a "finish" event.
+                    form.getLength(function (err, length) {
+                        console.log(length);
+                        sign = Event38Signer(url, date, method, nonce, publicToken, privateToken, userAgent, length);
+                        console.log("sign--", sign);
+                        var r = request(url, {
+                            method: method,
+                            headers: {
+                                'user-agent': userAgent,
+                                'X-E38-Date': date,
+                                'X-E38-Nonce': nonce,
+                                'authorization': "Signature token=" + publicToken + "; signature=" + sign + "; headers=user-agent,content-length",
+                                'content-length': length
+                            }
+                        }, function (err, res, body) {
+                            if (err) {
+                                return console.error('upload failed:', err);
+                            }
+                            if (body) {
+                                image.status = "success";
+                                console.log("image", image);
+                                // fs.unlink(image.file);
 
-        //     fs.readFile(image.file, function (err, imagesData) {
-        //         if (err) {
-        //             callback(err, null);
-        //         } else {
-        //             var folder = process.cwd() + "/filesForServer/";
-        //             var path = image.file;
-        //             var finalPath = folder + path;
-        //             console.log(finalPath);
-        //             fs.writeFile(finalPath, imagesData, 'binary', function (err) {
-        //                 if (err) {
-        //                     res.callback(err, null);
-        //                 } else {
-        //                     console.log(fs.statSync(image.file).size);
-        //                     console.log(checksum(imagesData));
+                                callback(null, []);
+                            } else {
+                                callback("Please provide Valid data", null);
+                            }
+                            console.log("new form body", body)
+                        });
+                        r._form = form
+                    });
 
-        //                     console.log(checksum(imagesData, 'sha256'));
-        //                     gfs.findOne({
-        //                         filename: image.file
-        //                     }, function (err, file) {
-        //                         console.log("file---", file);
-        //                         body = {
-        //                             part: 1,
-        //                             upload: finalPath,
-        //                             file_size: file.chunkSize,
-        //                             checksum_sha256: checksum(imagesData, 'sha256'),
-        //                             checksum_md5: checksum(imagesData)
-        //                         }
+                    // request(
+                    //     url, {
+                    //         method: method,
+                    //         headers: {
+                    //             'user-agent': userAgent,
+                    //             'X-E38-Date': date,
+                    //             'X-E38-Nonce': nonce,
+                    //             'authorization': "Signature token=" + publicToken + "; signature=" + sign + "; headers=user-agent,content-length",
+                    //             'content-length': contentLength
+                    //         },
+                    //         formData: _.cloneDeep(body)
+                    //     },
+                    //     function (error, response, body) {
+                    //         console.log("error", error)
+                    //         console.log("body\n", body);
+                    //         if (body) {
+                    //             image.status = "success";
+                    //             console.log("image", image);
+                    //             // fs.unlink(image.file);
 
-        //                         contentLength = calculateContentLength(_.cloneDeep(body));
-        //                         console.log("\n---", body);
-        //                         date = getDateTime()
-
-        //                         //E38 signing function
-        //                         sign = Event38Signer(url, date, method, nonce, publicToken, privateToken, userAgent, contentLength);
-
-        //                         request(
-        //                             url, {
-        //                                 method: method,
-        //                                 headers: {
-        //                                     'user-agent': userAgent,
-        //                                     'X-E38-Date': date,
-        //                                     'X-E38-Nonce': nonce,
-        //                                     'authorization': "Signature token=" + publicToken + "; signature=" + sign + '; headers=user-agent,content-length',
-        //                                     'content-length': contentLength
-        //                                 },
-        //                                 form: _.cloneDeep(body)
-        //                             },
-        //                             function (error, response, body) {
-        //                                 var uploadRes = JSON.parse(body);
-        //                                 console.log("uploadRes", uploadRes)
-        //                                 if (body) {
-        //                                     image.status = "success";
-        //                                     console.log("image", image);
-        //                                 } else {
-        //                                     res.callback("Please provide Valid data", null);
-        //                                 }
-        //                             });
-
-        //                         fs.unlink(image.file);
-        //                         i = i + 1;
-        //                         callback();
-        //                     });
-
-        //                 }
-        //             });
-        //         }
-        //     });
-
-        // });
+                    //             callback(null, []);
+                    //         } else {
+                    //             callback("Please provide Valid data", null);
+                    //         }
+                    //     });
+                }
+            ],
+            function (err, data) {
+                if (err) {
+                    image.value = false;
+                    data = image;
+                    callback(null, err);
+                } else {
+                    image.value = true;
+                    data = image
+                    callback(null, data);
+                }
+            });
     },
     // Get mission from DDMS server byt its Id..
     getMissionFromServer: function (req, res) {
@@ -599,7 +572,7 @@ var controller = {
         });
 
     },
-    getByUser:function (req, res) {
+    getByUser: function (req, res) {
         if (req.body) {
             Mission.getByUser(req.body, res.callback);
         } else {
