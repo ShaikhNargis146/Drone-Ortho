@@ -95,6 +95,12 @@ var schema = new Schema({
     accessToken: {
         type: [String]
     },
+    accessLevel:{
+        type:String,
+        enum:["Admin","User"],
+        default:"User"
+
+    },
     googleAccessToken: String,
     googleRefreshToken: String,
     oauthLogin: {

@@ -9,7 +9,7 @@ var schema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    description: String,
+    name: String,
     files: [{
         file: String,
         status: {
@@ -43,16 +43,91 @@ module.exports = mongoose.model('Mission', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "serviceId user DFMSubscription", "serviceId user DFMSubscriptions"));
 var model = {
-    findMe: function (data, callback) {
-        this.getOne({
-            "_id": data._id
-        }, function (err, dataF) {
+    createMission: function (data, callback) {
+        user.save(function (err, created) {
             if (err) {
                 callback(err, null);
+            } else if (created) {
+                exec('cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -n --image-dir C:/Users/dell/Pictures/newMissionImages C:/Users/dell/Documents/pix4d/' + data.name + '.p4d', function (error, stdout, stderr) {
+                    if (error) {
+                        console.log("error");
+                    } else if (stdout) {
+                        console.log("stdout", stdout);
+                        async.parallel([
+                            //Function to search event name
+                            function () {
+                                exec('cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -r C:/Users/dell/Documents/pix4d/' + data.name + '.p4d', function (error, stdout, stderr) {
+                                    if (error) {
+                                        console.log("error");
+                                    } else if (stdout) {
+                                        console.log("stdout", stdout);
+                                    } else {
+                                        console.log("stderr", stderr);
+                                    }
+                                });
+                                // callback(null, found);
+                            },
+
+                            function () {
+                                exec('cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -i C:/Users/dell/Documents/pix4d/' + data.name + '.p4d', function (error, stdout, stderr) {
+                                    if (error) {
+                                        console.log("error");
+                                    } else if (stdout) {
+                                        console.log("stdout", stdout);
+                                    } else {
+                                        console.log("stderr", stderr);
+                                    }
+                                });
+                                // callback(null, found);
+
+                            },
+                            function () {
+                                exec('cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -d C:/Users/dell/Documents/pix4d/' + data.name + '.p4d', function (error, stdout, stderr) {
+                                    if (error) {
+                                        console.log("error");
+                                    } else if (stdout) {
+                                        console.log("stdout", stdout);
+                                    } else {
+                                        console.log("stderr", stderr);
+                                    }
+                                });
+                                // callback(null, found);               
+                            },
+                            function () {
+                                exec('cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -o C:/Users/dell/Documents/pix4d/' + data.name + '.p4d', function (error, stdout, stderr) {
+                                    if (error) {
+                                        console.log("error");
+                                    } else if (stdout) {
+                                        console.log("stdout", stdout);
+                                    } else {
+                                        console.log("stderr", stderr);
+                                    }
+                                });
+                                // callback(null, found);               
+                            }
+                        ], function (error, data) {
+                            if (error) {
+                                console.log(" async.parallel >>> final callback  >>> error", error);
+                                callback(error, null);
+                            } else {
+                                callback(null, savedData);
+                            }
+                        })
+
+                    } else {
+                        console.log("stderr", stderr);
+                        callback(null, stderr);
+
+                    }
+                });
+                callback(null, created);
             } else {
-                callback(null, dataF);
+                callback(null, {});
             }
         });
+
+
+
     },
     getByUser: function (data, callback) {
         this.find({
