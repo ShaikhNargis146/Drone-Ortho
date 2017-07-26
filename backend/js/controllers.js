@@ -289,7 +289,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $state.go("login");
         });
     })
-    .controller('UseraccountCtrl', function ($scope, TemplateService,toastr, NavigationService, $timeout, $state) {
+    .controller('UseraccountCtrl', function ($scope, TemplateService, toastr, NavigationService, $timeout, $state) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("useraccount");
         $scope.menutitle = NavigationService.makeactive("useraccount");
@@ -302,21 +302,21 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $state.go("login");
         });
         $scope.addCard = function (card) {
-            if(card && card.cardNumber){
+            if (card && card.cardNumber) {
                 $scope.profileDetails.cardDetails.push(card);
                 NavigationService.apiCall("User/save", $scope.profileDetails, function (data) {
                     if (data.value === true) {
                         $('#modal-6').modal('hide');
                         $scope.cardDetails = null;
-                        card=null;
+                        card = null;
                         console.log("data saved successfully");
                         toastr.success("Card added successfully");
                     } else {
                         //  toastr.warning('Error submitting the form', 'Please try again');
                     }
                 });
-            }else{  
-               toastr.warning('Error submitting the form', 'Please Provide card details');
+            } else {
+                toastr.warning('Error submitting the form', 'Please Provide card details');
             }
         };
         $scope.removeCard = function (index) {
