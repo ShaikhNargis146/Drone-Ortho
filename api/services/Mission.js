@@ -12,7 +12,11 @@ var schema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    name: String,
+    name: {
+        type: String,
+        required: true,
+        unique: true
+    },
     files: [{
         file: String,
         status: {

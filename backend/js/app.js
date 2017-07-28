@@ -926,10 +926,14 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService) {
     return {
         restrict: 'C',
         link: function ($scope, element, attrs) {
-            var startLat = -119.4179;
-            var startLng = 36.7783;
-            var latWidth = 0.193;
-            var lngHeight = 0.193;
+            var locations = {
+                upperLeft: [-117.23545173119574, 32.77840210218494],
+                lowerLeft: [-117.23544909909386, 32.77740264966007],
+                upperRight: [-117.23213078512207, 32.77840829977591],
+                lowerRight: [-117.23212819014402, 32.77740884701485],
+                center: [-117.23378995150006, 32.77790548568292]
+            }
+
             var mapStyle = {
                 "version": 8,
                 "name": "Dark",
@@ -940,12 +944,9 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService) {
                     },
                     "overlay": {
                         "type": "image",
-                        "url": "http://localhost:1337/demo.jpg",
+                        "url": "http://localhost:1337/output01.png",
                         "coordinates": [
-                            [startLat, startLng],
-                            [startLat + latWidth, startLng],
-                            [startLat + latWidth, startLng + lngHeight],
-                            [startLat, startLng + lngHeight],
+                            locations.upperLeft, locations.upperRight, locations.lowerRight, locations.lowerLeft,
                         ]
                     }
                 },
@@ -1037,10 +1038,10 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService) {
 
             var map = new mapboxgl.Map({
                 container: 'map',
-                maxZoom: 17,
+                maxZoom: 30,
                 minZoom: 4,
                 zoom: 16,
-                center: [startLat, startLng],
+                center: locations.center,
                 style: mapStyle,
                 hash: false
             });
