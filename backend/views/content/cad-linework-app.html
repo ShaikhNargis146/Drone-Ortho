@@ -1,9 +1,8 @@
 <div class="page-container">
     <div class="page-title">
         <div class="title-env padd-b">
-            <h1 class="title">CAD Linework Application</h1>
+            <h1 class="title padd-b20">CAD Linework Application</h1>
         </div>
-
     </div>
     <!-- Responsive Table -->
     <div class="row">
@@ -13,91 +12,101 @@
                     <!--<div class="panel-body">-->
                     <div class="">
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="text-right" style="padding-bottom: 20px">
+                            <div class="col-md-3 col-md-push-4">
+                                <div class="pull-right">
+                                    <a>
+                                    <button  class="btn  ng-binding ng-scope btn-success" data-toggle="popover" data-trigger="hover"
+                                            ui-sref="request"
+                                            data-original-title="Create CadLineWork">INTERNAL REQUEST CAD LINE WORK</button>
+                                            </a>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-md-push-4 ">
+                                <div class="pull-right">
+                                <a>
+                                    <button  class="btn  ng-binding ng-scope btn-success" data-toggle="popover" data-trigger="hover"
+                                            ui-sref="page({id:'createCadLineWork'})"
+                                            data-original-title="Create CadLineWork">EXTERNAL REQUEST CAD LINE WORK</button>
+                                            </a>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-md-push-4 ">
+                                <div class="pull-right" style="padding-bottom: 20px">
                                     <a>
                                     <button  class="btn  ng-binding ng-scope btn-success" data-toggle="popover" data-trigger="hover"
                                             ui-sref="page({id:'createCadLineWork'})"
-                                            data-original-title="Create CadLineWork">Create CadLineWork</button></div>
-                                </a>
-                                    <section class="search-env">
-
-                                        <form method="get" action="" enctype="application/x-www-form-urlencoded">
-                                            <input type="text" class="form-control input-lg" placeholder="Search..." name="s" />
-                                            <!--<button type="submit" class="btn-unstyled">
-								<i class="linecons-search"></i>
-							</button>-->
-                                            <button type="submit" class="btn-unstyled btn-search">
+                                            data-original-title="Create CadLineWork">Create CadLineWork</button>
+                                            </a>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <section class="search-env">
+                                    <form method="get" action="" enctype="application/x-www-form-urlencoded">
+                                        <input type="text" class="form-control input-lg" placeholder="Search..." name="s" />
+                                        <button type="submit" class="btn-unstyled btn-search">
 								<!--<i class="linecons-search"></i>-->
                                   <i class="fa fa-search" aria-hidden="true"></i>
-                                                                    
-							</button>
-                                        </form>
-                                    </section>
-                                </div>
-                                <div class="col-md-4">
-                                    <!--<div class="form-group">
-                                <div class="input-group">
-                                    <input type="text" placeholder="From Date" class="form-control datepicker" data-format="D, dd MM yyyy">
-                                    <div class="input-group-addon"> <a href="#"><i class="linecons-calendar"></i></a> </div>
-                                </div>
-                            </div>-->
-                                    <p class="input-group">
-                                        <input type="text" class="form-control" placeholder="From Date" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened"
-                                            datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats">
-                                        <span class="input-group-btn">
+                                      </button>
+                                    </form>
+                                </section>
+                            </div>
+                            <div class="col-md-3">
+                                <p class="input-group">
+                                    <input type="text" class="form-control" placeholder="From Date" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened"
+                                        datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats">
+                                    <span class="input-group-btn">
             <button type="button" class="btn btn-default btn-gray" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
-                                    </p>
-                                </div>
-                                <div class="col-md-4">
-                                    <p class="input-group">
-                                        <input type="text" class="form-control" placeholder="To Date" uib-datepicker-popup ng-model="dt2" is-open="popup2.opened"
-                                            datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"
-                                        />
-                                        <span class="input-group-btn">
+                                </p>
+                            </div>
+                            <div class="col-md-3">
+                                <p class="input-group">
+                                    <input type="text" class="form-control" placeholder="To Date" uib-datepicker-popup ng-model="dt2" is-open="popup2.opened"
+                                        datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"
+                                    />
+                                    <span class="input-group-btn">
             <button type="button" class="btn btn-default btn-gray" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
-          </span>
-                                    </p>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <select class="form-control">
+                                   </span>
+                                </p>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <select class="form-control">
                                             <option>Select Status</option>
                                             <option>In Process</option>
                                             <option>In QC</option>
                                             <option>Revisions</option>
                                             <option>Completed</option>
                                             </select>
-                                    </div>
                                 </div>
-                                <div class="col-md-4  pull-right">
-                                    <div class="form-group">
-                                        <select class="form-control">
+                            </div>
+                            <div class="col-md-3  pull-right">
+                                <div class="form-group">
+                                    <select class="form-control">
                                             <option>Download as</option>
 											<option>xl</option>
 											<option>csv</option>
 										</select>
-                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div style="  overflow: scroll;">
-                            <table cellspacing="0" class="table table-small-font table-bordered table-striped">
-                                <thead style="white-space:nowrap;">
-                                    <tr>
-                                        <th>Mission ID</th>
-                                        <th data-priority="1">Date Of Receipt</th>
-                                        <th data-priority="3">Completion Date</th>
-                                        <th data-priority="1">Address</th>
-                                        <th>Status</th>
-                                        <th data-priority="3">Acreage</th>
-                                        <th data-priority="3">Counters
-                                        </th>
-                                        <th data-priority="3">Drafting Density
-                                        </th>
-                                        <th data-priority="6">Contour Density</th>
-                                        <th data-priority="6">Additional Instructions</th>
+                    </div>
+                    <div style="  overflow: scroll;">
+                        <table cellspacing="0" class="table table-small-font table-bordered table-striped">
+                            <thead style="white-space:nowrap;">
+                                <tr>
+                                    <th>Mission ID</th>
+                                    <!--<th data-priority="1">Date Of Receipt</th>-->
+                                    <!--<th data-priority="3">Completion Date</th>
+                                        <th data-priority="1">Address</th>-->
+                                    <th>Status</th>
+                                    <th data-priority="3">Acreage</th>
+                                    <th data-priority="3">Counters
+                                    </th>
+                                    <th data-priority="3">Drafting Density
+                                    </th>
+                                    <th data-priority="6">Contour Density</th>
+                                    <!--<th data-priority="6">Additional Instructions</th>
                                         <th data-priority="6">Google Image</th>
                                         <th data-priority="6">CAD Linework Amount</th>
                                         <th data-priority="1">Coupon Code</th>
@@ -106,17 +115,17 @@
                                         <th data-priority="6">Payment ID</th>
                                         <th data-priority="6">Payment Status</th>
                                         <th data-priority="6">DWG File</th>
-                                        <th data-priority="6">PDF File</th>
-                                    </tr>
-                                </thead>
-                                <tbody style="white-space:nowrap;">
-                                    <tr ng-repeat="cad in cadLineWorkData">
-                                        <th><a href="#" class="id-underline">{{cad.mission._id}}</a></th>
-                                        <td>{{cad.createdAt | date}}</td>
+                                        <th data-priority="6">PDF File</th>-->
+                                </tr>
+                            </thead>
+                            <tbody style="white-space:nowrap;">
+                                <tr ng-repeat="cad in cadLineWorkData">
+                                    <th><a href="#" class="id-underline">{{cad.mission._id}}</a></th>
+                                    <!--<td>{{cad.createdAt | date}}</td>
                                         <td></td>
-                                        <td>{{cad.address}}</td>
-                                        <td>{{cad.status}}
-                                            <!--<li class="dropdown" style="list-style-type:none;">
+                                        <td>{{cad.address}}</td>-->
+                                    <td>{{cad.status}}
+                                        <!--<li class="dropdown" style="list-style-type:none;">
                                                 <a class="dropdown-toggle" data-toggle="dropdown">Status<b class="caret"></b></a>
                                                 <ul class="dropdown-menu">
                                                     <li>
@@ -133,40 +142,40 @@
                                                     </li>
                                                 </ul>
                                             </li>-->
-                                        </td>
-                                        <td>{{cad.acreage}}</td>
-                                        <td>
+                                    </td>
+                                    <td>{{cad.acreage}}</td>
+                                    <td>
 
-                                            <div class="form-group ">
-                                                <select ng-model="cad.contours" class="form-control select-w">
+                                        <div class="form-group ">
+                                            <select ng-model="cad.contours" class="form-control select-w">
 
 														<option value="{{cad.contours}}">Yes</option>
 														<option value="{{cad.contours}}">No</option>
 
 													</select>
-                                            </div>
-                                        </td>
-                                        <td> {{cad.draftingDensity}} </td>
-                                        <td> {{cad.contoursDensity}} </td>
-                                        <!--<td>
+                                        </div>
+                                    </td>
+                                    <td> {{cad.draftingDensity}} </td>
+                                    <td> {{cad.contoursDensity}} </td>
+                                    <!--<td>
                                             <div class="form-group ">{{cad.contoursDensity}}-->
-                                        <!--<select class="form-control select-w"                                                                           id="sboxit-4">
+                                    <!--<select class="form-control select-w"                                                                           id="sboxit-4">
 													<option>Low</option>
 													<option>Medium</option>
 													<!--<option>High</option>
 												</select>-->
-                                        <!--</div>
+                                    <!--</div>
                                         </td>-->
-                                        <!--<td>
+                                    <!--<td>
                                             <div class="form-group ">{{cad.draftingDensity}}-->
-                                        <!--<select class="form-control select-w"                                                               id="sboxit-4">
+                                    <!--<select class="form-control select-w"                                                               id="sboxit-4">
 													<option>Low</option>
 													<option>Medium</option>
 													<option>High</option>
 												</select>-->
-                                        <!--</div>
+                                    <!--</div>
                                         </td>-->
-                                        <td>{{cad.instruction}}</td>
+                                    <!--<td>{{cad.instruction}}</td>
                                         <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
                                         <td></td>
                                         <td></td>
@@ -175,9 +184,9 @@
                                         <td>P220</td>
                                         <td>Paid</td>
                                         <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
-                                        <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
-                                    </tr>
-                                    <!--<tr>
+                                        <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>-->
+                                </tr>
+                                <!--<tr>
                                         <th><a href="#" class="id-underline">M- 121</a></th>
                                         <td>4/01/2016</td>
                                         <td></td>
@@ -243,7 +252,7 @@
                                         <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
                                         <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
                                     </tr>-->
-                                    <!--<tr>
+                                <!--<tr>
                                         <th><a href="#" class="id-underline">M- 122</a></th>
                                         <td>4/01/2016</td>
                                         <td></td>
@@ -270,7 +279,7 @@
                                         <td></td>
                                         <td>
                                             <div class="form-group ">-->
-                                    <!--<script type="text/javascript">
+                                <!--<script type="text/javascript">
                                                         jQuery(document).ready(function($) {
                                                             $("#sboxit-3").selectBoxIt({
                                                                 showFirstOption: false
@@ -280,7 +289,7 @@
                                                             });
                                                         });
                                                     </script>-->
-                                    <!--<select class="form-control select-w" id="sboxit-3">
+                                <!--<select class="form-control select-w" id="sboxit-3">
 
 														<option>Yes</option>
 														<option>No</option>
@@ -319,7 +328,7 @@
                                         <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
                                         <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
                                     </tr>-->
-                                    <!--<tr>
+                                <!--<tr>
                                         <th><a href="#" class="id-underline">M- 123</a></th>
                                         <td>4/01/2016</td>
                                         <td></td>
@@ -346,7 +355,7 @@
                                         <td></td>
                                         <td>
                                             <div class="form-group ">-->
-                                    <!--<script type="text/javascript">
+                                <!--<script type="text/javascript">
                                                         jQuery(document).ready(function($) {
                                                             $("#sboxit-3").selectBoxIt({
                                                                 showFirstOption: false
@@ -356,7 +365,7 @@
                                                             });
                                                         });
                                                     </script>-->
-                                    <!--<select class="form-control select-w" id="sboxit-3">
+                                <!--<select class="form-control select-w" id="sboxit-3">
 
 														<option>Yes</option>
 														<option>No</option>
@@ -395,7 +404,7 @@
                                         <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
                                         <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
                                     </tr>-->
-                                    <!--<tr>
+                                <!--<tr>
                                         <th><a href="#" class="id-underline">M- 124</a></th>
                                         <td>4/01/2016</td>
                                         <td></td>
@@ -459,7 +468,7 @@
                                         <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
                                         <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
                                     </tr>-->
-                                    <!--<tr>
+                                <!--<tr>
                                         <th><a href="#" class="id-underline">M- 125</a></th>
                                         <td>4/01/2016</td>
                                         <td></td>
@@ -486,7 +495,7 @@
                                         <td></td>
                                         <td>
                                             <div class="form-group ">-->
-                                    <!--<script type="text/javascript">
+                                <!--<script type="text/javascript">
                                                         jQuery(document).ready(function($) {
                                                             $("#sboxit-3").selectBoxIt({
                                                                 showFirstOption: false
@@ -496,7 +505,7 @@
                                                             });
                                                         });
                                                     </script>-->
-                                    <!--<select class="form-control select-w" id="sboxit-3">
+                                <!--<select class="form-control select-w" id="sboxit-3">
 
 														<option>Yes</option>
 														<option>No</option>
@@ -535,7 +544,7 @@
                                         <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
                                         <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
                                     </tr>-->
-                                    <!--<tr>
+                                <!--<tr>
                                         <th><a href="#" class="id-underline">M- 126</a></th>
                                         <td>4/01/2016</td>
                                         <td></td>
@@ -562,7 +571,7 @@
                                         <td></td>
                                         <td>
                                             <div class="form-group ">-->
-                                    <!--<script type="text/javascript">
+                                <!--<script type="text/javascript">
                                                         jQuery(document).ready(function($) {
                                                             $("#sboxit-3").selectBoxIt({
                                                                 showFirstOption: false
@@ -572,7 +581,7 @@
                                                             });
                                                         });
                                                     </script>-->
-                                    <!--<select class="form-control select-w" id="sboxit-3">
+                                <!--<select class="form-control select-w" id="sboxit-3">
 
 														<option>Yes</option>
 														<option>No</option>
@@ -611,21 +620,21 @@
                                         <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
                                         <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
                                     </tr>-->
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="paddt20">
-                            <ul class="pagination">
-                                <li><a href="#">Previous</a></li>
-                                <li><a href="#">1</a></li>
-                                <li class="active"><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li class="disabled"><a href="#">4</a></li>
-                                <li><a href="#">Next</a></li>
-                            </ul>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
-                    <script type="text/javascript">
+                    <div class="paddt20">
+                        <ul class="pagination">
+                            <li><a href="#">Previous</a></li>
+                            <li><a href="#">1</a></li>
+                            <li class="active"><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li class="disabled"><a href="#">4</a></li>
+                            <li><a href="#">Next</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <script type="text/javascript">
                         // This JavaScript Will Replace Checkboxes in dropdown toggles
                         jQuery(document).ready(function ($) {
                             setTimeout(function () {
@@ -634,10 +643,10 @@
                             }, 0);
                         });
                     </script>
-                </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 </footer>
 </div>
