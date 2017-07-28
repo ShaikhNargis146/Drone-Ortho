@@ -1,8 +1,13 @@
 var globalfunction = {};
-angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', "jsonservicemod", 'ui.bootstrap', 'ui.select', 'ngAnimate', 'toastr', 'ngSanitize', 'angular-flexslider', 'ui.tinymce', 'imageupload', 'ngMap', 'toggle-switch', 'cfp.hotkeys', 'ui.sortable', ])
-
+angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', "jsonservicemod", 'ui.bootstrap', 'ui.select', 'ngAnimate', 'toastr', 'ngSanitize', 'angular-flexslider', 'ui.tinymce', 'imageupload', 'ngMap', 'toggle-switch', 'cfp.hotkeys', 'ui.sortable'])
+    .run([function () {
+        mapboxgl.accessToken = 'pk.eyJ1IjoibmFpbWlrYW4iLCJhIjoiY2lraXJkOXFjMDA0OXdhbTYzNTE0b2NtbiJ9.O64XgZQHNHcV2gwNLN2a0Q';
+    }])
     .controller('DashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
+
+
+
         $scope.template = TemplateService.changecontent("dashboard");
         $scope.menutitle = NavigationService.makeactive("Dashboard");
         TemplateService.title = $scope.menutitle;
@@ -333,12 +338,19 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
         }
     })
-    .controller('createmissionCtrl', function ($scope, $http, TemplateService, NavigationService, $timeout, $state) {
+    .controller('createmissionCtrl', function ($scope, $http, TemplateService, NavigationService, $timeout, $state, mapboxService) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("create-mission");
         $scope.menutitle = NavigationService.makeactive("createmission");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        mapboxService.init({
+            accessToken: 'pk.eyJ1IjoibGljeWV1cyIsImEiOiJuZ1gtOWtjIn0.qaaGvywaJ_kCmwmlTSNyVw'
+        });
+        $timeout(function () {
+            var map = mapboxService.getMapInstances()[0];
+            //mapboxService.fitMapToMarkers(map);
+        }, 100);
         $scope.uploadMe = function (data) {
             if ($.jStorage.get("profile")) {
                 data.user = $.jStorage.get("profile")._id;

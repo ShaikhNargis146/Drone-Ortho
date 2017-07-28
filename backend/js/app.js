@@ -10,8 +10,12 @@ var firstapp = angular.module('firstapp', [
     'imageupload',
     "ngMap",
     "internationalPhoneNumber",
-    "jsonservicemod"
+    "jsonservicemod",
+    'mapboxgl-directive'
 ]);
+
+mapboxgl.accessToken = 'pk.eyJ1IjoibmFyZ2lzLXNoYWlraCIsImEiOiJjajVsMWdjbTgyN2t0MzBuejY0YWZvYnU1In0.sxNSmPeAZRDks6p3JmRUkw';
+
 
 firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
     // for http request with session
@@ -110,18 +114,18 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             templateUrl: "views/jagz.html",
             controller: 'JagzCtrl'
         })
-        
-          .state('profile', {
+
+        .state('profile', {
             url: "/profile",
             templateUrl: "views/template.html",
             controller: 'ProfileCtrl'
         })
-         .state('account', {
+        .state('account', {
             url: "/account",
             templateUrl: "views/template.html",
             controller: 'AccountCtrl'
         })
-         .state('useraccount', {
+        .state('useraccount', {
             url: "/useraccount",
             templateUrl: "views/template.html",
             controller: 'UseraccountCtrl'
@@ -421,8 +425,8 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout) {
                             if (!$scope.model) {
                                 $scope.clearOld();
                             }
-                            var fileList={};
-                            fileList.file=data.data[0];
+                            var fileList = {};
+                            fileList.file = data.data[0];
                             $scope.model.push(fileList);
                         }
                     } else {
@@ -431,8 +435,8 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout) {
                         } else {
                             $scope.type = "image";
                         }
-                        var fileList={};
-                            fileList.file=data.data[0];
+                        var fileList = {};
+                        fileList.file = data.data[0];
                         $scope.model = fileList;
                         console.log($scope.model, 'model means blob')
 
@@ -917,16 +921,147 @@ firstapp.directive('ngFiles', ['$parse', function ($parse) {
     }
 }]);
 
-firstapp.factory('shareMission', function(){
-    var missionData={},setval,getval;
-    setval=function(obj){
-       missionData=obj;
+
+firstapp.directive('mapBox', function ($http, $filter, JsonService) {
+    return {
+        restrict: 'C',
+        link: function ($scope, element, attrs) {
+            var startLat = -119.4179;
+            var startLng = 36.7783;
+            var latWidth = 0.193;
+            var lngHeight = 0.193;
+            var mapStyle = {
+                "version": 8,
+                "name": "Dark",
+                "sources": {
+                    "mapbox": {
+                        "type": "vector",
+                        "url": "mapbox://mapbox.mapbox-streets-v6"
+                    },
+                    "overlay": {
+                        "type": "image",
+                        "url": "http://localhost:1337/demo.jpg",
+                        "coordinates": [
+                            [startLat, startLng],
+                            [startLat + latWidth, startLng],
+                            [startLat + latWidth, startLng + lngHeight],
+                            [startLat, startLng + lngHeight],
+                        ]
+                    }
+                },
+                "sprite": "mapbox://sprites/mapbox/dark-v9",
+                "glyphs": "mapbox://fonts/mapbox/{fontstack}/{range}.pbf",
+                "layers": [{
+                        "id": "background",
+                        "type": "background",
+                        "paint": {
+                            "background-color": "#111"
+                        }
+                    },
+                    {
+                        "id": "water",
+                        "source": "mapbox",
+                        "source-layer": "water",
+                        "type": "fill",
+                        "paint": {
+                            "fill-color": "#2c2c2c"
+                        }
+                    },
+                    {
+                        "id": "boundaries",
+                        "source": "mapbox",
+                        "source-layer": "admin",
+                        "type": "line",
+                        "paint": {
+                            "line-color": "#797979",
+                            "line-dasharray": [2, 2, 6, 2]
+                        },
+                        "filter": ["all", ["==", "maritime", 0]]
+                    },
+                    {
+                        "id": "overlay",
+                        "source": "overlay",
+                        "type": "raster",
+                        "paint": {
+                            "raster-opacity": 0.85
+                        }
+                    },
+                    {
+                        "id": "cities",
+                        "source": "mapbox",
+                        "source-layer": "place_label",
+                        "type": "symbol",
+                        "layout": {
+                            "text-field": "{name_en}",
+                            "text-font": ["DIN Offc Pro Bold", "Arial Unicode MS Bold"],
+                            "text-size": {
+                                "stops": [
+                                    [4, 9],
+                                    [6, 12]
+                                ]
+                            }
+                        },
+                        "paint": {
+                            "text-color": "#969696",
+                            "text-halo-width": 2,
+                            "text-halo-color": "rgba(0, 0, 0, 0.85)"
+                        }
+                    },
+                    {
+                        "id": "states",
+                        "source": "mapbox",
+                        "source-layer": "state_label",
+                        "type": "symbol",
+                        "layout": {
+                            "text-transform": "uppercase",
+                            "text-field": "{name_en}",
+                            "text-font": ["DIN Offc Pro Bold", "Arial Unicode MS Bold"],
+                            "text-letter-spacing": 0.15,
+                            "text-max-width": 7,
+                            "text-size": {
+                                "stops": [
+                                    [4, 10],
+                                    [6, 14]
+                                ]
+                            }
+                        },
+                        "filter": [">=", "area", 80000],
+                        "paint": {
+                            "text-color": "#969696",
+                            "text-halo-width": 2,
+                            "text-halo-color": "rgba(0, 0, 0, 0.85)"
+                        }
+                    }
+                ]
+            };
+
+            var map = new mapboxgl.Map({
+                container: 'map',
+                maxZoom: 17,
+                minZoom: 4,
+                zoom: 16,
+                center: [startLat, startLng],
+                style: mapStyle,
+                hash: false
+            });
+        }
+    };
+});
+
+
+
+
+firstapp.factory('shareMission', function () {
+    var missionData = {},
+        setval, getval;
+    setval = function (obj) {
+        missionData = obj;
     }
-    getval=function(){
+    getval = function () {
         return missionData;
     }
-  return {
-      setval:setval,
-      getval:getval
-  };
+    return {
+        setval: setval,
+        getval: getval
+    };
 });
