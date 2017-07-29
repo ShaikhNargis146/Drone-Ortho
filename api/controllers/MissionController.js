@@ -19,11 +19,14 @@ var controller = {
         // });
         // png.data = data;
         // fs.writeFileSync(path.join(process.cwd(), "lena.png"), PNG.sync.write(png));
-        // sharp(path.join(process.cwd(), path.join('pix4dUpload', 'vashi_transparent_mosaic_group1.tif')))
-        //     .png()
-        //     .toFile('output01.png', function (err, info) {
-        //         console.log("done");
-        //     });
+
+        sharp(path.join(process.cwd(), path.join('pix4dUpload', 'vashi_transparent_mosaic_group1.tif')))
+            .png({
+                compressionLevel: 9
+            })
+            .toFile('output05.png', function (err, info) {
+                console.log("done");
+            });
         // converter = new ConvertTiff();
         // var imgPath = path.join(process.cwd(), path.join('pix4dUpload', 'vashi_transparent_mosaic_group1.tif'));
         // console.log(imgPath);
@@ -41,28 +44,28 @@ var controller = {
 
         // converter.convertArray(tiffs, location);
 
-        fs.readFile('./pix4dUpload/vashi_transparent_mosaic_group1.tif', function (err, data) {
-            if (err) {
-                console.log("err", err);
-                // throw err;
-            } else {
-                console.log("data", data);
-                dataArray = data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength);
+        // fs.readFile('./pix4dUpload/vashi_transparent_mosaic_group1.tif', function (err, data) {
+        //     if (err) {
+        //         console.log("err", err);
+        //         // throw err;
+        //     } else {
+        //         console.log("data", data);
+        //         dataArray = data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength);
 
-                var im = geotiff.parse(dataArray).getImage()
-                var fd = im.getFileDirectory()
-                var gk = im.getGeoKeys()
-                console.log(extents({
-                    tiePoint: fd.ModelTiepoint,
-                    pixelScale: fd.ModelPixelScale,
-                    width: fd.ImageWidth,
-                    height: fd.ImageLength,
-                    proj: require('proj4'),
-                    from: epsg[gk.ProjectedCSTypeGeoKey || gk.GeographicTypeGeoKey],
-                    to: epsg[4326]
-                }))
-            }
-        });
+        //         var im = geotiff.parse(dataArray).getImage()
+        //         var fd = im.getFileDirectory()
+        //         var gk = im.getGeoKeys()
+        //         console.log(extents({
+        //             tiePoint: fd.ModelTiepoint,
+        //             pixelScale: fd.ModelPixelScale,
+        //             width: fd.ImageWidth,
+        //             height: fd.ImageLength,
+        //             proj: require('proj4'),
+        //             from: epsg[gk.ProjectedCSTypeGeoKey || gk.GeographicTypeGeoKey],
+        //             to: epsg[4326]
+        //         }))
+        //     }
+        // });
 
     },
     createMission: function (req, res) { //pix4dmapper -c -n --image-dir C:\Users\dell\Pictures\newMissionImages D:\mining\myquarry.p4d 
