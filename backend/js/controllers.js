@@ -425,15 +425,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
         }
     })
-    .controller('createmissionCtrl', function ($scope, $http, TemplateService, NavigationService, $timeout, $state, mapboxService) {
+    .controller('createmissionCtrl', function ($scope, $http, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("create-mission");
         $scope.menutitle = NavigationService.makeactive("createmission");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        mapboxService.init({
-            accessToken: 'pk.eyJ1IjoibGljeWV1cyIsImEiOiJuZ1gtOWtjIn0.qaaGvywaJ_kCmwmlTSNyVw'
-        });
+
         $timeout(function () {
             var map = mapboxService.getMapInstances()[0];
             //mapboxService.fitMapToMarkers(map);

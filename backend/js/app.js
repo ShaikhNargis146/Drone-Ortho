@@ -45,7 +45,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
         .state('missiondetail', {
             url: "/missiondetail/:missionId",
             templateUrl: "views/template.html",
-            controller: 'missiondetailCtrl',
+            controller: 'missiondetailCtrl'
         })
         .state('cadlineworkapp', {
             url: "/cadlineworkapp",
@@ -57,6 +57,11 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             templateUrl: "views/template.html",
             controller: 'Dfmsubscription',
         })
+        //  .state('missiondetail', {
+        //     url: "/missiondetail",
+        //     templateUrl: "views/template.html",
+        //     controller: 'MissiondetailCtrl',
+        // })
         .state('login', {
             url: "/login",
             templateUrl: "views/login.html",
@@ -119,6 +124,51 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             url: "/profile",
             templateUrl: "views/template.html",
             controller: 'ProfileCtrl'
+        })
+        .state('request', {
+            url: "/request",
+            templateUrl: "views/template.html",
+            controller: 'RequestCtrl'
+        })
+        .state('insidecad', {
+            url: "/insidecad",
+            templateUrl: "views/template.html",
+            controller: 'InsidecadCtrl'
+        })
+        .state('invoicingreceipts', {
+            url: "/invoicingreceipts",
+            templateUrl: "views/template.html",
+            controller: 'InvoicingreceiptsCtrl'
+        })
+        .state('support', {
+            url: "/support",
+            templateUrl: "views/template.html",
+            controller: 'SupportCtrl'
+        })
+        .state('raise-ticket', {
+            url: "/raiseticket",
+            templateUrl: "views/template.html",
+            controller: 'Raise-ticketCtrl'
+        })
+        .state('adminuser', {
+            url: "/adminuser",
+            templateUrl: "views/template.html",
+            controller: 'AdminuserCtrl'
+        })
+        .state('dfm-subscription', {
+            url: "/dfmsubscription",
+            templateUrl: "views/template.html",
+            controller: 'Dfm-subscriptionCtrl'
+        })
+        .state('setting', {
+            url: "/setting",
+            templateUrl: "views/template.html",
+            controller: 'SettingCtrl'
+        })
+        .state('billing', {
+            url: "/billing",
+            templateUrl: "views/template.html",
+            controller: 'BillingCtrl'
         })
         .state('account', {
             url: "/account",
@@ -926,10 +976,14 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService) {
     return {
         restrict: 'C',
         link: function ($scope, element, attrs) {
-            var startLat = -119.4179;
-            var startLng = 36.7783;
-            var latWidth = 0.193;
-            var lngHeight = 0.193;
+            var locations = {
+                upperLeft: [-117.23545173119574, 32.77840210218494],
+                lowerLeft: [-117.23544909909386, 32.77740264966007],
+                upperRight: [-117.23213078512207, 32.77840829977591],
+                lowerRight: [-117.23212819014402, 32.77740884701485],
+                center: [-117.23378995150006, 32.77790548568292]
+            }
+
             var mapStyle = {
                 "version": 8,
                 "name": "Dark",
@@ -940,12 +994,9 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService) {
                     },
                     "overlay": {
                         "type": "image",
-                        "url": "http://localhost:1337/demo.jpg",
+                        "url": "http://localhost:1337/output03.webp",
                         "coordinates": [
-                            [startLat, startLng],
-                            [startLat + latWidth, startLng],
-                            [startLat + latWidth, startLng + lngHeight],
-                            [startLat, startLng + lngHeight],
+                            locations.upperLeft, locations.upperRight, locations.lowerRight, locations.lowerLeft,
                         ]
                     }
                 },
@@ -955,7 +1006,7 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService) {
                         "id": "background",
                         "type": "background",
                         "paint": {
-                            "background-color": "#111"
+                            "background-color": "rgb(4,7,14)"
                         }
                     },
                     {
@@ -1034,15 +1085,52 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService) {
                     }
                 ]
             };
-
+            var videoStyle = {
+                "version": 8,
+                "sources": {
+                    "satellite": {
+                        "type": "raster",
+                        "url": "mapbox://mapbox.streets",
+                        "tileSize": 256
+                    },
+                    "video": {
+                        "type": "image",
+                        "url": "http://localhost:1337/output03.webp",
+                        "coordinates": [
+                            locations.upperLeft, locations.upperRight, locations.lowerRight, locations.lowerLeft,
+                        ]
+                    }
+                },
+                "layers": [{
+                    "id": "background",
+                    "type": "background",
+                    "paint": {
+                        "background-color": "rgb(4,7,14)"
+                    }
+                }, {
+                    "id": "satellite",
+                    "type": "raster",
+                    "source": "satellite"
+                }, {
+                    "id": "video",
+                    "type": "raster",
+                    "source": "video"
+                }]
+            };
             var map = new mapboxgl.Map({
                 container: 'map',
-                maxZoom: 17,
+                maxZoom: 30,
                 minZoom: 4,
                 zoom: 16,
-                center: [startLat, startLng],
-                style: mapStyle,
+                center: locations.center,
+                style: videoStyle,
                 hash: false
+            });
+            var Draw = new MapboxDraw();
+            map.addControl(draw);
+            map.on('load', function () {
+                // ALL YOUR APPLICATION CODE
+                console.log("hi,its loaded");
             });
         }
     };
