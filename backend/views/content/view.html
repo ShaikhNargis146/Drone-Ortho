@@ -1,71 +1,200 @@
-<!-- <div id="progressBar">
-	<div class="loader"></div>
-</div> -->
-<div ng-controller="ViewCtrl">
-    <div class="heading-sec">
-        <div class="row">
-            <div class="col-md-4 column">
-                <div class="heading-profile">
-                    <h2 ng-bind="json.json.title"></h2>
-                </div>
-            </div>
+<div class="page-container">
+    <div class="page-title">
+        <div class="title-env">
+            <h1 class="title padd-b20">Plans</h1>
         </div>
     </div>
-    <!-- Top Bar Chart -->
-    <div class=" panel-content ">
-        <div class="row ">
-            <div class="col-md-12 ">
-                <div class="widget ">
-                    <div class="table-area ">
-                        <div class="widget-title ">
-                            <div class="pull-right ">
-                                <form class="search-form mr-form ">
-                                    <input type="text " ng-change="getAllItems(true) " placeholder="Search Here...
-                        " ng-model="search.keyword " />
-                                </form>
-                                <a ng-repeat="btn in json.json.button " class="btn " ng-class="btn.class " ng-click="json.eventAction(btn)">{{btn.name}}</a>
+    <!-- Responsive Table -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="padd40">
+                <div class="panel panel-default padd40">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="">
+                                    <h4>Available Plans:</h4>
+                                </div>
+                                <div class="">
+                                    <table class="table table-bordered table-striped table-condensed table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Plan: Trial <br> Price: 0.00</th>
+                                                <th>Plan: Standard <br> Price: 99.00</th>
+                                                <th>Plan: PRO <br> Price: 199.00</th>
+                                            </tr>
+                                            <tr>
+                                                <th>Limit Name</th>
+                                                <th>Usage Limit</th>
+                                                <th>Usage Limit</th>
+                                                <th>Usage Limit</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Invitations (per month)</td>
+                                                <td>0</td>
+                                                <td>15</td>
+                                                <td>25</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Missions (Total)</td>
+                                                <td>20</td>
+                                                <td>50</td>
+                                                <td>100</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Upload (max photos count)</td>
+                                                <td>500</td>
+                                                <td>500</td>
+                                                <td>500</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Upload (max size)</td>
+                                                <td>4.9GB</td>
+                                                <td>5GB</td>
+                                                <td>10GB</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Mosaic (per month)</td>
+                                                <td>5</td>
+                                                <td>10</td>
+                                                <td>15</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Mosaic (resolution cm/px)</td>
+                                                <td>15</td>
+                                                <td>15</td>
+                                                <td>25</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Export KMZ</td>
+                                                <td>False</td>
+                                                <td>True</td>
+                                                <td>True</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Export Orthophoto</td>
+                                                <td>True</td>
+                                                <td>True</td>
+                                                <td>True</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Export DEM</td>
+                                                <td>False</td>
+                                                <td>True</td>
+                                                <td>True</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Export Point Cloud</td>
+                                                <td>False0</td>
+                                                <td>False</td>
+                                                <td>True</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Unlimited Used Apps</td>
+                                                <td>
+                                                    <ul>
+                                                        <li>
+                                                            Raw Image Store</li>
+                                                        <li>Orthomosaic</li>
+                                                        <li>Crop</li>
+                                                        <li>3d Model</li>
+                                                        <li>DEM</li>
+                                                        <li>NDVI</li>
+                                                        <li>Dvi</li>
+                                                        <li>Topographic Map 1 Meter</li>
+                                                        <li>Shapefile Export</li>
+                                                        <li>Volume Calculator</li>
+                                                        <li>KMZ Export</li>
+                                                        <li>Point Cloud</li>
+                                                        <li>Leaf Area Index</li>
+                                                        <li>Management Zones</li>
+                                                        <li>NGB False Color</li>
+                                                        <li>Water Drainage Map</li>
+
+                                                        <li>Emergence Uniformity
+
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                                <td>
+                                                    <ul>
+                                                        <li>Raw Image Store</li>
+                                                        <li>Orthomosaic</li>
+                                                        <li>Crop</li>
+                                                        <li>DEM</li>
+
+                                                        <Li>NDVI</Li>
+                                                        <li>Dvi</li>
+                                                        <li>Topographic Map 1 Meter</li>
+                                                        <li>Shapefile Export</li>
+                                                        <li>Volume Calculator</li>
+                                                        <li>KMZ Export</li>
+                                                        <li>3d model</li>
+                                                        <li>3d PDF</li>
+                                                        <li>Point Cloud</li>
+                                                        <li>Leaf Area Index</li>
+                                                        <li>Management Zones</li>
+                                                        <li>Emergence Uniformity</li>
+                                                        <li>Ground Refinement Points</li>
+                                                        <li>(GRP)</li>
+                                                    </ul>
+                                                    <button class="btn btn-primary create">UPGRADE NOW!</button>
+
+                                                </td>
+                                                <td>
+                                                    <ul>
+
+                                                        <li>Raw Image Store</li>
+                                                        <li>Orthomosaic</li>
+                                                        <li>Crop</li>
+                                                        <li>DEM</li>
+
+                                                        <Li>NDVI</Li>
+                                                        <li>Dvi</li>
+                                                        <li>Topographic Map 1 Meter</li>
+                                                        <li>Shapefile Export</li>
+                                                        <li>Volume Calculator</li>
+                                                        <li>KMZ Export</li>
+                                                        <li>3d model</li>
+                                                        <li>3d PDF</li>
+                                                        <li>Point Cloud</li>
+                                                        <li>Leaf Area Index</li>
+                                                        <li>Management Zones</li>
+                                                        <li>Emergence Uniformity</li>
+                                                        <li>Ground Refinement Points</li>
+                                                        <li>(GRP)</li>
+                                                        <li>NGB False Color</li>
+                                                        <li>Water Drainage Map</li>
+                                                        <li>Emergence Uniformity</li>
+
+                                                        <li>Ground Refinement</li>
+                                                        <li>Points (GRP)</li>
+                                                        <li>Weedspray</li>
+                                                    </ul>
+                                                    <button class="btn btn-primary create">UPGRADE NOW!</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
                             </div>
-                            <h3>{{json.json.description}} <span class="tableTotal ">(Total : {{totalItems}}) </span></h3>
+
                         </div>
-                        <div class="table-responsive " ng-show="totalItems>0 ">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th ng-repeat="field in json.json.fields">
-                                            {{field.name}}
-                                        </th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="item in items">
-                                        <td>{{($index + 1)+((currentPage-1)*maxRow)}}</td>
-                                        <td ng-repeat="field in json.json.fields">
-                                            <view-field type="field" value="item"></view-field>
-                                        </td>
-                                        <td ng-repeat="but in json.json.action">
-                                            <a class="btn" ng-class="but.buttonClass" ng-click="json.eventAction(but,item) ">
-                                                <i class="fa" ng-class="but.icon"></i>{{but.name}}
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="tableData " ng-show="totalItems===0 ">
-                            <h5>No data found</h5>
-                        </div>
-                        <div class="tableData " ng-show="totalItems===undefined ">
-                            <h5>Loading Data</h5>
-                        </div>
-                        <ul ng-if="totalItems " ng-change="changePage(currentPage); " uib-pagination total-items="totalItems
-                                            " items-per-page="maxRow " ng-model="currentPage " max-size="template.pageMax "
-                            class="pagination-sm
-                                            " boundary-links="true " force-ellipses="true "></ul>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+
+
+
+
+<!-- Bottom Scripts -->

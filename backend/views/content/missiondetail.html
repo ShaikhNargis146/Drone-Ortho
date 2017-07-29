@@ -8,7 +8,8 @@
     <div class="row">
         <div class="padd40">
             <div class="col-md-12">
-                <div class="panel panel-default">
+                   <div class="padd40">
+                <div class="panel panel-default padd40">
                     <div class="panel-body ">
                         <div>
                             <h3 for="">Mission {{missionDetails.missionId}}</h3>
@@ -21,30 +22,42 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="misn-div">
-                                    <a href="#">
+                                    <div class="display-inline">
+                                          <p>
+    <input type="checkbox" id="test2" checked="checked" />
+    <label for="test2">DSM</label>
+  </p>
+                                    </div>
+                                         <div class="display-inline">
+                                          <input type="checkbox" name="vehicle" value="Bike"><label> Orthomosaic</label>
+                                    </div>
+                                    <div class="display-inline">
+                                          <input type="checkbox" name="vehicle" value="Bike"> <label>Basemap</label>
+                                    </div>
+                                    <!--<a href="#">
                                         <button class="btn btn-purple misn-btn btn-icon btn-icon-standalone">
             									<i class="fa-map-marker upload"></i>
             									<span>Map Viewer</span>
             								</button>
-                                    </a>
-                                    <a href="mission-analyze.html">
+                                    </a>-->
+                                    <!--<a href="mission-analyze.html">
                                         <button class="btn btn-purple misn-btn btn-icon btn-icon-standalone">
             									<i class="fa-file-image-o upload"></i>
             									<span>Analyze Imagery</span>
             								</button>
-                                    </a>
+                                    </a>-->
                                     <a href="#">
                                         <button class="btn btn-purple misn-btn btn-icon btn-icon-standalone">
             									<i class="fa-download upload"></i>
             									<span>Access Downloads</span>
             								</button>
                                     </a>
-                                    <a href="#">
+                                    <!--<a href="#">
                                         <button class="btn btn-purple misn-btn btn-icon btn-icon-standalone">
             									<i class="fa-trash-o upload"></i>
             									<span>Delete Mission</span>
             								</button>
-                                    </a>
+                                    </a>-->
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -125,5 +138,6 @@
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </div>

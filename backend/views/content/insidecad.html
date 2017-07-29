@@ -13,23 +13,8 @@
                     <div class="">
                         <div class="row">
                             <div class="col-md-3 col-md-push-4">
-                                <div class="pull-right">
-                                    <a>
-                                      <button  class="btn  ng-binding ng-scope btn-success" data-toggle="popover" data-trigger="hover"
-                                            ui-sref="request" data-original-title="Create CadLineWork">INTERNAL REQUEST CAD LINE WORK</button>
-                                            </a>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-md-push-4 ">
-                                <div class="pull-right">
-                                    <a>
-                                    <button  class="btn  ng-binding ng-scope btn-success" data-toggle="popover" data-trigger="hover"
-                                            ui-sref="request"
-                                            data-original-title="Create CadLineWork">EXTERNAL REQUEST CAD LINE WORK</button>
-                                            </a>
-                                </div>
-                            </div>
-                            <div class="col-md-2 col-md-push-4 ">
+                           </div>
+                           <div class="col-md-12  ">
                                 <div class="pull-right" style="padding-bottom: 20px">
                                     <a>
                                     <button  class="btn  ng-binding ng-scope btn-success" data-toggle="popover" data-trigger="hover"
@@ -43,8 +28,7 @@
                                     <form method="get" action="" enctype="application/x-www-form-urlencoded">
                                         <input type="text" class="form-control input-lg" placeholder="Search..." name="s" />
                                         <button type="submit" class="btn-unstyled btn-search">
-								<!--<i class="linecons-search"></i>-->
-                                  <i class="fa fa-search" aria-hidden="true"></i>
+								 <i class="fa fa-search" aria-hidden="true"></i>
                                       </button>
                                     </form>
                                 </section>
@@ -95,17 +79,17 @@
                             <thead style="white-space:nowrap;">
                                 <tr>
                                     <th>Mission ID</th>
-                                    <!--<th data-priority="1">Date Of Receipt</th>-->
-                                    <!--<th data-priority="3">Completion Date</th>
-                                        <th data-priority="1">Address</th>-->
-                                    <th>Status</th>
+                                    <th data-priority="1">Date Of Receipt</th>
+                                    <th data-priority="3">Completion Date</th>
+                                        <th data-priority="1">Address</th>
+                                    <!--<th>Status</th>
                                     <th data-priority="3">Acreage</th>
                                     <th data-priority="3">Counters
                                     </th>
                                     <th data-priority="3">Drafting Density
                                     </th>
-                                    <th data-priority="6">Contour Density</th>
-                                    <!--<th data-priority="6">Additional Instructions</th>
+                                    <th data-priority="6">Contour Density</th>-->
+                                    <th data-priority="6">Additional Instructions</th>
                                         <th data-priority="6">Google Image</th>
                                         <th data-priority="6">CAD Linework Amount</th>
                                         <th data-priority="1">Coupon Code</th>
@@ -114,17 +98,17 @@
                                         <th data-priority="6">Payment ID</th>
                                         <th data-priority="6">Payment Status</th>
                                         <th data-priority="6">DWG File</th>
-                                        <th data-priority="6">PDF File</th>-->
+                                        <th data-priority="6">PDF File</th>
                                 </tr>
                             </thead>
                             <tbody style="white-space:nowrap;">
                                 <tr ng-repeat="cad in cadLineWorkData">
-                                    <th><a href="#" class="id-underline">{{cad.mission._id}}</a></th>
-                                    <!--<td>{{cad.createdAt | date}}</td>
+                                    <!--<th><a href="#" class="id-underline">{{cad.mission._id}}</a></th>-->
+                                    <td>{{cad.createdAt | date}}</td>
                                         <td></td>
-                                        <td>{{cad.address}}</td>-->
-                                    <td>{{cad.status}}
-                                        <!--<li class="dropdown" style="list-style-type:none;">
+                                        <td>{{cad.address}}</td>
+                                    <!--<td>{{cad.status}}
+                                        <li class="dropdown" style="list-style-type:none;">
                                                 <a class="dropdown-toggle" data-toggle="dropdown">Status<b class="caret"></b></a>
                                                 <ul class="dropdown-menu">
                                                     <li>
@@ -140,10 +124,10 @@
                                                         <a href="#">Completed</a>
                                                     </li>
                                                 </ul>
-                                            </li>-->
-                                    </td>
-                                    <td>{{cad.acreage}}</td>
-                                    <td>
+                                            </li>
+                                    </td>-->
+                                    <!--<td>{{cad.acreage}}</td>-->
+                                    <!--<td>
 
                                         <div class="form-group ">
                                             <select ng-model="cad.contours" class="form-control select-w">
@@ -153,28 +137,15 @@
 
 													</select>
                                         </div>
+                                    </td>-->
+                                    <!--<td> {{cad.draftingDensity}} </td>
+                                    <td> {{cad.contoursDensity}} </td>-->
+                                    <td>
+                                            <div class="form-group ">{{cad.contoursDensity}}
+                           
+                                            </div>
                                     </td>
-                                    <td> {{cad.draftingDensity}} </td>
-                                    <td> {{cad.contoursDensity}} </td>
-                                    <!--<td>
-                                            <div class="form-group ">{{cad.contoursDensity}}-->
-                                    <!--<select class="form-control select-w"                                                                           id="sboxit-4">
-													<option>Low</option>
-													<option>Medium</option>
-													<!--<option>High</option>
-												</select>-->
-                                    <!--</div>
-                                        </td>-->
-                                    <!--<td>
-                                            <div class="form-group ">{{cad.draftingDensity}}-->
-                                    <!--<select class="form-control select-w"                                                               id="sboxit-4">
-													<option>Low</option>
-													<option>Medium</option>
-													<option>High</option>
-												</select>-->
-                                    <!--</div>
-                                        </td>-->
-                                    <!--<td>{{cad.instruction}}</td>
+                                    <td>{{cad.instruction}}</td>
                                         <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
                                         <td></td>
                                         <td></td>
@@ -183,74 +154,74 @@
                                         <td>P220</td>
                                         <td>Paid</td>
                                         <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
-                                        <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>-->
+                                        <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
                                 </tr>
                                 <tr>
-                                    <th><a class="id-underline" ui-sref="insidecad">M- 121</a></th>
-                                    <!--<td>4/01/2016</td>
+                                        <th><a href="" class="id-underline">M- 121</a></th>
+                                        <td>4/01/2016</td>
                                         <td></td>
-                                        <td></td>-->
-                                    <td>
-                                        <li class="dropdown" style="list-style-type:none;">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Status<b class="caret"></b></a>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a href="#">In Process</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">In QC</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Revisions</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Completed</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </td>
-                                    <td></td>
-                                    <td>
-                                        <div class="form-group ">
-                                            <select class="form-control select-w" id="sboxit-3">
+                                        <td></td>
+                                        <!--<td>
+                                            <li class="dropdown" style="list-style-type:none;">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Status<b class="caret"></b></a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a href="#">In Process</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">In QC</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Revisions</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Completed</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </td>-->
+                                        <!--<td></td>-->
+                                        <!--<td>
+                                            <div class="form-group ">
+                                                <select class="form-control select-w" id="sboxit-3">
 
 														<option>Yes</option>
 														<option>No</option>
 
 													</select>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-group ">
-                                            <select class="form-control select-w" id="sboxit-4">
+                                            </div>
+                                        </td>-->
+                                        <!--<td>
+                                            <div class="form-group ">
+                                                <select class="form-control select-w" id="sboxit-4">
 
 													<option>Low</option>
 													<option>Medium</option>
 													<option>High</option>
 												</select>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-group ">
-                                            <select class="form-control select-w" id="sboxit-4">
+                                            </div>
+                                        </td>-->
+                                        <!--<td>
+                                            <div class="form-group ">
+                                                <select class="form-control select-w" id="sboxit-4">
 
 													<option>Low</option>
 													<option>Medium</option>
 													<option>High</option>
 												</select>
-                                        </div>
-                                    </td>
-                                    <!--<td></td>-->
-                                    <!--<td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
+                                            </div>
+                                        </td>-->
+                                        <td></td>
+                                        <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
                                         <td>$300</td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
                                         <td>P221</td>
                                         <td>Paid</td>
+                                        <td class="text-center"><button class="btn btn-default"><i class="fa fa-upload" aria-hidden="true"></i></button></td>
                                         <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
-                                        <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>-->
-                                </tr>
+                                    </tr>
                                 <!--<tr>
                                         <th><a href="#" class="id-underline">M- 122</a></th>
                                         <td>4/01/2016</td>
@@ -633,7 +604,15 @@
                         </ul>
                     </div>
                 </div>
-            
+                <script type="text/javascript">
+                        // This JavaScript Will Replace Checkboxes in dropdown toggles
+                        jQuery(document).ready(function ($) {
+                            setTimeout(function () {
+                                $(".checkbox-row input").addClass('cbr');
+                                cbr_replace();
+                            }, 0);
+                        });
+                    </script>
             </div>
         </div>
     </div>

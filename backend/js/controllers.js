@@ -281,7 +281,94 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
 
     })
+    .controller('RequestCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("request");
+        $scope.menutitle = NavigationService.makeactive("request");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        NavigationService.profile(function () {
+            $scope.profileDetails = $.jStorage.get("profile");
+        }, function () {
+            $state.go("login");
+        });
+    })
+    .controller('InsidecadCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("insidecad");
+        $scope.menutitle = NavigationService.makeactive("insidecad");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        NavigationService.profile(function () {
+            $scope.profileDetails = $.jStorage.get("profile");
+        }, function () {
+            $state.go("login");
+        });
+    })
+    .controller('InvoicingreceiptsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("invoicingreceipts");
+        $scope.menutitle = NavigationService.makeactive("invoicingreceipts");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
 
+    })
+    .controller('SupportCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("support");
+        $scope.menutitle = NavigationService.makeactive("support");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+
+    })
+    .controller('Raise-ticketCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("raise-ticket");
+        $scope.menutitle = NavigationService.makeactive("raise-ticket");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+
+    })
+    .controller('AdminuserCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("adminuser");
+        $scope.menutitle = NavigationService.makeactive("adminuser");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+
+    })
+    .controller('Dfm-subscriptionCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("dfm-subscription");
+        $scope.menutitle = NavigationService.makeactive("dfm-subscription");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+
+    })
+    .controller('SettingCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("setting");
+        $scope.menutitle = NavigationService.makeactive("setting");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+
+    })
+    .controller('BillingCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("billing");
+        $scope.menutitle = NavigationService.makeactive("billing");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+
+    })
+    .controller('MissiondetailCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("missiondetail");
+        $scope.menutitle = NavigationService.makeactive("missiondetail");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+
+    })
     .controller('AccountCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("account");
@@ -412,21 +499,25 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     })
     .controller('missiondetailCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
-        $scope.template = TemplateService.changecontent("mission-detail");
+        $scope.template = TemplateService.changecontent("missiondetail");
         $scope.menutitle = NavigationService.makeactive("missions");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         console.log("------", $stateParams.missionId);
         var formData = {}
         formData._id = $stateParams.missionId;
-        NavigationService.apiCall("Mission/getOne", formData, function (data) {
-            if (data.value === true) {
-                $scope.missionDetails = data.data;
-                console.log("data found successfully", $scope.missionDetails);
-            } else {
-                //  toastr.warning('Error submitting the form', 'Please try again');
-            }
-        });
+
+        if ($stateParams.missionId) {
+            NavigationService.apiCall("Mission/getOne", formData, function (data) {
+                if (data.value === true) {
+                    $scope.missionDetails = data.data;
+                    console.log("data found successfully", $scope.missionDetails);
+                } else {
+                    //  toastr.warning('Error submitting the form', 'Please try again');
+                }
+            });
+        }
+
 
     })
     .controller('AccessController', function ($scope, TemplateService, NavigationService, $timeout, $state) {
