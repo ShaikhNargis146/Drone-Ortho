@@ -35,13 +35,13 @@
                         <div class=" mt10">
                             <h5 for="">Upload</h5>
                             <div class="col-sm-12 nopad mb10">
-                                <upload-image-files ng-model="formdata.files" no-view multiple="true" ng-disabled="type.disabled"></upload-image-files>
+                                <div class="mar-b"><upload-image-files ng-model="formdata.files" no-view multiple="true" ng-disabled="type.disabled" ></upload-image-files></div>
                   <!--<input type="file" class="form-control" id="file1" name="file" ng-model="formdata.files"  multiple
             ng-files="getTheFiles($files)"/>-->
                             </div>
                         </div>
                         <!--<a href="javascript:;" onclick="jQuery('#modal-4').modal('show', {backdrop: 'static'});" class=""><button class="btn btn-danger mb10 upload">Upload, <b>and process mosaic</b> </button></a>-->
-                        <a class=""><button class="btn btn-danger mb10 upload" ng-click="uploadMe(formdata)">Upload, <b>and process mosaic</b> </button></a>
+                        <a class=""><button class="btn btn-danger mb10 upload" ng-click="uploadMe(formdata)">Upload,<b>and process mosaic</b> </button></a>
                     </div>
                 </div>
                 </form>
