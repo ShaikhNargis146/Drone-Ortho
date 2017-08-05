@@ -104,7 +104,7 @@
                                             <td></td>
                                             <td>9/06/2016</td>
                                             <td>Declined</td>
-                                            <td><button type="button" class="btn btn-gray">Pay now</button></td>
+                                            <td><button type="button" class="btn btn-gray" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});">Pay now</button></td>
                                             <td>9/06/2016</td>
                                             <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
                                         </tr>
@@ -145,7 +145,7 @@
                                             <td></td>
                                             <td>9/06/2016</td>
                                             <td>Unpaid</td>
-                                            <td><button type="button" class="btn btn-gray">Pay now</button></td>
+                                            <td><button type="button" class="btn btn-gray" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});">Pay now</button></td>
                                             <td>9/06/2016</td>
                                             <td class="text-center"><button class="btn btn-default"><i class="fa-download"></i></button></td>
                                          
@@ -190,16 +190,72 @@
                                 <li><a href="#">Next</a></li>
                             </ul>
                         </div>
-                        <script type="text/javascript">
-                            // This JavaScript Will Replace Checkboxes in dropdown toggles
-                            jQuery(document).ready(function ($) {
-                                setTimeout(function () {
-                                    $(".checkbox-row input").addClass('cbr');
-                                    cbr_replace();
-                                }, 0);
-                            });
-                        </script>
+                        
                     </div>
+                     <div class="modal fade custom-width" id="modal-6">
+                    <div class="modal-dialog" style="width: 60%;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title"> Payment Mode</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label class="">Select payment method:</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <select class="form-control w200">
+                                              <option></option>
+                                              <option>paypal</option>
+                                              <option>wepay</option>
+                                              <option></option>
+                                          </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label class="">Date:</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <!--<input type="date">-->
+                                                <p class="input-group">
+                                                    <input type="text" class="form-control" placeholder="" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened"
+                                                        datepicker-options="dateOptions" ng-required="true" close-text="Close"
+                                                        alt-input-formats="altInputFormats">
+                                                    <span class="input-group-btn">
+            <button type="button" class="btn btn-default btn-gray" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                          </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label class="">Description:</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <textarea rows="4" cols="50"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group text-center">
+                                         <button type="button" class="btn btn-info btn-single  ">Submit</button>
+                                    </div>
+                                </form>
+                              
+                                <!--<div class="modal-footer">
+                                </div>-->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
                 </div>
                 </div>
             </div>

@@ -304,6 +304,38 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }, function () {
             $state.go("login");
         });
+           var formData = {}
+        $scope.missionData = {};
+
+        $scope.today = function () {
+            // $scope.dt = new Date();
+        };
+        $scope.today();
+
+        $scope.clear = function () {
+            $scope.dt = null;
+        };
+        // Disable weekend selection
+        function disabled(data) {
+            var date = data.date,
+                mode = data.mode;
+            return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+        }
+        $scope.open1 = function () {
+            $scope.popup1.opened = true;
+        };
+
+        $scope.open2 = function () {
+            $scope.popup2.opened = true;
+        };
+
+        $scope.popup1 = {
+            opened: false
+        };
+
+        $scope.popup2 = {
+            opened: false
+        };
     })
     .controller('InvoicingreceiptsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
@@ -311,6 +343,78 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("invoicingreceipts");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+           var formData = {}
+        $scope.missionData = {};
+
+        $scope.today = function () {
+            // $scope.dt = new Date();
+        };
+        $scope.today();
+
+        $scope.clear = function () {
+            $scope.dt = null;
+        };
+        // Disable weekend selection
+        function disabled(data) {
+            var date = data.date,
+                mode = data.mode;
+            return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+        }
+        $scope.open1 = function () {
+            $scope.popup1.opened = true;
+        };
+
+        $scope.open2 = function () {
+            $scope.popup2.opened = true;
+        };
+
+        $scope.popup1 = {
+            opened: false
+        };
+
+        $scope.popup2 = {
+            opened: false
+        };
+
+    })
+      .controller('BillinginsideCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("billinginside");
+        $scope.menutitle = NavigationService.makeactive("billinginside");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+           var formData = {}
+        $scope.missionData = {};
+
+        $scope.today = function () {
+            // $scope.dt = new Date();
+        };
+        $scope.today();
+
+        $scope.clear = function () {
+            $scope.dt = null;
+        };
+        // Disable weekend selection
+        function disabled(data) {
+            var date = data.date,
+                mode = data.mode;
+            return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+        }
+        $scope.open1 = function () {
+            $scope.popup1.opened = true;
+        };
+
+        $scope.open2 = function () {
+            $scope.popup2.opened = true;
+        };
+
+        $scope.popup1 = {
+            opened: false
+        };
+
+        $scope.popup2 = {
+            opened: false
+        };
 
     })
     .controller('SupportCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
@@ -319,6 +423,38 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("support");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+           var formData = {}
+        $scope.missionData = {};
+
+        $scope.today = function () {
+            // $scope.dt = new Date();
+        };
+        $scope.today();
+
+        $scope.clear = function () {
+            $scope.dt = null;
+        };
+        // Disable weekend selection
+        function disabled(data) {
+            var date = data.date,
+                mode = data.mode;
+            return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+        }
+        $scope.open1 = function () {
+            $scope.popup1.opened = true;
+        };
+
+        $scope.open2 = function () {
+            $scope.popup2.opened = true;
+        };
+
+        $scope.popup1 = {
+            opened: false
+        };
+
+        $scope.popup2 = {
+            opened: false
+        };
 
     })
     .controller('Raise-ticketCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
@@ -327,14 +463,158 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("raise-ticket");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+           var formData = {}
+        $scope.missionData = {};
+
+        $scope.today = function () {
+            // $scope.dt = new Date();
+        };
+        $scope.today();
+
+        $scope.clear = function () {
+            $scope.dt = null;
+        };
+        // Disable weekend selection
+        function disabled(data) {
+            var date = data.date,
+                mode = data.mode;
+            return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+        }
+        $scope.open1 = function () {
+            $scope.popup1.opened = true;
+        };
+
+        $scope.open2 = function () {
+            $scope.popup2.opened = true;
+        };
+
+        $scope.popup1 = {
+            opened: false
+        };
+
+        $scope.popup2 = {
+            opened: false
+        };
 
     })
-    .controller('AdminuserCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+    .controller('DronsaleCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("dronsale");
+        $scope.menutitle = NavigationService.makeactive("dronsale");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+           var formData = {}
+        $scope.missionData = {};
+
+        $scope.today = function () {
+            // $scope.dt = new Date();
+        };
+        $scope.today();
+
+        $scope.clear = function () {
+            $scope.dt = null;
+        };
+        // Disable weekend selection
+        function disabled(data) {
+            var date = data.date,
+                mode = data.mode;
+            return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+        }
+        $scope.open1 = function () {
+            $scope.popup1.opened = true;
+        };
+
+        $scope.open2 = function () {
+            $scope.popup2.opened = true;
+        };
+
+        $scope.popup1 = {
+            opened: false
+        };
+
+        $scope.popup2 = {
+            opened: false
+        };
+
+    })
+     .controller('InsidedronsaleCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("insidedronsale");
+        $scope.menutitle = NavigationService.makeactive("insidedronsale");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+           var formData = {}
+        $scope.missionData = {};
+
+        $scope.today = function () {
+            // $scope.dt = new Date();
+        };
+        $scope.today();
+
+        $scope.clear = function () {
+            $scope.dt = null;
+        };
+        // Disable weekend selection
+        function disabled(data) {
+            var date = data.date,
+                mode = data.mode;
+            return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+        }
+        $scope.open1 = function () {
+            $scope.popup1.opened = true;
+        };
+
+        $scope.open2 = function () {
+            $scope.popup2.opened = true;
+        };
+
+        $scope.popup1 = {
+            opened: false
+        };
+
+        $scope.popup2 = {
+            opened: false
+        };
+
+    })
+     .controller('AdminuserCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("adminuser");
         $scope.menutitle = NavigationService.makeactive("adminuser");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+           var formData = {}
+        $scope.missionData = {};
+
+        $scope.today = function () {
+            // $scope.dt = new Date();
+        };
+        $scope.today();
+
+        $scope.clear = function () {
+            $scope.dt = null;
+        };
+        // Disable weekend selection
+        function disabled(data) {
+            var date = data.date,
+                mode = data.mode;
+            return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+        }
+        $scope.open1 = function () {
+            $scope.popup1.opened = true;
+        };
+
+        $scope.open2 = function () {
+            $scope.popup2.opened = true;
+        };
+
+        $scope.popup1 = {
+            opened: false
+        };
+
+        $scope.popup2 = {
+            opened: false
+        };
 
     })
     .controller('Dfm-subscriptionCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
@@ -343,6 +623,38 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("dfm-subscription");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+           var formData = {}
+        $scope.missionData = {};
+
+        $scope.today = function () {
+            // $scope.dt = new Date();
+        };
+        $scope.today();
+
+        $scope.clear = function () {
+            $scope.dt = null;
+        };
+        // Disable weekend selection
+        function disabled(data) {
+            var date = data.date,
+                mode = data.mode;
+            return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+        }
+        $scope.open1 = function () {
+            $scope.popup1.opened = true;
+        };
+
+        $scope.open2 = function () {
+            $scope.popup2.opened = true;
+        };
+
+        $scope.popup1 = {
+            opened: false
+        };
+
+        $scope.popup2 = {
+            opened: false
+        };
 
     })
     .controller('SettingCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
@@ -351,6 +663,38 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("setting");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+           var formData = {}
+        $scope.missionData = {};
+
+        $scope.today = function () {
+            // $scope.dt = new Date();
+        };
+        $scope.today();
+
+        $scope.clear = function () {
+            $scope.dt = null;
+        };
+        // Disable weekend selection
+        function disabled(data) {
+            var date = data.date,
+                mode = data.mode;
+            return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+        }
+        $scope.open1 = function () {
+            $scope.popup1.opened = true;
+        };
+
+        $scope.open2 = function () {
+            $scope.popup2.opened = true;
+        };
+
+        $scope.popup1 = {
+            opened: false
+        };
+
+        $scope.popup2 = {
+            opened: false
+        };
 
     })
     .controller('BillingCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
@@ -359,6 +703,48 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("billing");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        // $scope.parle = function () {
+        //     $scope.loginModal = $uibModal.open({
+        //         animation: true,
+        //         templateUrl: 'views/modal/parle.html',
+        //         scope: $scope,
+        //         size: 'lg',
+        //         windowClass: "parle-modal"
+
+        //     });
+        // };
+           var formData = {}
+        $scope.missionData = {};
+
+        $scope.today = function () {
+            // $scope.dt = new Date();
+        };
+        $scope.today();
+
+        $scope.clear = function () {
+            $scope.dt = null;
+        };
+        // Disable weekend selection
+        function disabled(data) {
+            var date = data.date,
+                mode = data.mode;
+            return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+        }
+        $scope.open1 = function () {
+            $scope.popup1.opened = true;
+        };
+
+        $scope.open2 = function () {
+            $scope.popup2.opened = true;
+        };
+
+        $scope.popup1 = {
+            opened: false
+        };
+
+        $scope.popup2 = {
+            opened: false
+        };
 
     })
     .controller('MissiondetailCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
@@ -684,11 +1070,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.getValues();
         }
 
-
-
-
-
-        $scope.listview = false;
+      $scope.listview = false;
         $scope.showCreate = false;
         $scope.typeselect = "";
         $scope.showList = function () {

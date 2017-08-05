@@ -6,16 +6,80 @@ var uploadurl = imgurl;
 var navigationservice = angular.module('navigationservice', [])
 
     .factory('NavigationService', function ($http) {
-        var navigation1 = [{
-                name: "Users",
+        var navigation1 = [
+            
+            
+             {
+                name: "Mission",
                 classis: "active",
-                sref: "#!/page/viewUser//",
-                icon: "user"
+                sref: "#!/mission",
+                icon: "copy"
+            },
+             {
+                name: "CadLineWork",
+                classis: "active",
+                sref: "#!/cadlineworkapp",
+                icon: "pencil"
+            },
+            
+              {
+                name: "DFMSubscription",
+                classis: "active",
+                sref: "#!/dfmsubscription",
+                icon: "binoculars2"
+            },
+              {
+                name: "Invoicing/Receipts",
+                classis: "active",
+                sref: "#!/invoicingreceipts",
+                icon: "cash"
+            },
+               {
+                name: "Plan",
+                classis: "active",
+                sref: "#!/page/viewPlan//",
+                icon: "clipboard"
             },
             {
-                name: "Products",
+                name: "Support",
                 classis: "active",
-                sref: "#!/page/viewProducts//",
+                sref: "#!/support",
+                icon: "play"
+            },
+             {
+                name: "Raise-ticket",
+                classis: "active",
+                sref: "#!/raiseticket",
+                icon: "license2"
+            },
+            {
+                name: "Users",
+                classis: "active",
+                sref: "#!/adminuser",
+                icon: "user"
+            },
+              {
+                name: "DFM Subscription",
+                classis: "active",
+                sref: "#!/dfmsubscription",
+                icon: "register"
+            },
+             {
+                name: "DRONE sale Application",
+                classis: "active",
+                sref: "#!/dronsale",
+                icon: "power"
+            },
+            // {
+            //     name: "Products",
+            //     classis: "active",
+            //     sref: "#!/page/viewProducts//",
+            //     icon: "tags"
+            // },
+              {
+                name: "Billing",
+                classis: "active",
+                sref: "#!/billing",
                 icon: "tags"
             },
 
@@ -26,65 +90,55 @@ var navigationservice = angular.module('navigationservice', [])
             //     icon: "phone"
             // },
 
-            {
-                name: "CadLineWork",
+           
+             {
+                name: "Setting",
                 classis: "active",
-                sref: "#!/cadlineworkapp",
-                icon: "pencil"
+                sref: "#!/setting",
+                icon: "ticket"
             },
 
-
-
-            {
-                name: "DFMSubscription",
+//admin
+           {
+                name: "Support Ticket",
                 classis: "active",
-                sref: "#!/dfmsubscription",
-                icon: "binoculars2"
+                sref: "#!/support",
+                icon: "picture"
             },
 
-            {
-                name: "Mission",
-                classis: "active",
-                sref: "#!/mission",
-                icon: "copy"
-            },
-            {
-                name: "ServiceList",
-                classis: "active",
-                sref: "#!/page/viewServiceList//",
-                icon: "file"
-            },
-            {
-                name: "Plan",
-                classis: "active",
-                sref: "#!/page/viewPlan//",
-                icon: "clipboard"
-            },
-            {
-                name: "CouponCode",
-                classis: "active",
-                sref: "#!/page/viewCouponCode//",
-                icon: "lock"
-            },
+           
+            // {
+            //     name: "ServiceList",
+            //     classis: "active",
+            //     sref: "#!/page/viewServiceList//",
+            //     icon: "file"
+            // },
+           
+            // {
+            //     name: "CouponCode",
+            //     classis: "active",
+            //     sref: "#!/page/viewCouponCode//",
+            //     icon: "lock"
+            // },
 
-            {
-                name: "Enquiry",
-                classis: "active",
-                sref: "#!/page/viewEnquiry//",
-                icon: "phone"
-            },
-            {
-                name: "News Letter",
-                classis: "active",
-                sref: "#!/page/viewNewsLetter//",
-                icon: "news"
-            },
-            {
-                name: "Profile",
-                classis: "active",
-                sref: "#!/profile",
-                icon: "profile"
-            },
+            // {
+            //     name: "Enquiry",
+            //     classis: "active",
+            //     sref: "#!/page/viewEnquiry//",
+            //     icon: "phone"
+            // },
+            // {
+            //     name: "News Letter",
+            //     classis: "active",
+            //     sref: "#!/page/viewNewsLetter//",
+            //     icon: "news"
+            // },
+            // {
+            //     name: "Profile",
+            //     classis: "active",
+            //     sref: "#!/profile",
+            //     icon: "profile"
+            // },
 
 
             // {
@@ -94,12 +148,12 @@ var navigationservice = angular.module('navigationservice', [])
             //     icon: "phone"
             // },
 
-            {
-                name: "Slider",
-                classis: "active",
-                sref: "#!/page/viewSlider//",
-                icon: "recycle"
-            }
+            // {
+            //     name: "Slider",
+            //     classis: "active",
+            //     sref: "#!/page/viewSlider//",
+            //     icon: "recycle"
+            // }
         ];
 
 

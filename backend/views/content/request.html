@@ -22,8 +22,13 @@ You can also request for a CAD file from a link which goes out to your email aft
 											<option>M-121</option>
 											<option>M-123</option>
                                               </select>
+                                              <div class="display-not">
+                                                    <div class="mar-t"><upload-image-files ng-model="formdata.files" no-view multiple="true" ng-disabled="type.disabled" ></upload-image-files></div>
+                                              </div>
                                                </div>
+
                                                 </div>
+
                                         <div class="proceed">
                                 <button type="button"  class="btn btn-blue " onclick="jQuery('#modal-4').modal('show', {backdrop: 'static'});" >Proceed</button>
                                     </div>
