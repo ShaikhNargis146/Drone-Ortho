@@ -28,7 +28,7 @@ module.exports.globals = {
      *                                                                           *
      ****************************************************************************/
 
-     async: false,
+    async: false,
 
     /****************************************************************************
      *                                                                           *
@@ -99,6 +99,9 @@ global["LocalStrategy"] = require('passport-local').Strategy;
 global["FacebookStrategy"] = require('passport-facebook').Strategy;
 global["TwitterStrategy"] = require('passport-twitter').Strategy;
 global["GoogleStrategy"] = require('passport-google-auth').Strategy;
+// global["mapboxgl"] = require('mapbox-gl');
+global["MapboxDraw"] = require('mapbox-gl-draw');
+global["turf"] = require('@turf/turf');
 
 // Files to Import
 global["jsFiles"] = require("../frontend/files.js");

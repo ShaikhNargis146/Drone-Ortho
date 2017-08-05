@@ -51,6 +51,7 @@ module.exports = mongoose.model('Mission', schema);
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "serviceId user DFMSubscription", "serviceId user DFMSubscriptions"));
 var model = {
     createMission: function (data, callback) {
+        
         Mission.saveData(data, function (err, created) {
             if (err) {
                 callback(err, null);

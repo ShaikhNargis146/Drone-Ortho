@@ -14,8 +14,7 @@ var firstapp = angular.module('firstapp', [
     'mapboxgl-directive'
 ]);
 
-mapboxgl.accessToken = 'pk.eyJ1IjoibmFyZ2lzLXNoYWlraCIsImEiOiJjajVsMWdjbTgyN2t0MzBuejY0YWZvYnU1In0.sxNSmPeAZRDks6p3JmRUkw';
-
+L.mapbox.accessToken = 'pk.eyJ1IjoibmFyZ2lzLXNoYWlraCIsImEiOiJjajVsMWdjbTgyN2t0MzBuejY0YWZvYnU1In0.sxNSmPeAZRDks6p3JmRUkw';
 
 firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
     // for http request with session
@@ -160,6 +159,16 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             templateUrl: "views/template.html",
             controller: 'Dfm-subscriptionCtrl'
         })
+        .state('dronsale', {
+            url: "/dronsale",
+            templateUrl: "views/template.html",
+            controller: 'DronsaleCtrl'
+        })
+        .state('insidedronsale', {
+            url: "/insidedronsale",
+            templateUrl: "views/template.html",
+            controller: 'InsidedronsaleCtrl'
+        })
         .state('setting', {
             url: "/setting",
             templateUrl: "views/template.html",
@@ -169,6 +178,11 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             url: "/billing",
             templateUrl: "views/template.html",
             controller: 'BillingCtrl'
+        })
+        .state('billinginside', {
+            url: "/billinginside",
+            templateUrl: "views/template.html",
+            controller: 'BillinginsideCtrl'
         })
         .state('account', {
             url: "/account",
@@ -185,7 +199,6 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
     $urlRouterProvider.otherwise("/dashboard");
     $locationProvider.html5Mode(isproduction);
 });
-
 
 firstapp.directive('dateModel', function ($filter, $timeout) {
     return {
@@ -618,6 +631,7 @@ firstapp.directive('menuOptions', function ($document) {
                 $(".main-content").toggleClass('wide-content');
                 $("footer").toggleClass('wide-footer');
                 $(".menu-options").toggleClass('active');
+                $(".top-bar").toggleClass('top-add');
             });
 
         }
@@ -977,161 +991,262 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService) {
         restrict: 'C',
         link: function ($scope, element, attrs) {
             var locations = {
-                upperLeft: [-117.23545173119574, 32.77840210218494],
-                lowerLeft: [-117.23544909909386, 32.77740264966007],
-                upperRight: [-117.23213078512207, 32.77840829977591],
-                lowerRight: [-117.23212819014402, 32.77740884701485],
+                upperLeft: [32.77840210218494, -117.23545173119574],
+                lowerLeft: [32.77740264966007, -117.23544909909386],
+                upperRight: [32.77840829977591, -117.23213078512207],
+                lowerRight: [32.77740884701485, -117.23212819014402],
                 center: [-117.23378995150006, 32.77790548568292]
             }
 
-            var mapStyle = {
-                "version": 8,
-                "name": "Dark",
-                "sources": {
-                    "mapbox": {
-                        "type": "vector",
-                        "url": "mapbox://mapbox.mapbox-streets-v6"
-                    },
-                    "overlay": {
-                        "type": "image",
-                        "url": "http://localhost:1337/output03.webp",
-                        "coordinates": [
-                            locations.upperLeft, locations.upperRight, locations.lowerRight, locations.lowerLeft,
-                        ]
-                    }
+            // var mapStyle = {
+            //     "version": 8,
+            //     "name": "Dark",
+            //     "sources": {
+            //         "mapbox": {
+            //             "type": "vector",
+            //             "url": "mapbox://mapbox.mapbox-streets-v6"
+            //         },
+            //         "overlay": {
+            //             "type": "image",
+            //             "url": "http://localhost:1337/output03.webp",
+            //             "coordinates": [
+            //                 locations.upperLeft, locations.upperRight, locations.lowerRight, locations.lowerLeft,
+            //             ]
+            //         }
+            //     },
+            //     "sprite": "mapbox://sprites/mapbox/dark-v9",
+            //     "glyphs": "mapbox://fonts/mapbox/{fontstack}/{range}.pbf",
+            //     "layers": [{
+            //             "id": "background",
+            //             "type": "background",
+            //             "paint": {
+            //                 "background-color": "rgb(4,7,14)"
+            //             }
+            //         },
+            //         {
+            //             "id": "water",
+            //             "source": "mapbox",
+            //             "source-layer": "water",
+            //             "type": "fill",
+            //             "paint": {
+            //                 "fill-color": "#2c2c2c"
+            //             }
+            //         },
+            //         {
+            //             "id": "boundaries",
+            //             "source": "mapbox",
+            //             "source-layer": "admin",
+            //             "type": "line",
+            //             "paint": {
+            //                 "line-color": "#797979",
+            //                 "line-dasharray": [2, 2, 6, 2]
+            //             },
+            //             "filter": ["all", ["==", "maritime", 0]]
+            //         },
+            //         {
+            //             "id": "overlay",
+            //             "source": "overlay",
+            //             "type": "raster",
+            //             "paint": {
+            //                 "raster-opacity": 0.85
+            //             }
+            //         },
+            //         {
+            //             "id": "cities",
+            //             "source": "mapbox",
+            //             "source-layer": "place_label",
+            //             "type": "symbol",
+            //             "layout": {
+            //                 "text-field": "{name_en}",
+            //                 "text-font": ["DIN Offc Pro Bold", "Arial Unicode MS Bold"],
+            //                 "text-size": {
+            //                     "stops": [
+            //                         [4, 9],
+            //                         [6, 12]
+            //                     ]
+            //                 }
+            //             },
+            //             "paint": {
+            //                 "text-color": "#969696",
+            //                 "text-halo-width": 2,
+            //                 "text-halo-color": "rgba(0, 0, 0, 0.85)"
+            //             }
+            //         },
+            //         {
+            //             "id": "states",
+            //             "source": "mapbox",
+            //             "source-layer": "state_label",
+            //             "type": "symbol",
+            //             "layout": {
+            //                 "text-transform": "uppercase",
+            //                 "text-field": "{name_en}",
+            //                 "text-font": ["DIN Offc Pro Bold", "Arial Unicode MS Bold"],
+            //                 "text-letter-spacing": 0.15,
+            //                 "text-max-width": 7,
+            //                 "text-size": {
+            //                     "stops": [
+            //                         [4, 10],
+            //                         [6, 14]
+            //                     ]
+            //                 }
+            //             },
+            //             "filter": [">=", "area", 80000],
+            //             "paint": {
+            //                 "text-color": "#969696",
+            //                 "text-halo-width": 2,
+            //                 "text-halo-color": "rgba(0, 0, 0, 0.85)"
+            //             }
+            //         }
+            //     ]
+            // };
+            // var videoStyle = {
+            //     "version": 8,
+            //     "sources": {
+            //         "satellite": {
+            //             "type": "raster",
+            //             "url": "mapbox://mapbox.streets",
+            //             "tileSize": 256
+            //         },
+            //         "video": {
+            //             "type": "image",
+            //             "url": "http://localhost:1337/output03.webp",
+            //             "coordinates": [
+            //                 locations.upperLeft, locations.upperRight, locations.lowerRight, locations.lowerLeft,
+            //             ]
+            //         }
+            //     },
+            //     "layers": [{
+            //         "id": "background",
+            //         "type": "background",
+            //         "paint": {
+            //             "background-color": "rgb(4,7,14)"
+            //         }
+            //     }, {
+            //         "id": "satellite",
+            //         "type": "raster",
+            //         "source": "satellite"
+            //     }, {
+            //         "id": "video",
+            //         "type": "raster",
+            //         "source": "video"
+            //     }]
+            // };
+            var imageUrl = 'http://localhost:1337/output01.webp',
+                // This is the trickiest part - you'll need accurate coordinates for the
+                // corners of the image. You can find and create appropriate values at
+                // http://maps.nypl.org/warper/ or
+                // http://www.georeferencer.org/
+                imageBounds = L.latLngBounds([
+                    [32.77840210218494, -117.23545173119574],
+                    [32.77740264966007, -117.23544909909386],
+                    [32.77840829977591, -117.23213078512207],
+                    [32.77740884701485, -117.23212819014402]
+                ]);
+            var latlngs = [
+                [32.77766092651981, -117.23481559756695],
+                [32.77836001768539, -117.23376417163311],
+                [32.77790448148481, -117.23330819610055]
+            ];
+
+            var map = L.mapbox.map('map', 'mapbox.streets')
+                .fitBounds(imageBounds)
+            // See full documentation for the ImageOverlay type:
+            // http://leafletjs.com/reference.html#imageoverlay
+            var overlay = L.imageOverlay(imageUrl, imageBounds)
+                .addTo(map);
+            var polygon = L.polygon(latlngs, {
+                color: 'red'
+            }).addTo(map);
+            map.fitBounds(polygon.getBounds());
+            var featureGroup = L.featureGroup().addTo(map);
+
+            var drawControl = new L.Control.Draw({
+                edit: {
+                    featureGroup: featureGroup
                 },
-                "sprite": "mapbox://sprites/mapbox/dark-v9",
-                "glyphs": "mapbox://fonts/mapbox/{fontstack}/{range}.pbf",
-                "layers": [{
-                        "id": "background",
-                        "type": "background",
-                        "paint": {
-                            "background-color": "rgb(4,7,14)"
-                        }
-                    },
-                    {
-                        "id": "water",
-                        "source": "mapbox",
-                        "source-layer": "water",
-                        "type": "fill",
-                        "paint": {
-                            "fill-color": "#2c2c2c"
-                        }
-                    },
-                    {
-                        "id": "boundaries",
-                        "source": "mapbox",
-                        "source-layer": "admin",
-                        "type": "line",
-                        "paint": {
-                            "line-color": "#797979",
-                            "line-dasharray": [2, 2, 6, 2]
-                        },
-                        "filter": ["all", ["==", "maritime", 0]]
-                    },
-                    {
-                        "id": "overlay",
-                        "source": "overlay",
-                        "type": "raster",
-                        "paint": {
-                            "raster-opacity": 0.85
-                        }
-                    },
-                    {
-                        "id": "cities",
-                        "source": "mapbox",
-                        "source-layer": "place_label",
-                        "type": "symbol",
-                        "layout": {
-                            "text-field": "{name_en}",
-                            "text-font": ["DIN Offc Pro Bold", "Arial Unicode MS Bold"],
-                            "text-size": {
-                                "stops": [
-                                    [4, 9],
-                                    [6, 12]
-                                ]
-                            }
-                        },
-                        "paint": {
-                            "text-color": "#969696",
-                            "text-halo-width": 2,
-                            "text-halo-color": "rgba(0, 0, 0, 0.85)"
-                        }
-                    },
-                    {
-                        "id": "states",
-                        "source": "mapbox",
-                        "source-layer": "state_label",
-                        "type": "symbol",
-                        "layout": {
-                            "text-transform": "uppercase",
-                            "text-field": "{name_en}",
-                            "text-font": ["DIN Offc Pro Bold", "Arial Unicode MS Bold"],
-                            "text-letter-spacing": 0.15,
-                            "text-max-width": 7,
-                            "text-size": {
-                                "stops": [
-                                    [4, 10],
-                                    [6, 14]
-                                ]
-                            }
-                        },
-                        "filter": [">=", "area", 80000],
-                        "paint": {
-                            "text-color": "#969696",
-                            "text-halo-width": 2,
-                            "text-halo-color": "rgba(0, 0, 0, 0.85)"
-                        }
-                    }
-                ]
-            };
-            var videoStyle = {
-                "version": 8,
-                "sources": {
-                    "satellite": {
-                        "type": "raster",
-                        "url": "mapbox://mapbox.streets",
-                        "tileSize": 256
-                    },
-                    "video": {
-                        "type": "image",
-                        "url": "http://localhost:1337/output03.webp",
-                        "coordinates": [
-                            locations.upperLeft, locations.upperRight, locations.lowerRight, locations.lowerLeft,
-                        ]
-                    }
-                },
-                "layers": [{
-                    "id": "background",
-                    "type": "background",
-                    "paint": {
-                        "background-color": "rgb(4,7,14)"
-                    }
-                }, {
-                    "id": "satellite",
-                    "type": "raster",
-                    "source": "satellite"
-                }, {
-                    "id": "video",
-                    "type": "raster",
-                    "source": "video"
-                }]
-            };
-            var map = new mapboxgl.Map({
-                container: 'map',
-                maxZoom: 30,
-                minZoom: 4,
-                zoom: 16,
-                center: locations.center,
-                style: videoStyle,
-                hash: false
-            });
-            var Draw = new MapboxDraw();
-            map.addControl(draw);
-            map.on('load', function () {
-                // ALL YOUR APPLICATION CODE
-                console.log("hi,its loaded");
-            });
+                draw: {
+                    polygon: true,
+                    polyline: false,
+                    rectangle: false,
+                    circle: false,
+                    marker: false
+                }
+            }).addTo(map);
+
+            map.on('draw:created', showPolygonArea);
+            map.on('draw:edited', showPolygonAreaEdited);
+
+            function showPolygonAreaEdited(e) {
+                e.layers.eachLayer(function (layer) {
+                    showPolygonArea({
+                        layer: layer
+                    });
+                });
+            }
+
+            function showPolygonArea(e) {
+                featureGroup.clearLayers();
+                featureGroup.addLayer(e.layer);
+                console.log("e.layer", e.layer._latlngs);
+                // e.layer.bindPopup((LGeo.area(e.layer) / 1000000).toFixed(2) + 'Hi');
+                // e.layer.openPopup();
+                alert("hello")
+            }
+
+
+            // var featureGroup = L.featureGroup().addTo(map);
+
+            // var drawControl = new L.Control.Draw({
+            //     edit: {
+            //         featureGroup: featureGroup
+            //     },
+            //     draw: {
+            //         polygon: true,
+            //         polyline: false,
+            //         rectangle: false,
+            //         circle: false,
+            //         marker: false
+            //     }
+            // }).addTo(map);
+            // map.on('draw:created', showPolygonArea);
+            // map.on('draw:edited', showPolygonAreaEdited);
+
+            // function showPolygonAreaEdited(e) {
+            //     e.layers.eachLayer(function (layer) {
+            //         showPolygonArea({
+            //             layer: layer
+            //         });
+            //     });
+            // }
+
+            // function showPolygonArea(e) {
+            //     featureGroup.clearLayers();
+            //     featureGroup.addLayer(e.layer);
+            //     e.layer.bindPopup((LGeo.area(e.layer) / 1000000).toFixed(2) + 'Hi');
+            //     e.layer.openPopup();
+            //     alert("hello")
+            // }
+            // var calcButton = document.getElementById('calculate');
+            // calcButton.onclick = function () {
+            //     var data = draw.getAll();
+
+            //     var polyCoord = turf.coordAll(data);
+
+            //     if (data.features.length > 0) {
+            //         var area = turf.area(data);
+            //         // restrict to area to 2 decimal points
+            //         var rounded_area = Math.round(area * 100) / 100;
+            //         var answer = document.getElementById('calculated-area');
+            //         answer.innerHTML = '<p><strong>' + rounded_area + '</strong></p><p>square meters</p>' + 'All co-ordinates' + polyCoord.length;
+            //         console.log("polyCoord", polyCoord);
+            //     } else {
+            //         alert("Use the draw tools to draw a polygon!");
+            //     }
+            // };
+            // map.on('load', function () {
+            //     // ALL YOUR APPLICATION CODE
+            //     console.log("hi,its loaded");
+            // });
         }
     };
 });

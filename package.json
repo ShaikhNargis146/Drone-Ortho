@@ -5,6 +5,7 @@
   "description": "A Wohlig Application",
   "keywords": [],
   "dependencies": {
+    "@turf/turf": "^4.5.2",
     "angular-mapboxgl-directive": "^0.38.0",
     "async": "^2.5.0",
     "authorizenet": "^1.0.3",
@@ -37,6 +38,7 @@
     "jimp": "^0.2.27",
     "json2xls": "^0.1.2",
     "lackey-mongoose-ref-validator": "0.0.3",
+    "leaflet-draw": "^0.4.10",
     "lodash": "^4.14.2",
     "mapbox-gl": "^0.39.1",
     "md5": "^2.1.0",
