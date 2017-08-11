@@ -13,6 +13,13 @@ var schema = new Schema({
         lat: String,
         lng: String
     }],
+    geoLocation: {
+        upperLeft: [],
+        lowerLeft: [],
+        upperRight: [],
+        lowerRight: [],
+        center: []
+    },
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User',

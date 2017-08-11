@@ -124,8 +124,13 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             templateUrl: "views/template.html",
             controller: 'ProfileCtrl'
         })
+        .state('cadlinemap', {
+            url: "/cadlinemap/:cadId",
+            templateUrl: "views/template.html",
+            controller: 'MapCtrl'
+        })
         .state('request', {
-            url: "/request",
+            url: "/request/:workType",
             templateUrl: "views/template.html",
             controller: 'RequestCtrl'
         })
@@ -990,14 +995,15 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService) {
     return {
         restrict: 'C',
         link: function ($scope, element, attrs) {
-            var locations = {
-                upperLeft: [32.77840210218494, -117.23545173119574],
-                lowerLeft: [32.77740264966007, -117.23544909909386],
-                upperRight: [32.77840829977591, -117.23213078512207],
-                lowerRight: [32.77740884701485, -117.23212819014402],
-                center: [-117.23378995150006, 32.77790548568292]
-            }
 
+            var locations = $scope.missionDetails.geoLocation;
+            // var locations = {
+            //     upperLeft: [32.77840210218494, -117.23545173119574],
+            //     lowerLeft: [32.77740264966007, -117.23544909909386],
+            //     upperRight: [32.77840829977591, -117.23213078512207],
+            //     lowerRight: [32.77740884701485, -117.23212819014402],
+            //     center: [-117.23378995150006, 32.77790548568292]
+            // }
             // var mapStyle = {
             //     "version": 8,
             //     "name": "Dark",
@@ -1131,33 +1137,39 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService) {
             //         "source": "video"
             //     }]
             // };
-            var imageUrl = 'http://localhost:1337/output01.webp',
+            var imageUrl = 'http://localhost:1337/' + $scope.missionDetails.name + '_transparent_mosaic_group1.png',
                 // This is the trickiest part - you'll need accurate coordinates for the
                 // corners of the image. You can find and create appropriate values at
                 // http://maps.nypl.org/warper/ or
                 // http://www.georeferencer.org/
                 imageBounds = L.latLngBounds([
-                    [32.77840210218494, -117.23545173119574],
-                    [32.77740264966007, -117.23544909909386],
-                    [32.77840829977591, -117.23213078512207],
-                    [32.77740884701485, -117.23212819014402]
+                    locations.upperLeft.reverse(),
+                    locations.lowerLeft.reverse(),
+                    locations.upperRight.reverse(),
+                    locations.lowerRight.reverse()
                 ]);
-            var latlngs = [
-                [32.77766092651981, -117.23481559756695],
-                [32.77836001768539, -117.23376417163311],
-                [32.77790448148481, -117.23330819610055]
-            ];
-
-            var map = L.mapbox.map('map', 'mapbox.streets')
+            // var latlngs = [
+            //     [32.77766092651981, -117.23481559756695],
+            //     [32.77836001768539, -117.23376417163311],
+            //     [32.77790448148481, -117.23330819610055]
+            // ];
+            var map = L.mapbox.map('map', 'mapbox.streets', {
+                    infoControl: false,
+                    attributionControl: false
+                })
                 .fitBounds(imageBounds)
+            var attribution = L.control.attribution();
+            attribution.setPrefix('<a href="https://unifli.aero/">Unifli</a>');
+            // attribution.addAttribution('<a href="https://unifli.aero/">Unifli</a>');
+            attribution.addTo(map);
             // See full documentation for the ImageOverlay type:
             // http://leafletjs.com/reference.html#imageoverlay
             var overlay = L.imageOverlay(imageUrl, imageBounds)
                 .addTo(map);
-            var polygon = L.polygon(latlngs, {
-                color: 'red'
-            }).addTo(map);
-            map.fitBounds(polygon.getBounds());
+            // var polygon = L.polygon(latlngs, {
+            //     color: 'red'
+            // }).addTo(map);
+            // map.fitBounds(polygon.getBounds());
             var featureGroup = L.featureGroup().addTo(map);
 
             var drawControl = new L.Control.Draw({

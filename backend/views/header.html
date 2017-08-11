@@ -13,14 +13,14 @@
         <ul class="user-info-menu right-links list-inline list-unstyled marg-l">
             <li class="search-form">
                 <div>
-                <!-- You can add "always-visible" to show make the search input visible -->
-                <form name="userinfo_search_form" ng-init="showSearch=false">
-                    <input type="text" name="s" class="form-control search-field" placeholder="Type to search..." ng-show="showSearch"/>
-                    <button type="submit" class="btn btn-link my-link" ng-click="showSearch=!showSearch">
+                    <!-- You can add "always-visible" to show make the search input visible -->
+                    <form name="userinfo_search_form" ng-init="showSearch=false">
+                        <input type="text" name="s" class="form-control search-field" placeholder="Type to search..." ng-show="showSearch" />
+                        <button type="submit" class="btn btn-link my-link" ng-click="showSearch=!showSearch">
 								<!--<i class="linecons-search"></i>-->
                                 <i class="fa fa-search linecons-search"></i>
 							</button>
-                </form>
+                    </form>
                 </div>
             </li>
             <li class="dropdown user-profile  ">
@@ -69,14 +69,14 @@
 <!-- Top Bar -->
 <header class="side-header light-skin opened-menu">
     <div class="admin-details">
-     <span>            <img ng-src="{{template.profile.photo|serverimage:80:80}}" alt="" /></span>
+        <span>            <img ng-src="{{template.profile.photo|serverimage:80:80}}" alt="" /></span>
         <h3 style="text-transform: capitalize;">{{template.profile.name}}</h3>
         <i></i>
-  </div>
+    </div>
     <div class="sidebar-user-info-inner">
         <div class="padd120">
             <!--<div class="mar-tt">-->
-                <!--<a href="#" class="user-profile">
+            <!--<a href="#" class="user-profile">
                     <img src="http://themes.laborator.co/xenon/assets/images/user-4.png" width="60" height="60" class="img-circle img-corona"
                         alt="user-pic">
                     <span> <strong>{{template.profile.name}}</strong><br> </span> </a>-->
@@ -89,5 +89,5 @@
             </div>
         </div>
     </div>
-        <!-- Menu Scroll -->
+    <!-- Menu Scroll -->
 </header>

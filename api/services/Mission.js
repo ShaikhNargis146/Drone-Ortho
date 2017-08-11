@@ -1,7 +1,9 @@
 var cron = require('node-cron');
 var path = require('path');
 var request = require('request');
-
+var geotiff = require('geotiff');
+var epsg = require('epsg-to-proj');
+var extents = require('geotiff-extents');
 var schema = new Schema({
     missionId: String,
     DFMSubscription: {
@@ -29,6 +31,14 @@ var schema = new Schema({
         default: ''
     },
     status: String,
+    geoLocation: {
+        upperLeft: [],
+        lowerLeft:[],
+        upperRight:[],
+        lowerRight:[],
+        center:[]
+    },
+
     others: [{
         serviceId: {
             type: Schema.Types.ObjectId,
@@ -51,7 +61,7 @@ module.exports = mongoose.model('Mission', schema);
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "serviceId user DFMSubscription", "serviceId user DFMSubscriptions"));
 var model = {
     createMission: function (data, callback) {
-        
+
         Mission.saveData(data, function (err, created) {
             if (err) {
                 callback(err, null);
@@ -251,18 +261,83 @@ var model = {
     },
 };
 // cron.schedule('1 * * * * *', function () {
-//     Mission.find({}, function (err, found) {
+//     Mission.find({
+//         status: {
+//             $ne: 'ready'
+//         }
+//     }, function (err, found) {
 //         if (err) {
 //             callback(err, null);
 //         } else {
-//             _.forEach(found, function (value) {
-//             // write their api to update status if changed
-//             value.status="checked";
-//             value.save(function(){})
-//             });
-//             console.log("m in found");
+//             console.log(found.length);
+//             var dsmList;
+//             var mosaicList;
+//             async.eachSeries(found, function (value, callback1) {
+//                     console.log("value", value.name);
+//                     dirName1 = 'C:/Users/dell/Documents/pix4d/' + value.name + '/3_dsm_ortho/2_mosaic';
+//                     fs.readdir(dirName1, function (err, items) {
+//                         console.log("inside dsm", items);
+//                         _.forEach(items, function (val) {
+//                             var extension = val.split(".").pop();
+//                             extension = extension.toLowerCase();
+//                             if (extension == 'tif') {
+//                                 console.log("status-----", extension);
+//                                 fs.readFile(dirName1 + '/' + val, function (err, data) {
+//                                     if (err) {
+//                                         console.log("err", err);
+//                                         // throw err;
+//                                     } else {
+//                                         console.log("data", data);
+//                                         dataArray = data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength);
+
+//                                         var im = geotiff.parse(dataArray).getImage()
+//                                         var fd = im.getFileDirectory()
+//                                         var gk = im.getGeoKeys()
+//                                         //   value.status = "checked";
+//                                         value.geoLocation = extents({
+//                                             tiePoint: fd.ModelTiepoint,
+//                                             pixelScale: fd.ModelPixelScale,
+//                                             width: fd.ImageWidth,
+//                                             height: fd.ImageLength,
+//                                             proj: require('proj4'),
+//                                             from: epsg[gk.ProjectedCSTypeGeoKey || gk.GeographicTypeGeoKey],
+//                                             to: epsg[4326]
+//                                         });
+//                                         value.save(function (err, data) {
+//                                             if (err) {
+//                                                 console.log("error occured");
+//                                             } else {
+//                                                 console.log(extents({
+//                                                     tiePoint: fd.ModelTiepoint,
+//                                                     pixelScale: fd.ModelPixelScale,
+//                                                     width: fd.ImageWidth,
+//                                                     height: fd.ImageLength,
+//                                                     proj: require('proj4'),
+//                                                     from: epsg[gk.ProjectedCSTypeGeoKey || gk.GeographicTypeGeoKey],
+//                                                     to: epsg[4326]
+//                                                 }));
+//                                                 callback1();
+//                                             }
+//                                         });
+
+//                                     }
+//                                 });
+//                             }
+//                         });
+//                     });
+//                     // write their api to update status if changed
+//                 },
+//                 function (err, results) {
+//                     if (err) {
+//                         console.log(err);
+//                     } else {
+//                         console.log("results", results);
+//                         // callback();
+//                     }
+//                 });
 //         }
 //     });
 // });
 
 module.exports = _.assign(module.exports, exports, model);
+``

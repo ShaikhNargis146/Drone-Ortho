@@ -281,17 +281,63 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
 
     })
-    .controller('RequestCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+    .controller('MapCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
-        $scope.template = TemplateService.changecontent("request");
-        $scope.menutitle = NavigationService.makeactive("request");
+        $scope.template = TemplateService.changecontent("cadlinemap");
+        $scope.menutitle = NavigationService.makeactive("cadlinemap");
         TemplateService.title = $scope.menutitle;
+
         $scope.navigation = NavigationService.getnav();
         NavigationService.profile(function () {
             $scope.profileDetails = $.jStorage.get("profile");
         }, function () {
             $state.go("login");
         });
+
+    })
+    .controller('RequestCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, $stateParams) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("request");
+        $scope.menutitle = NavigationService.makeactive("request");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        if ($stateParams.workType) {
+            $scope.workType = $stateParams.workType;
+        }
+        NavigationService.profile(function () {
+            $scope.profileDetails = $.jStorage.get("profile");
+        }, function () {
+            $state.go("login");
+        });
+        if ($.jStorage.get("profile")) {
+            var formData = {};
+            formData.user = $.jStorage.get("profile")._id;
+            NavigationService.apiCall("Mission/getByUser", formData, function (data) {
+                if (data.value === true) {
+                    $scope.missionData = data.data;
+                    console.log("data found successfully", $scope.missionData);
+
+                } else {
+                    //  toastr.warning('Error submitting the form', 'Please try again');
+                }
+            });
+        };
+        $scope.processCad = function (formdata) {
+            console.log("formdata", formdata.mission.split('|'))
+            var missionData = formdata.mission.split('|');
+            formdata.mission = missionData[0];
+            formdata.geoLocation = missionData[1];
+            NavigationService.apiCall("CadLineWork/save", formdata, function (data) {
+                if (data.value === true) {
+                    $state.go('cadlinemap', {
+                        cadId: data.data._id
+                    });
+                } else {
+                    //  toastr.warning('Error submitting the form', 'Please try again');
+                }
+            });
+
+        }
     })
     .controller('InsidecadCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
@@ -304,7 +350,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }, function () {
             $state.go("login");
         });
-           var formData = {}
+        var formData = {}
         $scope.missionData = {};
 
         $scope.today = function () {
@@ -343,7 +389,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("invoicingreceipts");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-           var formData = {}
+        var formData = {}
         $scope.missionData = {};
 
         $scope.today = function () {
@@ -377,13 +423,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
 
     })
-      .controller('BillinginsideCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+    .controller('BillinginsideCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("billinginside");
         $scope.menutitle = NavigationService.makeactive("billinginside");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-           var formData = {}
+        var formData = {}
         $scope.missionData = {};
 
         $scope.today = function () {
@@ -423,7 +469,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("support");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-           var formData = {}
+        var formData = {}
         $scope.missionData = {};
 
         $scope.today = function () {
@@ -463,7 +509,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("raise-ticket");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-           var formData = {}
+        var formData = {}
         $scope.missionData = {};
 
         $scope.today = function () {
@@ -503,7 +549,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("dronsale");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-           var formData = {}
+        var formData = {}
         $scope.missionData = {};
 
         $scope.today = function () {
@@ -537,13 +583,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
 
     })
-     .controller('InsidedronsaleCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+    .controller('InsidedronsaleCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("insidedronsale");
         $scope.menutitle = NavigationService.makeactive("insidedronsale");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-           var formData = {}
+        var formData = {}
         $scope.missionData = {};
 
         $scope.today = function () {
@@ -577,13 +623,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
 
     })
-     .controller('AdminuserCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+    .controller('AdminuserCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("adminuser");
         $scope.menutitle = NavigationService.makeactive("adminuser");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-           var formData = {}
+        var formData = {}
         $scope.missionData = {};
 
         $scope.today = function () {
@@ -623,7 +669,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("dfm-subscription");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-           var formData = {}
+        var formData = {}
         $scope.missionData = {};
 
         $scope.today = function () {
@@ -663,7 +709,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("setting");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-           var formData = {}
+        var formData = {}
         $scope.missionData = {};
 
         $scope.today = function () {
@@ -713,7 +759,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
         //     });
         // };
-           var formData = {}
+        var formData = {}
         $scope.missionData = {};
 
         $scope.today = function () {
@@ -882,25 +928,45 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     })
     .controller('missiondetailCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state) {
-        //Used to name the .html file
-        $scope.template = TemplateService.changecontent("missiondetail");
-        $scope.menutitle = NavigationService.makeactive("missions");
-        TemplateService.title = $scope.menutitle;
-        $scope.navigation = NavigationService.getnav();
-        console.log("------", $stateParams.missionId);
         var formData = {}
         formData._id = $stateParams.missionId;
-
         if ($stateParams.missionId) {
             NavigationService.apiCall("Mission/getOne", formData, function (data) {
+                console.log("**** insdie apiCall mission getone ****");
                 if (data.value === true) {
                     $scope.missionDetails = data.data;
-                    console.log("data found successfully", $scope.missionDetails);
+                    $scope.display = true;
+                    $scope.template = TemplateService.changecontent("missiondetail");
+                    $scope.menutitle = NavigationService.makeactive("missions");
+                    TemplateService.title = $scope.menutitle;
+                    console.log("data found successfully111", $scope.missionDetails);
+                    console.log("data template", $scope.template);
+
                 } else {
                     //  toastr.warning('Error submitting the form', 'Please try again');
                 }
             });
         }
+
+        //Used to name the .html file
+        // $scope.template = TemplateService.changecontent("missiondetail");
+        // $scope.menutitle = NavigationService.makeactive("missions");
+        // TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        console.log("------", $stateParams.missionId);
+        var formData = {}
+        formData._id = $stateParams.missionId;
+        // if ($stateParams.missionId) {
+        //     NavigationService.apiCall("Mission/getOne", formData, function (data) {
+        //         if (data.value === true) {
+        //             $scope.missionDetails = data.data;
+        //             $scope.display = true;
+        //             console.log("data found successfully", $scope.missionDetails);
+        //         } else {
+        //             //  toastr.warning('Error submitting the form', 'Please try again');
+        //         }
+        //     });
+        // }
 
 
     })
@@ -1070,7 +1136,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.getValues();
         }
 
-      $scope.listview = false;
+        $scope.listview = false;
         $scope.showCreate = false;
         $scope.typeselect = "";
         $scope.showList = function () {
