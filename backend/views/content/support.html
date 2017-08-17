@@ -43,7 +43,7 @@
                                    </span>
                                 </p>
                             </div>
-                            <div class="col-md-3 col-md-offset-3">
+                            <div class="col-md-3 ">
                                 <div class="form-group">
                                     <select class="form-control">
                                             <option>Select Status</option>
@@ -53,6 +53,14 @@
                                             <option>Closed</option>
                                             <option>No Reply</option>
                                             </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 ">
+                                <div class="pull-right">
+                                    <a ui-sref="raise-ticket">
+                                        <button class="btn  ng-binding ng-scope btn-success" data-toggle="popover" data-trigger="hover" ui-sref="request({workType:'external'})"
+                                            data-original-title="Create CadLineWork">Raise a Ticket</button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -179,8 +187,8 @@
 
                                                     <span class="input-group-btn"> <button class="btn btn-info btn1" type="button"><i class="fa fa-paper-plane"></i></button> </span>
                                                 </div>
-                                                <div class="btn2 "><span class="input-group-btn"> <button class="btn btn-info " type="button">Submit</button> </span>                                                  
-                                                  </div>
+                                                <div class="btn2 "><span class="input-group-btn"> <button class="btn btn-info " type="button">Submit</button> </span>
+                                                </div>
                                             </div>
 
 
@@ -192,19 +200,19 @@
                         </div>
                     </div>
                     <div class="paddt20">
-                <ul class="pagination">
-                    <li><a href="#">Previous</a></li>
-                    <li><a href="#">1</a></li>
-                    <li class="active"><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li class="disabled"><a href="#">4</a></li>
-                    <li><a href="#">Next</a></li>
-                </ul>
-            </div>
+                        <ul class="pagination">
+                            <li><a href="#">Previous</a></li>
+                            <li><a href="#">1</a></li>
+                            <li class="active"><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li class="disabled"><a href="#">4</a></li>
+                            <li><a href="#">Next</a></li>
+                        </ul>
+                    </div>
                 </div>
-   
+
             </div>
-         
+
         </div>
     </div>
 

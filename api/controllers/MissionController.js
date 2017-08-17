@@ -7,7 +7,7 @@ var ConvertTiff = require('tiff-to-png');
 var path = require('path');
 var decode = require("decode-tiff");
 var PNG = require('pngjs');
-var sharp = require('sharp');
+// var sharp = require('sharp');
 var cron = require('node-cron');
 var controller = {
     getCords: function (req, res) {
@@ -20,12 +20,12 @@ var controller = {
         // png.data = data;
         // fs.writeFileSync(path.join(process.cwd(), "lena.png"), PNG.sync.write(png));
 
-        sharp(path.join('./pix4dUpload', 'vashi_transparent_mosaic_group1.tif'))
-            .webp()
-            .toFile('./.tmp/vashi_transparent_mosaic_group1.webp', function (err, info) {
-                console.log("err", err);
-                console.log("done");
-            });
+        // sharp(path.join('./pix4dUpload', 'vashi_transparent_mosaic_group1.tif'))
+        //     .webp()
+        //     .toFile('./.tmp/vashi_transparent_mosaic_group1.webp', function (err, info) {
+        //         console.log("err", err);
+        //         console.log("done");
+        //     });
         // converter = new ConvertTiff();
         // var imgPath = path.join(process.cwd(), path.join('pix4dUpload', 'vashi_transparent_mosaic_group1.tif'));
         // console.log(imgPath);
