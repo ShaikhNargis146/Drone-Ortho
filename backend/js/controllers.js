@@ -606,11 +606,19 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.popup2.opened = true;
         };
 
+        $scope.open3 = function () {
+            $scope.popup3.opened = true;
+        };
+
         $scope.popup1 = {
             opened: false
         };
 
         $scope.popup2 = {
+            opened: false
+        };
+
+           $scope.popup3 = {
             opened: false
         };
 
