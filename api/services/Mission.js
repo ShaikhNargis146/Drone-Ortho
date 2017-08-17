@@ -33,10 +33,10 @@ var schema = new Schema({
     status: String,
     geoLocation: {
         upperLeft: [],
-        lowerLeft:[],
-        upperRight:[],
-        lowerRight:[],
-        center:[]
+        lowerLeft: [],
+        upperRight: [],
+        lowerRight: [],
+        center: []
     },
 
     others: [{

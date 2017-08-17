@@ -991,12 +991,16 @@ firstapp.directive('ngFiles', ['$parse', function ($parse) {
 }]);
 
 
-firstapp.directive('mapBox', function ($http, $filter, JsonService) {
+firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
     return {
         restrict: 'C',
         link: function ($scope, element, attrs) {
-
-            var locations = $scope.missionDetails.geoLocation;
+            var locations = {};
+            if ($scope.missionDetails && $scope.missionDetails.name) {
+                locations = $scope.missionDetails.geoLocation;
+            } else {
+                locations = $scope.cadLineDetails.geoLocation;
+            }
             // var locations = {
             //     upperLeft: [32.77840210218494, -117.23545173119574],
             //     lowerLeft: [32.77740264966007, -117.23544909909386],
@@ -1137,22 +1141,28 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService) {
             //         "source": "video"
             //     }]
             // };
-            var imageUrl = 'http://localhost:1337/' + $scope.missionDetails.name + '_transparent_mosaic_group1.png',
-                // This is the trickiest part - you'll need accurate coordinates for the
-                // corners of the image. You can find and create appropriate values at
-                // http://maps.nypl.org/warper/ or
-                // http://www.georeferencer.org/
-                imageBounds = L.latLngBounds([
-                    locations.upperLeft.reverse(),
-                    locations.lowerLeft.reverse(),
-                    locations.upperRight.reverse(),
-                    locations.lowerRight.reverse()
-                ]);
-            // var latlngs = [
-            //     [32.77766092651981, -117.23481559756695],
-            //     [32.77836001768539, -117.23376417163311],
-            //     [32.77790448148481, -117.23330819610055]
-            // ];
+            var imageUrl;
+            if ($scope.missionDetails && $scope.missionDetails.name) {
+                imageUrl = 'http://localhost:1337/' + $scope.missionDetails.name + '.png';
+            } else {
+                imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.name + '.png';
+            }
+            // This is the trickiest part - you'll need accurate coordinates for the
+            // corners of the image. You can find and create appropriate values at
+            // http://maps.nypl.org/warper/ or
+            // http://www.georeferencer.org/
+            var imageBounds = L.latLngBounds([
+                locations.upperLeft.reverse(),
+                locations.lowerLeft.reverse(),
+                locations.upperRight.reverse(),
+                locations.lowerRight.reverse()
+            ]);
+            var latlngs;
+            if ($scope.cadLineDetails) {
+                latlngs = [
+                    $scope.cadLineDetails.points[0]
+                ];
+            }
             var map = L.mapbox.map('map', 'mapbox.streets', {
                     infoControl: false,
                     attributionControl: false
@@ -1166,10 +1176,14 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService) {
             // http://leafletjs.com/reference.html#imageoverlay
             var overlay = L.imageOverlay(imageUrl, imageBounds)
                 .addTo(map);
-            // var polygon = L.polygon(latlngs, {
-            //     color: 'red'
-            // }).addTo(map);
-            // map.fitBounds(polygon.getBounds());
+            var polygon;
+            if ($scope.cadLineDetails) {
+                polygon = L.polygon(latlngs, {
+                    color: 'red'
+                }).addTo(map);
+                map.fitBounds(polygon.getBounds());
+            }
+
             var featureGroup = L.featureGroup().addTo(map);
 
             var drawControl = new L.Control.Draw({
@@ -1199,10 +1213,37 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService) {
             function showPolygonArea(e) {
                 featureGroup.clearLayers();
                 featureGroup.addLayer(e.layer);
-                console.log("e.layer", e.layer._latlngs);
-                // e.layer.bindPopup((LGeo.area(e.layer) / 1000000).toFixed(2) + 'Hi');
-                // e.layer.openPopup();
-                alert("hello")
+                var type = e.layerType;
+                var layer = e.layer;
+                layer.getLatLngs()[0][layer.getLatLngs()[0].length] = layer.getLatLngs()[0][0]
+                console.log("e.layer", layer);
+                var pointsList = [];
+
+                _.forEach(e.layer._latlngs[0], function (val) {
+                    var latLng = [];
+                    latLng.push(val.lat);
+                    latLng.push(val.lng)
+                    console.log("val--", latLng);
+                    pointsList.push(latLng);
+                });
+                console.log("pointsList", pointsList);
+                var polygon = turf.polygon([
+                    pointsList
+                ]);
+
+                var area = turf.area(polygon);
+
+                console.log("area--", area);
+                acres = area * 0.000247105381;
+                console.log("acres--", acres);
+                $scope.cadLineDetails.acreage = acres;
+                $scope.cadLineDetails.points = e.layer._latlngs;
+                var mapmodal = $uibModal.open({
+                    animation: $scope.animationsEnabled,
+                    templateUrl: '/backend/views/modal/cadline-name.html',
+                    size: 'sm',
+                    scope: $scope
+                });
             }
 
 
@@ -1238,27 +1279,27 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService) {
             //     e.layer.openPopup();
             //     alert("hello")
             // }
-            // var calcButton = document.getElementById('calculate');
-            // calcButton.onclick = function () {
-            //     var data = draw.getAll();
+            var calcButton = document.getElementById('calculate');
+            calcButton.onclick = function () {
+                var data = drawControl.getAll();
 
-            //     var polyCoord = turf.coordAll(data);
+                var polyCoord = turf.coordAll(data);
 
-            //     if (data.features.length > 0) {
-            //         var area = turf.area(data);
-            //         // restrict to area to 2 decimal points
-            //         var rounded_area = Math.round(area * 100) / 100;
-            //         var answer = document.getElementById('calculated-area');
-            //         answer.innerHTML = '<p><strong>' + rounded_area + '</strong></p><p>square meters</p>' + 'All co-ordinates' + polyCoord.length;
-            //         console.log("polyCoord", polyCoord);
-            //     } else {
-            //         alert("Use the draw tools to draw a polygon!");
-            //     }
-            // };
-            // map.on('load', function () {
-            //     // ALL YOUR APPLICATION CODE
-            //     console.log("hi,its loaded");
-            // });
+                if (data.features.length > 0) {
+                    var area = turf.area(data);
+                    // restrict to area to 2 decimal points
+                    var rounded_area = Math.round(area * 100) / 100;
+                    var answer = document.getElementById('calculated-area');
+                    answer.innerHTML = '<p><strong>' + rounded_area + '</strong></p><p>square meters</p>' + 'All co-ordinates' + polyCoord.length;
+                    console.log("polyCoord", polyCoord);
+                } else {
+                    alert("Use the draw tools to draw a polygon!");
+                }
+            };
+            map.on('load', function () {
+                // ALL YOUR APPLICATION CODE
+                console.log("hi,its loaded");
+            });
         }
     };
 });

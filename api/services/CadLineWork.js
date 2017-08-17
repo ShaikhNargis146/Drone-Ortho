@@ -3,16 +3,13 @@ var schema = new Schema({
     acreage: String,
     contours: Boolean,
     contoursDensity: String,
-    draftingDensity: String,
+    density: String,
     amount: {
         type: Number,
         default: 0
     },
     instruction: String,
-    points: [{
-        lat: String,
-        lng: String
-    }],
+    points: [],
     geoLocation: {
         upperLeft: [],
         lowerLeft: [],
@@ -30,6 +27,7 @@ var schema = new Schema({
     mapCenter: String,
     cadFile: String,
     name: String,
+    cadLineName: String,
     mission: {
         type: Schema.Types.ObjectId,
         ref: 'Mission',

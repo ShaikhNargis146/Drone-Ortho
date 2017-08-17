@@ -17,7 +17,7 @@
                             <label class="col-md-2 control-label">Mission:</label>
                             <div class="col-md-8">
                                 <select ng-model="formdata.mission" class="form-control">
-                                            <option ng-repeat="mission in missionData" value="{{mission._id}}|{{mission.geoLocation}}">{{mission.name}}</option>
+                                            <option ng-repeat="mission in missionData" value="{{mission._id}}|{{mission.geoLocation}}|{{mission.name}}">{{mission.name}}</option>
                                               </select>
                                 <div class="proceed">
                                     <button type="button" class="btn btn-blue " ng-click="processCad(formdata)">Proceed</button>
