@@ -145,7 +145,7 @@ cron.schedule('1 * * * * *', function () {
             var geoLocation;
             async.eachSeries(found, function (value, callback1) {
                     console.log("value", value.name);
-                    dirName1 = 'C:/Users/dell/Documents/pix4d/' + value.name + '/3_dsm_ortho/2_mosaic';
+                    dirName1 = 'C:/Users/unifli/Documents/pix4d/' + value.name + '/3_dsm_ortho/2_mosaic';
                     fs.readdir(dirName1, function (err, items) {
                         if (err) {
                             console.log("err-----1  ", err);
