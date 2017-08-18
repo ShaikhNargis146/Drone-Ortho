@@ -143,7 +143,7 @@ var model = {
 
         exec('cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -n --image-dir ' + imgPath + ' ' + pix4dPath, {
             maxBuffer: 1024 * 500
-        }, function (error, stdout, stderr) {
+        }, function (error, stdout, stderr) {   
             if (error) {
                 console.log("\n error inside pix4dCommandExecution", error);
             } else if (stdout) {
