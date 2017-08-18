@@ -465,23 +465,25 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     var checkRange = _.inRange(data.acreage, val.from, val.to);
                     if (checkRange == true) {
                         console.log("found", val);
-                        if(data.contoursDensity){
-                          console.log("contoursDensity  ", val.contoursDensity[data.contoursDensity]);  
+                        if (data.contoursDensity) {
+                            data.amount = val.contoursDensity[data.contoursDensity]
+                            console.log("contoursDensity  ", val.contoursDensity[data.contoursDensity]);
+                        } else {
+                            data.amount = val.contoursDensity[data.contoursDensity]
+                            console.log("contoursDensity  ", val.density[data.contoursDensity]);
                         }
-                        else{
-
-                        }
+                        NavigationService.apiCall("CadLineWork/save", data, function (data) {
+                            if (data.value === true) {
+                                console.log("data.value", data.value);
+                            } else {
+                                //  toastr.warning('Error submitting the form', 'Please try again');
+                            }
+                        });
                         return false;
                     }
                 })
             }
-            // NavigationService.apiCall("CadLineWork/save", data, function (data) {
-            //     if (data.value === true) {
-            //         console.log("data.value", data.value);
-            //     } else {
-            //         //  toastr.warning('Error submitting the form', 'Please try again');
-            //     }
-            // });
+
         }
 
 
