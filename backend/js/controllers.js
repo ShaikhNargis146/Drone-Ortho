@@ -608,11 +608,19 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.popup2.opened = true;
         };
 
+        $scope.open3 = function () {
+            $scope.popup3.opened = true;
+        };
+
         $scope.popup1 = {
             opened: false
         };
 
         $scope.popup2 = {
+            opened: false
+        };
+
+           $scope.popup3 = {
             opened: false
         };
 
@@ -647,6 +655,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.open2 = function () {
             $scope.popup2.opened = true;
         };
+       
+         $scope.open3 = function () {
+            $scope.popup3.opened = true;
+        };
 
         $scope.popup1 = {
             opened: false
@@ -655,7 +667,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.popup2 = {
             opened: false
         };
-
+        
+          $scope.popup3 = {
+            opened: false
+        };
     })
     .controller('SupportCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
@@ -978,7 +993,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.open2 = function () {
             $scope.popup2.opened = true;
         };
-
+        
+          $scope.open3 = function () {
+            $scope.popup3.opened = true;
+        };
         $scope.popup1 = {
             opened: false
         };
@@ -986,7 +1004,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.popup2 = {
             opened: false
         };
+        
 
+        $scope.popup3 = {
+            opened: false
+        };
     })
     .controller('MissiondetailCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
