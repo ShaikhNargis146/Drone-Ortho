@@ -1081,10 +1081,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
 
-        $timeout(function () {
-            var map = mapboxService.getMapInstances()[0];
-            //mapboxService.fitMapToMarkers(map);
-        }, 100);
+        // $timeout(function () {
+        //     var map = mapboxService.getMapInstances()[0];
+        //     //mapboxService.fitMapToMarkers(map);
+        // }, 100);
         $scope.uploadMe = function (data) {
             if ($.jStorage.get("profile")) {
                 data.user = $.jStorage.get("profile")._id;
