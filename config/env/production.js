@@ -25,9 +25,9 @@ module.exports = {
    * Set the port in the production environment to 80                        *
    ***************************************************************************/
 
-  port: 1337,
-  realHost: "https://unifli.aero",
-  emails: ["chintan@wohlig.com", "jagruti@wohlig.com", "tushar@wohlig.com", "chirag@wohlig.com", "harsh@wohlig.com","nargis.shaikh@wohlig.com"]
+  port: 80,
+  realHost: "http://35.189.189.254",
+  emails: ["chintan@wohlig.com", "jagruti@wohlig.com", "tushar@wohlig.com", "chirag@wohlig.com", "harsh@wohlig.com", "nargis.shaikh@wohlig.com"]
 
   /***************************************************************************
    * Set the log level in production environment to "silent"                 *

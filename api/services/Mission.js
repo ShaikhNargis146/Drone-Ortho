@@ -138,12 +138,12 @@ var model = {
             });
     },
     pix4dCommandExecution: function (imgPath, name, callback) {
-        var pix4dPath = 'C:/Users/dell/Documents/pix4d/' + name + '.p4d';
+        var pix4dPath = 'C:/Users/unifli/Documents/pix4d/' + name + '.p4d';
         console.log("inside pix4dCommandExecution", name, imgPath, pix4dPath);
 
         exec('cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -n --image-dir ' + imgPath + ' ' + pix4dPath, {
             maxBuffer: 1024 * 500
-        }, function (error, stdout, stderr) {
+        }, function (error, stdout, stderr) {   
             if (error) {
                 console.log("\n error inside pix4dCommandExecution", error);
             } else if (stdout) {
