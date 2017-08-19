@@ -34,6 +34,10 @@
                                         <upload-image-files ng-model="formdata.cadFile" no-view multiple="true" ng-disabled="type.disabled"></upload-image-files>
                                     </div>
                                 </div>
+                                 <div class="loaderHeader" ng-show="template.isLoader">
+        <img src="backend/img/resource/loader.gif" alt="" style="height:120px; width:120px;">
+   </div>
+
                                 <div class="proceed">
                                     <button type="button" class="btn btn-blue " ng-click="processCad(formdata)">Proceed</button>
                                 </div>
@@ -48,6 +52,7 @@
 
     </div>
 </div>
+
 <!--
 <div class="modal fade" id="modal-4" data-backdrop="static">
     <div class="modal-dialog">
