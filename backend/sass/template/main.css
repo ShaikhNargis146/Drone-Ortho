@@ -452,6 +452,9 @@ header.side-header.light-skin {
     /*line-height: 24px;*/
     line-height: 15px;
 }
+.side-header.light-skin .side-menus nav>ul>li>a:hover{
+    color: black;
+}
 
 .side-header.light-skin .side-menus nav>ul>li ul::before {
     border-bottom-color: #dfe6ec;
@@ -726,11 +729,11 @@ header.side-header.light-skin {
 
 .side-menus nav>ul li a,
 .side-menus nav>ul li a i {
-    -webkit-transition: all 0.4s ease 0s;
-    -moz-transition: all 0.4s ease 0s;
-    -ms-transition: all 0.4s ease 0s;
-    -o-transition: all 0.4s ease 0s;
-    transition: all 0.4s ease 0s;
+    -webkit-transition: all 0.1s ease 0s;
+    -moz-transition: all 0.1s ease 0s;
+    -ms-transition: all 0.1s ease 0s;
+    -o-transition: all 0.1s ease 0s;
+    transition: all 0.1s ease 0s;
 }
 
 .side-menus nav>ul>li ul li>a {

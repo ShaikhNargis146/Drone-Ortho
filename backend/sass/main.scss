@@ -1675,7 +1675,8 @@ body {
 
 .create:hover {
     background-color: #4a9a8e;
-    border: none;
+    border: 1px solid transparent;
+    color:black;
 }
 
 .btn-info {
