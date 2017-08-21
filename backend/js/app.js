@@ -663,7 +663,7 @@ firstapp.filter('serverimage', function () {
             }
 
         } else {
-            return "img/logo.png";
+            return "img/123.png";
         }
     };
 });
@@ -679,7 +679,7 @@ firstapp.filter('downloadImage', function () {
         if (input) {
             return adminurl + "download/" + input;
         } else {
-            return "img/logo.png";
+            return "img/123.png";
         }
     };
 });
