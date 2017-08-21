@@ -99,12 +99,12 @@ var navigationservice = angular.module('navigationservice', [])
             },
 
 //admin
-           {
-                name: "Support Ticket",
-                classis: "active",
-                sref: "#!/support",
-                icon: "picture"
-            },
+        //    {
+        //         name: "Support Ticket",
+        //         classis: "active",
+        //         sref: "#!/support",
+        //         icon: "picture"
+        //     },
 
            
             // {

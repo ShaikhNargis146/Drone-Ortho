@@ -1,9 +1,13 @@
-<form name="modalForm" ng-submit="calLineName(cadLineDetails);$dismiss()" class="min-hit">
+<form name="modalForm" ng-submit="calLineName(cadLineDetails);$dismiss()" class="">
     <div class="modal-header">
-        <div class="pull-right">
-            <a class="btn btn-clear" ng-click="$dismiss()">
-                <i class="ln-cross"></i>
+        <!--<div> </div>-->
+        <div class="">
+          
+            <a class="btn btn-clear pull-right" ng-click="$dismiss()">
+                <!--<i class="ln-cross"></i>-->
+                <i class="fa fa-times" aria-hidden="true"></i>
             </a>
+               <h4 class="modal-title">Title</h4>
         </div>
     </div>
     <div class="modal-body">
@@ -18,37 +22,48 @@
             </div>
             <div class="form-group radio">
                 <label class="control-label col-sm-4"> Density:</label>
-                <div class="col-sm-8">
+                <div class="col-sm-2">
+                    
                     <input type="radio" id="radio6" name="density" value="low" ng-model="cadLineDetails.density" />
-                    <label for="radio6">
+                    <label for="radio6" class="padd-l">
                               <span></span> Low </label>
+                    </div>
+                         <div class="col-sm-2">
                     <input type="radio" id="radio7" name="density" value="medium" ng-model="cadLineDetails.density" />
-                    <label for="radio7">
+                    <label for="radio7" class="padd-l">
                               <span></span> Medium</label>
+                         </div>
+                              <div class="col-sm-2">
                     <input type="radio" id="radio8" name="density" value="high" ng-model="cadLineDetails.density" />
-                    <label for="radio8">
+                    <label for="radio8" class="padd-l">
                               <span></span>High</label>
+                    </div>
                 </div>
             </div>
+            <div class="row">
             <div class="form-group radio">
                 <label class="control-label col-sm-4"> Contours Density:</label>
-                <div class="col-sm-8">
+                <div class="col-sm-2">
                     <input type="radio" id="radio3" name="contoursDensity" value="low" ng-model="cadLineDetails.contoursDensity" />
-                    <label for="radio3">
+                    <label for="radio3" class="padd-l">
                               <span></span> Low </label>
+                </div>
+                  <div class="col-sm-2">
                     <input type="radio" id="radio4" name="contoursDensity" value="medium" ng-model="cadLineDetails.contoursDensity" />
-                    <label for="radio4">
+                    <label for="radio4" class="padd-l">
                               <span></span> Medium</label>
+                  </div>
+                    <div class="col-sm-2">
                     <input type="radio" id="radio5" name="contoursDensity" value="high" ng-model="cadLineDetails.contoursDensity" />
-                    <label for="radio5">
+                    <label for="radio5" class="padd-l">
                               <span></span>High</label>
                 </div>
             </div>
-
+            </div>
         </div>
 
         <div class="text-center">
-            <button class="btn btn-primary btn-save" type="submit" ng-disabled="modalForm.$invalid">Submit</button>
+            <button class="btn btn-primary btn-save btn-mar" type="submit" ng-disabled="modalForm.$invalid">Submit</button>
         </div>
     </div>
 </form>
