@@ -14,8 +14,8 @@
     <!-- Responsive Table -->
     <div class="padd40">
         <div class="row">
- <div class="col-md-12">
-<div class="panel panel-default">
+            <div class="col-md-12">
+                <div class="panel panel-default">
                     <div class="panel-body ">
                         <div class="">
                             <!--<h4 for="">Create Mission</h4>-->
@@ -31,12 +31,14 @@
                             <div class="col-sm-12 nopad mb10">
                                 <textarea class="form-control" ng-model="formdata.name" cols="5" id="name"></textarea>
                             </div>
-                           </div>
+                        </div>
                         <div class=" mt10">
                             <h5 for="">Upload</h5>
                             <div class="col-sm-12 nopad mb10">
-                                <div class="mar-b"><upload-image-files ng-model="formdata.files" no-view multiple="true" ng-disabled="type.disabled" ></upload-image-files></div>
-                  <!--<input type="file" class="form-control" id="file1" name="file" ng-model="formdata.files"  multiple
+                                <div class="mar-b">
+                                    <upload-image-files ng-model="formdata.files" no-view multiple="true" ng-disabled="type.disabled"></upload-image-files>
+                                </div>
+                                <!--<input type="file" class="form-control" id="file1" name="file" ng-model="formdata.files"  multiple
             ng-files="getTheFiles($files)"/>-->
                             </div>
                         </div>
