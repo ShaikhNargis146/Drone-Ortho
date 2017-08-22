@@ -79,7 +79,7 @@ h4,
 h5,
 h6 {
     font-family: Montserrat;
-    color: #202020;
+    color: #04423b;
 }
 
 h3 {
@@ -113,7 +113,6 @@ a:focus {
 a {
     cursor: pointer;
 }
-
 
 /* Scroll bar Styling */
 
