@@ -433,8 +433,10 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout) {
                             console.log('Processing file ' + newV);
                             if (newV && newV.file) {
                                 $scope.uploadNow(newV);
+                                callback();
+                            } else {
+                                callback();
                             }
-                            callback();
                         }, function (err) {
                             // if any of the file processing produced an error, err would equal that error
                             if (err) {
@@ -450,7 +452,7 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout) {
                         //         $scope.uploadNow(newV);
                         //     }
                         // });
-                    }, 5000);
+                    }, 10000);
 
                 }
             });
@@ -529,7 +531,7 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout) {
                     }
                     $timeout(function () {
                         $scope.callback();
-                    }, 5000);
+                    }, 10000);
 
                 });
             };
