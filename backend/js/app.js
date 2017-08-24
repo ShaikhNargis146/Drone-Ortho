@@ -428,7 +428,7 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout) {
                     $timeout(function () {
                         console.log(oldVal, newVal);
                         console.log(newVal.length);
-                        async.eachLimit(newVal, 3, function (newV, callback) {
+                        async.eachLimit(newVal, 2, function (newV, callback) {
                             // Perform operation on file here.
                             console.log('Processing file ' + newV);
                             if (newV && newV.file) {
