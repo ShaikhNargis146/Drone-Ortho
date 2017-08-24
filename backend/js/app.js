@@ -433,7 +433,7 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout) {
                                 $scope.uploadNow(newV);
                             }
                         });
-                    }, 5000);
+                    }, 15000);
 
                 }
             });
@@ -511,7 +511,7 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout) {
                     }
                     $timeout(function () {
                         $scope.callback();
-                    }, 5000);
+                    }, 15000);
 
                 });
             };
