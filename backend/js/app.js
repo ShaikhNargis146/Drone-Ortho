@@ -434,6 +434,7 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout) {
                             if (newV && newV.file) {
                                 $scope.uploadNow(newV);
                             }
+                            callback();
                         }, function (err) {
                             // if any of the file processing produced an error, err would equal that error
                             if (err) {
