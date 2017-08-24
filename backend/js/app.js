@@ -424,16 +424,57 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout) {
                 if (!isArr && newVal && newVal.file) {
                     $scope.uploadNow(newVal);
                 } else if (isArr && newVal.length > 0 && newVal[0].file) {
-
+                    console.log("new val", newVal);
                     $timeout(function () {
                         console.log(oldVal, newVal);
                         console.log(newVal.length);
-                        async.eachLimit(newVal, 1, function (newV, callback) {
+                        async.eachLimit(newVal, 1, function (image, callback) {
                             // Perform operation on file here.
-                            console.log('Processing file ' + newV);
-                            if (newV && newV.file) {
-                                $scope.uploadNow(newV);
-                                callback(null, "next");
+                            console.log('Processing file ' + image);
+                            if (image && image.file) {
+                                $scope.uploadStatus = "uploading";
+
+                                var Template = this;
+                                image.hide = true;
+                                var formData = new FormData();
+                                formData.append('file', image.file, image.file.name);
+                                $http.post(uploadurl, formData, {
+                                    headers: {
+                                        'Content-Type': undefined
+                                    },
+                                    transformRequest: angular.identity
+                                }).then(function (data) {
+                                    console.log("data---", data);
+                                    data = data.data;
+                                    $scope.uploadStatus = "uploaded";
+                                    if ($scope.isMultiple) {
+                                        if ($scope.inObject) {
+                                            $scope.model.push({
+                                                "image": data.data[0]
+                                            });
+                                            callback(null, "next");
+                                        } else {
+                                            if (!$scope.model) {
+                                                $scope.clearOld();
+                                            }
+                                            var fileList = {};
+                                            fileList.file = data.data[0];
+                                            $scope.model.push(fileList);
+                                            callback(null, "next");
+                                        }
+                                    } else {
+                                        if (_.endsWith(data.data[0], ".pdf")) {
+                                            $scope.type = "pdf";
+                                        } else {
+                                            $scope.type = "image";
+                                        }
+                                        var fileList = {};
+                                        fileList.file = data.data[0];
+                                        $scope.model = fileList;
+                                        console.log($scope.model, 'model means blob')
+                                        callback(null, "next");
+                                    }
+                                });
                             } else {
                                 callback(null, "next");
                             }
@@ -490,7 +531,6 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout) {
             }
             $scope.uploadNow = function (image) {
                 $scope.uploadStatus = "uploading";
-
                 var Template = this;
                 image.hide = true;
                 var formData = new FormData();
@@ -532,7 +572,6 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout) {
                     $timeout(function () {
                         $scope.callback();
                     }, 10000);
-
                 });
             };
         }
