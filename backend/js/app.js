@@ -428,7 +428,7 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout) {
                     $timeout(function () {
                         console.log(oldVal, newVal);
                         console.log(newVal.length);
-                        async.eachLimit(newVal, 2, function (newV, callback) {
+                        async.eachLimit(newVal, 1, function (newV, callback) {
                             // Perform operation on file here.
                             console.log('Processing file ' + newV);
                             if (newV && newV.file) {
@@ -499,6 +499,7 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout) {
                     },
                     transformRequest: angular.identity
                 }).then(function (data) {
+                    console.log("data---", data);
                     data = data.data;
                     $scope.uploadStatus = "uploaded";
                     if ($scope.isMultiple) {
