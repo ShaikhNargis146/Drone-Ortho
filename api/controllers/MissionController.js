@@ -197,7 +197,7 @@ cron.schedule('1 * * * * *', function () {
                                                         callback(null, "error");
                                                     }
                                                 } else {
-                                                    console.log("errrrrrrrr");
+                                                    console.log("errrrrrrrr in else");
                                                     callback(null, "error");
                                                 }
                                             },
