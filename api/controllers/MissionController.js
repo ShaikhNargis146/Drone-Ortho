@@ -164,7 +164,7 @@ cron.schedule('1 * * * * *', function () {
                                                 fs.readFile(dirName1 + '/' + val, function (err, data) {
                                                     if (err) {
                                                         console.log("err", err);
-                                                        callback(null, err);
+                                                        callback(null, "err");
                                                     } else {
                                                         console.log("data f1 ", data);
                                                         callback(null, data);
@@ -173,26 +173,30 @@ cron.schedule('1 * * * * *', function () {
                                             },
                                             function (data, callback) {
                                                 console.log("data inside f2 ", data);
-                                                console.log("data", data);
-                                                dataArray = data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength);
-                                                var tiff = geotiff.parse(dataArray);
-                                                var im = geotiff.parse(dataArray).getImage()
-                                                var fd = im.getFileDirectory()
-                                                var gk = im.getGeoKeys()
-                                                var geoLoc;
-                                                try {
-                                                    var geoLoc = extents({
-                                                        tiePoint: fd.ModelTiepoint,
-                                                        pixelScale: fd.ModelPixelScale,
-                                                        width: fd.ImageWidth,
-                                                        height: fd.ImageLength,
-                                                        proj: require('proj4'),
-                                                        from: epsg[gk.ProjectedCSTypeGeoKey || gk.GeographicTypeGeoKey],
-                                                        to: epsg[4326]
-                                                    });
-                                                    console.log("geoLocation ", geoLoc);
-                                                    callback(null, geoLoc);
-                                                } catch (err) {
+                                                if (data != "err") {
+                                                    dataArray = data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength);
+                                                    var tiff = geotiff.parse(dataArray);
+                                                    var im = geotiff.parse(dataArray).getImage()
+                                                    var fd = im.getFileDirectory()
+                                                    var gk = im.getGeoKeys()
+                                                    var geoLoc;
+                                                    try {
+                                                        var geoLoc = extents({
+                                                            tiePoint: fd.ModelTiepoint,
+                                                            pixelScale: fd.ModelPixelScale,
+                                                            width: fd.ImageWidth,
+                                                            height: fd.ImageLength,
+                                                            proj: require('proj4'),
+                                                            from: epsg[gk.ProjectedCSTypeGeoKey || gk.GeographicTypeGeoKey],
+                                                            to: epsg[4326]
+                                                        });
+                                                        console.log("geoLocation ", geoLoc);
+                                                        callback(null, geoLoc);
+                                                    } catch (err) {
+                                                        console.log("errrrrrrrr");
+                                                        callback(null, "error");
+                                                    }
+                                                } else {
                                                     console.log("errrrrrrrr");
                                                     callback(null, "error");
                                                 }
