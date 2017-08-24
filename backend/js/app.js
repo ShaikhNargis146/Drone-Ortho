@@ -428,11 +428,27 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout) {
                     $timeout(function () {
                         console.log(oldVal, newVal);
                         console.log(newVal.length);
-                        _.each(newVal, function (newV, key) {
+                        async.eachLimit(newVal, 3, function (newV, callback) {
+                            // Perform operation on file here.
+                            console.log('Processing file ' + newV);
                             if (newV && newV.file) {
                                 $scope.uploadNow(newV);
                             }
+                        }, function (err) {
+                            // if any of the file processing produced an error, err would equal that error
+                            if (err) {
+                                // One of the iterations produced an error.
+                                // All processing will now stop.
+                                console.log('A file failed to process');
+                            } else {
+                                console.log('All files have been processed successfully');
+                            }
                         });
+                        // _.each(newVal, function (newV, key) {
+                        //     if (newV && newV.file) {
+                        //         $scope.uploadNow(newV);
+                        //     }
+                        // });
                     }, 15000);
 
                 }
