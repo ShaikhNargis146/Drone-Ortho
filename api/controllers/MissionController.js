@@ -193,7 +193,7 @@ cron.schedule('1 * * * * *', function () {
                                                         console.log("geoLocation ", geoLoc);
                                                         callback(null, geoLoc);
                                                     } catch (err) {
-                                                        console.log("errrrrrrrr");
+                                                        console.log("errrrrrrrr", err);
                                                         callback(null, "error");
                                                     }
                                                 } else {
