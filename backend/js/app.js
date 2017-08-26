@@ -438,7 +438,7 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout) {
                                 image.hide = true;
                                 var formData = new FormData();
                                 formData.append('file', image.file, image.file.name);
-                                $http.post(uploadurl, formData, {
+                                $http.post(missionFileUrl, formData, {
                                     headers: {
                                         'Content-Type': undefined
                                     },
@@ -535,7 +535,7 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout) {
                 image.hide = true;
                 var formData = new FormData();
                 formData.append('file', image.file, image.file.name);
-                $http.post(uploadurl, formData, {
+                $http.post(missionFileUrl, formData, {
                     headers: {
                         'Content-Type': undefined
                     },

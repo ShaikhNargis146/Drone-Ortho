@@ -39,6 +39,12 @@ var schema = new Schema({
     website: {
         type: String,
     },
+    lisence: {
+        type: String,
+    },
+    drone: {
+        type: String,
+    },
     cardDetails: [{
         cardType: String,
         cardNumber: String,
@@ -95,10 +101,10 @@ var schema = new Schema({
     accessToken: {
         type: [String]
     },
-    accessLevel:{
-        type:String,
-        enum:["Admin","User"],
-        default:"User"
+    accessLevel: {
+        type: String,
+        enum: ["Admin", "User"],
+        default: "User"
 
     },
     googleAccessToken: String,
@@ -225,6 +231,12 @@ var model = {
         var user = this(data);
         user.accessToken = [uid(16)];
         user.password = md5(user.password);
+        if (user.drone) {
+            user.lisence="NDB";
+        }
+        else{
+            user.lisence="UDB";
+        }
         user.save(function (err, created) {
             if (err) {
                 callback(err, null);

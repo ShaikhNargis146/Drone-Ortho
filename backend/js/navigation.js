@@ -1,40 +1,37 @@
 var imgurl = adminurl + "upload/";
-
+var missionFileUrl = imgurl + "customisedUpload"
 var imgpath = imgurl + "readFile";
 var uploadurl = imgurl;
 
 var navigationservice = angular.module('navigationservice', [])
 
     .factory('NavigationService', function ($http) {
-        var navigation1 = [
-            
-            
-             {
+        var navigation1 = [{
                 name: "Mission",
                 classis: "active",
                 sref: "#!/mission",
                 icon: "copy"
             },
-             {
+            {
                 name: "CadLineWork",
                 classis: "active",
                 sref: "#!/cadlineworkapp",
                 icon: "pencil"
             },
-            
-              {
+
+            {
                 name: "DFMSubscription",
                 classis: "active",
                 sref: "#!/dfmsubscription",
                 icon: "binoculars2"
             },
-              {
+            {
                 name: "Invoicing/Receipts",
                 classis: "active",
                 sref: "#!/invoicingreceipts",
                 icon: "cash"
             },
-               {
+            {
                 name: "Plan",
                 classis: "active",
                 sref: "#!/page/viewPlan//",
@@ -46,7 +43,7 @@ var navigationservice = angular.module('navigationservice', [])
                 sref: "#!/support",
                 icon: "play"
             },
-             {
+            {
                 name: "Raise-ticket",
                 classis: "active",
                 sref: "#!/raiseticket",
@@ -58,13 +55,13 @@ var navigationservice = angular.module('navigationservice', [])
                 sref: "#!/adminuser",
                 icon: "user"
             },
-              {
+            {
                 name: "DFM Subscription",
                 classis: "active",
                 sref: "#!/dfmsubscription",
                 icon: "register"
             },
-             {
+            {
                 name: "DRONE sale Application",
                 classis: "active",
                 sref: "#!/dronsale",
@@ -76,7 +73,7 @@ var navigationservice = angular.module('navigationservice', [])
             //     sref: "#!/page/viewProducts//",
             //     icon: "tags"
             // },
-              {
+            {
                 name: "Billing",
                 classis: "active",
                 sref: "#!/billing",
@@ -90,30 +87,30 @@ var navigationservice = angular.module('navigationservice', [])
             //     icon: "phone"
             // },
 
-           
-             {
+
+            {
                 name: "Setting",
                 classis: "active",
                 sref: "#!/setting",
                 icon: "ticket"
             },
 
-//admin
-        //    {
-        //         name: "Support Ticket",
-        //         classis: "active",
-        //         sref: "#!/support",
-        //         icon: "picture"
-        //     },
+            //admin
+            //    {
+            //         name: "Support Ticket",
+            //         classis: "active",
+            //         sref: "#!/support",
+            //         icon: "picture"
+            //     },
 
-           
+
             // {
             //     name: "ServiceList",
             //     classis: "active",
             //     sref: "#!/page/viewServiceList//",
             //     icon: "file"
             // },
-           
+
             // {
             //     name: "CouponCode",
             //     classis: "active",
@@ -198,14 +195,14 @@ var navigationservice = angular.module('navigationservice', [])
                 });
             },
             makeactive: function (menuname) {
-                    for (var i = 0; i < navigation1.length; i++) {
-                        if (navigation1[i].name == menuname) {
-                            navigation1[i].classis = "active";
-                        } else {
-                            navigation1[i].classis = "";
-                        }
+                for (var i = 0; i < navigation1.length; i++) {
+                    if (navigation1[i].name == menuname) {
+                        navigation1[i].classis = "active";
+                    } else {
+                        navigation1[i].classis = "";
                     }
-                    return menuname;
+                }
+                return menuname;
             },
 
             search: function (url, formData, i, callback) {

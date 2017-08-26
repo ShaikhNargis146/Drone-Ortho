@@ -309,7 +309,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }
             });
         }
-        $scope.priceList = [{
+        $scope.priceListForNDB = [{
                 "from": 0,
                 "to": 1,
                 "density": {
@@ -456,11 +456,165 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }
             }
         ];
+        $scope.priceListForUDB = [{
+                "from": 0,
+                "to": 1,
+                "density": {
+                    "low": 67.50,
+                    "medium": 82.50,
+                    "high": 97.50
+                },
+                "contoursDensity": {
+                    "low": 90.00,
+                    "medium": 105.00,
+                    "high": 120.00
+                }
+            },
+            {
+                "from": 1.1,
+                "to": 2,
+                "density": {
+                    "low": 70.00,
+                    "medium": 87.50,
+                    "high": 105.00
+                },
+                "contoursDensity": {
+                    "low": 105.00,
+                    "medium": 122.50,
+                    "high": 140.00
+                }
+            },
+            {
+                "from": 2,
+                "to": 3.5,
+                "density": {
+                    "low": 50,
+                    "medium": 60,
+                    "high": 70
+                },
+                "contoursDensity": {
+                    "low": 70,
+                    "medium": 80,
+                    "high": 90
+                }
+            }, {
+                "from": 3.6,
+                "to": 5,
+                "density": {
+                    "low": 80,
+                    "medium": 90,
+                    "high": 100
+                },
+                "contoursDensity": {
+                    "low": 110,
+                    "medium": 120,
+                    "high": 130
+                }
+            }, {
+                "from": 5.1,
+                "to": 8,
+                "density": {
+                    "low": 120,
+                    "medium": 130,
+                    "high": 140
+                },
+                "contoursDensity": {
+                    "low": 165,
+                    "medium": 175,
+                    "high": 185
+                }
+            }, {
+                "from": 8.1,
+                "to": 12,
+                "density": {
+                    "low": 150,
+                    "medium": 160,
+                    "high": 170
+                },
+                "contoursDensity": {
+                    "low": 210,
+                    "medium": 220,
+                    "high": 280
+                }
+            }, {
+                "from": 12.1,
+                "to": 17,
+                "density": {
+                    "low": 200,
+                    "medium": 210,
+                    "high": 220
+                },
+                "contoursDensity": {
+                    "low": 275,
+                    "medium": 285,
+                    "high": 295
+                }
+            }, {
+                "from": 17.1,
+                "to": 22,
+                "density": {
+                    "low": 230,
+                    "medium": 240,
+                    "high": 250
+                },
+                "contoursDensity": {
+                    "low": 320,
+                    "medium": 330,
+                    "high": 340
+                }
+            }, {
+                "from": 22.1,
+                "to": 27,
+                "density": {
+                    "low": 240,
+                    "medium": 250,
+                    "high": 260
+                },
+                "contoursDensity": {
+                    "low": 330,
+                    "medium": 340,
+                    "high": 350
+                }
+            }, {
+                "from": 27.1,
+                "to": 32,
+                "density": {
+                    "low": 240,
+                    "medium": 250,
+                    "high": 260
+                },
+                "contoursDensity": {
+                    "low": 330,
+                    "medium": 340,
+                    "high": 350
+                }
+            }, {
+                "from": 32.1,
+                "to": 40,
+                "density": {
+                    "low": 250,
+                    "medium": 260,
+                    "high": 270
+                },
+                "contoursDensity": {
+                    "low": 340,
+                    "medium": 350,
+                    "high": 360
+                }
+            }
+        ];
         $scope.calLineName = function (data) {
             console.log("data----", data);
             if (data.contoursDensity || data.density) {
                 console.log("inside contoursDensity");
-                _.forEach($scope.priceList, function (val) {
+                var priceList;
+                if ($scope.profileDetails.lisence == 'UDB') {
+                    priceList = $scope.priceListForUDB;
+                } else {
+                    priceList = $scope.priceListForNDB;
+
+                }
+                _.forEach(priceList, function (val) {
                     console.log("density", val.density);
                     var checkRange = _.inRange(data.acreage, val.from, val.to);
                     if (checkRange == true) {
@@ -620,7 +774,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             opened: false
         };
 
-           $scope.popup3 = {
+        $scope.popup3 = {
             opened: false
         };
 
@@ -655,8 +809,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.open2 = function () {
             $scope.popup2.opened = true;
         };
-       
-         $scope.open3 = function () {
+
+        $scope.open3 = function () {
             $scope.popup3.opened = true;
         };
 
@@ -667,8 +821,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.popup2 = {
             opened: false
         };
-        
-          $scope.popup3 = {
+
+        $scope.popup3 = {
             opened: false
         };
     })
@@ -993,8 +1147,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.open2 = function () {
             $scope.popup2.opened = true;
         };
-        
-          $scope.open3 = function () {
+
+        $scope.open3 = function () {
             $scope.popup3.opened = true;
         };
         $scope.popup1 = {
@@ -1004,7 +1158,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.popup2 = {
             opened: false
         };
-        
+
 
         $scope.popup3 = {
             opened: false

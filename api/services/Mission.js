@@ -103,19 +103,19 @@ var model = {
 
     },
     uploadFileToServer: function (imgPath, image, callback) {
-        console.log("inside uploadFileToServer---", global["env"].realHost + '/api/upload/readFile?file=' + image.file);
+        console.log("inside uploadFileToServer---");
         async.waterfall([
+                // function (callback) {
+                //     request(global["env"].realHost + '/api/upload/readFile?file=' + image.file).pipe(fs.createWriteStream(image.file)).on('finish', function (myImg) {
+                //         console.log("imagessssssssssss", myImg);
+                //         callback(null, myImg, image);
+                //     }).on("error", function () {
+                //         callback("Error while reading the file");
+                //     });
+                // },
                 function (callback) {
-                    request(global["env"].realHost + '/api/upload/readFile?file=' + image.file).pipe(fs.createWriteStream(image.file)).on('finish', function (myImg) {
-                        console.log("imagessssssssssss", myImg);
-                        callback(null, myImg, image);
-                    }).on("error", function () {
-                        callback("Error while reading the file");
-                    });
-                },
-                function (myImg, image, callback) {
-                    console.log("image", myImg, image);
-                    var oldPath = path.join(process.cwd(), image.file);
+                    console.log("image", image);
+                    var oldPath = path.join(path.join(process.cwd(), "pix4dUpload"), image.file);
                     var newPath = path.join(imgPath, image.file);
                     fs.rename(oldPath, newPath, function (err) {
                         if (err) {
@@ -138,8 +138,8 @@ var model = {
             });
     },
     pix4dCommandExecution: function (imgPath, name, callback) {
-        var pix4dPath = 'C:/Users/unifli/Documents/pix4d/' + name + '.p4d';
-        // var pix4dPath = 'C:/Users/dell/Documents/pix4d/' + name + '.p4d';
+        // var pix4dPath = 'C:/Users/unifli/Documents/pix4d/' + name + '.p4d';
+        var pix4dPath = 'C:/Users/dell/Documents/pix4d/' + name + '.p4d';
         console.log("inside pix4dCommandExecution", name, imgPath, pix4dPath);
 
         exec('cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -n --image-dir ' + imgPath + ' ' + pix4dPath, {
@@ -148,31 +148,31 @@ var model = {
             if (error) {
                 console.log("\n error inside pix4dCommandExecution", error);
             } else if (stdout) {
-                console.log("stdout inside----c -n---->>>>>>>>>>>> ");
-                if (stdout.includes("from the user database")) {
+                console.log("stdout inside----c -n---->>>>>>>>>>>> ", stdout);
+                if (stdout.includes("database")) {
                     console.log("found------>>>>>>>>>>>", stdout.indexOf("from the user database"));
 
                     async.waterfall([
-                        function runningAllProcessing(callback) {
-                            console.log("inside runningAllProcessing 'cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -r " + pix4dPath);
-                            exec('cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -r ' + pix4dPath, {
-                                maxBuffer: 1024 * 5000
-                            }, function (error, stdout, stderr) {
-                                if (error) {
-                                    console.log("error inside runningAllProcessing--", error);
-                                    callback(error, null)
-                                } else if (stdout) {
-                                    console.log("and its working----stdout");
-                                    callback(null, "done");
-                                } else {
-                                    console.log("stderr", stderr);
-                                    callback(error, null);
-                                }
-                            });
-                        },
+                        // function runningAllProcessing(callback) {
+                        //     console.log("inside runningAllProcessing 'cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -r " + pix4dPath);
+                        //     exec('cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -r ' + pix4dPath, {
+                        //         maxBuffer: 1024 * 5000
+                        //     }, function (error, stdout, stderr) {
+                        //         if (error) {
+                        //             console.log("error inside runningAllProcessing--", error);
+                        //             callback(error, null)
+                        //         } else if (stdout) {
+                        //             console.log("and its working----stdout");
+                        //             callback(null, "done");
+                        //         } else {
+                        //             console.log("stderr", stderr);
+                        //             callback(error, null);
+                        //         }
+                        //     });
+                        // },
 
-                        function initialProcessing(msg, callback) {
-                            console.log("inside initialProcessing--", msg);
+                        function initialProcessing(callback) {
+                            console.log("inside initialProcessing--");
                             exec('cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -i ' + pix4dPath, {
                                 maxBuffer: 1024 * 5000
                             }, function (error, stdout, stderr) {

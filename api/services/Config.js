@@ -9,7 +9,7 @@
 var MaxImageSize = 1600;
 
 
-
+var path = require('path');
 var schema = new Schema({
     name: String,
     content: String,
@@ -151,6 +151,33 @@ var models = {
         }
 
 
+    },
+    moveFile: function (filename, callback) {
+        var id = mongoose.Types.ObjectId();
+        var extension = filename.split(".").pop();
+        extension = extension.toLowerCase();
+        if (extension == "jpeg") {
+            extension = "jpg";
+        }
+        var newFilename = id + "." + extension;
+        var newPath;
+        dir = path.join(process.cwd(), "pix4dUpload");
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir);
+            newPath = path.join(dir, newFilename);
+        } else {
+            newPath = path.join(dir, newFilename);
+        }
+        fs.rename(filename, newPath, function (err) {
+            if (err) {
+                callback(err, null);
+            } else {
+                console.log("folder", newPath);
+                callback(null, {
+                    name: newFilename
+                });
+            }
+        });
     },
     readUploaded: function (filename, width, height, style, res) {
         res.set({
