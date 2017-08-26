@@ -148,7 +148,7 @@ var model = {
             if (error) {
                 console.log("\n error inside pix4dCommandExecution", error);
             } else if (stdout) {
-                console.log("stdout inside----c -n---->>>>>>>>>>>> ", stdout);
+                console.log("stdout inside----c -n---->>>>>>>>>>>> ");
                 if (stdout.includes("from the user database")) {
                     console.log("found------>>>>>>>>>>>", stdout.indexOf("from the user database"));
 
@@ -162,7 +162,7 @@ var model = {
                                     console.log("error inside runningAllProcessing--", error);
                                     callback(error, null)
                                 } else if (stdout) {
-                                    console.log("stdout", stdout);
+                                    console.log("and its working----stdout");
                                     callback(null, "done");
                                 } else {
                                     console.log("stderr", stderr);
@@ -180,7 +180,7 @@ var model = {
                                     console.log("error inside initialProcessing--", error);
                                     callback(error, null)
                                 } else if (stdout) {
-                                    console.log("stdout", stdout);
+                                    console.log("initialProcessing---stdout");
                                     callback(null, "done");
                                 } else {
                                     console.log("stderr", stderr);
@@ -197,7 +197,7 @@ var model = {
                                     console.log("error inside pointCloud---", error);
                                     callback(error, null)
                                 } else if (stdout) {
-                                    console.log("stdout", stdout);
+                                    console.log("pointCloud----stdout");
                                     callback(null, "done");
                                 } else {
                                     console.log("stderr", stderr);
@@ -214,7 +214,7 @@ var model = {
                                     console.log("error inside orthomosaic---", error);
                                     callback(error, null)
                                 } else if (stdout) {
-                                    console.log("stdout", stdout);
+                                    console.log("orthomosaic-----stdout");
                                     callback(null, "done");
                                 } else {
                                     console.log("stderr", stderr);
