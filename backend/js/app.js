@@ -1217,7 +1217,7 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
                 locations.lowerRight.reverse()
             ]);
             var latlngs;
-            if ($scope.cadLineDetails) {
+            if ($scope.cadLineDetails && !_.isEmpty($scope.cadLineDetails.points)) {
                 latlngs = [
                     $scope.cadLineDetails.points[0]
                 ];
@@ -1236,7 +1236,7 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
             var overlay = L.imageOverlay(imageUrl, imageBounds)
                 .addTo(map);
             var polygon;
-            if ($scope.cadLineDetails) {
+            if ($scope.cadLineDetails && !_.isEmpty($scope.cadLineDetails.points)) {
                 polygon = L.polygon(latlngs, {
                     color: 'red'
                 }).addTo(map);
@@ -1295,8 +1295,10 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
                 console.log("area--", area);
                 acres = area * 0.000247105381;
                 console.log("acres--", acres);
-                $scope.cadLineDetails.acreage = acres;
-                $scope.cadLineDetails.points = e.layer._latlngs;
+                if ($scope.cadLineDetails) {
+                    $scope.cadLineDetails.acreage = acres;
+                    $scope.cadLineDetails.points = e.layer._latlngs;
+                }
                 var mapmodal = $uibModal.open({
                     animation: $scope.animationsEnabled,
                     templateUrl: '/backend/views/modal/cadline-name.html',
