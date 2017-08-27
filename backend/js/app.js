@@ -1202,9 +1202,9 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
             // };
             var imageUrl;
             if ($scope.missionDetails && $scope.missionDetails.name) {
-                imageUrl = 'http://localhost:1337/' + $scope.missionDetails.name + '.png';
+                imageUrl = 'http://35.194.160.101:80/' + $scope.missionDetails.name + '.png';
             } else {
-                imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.name + '.png';
+                imageUrl = 'http://35.194.160.101:80/' + $scope.cadLineDetails.name + '.png';
             }
             // This is the trickiest part - you'll need accurate coordinates for the
             // corners of the image. You can find and create appropriate values at
