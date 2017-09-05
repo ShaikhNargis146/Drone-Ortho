@@ -1,129 +1,168 @@
-<div class="container">
-    <div id='map' class="map-box"></div>
-    <div class='calculation-box'>
-        <p>Draw a polygon using the draw tools.</p>
-        <div id='calculate' class='button button'>Calculate area</div>
-        <div id='calculated-area'></div>
-    </div>
-</div>
+<div class="page-container">
 
-<div class="page-container padd40">
-    <div class="row">
-        <div class="col-sm-3">
-            <div class="xe-widget xe-counter">
-                <div class="xe-label text-center">
-                    <strong class="num">05</strong>
-                    <span>Total Mission Created</span>
+
+
+    <!-- Start page content wrapper -->
+    <div class="page-content-wrapper animated fadeInRight  ">
+        <div class="page-content">
+            <div class="wrapper-content ">
+                <div class="row">
+                    <!-- begin col-3 -->
+                    <div class="col-md-3 col-sm-6">
+                        <div class="widget widget-stats red-bg">
+                            <div class="stats-icon stats-icon-lg"><i class="fa fa-diamond fa-fw"></i></div>
+                            <div class="stats-title">TOTAL MISSIONS</div>
+                            <div class="stats-number">152</div>
+                            <div class="stats-progress progress">
+                                <div style="width: 70.1%;" class="progress-bar"></div>
+                            </div>
+                            <div class="stats-desc">Better than last week (70.1%)</div>
+                        </div>
+                    </div>
+                    <!-- end col-3 -->
+                    <!-- begin col-3 -->
+                    <div class="col-md-3 col-sm-6 mtop15">
+                        <div class="widget widget-stats aqua-bg ">
+                            <div class="stats-icon stats-icon-lg"><i class="fa fa-picture-o fa-fw"></i></div>
+                            <div class="stats-title">TOTAL CAD FILE REQUESTED</div>
+                            <div class="stats-number">230</div>
+                            <div class="stats-progress progress">
+                                <div style="width: 40.5%;" class="progress-bar"></div>
+                            </div>
+                            <div class="stats-desc">Better than last week (40.5%)</div>
+                        </div>
+                    </div>
+                    <!-- end col-3 -->
+                    <!-- begin col-3 -->
+                    <div class="col-md-3 col-sm-6 mtop15">
+                        <div class="widget widget-stats purple-bg">
+                            <div class="stats-icon stats-icon-lg"><i class="fa fa-sliders fa-fw"></i></div>
+                            <div class="stats-title">DFM STATUS</div>
+                            <div class="stats-number" style="color:#8e44ad">000</div>
+                            <div class="stats-progress progress">
+                                <!-- <div style="width: 76.3%;" class="progress-bar"></div>-->
+                            </div>
+                            <div class="stats-desc">Active</div>
+                        </div>
+                    </div>
+                    <!-- end col-3 -->
+                    <!-- begin col-3 -->
+                    <div class="col-md-3 col-sm-6 mtop15">
+                        <div class="widget widget-stats black-bg">
+                            <div class="stats-icon stats-icon-lg"><i class="fa fa-calendar-times-o fa-fw"></i></div>
+                            <div class="stats-title">DFM EXPIRATION DATE</div>
+                            <div class="stats-number" style="color:#2f353b">000</div>
+                            <div class="stats-progress progress">
+                                <!--<div style="width: 54.9%;" class="progress-bar"></div>-->
+                            </div>
+                            <div class="stats-desc">08/22/2019</div>
+                        </div>
+                    </div>
+                    <!-- end col-3 -->
                 </div>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="xe-widget xe-counter">
-                <div class="xe-label text-center">
-                    <strong class="num">02</strong>
-                    <span>Total CAD Requests</span>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="xe-widget xe-counter">
-                <div class="xe-label text-center">
-                    <strong class="num">21</strong>
-                    <span>DFM Subscription Days Left</span>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="xe-widget xe-counter">
-                <div class="xe-label text-center">
-                    <strong class="num">00</strong>
-                    <span>Pending CAD Request</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Total Amount Spent</h3>
-                    <button ng-click="addSeries()">Add Series</button>
-                    <highchart id="chart1" config="chartConfig" class="span10"></highchart>
-                </div>
-                <div class="panel-body">
-                    <div id="bar-1"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Missions Created</h3>
-                </div>
-                <div class="panel-body">
-                    <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">CAD Linework Requested/Completed</h3>
-                </div>
-                <div class="panel-body">
-                    <div id="bar-3"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Tickets Rised/Solved</h3>
-                </div>
-                <div class="panel-body">
-                    <div id="bar-4"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Total Amount Spent</h3>
-                </div>
-                <div class="panel-body">
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">CAD Linework Requested/Completed</h3>
-                </div>
-                <div class="panel-body">
-                    <div id="bar-3"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Tickets Rised/Solved</h3>
-                </div>
-                <div class="panel-body">
-                    <div id="bar-4"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Total Amount Spent</h3>
-                </div>
-                <div class="panel-body">
+                <div class="row top20">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>Orders</h5>
+                                <!--<div class="pull-right">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-xs btn-white active">Today</button>
+                                            <button type="button" class="btn btn-xs btn-white">Monthly</button>
+                                            <button type="button" class="btn btn-xs btn-white">Annual</button>
+                                        </div>
+                                    </div>-->
+                            </div>
+                            <div class="ibox-content collapse in">
+                                <div>
+                                    <div class="widgets-container">
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <div class="flot-chart-box" ng-controller="DashboardCtrl as chart">
+                                                    <div id="flot-dashboard-chart" flot class="demo-placeholder flot-chart-content" dataset="chart.flotData" options="chart.flotOptions"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <ul class="stat-list">
+                                                    <li>
+                                                        <h2 class="no-margins">9,888</h2>
+                                                        <small>Total CAD Orders in AUG</small>
+                                                        <div class="stat-percent">58% <i class="fa fa-level-up text-navy"></i></div>
+                                                        <div class="progress progress-mini">
+                                                            <div class="progress-bar" style="width: 58%;"></div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <h2 class="no-margins">7,666</h2>
+                                                        <small>Total CAD Orders in SEPT</small>
+                                                        <div class="stat-percent">48% <i class="fa fa-level-up text-navy"></i></div>
+                                                        <div class="progress progress-mini">
+                                                            <div class="progress-bar" style="width: 48%;"></div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <h2 class="no-margins ">4,422</h2>
+                                                        <small>Total CAD Orders in OCT</small>
+                                                        <div class="stat-percent">60% <i class="fa fa-level-down text-navy"></i></div>
+                                                        <div class="progress progress-mini">
+                                                            <div class="progress-bar" style="width: 60%;"></div>
+                                                        </div>
+                                                    </li>
+                                                    <!--<li>
+                                                            <h2 class="no-margins ">9,180</h2>
+                                                            <small>Monthly income from orders</small>
+                                                            <div class="stat-percent">22% <i class="fa fa-bolt text-navy"></i></div>
+                                                            <div class="progress progress-mini">
+                                                                <div class="progress-bar" style="width: 22%;"></div>
+                                                            </div>
+                                                        </li>-->
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>Usage Statistics</h5>
+                                <div class="ibox-tools"> <a class="btn green btn-xs" href=""> 31-Jan-2017</a> </div>
+                            </div>
+                            <div class="ibox-content collapse in" id="demo4">
+                                <div class="demo-container">
+                                    <div class="demo-placeholder" donut-chart donut-data='[
+										    {label: "Total Missions", value: 12},
+										    {label: "Total CAD Requested",value: 30},
+										    {label: "Total Amount Paid", value: 20}
+										]' donut-colors='["#83decc","#49b6d6","#98a0d3"]'>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <!-- Start feed -->
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h1>Do you want to upgrade your DFM or buy a Drone?</h1>
+                                <!-- ibox-tools -->
+                                <div class="col-lg-12" style="padding-left:60px; padding-top:30px ; padding-bottom:50px">
+                                    <button class="btn  green btn-outline " ui-sref="product_detail"> Click to upgrade DFM or buy a Drone</button>
+                                </div>
+
+                            </div>
+
+
+
+
+
+                            <!-- End feed -->
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>

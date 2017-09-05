@@ -20,186 +20,102 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
     // for http request with session
     $httpProvider.defaults.withCredentials = true;
     $stateProvider
-
         .state('dashboard', {
             url: "/dashboard",
             templateUrl: "views/template.html",
             controller: 'DashboardCtrl',
         })
-        .state('mission', {
-            url: "/mission",
+        .state('ticket-history', {
+            url: "/ticket-history",
             templateUrl: "views/template.html",
-            controller: 'missionCtrl',
-        })
-        .state('createmission', {
-            url: "/createmission",
-            templateUrl: "views/template.html",
-            controller: 'createmissionCtrl',
-        })
-        .state('missionanalyze', {
-            url: "/missionanalyze/:missionId",
-            templateUrl: "views/template.html",
-            controller: 'missionanalyzeCtrl',
-        })
-        .state('missiondetail', {
-            url: "/missiondetail/:missionId",
-            templateUrl: "views/template.html",
-            controller: 'missiondetailCtrl'
-        })
-        .state('cadlineworkapp', {
-            url: "/cadlineworkapp",
-            templateUrl: "views/template.html",
-            controller: 'CadlineworkappCtrl',
-        })
-        .state('dfmsubscription', {
-            url: "/dfmsubscription",
-            templateUrl: "views/template.html",
-            controller: 'Dfmsubscription',
-        })
-        //  .state('missiondetail', {
-        //     url: "/missiondetail",
-        //     templateUrl: "views/template.html",
-        //     controller: 'MissiondetailCtrl',
-        // })
-        .state('login', {
-            url: "/login",
-            templateUrl: "views/login.html",
-            controller: 'LoginCtrl'
-        })
-
-        .state('page', {
-            url: "/page/:id/{page:.*}/{keyword:.*}",
-            templateUrl: "views/template.html",
-            controller: 'PageJsonCtrl'
-        })
-
-        .state('loginapp', {
-            url: "/login/:id",
-            templateUrl: "views/login.html",
-            controller: 'LoginCtrl'
-        })
-
-        .state('country-list', {
-            url: "/country-list/{page:.*}/{keyword:.*}",
-            templateUrl: "views/template.html",
-            controller: 'CountryCtrl',
-            params: {
-                page: "1",
-                keyword: ""
-            }
-        })
-
-        .state('createcountry', {
-            url: "/country-create",
-            templateUrl: "views/template.html",
-            controller: 'CreateCountryCtrl'
-        })
-
-        .state('editcountry', {
-            url: "/country-edit/:id",
-            templateUrl: "views/template.html",
-            controller: 'EditCountryCtrl'
-        })
-
-        .state('schema-creator', {
-            url: "/schema-creator",
-            templateUrl: "views/template.html",
-            controller: 'SchemaCreatorCtrl'
-        })
-
-        .state('excel-upload', {
-            url: "/excel-upload/:model",
-            templateUrl: "views/template.html",
-            controller: 'ExcelUploadCtrl'
-        })
-
-        .state('jagz', {
-            url: "/jagz",
-            templateUrl: "views/jagz.html",
-            controller: 'JagzCtrl'
-        })
-
-        .state('profile', {
-            url: "/profile",
-            templateUrl: "views/template.html",
-            controller: 'ProfileCtrl'
-        })
-        .state('cadlinemap', {
-            url: "/cadlinemap/:cadId",
-            templateUrl: "views/template.html",
-            controller: 'MapCtrl'
-        })
-        .state('request', {
-            url: "/request/:workType",
-            templateUrl: "views/template.html",
-            controller: 'RequestCtrl'
-        })
-        .state('insidecad', {
-            url: "/insidecad",
-            templateUrl: "views/template.html",
-            controller: 'InsidecadCtrl'
-        })
-        .state('invoicingreceipts', {
-            url: "/invoicingreceipts",
-            templateUrl: "views/template.html",
-            controller: 'InvoicingreceiptsCtrl'
+            controller: 'TicketHistoryCtrl',
         })
         .state('support', {
             url: "/support",
             templateUrl: "views/template.html",
-            controller: 'SupportCtrl'
+            controller: 'SupportCtrl',
         })
-        .state('raise-ticket', {
-            url: "/raiseticket",
+        .state('product-detail', {
+            url: "/product-detail",
             templateUrl: "views/template.html",
-            controller: 'Raise-ticketCtrl'
+            controller: 'ProductDetailCtrl',
         })
-        .state('adminuser', {
-            url: "/adminuser",
-            templateUrl: "views/template.html",
-            controller: 'AdminuserCtrl'
-        })
-        .state('dfm-subscription', {
-            url: "/dfmsubscription",
-            templateUrl: "views/template.html",
-            controller: 'Dfm-subscriptionCtrl'
-        })
-        .state('dronsale', {
-            url: "/dronsale",
-            templateUrl: "views/template.html",
-            controller: 'DronsaleCtrl'
-        })
-        .state('insidedronsale', {
-            url: "/insidedronsale",
-            templateUrl: "views/template.html",
-            controller: 'InsidedronsaleCtrl'
-        })
-        .state('setting', {
-            url: "/setting",
-            templateUrl: "views/template.html",
-            controller: 'SettingCtrl'
-        })
-        .state('billing', {
-            url: "/billing",
-            templateUrl: "views/template.html",
-            controller: 'BillingCtrl'
-        })
-        .state('billinginside', {
-            url: "/billinginside",
-            templateUrl: "views/template.html",
-            controller: 'BillinginsideCtrl'
-        })
-        .state('account', {
-            url: "/account",
-            templateUrl: "views/template.html",
-            controller: 'AccountCtrl'
-        })
-        .state('useraccount', {
-            url: "/useraccount",
-            templateUrl: "views/template.html",
-            controller: 'UseraccountCtrl'
-        });
 
+        .state('missions', {
+            url: "/missions",
+            templateUrl: "views/template.html",
+            controller: 'MissionsCtrl',
+        })
+        .state('mission-details', {
+            url: "/mission-details",
+            templateUrl: "views/template.html",
+            controller: 'MissionsDetailsCtrl'
+        })
+        .state('mail-detail', {
+            url: "/mail-detail",
+            templateUrl: "views/template.html",
+            controller: 'MailDetailCtrl'
+        })
+        .state('mail-compose', {
+            url: "/mail-compose",
+            templateUrl: "views/template.html",
+            controller: 'MailComposeCtrl'
+        })
+        .state('lightbox-gallery', {
+            url: "/lightbox-gallery",
+            templateUrl: "views/template.html",
+            controller: 'LightboxGalleryCtrl'
+        })
+        .state('lightbox-gallery2', {
+            url: "/lightbox-gallery2",
+            templateUrl: "views/template.html",
+            controller: 'LightboxGallery2Ctrl'
+        })
+        .state('issue-tracker', {
+            url: "/issue-tracker",
+            templateUrl: "views/template.html",
+            controller: 'IssueTrackerCtrl'
+        })
+        .state('invoice-view', {
+            url: "/invoice-view",
+            templateUrl: "views/template.html",
+            controller: 'InvoiceViewCtrl'
+        })
+        .state('invoice', {
+            url: "/invoice",
+            templateUrl: "views/template.html",
+            controller: 'InvoiceCtrl'
+        })
+        .state('forgot-password', {
+            url: "/forgot-password",
+            templateUrl: "views/template.html",
+            controller: 'ForgotPasswordCtrl'
+        })
+        .state('create-mission', {
+            url: "/create-mission",
+            templateUrl: "views/template.html",
+            controller: 'CreatemissionCtrl',
+        })
+        .state('cadfile-details', {
+            url: "/cadfile-details",
+            templateUrl: "views/template.html",
+            controller: 'CadfileDetailsCtrl',
+        })
+        .state('acc-and-sub', {
+            url: "/acc-and-sub",
+            templateUrl: "views/template.html",
+            controller: 'AccandSubCtrl',
+        })
+        .state('500', {
+            url: "/500",
+            templateUrl: "views/template.html",
+            controller: '500Ctrl',
+        })
+        .state('404', {
+            url: "/404",
+            templateUrl: "views/template.html",
+            controller: '404Ctrl',
+        })
 
     $urlRouterProvider.otherwise("/dashboard");
     $locationProvider.html5Mode(isproduction);

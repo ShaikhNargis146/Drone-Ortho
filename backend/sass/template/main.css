@@ -114,6 +114,7 @@ a {
     cursor: pointer;
 }
 
+
 /* Scroll bar Styling */
 
 .slimScrollDiv {
@@ -451,7 +452,8 @@ header.side-header.light-skin {
     /*line-height: 24px;*/
     line-height: 15px;
 }
-.side-header.light-skin .side-menus nav>ul>li>a:hover{
+
+.side-header.light-skin .side-menus nav>ul>li>a:hover {
     color: black;
 }
 
@@ -766,7 +768,7 @@ header.side-header.light-skin {
     float: left;
     /*padding: 106px 45px 110px 265px;*/
     /*padding: 70px 0px 110px 350px;*/
-    padding: 140px 0px 110px 0px;
+    padding: 50px 0px 0 0px;
     width: 100%;
     -webkit-transition: all 0.4s ease 0s;
     -moz-transition: all 0.4s ease 0s;
@@ -10214,7 +10216,7 @@ footer li {
 
 .border-bottom {
     border-bottom: 1px solid rgba(128, 128, 128, 0.07);
-    width: 310px;
+    /*width: 310px;*/
 }
 
 .creat-an-account>ul>li>a>i.fa-facebook {

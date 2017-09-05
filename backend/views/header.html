@@ -1,93 +1,112 @@
-<div class="top-bar ">
-    <div class="logo">
-        <!--<a ui-sref="dashboard" title="Absolute"><img src="../backend/img/logo.png" alt="Absolute" height="40"></a>-->
-        <div class="menu-options active"><span class="menu-action"><i></i></span>
+<div class="page-header navbar navbar-fixed-top">
+    <!-- BEGIN HEADER INNER -->
+    <div class="page-header-inner ">
+        <!-- BEGIN LOGO -->
+        <div class="page-logo">
+            <a href="#/dashboard"> <img class="logo-default" alt="logo" src="img/logo.png"> </a>
         </div>
-    </div>
-    <div class="quick-links">
-        <!--<ul>
-            <li>
-                <a title="Logout" class="show-stats red-skin" ui-sref="login" tooltip-placement="left" uib-tooltip="Logout"><i class="fa fa-power-off"></i></a>
-            </li>
-        </ul>-->
-        <ul class="user-info-menu right-links list-inline list-unstyled marg-l">
-            <li class="search-form">
-                <div>
-                    <!-- You can add "always-visible" to show make the search input visible -->
-                    <form name="userinfo_search_form" ng-init="showSearch=false">
-                        <input type="text" name="s" class="form-control search-field" placeholder="Type to search..." ng-show="showSearch" />
-                        <button type="submit" class="btn btn-link my-link" ng-click="showSearch=!showSearch">
-								<!--<i class="linecons-search"></i>-->
-                                <i class="fa fa-search linecons-search"></i>
-							</button>
-                    </form>
-                </div>
-            </li>
-            <li class="dropdown user-profile  ">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <img src="http://themes.laborator.co/xenon/assets/images/user-4.png" alt="user-image" class="img-circle img-inline userpic-32"
-                        width="28" />
-                    <span>
-								{{template.profile.name}}
-								<i class="fa-angle-down"></i>
-							</span>
-                </a>
-                <ul class="dropdown-menu user-profile-menu list-unstyled">
-                    <li class="">
-                        <a ui-sref="profile">
-                            <i class="fa-user"></i> Profile
-                        </a>
+        <!-- END LOGO -->
+        <div class="library-menu"> <span class="one">-</span> <span class="two">-</span> <span class="three">-</span> </div>
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <div class="top-menu">
+            <ul class="nav navbar-nav pull-right">
+                <!-- <li class="dropdown">
+                        <a href="javascript;" data-toggle="dropdown" class="dropdown-toggle count-info"> <i class="fa fa-envelope"></i> <span class="badge badge-info">6</span> </a>
+                        <ul class="dropdown-menu dropdown-messages menuBig">
+                            <li>
+                                <div class="dropdown-messages-box">
+                                    <a class="pull-left" href="#/profile"> <img src="images/teem/placeholders.jpg" class="img-circle" alt="image"> </a>
+                                    <div class="media-body"> <small class="pull-right">46h ago</small> <strong>Mike Loreipsum</strong> started following <strong>Olivia Wenscombe</strong>.
+                                        <br>
+                                        <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small> </div>
+                                </div>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <div class="dropdown-messages-box">
+                                    <a class="pull-left" href="#/profile"> <img src="images/teem/placeholders.jpg" class="img-circle" alt="image"> </a>
+                                    <div class="media-body "> <small class="pull-right text-navy">5h ago</small> <strong>Alex Smith </strong> started following <strong>Olivia Wenscombe</strong>.
+                                        <br>
+                                        <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small> </div>
+                                </div>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <div class="dropdown-messages-box">
+                                    <a class="pull-left" href="#/profile"> <img src="images/teem/placeholders.jpg" class="img-circle" alt="image"> </a>
+                                    <div class="media-body "> <small class="pull-right">23h ago</small> <strong>Olivia Wenscombe</strong> love <strong>Sophie </strong>. <br>
+                                        <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small> </div>
+                                </div>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <div class="text-center link-block">
+                                    <a href="#/mailbox"> <i class="fa fa-envelope"></i> <strong>Read All Messages</strong> </a>
+                                </div>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="">
-                        <a ui-sref="useraccount">
-                            <i class="fa-credit-card"></i> Account
-                        </a>
-                    </li>
-                    <li class="last">
-                        <a ui-sref="useraccount">
-                            <i class="fa-lock"></i> Logout
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+                    <li class="dropdown">
+                        <a href="javascript;" data-toggle="dropdown" class="dropdown-toggle count-info"> <i class="fa fa-bell"></i> <span class="badge badge-primary">8</span> </a>
+                        <ul class="dropdown-menu dropdown-alerts menuBig">
+                            <li>
+                                <a href="#/mailbox">
+                                    <div> <i class="fa fa-envelope fa-fw"></i> You have 16 messages <span class="pull-right text-muted small">4 minutes ago</span>                                      </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#/profile">
+                                    <div> <i class="fa fa-twitter fa-fw"></i> 3 New Followers <span class="pull-right text-muted small">12 minutes ago</span>                                       </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="grid_options.html">
+                                    <div> <i class="fa fa-upload fa-fw"></i> Server Rebooted <span class="pull-right text-muted small">4 minutes ago</span>                                     </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <div class="text-center link-block">
+                                    <a href="#/mailbox"> <strong>See All Alerts</strong> <i class="fa fa-angle-right"></i> </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>-->
+                <!-- START USER LOGIN DROPDOWN -->
+                <li class="dropdown dropdown-user">
+                    <a data-close-others="true" data-hover="dropdown" data-toggle="dropdown" class="dropdown-toggle" href="javascript:;"> <img src="img/teem/placeholders.jpg" class="img-circle" alt=""> <span class="username username-hide-on-mobile"> Susan Wenscombe</span>                           <i class="fa fa-angle-down"></i> </a>
+                    <ul class="dropdown-menu dropdown-menu-default">
+                        <li>
+                            <a href="#/acc_and_sub"> <i class="icon-user"></i> My Profile </a>
+                        </li>
+                        <!--<li>
+                                <a href="#/profile_2"> <i class="icon-user"></i> My Profile 2 </a>
+                            </li>
+                            <li>
+                                <a href="#/calendar"> <i class="icon-calendar"></i> My Calendar </a>
+                            </li>
+                            <li>
+                                <a href="#/mailbox"> <i class="icon-envelope-open"></i> My Inbox <span class="badge badge-danger"> 3 </span> </a>
+                            </li>
+                            <li>
+                                <a href="#/dashboard2"> <i class="icon-rocket"></i> My Tasks <span class="badge badge-success"> 7 </span> </a>
+                            </li>
+                            <li class="divider"> </li>
+                            <li>
+                                <a href="#/lockscreen"> <i class="icon-lock"></i> Lock Screen </a>
+                            </li>-->
+                        <li>
+                            <a href="#/login"> <i class="icon-key"></i> Log Out </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- END USER LOGIN DROPDOWN -->
+            </ul>
+        </div>
+        <!-- END TOP NAVIGATION MENU -->
     </div>
-    <div class="margin-l">
-        <ul class="list-inline list-style">
-            <li class="">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <i class="fa fa-envelope-o" aria-hidden="true"></i><span class="badge badge-green">15</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-bell-o" aria-hidden="true"></i>
-                    <span class="badge badge-purpal">15</span></a>
-            </li>
-        </ul>
-    </div>
+    <!-- END HEADER INNER -->
 </div>
-<!-- Top Bar -->
-<header class="side-header light-skin opened-menu">
-    <div class="admin-details">
-        <span>            <img ng-src="{{template.profile.photo|serverimage:80:80}}" alt="" /></span>
-        <h3 style="text-transform: capitalize;">{{template.profile.name}}</h3>
-        <i></i>
-    </div>
-    <div class="sidebar-user-info-inner">
-        <div class="padd120">
-            <!--<div class="mar-tt">-->
-            <!--<a href="#" class="user-profile">
-                    <img src="http://themes.laborator.co/xenon/assets/images/user-4.png" width="60" height="60" class="img-circle img-corona"
-                        alt="user-pic">
-                    <span> <strong>{{template.profile.name}}</strong><br> </span> </a>-->
-            <!--</div>-->
-        </div>
-        <div class="menu-scroll">
-            <div class="side-menus">
-                <!--<span>MAIN LINKS</span>-->
-                <nav ng-include="template.menu"></nav>
-            </div>
-        </div>
-    </div>
-    <!-- Menu Scroll -->
-</header>
+<div class="clearfix"> </div>

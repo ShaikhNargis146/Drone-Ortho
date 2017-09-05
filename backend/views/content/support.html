@@ -1,221 +1,178 @@
-<div class="page-container">
-    <div class="page-title">
-        <div class="title-env">
-            <h1 class="title padd-b20">Support Raise a Ticket</h1>
+<div class="page-container ">
+  <!-- Start page content wrapper -->
+  <div class="page-content-wrapper animated fadeInRight  ">
+    <div class="page-content">
+      <div class="row wrapper border-bottom page-heading">
+        <div class="col-lg-12">
+          <h2>  Support </h2>
+          <ol class="breadcrumb">
+            <li> <a href="#/dashboard1">Home</a> </li>
+            <li> <a> Support</a> </li>
+            <li class="active"> <strong> Support</strong> </li>
+          </ol>
         </div>
-    </div>
-    <!-- Responsive Table -->
-    <div class="row">
-        <div class="col-md-12">
-            <div class="padd40">
-                <div class="panel panel-default padd40">
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <section class="search-env">
-                                    <form method="get" action="" enctype="application/x-www-form-urlencoded">
-                                        <input type="text" class="form-control input-lg" placeholder="Search..." name="s" />
-                                        <button type="submit" class="btn-unstyled btn-search">
-								<!--<i class="linecons-search"></i>-->
-                                  <i class="fa fa-search" aria-hidden="true"></i>
-                                      </button>
-                                    </form>
-                                </section>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3 ">
-                                <p class="input-group">
-                                    <input type="text" class="form-control" placeholder="From Date" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened"
-                                        datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats">
-                                    <span class="input-group-btn">
-            <button type="button" class="btn btn-default btn-gray" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
-          </span>
-                                </p>
-                            </div>
-                            <div class="col-md-3">
-                                <p class="input-group">
-                                    <input type="text" class="form-control" placeholder="To Date" uib-datepicker-popup ng-model="dt2" is-open="popup2.opened"
-                                        datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"
-                                    />
-                                    <span class="input-group-btn">
-            <button type="button" class="btn btn-default btn-gray" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
-                                   </span>
-                                </p>
-                            </div>
-                            <div class="col-md-3 ">
-                                <div class="form-group">
-                                    <select class="form-control">
-                                            <option>Select Status</option>
-                                            <option>Replied</option>
-                                            <option>Resolved</option>
-                                            <option>In Process</option>
-                                            <option>Closed</option>
-                                            <option>No Reply</option>
-                                            </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3 ">
-
-                                <div class="pull-right">
-                                    <a ui-sref="raise-ticket">
-                                        <button class="btn  ng-binding ng-scope btn-success" data-toggle="popover" data-trigger="hover" ui-sref="request({workType:'external'})"
-                                            data-original-title="Create CadLineWork">Raise a Ticket</button>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="  overflow: scroll;">
-                            <table cellspacing="0" class="table table-small-font table-bordered table-striped">
-                                <thead style="white-space:nowrap;">
-                                    <tr>
-                                        <th>Tickets ID</th>
-                                        <th data-priority="1">Ticket Details</th>
-                                        <th data-priority="3">Date of Receipt</th>
-                                        <th data-priority="1">Ticket Raised For</th>
-                                        <th data-priority="1">User ID</th>
-                                        <th data-priority="1">Tickets Status</th>
-                                        <th data-priority="1">Ticket Closing Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody style="white-space:nowrap;">
-                                    <tr>
-                                        <td>
-                                            <a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class=" id-underline">T-105</a>
-                                        </td>
-                                        <td>_____</td>
-                                        <td>9/06/2016</td>
-                                        <td>Drone</td>
-                                        <td>90620</td>
-                                        <td>Replied</td>
-                                        <td>9/06/2016</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class=" id-underline">T-106</a>
-                                        </td>
-                                        <td>_____</td>
-                                        <td>3/06/2016</td>
-                                        <td>DFM Subsription</td>
-                                        <td>90620</td>
-                                        <td>Resolved</td>
-                                        <td>9/06/2016</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class=" id-underline">T-107</a>
-                                        </td>
-                                        <td>_____</td>
-                                        <td>1/06/2016</td>
-                                        <td>Drone</td>
-                                        <td>90620</td>
-                                        <td>In Process</td>
-                                        <td>9/06/2016</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class=" id-underline">T-108</a>
-                                        </td>
-                                        <td>_____</td>
-                                        <td>28/05/2016</td>
-                                        <td>CAD Linework</td>
-                                        <td>90620</td>
-                                        <td>Closed</td>
-                                        <td>9/06/2016</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class=" id-underline">T-109</a>
-                                        </td>
-                                        <td>_____</td>
-                                        <td>25/08/2016</td>
-                                        <td>CAD Linework</td>
-                                        <td>90620</td>
-                                        <td>No Reply</td>
-                                        <td>9/06/2016</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class=" id-underline">T-110</a>
-                                        </td>
-                                        <td>_____</td>
-                                        <td>22/08/2016</td>
-                                        <td>DFM Subsription</td>
-                                        <td>90620</td>
-                                        <td>Replied</td>
-                                        <td>9/06/2016</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="modal fade custom-width" id="modal-6">
-                            <div class="modal-dialog" style="width: 60%;">
-                                <div class="modal-content">
-
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title">T-105</h4>
-                                    </div>
-
-                                    <div class="modal-body">
-                                        <div class="chat-box">
-                                            <ul class="list-unstyled">
-                                                <li class="me">
-                                                    <span>Hello!</span>
-                                                    <span class="date">12 September, 2016 05:00pm</span>
-                                                </li>
-                                                <li>
-                                                    <span>Hello!</span>
-                                                    <span class="date">12 September, 2016 05:00pm</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <div class="row">
-                                            <!--<div class="col-md-4">
-                                                    <select class="form-control">
-                                                    <option value="">Mark As:</option>
-                                                    <option value="Replied">Replied</option>
-                                                    <option value="In Process">In Process</option>
-                                                    <option value="No Reply">No Reply</option>
-                                                    <option value="Closed">Closed</option>
-                                                </select>
-                                                </div>-->
-                                            <div class="col-md-12">
-                                                <div class="input-group">
-                                                    <textarea class="form-control no-right-border form-focus-info" placeholder="Type message here..."></textarea>
-
-                                                    <span class="input-group-btn"> <button class="btn btn-info btn1" type="button"><i class="fa fa-paper-plane"></i></button> </span>
-                                                </div>
-                                                <div class="btn2 "><span class="input-group-btn"> <button class="btn btn-info " type="button">Submit</button> </span>
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="paddt20">
-                        <ul class="pagination">
-                            <li><a href="#">Previous</a></li>
-                            <li><a href="#">1</a></li>
-                            <li class="active"><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li class="disabled"><a href="#">4</a></li>
-                            <li><a href="#">Next</a></li>
-                        </ul>
-                    </div>
+      </div>
+      <div class="wrapper-content ">
+        <div class="row">
+          <div class="col-lg-12">
+		  <div class="full-width container"> 
+					<button class="btn green pull-right" ui-sref="mail_compose"><span class="fa fa-envelope-o"></span>&nbsp;&nbsp; Raise a Ticket</button>
+				</div>
+            <div class="ibox float-e-margins">
+              <!--<div class="ibox-title">
+                <h5>Missions</h5>
+              </div>-->
+			  
+				
+              <div class="ibox-content collapse in" ng-controller="datatablesCtrl">
+				
+			  
+                <div class="widgets-container">
+				
+                  <div >
+                    <table datatable="" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
+                      <thead>
+                        <tr>
+						  <th>Ticket ID</th>
+						  <th>Date</th>
+                          <th>Raised for</th>
+                          <th>Description</th>
+						  <th>Status</th>
+                          <th>Closing Date</th>
+                        </tr>
+                      </thead>
+                     
+                      <tbody>
+                        <tr>
+                          <td><a ui-sref="ticket_history">#_1</a></td>
+						  <td><a ui-sref="ticket_history">08/20/2017</a></td>
+                          <td><a ui-sref="ticket_history">ticket_1</a></td>
+                          <td><a ui-sref="ticket_history">India</a></td>
+						  <td><a ui-sref="ticket_history">Inactive</a></td>
+						  <td><a ui-sref="ticket_history">08/23/2017</a></td>
+                          
+                        </tr>
+                        <tr>
+                          <td><a ui-sref="ticket_history">#_2</a></td>
+						  <td><a ui-sref="ticket_history">08/20/2017</a></td>
+                          <td><a ui-sref="ticket_history">ticket_2</a></td>
+                          <td><a ui-sref="ticket_history">India</a></td>
+						  <td><a ui-sref="ticket_history">Active</a></td>
+                          <td><a ui-sref="ticket_history">08/24/2017
+                          
+                        </tr>
+                        <tr>
+                          <td><a ui-sref="ticket_history">#_3</a></td>
+						  <td><a ui-sref="ticket_history">08/20/2017</a></td>
+                          <td><a ui-sref="ticket_history">ticket_3</a></td>
+                          <td><a ui-sref="ticket_history">London</a></td>
+						  <td><a ui-sref="ticket_history">Inactive</a></td>
+                          <td><a ui-sref="ticket_history">08/25/2017</a></td>
+                          
+                        </tr>
+                        <tr>
+                          <td><a ui-sref="ticket_history">#_4</a></td>
+						  <td><a ui-sref="ticket_history">08/20/2017</a></td>
+                          <td><a ui-sref="ticket_history">ticket_4</a></td>
+                          <td><a ui-sref="ticket_history">India</a></td>
+						  <td><a ui-sref="ticket_history">Inactive</a></td>
+                          <td><a ui-sref="ticket_history">08/26/2017</a></td>
+                          
+                          
+                        </tr>
+                        <tr>
+                          <td><a ui-sref="ticket_history">#_5</a></td>
+						  <td><a ui-sref="ticket_history">08/20/2017</a></td>
+                          <td><a ui-sref="ticket_history">ticket_5</a></td>
+                          <td><a ui-sref="ticket_history">London</a></td>
+						  <td><a ui-sref="ticket_history">Active</a></td>
+                          <td><a ui-sref="ticket_history">08/22/2017</a></td>
+                          
+                          
+                        </tr>
+                        <tr>
+                          <td><a ui-sref="ticket_history">#_6</a></td>
+						  <td><a ui-sref="ticket_history">08/20/2017</a></td>
+                          <td><a ui-sref="ticket_history">ticket_6</a></td>
+                          <td><a ui-sref="ticket_history">London</a></td>
+						  <td><a ui-sref="ticket_history">Inactive</a></td>
+                          <td><a ui-sref="ticket_history">08/21/2017</a></td>
+                          
+                          
+                        </tr>
+                        <tr>
+                          <td><a ui-sref="ticket_history">#_7</a></td>
+						  <td><a ui-sref="ticket_history">08/20/2017</a></td>
+                          <td><a ui-sref="ticket_history">ticket_7</a></td>
+                          <td><a ui-sref="ticket_history">London</a></td>
+						  <td><a ui-sref="ticket_history">Inactive</a></td>
+                          <td><a ui-sref="ticket_history">08/20/2017</a></td>
+                          
+                        </tr>
+                        <tr>
+                          <td><a ui-sref="ticket_history">#_8</a></td>
+						  <td><a ui-sref="ticket_history">08/18/2017</a></td>
+                          <td><a ui-sref="ticket_history">ticket_8</a></td>
+                          <td><a ui-sref="ticket_history">London</a></td>
+						  <td><a ui-sref="ticket_history">Active</a></td>
+                          <td><a ui-sref="ticket_history">07/23/2017</a></td>
+                          
+                          
+                        </tr>
+                        <tr>
+						  <td><a ui-sref="ticket_history">#_9</a></td>
+						  <td><a ui-sref="ticket_history">08/18/2017</a></td>
+                          <td><a ui-sref="ticket_history">ticket_9</a></td>
+                          <td><a ui-sref="ticket_history">London</a></td>
+						  <td><a ui-sref="ticket_history">Active</a></td>
+                          <td><a ui-sref="ticket_history">07/20/2017</a></td>
+                          
+                        </tr>
+                        <tr>
+                          <td><a ui-sref="ticket_history">#_10</a></td>
+						  <td><a ui-sref="ticket_history">08/18/2017</a></td>
+                          <td><a ui-sref="ticket_history">ticket_10</a></td>
+                          <td><a ui-sref="ticket_history">London</a></td>
+						  <td><a ui-sref="ticket_history">Active</a></td>
+                          <td><a ui-sref="ticket_history">Inactive</a></td>
+                          
+                        </tr>
+                        
+						<tr>
+                          <td><a ui-sref="ticket_history">#_11</a></td>
+						  <td><a ui-sref="ticket_history">08/18/2017</a></td>
+                          <td><a ui-sref="ticket_history">ticket_11</a></td>
+                          <td><a ui-sref="ticket_history">London</a></td>
+						  <td><a ui-sref="ticket_history">Active</a></td>
+                          <td><a ui-sref="ticket_history">08/18/2017</a></td>
+                          
+                        </tr>
+						<tr>
+                          <td><a ui-sref="ticket_history">#_12</a></td>
+						  <td><a ui-sref="ticket_history">08/21/2017</a></td>
+                          <td><a ui-sref="ticket_history">ticket_12</a></td>
+                          <td><a ui-sref="ticket_history">London</a></td>
+						  <td><a ui-sref="ticket_history">Active</a></td>
+                          <td><a ui-sref="ticket_history">08/21/2017</a></td>
+                          
+                        </tr>
+						<tr>
+                          <td><a ui-sref="ticket_history">#_13</a></td>
+						  <td><a ui-sref="ticket_history">08/30/2017</a></td>
+                          <td><a ui-sref="ticket_history">ticket_13</a></td>
+                          <td><a ui-sref="ticket_history">London</a></td>
+						  <td><a ui-sref="ticket_history">Inactive</a></td>
+                          <td><a ui-sref="ticket_history">08/30/2017</a></td>
+                          
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
-
+              </div>
             </div>
-
-        </div>
-    </div>
+          </div>
+      
 
 </div>
 </div>

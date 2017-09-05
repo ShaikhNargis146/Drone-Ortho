@@ -7,7 +7,7 @@ var ConvertTiff = require('tiff-to-png');
 var path = require('path');
 var decode = require("decode-tiff");
 var PNG = require('pngjs');
-var sharp = require('sharp');
+// var sharp = require('sharp');
 var cron = require('node-cron');
 var controller = {
     getCords: function (req, res) {
