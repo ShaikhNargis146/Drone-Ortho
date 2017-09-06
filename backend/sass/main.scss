@@ -2951,12 +2951,12 @@ Page Header
 }
 
 .library-menu.active span.one {
-    transform: rotate(60deg) translate3d(11px, -3px, 0px);
+    transform: rotate(90deg) translate3d(5px, -8px, 0px);
     background-color: #29aba4;
 }
 
 .library-menu.active span.two {
-    transform: rotate(75deg) translate3d(-1px, 1px, 0px);
+       transform: rotate(90deg) translate3d(-3px, 1px, 0px);
     background-color: #29aba4;
 }
 
@@ -3295,7 +3295,7 @@ Page Sidebar
 
 .page-sidebar .sidebar-search,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search {
-    margin: 22px 18px;
+    margin: 60px 18px 22px;
     padding: 0;
 }
 
@@ -4253,4 +4253,5 @@ WIDGETS
 @import "page-header";
 @import "profile2";
 @import "search-result";
+@import "simple-line-icons";
 @import "timeline";

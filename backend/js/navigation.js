@@ -7,78 +7,83 @@ var navigationservice = angular.module('navigationservice', [])
 
     .factory('NavigationService', function ($http) {
         var navigation1 = [{
-                name: "Mission",
+                name: "Dashboard",
                 classis: "active",
-                sref: "#!/mission",
-                icon: "copy"
+                sref: "#!/dashboard",
+                icon: "th-large"
+            }, {
+                name: "Missions",
+                classis: "active",
+                sref: "#!/missions",
+                icon: "diamond"
             },
             {
-                name: "CadLineWork",
+                name: "CAD File Requests",
                 classis: "active",
-                sref: "#!/cadlineworkapp",
-                icon: "pencil"
+                sref: "#!/lightbox-gallery",
+                icon: "picture-o"
             },
 
             {
-                name: "DFMSubscription",
+                name: "​Create Mission",
                 classis: "active",
-                sref: "#!/dfmsubscription",
-                icon: "binoculars2"
+                sref: "#!/create-mission",
+                icon: " icon-paper-plane"
             },
             {
-                name: "Invoicing/Receipts",
+                name: "Account & Subscriptions",
                 classis: "active",
-                sref: "#!/invoicingreceipts",
-                icon: "cash"
+                sref: "#!/acc-and-sub",
+                icon: " icon-layers"
             },
             {
-                name: "Plan",
+                name: "Receipts",
                 classis: "active",
-                sref: "#!/page/viewPlan//",
-                icon: "clipboard"
+                sref: "#!/invoice",
+                icon: " icon-layers"
+            },
+            {
+                name: "Buy",
+                classis: "active",
+                sref: "#!/product-detail",
+                icon: "shopping-cart"
             },
             {
                 name: "Support",
                 classis: "active",
                 sref: "#!/support",
-                icon: "play"
+                icon: "support"
             },
-            {
-                name: "Raise-ticket",
-                classis: "active",
-                sref: "#!/raiseticket",
-                icon: "license2"
-            },
-            {
-                name: "Users",
-                classis: "active",
-                sref: "#!/adminuser",
-                icon: "user"
-            },
-            {
-                name: "DFM Subscription",
-                classis: "active",
-                sref: "#!/dfmsubscription",
-                icon: "register"
-            },
-            {
-                name: "DRONE sale Application",
-                classis: "active",
-                sref: "#!/dronsale",
-                icon: "power"
-            },
+            // {
+            //     name: "Users",
+            //     classis: "active",
+            //     sref: "#!/adminuser",
+            //     icon: "user"
+            // },
+            // {
+            //     name: "DFM Subscription",
+            //     classis: "active",
+            //     sref: "#!/dfmsubscription",
+            //     icon: "register"
+            // },
+            // {
+            //     name: "DRONE sale Application",
+            //     classis: "active",
+            //     sref: "#!/dronsale",
+            //     icon: "power"
+            // },
             // {
             //     name: "Products",
             //     classis: "active",
             //     sref: "#!/page/viewProducts//",
             //     icon: "tags"
             // },
-            {
-                name: "Billing",
-                classis: "active",
-                sref: "#!/billing",
-                icon: "tags"
-            },
+            // {
+            //     name: "Billing",
+            //     classis: "active",
+            //     sref: "#!/billing",
+            //     icon: "tags"
+            // },
 
             // {
             //     name: "ProductOrders",
@@ -88,12 +93,12 @@ var navigationservice = angular.module('navigationservice', [])
             // },
 
 
-            {
-                name: "Setting",
-                classis: "active",
-                sref: "#!/setting",
-                icon: "ticket"
-            },
+            // {
+            //     name: "Setting",
+            //     classis: "active",
+            //     sref: "#!/setting",
+            //     icon: "ticket"
+            // },
 
             //admin
             //    {
@@ -157,18 +162,20 @@ var navigationservice = angular.module('navigationservice', [])
         return {
             getnav: function () {
                 var navigation = [];
-                if ($.jStorage.get("profile") && $.jStorage.get("profile").accessLevel == 'User') {
-                    _.forEach(_.cloneDeep(navigation1), function (val) {
-                        if (_.isEqual(val.name, 'CadLineWork') || _.isEqual(val.name, 'DFMSubscription') || _.isEqual(val.name, 'Mission') || _.isEqual(val.name, 'Profile')) {
-                            console.log("val.name", val.name);
-                            navigation.push(val);
-                        }
-                    });
-                    return navigation;
-                } else if ($.jStorage.get("profile") && $.jStorage.get("profile").accessLevel == 'Admin') {
-                    return navigation1;
+                return navigation1;
 
-                }
+                // if ($.jStorage.get("profile") && $.jStorage.get("profile").accessLevel == 'User') {
+                //     _.forEach(_.cloneDeep(navigation1), function (val) {
+                //         if (_.isEqual(val.name, 'CadLineWork') || _.isEqual(val.name, 'DFMSubscription') || _.isEqual(val.name, 'Mission') || _.isEqual(val.name, 'Profile')) {
+                //             console.log("val.name", val.name);
+                //             navigation.push(val);
+                //         }
+                //     });
+                //     return navigation;
+                // } else if ($.jStorage.get("profile") && $.jStorage.get("profile").accessLevel == 'Admin') {
+                //     return navigation1;
+
+                // }
             },
 
             parseAccessToken: function (data, callback) {
@@ -202,6 +209,7 @@ var navigationservice = angular.module('navigationservice', [])
                         navigation1[i].classis = "";
                     }
                 }
+                console.log("--------------- menuname -----------------", menuname);
                 return menuname;
             },
 

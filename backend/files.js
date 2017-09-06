@@ -55,4 +55,7 @@ module.exports = [
     'backend/js/navigation.js',
     'backend/js/templateservice.js',
     'backend/js/jsonService.js',
+    'backend/sass/plugins/chartJs/angles.js',
+    'backend/sass/plugins/chartJs/Chart.min.js',
+    'backend/js/adminbox.js'
 ];

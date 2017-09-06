@@ -182,6 +182,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
              */
             this.flotData = dataset;
             this.flotOptions = options;
+
         }
 
 
@@ -214,6 +215,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("Missions");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+
     })
     .controller('MissionsDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
