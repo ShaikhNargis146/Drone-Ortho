@@ -25,6 +25,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             templateUrl: "views/template.html",
             controller: 'DashboardCtrl as chart',
         })
+
         .state('ticket-history', {
             url: "/ticket-history",
             templateUrl: "views/template.html",
@@ -61,16 +62,11 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             templateUrl: "views/template.html",
             controller: 'MailComposeCtrl'
         })
-        .state('lightbox-gallery', {
-            url: "/lightbox-gallery",
-            templateUrl: "views/template.html",
-            controller: 'LightboxGalleryCtrl'
-        })
-        .state('lightbox-gallery2', {
-            url: "/lightbox-gallery2",
-            templateUrl: "views/template.html",
-            controller: 'LightboxGallery2Ctrl'
-        })
+        // .state('lightbox-gallery', {
+        //     url: "/lightbox-gallery",
+        //     templateUrl: "views/template.html",
+        //     controller: 'LightboxGalleryCtrl'
+        // })
         .state('issue-tracker', {
             url: "/issue-tracker",
             templateUrl: "views/template.html",
@@ -96,6 +92,11 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             templateUrl: "views/template.html",
             controller: 'CreatemissionCtrl',
         })
+        .state('cadfile-request', {
+            url: "/cadfile-request",
+            templateUrl: "views/template.html",
+            controller: 'CadFileRequestCtrl',
+        })
         .state('cadfile-details', {
             url: "/cadfile-details",
             templateUrl: "views/template.html",
@@ -116,7 +117,75 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             templateUrl: "views/template.html",
             controller: '404Ctrl',
         })
+        // <****************** for admin only ************>
+        .state('users', {
+            url: "/users",
+            templateUrl: "views/template.html",
+            controller: 'UsersCtrl',
+        })
+        .state('ecommerce', {
+            url: "/ecommerce",
+            templateUrl: "views/template.html",
+            controller: 'EcommerceCtrl',
+        })
+        .state('products-plans', {
+            url: "/products-plans",
+            templateUrl: "views/template.html",
+            controller: 'ProductsPlansCtrl',
+        })
+        .state('edit-product', {
+            url: "/edit-product",
+            templateUrl: "views/template.html",
+            controller: 'EditProductCtrl',
+        })
+        .state('reports', {
+            url: "/reports",
+            templateUrl: "views/template.html",
+            controller: 'ReportsCtrl',
+        })
+        .state('vendors', {
+            url: "/vendors",
+            templateUrl: "views/template.html",
+            controller: 'VendorsCtrl',
+        })
+        .state('create-vendor', {
+            url: "/create-vendor",
+            templateUrl: "views/template.html",
+            controller: 'CreateVendorCtrl',
+        })
+        .state('add-product', {
+            url: "/add-product",
+            templateUrl: "views/template.html",
+            controller: 'AddProductCtrl',
+        })
+        .state('ecom-details', {
+            url: "/ecom-details",
+            templateUrl: "views/template.html",
+            controller: 'EcomDetailsCtrl',
+        })
 
+        .state('edit-vendor', {
+            url: "/edit-vendor",
+            templateUrl: "views/template.html",
+            controller: 'EditVendorCtrl',
+        })
+
+        .state('admin-profile', {
+            url: "/admin-profile",
+            templateUrl: "views/template.html",
+            controller: 'AdminProfileCtrl',
+        })
+        .state('support-details', {
+            url: "/support-details",
+            templateUrl: "views/template.html",
+            controller: 'SupportDetailsCtrl',
+        })
+        .state('user-details', {
+            url: "/user-details",
+            templateUrl: "views/template.html",
+            controller: 'UserDetailsCtrl',
+        })
+    // <****************** for admin only ************>
     $urlRouterProvider.otherwise("/dashboard");
     $locationProvider.html5Mode(isproduction);
 });

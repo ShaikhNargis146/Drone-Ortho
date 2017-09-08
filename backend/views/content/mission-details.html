@@ -1,4 +1,5 @@
-<div class="page-container ">
+<!--*************************************** START OF USER VIEW **********************************************-->
+<div class="page-container" ng-if="accessLevel=='user'">
 	<!-- Start page content wrapper -->
 	<div class="page-content-wrapper animated fadeInRight  ">
 		<div class="page-content">
@@ -17,88 +18,87 @@
 					<div class="row">
 						<hr>
 						<div class="col-md-12 text-center" style="color:#29aba4 ;font-size:16px">To Request for a CAD File, view Orthomosaic/DSM, Point Cloud or download these files, click on the Arrow below.
-							<div
-							  class="faq-question text-center" data-target="#faq1" data-toggle="collapse"><span class="fa fa-sort-desc "></span> </div>
+							<div class="faq-question text-center" data-target="#faq1" data-toggle="collapse"><span class="fa fa-sort-desc "></span> </div>
+						</div>
 					</div>
-				</div>
-				<div class="panel-collapse collapse " id="faq1">
-					<div class="col-lg-12">
+					<div class="panel-collapse collapse " id="faq1">
+						<div class="col-lg-12">
 
-						<div class="faq-answer">
+							<div class="faq-answer">
+								<div class="col-md-4">
+									<div class="form-group">
+										<div class="form-check">
+											<div class="i-checks">
+												<input type="checkbox" id="showCheckoutHistory"> <strong>DSM</strong></div>
+										</div>
+									</div>
+									<div class="form-group" id="setopacity">
+										<label class="control-label">Set Opacity</label>
+										<div class="input-group col-md-10">
+											<div ion-range-slider range-options="slider.ionSliderOptions2"></div>
+											<p>Set min value, max value and start point</p>
+										</div>
+									</div>
+								</div>
+							</div>
+
 							<div class="col-md-4">
+
 								<div class="form-group">
 									<div class="form-check">
 										<div class="i-checks">
-											<input type="checkbox" id="showCheckoutHistory"> <strong>DSM</strong></div>
+											<input type="checkbox" id="showCheckoutCadR"><strong> CAD REQUEST</strong></div>
 									</div>
 								</div>
-								<div class="form-group" id="setopacity">
-									<label class="control-label">Set Opacity</label>
-									<div class="input-group col-md-10">
-										<div ion-range-slider range-options="slider.ionSliderOptions2"></div>
-										<p>Set min value, max value and start point</p>
+								<div id="setcadr">
+									<p>Send CAD request with a single click! UNIFLI's in built Map Area Calculator is a planimeter tool thet allows you
+										to accurately define enclosed area between a defined polyline. Use Icon <button class="btn" type="button" tooltip-placement="Bottom"
+										    popover-placement="bottom" title="" uib-tooltip="SELECT AREA" data-toggle="modal" data-target=".modal-m"><img src="img/icon/custompoly.png"></button>										to measure your area off your Orthomosaic.
+									</p>
+								</div>
+
+
+							</div>
+
+							<div class="col-md-4">
+
+								<div class="form-group">
+
+									<div class="form-check">
+										<label class="control-label">DOWNLOADS:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+										<button class="btn aqua btn-circle btn-outline btn-sm" type="button" tooltip-placement="Bottom" popover-placement="bottom"
+										    title="" uib-tooltip="Input Images (.ZIP)"><i class="fa fa-photo"></i> </button>
+										<button class="btn aqua btn-circle btn-outline btn-sm" type="button" tooltip-placement="Bottom" popover-placement="bottom"
+										    title="" uib-tooltip="Orthomoiac (.TIFF)"><i class="fa fa-globe"></i> </button>
+										<button class="btn aqua btn-circle btn-outline btn-sm" type="button" tooltip-placement="Bottom" popover-placement="bottom"
+										    title="" uib-tooltip="DSM (.TIFF)"><i class="fa fa-delicious"></i> </button>
+										<button class="btn aqua btn-circle btn-outline btn-sm" type="button" tooltip-placement="Bottom" popover-placement="bottom"
+										    title="" uib-tooltip="Mesh OBJ (.ZIP)"><i class="fa fa-diamond"></i> </button>
+
+
+										<button class="btn aqua btn-circle btn-outline btn-sm" type="button" tooltip-placement="Bottom" popover-placement="bottom"
+										    title="" uib-tooltip="Mesh (.FBX)"><i class="fa fa-diamond"></i> </button>
+
+										<button class="btn aqua btn-circle btn-outline btn-sm" type="button" tooltip-placement="Bottom" popover-placement="bottom"
+										    title="" uib-tooltip="Point Cloud (.LAS)"><i class="fa fa-mixcloud"></i> </button>
+										<button class="btn aqua btn-circle btn-outline btn-sm" type="button" tooltip-placement="Bottom" popover-placement="bottom"
+										    title="" uib-tooltip="Quality Reports (.PDF)"><i class="fa fa-book"></i> </button>
+										<button class="btn aqua btn-circle btn-outline btn-sm" type="button" tooltip-placement="Bottom" popover-placement="bottom"
+										    title="" uib-tooltip="Processing Log (.LOG)"><i class="fa fa-desktop"></i> </button>
 									</div>
 								</div>
+
 							</div>
-						</div>
-
-						<div class="col-md-4">
-
-							<div class="form-group">
-								<div class="form-check">
-									<div class="i-checks">
-										<input type="checkbox" id="showCheckoutCadR"><strong> CAD REQUEST</strong></div>
-								</div>
-							</div>
-							<div id="setcadr">
-								<p>Send CAD request with a single click! UNIFLI's in built Map Area Calculator is a planimeter tool thet allows you
-									to accurately define enclosed area between a defined polyline. Use Icon <button class="btn" type="button" tooltip-placement="Bottom"
-									  popover-placement="bottom" title="" uib-tooltip="SELECT AREA" data-toggle="modal" data-target=".modal-m"><img src="img/icon/custompoly.png"></button>									to measure your area off your Orthomosaic.
-								</p>
-							</div>
-
-
-						</div>
-
-						<div class="col-md-4">
-
-							<div class="form-group">
-
-								<div class="form-check">
-									<label class="control-label">DOWNLOADS:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-									<button class="btn aqua btn-circle btn-outline btn-sm" type="button" tooltip-placement="Bottom" popover-placement="bottom"
-									  title="" uib-tooltip="Input Images (.ZIP)"><i class="fa fa-photo"></i> </button>
-									<button class="btn aqua btn-circle btn-outline btn-sm" type="button" tooltip-placement="Bottom" popover-placement="bottom"
-									  title="" uib-tooltip="Orthomoiac (.TIFF)"><i class="fa fa-globe"></i> </button>
-									<button class="btn aqua btn-circle btn-outline btn-sm" type="button" tooltip-placement="Bottom" popover-placement="bottom"
-									  title="" uib-tooltip="DSM (.TIFF)"><i class="fa fa-delicious"></i> </button>
-									<button class="btn aqua btn-circle btn-outline btn-sm" type="button" tooltip-placement="Bottom" popover-placement="bottom"
-									  title="" uib-tooltip="Mesh OBJ (.ZIP)"><i class="fa fa-diamond"></i> </button>
-
-
-									<button class="btn aqua btn-circle btn-outline btn-sm" type="button" tooltip-placement="Bottom" popover-placement="bottom"
-									  title="" uib-tooltip="Mesh (.FBX)"><i class="fa fa-diamond"></i> </button>
-
-									<button class="btn aqua btn-circle btn-outline btn-sm" type="button" tooltip-placement="Bottom" popover-placement="bottom"
-									  title="" uib-tooltip="Point Cloud (.LAS)"><i class="fa fa-mixcloud"></i> </button>
-									<button class="btn aqua btn-circle btn-outline btn-sm" type="button" tooltip-placement="Bottom" popover-placement="bottom"
-									  title="" uib-tooltip="Quality Reports (.PDF)"><i class="fa fa-book"></i> </button>
-									<button class="btn aqua btn-circle btn-outline btn-sm" type="button" tooltip-placement="Bottom" popover-placement="bottom"
-									  title="" uib-tooltip="Processing Log (.LOG)"><i class="fa fa-desktop"></i> </button>
-								</div>
-							</div>
-
 						</div>
 					</div>
+
+
+
 				</div>
-
-
-
 			</div>
-		</div>
 
+		</div>
 	</div>
-</div>
 </div>
 
 
@@ -227,3 +227,233 @@ $("#showCheckoutCadR").change(function(event){
 });
 });
 </script>
+<!--*************************************** END OF USER VIEW **********************************************-->
+<!--*************************************** START OF ADMIN VIEW **********************************************-->
+
+<div class="page-container" ng-if="accessLevel=='admin'">
+	<!-- Start page content wrapper -->
+	<div class="page-content-wrapper animated fadeInRight  ">
+		<div class="page-content">
+			<div class="row wrapper border-bottom page-heading">
+				<div class="col-lg-12">
+					<h2>Mission Details</h2>
+					<ol class="breadcrumb">
+						<li> <a href="#/dashboard1">Home</a> </li>
+						<li> <a>Mission Details</a> </li>
+						<li class="active"> <strong>Mission Details 
+			</strong> </li>
+					</ol>
+				</div>
+
+				<div class="col-lg-12">
+					<div class="row">
+						<hr>
+						<div class="col-md-12 text-center" style="color:#29aba4 ;font-size:16px">To Request for a CAD File, view Orthomosaic/DSM, Point Cloud or download these files, click on the Arrow below.
+							<div class="faq-question text-center" data-target="#faq1" data-toggle="collapse"><span class="fa fa-sort-desc "></span> </div>
+						</div>
+					</div>
+					<div class="panel-collapse collapse " id="faq1">
+						<div class="col-lg-12">
+
+							<!-- <div class="faq-answer">
+				<div class="col-md-4">
+					<div class="form-group">               
+						<div class="form-check">
+							<div class="i-checks">
+								<input type="checkbox" id="showCheckoutHistory" > <strong>DSM</strong></div>
+							</div>               
+					</div> 
+					<div class="form-group" id="setopacity">
+						<label  class="control-label">Set Opacity</label>
+							<div class="input-group col-md-10">
+								<div ion-range-slider range-options="slider.ionSliderOptions2"></div>
+									<p>Set min value, max value and start point</p>
+								</div>
+							</div>
+					</div>
+				</div>
+				
+				 <div class="col-md-4">
+				 
+				 <div class="form-group">               
+						<div class="form-check">
+							<div class="i-checks">
+							<input type="checkbox" id="showCheckoutCadR" ><strong> CAD REQUEST</strong></div>
+					</div>		
+						</div> 
+						<div id="setcadr">
+							<p>Send CAD request with a single click! UNIFLI's in built Map Area Calculator is a planimeter tool thet allows you to accurately define enclosed area between a defined polyline. Use Icon <button class="btn" type="button" tooltip-placement="Bottom" popover-placement="bottom" title="" uib-tooltip="SELECT AREA" data-toggle="modal" data-target=".modal-m"><img src="images/icon/custompoly.png"></button> to measure your area off your Orthomosaic.
+							</p>
+						</div>
+				 
+				
+				</div>-->
+							<div class="col-md-8"></div>
+							<div class="col-md-4">
+
+								<div class="form-group">
+
+									<div class="form-check">
+										<label class="control-label">DOWNLOADS:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+										<button class="btn aqua btn-circle btn-outline btn-sm" type="button" tooltip-placement="Bottom" popover-placement="bottom"
+										    title="" uib-tooltip="Input Images (.ZIP)"><i class="fa fa-photo"></i> </button>
+										<button class="btn aqua btn-circle btn-outline btn-sm" type="button" tooltip-placement="Bottom" popover-placement="bottom"
+										    title="" uib-tooltip="Orthomoiac (.TIFF)"><i class="fa fa-globe"></i> </button>
+										<button class="btn aqua btn-circle btn-outline btn-sm" type="button" tooltip-placement="Bottom" popover-placement="bottom"
+										    title="" uib-tooltip="DSM (.TIFF)"><i class="fa fa-delicious"></i> </button>
+										<button class="btn aqua btn-circle btn-outline btn-sm" type="button" tooltip-placement="Bottom" popover-placement="bottom"
+										    title="" uib-tooltip="Mesh OBJ (.ZIP)"><i class="fa fa-diamond"></i> </button>
+
+
+										<button class="btn aqua btn-circle btn-outline btn-sm" type="button" tooltip-placement="Bottom" popover-placement="bottom"
+										    title="" uib-tooltip="Mesh (.FBX)"><i class="fa fa-diamond"></i> </button>
+
+										<button class="btn aqua btn-circle btn-outline btn-sm" type="button" tooltip-placement="Bottom" popover-placement="bottom"
+										    title="" uib-tooltip="Point Cloud (.LAS)"><i class="fa fa-mixcloud"></i> </button>
+										<button class="btn aqua btn-circle btn-outline btn-sm" type="button" tooltip-placement="Bottom" popover-placement="bottom"
+										    title="" uib-tooltip="Quality Reports (.PDF)"><i class="fa fa-book"></i> </button>
+										<button class="btn aqua btn-circle btn-outline btn-sm" type="button" tooltip-placement="Bottom" popover-placement="bottom"
+										    title="" uib-tooltip="Processing Log (.LOG)"><i class="fa fa-desktop"></i> </button>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+<!--<button class="btn aqua btn-circle btn-outline btn-sm " type="button" tooltip-placement="Bottom" popover-placement="bottom" title="" uib-tooltip="SELECT AREA" data-toggle="modal" data-target=".modal-m"><i class="fa fa-photo"></i> </button> -->
+
+
+<div class="modal fade modal-m" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog ">
+		<div class="modal-content">
+			<div class="modal-header" style="background-color:#36918b">
+
+				<h4 class="modal-title" style="color:#fff">CAD Request FORM</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+
+					<div class="form-group">
+						<label class="control-label col-sm-4" for="pwd">Mission Name</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" placeholder="Enter Mission Name">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-4" for="pwd">Acreage</label>
+						<div class="col-sm-6">
+							<input type="password" class="form-control" id="pwd" placeholder="Enter Acreage" name="pwd">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-4" for="pwd">Contours</label>
+						<div class="col-sm-6">
+							<select class="form-control">
+								<option value="">SELECT</option>
+								<option value="">Yes</option>
+								<option value="">No</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-4" for="pwd">Contour Density</label>
+						<div class="col-sm-6">
+							<select class="form-control">
+								<option value="">SELECT</option>
+								<option value="">High</option>
+								<option value="">Medium</option>
+								<option value="">Low</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-4" for="pwd">Drafting Density</label>
+						<div class="col-sm-6">
+							<select class="form-control">
+								<option value="">SELECT</option>
+								<option value="">High</option>
+								<option value="">Medium</option>
+								<option value="">Low</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-4" for="pwd">Description</label>
+						<div class="col-sm-8">
+							<textarea class="input-large" rows="5"></textarea>
+						</div>
+					</div>
+
+
+
+					<div class="form-group">
+						<div class="col-sm-offset-6 col-sm-6">
+							<button type="button" class="btn green">Calculate Cost</button>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-4" for="pwd">Amount</label>
+						<div class="col-sm-6">
+							<input type="password" class="form-control" id="pwd" placeholder="Calculated Amount" name="pwd" disabled>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-offset-6 col-sm-4">
+							<button type="button" class="btn green btn-outline pull-right">Proceed to Pay</button>
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn green btn-outline" data-dismiss="modal">Close</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<script>
+$(document).ready(function(){
+$('#setopacity').hide();
+$("#showCheckoutHistory").change(function(event){
+    if (this.checked){
+        $('#setopacity').show();
+    } else {
+        $('#setopacity').hide();
+    }
+});
+});
+
+$(document).ready(function(){
+$('#setcadr').hide();
+$("#showCheckoutCadR").change(function(event){
+    if (this.checked){
+        $('#setcadr').show();
+    } else {
+        $('#setcadr').hide();
+    }
+});
+});
+</script>
+<!--*************************************** END OF ADMIN VIEW **********************************************-->

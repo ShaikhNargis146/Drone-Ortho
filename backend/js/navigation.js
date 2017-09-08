@@ -2,161 +2,112 @@ var imgurl = adminurl + "upload/";
 var missionFileUrl = imgurl + "customisedUpload"
 var imgpath = imgurl + "readFile";
 var uploadurl = imgurl;
-
 var navigationservice = angular.module('navigationservice', [])
 
     .factory('NavigationService', function ($http) {
-        var navigation1 = [{
-                name: "Dashboard",
-                classis: "active",
-                sref: "#!/dashboard",
-                icon: "th-large"
-            }, {
-                name: "Missions",
-                classis: "active",
-                sref: "#!/missions",
-                icon: "diamond"
-            },
-            {
-                name: "CAD File Requests",
-                classis: "active",
-                sref: "#!/lightbox-gallery",
-                icon: "picture-o"
-            },
+        if (accessLevel = "user") {
+            var navigation1 = [{
+                    name: "Dashboard",
+                    classis: "active",
+                    sref: "#!/dashboard",
+                    icon: "th-large"
+                }, {
+                    name: "Missions",
+                    classis: "active",
+                    sref: "#!/missions",
+                    icon: "diamond"
+                },
+                {
+                    name: "CAD File Requests",
+                    classis: "active",
+                    sref: "#!/cadfile-request",
+                    icon: "picture-o"
+                },
+                // <---for admin only--->
+                {
+                    name: "Users",
+                    classis: "active",
+                    sref: "#!/users",
+                    icon: "address-book-o"
+                },
+                {
+                    name: "Ecommerce",
+                    classis: "active",
+                    sref: "#!/ecommerce",
+                    icon: "shopping-cart"
+                },
+                {
+                    name: "Products & Plans",
+                    classis: "active",
+                    sref: "#!/products-plans",
+                    icon: "list"
+                },
+                {
+                    name: "Reports",
+                    classis: "active",
+                    sref: "#!/reports",
+                    icon: "book"
+                },
+                {
+                    name: "Vendors",
+                    classis: "active",
+                    sref: "#!/vendors",
+                    icon: "plus-square-o"
+                },
 
-            {
-                name: "​Create Mission",
-                classis: "active",
-                sref: "#!/create-mission",
-                icon: " icon-paper-plane"
-            },
-            {
-                name: "Account & Subscriptions",
-                classis: "active",
-                sref: "#!/acc-and-sub",
-                icon: " icon-layers"
-            },
-            {
-                name: "Receipts",
-                classis: "active",
-                sref: "#!/invoice",
-                icon: " icon-layers"
-            },
-            {
-                name: "Buy",
-                classis: "active",
-                sref: "#!/product-detail",
-                icon: "shopping-cart"
-            },
-            {
-                name: "Support",
-                classis: "active",
-                sref: "#!/support",
-                icon: "support"
-            },
-            // {
-            //     name: "Users",
-            //     classis: "active",
-            //     sref: "#!/adminuser",
-            //     icon: "user"
-            // },
-            // {
-            //     name: "DFM Subscription",
-            //     classis: "active",
-            //     sref: "#!/dfmsubscription",
-            //     icon: "register"
-            // },
-            // {
-            //     name: "DRONE sale Application",
-            //     classis: "active",
-            //     sref: "#!/dronsale",
-            //     icon: "power"
-            // },
-            // {
-            //     name: "Products",
-            //     classis: "active",
-            //     sref: "#!/page/viewProducts//",
-            //     icon: "tags"
-            // },
-            // {
-            //     name: "Billing",
-            //     classis: "active",
-            //     sref: "#!/billing",
-            //     icon: "tags"
-            // },
+                // <---for admin only--->
+                {
+                    name: "​Create Mission",
+                    classis: "active",
+                    sref: "#!/create-mission",
+                    icon: " icon-paper-plane"
+                },
+                {
+                    name: "Account & Subscriptions",
+                    classis: "active",
+                    sref: "#!/acc-and-sub",
+                    icon: " icon-layers"
+                },
+                {
+                    name: "Receipts",
+                    classis: "active",
+                    sref: "#!/invoice",
+                    icon: " icon-layers"
+                },
+                {
+                    name: "Buy",
+                    classis: "active",
+                    sref: "#!/product-detail",
+                    icon: "shopping-cart"
+                },
+                {
+                    name: "Support",
+                    classis: "active",
+                    sref: "#!/support",
+                    icon: "support"
+                },
 
-            // {
-            //     name: "ProductOrders",
-            //     classis: "active",
-            //     sref: "#!/page/viewProductOrders//",
-            //     icon: "phone"
-            // },
+            ];
+        }
+        // else if (accessLevel = "admin") {
+        //     var navigation1 = [
 
+        //         // <---for admin only--->
+        //         {
+        //             name: "Users",
+        //             classis: "active",
+        //             sref: "#!/users",
+        //             icon: "address-book-o"
+        //         },
+        //         {
+        //             name: "Ecommerce",
+        //             classis: "active",
+        //             sref: "#!/ecommerce",
+        //             icon: "shopping-cart"
+        //         }
+        //     ]
+        // }
 
-            // {
-            //     name: "Setting",
-            //     classis: "active",
-            //     sref: "#!/setting",
-            //     icon: "ticket"
-            // },
-
-            //admin
-            //    {
-            //         name: "Support Ticket",
-            //         classis: "active",
-            //         sref: "#!/support",
-            //         icon: "picture"
-            //     },
-
-
-            // {
-            //     name: "ServiceList",
-            //     classis: "active",
-            //     sref: "#!/page/viewServiceList//",
-            //     icon: "file"
-            // },
-
-            // {
-            //     name: "CouponCode",
-            //     classis: "active",
-            //     sref: "#!/page/viewCouponCode//",
-            //     icon: "lock"
-            // },
-
-            // {
-            //     name: "Enquiry",
-            //     classis: "active",
-            //     sref: "#!/page/viewEnquiry//",
-            //     icon: "phone"
-            // },
-            // {
-            //     name: "News Letter",
-            //     classis: "active",
-            //     sref: "#!/page/viewNewsLetter//",
-            //     icon: "news"
-            // },
-            // {
-            //     name: "Profile",
-            //     classis: "active",
-            //     sref: "#!/profile",
-            //     icon: "profile"
-            // },
-
-
-            // {
-            //     name: "Pages",
-            //     classis: "active",
-            //     sref: "#!/page/viewPages//",
-            //     icon: "phone"
-            // },
-
-            // {
-            //     name: "Slider",
-            //     classis: "active",
-            //     sref: "#!/page/viewSlider//",
-            //     icon: "recycle"
-            // }
-        ];
 
 
         return {

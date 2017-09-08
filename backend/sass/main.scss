@@ -26,6 +26,12 @@ $output-bourbon-deprecation-warnings: false;
 @import "template/main";
 @import "template/responsive";
 @import "custom-switch";
+@font-face {
+    font-family: 'Glyphicons Halflings';
+    src: url("../fonts/glyphicons-halflings-regular.eot");
+    src: url("../fonts/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/glyphicons-halflings-regular.woff2") format("woff2"), url("../fonts/glyphicons-halflings-regular.woff") format("woff"), url("../fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg");
+}
+
 
 /*---------------------------
  * GOOGLE FONTS DECLARATIONS
@@ -117,6 +123,7 @@ h4,
 h5,
 h6 {
     font-weight: 100;
+    color: #676a6c;
 }
 
 h1 {
@@ -2956,7 +2963,7 @@ Page Header
 }
 
 .library-menu.active span.two {
-       transform: rotate(90deg) translate3d(-3px, 1px, 0px);
+    transform: rotate(90deg) translate3d(-3px, 1px, 0px);
     background-color: #29aba4;
 }
 
@@ -4241,6 +4248,7 @@ WIDGETS
     font-family: "FontAwesome";
 }
 
+// @import "bootstrap";
 @import "adminbagdemo";
 @import "animate";
 @import "buttons";

@@ -1,9 +1,9 @@
 // var globalfunction = {};
 angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', "jsonservicemod", 'ui.bootstrap', 'ui.select', 'ngAnimate', 'toastr', 'ngSanitize', 'angular-flexslider', 'ui.tinymce', 'imageupload', 'ngMap', 'toggle-switch', 'cfp.hotkeys', 'ui.sortable'])
-    // .run([function () {
-    //     mapboxgl.accessToken = 'pk.eyJ1IjoibmFpbWlrYW4iLCJhIjoiY2lraXJkOXFjMDA0OXdhbTYzNTE0b2NtbiJ9.O64XgZQHNHcV2gwNLN2a0Q';
-    // }])
-    .controller('DashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+// .run([function () {
+//     mapboxgl.accessToken = 'pk.eyJ1IjoibmFpbWlrYW4iLCJhIjoiY2lraXJkOXFjMDA0OXdhbTYzNTE0b2NtbiJ9.O64XgZQHNHcV2gwNLN2a0Q';
+// }])
+firstapp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
 
 
@@ -12,6 +12,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("Dashboard");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        // $scope.accessLevel = "user";
+        $scope.accessLevel = "admin";
 
         function dashboard() {
 
@@ -194,6 +196,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("ProductDetail");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        // $scope.accessLevel = "user";
+        $scope.accessLevel = "admin";
     })
     .controller('TicketHistoryCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
@@ -208,6 +212,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("Support");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        // $scope.accessLevel = "user";
+        $scope.accessLevel = "admin";
     })
     .controller('MissionsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
@@ -215,6 +221,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("Missions");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        // $scope.accessLevel = "user";
+        $scope.accessLevel = "admin";
 
     })
     .controller('MissionsDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
@@ -223,6 +231,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("MissionDetails");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        // $scope.accessLevel = "user";
+        $scope.accessLevel = "admin";
     })
 
     .controller('MailDetailCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
@@ -235,25 +245,19 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     .controller('MailComposeCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
-        $scope.template = TemplateService.changecontent("lightbox_gallery");
+        $scope.template = TemplateService.changecontent("mail-compose");
         $scope.menutitle = NavigationService.makeactive("MailCompose");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
     })
-    .controller('LightboxGalleryCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
-        //Used to name the .html file
-        $scope.template = TemplateService.changecontent("lightbox-gallery");
-        $scope.menutitle = NavigationService.makeactive("LightboxGallery");
-        TemplateService.title = $scope.menutitle;
-        $scope.navigation = NavigationService.getnav();
-    })
-    .controller('LightboxGallery2Ctrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
-        //Used to name the .html file
-        $scope.template = TemplateService.changecontent("lightbox-gallery2");
-        $scope.menutitle = NavigationService.makeactive("LightboxGallery2");
-        TemplateService.title = $scope.menutitle;
-        $scope.navigation = NavigationService.getnav();
-    })
+    // .controller('LightboxGalleryCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+    //     //Used to name the .html file
+    //     $scope.template = TemplateService.changecontent("lightbox-gallery");
+    //     $scope.menutitle = NavigationService.makeactive("LightboxGallery");
+    //     TemplateService.title = $scope.menutitle;
+    //     $scope.navigation = NavigationService.getnav();
+    // })
+
     .controller('IssueTrackerCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("issue-tracker");
@@ -300,6 +304,17 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("CadfileDetails");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        // $scope.accessLevel = "user";
+        $scope.accessLevel = "admin";
+    })
+    .controller('CadFileRequestCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("cadfile-request");
+        $scope.menutitle = NavigationService.makeactive("CadFileRequest");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        // $scope.accessLevel = "user";
+        $scope.accessLevel = "admin";
     })
     .controller('AccandSubCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
@@ -324,8 +339,102 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     })
 
 
+    // ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** FOR ADMIN ONLY ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** *
 
+    .controller('ProductsPlansCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("products-plans");
+        $scope.menutitle = NavigationService.makeactive("ProductsPlans");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+    })
+    .controller('UsersCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("users");
+        $scope.menutitle = NavigationService.makeactive("Users");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+    })
+    .controller('EcommerceCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("ecommerce");
+        $scope.menutitle = NavigationService.makeactive("Ecommerce");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+    })
 
+    .controller('EditProductCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("edit-product");
+        $scope.menutitle = NavigationService.makeactive("EditProduct");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+    })
+    .controller('ReportsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("reports");
+        $scope.menutitle = NavigationService.makeactive("Reports");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+    })
+    .controller('VendorsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("vendors");
+        $scope.menutitle = NavigationService.makeactive("Vendors");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+    })
+    .controller('CreateVendorCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("create-vendor");
+        $scope.menutitle = NavigationService.makeactive("CreateVendor");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+    })
+    .controller('AddProductCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("add-product");
+        $scope.menutitle = NavigationService.makeactive("AddProduct");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+    })
+    .controller('EcomDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("ecom-details");
+        $scope.menutitle = NavigationService.makeactive("EcomDetails");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+    })
+
+    .controller('EditVendorCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("edit-vendor");
+        $scope.menutitle = NavigationService.makeactive("EditVendor");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+    })
+    .controller('AdminProfileCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("admin-profile");
+        $scope.menutitle = NavigationService.makeactive("AdminProfile");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+    })
+    .controller('SupportDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("support-details");
+        $scope.menutitle = NavigationService.makeactive("SupportDetails");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+    })
+    .controller('UserDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("user-details");
+        $scope.menutitle = NavigationService.makeactive("UsersDetails");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+    })
+    // ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** FOR ADMIN ONLY ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** *
 
     //     .controller('missionCtrl', function ($scope, TemplateService, NavigationService, shareMission, $timeout, $state) {
     //         //Used to name the .html file
@@ -1600,11 +1709,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     //     })
     .controller('AccessController', function ($scope, TemplateService, NavigationService, $timeout, $state) {
-        if ($.jStorage.get("accessToken")) {
+        // if ($.jStorage.get("accessToken")) {
 
-        } else {
-            $state.go("login");
-        }
+        // } else {
+        //     $state.go("login");
+        // }
     })
 
     //     .controller('JagzCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, $interval) {

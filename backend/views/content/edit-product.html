@@ -1,0 +1,114 @@
+<!--*************************************** START OF USER VIEW **********************************************-->
+<div class="page-container ">
+    <!-- Start page content wrapper -->
+    <div class="page-content-wrapper animated fadeInRight  ">
+        <div class="page-content">
+            <div class="row wrapper border-bottom page-heading">
+                <div class="col-lg-12">
+                    <h2>Edit Product </h2>
+                    <ol class="breadcrumb">
+                        <li> <a href="#/dashboard1">Home</a> </li>
+                        <li> <a>Edit Product </a> </li>
+                        <li class="active"> <strong>Edit Product</strong> </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="wrapper-content  text-center">
+                <div class="col-lg-12">
+                    <div class="col-lg-6" style="padding-top:10px">
+                        <table class="table table-responsive">
+                            <tr>
+                                <td>Product Image</td>
+                            </tr>
+                            <tr>
+                                <td><img src="images/productDetail/placeholders.jpg"></td>
+
+                            </tr>
+                            <tr>
+                                <td><input class="form-control" type="file" name="" id=""></td>
+
+                            </tr>
+                            <tr>
+
+                                <td><button type="button" ui-sref="" class="btn green btn-outline btn-md">Upload</button></td>
+                            </tr>
+
+                        </table>
+
+                    </div>
+                    <div class="col-lg-6" style="padding-top:10px">
+                        <table class="table table-responsive">
+                            <tr>
+                                <td>Category</td>
+                                <td>:</td>
+                                <td>
+                                    <select class="form-control">
+											<option value="">SELECT</option>
+											<option value="">DFM Free</option>
+											<option value="">DFM Pro</option>
+											<option value="">DFM Standard</option>
+											<option value="">Drone</option>
+										</select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Product Description</td>
+                                <td>:</td>
+                                <td>
+                                    <div class="note-editor  panel panel-default">
+                                        <div>
+                                            <div summernote class="summernote" ng-model="main.summernoteText">
+                                                <h3>Hello Jonathan! </h3>
+                                                dummy text of the printing and typesetting industry. <strong>Lorem Ipsum has been the industry's</strong>                                                standard dummy text ever since the 1500s, when an unknown printer took a
+                                                galley of type and scrambled it to make a type specimen book. It has survived
+                                                not only five centuries, but also the leap into electronic.
+                                                <br/>
+                                                <br/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Amount</td>
+                                <td>:</td>
+                                <td><input class="form-control" type="text" value=" $ 50"></td>
+                            </tr>
+                            <tr>
+                                <td>Status</td>
+                                <td>:</td>
+                                <td>
+                                    <select class="form-control">
+											<option value="">SELECT</option>
+											<option value="">Active</option>
+											<option value="">Inactive</option>
+										</select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Validity</td>
+                                <td>:</td>
+                                <td>
+                                    <select class="form-control">
+											<option value="">SELECT</option>
+											<option value="">Not Applicable</option>
+											<option value="">15 Days</option>
+											<option value="">1 Month</option>
+											<option value="">2 Months</option>
+											<option value="">3 Months</option>
+										</select>
+                                </td>
+                            </tr>
+
+                        </table>
+                        <td><button type="button" ui-sref="" class="btn green btn-outline btn-md">Update</button></td>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--*************************************** END OF USER VIEW **********************************************-->
+<!--*************************************** START OF ADMIN VIEW **********************************************-->
+<!--*************************************** END OF ADMIN VIEW **********************************************-->
