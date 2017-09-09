@@ -87,6 +87,16 @@ var navigationservice = angular.module('navigationservice', [])
                     icon: "support"
                 },
 
+                // <*************** START OF VENDOR ONLY **************>
+
+                {
+                    name: "Billing",
+                    classis: "active",
+                    sref: "#!/billing",
+                    icon: "calculator",
+                }
+                // <***************END OF VENDOR ONLY **************>
+
             ];
         }
         // else if (accessLevel = "admin") {
@@ -107,8 +117,6 @@ var navigationservice = angular.module('navigationservice', [])
         //         }
         //     ]
         // }
-
-
 
         return {
             getnav: function () {

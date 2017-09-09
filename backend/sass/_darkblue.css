@@ -151,7 +151,7 @@ body {
 .page-sidebar .page-sidebar-menu>li.active:hover>a,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.active>a,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.active>a {
-    background: #29aba4 none repeat scroll 0 0 !important;
+    background: #29aba4 none repeat scroll 0 0;
     border-top-color: transparent;
     color: #fff;
 }

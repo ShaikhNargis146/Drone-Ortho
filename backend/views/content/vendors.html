@@ -1,4 +1,5 @@
-<div class="page-container ">
+<!--*************************************** START OF ADMIN VIEW **********************************************-->
+<div class="page-container " ng-if="accessLevel=='admin'">
     <!-- Start page content wrapper -->
     <div class="page-content-wrapper animated fadeInRight  ">
         <div class="page-content">
@@ -76,3 +77,105 @@
         </div>
     </div>
 </div>
+<!--*************************************** END OF ADMIN VIEW **********************************************-->
+
+<!--*************************************** START OF VENDOR VIEW **********************************************-->
+<div class="page-container " ng-if="accessLevel=='vendor'">
+    <!-- Start page content wrapper -->
+    <div class="page-content-wrapper animated fadeInRight  ">
+        <div class="page-content">
+            <div class="row wrapper border-bottom page-heading">
+                <div class="col-lg-12">
+                    <h2>Profile</h2>
+                    <ol class="breadcrumb">
+                        <li> <a href="#/dashboard1">Home</a> </li>
+                        <li> <a>Profile</a> </li>
+                        <li class="active"> <strong>Profile</strong> </li>
+                    </ol>
+                </div>
+                <div class="col-lg-12"> </div>
+            </div>
+            <div class="wrapper-content ">
+                <div class="row">
+                    <div class="col-lg-12">
+
+
+
+                        <div class="tabs-container">
+                            <uib-tabset>
+                                <uib-tab heading="User Information">
+                                    <div class="panel-body">
+                                        <div class="col-lg-6">
+                                            <div class="ibox float-e-margins">
+                                                <div class="widgets-container">
+                                                    <h5>Basic Details </h5>
+                                                    <hr>
+                                                    <form>
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Name</label>
+                                                            <input class="form-control m-t-xxs" id="exampleInputEmail1" type="email" disabled>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Email address</label>
+                                                            <input class="form-control m-t-xxs" id="exampleInputEmail1" type="email" disabled>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Phone</label>
+                                                            <input class="form-control m-t-xxs" id="exampleInputEmail1" type="email" disabled>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Address</label>
+                                                            <input class="form-control m-t-xxs" id="exampleInputEmail1" type="email" disabled>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Shipping address</label>
+                                                            <input class="form-control m-t-xxs" id="exampleInputEmail1" type="email" disabled>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="exampleInputPassword1">Password</label>
+                                                            <input name="password" class="password form-control m-t-xxs" id="exampleInputPassword1" type="password" disabled>
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </uib-tab>
+
+
+                                <uib-tab heading="Change Password">
+                                    <div class="panel-body">
+                                        <div class="col-lg-6">
+                                            <div class="ibox float-e-margins">
+                                                <div class="widgets-container">
+                                                    <h5>Change Password </h5>
+                                                    <hr>
+                                                    <form>
+                                                        <div class="form-group">
+                                                            <label for="exampleInputPassword1">New Password</label>
+                                                            <input name="password" class="password form-control m-t-xxs" id="exampleInputPassword1" type="password">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="exampleInputPassword1">Re-password</label>
+                                                            <input name="password" class="password form-control m-t-xxs" id="exampleInputPassword1" type="password">
+                                                        </div>
+
+
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn green m-t-xs bottom15-xs pull-right ">Update</button>
+                                        </div>
+                                    </div>
+                                </uib-tab>
+                            </uib-tabset>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--*************************************** END OF VENDOR VIEW **********************************************-->

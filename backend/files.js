@@ -1,5 +1,7 @@
 module.exports = [
+
     'bower_components/jquery/dist/jquery.min.js',
+    'backend/js/adminbagdemo.js',
     'bower_components/jStorage/jstorage.js',
     'bower_components/jquery-ui/jquery-ui.js',
     'bower_components/flexslider/jquery.flexslider-min.js',
@@ -57,5 +59,10 @@ module.exports = [
     'backend/js/jsonService.js',
     'backend/sass/plugins/chartJs/angles.js',
     'backend/sass/plugins/chartJs/Chart.min.js',
-    'backend/js/adminbox.js'
+    'backend/js/adminbox.js',
+    'backend/js/plugins/flot/angular-flot.js',
+    'backend/js/plugins/flot/jquery.flot.js',
+    'backend/js/plugins/flot/jquery.flot.pie.js',
+    'backend/js/plugins/flot/jquery.flot.resize.js',
+    'backend/js/plugins/flot/jquery.flot.spline.js',
 ];

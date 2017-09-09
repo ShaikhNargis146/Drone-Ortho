@@ -3,17 +3,18 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 // .run([function () {
 //     mapboxgl.accessToken = 'pk.eyJ1IjoibmFpbWlrYW4iLCJhIjoiY2lraXJkOXFjMDA0OXdhbTYzNTE0b2NtbiJ9.O64XgZQHNHcV2gwNLN2a0Q';
 // }])
-firstapp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+firstapp
+
+    .controller('DashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
-
-
 
         $scope.template = TemplateService.changecontent("dashboard");
         $scope.menutitle = NavigationService.makeactive("Dashboard");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
+        $scope.accessLevel = "user";
+        // $scope.accessLevel = "admin";
+        // $scope.accessLevel = "vendor";
 
         function dashboard() {
 
@@ -196,8 +197,8 @@ firstapp.controller('DashboardCtrl', function ($scope, TemplateService, Navigati
         $scope.menutitle = NavigationService.makeactive("ProductDetail");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
+        $scope.accessLevel = "user";
+        // $scope.accessLevel = "admin";
     })
     .controller('TicketHistoryCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
@@ -212,8 +213,8 @@ firstapp.controller('DashboardCtrl', function ($scope, TemplateService, Navigati
         $scope.menutitle = NavigationService.makeactive("Support");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
+        $scope.accessLevel = "user";
+        // $scope.accessLevel = "admin";
     })
     .controller('MissionsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
@@ -221,8 +222,8 @@ firstapp.controller('DashboardCtrl', function ($scope, TemplateService, Navigati
         $scope.menutitle = NavigationService.makeactive("Missions");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
+        $scope.accessLevel = "user";
+        // $scope.accessLevel = "admin";
 
     })
     .controller('MissionsDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
@@ -231,8 +232,8 @@ firstapp.controller('DashboardCtrl', function ($scope, TemplateService, Navigati
         $scope.menutitle = NavigationService.makeactive("MissionDetails");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
+        $scope.accessLevel = "user";
+        // $scope.accessLevel = "admin";
     })
 
     .controller('MailDetailCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
@@ -304,8 +305,9 @@ firstapp.controller('DashboardCtrl', function ($scope, TemplateService, Navigati
         $scope.menutitle = NavigationService.makeactive("CadfileDetails");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
+        $scope.accessLevel = "user";
+        // $scope.accessLevel = "admin";
+        // $scope.accessLevel = "vendor";
     })
     .controller('CadFileRequestCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
@@ -313,8 +315,9 @@ firstapp.controller('DashboardCtrl', function ($scope, TemplateService, Navigati
         $scope.menutitle = NavigationService.makeactive("CadFileRequest");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
+        $scope.accessLevel = "user";
+        // $scope.accessLevel = "admin";
+        // $scope.accessLevel = "vendor";
     })
     .controller('AccandSubCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
@@ -383,6 +386,8 @@ firstapp.controller('DashboardCtrl', function ($scope, TemplateService, Navigati
         $scope.menutitle = NavigationService.makeactive("Vendors");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        // $scope.accessLevel = "admin";
+        $scope.accessLevel = "vendor";
     })
     .controller('CreateVendorCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
@@ -435,7 +440,15 @@ firstapp.controller('DashboardCtrl', function ($scope, TemplateService, Navigati
         $scope.navigation = NavigationService.getnav();
     })
     // ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** FOR ADMIN ONLY ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** *
-
+    // ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** FOR VENDOR ONLY ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ****//
+    .controller('BillingCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("billing");
+        $scope.menutitle = NavigationService.makeactive("Billing");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+    })
+    // ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** FOR VENDOR ONLY ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ***//
     //     .controller('missionCtrl', function ($scope, TemplateService, NavigationService, shareMission, $timeout, $state) {
     //         //Used to name the .html file
     //         $scope.template = TemplateService.changecontent("missions");
@@ -2886,6 +2899,9 @@ firstapp.controller('DashboardCtrl', function ($scope, TemplateService, Navigati
             $(window).scrollTop(0);
         });
 
+
+
+
     })
 
     .controller('languageCtrl', function ($scope, TemplateService, $translate, $rootScope) {
@@ -2905,6 +2921,5 @@ firstapp.controller('DashboardCtrl', function ($scope, TemplateService, Navigati
                     $.jStorage.set("language", "en");
                 }
             }
-            //  $rootScope.$apply();
         };
     });

@@ -143,11 +143,13 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             templateUrl: "views/template.html",
             controller: 'ReportsCtrl',
         })
+        // ,************ common for vendor and admin **********
         .state('vendors', {
             url: "/vendors",
             templateUrl: "views/template.html",
             controller: 'VendorsCtrl',
         })
+        // ,************ common for vendor and admin **********
         .state('create-vendor', {
             url: "/create-vendor",
             templateUrl: "views/template.html",
@@ -185,7 +187,15 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             templateUrl: "views/template.html",
             controller: 'UserDetailsCtrl',
         })
-    // <****************** for admin only ************>
+        // <****************** for admin only ************>
+        // <****************** for vendor only ************>
+        .state('billing', {
+            url: "/billing",
+            templateUrl: "views/template.html",
+            controller: 'BillingCtrl',
+        })
+
+    // <****************** for vendor only ************>
     $urlRouterProvider.otherwise("/dashboard");
     $locationProvider.html5Mode(isproduction);
 });
@@ -1424,4 +1434,25 @@ firstapp.directive('flot', function () {
             return scope.$watch('options', onOptionsChanged, true);
         }
     };
+});
+// <********************* dashboard common ****************************>
+firstapp.directive('pagination', function () {
+    return {
+        restrict: 'E',
+        scope: {
+            // item: "=value"
+        },
+        templateUrl: 'views/directive/pagination.html',
+        link: function () {}
+    }
+});
+firstapp.directive('commonView', function () {
+    return {
+        restrict: 'E',
+        scope: {
+            // item: "=value"
+        },
+        templateUrl: 'views/directive/common-view.html',
+        link: function () {}
+    }
 });

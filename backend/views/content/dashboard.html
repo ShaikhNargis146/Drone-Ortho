@@ -534,3 +534,127 @@
     </div>
 </div>
 <!--****************************** END OF ADMIN VIEW **************************************************************************************8-->
+<!--****************************** START OF VENDOR VIEW **************************************************************************************8-->
+<div class="page-container" ng-if="accessLevel=='vendor'">
+    <!-- Start page content wrapper -->
+    <div class="page-content-wrapper animated fadeInRight  ">
+        <div class="page-content">
+            <div class="wrapper-content ">
+                <div class="row">
+                    <!-- begin col-3 -->
+                    <div class="col-md-3 col-sm-6">
+                        <div class="widget widget-stats red-bg">
+                            <div class="stats-icon stats-icon-lg"><i class="fa fa-picture-o fa-fw"></i></div>
+                            <div class="stats-title">TOTAL RECEIVED CAD FILES</div>
+                            <div class="stats-number">900</div>
+                            <div class="stats-progress progress">
+                                <!--<div style="width: 70.1%;" class="progress-bar"></div>-->
+                            </div>
+                            <div class="stats-desc">Till Date</div>
+                        </div>
+                    </div>
+                    <!-- end col-3 -->
+                    <!-- begin col-3 -->
+                    <div class="col-md-3 col-sm-6 mtop15">
+                        <div class="widget widget-stats aqua-bg ">
+                            <div class="stats-icon stats-icon-lg"><i class="fa fa-check-square-o fa-fw"></i></div>
+                            <div class="stats-title">TOTAL COMPLETED CAD FILES</div>
+                            <div class="stats-number">460</div>
+                            <div class="stats-progress progress">
+                                <!--<div style="width: 40.5%;" class="progress-bar"></div>-->
+                            </div>
+                            <div class="stats-desc">Till Date</div>
+                        </div>
+                    </div>
+                    <!-- end col-3 -->
+                    <!-- begin col-3 -->
+                    <div class="col-md-3 col-sm-6 mtop15">
+                        <div class="widget widget-stats purple-bg">
+                            <div class="stats-icon stats-icon-lg"><i class="fa fa-file-image-o fa-fw"></i></div>
+                            <div class="stats-title">TOTAL INCOMPLETED CAD FILES</div>
+                            <div class="stats-number">440</div>
+                            <div class="stats-progress progress">
+                                <!--<div style="width: 76.3%;" class="progress-bar"></div>-->
+                            </div>
+                            <div class="stats-desc">Till Date</div>
+                        </div>
+                    </div>
+                    <!-- end col-3 -->
+                    <!-- begin col-3 -->
+                    <div class="col-md-3 col-sm-6 mtop15">
+                        <div class="widget widget-stats green-bg">
+                            <div class="stats-icon stats-icon-lg"><i class="fa fa-usd fa-fw"></i></div>
+                            <div class="stats-title">TOTAL EARNING</div>
+                            <div class="stats-number">3000</div>
+                            <div class="stats-progress progress">
+                                <!--<div style="width: 54.9%;" class="progress-bar"></div>-->
+                            </div>
+                            <div class="stats-desc">Till Date</div>
+                        </div>
+                    </div>
+                    <!-- end col-3 -->
+                </div>
+                <div class="row top20">
+
+                    <div>
+
+                        <div class="col-lg-6">
+                            <!-- Start feed -->
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>Current Month CAD Statitics </h5>
+                                    <!-- ibox-tools -->
+
+                                </div>
+                                <div class="ibox-content collapse in" id="demo6">
+                                    <div class="widgets-container ">
+                                        <div class="ibox-content collapse in" id="demo6">
+                                            <div class="demo-container">
+                                                <div class="demo-placeholder" donut-chart donut-data='[
+													{label: "Total CAD Files", value: 112},
+													{label: "Completed CAD Files",value: 68},
+													{label: "Incomplete CAD Files", value: 42}
+												]' donut-colors='["#83decc","#49b6d6","#98a0d3"]'>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End feed -->
+                        </div>
+
+                        <div class="col-lg-6">
+                            <!-- Start feed -->
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>Current Month Earning Statitics</h5>
+                                    <!-- ibox-tools -->
+
+                                </div>
+                                <div class="ibox-content collapse in" id="demo6">
+                                    <div class="widgets-container ">
+                                        <div class="ibox-content collapse in" id="demo6">
+                                            <div class="demo-container">
+                                                <div class="demo-placeholder" donut-chart donut-data='[
+													{label: "Total Earning", value: 1200},
+													{label: "Paid",value: 1100},
+													{label: "Balance", value: 100 }
+												]' donut-colors='["#83decc","#49b6d6","#98a0d3"]'>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End feed -->
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--****************************** END OF VENDOR VIEW **************************************************************************************8-->
