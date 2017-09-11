@@ -18,6 +18,7 @@ firstapp
 
         function dashboard() {
 
+
             var data1 = [
                 [gd(2012, 1, 1), 7],
                 [gd(2012, 1, 2), 6],
