@@ -15,7 +15,7 @@ firstapp
         // $scope.accessLevel = "user";
         $scope.accessLevel = "admin";
         // $scope.accessLevel = "vendor";
-
+        // $scope.accessLevel = "vendor";
         function dashboard() {
 
 
