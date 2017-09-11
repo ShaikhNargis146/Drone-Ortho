@@ -9,49 +9,49 @@ var navigationservice = angular.module('navigationservice', [])
             var navigation1 = [{
                     name: "Dashboard",
                     classis: "active",
-                    sref: "#!/dashboard",
+                    sref: "dashboard",
                     icon: "th-large"
                 }, {
                     name: "Missions",
                     classis: "active",
-                    sref: "#!/missions",
+                    sref: "missions",
                     icon: "diamond"
                 },
                 {
                     name: "CAD File Requests",
                     classis: "active",
-                    sref: "#!/cadfile-request",
+                    sref: "cadfile-request",
                     icon: "picture-o"
                 },
                 // <---for admin only--->
                 {
                     name: "Users",
                     classis: "active",
-                    sref: "#!/users",
+                    sref: "users",
                     icon: "address-book-o"
                 },
                 {
                     name: "Ecommerce",
                     classis: "active",
-                    sref: "#!/ecommerce",
+                    sref: "ecommerce",
                     icon: "shopping-cart"
                 },
                 {
                     name: "Products & Plans",
                     classis: "active",
-                    sref: "#!/products-plans",
+                    sref: "products-plans",
                     icon: "list"
                 },
                 {
                     name: "Reports",
                     classis: "active",
-                    sref: "#!/reports",
+                    sref: "reports",
                     icon: "book"
                 },
                 {
                     name: "Vendors",
                     classis: "active",
-                    sref: "#!/vendors",
+                    sref: "vendors",
                     icon: "plus-square-o"
                 },
 
@@ -59,31 +59,31 @@ var navigationservice = angular.module('navigationservice', [])
                 {
                     name: "​Create Mission",
                     classis: "active",
-                    sref: "#!/create-mission",
+                    sref: "create-mission",
                     icon: " icon-paper-plane"
                 },
                 {
                     name: "Account & Subscriptions",
                     classis: "active",
-                    sref: "#!/acc-and-sub",
+                    sref: "acc-and-sub",
                     icon: " icon-layers"
                 },
                 {
                     name: "Receipts",
                     classis: "active",
-                    sref: "#!/invoice",
+                    sref: "invoice",
                     icon: " icon-layers"
                 },
                 {
                     name: "Buy",
                     classis: "active",
-                    sref: "#!/product-detail",
+                    sref: "product-detail",
                     icon: "shopping-cart"
                 },
                 {
                     name: "Support",
                     classis: "active",
-                    sref: "#!/support",
+                    sref: "support",
                     icon: "support"
                 },
 
@@ -92,7 +92,7 @@ var navigationservice = angular.module('navigationservice', [])
                 {
                     name: "Billing",
                     classis: "active",
-                    sref: "#!/billing",
+                    sref: "billing",
                     icon: "calculator",
                 }
                 // <***************END OF VENDOR ONLY **************>

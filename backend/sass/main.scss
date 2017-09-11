@@ -3049,8 +3049,7 @@ Page Header
 .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu {
     min-width: 160px;
     max-width: 275px;
-    width: 275px;
-    z-index: 9995
+    width: 275px; // z-index: 9995
 }
 
 .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external {
@@ -4285,3 +4284,6 @@ WIDGETS
 @import "search-result";
 @import "simple-line-icons";
 @import "timeline";
+@import "../js/plugins/summernote/summernote";
+@import "../js/plugins/summernote/summernote-bs3";
+@import "../js/plugins/datapicker/angular-datapicker"

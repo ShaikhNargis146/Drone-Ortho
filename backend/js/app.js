@@ -11,7 +11,9 @@ var firstapp = angular.module('firstapp', [
     "ngMap",
     "internationalPhoneNumber",
     "jsonservicemod",
-    'mapboxgl-directive'
+    'mapboxgl-directive',
+    'summernote',
+    'datePicker'
 ]);
 
 L.mapbox.accessToken = 'pk.eyJ1IjoibmFyZ2lzLXNoYWlraCIsImEiOiJjajVsMWdjbTgyN2t0MzBuejY0YWZvYnU1In0.sxNSmPeAZRDks6p3JmRUkw';

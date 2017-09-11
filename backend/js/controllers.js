@@ -358,6 +358,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Users");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        console.log("user");
+        $scope.name = "saili"
     })
     .controller('EcommerceCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
@@ -403,6 +405,12 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("AddProduct");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        /**
+         * summernoteText - used for Summernote plugin
+         */
+        this.summernoteText = [].join('');
+        $scope.name = "saili";
+
     })
     .controller('EcomDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
