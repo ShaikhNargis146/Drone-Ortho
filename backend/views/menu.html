@@ -13,8 +13,8 @@
       </li>
       <li ng-repeat="menu in navigation" class="nav-item" ui-sref-active="active">
         <!--<pre>{{menu | json}}</pre>-->
-        <a ng-if="menu.sref" ui-sref="{{menu.sref}}" class="nav-link"><i class="fa fa-{{menu.icon}}"></i> <span>{{menu.name}}</span></a>
-        <a ng-if="menu.sref == ''" class="o-i" class="nav-link"><i class="fa fa-{{menu.icon}}"></i> <span>{{menu.name}}</span></a>
+        <a ng-if="menu.sref" ui-sref="{{menu.sref}}" class="nav-link"><i class="fa fa-{{menu.icon}}"></i> <span class="title">{{menu.name}}</span></a>
+        <a ng-if="menu.sref == ''" class="o-i" class="nav-link"><i class="fa fa-{{menu.icon}}"></i> <span class="title">{{menu.name}}</span></a>
 
         <!--<ul ng-if="menu.subnav!='';">
           <li ng-repeat="submenu in menu.subnav" class="nav-item">

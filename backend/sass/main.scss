@@ -4269,7 +4269,11 @@ WIDGETS
     font-weight: 400;
 }
 
-// @import "bootstrap";
+.title {
+    display: inline-block;
+    margin-right: 0;
+}
+
 @import "adminbagdemo";
 @import "animate";
 @import "buttons";
@@ -4278,7 +4282,7 @@ WIDGETS
 @import "eCommerce";
 @import "ecommerce_products_grid2";
 @import "mailbox";
-@import "main.media";
+@import "main-media";
 @import "page-header";
 @import "profile2";
 @import "search-result";
@@ -4286,4 +4290,8 @@ WIDGETS
 @import "timeline";
 @import "../js/plugins/summernote/summernote";
 @import "../js/plugins/summernote/summernote-bs3";
-@import "../js/plugins/datapicker/angular-datapicker"
+@import "../js/plugins/datapicker/angular-datapicker";
+@import "../js/plugins/iCheck/custom";
+@import "../js/plugins/ionRangeSlider/ion.rangeSlider";
+@import "../js/plugins/ionRangeSlider/ion.rangeSlider.skinFlat";
+// @import "../js/plugins/angular-morris/morris";
