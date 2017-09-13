@@ -221,15 +221,15 @@
                   </thead>
 
                   <tbody>
-                    <tr>
-                      <td><a ui-sref="support_details">#_1</a></td>
+                    <tr ng-repeat="ticket in ticketInfo">
+                      <td><a ui-sref="support_details">{{ticket.ticketId}}</a></td>
                       <td><a ui-sref="support_details">08/20/2017</a></td>
-                      <td><a ui-sref="support_details">Issue subject</a></td>
-                      <td><a ui-sref="support_details">#_12</a></td>
-                      <td><a ui-sref="support_details">Closed</a></td>
-                      <td><a ui-sref="support_details">08/21/2017</a></td>
+                      <td><a ui-sref="support_details">{{ticket.subject}}</a></td>
+                      <td><a ui-sref="support_details">{{ticket.description}}</a></td>
+                      <td><a ui-sref="support_details">{{ticket.status}}</a></td>
+                      <td><a ui-sref="support_details">{{ticket.closingDate}}</a></td>
                     </tr>
-                    <tr>
+                    <!--<tr>
                       <td><a ui-sref="support_details">#_2</a></td>
                       <td><a ui-sref="support_details">08/18/2017</a></td>
                       <td><a ui-sref="support_details">Issue subject</a></td>
@@ -330,7 +330,7 @@
                       <td><a ui-sref="support_details">#_14</a></td>
                       <td><a ui-sref="support_details">Closed</a></td>
                       <td><a ui-sref="support_details">08/02/2017</a></td>
-                    </tr>
+                    </tr>-->
                   </tbody>
                 </table>
                 <pagination></pagination>

@@ -2,7 +2,7 @@
 <div class="page-container" ng-if="accessLevel=='user'">
 
     <!-- Start page content wrapper -->
-    <div class="page-content-wrapper animated fadeInRight  ">
+    <div class="page-content-wrapper animated fadeInRight">
         <div class="page-content">
             <div class="wrapper-content ">
                 <div class="row">
@@ -130,7 +130,7 @@
                                 <h5>Usage Statistics</h5>
                                 <div class="ibox-tools"> <a class="btn green btn-xs" href=""> 31-Jan-2017</a> </div>
                             </div>
-                            <div class="ibox-content collapse in" id="demo4">
+                            <!--<div class="ibox-content collapse in" id="demo4">
                                 <div class="demo-container">
                                     <div class="demo-placeholder" donut-chart donut-data='[
 										    {label: "Total Missions", value: 12},
@@ -139,6 +139,10 @@
 										]' donut-colors='["#83decc","#49b6d6","#98a0d3"]'>
                                     </div>
                                 </div>
+                            </div>-->
+                            <div class="">
+                                <div donut-chart="" donut-data="donut.chartData" donut-colors="donut.chartColors" donut-formatter="'currency'"></div>
+                                <div donut-chart="" donut-data="donut.chartData" donut-colors="donut.chartColors" donut-formatter="donut.myFormatter"></div>
                             </div>
                         </div>
                     </div>
@@ -248,7 +252,7 @@
                                     <div class="widgets-container">
                                         <div class="row">
                                             <div class="col-sm-9">
-                                                <div class="flot-chart-box" ng-controller="dashboardThree as chart">
+                                                <div class="flot-chart-box">
                                                     <div id="flot-dashboard-chart" flot class="demo-placeholder flot-chart-content" dataset="chart.flotData" options="chart.flotOptions"></div>
                                                 </div>
                                             </div>
@@ -302,7 +306,7 @@
                                     <div class="ibox-tools"> <a class="btn green btn-xs" href=""> 31-Jan-2017</a> </div>
                                 </div>
                                 <div class="ibox-content collapse in">
-                                    <div class="widgets-container tabs-container dashboard-tab-data-box" ng-controller="datatablesCtrl">
+                                    <div class="widgets-container tabs-container dashboard-tab-data-box">
                                         <div class="table table-hover">
                                             <table datatable="" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
                                                 <thead>
@@ -499,14 +503,17 @@
                                         <h5>Orders</h5>
 
                                     </div>
-                                    <div class="ibox-content collapse in" id="demo6">
-                                        <div class="demo-container">
+                                    <div class="ibox-content collapse in">
+                                        <!--<div class="demo-container">
                                             <div class="demo-placeholder" donut-chart donut-data='[
 													{label: "DFM", value: 120},
 													{label: "DRONE",value: 50},
 													{label: "CAD", value: 2000}
 												]' donut-colors='["#83decc","#49b6d6","#98a0d3"]'>
                                             </div>
+                                        </div>-->
+                                        <div class="">
+                                            <div ctrl-chart="" donut-data="ctrl.chartData" ctrl-colors="ctrl.chartColors" ctrl-formatter="'currency'"></div>
                                         </div>
                                     </div>
                                 </div>
