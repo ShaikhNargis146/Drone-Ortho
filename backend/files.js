@@ -82,7 +82,9 @@ module.exports = [
     'backend/js/plugins/amcharts/10/plugins/export/export.js',
     'backend/js/plugins/amcharts/10/radar.js',
     'backend/js/plugins/iCheck/icheck.min.js',
-    'backend/js/plugins/ionRangeSlider/ion.rangeSlider.min.js'
+    'backend/js/plugins/ionRangeSlider/ion.rangeSlider.min.js',
+    'backend/js/plugins/amcharts/plugins/export/libs/fabric.js/fabric.js',
+    // 'backend/js/plugins/amcharts/plugins/export/libs/fabric.js/fabric.min.js',
     // 'backend/js/plugins/angular-morris/raphael-min.js',
     // 'backend/js/plugins/angular-morris/morris.min.js',
     // 'backend/js/plugins/angular-morris/angular-morris.min.js',
