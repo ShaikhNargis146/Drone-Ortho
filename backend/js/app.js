@@ -1467,3 +1467,17 @@ firstapp.directive('commonView', function () {
     }
 
 });
+/**
+ * ionRangeSlider - Directive for Ion Range Slider
+ */
+firstapp.directive('ionRangeSlider', function () {
+    return {
+        restrict: 'A',
+        scope: {
+            rangeOptions: '='
+        },
+        link: function (scope, elem, attrs) {
+            elem.ionRangeSlider(scope.rangeOptions);
+        }
+    }
+});
