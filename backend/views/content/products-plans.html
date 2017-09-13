@@ -12,11 +12,13 @@
                     </ol>
                 </div>
             </div>
+
             <div class="wrapper-content ">
                 <div class="row">
                     <div class="col-lg-12">
 
                         <div class="ibox float-e-margins">
+
                             <!--<div class="ibox-title">
                 <h5>Missions</h5>
               </div>-->
@@ -43,18 +45,21 @@
                                             </thead>
 
                                             <tbody>
-                                                <tr>
-                                                    <td>DFM-011</td>
-                                                    <td>99</td>
-                                                    <td>Active</td>
-                                                    <td>15 Days</td>
-                                                    <td><button type="submit" ui-sref="product-detail" class="btn green btn-outline btn-xs"><i class="fa fa-eye"></i> View</button>&nbsp;&nbsp;&nbsp;
-                                                        <button type="submit" ui-sref="edit-product" class="btn blue btn-outline btn-xs"><i class="fa fa-pencil"></i> Edit</button>                                                        &nbsp;&nbsp;&nbsp;
-                                                        <button type="submit" ui-sref="" class="btn red btn-outline btn-xs"><i class="fa fa-trash"></i> Delete</button>
-                                                    </td>
+                                                <tr ng-repeat="Product in Products">{{Product}}
+
+                                                    <td>{{Product._id}}</td>
+                                                    <td>{{Product.price}}</td>
+                                                    <td>{{Product.status}}</td>
+                                                    <td>{{Product.validity}}</td>
+                                                    <td><button type="submit" ui-sref="product-detail({productId:Product._id})"
+                                                            class="btn green btn-outline btn-xs"><i class="fa fa-eye"></i> View</button>&nbsp;&nbsp;&nbsp;
+                                                        <td><button type="submit" <button type="submit" ui-sref="edit-product({productId:Product._id})"
+                                                                class="btn blue btn-outline btn-xs"><i class="fa fa-pencil"></i> Edit</button>                                                            &nbsp;&nbsp;&nbsp;
+                                                            <button type="submit" class="btn red btn-outline btn-xs" ng-click="deleteProduct(Product._id)"><i class="fa fa-trash"></i> Delete</button>
+                                                        </td>
 
                                                 </tr>
-                                                <tr>
+                                                <!--<tr>
                                                     <td>DFM-0114</a>
                                                     </td>
                                                     <td>49</td>
@@ -99,7 +104,7 @@
                                                         <button type="submit" ui-sref="edit-product" class="btn blue btn-outline btn-xs"><i class="fa fa-pencil"></i> Edit</button>                                                        &nbsp;&nbsp;&nbsp;
                                                         <button type="submit" ui-sref="" class="btn red btn-outline btn-xs"><i class="fa fa-trash"></i> Delete</button>
                                                     </td>
-                                                </tr>
+                                                </tr>-->
 
                                             </tbody>
                                         </table>

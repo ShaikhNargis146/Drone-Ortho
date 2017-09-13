@@ -12,6 +12,18 @@ var controller = {
             });
         }
     },
+    getUser: function (req, res) {
+        if (req.body) {
+            User.getUser(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            })
+        }
+    },
     registerUser: function (req, res) {
         function callback(err, data) {
 
@@ -119,7 +131,7 @@ var controller = {
             res.callback("Access Denied for Database Backup");
         }
     },
-    getcart:function (req, res) {
+    getcart: function (req, res) {
         if (req.body) {
             User.getcart(req.body, res.callback);
         } else {

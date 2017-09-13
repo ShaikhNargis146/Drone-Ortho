@@ -42,12 +42,12 @@
                                 <td>Category</td>
                                 <td>:</td>
                                 <td>
-                                    <select class="form-control">
-											<option value="">SELECT</option>
-											<option value="">DFM Free</option>
-											<option value="">DFM Pro</option>
-											<option value="">DFM Standard</option>
-											<option value="">Drone</option>
+                                    <select class="form-control" ng-model="data.category">
+											<option value="{{data.category}}">{{data.category}}</option>
+											<option value="DFM Free">DFM Free</option>
+											<option value="DFM Pro">DFM Pro</option>
+											<option value="DFM Standard">DFM Standard</option>
+											<option value="Drone">Drone</option>
 										</select>
                                 </td>
                             </tr>
@@ -57,13 +57,10 @@
                                 <td>
                                     <div class="note-editor  panel panel-default">
                                         <div>
-                                            <div summernote class="summernote" ng-model="main.summernoteText">
-                                                <h3>Hello Jonathan! </h3>
-                                                dummy text of the printing and typesetting industry. <strong>Lorem Ipsum has been the industry's</strong>                                                standard dummy text ever since the 1500s, when an unknown printer took a
-                                                galley of type and scrambled it to make a type specimen book. It has survived
-                                                not only five centuries, but also the leap into electronic.
-                                                <br/>
-                                                <br/>
+                                            <div summernote class="summernote" ng-model="data.description">
+
+                                                {{data.description}}
+
                                             </div>
                                         </div>
                                     </div>
@@ -72,16 +69,17 @@
                             <tr>
                                 <td>Amount</td>
                                 <td>:</td>
-                                <td><input class="form-control" type="text" value=" $ 50"></td>
+                                <td><input class="form-control" ng-model="data.price" type="text" value="{">
+                                    <td>
                             </tr>
                             <tr>
                                 <td>Status</td>
                                 <td>:</td>
                                 <td>
-                                    <select class="form-control">
-											<option value="">SELECT</option>
-											<option value="">Active</option>
-											<option value="">Inactive</option>
+                                    <select class="form-control" ng-model="data.status">
+											<option value="{{data.status}}">{{data.status}}</option>
+											<option value="Active">Active</option>
+											<option value="Inactive">Inactive</option>
 										</select>
                                 </td>
                             </tr>
@@ -89,19 +87,19 @@
                                 <td>Validity</td>
                                 <td>:</td>
                                 <td>
-                                    <select class="form-control">
-											<option value="">SELECT</option>
-											<option value="">Not Applicable</option>
-											<option value="">15 Days</option>
-											<option value="">1 Month</option>
-											<option value="">2 Months</option>
-											<option value="">3 Months</option>
+                                    <select class="form-control" ng-model="data.validity">
+											<option value="{{data.validity}}">{{data.validity}}</option>
+											<option value="Not Applicable">Not Applicable</option>
+											<option value="15 Days">15 Days</option>
+											<option value="1 Month">1 Month</option>
+											<option value="2 Months">2 Months</option>
+											<option value="3 Months">3 Months</option>
 										</select>
                                 </td>
                             </tr>
 
                         </table>
-                        <td><button type="button" ui-sref="" class="btn green btn-outline btn-md">Update</button></td>
+                        <td><button type="button" ng-click="updateProduct(data)" class="btn green btn-outline btn-md">Update</button></td>
                     </div>
                 </div>
 

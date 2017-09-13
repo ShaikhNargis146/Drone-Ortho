@@ -164,6 +164,27 @@ var model = {
         });
     },
 
+    getUser: function (data, callback) {
+        console.log("data", data)
+        User.findOne({
+            _id: data._id
+        }).exec(function (err, found) {
+            if (err) {
+
+                callback(err, null);
+            } else {
+                if (found) {
+
+                    callback(null, found);
+                } else {
+                    callback({
+                        message: "Incorrect Credentials!"
+                    }, null);
+                }
+            }
+
+        });
+    },
     getByUrl: function (data, callback) {
         this.findOne({
             "myslug": data.myslug
@@ -232,10 +253,9 @@ var model = {
         user.accessToken = [uid(16)];
         user.password = md5(user.password);
         if (user.drone) {
-            user.lisence="NDB";
-        }
-        else{
-            user.lisence="UDB";
+            user.lisence = "NDB";
+        } else {
+            user.lisence = "UDB";
         }
         user.save(function (err, created) {
             if (err) {

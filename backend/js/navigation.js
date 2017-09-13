@@ -235,6 +235,21 @@ var navigationservice = angular.module('navigationservice', [])
                 });
 
             },
+            apiCallWithData: function (url, formData, callback) {
+                console.log("inside navigation")
+                $http.post(adminurl + url, formData).then(function (data) {
+                    data = data.data;
+                    callback(data);
+
+                });
+            },
+            apiCallWithoutData: function (url, callback) {
+                $http.post(adminurl + url).then(function (data) {
+                    data = data.data;
+                    callback(data);
+
+                });
+            },
 
         };
     });

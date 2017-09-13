@@ -192,7 +192,7 @@ firstapp
 
     })
 
-    .controller('ProductDetailCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+    .controller('ProductDetailCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("product-detail");
         $scope.menutitle = NavigationService.makeactive("ProductDetail");
@@ -200,6 +200,20 @@ firstapp
         $scope.navigation = NavigationService.getnav();
         // $scope.accessLevel = "user";
         $scope.accessLevel = "admin";
+
+        $scope._id = {
+            _id: $stateParams.productId
+        };
+        console.log("id is", $scope._id)
+        NavigationService.apiCallWithData("Products/getProduct", $scope._id, function (data) {
+
+            $scope.productInfo = data.data;
+            console.log("data is*****", $scope.productInfo);
+
+
+        });
+
+
     })
     .controller('TicketHistoryCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
@@ -351,6 +365,49 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("ProductsPlans");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        console.log("ASDRZ");
+
+        $scope.data = {
+            maxRow: 10,
+            page: 1
+        }
+        NavigationService.apiCallWithData("Products/search1", $scope.data, function (data) {
+            $scope.Products = data.data.results;
+            $scope.Products1 = data;
+            console.log("ABCD******", $scope.Products1);
+        });
+        console.log("print size****");
+        // console.log("print size******", selectedSize);
+
+        // $scope.dataSize = function (id) {
+        //         alert("hello");
+        //         console.log("inside size function", id);
+
+        //     },
+        //     $scope.pagination = function (id1) {
+        //         console.log("inside pagination function", id1);
+
+        //     }
+
+        $scope.deleteProduct = function (id) {
+            console.log("inside delete function", id);
+            $scope._id = {
+                _id: id
+            };
+            NavigationService.apiCallWithData("Products/delete", $scope._id, function (data) {
+
+                $scope.product = data;
+                console.log("data is", data);
+            });
+            $state.reload();
+        }
+
+        NavigationService.apiCallWithoutData("Products/search", function (data) {
+            $scope.Products = data.data.results;
+            $scope.Products1 = data;
+            console.log("ABCD******", $scope.Products1);
+        });
+
     })
     .controller('UsersCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
@@ -358,8 +415,18 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Users");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        console.log("user");
-        $scope.name = "saili"
+        $scope.template = TemplateService.changecontent("users");
+        $scope.menutitle = NavigationService.makeactive("Users");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        console.log("hello pranay");
+        NavigationService.apiCallWithoutData("User/search", function (data) {
+
+            $scope.userInfo = data.data.results;
+
+
+        });
+        console.log("hello saili");
     })
     .controller('EcommerceCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
@@ -369,12 +436,34 @@ firstapp
         $scope.navigation = NavigationService.getnav();
     })
 
-    .controller('EditProductCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+    .controller('EditProductCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("edit-product");
         $scope.menutitle = NavigationService.makeactive("EditProduct");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        $scope._id = {
+            _id: $stateParams.productId
+        };
+        console.log("id is", $scope._id)
+        NavigationService.apiCallWithData("Products/getProduct", $scope._id, function (data) {
+
+            $scope.data = data.data;
+            console.log("data is*****", $scope.data);
+
+            $scope.updateProduct = function (data) {
+                console.log("data is ", data);
+                NavigationService.apiCallWithData("Products/UpdateProduct", data, function (data2) {
+
+                    $scope.data = data2;
+                    console.log("data is**********************", $scope.data);
+                    console.log("mini-----11111");
+
+                });
+                $state.go('products-plans');
+            }
+        });
+
     })
     .controller('ReportsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
@@ -404,12 +493,25 @@ firstapp
         $scope.template = TemplateService.changecontent("add-product");
         $scope.menutitle = NavigationService.makeactive("AddProduct");
         TemplateService.title = $scope.menutitle;
+        console.log("add product!!!!!");
         $scope.navigation = NavigationService.getnav();
         /**
          * summernoteText - used for Summernote plugin
          */
         this.summernoteText = [].join('');
-        $scope.name = "saili";
+        $scope.submitProduct = function (data) {
+            console.log("data is ", data);
+            NavigationService.apiCallWithData("Products/save", data, function (data2) {
+
+                $scope.data = data2;
+                console.log("&&&&&&&data is**********************", $scope.data);
+
+
+            });
+            $state.go('products-plans');
+        }
+
+
 
     })
     .controller('EcomDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
@@ -441,12 +543,24 @@ firstapp
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
     })
-    .controller('UserDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+    .controller('UserDetailsCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("user-details");
         $scope.menutitle = NavigationService.makeactive("UsersDetails");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+
+        $scope._id = {
+            _id: $stateParams.userId
+        };
+        console.log("&&inside userctrl***", $scope._id);
+        NavigationService.apiCallWithData("User/getUser", $scope._id, function (data) {
+
+            $scope.UserDetailInfo = data.data;
+            console.log("data is", $scope.data);
+
+
+        });
     })
     // ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** FOR ADMIN ONLY ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** *
     // ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** FOR VENDOR ONLY ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ****//

@@ -39,7 +39,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             controller: 'SupportCtrl',
         })
         .state('product-detail', {
-            url: "/product-detail",
+            url: "/product-detail/:productId",
             templateUrl: "views/template.html",
             controller: 'ProductDetailCtrl',
         })
@@ -136,7 +136,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             controller: 'ProductsPlansCtrl',
         })
         .state('edit-product', {
-            url: "/edit-product",
+            url: "/edit-product/:productId",
             templateUrl: "views/template.html",
             controller: 'EditProductCtrl',
         })
@@ -185,7 +185,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             controller: 'SupportDetailsCtrl',
         })
         .state('user-details', {
-            url: "/user-details",
+            url: "/user-details/:userId",
             templateUrl: "views/template.html",
             controller: 'UserDetailsCtrl',
         })
@@ -1455,6 +1455,15 @@ firstapp.directive('commonView', function () {
             // item: "=value"
         },
         templateUrl: 'views/directive/common-view.html',
-        link: function () {}
+        link: function ($scope, element, attrs) {
+            console.log($scope.model);
+            $scope.dataSize = function (data) {
+                $scope.selectedSize = data
+                // alert("hello");
+                console.log("print size", $scope.selectedSize);
+            };
+
+        }
     }
+
 });

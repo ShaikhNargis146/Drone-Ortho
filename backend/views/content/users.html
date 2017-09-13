@@ -20,7 +20,7 @@
               </div>-->
 
 
-                    <div class="ibox-content collapse in" ng-controller="datatablesCtrl">
+                    <div class="ibox-content collapse in">
 
 
                         <div class="widgets-container">
@@ -41,18 +41,20 @@
                                     </thead>
 
                                     <tbody>
-                                        <tr>
-                                            <td><a ui-sref="user_details">#_1</a></td>
-                                            <td><a ui-sref="user_details">John deer</a></td>
-                                            <td><a ui-sref="user_details">John@example.com</a></td>
-                                            <td><a ui-sref="user_details">Inactive</a></td>
-                                            <td><a ui-sref="user_details">Standard</a></td>
-                                            <td><a ui-sref="user_details">Vendor</a></td>
-                                            <td><a ui-sref="user_details">UDB</a></td>
-                                            <td><a ui-sref="user_details">Active</a></td>
+
+
+                                        <tr ng-repeat="user in userInfo  track by $index">
+                                            <td><a ui-sref="user-details ({userId:user._id})">{{$index+1}}</a></td>
+                                            <td><a ui-sref="user-details ({userId:user._id})">{{user.name}}</a></td>
+                                            <td><a ui-sref="user-details ({userId:user._id})">{{user.email}}</a></td>
+                                            <td><a ui-sref="user-details ({userId:user._id})">{{user.accessLevel}}</a></td>
+                                            <td><a ui-sref="user-details ({userId:user._id})"></a></td>
+                                            <td><a ui-sref="user-details ({userId:user._id})"></a></td>
+                                            <td><a ui-sref="user-details ({userId:user._id})">{{user.lisence}}</a></td>
+                                            <td><a ui-sref="user-details ({userId:user._id})"></a></td>
 
                                         </tr>
-                                        <tr>
+                                        <!--<tr>
                                             <td><a ui-sref="user_details">#_2</a></td>
                                             <td><a ui-sref="user_details">AL</a></td>
                                             <td><a ui-sref="user_details">al@example.com</a></td>
@@ -177,9 +179,10 @@
                                             <td><a ui-sref="user_details">Client</a></td>
                                             <td><a ui-sref="user_details">UDB</a></td>
                                             <td><a ui-sref="user_details">Active</a></td>
-                                        </tr>
+                                        </tr>-->
                                     </tbody>
                                 </table>
+
                                 <pagination></pagination>
                             </div>
                         </div>
