@@ -425,7 +425,7 @@ firstapp
         NavigationService.apiCallWithData("CadLineWork/getSingleCadData", cad, function (data) {
             if (data.value == true) {
                 $scope.cadData = data.data;
-                // console.log("$scope.MissionData", $scope.MissionData);
+                console.log("$scope.MissionData", $scope.MissionData);
             }
         });
     })
@@ -476,9 +476,10 @@ firstapp
                     keyword: $scope.search.keyword
                 }, ++i,
                 function (data, ini) {
-                    //  console.log("Data: ", data);
                     if (ini == i) {
                         $scope.allCadLineData = data.data.results;
+                        console.log("  $scope.allCadLineData: ", $scope.allCadLineData);
+
                         $scope.totalItems = data.data.total;
                         $scope.maxRow = data.data.options.count;
                     }

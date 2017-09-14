@@ -3,7 +3,7 @@ var controller = {
 
     getSingleCadData: function (req, res) {
         if (req.body) {
-            Mission.getSingleCadData(req.body, res.callback);
+            CadLineWork.getSingleCadData(req.body, res.callback);
         } else {
             res.json({
                 value: false,
