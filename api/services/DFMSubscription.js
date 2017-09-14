@@ -6,7 +6,7 @@ var schema = new Schema({
     },
     expiryDate: Date,
     transactionDate: Date,
-    
+
     amount: {
         type: Number,
         default: 0
@@ -28,22 +28,22 @@ var schema = new Schema({
         index: true
     },
     status: String,
-    autoRenewal:Boolean,
-    emailReminder:Boolean,
-    upgradeEmail:Boolean,
-    manualActivation:Boolean,
-    invitations:String,
-    missions:String,
-    UploadPhoto:String,
-    UploadSize:String,
-    MosaicPerMonth:String,
-    Mosaic:String,
-    missionsResolution :String,
-    exportKMZ :String,
-    exportOrthophoto:String,
-    exportDEM:String,
-    exportPointCloud:String,
-    unlimitedUsedApps:String,
+    autoRenewal: Boolean,
+    emailReminder: Boolean,
+    upgradeEmail: Boolean,
+    manualActivation: Boolean,
+    invitations: String,
+    missions: String,
+    UploadPhoto: String,
+    UploadSize: String,
+    MosaicPerMonth: String,
+    Mosaic: String,
+    missionsResolution: String,
+    exportKMZ: String,
+    exportOrthophoto: String,
+    exportDEM: String,
+    exportPointCloud: String,
+    unlimitedUsedApps: String,
 });
 
 schema.plugin(deepPopulate, {});
@@ -51,9 +51,30 @@ schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('DFMSubscription', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "plan user","plan user"));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "plan user", "plan user"));
 var model = {
-   getByUser: function (data, callback) {
+
+    getDfm: function (data, callback) {
+        console.log('inside dfm', data)
+        DFMSubscription.find({
+            user: data.user
+        }, function (err, found) {
+            if (err) {
+                callback(err, null);
+            } else {
+                if (found) {
+                    console.log("FOund*************", found)
+                    callback(null, found);
+                } else {
+                    callback({
+                        message: "Something went wrong!"
+                    }, null);
+                }
+            }
+        });
+    },
+
+    getByUser: function (data, callback) {
         this.find({
             "user": data.user
         }, function (err, dataF) {

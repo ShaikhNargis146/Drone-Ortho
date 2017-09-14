@@ -12,8 +12,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Dashboard");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
+        $scope.accessLevel = "user";
+        // $scope.accessLevel = "admin";
         // $scope.accessLevel = "vendor";
         function dashboard() {
 
@@ -197,8 +197,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("ProductDetail");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
+        $scope.accessLevel = "user";
+        // $scope.accessLevel = "admin";
 
         $scope._id = {
             _id: $stateParams.productId
@@ -227,8 +227,18 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Support");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
+        $scope.accessLevel = "user";
+        // $scope.accessLevel = "admin";
+        $scope.formData = {
+            user: "59b8cf1fcae2b004106453aa"
+        }
+        NavigationService.apiCallWithData("Ticket/getTicketUser", $scope.formData, function (data2) {
+
+            $scope.ticketInfo = data2.data;
+            console.log("****data is**********************", data2);
+            console.log("****data is**********************", $scope.ticketInfo);
+
+        });
     })
     .controller('MissionsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
@@ -236,8 +246,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Missions");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
+        $scope.accessLevel = "user";
+        // $scope.accessLevel = "admin";
 
         NavigationService.apiCallWithoutData("Mission/search", function (data) {
             if (data.value == true) {
@@ -255,8 +265,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("MissionDetails");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
+        $scope.accessLevel = "user";
+        // $scope.accessLevel = "admin";
     })
 
     .controller('MailDetailCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
@@ -273,6 +283,22 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("MailCompose");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        $scope.submitTicket = function (data1) {
+            console.log("data in ticket", data1)
+            $scope.data = {
+                status: "active",
+            }
+            data1.status = "active"
+            data1.user = "59b8cf1fcae2b004106453aa"
+            NavigationService.apiCallWithData("Ticket/save", data1, function (data2) {
+
+                $scope.data = data2.data;
+                console.log("data is**********************", $scope.data);
+
+
+            });
+            $state.go('support')
+        }
     })
     // .controller('LightboxGalleryCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
     //     //Used to name the .html file
@@ -321,6 +347,14 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("CreateMission");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+
+
+        $scope.date = new Date();
+        $scope.saveMission = function () {
+            console.log("&&&777data in missions&&&&&&&&& ", data);
+
+        }
+
     })
     .controller('CadfileDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
@@ -328,8 +362,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("CadfileDetails");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
+        $scope.accessLevel = "user";
+        // $scope.accessLevel = "admin";
         // $scope.accessLevel = "vendor";
     })
     .controller('CadFileRequestCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
@@ -338,8 +372,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("CadFileRequest");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
+        $scope.accessLevel = "user";
+        // $scope.accessLevel = "admin";
         // $scope.accessLevel = "vendor";
 
         NavigationService.apiCallWithoutData("CadLineWork/search", function (data) {
@@ -356,6 +390,76 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("AccandSub");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        $scope.formData = {
+            _id: "59b8cf1fcae2b004106453aa"
+        }
+
+        NavigationService.apiCallWithData("User/getOne", $scope.formData, function (data) {
+            $scope.data = data.data;
+            console.log("*******data is*****", $scope.data)
+            if ($scope.data.accessLevel == "User") {
+                console.log("inside if condition")
+                $scope.accessLevel = {
+                    user: "59b8cf1fcae2b004106453aa"
+                }
+                NavigationService.apiCallWithData("DFMSubscription/getDfm", $scope.accessLevel, function (data) {
+                    $scope.dfmData = data.data
+                    console.log("data is  dfa data isthe following*****", $scope.dfmData)
+
+                });
+
+            }
+
+        });
+        $scope.updateUser = function (data) {
+            console.log("&&&777data is&&&&&&&&& ", data);
+            NavigationService.apiCallWithData("User/Updateuser", data, function (data2) {
+                $scope.data = data2;
+
+                console.log("data is**********************", $scope.data);
+                console.log("mini-----11111");
+                NavigationService.apiCallWithData("User/getOne", $scope.formData, function (data) {
+                    $scope.data = data.data;
+                    $scope.dataid = data.data._id;
+                    console.log("data is*****", $scope.data)
+
+                });
+
+            });
+        }
+        $scope.addCardDetail = function (data2) {
+
+            console.log("&&&777data is &&&&&", data2);
+            console.log(" $scope.dataid*********", $scope.dataid)
+            data2._id = "59b8cf1fcae2b004106453aa";
+            NavigationService.apiCallWithData("User/addCardDetails", data2, function (data) {
+                $scope.data = data.data;
+                console.log("data is*****", $scope.data)
+                NavigationService.apiCallWithData("User/getOne", $scope.formData, function (data) {
+                    $scope.data = data.data;
+                    console.log("data is*****", $scope.data)
+                });
+            });
+        }
+
+
+        $scope.updatePassword = function (password) {
+
+            console.log("&&&777data is &&&&&", password);
+            $scope.data = {
+                _id: "59b8cf1fcae2b004106453aa",
+                password: password
+            }
+            console.log("&&&777data is &&&&&", $scope.data);
+            NavigationService.apiCallWithData("User/save", $scope.data, function (data) {
+                $scope.data = data.data;
+            });
+        }
+
+        NavigationService.apiCallWithData("User/getDfmSub", $scope.formData, function (dfm) {
+            console.log("dfmis$$$$$44", dfm)
+        });
+
     })
     .controller('500Ctrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file

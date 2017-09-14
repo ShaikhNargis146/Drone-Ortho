@@ -44,16 +44,16 @@
                       </thead>
 
                       <tbody>
-                        <tr>
+                        <tr ng-repeat="ticket in ticketInfo">
                           <td><a ui-sref="ticket_history">#_1</a></td>
                           <td><a ui-sref="ticket_history">08/20/2017</a></td>
-                          <td><a ui-sref="ticket_history">ticket_1</a></td>
-                          <td><a ui-sref="ticket_history">India</a></td>
-                          <td><a ui-sref="ticket_history">Inactive</a></td>
+                          <td><a ui-sref="ticket_history">{{ticket.subject}}</a></td>
+                          <td><a ui-sref="ticket_history">{{ticket.description}}</a></td>
+                          <td><a ui-sref="ticket_history">{{ticket.status}}</a></td>
                           <td><a ui-sref="ticket_history">08/23/2017</a></td>
 
                         </tr>
-                        <tr>
+                        <!--<tr>
                           <td><a ui-sref="ticket_history">#_2</a></td>
                           <td><a ui-sref="ticket_history">08/20/2017</a></td>
                           <td><a ui-sref="ticket_history">ticket_2</a></td>
@@ -90,8 +90,8 @@
                           <td><a ui-sref="ticket_history">08/22/2017</a></td>
 
 
-                        </tr>
-                        <tr>
+                        </tr>-->
+                        <!--<tr>
                           <td><a ui-sref="ticket_history">#_6</a></td>
                           <td><a ui-sref="ticket_history">08/20/2017</a></td>
                           <td><a ui-sref="ticket_history">ticket_6</a></td>
@@ -165,7 +165,7 @@
                           <td><a ui-sref="ticket_history">Inactive</a></td>
                           <td><a ui-sref="ticket_history">08/30/2017</a></td>
 
-                        </tr>
+                        </tr>-->
                       </tbody>
                     </table>
                     <pagination></pagination>

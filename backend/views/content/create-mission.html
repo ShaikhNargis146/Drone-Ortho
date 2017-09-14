@@ -21,7 +21,7 @@
                             <label class="font-noraml">Mission Name</label>
 
                             <div class="input-group ">
-                                <input type="text" class="form-control" ng-model="sample" view="sampleDate" auto-close="true" required>
+                                <input type="text" class="form-control" ng-model="mission.name" view="sampleDate" auto-close="true" required>
                                 <span class="input-group-addon"><i class="fa fa-cube"></i></span>
                             </div>
                         </div>
@@ -31,10 +31,10 @@
                     <!--<div class="row col-md-5"></div>-->
                     <div class="row col-md-3">
                         <div class="form-group" id="data_4">
-                            <label class="font-noraml">Select date</label>
+                            <label class="font-noraml">Select date</label> {{date | date:'yyyy-MM-dd'}}
                             <div class="input-group">
 
-                                <input type="datetime" class="form-control" date-time ng-model="sampleDate" view="month" auto-close="true" required>
+                                <input type="datetime" class="form-control" date-time ng-model="date | date:'yyyy-MM-dd" view="month" auto-close="true" required>
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                             </div>
                         </div>
@@ -146,7 +146,7 @@
                             </div>
 
 
-                            <button type="button" class="btn green btn-sm"><span class="glyphicon glyphicon-upload"></span> Start Processing...</button>
+                            <button type="button" class="btn green btn-sm" ng-click="saveMission()"><span class="glyphicon glyphicon-upload"  ></span> Start Processing...</button>
 
                             <!--  <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
                             <span class="glyphicon glyphicon-ban-circle"></span> Cancel all

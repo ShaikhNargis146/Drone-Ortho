@@ -140,6 +140,58 @@ module.exports = mongoose.model('User', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "cartProducts currentSubscription.plan", "cartProducts currentSubscription.plan"));
 var model = {
+
+    addCardDetails: function (data, callback) {
+        console.log("data inside addCardDetails: ", data);
+        User.update({
+            _id: mongoose.Types.ObjectId(data._id)
+        }, {
+            $push: {
+                'cardDetails': {
+                    cardType: data.cardType,
+                    cardNumber: data.cardNumber,
+                    securityCode: data.securityCode,
+                    nameOnCard: data.nameOnCard
+                }
+            }
+        }).exec(function (err, found) {
+            if (err) {
+                callback(err, null);
+            } else if (_.isEmpty(found)) {
+                callback("noDataound", null);
+            } else {
+                callback(null, found);
+            }
+
+        });
+    },
+    Updateuser: function (data, callback) {
+        console.log("data is******", data)
+
+        User.update({
+            _id: mongoose.Types.ObjectId(data._id)
+        }, {
+            $set: {
+                name: data.name,
+                email: data.email,
+                phone: data.phone,
+                address: data.address,
+                password: data.password
+            }
+        }).exec(function (err, found) {
+            if (err) {
+                console.log("inside error");
+                callback(err, null);
+            } else if (_.isEmpty(found)) {
+                console.log("isemapty")
+                callback(null, "noDataound");
+            } else {
+                console.log("found", found)
+                callback(null, found);
+            }
+
+        });
+    },
     doLogin: function (data, callback) {
         console.log("data", data)
         User.findOne({
