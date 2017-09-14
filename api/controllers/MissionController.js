@@ -105,15 +105,20 @@ var controller = {
         }
 
     },
-    getMission: function (req, res) {
-        console.log("***");
+
+
+    getSingleMissionData: function (req, res) {
         if (req.body) {
-            console.log("**$$$$*");
-            Mission.getMission(req.body, res.callback);
+            Mission.getSingleMissionData(req.body, res.callback);
         } else {
-            console.log("*%%%%%**");
-            res.callback("Please provide Valid AccessToken", null);
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            });
         }
+
     },
     getGeoLocation: function (req, res) {
         fs.readFile('./pix4dUpload/vashi_transparent_mosaic_group1.tif', function (err, data) {

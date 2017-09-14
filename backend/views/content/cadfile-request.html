@@ -37,7 +37,19 @@
 
 
             <div class="widgets-container">
-              <common-view> </common-view>
+              <div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                <div class="row">
+                  <div class="col-md-6"> <label>Show          <select name="DataTables_Table_2_length" ng-change="dataSize(selectData)" ng-model="selectData" aria-controls="DataTables_Table_2" class="form-control input-sm">              <option value="10">10</option>              <option value="25">25</option>              <option value="50">50</option>              <option value="100">100</option>          </select> entries        </label>
+                    <div class="dataTables_info" id="DataTables_Table_1_info" role="status" aria-live="polite">Showing 1 to 10 of 13 entries</div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="pull-right"> <label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_0"></label>
+                      <div class="dt-buttons btn-group"> <a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Copy</span>             </a>                        <a class="btn btn-default buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>CSV</span>             </a>                        <a class="btn btn-default buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Excel</span>             </a>                        <a class="btn btn-default buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>PDF</span>             </a>                        <a class="btn btn-default buttons-print" tabindex="0" aria-controls="DataTables_Table_0"><span>Print</span>             </a>                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </common-view>
               <div>
                 <table datatable="" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
                   <thead>
@@ -52,124 +64,11 @@
                   </thead>
 
                   <tbody>
-                    <tr>
-                      <td><a ui-sref="cadfile_details">#_1</a></td>
+                    <tr ng-repeat="cadData in allCadLineData track by $index">
+                      <td><a ui-sref="cadfile_details">cadData.mission</a></td>
                       <td><a ui-sref="cadfile_details">mission_1</a></td>
-                      <td><a ui-sref="cadfile_details">2</a></td>
+                      <td><a ui-sref="cadfile_details">cadData.acreage</a></td>
                       <td><a ui-sref="cadfile_details">Completed</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-
-                    </tr>
-                    <tr>
-                      <td><a ui-sref="cadfile_details">#_2</a></td>
-                      <td><a ui-sref="cadfile_details">mission_2</a></td>
-                      <td><a ui-sref="cadfile_details">5</a></td>
-                      <td><a ui-sref="cadfile_details">In-Progress</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-
-                    </tr>
-                    <tr>
-                      <td><a ui-sref="cadfile_details">#_3</a></td>
-                      <td><a ui-sref="cadfile_details">mission_3</a></td>
-                      <td><a ui-sref="cadfile_details">21</a></td>
-                      <td><a ui-sref="cadfile_details">Cancelled</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-
-                    </tr>
-                    <tr>
-                      <td><a ui-sref="cadfile_details">#_4</a></td>
-                      <td><a ui-sref="cadfile_details">mission_4</a></td>
-                      <td><a ui-sref="cadfile_details">30</a></td>
-                      <td><a ui-sref="cadfile_details">Completed</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-
-
-                    </tr>
-                    <tr>
-                      <td><a ui-sref="cadfile_details">#_5</a></td>
-                      <td><a ui-sref="cadfile_details">mission_5</a></td>
-                      <td><a ui-sref="cadfile_details">25</a></td>
-                      <td><a ui-sref="cadfile_details">Hold</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-
-
-                    </tr>
-                    <tr>
-                      <td><a ui-sref="cadfile_details">#_6</a></td>
-                      <td><a ui-sref="cadfile_details">mission_6</a></td>
-                      <td><a ui-sref="cadfile_details">26</a></td>
-                      <td><a ui-sref="cadfile_details">In-Progress</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-
-
-                    </tr>
-                    <tr>
-                      <td><a ui-sref="cadfile_details">#_7</a></td>
-                      <td><a ui-sref="cadfile_details">mission_7</a></td>
-                      <td><a ui-sref="cadfile_details">18</a></td>
-                      <td><a ui-sref="cadfile_details">In-Progress</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-
-                    </tr>
-                    <tr>
-                      <td><a ui-sref="cadfile_details">#_8</a></td>
-                      <td><a ui-sref="cadfile_details">mission_8</a></td>
-                      <td><a ui-sref="cadfile_details">13</a></td>
-                      <td><a ui-sref="cadfile_details">Cancelled</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-
-
-                    </tr>
-                    <tr>
-                      <td><a ui-sref="cadfile_details">#_9</a></td>
-                      <td><a ui-sref="cadfile_details">mission_9</a></td>
-                      <td><a ui-sref="cadfile_details">23</a></td>
-                      <td><a ui-sref="cadfile_details">Hold</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-
-                    </tr>
-                    <tr>
-                      <td><a ui-sref="cadfile_details">#_10</a></td>
-                      <td><a ui-sref="cadfile_details">mission_10</a></td>
-                      <td><a ui-sref="cadfile_details">33</a></td>
-                      <td><a ui-sref="cadfile_details">Completed</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-
-                    </tr>
-
-                    <tr>
-                      <td><a ui-sref="cadfile_details">#_11</a></td>
-                      <td><a ui-sref="cadfile_details">mission_11</a></td>
-                      <td><a ui-sref="cadfile_details">23</a></td>
-                      <td><a ui-sref="cadfile_details">In-Progress</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-
-                    </tr>
-                    <tr>
-                      <td><a ui-sref="cadfile_details">#_12</a></td>
-                      <td><a ui-sref="cadfile_details">mission_12</a></td>
-                      <td><a ui-sref="cadfile_details">11</a></td>
-                      <td><a ui-sref="cadfile_details">Hold</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-
-                    </tr>
-                    <tr>
-                      <td><a ui-sref="cadfile_details">#_13</a></td>
-                      <td><a ui-sref="cadfile_details">mission_13</a></td>
-                      <td><a ui-sref="cadfile_details">08</a></td>
-                      <td><a ui-sref="cadfile_details">In-Progress</a></td>
                       <td><a ui-sref="cadfile_details">08/25/2017</a></td>
                       <td><a ui-sref="cadfile_details">08/25/2017</a></td>
 
@@ -316,7 +215,19 @@
 
 
             <div class="widgets-container">
-              <common-view> </common-view>
+              <div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                <div class="row">
+                  <div class="col-md-6"> <label>Show          <select name="DataTables_Table_2_length" ng-change="dataSize(selectData)" ng-model="selectData" aria-controls="DataTables_Table_2" class="form-control input-sm">              <option value="10">10</option>              <option value="25">25</option>              <option value="50">50</option>              <option value="100">100</option>          </select> entries        </label>
+                    <div class="dataTables_info" id="DataTables_Table_1_info" role="status" aria-live="polite">Showing 1 to 10 of 13 entries</div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="pull-right"> <label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_0"></label>
+                      <div class="dt-buttons btn-group"> <a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Copy</span>             </a>                        <a class="btn btn-default buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>CSV</span>             </a>                        <a class="btn btn-default buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Excel</span>             </a>                        <a class="btn btn-default buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>PDF</span>             </a>                        <a class="btn btn-default buttons-print" tabindex="0" aria-controls="DataTables_Table_0"><span>Print</span>             </a>                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </common-view>
               <div>
                 <table datatable="" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
                   <thead>
@@ -332,140 +243,15 @@
                   </thead>
 
                   <tbody>
-                    <tr>
-                      <td><a ui-sref="cadfile_details">#_1</a></td>
-                      <td><a ui-sref="cadfile_details">Internal</a></td>
-                      <td><a ui-sref="cadfile_details">link_1</a></td>
-                      <td><a ui-sref="cadfile_details">12</a></td>
-                      <td><a ui-sref="cadfile_details">Completed</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
+                    <tr ng-repeat="cadData in allCadLineData track by $index">
 
-                    </tr>
-                    <tr>
-                      <td><a ui-sref="cadfile_details">#_2</a></td>
-                      <td><a ui-sref="cadfile_details">External</a></td>
-                      <td><a ui-sref="cadfile_details">link_2</a></td>
-                      <td><a ui-sref="cadfile_details">11</a></td>
-                      <td><a ui-sref="cadfile_details">In-Progress</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-
-                    </tr>
-                    <tr>
-                      <td><a ui-sref="cadfile_details">#_3</a></td>
-                      <td><a ui-sref="cadfile_details">Internal</a></td>
-                      <td><a ui-sref="cadfile_details">link_3</a></td>
-                      <td><a ui-sref="cadfile_details">10</a></td>
-                      <td><a ui-sref="cadfile_details">Cancelled</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-
-                    </tr>
-                    <tr>
-                      <td><a ui-sref="cadfile_details">#_4</a></td>
-                      <td><a ui-sref="cadfile_details">External</a></td>
-                      <td><a ui-sref="cadfile_details">link_4</a></td>
-                      <td><a ui-sref="cadfile_details">04</a></td>
-                      <td><a ui-sref="cadfile_details">Completed</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-
-
-                    </tr>
-                    <tr>
-                      <td><a ui-sref="cadfile_details">#_5</a></td>
-                      <td><a ui-sref="cadfile_details">Internal</a></td>
-                      <td><a ui-sref="cadfile_details">link_5</a></td>
-                      <td><a ui-sref="cadfile_details">15</a></td>
-                      <td><a ui-sref="cadfile_details">Hold</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-
-
-                    </tr>
-                    <tr>
-                      <td><a ui-sref="cadfile_details">#_6</a></td>
-                      <td><a ui-sref="cadfile_details">External</a></td>
-                      <td><a ui-sref="cadfile_details">link_6</a></td>
-                      <td><a ui-sref="cadfile_details">18</a></td>
-                      <td><a ui-sref="cadfile_details">In-Progress</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-
-
-                    </tr>
-                    <tr>
-                      <td><a ui-sref="cadfile_details">#_7</a></td>
-                      <td><a ui-sref="cadfile_details">Internal</a></td>
-                      <td><a ui-sref="cadfile_details">link_7</a></td>
-                      <td><a ui-sref="cadfile_details">17</a></td>
-                      <td><a ui-sref="cadfile_details">In-Progress</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-
-                    </tr>
-                    <tr>
-                      <td><a ui-sref="cadfile_details">#_8</a></td>
-                      <td><a ui-sref="cadfile_details">External</a></td>
-                      <td><a ui-sref="cadfile_details">link_8</a></td>
-                      <td><a ui-sref="cadfile_details">19</a></td>
-                      <td><a ui-sref="cadfile_details">Cancelled</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-
-
-                    </tr>
-                    <tr>
-                      <td><a ui-sref="cadfile_details">#_9</a></td>
-                      <td><a ui-sref="cadfile_details">Internal</a></td>
-                      <td><a ui-sref="cadfile_details">link_9</a></td>
-                      <td><a ui-sref="cadfile_details">21</a></td>
-                      <td><a ui-sref="cadfile_details">Hold</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-
-                    </tr>
-                    <tr>
-                      <td><a ui-sref="cadfile_details">#_10</a></td>
-                      <td><a ui-sref="cadfile_details">External</a></td>
-                      <td><a ui-sref="cadfile_details">link_10</a></td>
-                      <td><a ui-sref="cadfile_details">05</a></td>
-                      <td><a ui-sref="cadfile_details">Completed</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-
-                    </tr>
-
-                    <tr>
-                      <td><a ui-sref="cadfile_details">#_11</a></td>
-                      <td><a ui-sref="cadfile_details">Internal</a></td>
-                      <td><a ui-sref="cadfile_details">link_11</a></td>
-                      <td><a ui-sref="cadfile_details">08</a></td>
-                      <td><a ui-sref="cadfile_details">In-Progress</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-
-                    </tr>
-                    <tr>
-                      <td><a ui-sref="cadfile_details">#_12</a></td>
-                      <td><a ui-sref="cadfile_details">Internal</a></td>
-                      <td><a ui-sref="cadfile_details">link_12</a></td>
-                      <td><a ui-sref="cadfile_details">09</a></td>
-                      <td><a ui-sref="cadfile_details">Hold</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-
-                    </tr>
-                    <tr>
-                      <td><a ui-sref="cadfile_details">#_13</a></td>
-                      <td><a ui-sref="cadfile_details">External</a></td>
-                      <td><a ui-sref="cadfile_details">link_13</a></td>
-                      <td><a ui-sref="cadfile_details">17</a></td>
-                      <td><a ui-sref="cadfile_details">In-Progress</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-
+                      <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData._id}}</a></td>
+                      <td><a ui-sref="cadfile-details({'cadId' : cadData._id})"></a></td>
+                      <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.acreage}}</a></td>
+                      <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.status}}</a></td>
+                      <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.createdAt | date}}</a></td>
+                      <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">YES </a></td>
+                      <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">YES </a></td>
                     </tr>
                   </tbody>
                 </table>
@@ -513,7 +299,19 @@
 
 
             <div class="widgets-container">
-              <common-view> </common-view>
+              <div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                <div class="row">
+                  <div class="col-md-6"> <label>Show          <select name="DataTables_Table_2_length" ng-change="dataSize(selectData)" ng-model="selectData" aria-controls="DataTables_Table_2" class="form-control input-sm">              <option value="10">10</option>              <option value="25">25</option>              <option value="50">50</option>              <option value="100">100</option>          </select> entries        </label>
+                    <div class="dataTables_info" id="DataTables_Table_1_info" role="status" aria-live="polite">Showing 1 to 10 of 13 entries</div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="pull-right"> <label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_0"></label>
+                      <div class="dt-buttons btn-group"> <a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Copy</span>             </a>                        <a class="btn btn-default buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>CSV</span>             </a>                        <a class="btn btn-default buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Excel</span>             </a>                        <a class="btn btn-default buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>PDF</span>             </a>                        <a class="btn btn-default buttons-print" tabindex="0" aria-controls="DataTables_Table_0"><span>Print</span>             </a>                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </common-view>
               <div>
                 <table datatable="" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
                   <thead>

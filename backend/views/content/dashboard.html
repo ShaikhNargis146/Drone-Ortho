@@ -77,9 +77,22 @@
                                     <div class="widgets-container">
                                         <div class="row">
                                             <div class="col-sm-8">
-                                                <div class="flot-chart-box">
+                                                <!--<div class="flot-chart-box">
                                                     <div id="flot-dashboard-chart" flot class="demo-placeholder flot-chart-content" dataset="dataset" options="options"></div>
-                                                </div>
+                                                </div>-->
+
+                                                <flot dataset="dataset" options="options" height="480px"></flot>
+                                                <div id="legend" style="width: 200px; height: 200px;"></div>
+
+                                                <!-- Categories -->
+                                                <!--<hr>
+                                                <flot dataset="categoriesDataset" options="categoriesOptions" height="480px"></flot>-->
+
+
+                                                <!-- Events -->
+                                                <!--<hr>
+                                                <flot dataset="eventDataset" options="eventOptions" height="480px" on-plot-click="onEventExampleClicked(event, pos, item)"
+                                                    on-plot-hover="onEventExampleHover(event, pos, item)"></flot>-->
                                             </div>
                                             <div class="col-sm-3">
                                                 <ul class="stat-list">
@@ -140,10 +153,10 @@
                                     </div>
                                 </div>
                             </div>-->
-                            <div class="">
-                                <div donut-chart="" donut-data="donut.chartData" donut-colors="donut.chartColors" donut-formatter="'currency'"></div>
-                                <div donut-chart="" donut-data="donut.chartData" donut-colors="donut.chartColors" donut-formatter="donut.myFormatter"></div>
-                            </div>
+                            <!-- Pie Chart -->
+
+                            <flot dataset="pieDataset" options="pieOptions" height="480px"></flot>
+
                         </div>
                     </div>
                     <div class="col-lg-4">
