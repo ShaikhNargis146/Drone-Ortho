@@ -50,7 +50,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             controller: 'MissionsCtrl',
         })
         .state('mission-details', {
-            url: "/mission-details",
+            url: "/mission-details/:missionId",
             templateUrl: "views/template.html",
             controller: 'MissionsDetailsCtrl'
         })
@@ -100,7 +100,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             controller: 'CadFileRequestCtrl',
         })
         .state('cadfile-details', {
-            url: "/cadfile-details",
+            url: "/cadfile-details/:cadId",
             templateUrl: "views/template.html",
             controller: 'CadfileDetailsCtrl',
         })

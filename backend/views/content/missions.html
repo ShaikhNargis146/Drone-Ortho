@@ -188,6 +188,7 @@
           </ol>
         </div>
       </div>
+
       <div class="wrapper-content ">
 
         <div class="row">
@@ -234,17 +235,23 @@
                       <tbody>
                         <tr ng-repeat="missionData in allMissionData track by $index">
 
-                          <td><a ui-sref="mission_details">{{missionData._id}}</a></td>
-                          <td><a ui-sref="mission_details">{{missionData.user._id}}</a></td>
-                          <td><a ui-sref="mission_details">{{missionData.name}}</a></td>
-                          <td><a ui-sref="mission_details">{{missionData.createdAt | date}}</a></td>
-                          <td><a ui-sref="mission_details">{{missionData.fileUploadStatus}}</a></td>
-                          <td><a ui-sref="mission_details">YES </a></td>
+                          <td><a ui-sref="mission-details({'missionId' : missionData._id})">{{missionData._id}}</a></td>
+                          <td><a ui-sref="mission-details({'missionId' : missionData._id})">{{missionData.user._id}}</a></td>
+                          <td><a ui-sref="mission-details({'missionId' : missionData._id})">{{missionData.name}}</a></td>
+                          <td><a ui-sref="mission-details({'missionId' : missionData._id})">{{missionData.createdAt | date}}</a></td>
+                          <td><a ui-sref="mission-details({'missionId' : missionData._id})">{{missionData.fileUploadStatus}}</a></td>
+                          <td><a ui-sref="mission-details({'missionId' : missionData._id})">YES </a></td>
                         </tr>
 
                       </tbody>
                     </table>
-                    <pagination></pagination>
+                    <div class="right-side">
+                      <ul ng-if="totalItems " ng-change="changePage(currentPage); " uib-pagination total-items="totalItems
+                                            " items-per-page="maxRow " ng-model="currentPage " max-size="template.pageMax "
+                        class="pagination-sm
+                                            " boundary-links="true " force-ellipses="true ">
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>

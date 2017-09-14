@@ -12,8 +12,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Dashboard");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = "user";
-        // $scope.accessLevel = "admin";
+        // $scope.accessLevel = "user";
+        $scope.accessLevel = "admin";
         // $scope.accessLevel = "vendor";
         function dashboard() {
 
@@ -197,8 +197,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("ProductDetail");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = "user";
-        // $scope.accessLevel = "admin";
+        // $scope.accessLevel = "user";
+        $scope.accessLevel = "admin";
 
         $scope._id = {
             _id: $stateParams.productId
@@ -227,8 +227,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Support");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = "user";
-        // $scope.accessLevel = "admin";
+        // $scope.accessLevel = "user";
+        $scope.accessLevel = "admin";
         $scope.formData = {
             user: "59b8cf1fcae2b004106453aa"
         }
@@ -240,33 +240,86 @@ firstapp
 
         });
     })
-    .controller('MissionsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+    .controller('MissionsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("missions");
         $scope.menutitle = NavigationService.makeactive("Missions");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = "user";
-        // $scope.accessLevel = "admin";
+        // $scope.accessLevel = "user";
+        $scope.accessLevel = "admin";
 
-        NavigationService.apiCallWithoutData("Mission/search", function (data) {
-            if (data.value == true) {
-                $scope.allMissionData = data.data.results;
-                console.log("$scope.allMissionData", $scope.allMissionData);
+        //pagination
+
+        var i = 0;
+        if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
+            $scope.currentPage = $stateParams.page;
+        } else {
+            $scope.currentPage = 1;
+        }
+
+        $scope.search = {
+            keyword: ""
+        };
+        if ($stateParams.keyword) {
+            $scope.search.keyword = $stateParams.keyword;
+        }
+        $scope.changePage = function (page) {
+            //  console.log("changePage: ", page);
+            var goTo = "missions";
+            $scope.currentPage = page;
+            if ($scope.search.keyword) {
+                goTo = "missions";
             }
-        });
+            $state.go(goTo, {
+                page: page
+            });
+            $scope.getAllItems();
+        };
 
+        $scope.getAllItems = function (keywordChange) {
+            //  console.log("In getAllItems: ", keywordChange);
+            $scope.totalItems = undefined;
+            if (keywordChange) {}
+            NavigationService.searchCall("Mission/search", {
+                    page: $scope.currentPage,
+                    keyword: $scope.search.keyword
+                }, ++i,
+                function (data, ini) {
+                    //  console.log("Data: ", data);
+                    if (ini == i) {
+                        $scope.allMissionData = data.data.results;
+                        $scope.totalItems = data.data.total;
+                        $scope.maxRow = data.data.options.count;
+                    }
+                });
+
+        };
+        //  JsonService.refreshView = $scope.getAllItems;
+        $scope.getAllItems();
 
 
     })
-    .controller('MissionsDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+    .controller('MissionsDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("mission-details");
         $scope.menutitle = NavigationService.makeactive("MissionDetails");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = "user";
-        // $scope.accessLevel = "admin";
+        // $scope.accessLevel = "user";
+        $scope.accessLevel = "admin";
+
+        var mission = {};
+        mission._id = $stateParams.missionId;
+        // console.log("missionData._id", $stateParams.missionId);
+        NavigationService.apiCallWithData("Mission/getSingleMissionData", mission, function (data) {
+            // console.log("$scope.data", data);
+            if (data.value == true) {
+                $scope.MissionData = data.data;
+                console.log("$scope.MissionData", $scope.MissionData);
+            }
+        });
+
     })
 
     .controller('MailDetailCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
@@ -356,32 +409,85 @@ firstapp
         }
 
     })
-    .controller('CadfileDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+    .controller('CadfileDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("cadfile-details");
         $scope.menutitle = NavigationService.makeactive("CadfileDetails");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = "user";
-        // $scope.accessLevel = "admin";
+        // $scope.accessLevel = "user";
+        $scope.accessLevel = "admin";
         // $scope.accessLevel = "vendor";
+
+        var cad = {};
+        cad._id = $stateParams.cadId;
+        // console.log("missionData._id", cad);
+        NavigationService.apiCallWithData("CadLineWork/getSingleCadData", cad, function (data) {
+            if (data.value == true) {
+                $scope.cadData = data.data;
+                console.log("$scope.MissionData", $scope.MissionData);
+            }
+        });
     })
-    .controller('CadFileRequestCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+    .controller('CadFileRequestCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("cadfile-request");
         $scope.menutitle = NavigationService.makeactive("CadFileRequest");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = "user";
-        // $scope.accessLevel = "admin";
+        // $scope.accessLevel = "user";
+        $scope.accessLevel = "admin";
         // $scope.accessLevel = "vendor";
 
-        NavigationService.apiCallWithoutData("CadLineWork/search", function (data) {
-            if (data.value == true) {
-                $scope.allCadLineData = data.data.results;
-                console.log("$scope.allCadLineData", $scope.allCadLineData);
+        //pagination
+
+        var i = 0;
+        if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
+            $scope.currentPage = $stateParams.page;
+        } else {
+            $scope.currentPage = 1;
+        }
+
+        $scope.search = {
+            keyword: ""
+        };
+        if ($stateParams.keyword) {
+            $scope.search.keyword = $stateParams.keyword;
+        }
+        $scope.changePage = function (page) {
+            //  console.log("changePage: ", page);
+            var goTo = "cadfile-reques";
+            $scope.currentPage = page;
+            if ($scope.search.keyword) {
+                goTo = "cadfile-reques";
             }
-        });
+            $state.go(goTo, {
+                page: page
+            });
+            $scope.getAllItems();
+        };
+
+        $scope.getAllItems = function (keywordChange) {
+            //  console.log("In getAllItems: ", keywordChange);
+            $scope.totalItems = undefined;
+            if (keywordChange) {}
+            NavigationService.searchCall("CadLineWork/search", {
+                    page: $scope.currentPage,
+                    keyword: $scope.search.keyword
+                }, ++i,
+                function (data, ini) {
+                    if (ini == i) {
+                        $scope.allCadLineData = data.data.results;
+                        console.log("  $scope.allCadLineData: ", $scope.allCadLineData);
+
+                        $scope.totalItems = data.data.total;
+                        $scope.maxRow = data.data.options.count;
+                    }
+                });
+
+        };
+        //  JsonService.refreshView = $scope.getAllItems;
+        $scope.getAllItems();
 
     })
     .controller('AccandSubCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
