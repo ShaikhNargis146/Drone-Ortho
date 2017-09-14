@@ -93,6 +93,20 @@ var controller = {
         }
 
     },
+
+    getSingleMissionData: function (req, res) {
+        if (req.body) {
+            Mission.getSingleMissionData(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            });
+        }
+
+    },
     getGeoLocation: function (req, res) {
         fs.readFile('./pix4dUpload/vashi_transparent_mosaic_group1.tif', function (err, data) {
             if (err) {

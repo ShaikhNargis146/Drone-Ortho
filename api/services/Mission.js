@@ -260,6 +260,18 @@ var model = {
             }
         });
     },
+
+    getSingleMissionData: function (data, callback) {
+        this.findOne({
+            _id: data._id
+        }).exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, []);
+            } else {
+                callback(null, data);
+            }
+        })
+    }
 };
 // cron.schedule('1 * * * * *', function () {
 //     Mission.find({

@@ -23,7 +23,14 @@ var schema = new Schema({
         index: true
     },
     isDiscounted: Boolean,
-    status: String,
+    status: {
+        type: String,
+        enum: ['Pending', 'Processing', 'Completed']
+    },
+    paymentStatus: {
+        type: String,
+        enum: ['Paid', 'Unpaid']
+    },
     mapCenter: String,
     cadFile: String,
     name: String,
@@ -35,7 +42,12 @@ var schema = new Schema({
     },
     transactionNo: String,
     pdfFile: String,
-    completionDate: Date
+    completionDate: Date,
+    vendor: {
+        type: Schema.Types.ObjectId,
+        ref: 'Vendor',
+        index: true
+    },
 });
 
 schema.plugin(deepPopulate, {
@@ -60,5 +72,18 @@ schema.plugin(timestamps);
 module.exports = mongoose.model('CadLineWork', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "user mission", "user mission"));
-var model = {};
+var model = {
+
+    getSingleCadData: function (data, callback) {
+        this.findOne({
+            _id: data._id
+        }).exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, []);
+            } else {
+                callback(null, data);
+            }
+        })
+    }
+};
 module.exports = _.assign(module.exports, exports, model);
