@@ -31,11 +31,11 @@
                     <!--<div class="row col-md-5"></div>-->
                     <div class="row col-md-3">
                         <div class="form-group" id="data_4">
-                            <label class="font-noraml">Select date</label> {{date | date:'yyyy-MM-dd'}}
+                            <label class="font-noraml">Select date</label>
                             <div class="input-group">
 
-                                <input type="datetime" class="form-control" date-time ng-model="date | date:'yyyy-MM-dd" view="month" auto-close="true" required>
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input type="text" class="form-control" ng-model="mission.date" date-time value="{{date | date:'yyyy-MM-dd'}}" required>
+
                             </div>
                         </div>
                     </div>
@@ -55,113 +55,107 @@
 		 </div>-->
 
 
-                <div ng-controller="fileUpload" nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter">
 
-                    <div class="col-md-12">
+                <div class="col-md-12">
 
-                        <label class="font-noraml">Upload File</label>
-                        <div ng-show="uploader.isHTML5">
-                            <!-- 3. nv-file-over uploader="link" over-class="className" -->
-                            <div class="well my-drop-zone" nv-file-over="" uploader="uploader">
-                                <h1>Drop files here.</h1>
-                                Base drop zone
-                            </div>
+                    <label class="font-noraml">Upload File</label>
 
-                            <!-- Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
-                            <!--<div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }">
-                                                        <div nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone">
-                                                            <h1>Drop files here.</h1>
-                                                            Another drop zone with its own settings
-                                                        </div>
-                                                    </div>-->
+                    <tr>
+                        <!--<td><input class="form-control" type="file" name="" id="">
+                                </td>-->
+                        <td>
+                            <upload-image-files ng-model="mission.files" no-show="true" multiple="true" ng-disabled="type.disabled"></upload-image-files>
+                        </td>
+                        <!--<td><button type="button" ui-sref="" class="btn green btn-outline btn-md">Upload</button></td>-->
+                    </tr>
+                </div>
+
+
+            </div>
+
+
+
+            <div class="col-md-12" style="margin-bottom: 40px">
+
+                <h3>Upload queue</h3>
+                <p>Queue length: {{ uploader.queue.length }}</p>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th width="50%">Name</th>
+                            <th ng-show="uploader.isHTML5">Size</th>
+                            <th ng-show="uploader.isHTML5">Progress</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in uploader.queue">
+                            <td><strong>{{ item.file.name }}</strong></td>
+                            <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+                            <td ng-show="uploader.isHTML5">
+                                <div class="progress" style="margin-bottom: 0;">
+                                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                                <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                            </td>
+                            <td nowrap>
+                                <button type="button" class="btn green btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                                        <span class="glyphicon glyphicon-upload"></span> Upload
+                                    </button>
+                                <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+                                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                                    </button>
+                                <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                                        <span class="glyphicon glyphicon-trash"></span> Remove
+                                    </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div>
+                    <div>
+                        Queue progress:
+                        <hr>
+                        <div class="progress" style="">
+                            <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                         </div>
-
-
                     </div>
 
 
-
-                    <div class="col-md-12" style="margin-bottom: 40px">
-
-                        <h3>Upload queue</h3>
-                        <p>Queue length: {{ uploader.queue.length }}</p>
-
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th width="50%">Name</th>
-                                    <th ng-show="uploader.isHTML5">Size</th>
-                                    <th ng-show="uploader.isHTML5">Progress</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="item in uploader.queue">
-                                    <td><strong>{{ item.file.name }}</strong></td>
-                                    <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
-                                    <td ng-show="uploader.isHTML5">
-                                        <div class="progress" style="margin-bottom: 0;">
-                                            <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
-                                        </div>
-                                    </td>
-                                    <td class="text-center">
-                                        <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
-                                        <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
-                                        <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
-                                    </td>
-                                    <td nowrap>
-                                        <button type="button" class="btn green btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
-                                        <span class="glyphicon glyphicon-upload"></span> Upload
-                                    </button>
-                                        <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
-                                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
-                                    </button>
-                                        <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
-                                        <span class="glyphicon glyphicon-trash"></span> Remove
-                                    </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <div>
-                            <div>
-                                Queue progress:
-                                <hr>
-                                <div class="progress" style="">
-                                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
-                                </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <div class="i-checks">
+                                <div ng-init="options={};options.one.selected=true">
+                                    <input type="checkbox" ng-click="options.one.selected=!options.one.selected" ng-checked="options.one.selected" ng-model="options.one.selected"
+                                        iCheck ng-model="main.Check" disabled> Start processing
+                                    automatically after all images are uploaded </div>
                             </div>
+                        </div>
+                    </div>
 
 
-                            <div class="form-group">
-                                <div class="form-check">
-                                    <div class="i-checks">
-                                        <div ng-init="options={};options.one.selected=true">
-                                            <input type="checkbox" ng-click="options.one.selected=!options.one.selected" ng-checked="options.one.selected" ng-model="options.one.selected"
-                                                iCheck ng-model="main.Check" disabled>                                            Start processing automatically after all images are uploaded </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <button type="button" class="btn green btn-sm" ng-click="saveMission()"><span class="glyphicon glyphicon-upload"  ng-click="saveMission()" ></span> Start Processing...</button>
 
-
-                            <button type="button" class="btn green btn-sm" ng-click="saveMission()"><span class="glyphicon glyphicon-upload"  ></span> Start Processing...</button>
-
-                            <!--  <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+                    <!--  <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
                             <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
                         </button>
                                                     <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
                             <span class="glyphicon glyphicon-trash"></span> Remove all
                         </button>-->
-                        </div>
-
-                    </div>
-
                 </div>
 
+            </div>
 
-                <!-- <div class="row col-md-12">
+
+
+            <!-- <div class="row col-md-12">
 		 </br>
 		 </br>
 		  <div class="row col-md-3"></div>
@@ -171,6 +165,6 @@
 			</div>
 		  </div>
 		 </div>-->
-            </div>
         </div>
     </div>
+</div>

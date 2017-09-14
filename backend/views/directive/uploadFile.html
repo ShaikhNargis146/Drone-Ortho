@@ -25,9 +25,9 @@
       class="btn-primary" multiple>
     <span>CHOOSE FILE</span>
     <!-- <a class="btn btn-primary btn-outline btn-small create-btn" ng-if="!isMultiple">Choose File</a> -->
-    <!-- <a class="btn btn-primary btn-outline btn-small create-btn" ng-if="isMultiple">Choose Files</a> -->
-  </div>
-  <br ng-show="isMultiple">
+      <!-- <a class="btn btn-primary btn-outline btn-small create-btn" ng-if="isMultiple">Choose Files</a> -->
+    </div>
+    <br ng-show="isMultiple">
   <button ng-show="isMultiple" class="btn btn-danger btn-outline btn-small create-btn" ng-click="clearOld()">CLEAR FILES</button>
   <span class="label label-success" ng-if="uploadStatus == 'uploaded'" ng-show="!isMultiple">Document Uploaded - {{image.file.name}}</span>
   <span class="label label-success" ng-if="uploadStatus == 'uploaded'" ng-show="isMultiple">Document Uploaded - {{image.length}}</span>

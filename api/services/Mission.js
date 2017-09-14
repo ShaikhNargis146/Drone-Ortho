@@ -60,6 +60,37 @@ module.exports = mongoose.model('Mission', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "serviceId user DFMSubscription", "serviceId user DFMSubscriptions"));
 var model = {
+    missionIdGenerate: function (data, callback) {
+        Mission.find({}).sort({
+            createdAt: -1
+        }).limit(1).exec(function (err, found) {
+            console.log("inside mission", found)
+            if (err) {
+                callback(err, null);
+            } else {
+
+                if (_.isEmpty(found)) {
+                    callback(null, "noDataFound");
+                } else {
+
+                    var missionId = found[0].missionId
+                    var num = "";
+                    var nextNum = "";
+                    var nextNum = num + 1;
+
+                    var year = new Date().getFullYear()
+                    var month = new Date().getMonth();
+                    month = month + 1
+                    console.log("year******", month)
+                    var mission = "M" + year + month
+                    var missionlenght = mission.length;
+                    var missionId = "M" + year + month + nextNum;
+                    console.log("mission id is", missionId.length)
+                    callback(null, missionId);
+                }
+            }
+        });
+    },
     createMission: function (data, callback) {
 
         Mission.saveData(data, function (err, created) {
@@ -242,7 +273,25 @@ var model = {
         });
     },
 
+    getMission: function (data, callback) {
+        console.log("data is******", data)
 
+        Mission.find({
+            user: data.user
+        }).exec(function (err, found) {
+            if (err) {
+                console.log("inside error");
+                callback(err, null);
+            } else if (_.isEmpty(found)) {
+                console.log("isemapty")
+                callback(null, "noDataound");
+            } else {
+                console.log("found", found)
+                callback(null, found);
+            }
+
+        });
+    },
     getByUser: function (data, callback) {
         this.find({
             "user": data.user

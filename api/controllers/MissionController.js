@@ -67,6 +67,18 @@ var controller = {
         // });
 
     },
+    missionIdGenerate: function (req, res) {
+        if (req.body) {
+            Mission.missionIdGenerate(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            })
+        }
+    },
     createMission: function (req, res) { //pix4dmapper -c -n --image-dir C:\Users\dell\Pictures\newMissionImages D:\mining\myquarry.p4d 
         if (req.body) {
             Mission.createMission(req.body, res.callback);
@@ -92,6 +104,16 @@ var controller = {
             });
         }
 
+    },
+    getMission: function (req, res) {
+        console.log("***");
+        if (req.body) {
+            console.log("**$$$$*");
+            Mission.getMission(req.body, res.callback);
+        } else {
+            console.log("*%%%%%**");
+            res.callback("Please provide Valid AccessToken", null);
+        }
     },
     getGeoLocation: function (req, res) {
         fs.readFile('./pix4dUpload/vashi_transparent_mosaic_group1.tif', function (err, data) {
