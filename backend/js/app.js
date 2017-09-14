@@ -11,9 +11,9 @@ var firstapp = angular.module('firstapp', [
     "ngMap",
     "internationalPhoneNumber",
     "jsonservicemod",
-    'mapboxgl-directive',
     'summernote',
-    'datePicker'
+    'datePicker',
+    'angular-flot'
 ]);
 
 L.mapbox.accessToken = 'pk.eyJ1IjoibmFyZ2lzLXNoYWlraCIsImEiOiJjajVsMWdjbTgyN2t0MzBuejY0YWZvYnU1In0.sxNSmPeAZRDks6p3JmRUkw';
@@ -25,7 +25,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
         .state('dashboard', {
             url: "/dashboard",
             templateUrl: "views/template.html",
-            controller: 'DashboardCtrl as chart',
+            controller: 'DashboardCtrl',
         })
 
         .state('ticket-history', {
@@ -1380,63 +1380,63 @@ firstapp.factory('shareMission', function () {
     };
 });
 
-firstapp.directive('flot', function () {
-    return {
-        restrict: 'EA',
-        template: '<div></div>',
-        scope: {
-            dataset: '=',
-            options: '=',
-            callback: '='
-        },
-        link: function (scope, element, attributes) {
-            var height, init, onDatasetChanged, onOptionsChanged, plot, plotArea, width, _ref, _ref1;
-            plot = null;
-            width = attributes.width || '100%';
-            height = attributes.height || '100%';
-            if (((_ref = scope.options) != null ? (_ref1 = _ref.legend) != null ? _ref1.container : void 0 : void 0) instanceof jQuery) {
-                throw 'Please use a jQuery expression string with the "legend.container" option.';
-            }
-            if (!scope.dataset) {
-                scope.dataset = [];
-            }
-            if (!scope.options) {
-                scope.options = {
-                    legend: {
-                        show: false
-                    }
-                };
-            }
-            plotArea = $(element.children()[0]);
-            plotArea.css({
-                width: width,
-                height: height
-            });
-            init = function () {
-                var plotObj;
-                plotObj = $.plot(plotArea, scope.dataset, scope.options);
-                if (scope.callback) {
-                    scope.callback(plotObj);
-                }
-                return plotObj;
-            };
-            onDatasetChanged = function (dataset) {
-                if (plot) {
-                    plot.setData(dataset);
-                    plot.setupGrid();
-                    return plot.draw();
-                } else {
-                    return plot = init();
-                }
-            };
-            scope.$watch('dataset', onDatasetChanged, true);
-            onOptionsChanged = function () {
-                return plot = init();
-            };
-            return scope.$watch('options', onOptionsChanged, true);
-        }
-    };
-});
+// firstapp.directive('flot', function () {
+//     return {
+//         restrict: 'EA',
+//         template: '<div></div>',
+//         scope: {
+//             dataset: '=',
+//             options: '=',
+//             callback: '='
+//         },
+//         link: function (scope, element, attributes) {
+//             var height, init, onDatasetChanged, onOptionsChanged, plot, plotArea, width, _ref, _ref1;
+//             plot = null;
+//             width = attributes.width || '100%';
+//             height = attributes.height || '100%';
+//             if (((_ref = scope.options) != null ? (_ref1 = _ref.legend) != null ? _ref1.container : void 0 : void 0) instanceof jQuery) {
+//                 throw 'Please use a jQuery expression string with the "legend.container" option.';
+//             }
+//             if (!scope.dataset) {
+//                 scope.dataset = [];
+//             }
+//             if (!scope.options) {
+//                 scope.options = {
+//                     legend: {
+//                         show: false
+//                     }
+//                 };
+//             }
+//             plotArea = $(element.children()[0]);
+//             plotArea.css({
+//                 width: width,
+//                 height: height
+//             });
+//             init = function () {
+//                 var plotObj;
+//                 plotObj = $.plot(plotArea, scope.dataset, scope.options);
+//                 if (scope.callback) {
+//                     scope.callback(plotObj);
+//                 }
+//                 return plotObj;
+//             };
+//             onDatasetChanged = function (dataset) {
+//                 if (plot) {
+//                     plot.setData(dataset);
+//                     plot.setupGrid();
+//                     return plot.draw();
+//                 } else {
+//                     return plot = init();
+//                 }
+//             };
+//             scope.$watch('dataset', onDatasetChanged, true);
+//             onOptionsChanged = function () {
+//                 return plot = init();
+//             };
+//             return scope.$watch('options', onOptionsChanged, true);
+//         }
+//     };
+// });
 // <********************* dashboard common ****************************>
 firstapp.directive('pagination', function () {
     return {

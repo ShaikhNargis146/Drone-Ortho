@@ -9,9 +9,17 @@ module.exports = [
     'bower_components/fancyBox/source/jquery.fancybox.js',
     'bower_components/peity/jquery.peity.min.js',
     'bower_components/jquery-slimscroll/jquery.slimscroll.min.js',
+    // *****************************************************************************************************
+    "bower_components/Flot/jquery.flot.js",
+    "bower_components/Flot/jquery.flot.categories.js",
+    "bower_components/Flot/jquery.flot.pie.js",
+    "bower_components/Flot/jquery.flot.resize.js",
+    // *****************************************************************************************************
+
     '../../js/tinymce/tinymce.js',
     '../../js/tinymce/themes/modern/theme.js',
     'bower_components/angular/angular.min.js',
+    "bower_components/angular-flot/angular-flot.js",
     'bower_components/angular-animate/angular-animate.min.js',
     'bower_components/angular-flexslider/angular-flexslider.js',
     'bower_components/angular-ui-select/dist/select.min.js',
@@ -38,14 +46,14 @@ module.exports = [
 
     "bower_components/international-phone-number/releases/international-phone-number.js",
     "bower_components/angular-ui-select/dist/select.js",
-    "bower_components/angular-mapboxgl-directive/dist/angular-mapboxgl-directive.js",
+    // "bower_components/angular-mapboxgl-directive/dist/angular-mapboxgl-directive.js",
     // "bower_components/raphael/raphael.min.js",
     // "bower_components/angular-flot/angular-flot.js",
     // *******my bower component********
-    "bower_components/angular-morris/build/module/angular-morris/angular-morris.js",
+    // "bower_components/angular-morris/build/module/angular-morris/angular-morris.js",
     // *******my bower component********
 
-    "bower_components/highcharts-ng/dist/highcharts-ng.js",
+    // "bower_components/highcharts-ng/dist/highcharts-ng.js",
     "bower_components/mapbox.js/mapbox.js",
     "node_modules/mapbox-gl-draw/dist/mapbox-gl-draw.js",
     "node_modules/@turf/turf/turf.min.js",
@@ -56,12 +64,12 @@ module.exports = [
     // "bower_components/crypto-js/md5.js",
     // "bower_components/crypto-js/sha256.js",
     // "bower_components/crypto-js/sha1.js",
-    'backend/js/plugins/flot/jquery.flot.js',
-    'backend/js/plugins/flot/jquery.flot.pie.js',
-    'backend/js/plugins/flot/jquery.flot.resize.js',
-    'backend/js/plugins/flot/jquery.flot.spline.js',
-    'backend/js/plugins/flot/jquery.flot.time.js',
-    'backend/js/plugins/flot/jquery.flot.tooltip.min.js',
+    // 'backend/js/plugins/flot/jquery.flot.js',
+    // 'backend/js/plugins/flot/jquery.flot.pie.js',
+    // 'backend/js/plugins/flot/jquery.flot.resize.js',
+    // 'backend/js/plugins/flot/jquery.flot.spline.js',
+    // 'backend/js/plugins/flot/jquery.flot.time.js',
+    // 'backend/js/plugins/flot/jquery.flot.tooltip.min.js',
 
 
     'backend/js/app.js',
@@ -73,20 +81,21 @@ module.exports = [
     'backend/sass/plugins/chartJs/angles.js',
     'backend/sass/plugins/chartJs/Chart.min.js',
     'backend/js/adminbox.js',
-    'backend/js/plugins/flot/angular-flot.js',
-    'backend/js/plugins/flot/curvedLines.js',
+    // 'backend/js/plugins/flot/angular-flot.js',
+    // 'backend/js/plugins/flot/curvedLines.js',
     'backend/js/plugins/summernote/summernote.min.js',
     'backend/js/plugins/summernote/angular-summernote.min.js',
     'backend/js/plugins/datapicker/angular-datepicker.js',
-    'backend/js/plugins/amcharts/10/pie.js',
-    'backend/js/plugins/amcharts/10/plugins/export/export.js',
-    'backend/js/plugins/amcharts/10/radar.js',
+    // 'backend/js/plugins/amcharts/10/pie.js',
+    // 'backend/js/plugins/amcharts/10/plugins/export/export.js',
+    // 'backend/js/plugins/amcharts/10/radar.js',
     'backend/js/plugins/iCheck/icheck.min.js',
     'backend/js/plugins/ionRangeSlider/ion.rangeSlider.min.js',
-    'backend/js/plugins/amcharts/plugins/export/libs/fabric.js/fabric.js',
+    // 'backend/js/plugins/amcharts/plugins/export/libs/fabric.js/fabric.js',
     // 'backend/js/plugins/amcharts/plugins/export/libs/fabric.js/fabric.min.js',
     // 'backend/js/plugins/angular-morris/raphael-min.js',
     // 'backend/js/plugins/angular-morris/morris.min.js',
     // 'backend/js/plugins/angular-morris/angular-morris.min.js',
+
 
 ];
