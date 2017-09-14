@@ -208,117 +208,16 @@
                       </thead>
 
                       <tbody>
-                        <tr>
-                          <td><a ui-sref="mission_details">#_1</a></td>
-                          <td><a ui-sref="mission_details">#uid_1</a></td>
-                          <td><a ui-sref="mission_details">mission_1</a></td>
-                          <td><a ui-sref="mission_details">08/25/2017</a></td>
-                          <td><a ui-sref="mission_details">Inactive</a></td>
-                          <td><a ui-sref="mission_details">YES</a></td>
+                        <tr ng-repeat="missionData in allMissionData track by $index">
 
-                        </tr>
-                        <tr>
-                          <td><a ui-sref="mission_details">#_2</a></td>
-                          <td><a ui-sref="mission_details">#uid_2</a></td>
-                          <td><a ui-sref="mission_details">mission_2</a></td>
-                          <td><a ui-sref="mission_details">08/09/2017</a></td>
-                          <td><a ui-sref="mission_details">Active</a></td>
-                          <td><a ui-sref="mission_details">YES</a></td>
-
-                        </tr>
-                        <tr>
-                          <td><a ui-sref="mission_details">#_3</a></td>
-                          <td><a ui-sref="mission_details">#uid_3</a></td>
-                          <td><a ui-sref="mission_details">mission_3</a></td>
-                          <td><a ui-sref="mission_details">08/30/2017</a></td>
-                          <td><a ui-sref="mission_details">Inactive</a></td>
-                          <td><a ui-sref="mission_details">YES</a></td>
-                        </tr>
-                        <tr>
-                          <td><a ui-sref="mission_details">#_4</a></td>
-                          <td><a ui-sref="mission_details">#uid_4</a></td>
-                          <td><a ui-sref="mission_details">mission_4</a></td>
-                          <td><a ui-sref="mission_details">08/31/2017</a></td>
-                          <td><a ui-sref="mission_details">Active</a></td>
-                          <td><a ui-sref="mission_details">YES</a></td>
-
-                        </tr>
-                        <tr>
-                          <td><a ui-sref="mission_details">#_5</a></td>
-                          <td><a ui-sref="mission_details">#uid_5</a></td>
-                          <td><a ui-sref="mission_details">mission_5</a></td>
-                          <td><a ui-sref="mission_details">08/15/2017</a></td>
-                          <td><a ui-sref="mission_details">Active</a></td>
-                          <td><a ui-sref="mission_details">YES</a></td>
-
-                        </tr>
-                        <tr>
-                          <td><a ui-sref="mission_details">#_6</a></td>
-                          <td><a ui-sref="mission_details">#uid_6</a></td>
-                          <td><a ui-sref="mission_details">mission_6</a></td>
-                          <td><a ui-sref="mission_details">08/09/2017</a></td>
-                          <td><a ui-sref="mission_details">Inactive</a></td>
-                          <td><a ui-sref="mission_details">YES</a></td>
-
-                        </tr>
-                        <tr>
-                          <td><a ui-sref="mission_details">#_7</a></td>
-                          <td><a ui-sref="mission_details">#uid_7</a></td>
-                          <td><a ui-sref="mission_details">mission_7</a></td>
-                          <td><a ui-sref="mission_details">08/12/2017</a></td>
-                          <td><a ui-sref="mission_details">Active</a></td>
-                          <td><a ui-sref="mission_details">YES</a></td>
-                        </tr>
-                        <tr>
-                          <td><a ui-sref="mission_details">#_8</a></td>
-                          <td><a ui-sref="mission_details">#uid_8</a></td>
-                          <td><a ui-sref="mission_details">mission_8</a></td>
-                          <td><a ui-sref="mission_details">08/21/2017</a></td>
-                          <td><a ui-sref="mission_details">Inactive</a></td>
-                          <td><a ui-sref="mission_details">YES</a></td>
-
-                        </tr>
-                        <tr>
-                          <td><a ui-sref="mission_details">#_9</a></td>
-                          <td><a ui-sref="mission_details">#uid_9</a></td>
-                          <td><a ui-sref="mission_details">mission_9</a></td>
-                          <td><a ui-sref="mission_details">08/15/2017</a></td>
-                          <td><a ui-sref="mission_details">Active</a></td>
-                          <td><a ui-sref="mission_details">YES</a></td>
-                        </tr>
-                        <tr>
-                          <td><a ui-sref="mission_details">#_10</a></td>
-                          <td><a ui-sref="mission_details">#uid_10</a></td>
-                          <td><a ui-sref="mission_details">mission_10</a></td>
-                          <td><a ui-sref="mission_details">08/05/2017</a></td>
-                          <td><a ui-sref="mission_details">Inactive</a></td>
-                          <td><a ui-sref="mission_details">YES</a></td>
+                          <td><a ui-sref="mission_details">{{missionData._id}}</a></td>
+                          <td><a ui-sref="mission_details">{{missionData.user._id}}</a></td>
+                          <td><a ui-sref="mission_details">{{missionData.name}}</a></td>
+                          <td><a ui-sref="mission_details">{{missionData.createdAt | date}}</a></td>
+                          <td><a ui-sref="mission_details">{{missionData.fileUploadStatus}}</a></td>
+                          <td><a ui-sref="mission_details">YES </a></td>
                         </tr>
 
-                        <tr>
-                          <td><a ui-sref="mission_details">#_11</a></td>
-                          <td><a ui-sref="mission_details">#uid_11</a></td>
-                          <td><a ui-sref="mission_details">mission_11</a></td>
-                          <td><a ui-sref="mission_details">08/15/2017</a></td>
-                          <td><a ui-sref="mission_details">Active</a></td>
-                          <td><a ui-sref="mission_details">YES</a></td>
-                        </tr>
-                        <tr>
-                          <td><a ui-sref="mission_details">#_12</a></td>
-                          <td><a ui-sref="mission_details">#uid_12</a></td>
-                          <td><a ui-sref="mission_details">mission_12</a></td>
-                          <td><a ui-sref="mission_details">08/18/2017</a></td>
-                          <td><a ui-sref="mission_details">Inactive</a></td>
-                          <td><a ui-sref="mission_details">YES</a></td>
-                        </tr>
-                        <tr>
-                          <td><a ui-sref="mission_details">#_13</a></td>
-                          <td><a ui-sref="mission_details">#uid_13</a></td>
-                          <td><a ui-sref="mission_details">mission_13</a></td>
-                          <td><a ui-sref="mission_details">08/20/2017</a></td>
-                          <td><a ui-sref="mission_details">Active</a></td>
-                          <td><a ui-sref="mission_details">YES</a></td>
-                        </tr>
                       </tbody>
                     </table>
                     <pagination></pagination>

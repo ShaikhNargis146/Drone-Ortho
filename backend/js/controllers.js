@@ -15,7 +15,6 @@ firstapp
         // $scope.accessLevel = "user";
         $scope.accessLevel = "admin";
         // $scope.accessLevel = "vendor";
-        // $scope.accessLevel = "vendor";
         function dashboard() {
 
 
@@ -240,6 +239,15 @@ firstapp
         // $scope.accessLevel = "user";
         $scope.accessLevel = "admin";
 
+        NavigationService.apiCallWithoutData("Mission/search", function (data) {
+            if (data.value == true) {
+                $scope.allMissionData = data.data.results;
+                console.log("$scope.allMissionData", $scope.allMissionData);
+            }
+        });
+
+
+
     })
     .controller('MissionsDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
@@ -333,6 +341,14 @@ firstapp
         // $scope.accessLevel = "user";
         $scope.accessLevel = "admin";
         // $scope.accessLevel = "vendor";
+
+        NavigationService.apiCallWithoutData("CadLineWork/search", function (data) {
+            if (data.value == true) {
+                $scope.allCadLineData = data.data.results;
+                console.log("$scope.allCadLineData", $scope.allCadLineData);
+            }
+        });
+
     })
     .controller('AccandSubCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
