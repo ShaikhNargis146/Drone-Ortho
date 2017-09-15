@@ -13,8 +13,8 @@ firstapp
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
 
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
+        $scope.accessLevel = "user";
+        // $scope.accessLevel = "admin";
         // $scope.accessLevel = "vendor";
 
 
@@ -195,8 +195,12 @@ firstapp
 
         $scope.dataset = [{
             data: [],
-            yaxis: 1,
-            label: 'sin'
+            yaxis: 2,
+            label: 'Payments',
+            color: "#2a2a2a",
+            grow: {
+                stepMode: "linear"
+            },
         }];
         $scope.options = {
             legend: {
@@ -205,35 +209,56 @@ firstapp
             }
         };
 
-        for (var i = 0; i < 14; i += 0.5) {
-            $scope.dataset[0].data.push([i, Math.sin(i)]);
-        }
+        // for (var i = 0; i < 14; i += 0.5) {
+        //     $scope.dataset[0].data.push([i, Math.sin(i)]);
+        // }
 
         //
         // Pie Chart Example
         //
 
-        $scope.pieDataset = [];
+        $scope.pieDataset = [{
+                label: "Total Missions",
+                data: 20,
+                color: '#48b5d5',
+            },
+            {
+                label: "Total CAD Requested",
+                data: 30,
+                color: '#82ddcb'
+            },
+            {
+                label: "Total Amount Paid",
+                data: 90,
+                color: '#979fd2'
+            },
+
+        ];
         $scope.pieOptions = {
             series: {
                 pie: {
                     innerRadius: 0.5,
-                    show: true
+                    show: true,
+                    textinfo: "none"
                 }
             },
             legend: {
                 show: false
+            },
+            grid: {
+                hoverable: true
             }
         };
 
-        var pieSeries = Math.floor(Math.random() * 6) + 3;
+        // var pieSeries = Math.floor(Math.random() * 6) + 3;
 
-        for (i = 0; i < pieSeries; i++) {
-            $scope.pieDataset[i] = {
-                label: 'Series' + (i + 1),
-                data: Math.floor(Math.random() * 100) + 1
-            };
-        }
+        // for (i = 0; i < pieSeries; i++) {
+        //     $scope.pieDataset[i] = {
+
+        //         label: 'Total CAD Requested',
+        //         data: 30,
+        //     };
+        // }
 
 
     })
@@ -268,7 +293,8 @@ firstapp
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
     })
-    .controller('SupportCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+
+    .controller('SupportCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("support");
         $scope.menutitle = NavigationService.makeactive("Support");
@@ -276,17 +302,80 @@ firstapp
         $scope.navigation = NavigationService.getnav();
         // $scope.accessLevel = "user";
         $scope.accessLevel = "admin";
-        $scope.formData = {
-            user: "59b8cf1fcae2b004106453aa"
+
+
+
+        //pagination
+
+        var i = 0;
+        if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
+            $scope.currentPage = $stateParams.page;
+        } else {
+            $scope.currentPage = 1;
         }
-        NavigationService.apiCallWithData("Ticket/getTicketUser", $scope.formData, function (data2) {
 
-            $scope.ticketInfo = data2.data;
-            console.log("****data is**********************", data2);
-            console.log("****data is**********************", $scope.ticketInfo);
+        $scope.search = {
+            keyword: ""
+        };
+        if ($stateParams.keyword) {
+            $scope.search.keyword = $stateParams.keyword;
+        }
+        $scope.changePage = function (page) {
+            //  console.log("changePage: ", page);
+            var goTo = "missions";
+            $scope.currentPage = page;
+            if ($scope.search.keyword) {
+                goTo = "missions";
+            }
+            $state.go(goTo, {
+                page: page
+            });
+            $scope.getAllItems();
+        };
 
-        });
+        $scope.getAllItems = function (keywordChange, count) {
+            if (keywordChange != undefined && keywordChange != true) {
+                $scope.maxCount = keywordChange;
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("Ticket/getAllTickets", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
+                    function (data, ini) {
+                        //  console.log("Data: ", data);
+                        if (ini == i) {
+                            $scope.allTicketData = data.data.results;
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            } else {
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("Ticket/getAllTickets", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword
+                    }, ++i,
+                    function (data, ini) {
+                        //  console.log("Data: ", data);
+                        if (ini == i) {
+                            $scope.allTicketData = data.data.results;
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            }
+
+        };
+        //  JsonService.refreshView = $scope.getAllItems;
+        $scope.getAllItems();
+
+        //pagination end
+
     })
+
     .controller('MissionsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("missions");
@@ -371,6 +460,7 @@ firstapp
 
 
     })
+
     .controller('MissionsDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("mission-details");
@@ -891,12 +981,33 @@ firstapp
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
     })
-    .controller('SupportDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+    .controller('SupportDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("support-details");
         $scope.menutitle = NavigationService.makeactive("SupportDetails");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+
+        var ticketId = {};
+        ticketId._id = $stateParams.ticketId;
+        NavigationService.apiCallWithData("Ticket/getTicketData", ticketId, function (data) {
+            if (data.value == true) {
+                $scope.ticketData = data.data;
+            }
+        });
+
+
+
+        $scope.saveReply = function (ticketData) {
+            ticketData.replyDate = new Date();
+            console.log("replyData", ticketData);
+            NavigationService.apiCallWithData("Ticket/save", ticketData, function (data) {
+                if (data.value == true) {
+                    $state.go("support");
+                }
+            });
+        }
+
     })
     .controller('UserDetailsCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file

@@ -12,6 +12,21 @@ var controller = {
         }
     },
 
+    getAllTickets: function (req, res) {
+        if (req.body) {
+            Ticket.getAllTickets(req.body, res.callback);
+        } else {
+            res.callback("Please provide Valid AccessToken", null);
+        }
+    },
+
+    getTicketData: function (req, res) {
+        if (req.body) {
+            Ticket.getTicketData(req.body, res.callback);
+        } else {
+            res.callback("Please provide Valid AccessToken", null);
+        }
+    },
 
 };
 module.exports = _.assign(module.exports, controller);

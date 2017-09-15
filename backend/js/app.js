@@ -180,7 +180,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             controller: 'AdminProfileCtrl',
         })
         .state('support-details', {
-            url: "/support-details",
+            url: "/support-details/:ticketId",
             templateUrl: "views/template.html",
             controller: 'SupportDetailsCtrl',
         })
