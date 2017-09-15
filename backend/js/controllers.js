@@ -296,6 +296,10 @@ firstapp
         // $scope.accessLevel = "user";
         $scope.accessLevel = "admin";
 
+        $scope.dataSize = function (id) {
+            console.log("inside size function", id);
+        }
+
         //pagination
 
         var i = 0;
@@ -324,26 +328,46 @@ firstapp
             $scope.getAllItems();
         };
 
-        $scope.getAllItems = function (keywordChange) {
-            //  console.log("In getAllItems: ", keywordChange);
-            $scope.totalItems = undefined;
-            if (keywordChange) {}
-            NavigationService.searchCall("Mission/search", {
-                    page: $scope.currentPage,
-                    keyword: $scope.search.keyword
-                }, ++i,
-                function (data, ini) {
-                    //  console.log("Data: ", data);
-                    if (ini == i) {
-                        $scope.allMissionData = data.data.results;
-                        $scope.totalItems = data.data.total;
-                        $scope.maxRow = data.data.options.count;
-                    }
-                });
+        $scope.getAllItems = function (keywordChange, count) {
+            if (keywordChange != undefined && keywordChange != true) {
+                $scope.maxCount = keywordChange;
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("Mission/getMission", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
+                    function (data, ini) {
+                        //  console.log("Data: ", data);
+                        if (ini == i) {
+                            $scope.allMissionData = data.data.results;
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            } else {
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("Mission/getMission", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword
+                    }, ++i,
+                    function (data, ini) {
+                        //  console.log("Data: ", data);
+                        if (ini == i) {
+                            $scope.allMissionData = data.data.results;
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            }
 
         };
         //  JsonService.refreshView = $scope.getAllItems;
         $scope.getAllItems();
+
+        //pagination end
 
 
     })
@@ -501,10 +525,10 @@ firstapp
         }
         $scope.changePage = function (page) {
             //  console.log("changePage: ", page);
-            var goTo = "cadfile-reques";
+            var goTo = "cadfile-request";
             $scope.currentPage = page;
             if ($scope.search.keyword) {
-                goTo = "cadfile-reques";
+                goTo = "cadfile-request";
             }
             $state.go(goTo, {
                 page: page
@@ -512,27 +536,46 @@ firstapp
             $scope.getAllItems();
         };
 
-        $scope.getAllItems = function (keywordChange) {
-            //  console.log("In getAllItems: ", keywordChange);
-            $scope.totalItems = undefined;
-            if (keywordChange) {}
-            NavigationService.searchCall("CadLineWork/search", {
-                    page: $scope.currentPage,
-                    keyword: $scope.search.keyword
-                }, ++i,
-                function (data, ini) {
-                    if (ini == i) {
-                        $scope.allCadLineData = data.data.results;
-                        console.log("  $scope.allCadLineData: ", $scope.allCadLineData);
-
-                        $scope.totalItems = data.data.total;
-                        $scope.maxRow = data.data.options.count;
-                    }
-                });
+        $scope.getAllItems = function (keywordChange, count) {
+            if (keywordChange != undefined && keywordChange != true) {
+                $scope.maxCount = keywordChange;
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("CadLineWork/getCad", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
+                    function (data, ini) {
+                        //  console.log("Data: ", data);
+                        if (ini == i) {
+                            $scope.allCadLineData = data.data.results;
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            } else {
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("CadLineWork/getCad", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword
+                    }, ++i,
+                    function (data, ini) {
+                        //  console.log("Data: ", data);
+                        if (ini == i) {
+                            $scope.allCadLineData = data.data.results;
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            }
 
         };
         //  JsonService.refreshView = $scope.getAllItems;
         $scope.getAllItems();
+
+        //pagination end
 
     })
     .controller('AccandSubCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {

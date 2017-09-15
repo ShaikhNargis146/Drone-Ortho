@@ -60,37 +60,7 @@ module.exports = mongoose.model('Mission', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "serviceId user DFMSubscription", "serviceId user DFMSubscriptions"));
 var model = {
-    missionIdGenerate: function (data, callback) {
-        Mission.find({}).sort({
-            createdAt: -1
-        }).limit(1).exec(function (err, found) {
-            console.log("inside mission", found)
-            if (err) {
-                callback(err, null);
-            } else {
 
-                if (_.isEmpty(found)) {
-                    callback(null, "noDataFound");
-                } else {
-
-                    var missionId = found[0].missionId
-                    var num = "";
-                    var nextNum = "";
-                    var nextNum = num + 1;
-
-                    var year = new Date().getFullYear()
-                    var month = new Date().getMonth();
-                    month = month + 1
-                    console.log("year******", month)
-                    var mission = "M" + year + month
-                    var missionlenght = mission.length;
-                    var missionId = "M" + year + month + nextNum;
-                    console.log("mission id is", missionId.length)
-                    callback(null, missionId);
-                }
-            }
-        });
-    },
     createMission: function (data, callback) {
 
         Mission.saveData(data, function (err, created) {
@@ -320,7 +290,84 @@ var model = {
                 callback(null, data);
             }
         })
-    }
+    },
+
+    getMission: function (data, callback) {
+        if (data.count) {
+            var maxCount = data.count;
+        } else {
+            var maxCount = Config.maxRow;
+        }
+        var maxRow = maxCount
+        var page = 1;
+        if (data.page) {
+            page = data.page;
+        }
+        var field = data.field;
+        var options = {
+            field: data.field,
+            filters: {
+                keyword: {
+                    fields: ['name'],
+                    term: data.keyword
+                }
+            },
+            sort: {
+                desc: 'createdAt'
+            },
+            start: (page - 1) * maxRow,
+            count: maxRow
+        };
+        Mission.find({})
+            .deepPopulate("serviceId user DFMSubscription")
+            .order(options)
+            .keyword(options)
+            .page(options,
+                function (err, found) {
+                    if (err) {
+                        console.log(err);
+                        callback(err, null);
+                    } else if (found) {
+                        callback(null, found);
+                    } else {
+                        callback("Invalid data", null);
+                    }
+                });
+    },
+
+    missionIdGenerate: function (data, callback) {
+        Mission.find({}).sort({
+            createdAt: -1
+        }).limit(1).exec(function (err, found) {
+            if (err) {
+                callback(err, null);
+            } else {
+
+                if (_.isEmpty(found)) {
+                    callback(null, "noDataFound");
+                } else {
+
+                    var missionId = found[0].missionId
+                    var num = missionId.substring(7, 100)
+                    var nextnum = parseInt(num) + 1
+                    var year = new Date().getFullYear()
+                    var month = new Date().getMonth();
+                    month = month + 2
+                    var m = month.toString().length;
+                    if (m == 1) {
+                        month = "0" + month
+                        var missionId = "M" + year + month + nextnum;
+                    } else {
+                        if (m == 2) {
+                            var missionId = "M" + year + month + nextnum;
+                        }
+                    }
+                    callback(null, missionId);
+                }
+            }
+        });
+    },
+
 };
 // cron.schedule('1 * * * * *', function () {
 //     Mission.find({
