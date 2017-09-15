@@ -13,8 +13,8 @@ firstapp
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
 
-        $scope.accessLevel = "user";
-        // $scope.accessLevel = "admin";
+        // $scope.accessLevel = "user";
+        $scope.accessLevel = "admin";
         // $scope.accessLevel = "vendor";
 
 
@@ -358,12 +358,9 @@ firstapp
 
         var mission = {};
         mission._id = $stateParams.missionId;
-        // console.log("missionData._id", $stateParams.missionId);
         NavigationService.apiCallWithData("Mission/getSingleMissionData", mission, function (data) {
-            // console.log("$scope.data", data);
             if (data.value == true) {
                 $scope.MissionData = data.data;
-                console.log("$scope.MissionData", $scope.MissionData);
             }
         });
 
@@ -452,7 +449,7 @@ firstapp
         $scope.date = new Date();
 
         $scope.saveMission = function () {
-            console.log("&&&777data is&&&&&&&&& ", );
+
 
         }
 
@@ -473,7 +470,6 @@ firstapp
         NavigationService.apiCallWithData("CadLineWork/getSingleCadData", cad, function (data) {
             if (data.value == true) {
                 $scope.cadData = data.data;
-                console.log("$scope.MissionData", $scope.MissionData);
             }
         });
     })
