@@ -13,8 +13,8 @@ firstapp
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
 
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
+        $scope.accessLevel = "user";
+        // $scope.accessLevel = "admin";
         // $scope.accessLevel = "vendor";
 
 
@@ -195,8 +195,12 @@ firstapp
 
         $scope.dataset = [{
             data: [],
-            yaxis: 1,
-            label: 'sin'
+            yaxis: 2,
+            label: 'Payments',
+            color: "#2a2a2a",
+            grow: {
+                stepMode: "linear"
+            },
         }];
         $scope.options = {
             legend: {
@@ -205,35 +209,56 @@ firstapp
             }
         };
 
-        for (var i = 0; i < 14; i += 0.5) {
-            $scope.dataset[0].data.push([i, Math.sin(i)]);
-        }
+        // for (var i = 0; i < 14; i += 0.5) {
+        //     $scope.dataset[0].data.push([i, Math.sin(i)]);
+        // }
 
         //
         // Pie Chart Example
         //
 
-        $scope.pieDataset = [];
+        $scope.pieDataset = [{
+                label: "Total Missions",
+                data: 20,
+                color: '#48b5d5',
+            },
+            {
+                label: "Total CAD Requested",
+                data: 30,
+                color: '#82ddcb'
+            },
+            {
+                label: "Total Amount Paid",
+                data: 90,
+                color: '#979fd2'
+            },
+
+        ];
         $scope.pieOptions = {
             series: {
                 pie: {
                     innerRadius: 0.5,
-                    show: true
+                    show: true,
+                    textinfo: "none"
                 }
             },
             legend: {
                 show: false
+            },
+            grid: {
+                hoverable: true
             }
         };
 
-        var pieSeries = Math.floor(Math.random() * 6) + 3;
+        // var pieSeries = Math.floor(Math.random() * 6) + 3;
 
-        for (i = 0; i < pieSeries; i++) {
-            $scope.pieDataset[i] = {
-                label: 'Series' + (i + 1),
-                data: Math.floor(Math.random() * 100) + 1
-            };
-        }
+        // for (i = 0; i < pieSeries; i++) {
+        //     $scope.pieDataset[i] = {
+
+        //         label: 'Total CAD Requested',
+        //         data: 30,
+        //     };
+        // }
 
 
     })
