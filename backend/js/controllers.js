@@ -293,7 +293,8 @@ firstapp
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
     })
-    .controller('SupportCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+
+    .controller('SupportCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("support");
         $scope.menutitle = NavigationService.makeactive("Support");
@@ -301,25 +302,8 @@ firstapp
         $scope.navigation = NavigationService.getnav();
         // $scope.accessLevel = "user";
         $scope.accessLevel = "admin";
-        $scope.formData = {
-            user: "59b8cf1fcae2b004106453aa"
-        }
-        NavigationService.apiCallWithData("Ticket/getTicketUser", $scope.formData, function (data2) {
 
-            $scope.ticketInfo = data2.data;
-            console.log("****data is**********************", data2);
-            console.log("****data is**********************", $scope.ticketInfo);
 
-        });
-    })
-    .controller('MissionsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
-        //Used to name the .html file
-        $scope.template = TemplateService.changecontent("missions");
-        $scope.menutitle = NavigationService.makeactive("Missions");
-        TemplateService.title = $scope.menutitle;
-        $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
 
         //pagination
 
@@ -349,29 +333,134 @@ firstapp
             $scope.getAllItems();
         };
 
-        $scope.getAllItems = function (keywordChange) {
-            //  console.log("In getAllItems: ", keywordChange);
-            $scope.totalItems = undefined;
-            if (keywordChange) {}
-            NavigationService.searchCall("Mission/search", {
-                    page: $scope.currentPage,
-                    keyword: $scope.search.keyword
-                }, ++i,
-                function (data, ini) {
-                    //  console.log("Data: ", data);
-                    if (ini == i) {
-                        $scope.allMissionData = data.data.results;
-                        $scope.totalItems = data.data.total;
-                        $scope.maxRow = data.data.options.count;
-                    }
-                });
+        $scope.getAllItems = function (keywordChange, count) {
+            if (keywordChange != undefined && keywordChange != true) {
+                $scope.maxCount = keywordChange;
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("Ticket/getAllTickets", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
+                    function (data, ini) {
+                        //  console.log("Data: ", data);
+                        if (ini == i) {
+                            $scope.allTicketData = data.data.results;
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            } else {
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("Ticket/getAllTickets", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword
+                    }, ++i,
+                    function (data, ini) {
+                        //  console.log("Data: ", data);
+                        if (ini == i) {
+                            $scope.allTicketData = data.data.results;
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            }
 
         };
         //  JsonService.refreshView = $scope.getAllItems;
         $scope.getAllItems();
 
+        //pagination end
 
     })
+
+    .controller('MissionsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("missions");
+        $scope.menutitle = NavigationService.makeactive("Missions");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        // $scope.accessLevel = "user";
+        $scope.accessLevel = "admin";
+
+        $scope.dataSize = function (id) {
+            console.log("inside size function", id);
+        }
+
+        //pagination
+
+        var i = 0;
+        if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
+            $scope.currentPage = $stateParams.page;
+        } else {
+            $scope.currentPage = 1;
+        }
+
+        $scope.search = {
+            keyword: ""
+        };
+        if ($stateParams.keyword) {
+            $scope.search.keyword = $stateParams.keyword;
+        }
+        $scope.changePage = function (page) {
+            //  console.log("changePage: ", page);
+            var goTo = "missions";
+            $scope.currentPage = page;
+            if ($scope.search.keyword) {
+                goTo = "missions";
+            }
+            $state.go(goTo, {
+                page: page
+            });
+            $scope.getAllItems();
+        };
+
+        $scope.getAllItems = function (keywordChange, count) {
+            if (keywordChange != undefined && keywordChange != true) {
+                $scope.maxCount = keywordChange;
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("Mission/getMission", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
+                    function (data, ini) {
+                        //  console.log("Data: ", data);
+                        if (ini == i) {
+                            $scope.allMissionData = data.data.results;
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            } else {
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("Mission/getMission", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword
+                    }, ++i,
+                    function (data, ini) {
+                        //  console.log("Data: ", data);
+                        if (ini == i) {
+                            $scope.allMissionData = data.data.results;
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            }
+
+        };
+        //  JsonService.refreshView = $scope.getAllItems;
+        $scope.getAllItems();
+
+        //pagination end
+
+
+    })
+
     .controller('MissionsDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("mission-details");
@@ -526,10 +615,10 @@ firstapp
         }
         $scope.changePage = function (page) {
             //  console.log("changePage: ", page);
-            var goTo = "cadfile-reques";
+            var goTo = "cadfile-request";
             $scope.currentPage = page;
             if ($scope.search.keyword) {
-                goTo = "cadfile-reques";
+                goTo = "cadfile-request";
             }
             $state.go(goTo, {
                 page: page
@@ -537,27 +626,46 @@ firstapp
             $scope.getAllItems();
         };
 
-        $scope.getAllItems = function (keywordChange) {
-            //  console.log("In getAllItems: ", keywordChange);
-            $scope.totalItems = undefined;
-            if (keywordChange) {}
-            NavigationService.searchCall("CadLineWork/search", {
-                    page: $scope.currentPage,
-                    keyword: $scope.search.keyword
-                }, ++i,
-                function (data, ini) {
-                    if (ini == i) {
-                        $scope.allCadLineData = data.data.results;
-                        console.log("  $scope.allCadLineData: ", $scope.allCadLineData);
-
-                        $scope.totalItems = data.data.total;
-                        $scope.maxRow = data.data.options.count;
-                    }
-                });
+        $scope.getAllItems = function (keywordChange, count) {
+            if (keywordChange != undefined && keywordChange != true) {
+                $scope.maxCount = keywordChange;
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("CadLineWork/getCad", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
+                    function (data, ini) {
+                        //  console.log("Data: ", data);
+                        if (ini == i) {
+                            $scope.allCadLineData = data.data.results;
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            } else {
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("CadLineWork/getCad", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword
+                    }, ++i,
+                    function (data, ini) {
+                        //  console.log("Data: ", data);
+                        if (ini == i) {
+                            $scope.allCadLineData = data.data.results;
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            }
 
         };
         //  JsonService.refreshView = $scope.getAllItems;
         $scope.getAllItems();
+
+        //pagination end
 
     })
     .controller('AccandSubCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
@@ -832,12 +940,33 @@ firstapp
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
     })
-    .controller('SupportDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+    .controller('SupportDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("support-details");
         $scope.menutitle = NavigationService.makeactive("SupportDetails");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+
+        var ticketId = {};
+        ticketId._id = $stateParams.ticketId;
+        NavigationService.apiCallWithData("Ticket/getTicketData", ticketId, function (data) {
+            if (data.value == true) {
+                $scope.ticketData = data.data;
+            }
+        });
+
+
+
+        $scope.saveReply = function (ticketData) {
+            ticketData.replyDate = new Date();
+            console.log("replyData", ticketData);
+            NavigationService.apiCallWithData("Ticket/save", ticketData, function (data) {
+                if (data.value == true) {
+                    $state.go("support");
+                }
+            });
+        }
+
     })
     .controller('UserDetailsCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
