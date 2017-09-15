@@ -31,6 +31,7 @@ var schema = new Schema({
         default: ''
     },
     status: String,
+    date: Date,
     geoLocation: {
         upperLeft: [],
         lowerLeft: [],

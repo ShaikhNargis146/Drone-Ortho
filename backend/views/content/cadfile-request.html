@@ -18,7 +18,7 @@
           <div class="col-lg-6">
             <div class="col-sm-3"></div>
             <div class="col-sm-6">
-              <button class="btn green btn-block" data-toggle="modal" data-target=".modal-m">Internal CAD Request</button>
+              <button class="btn green btn-block" ng-click="cadOpen();">Internal CAD Request</button>
             </div>
           </div>
           <div class="col-lg-6">
@@ -90,7 +90,7 @@
     </div>
   </div>
 
-  <div class="modal fade modal-m" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+  <!--<div class="modal fade modal-m" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog ">
       <div class="modal-content">
         <div class="modal-header" style="background-color:#36918b">
@@ -103,18 +103,17 @@
             <div class="form-group">
               <label class="control-label col-sm-4" for="pwd">Select Mission</label>
               <div class="col-sm-6">
-                <select class="form-control">
+                <select class="form-control" ng-repeat="mission in misssonInfo">
 								<option value="">SELECT</option>
-								<option value="">Mission 1</option>
-								<option value="">Mission 2</option>
-								<option value="">Mission 3</option>
+								<option value="">{{mission._id}}</option>
+								
 							</select>
               </div>
             </div>
 
             <div class="form-group">
               <div class="col-sm-offset-4 col-sm-4">
-                <button type="submit" class="btn green btn-outline pull-right">SUBMIT</button>
+                <button type="submit" class="btn green btn-outline pull-right" ui-sref="mission-details">SUBMIT</button>
               </div>
             </div>
 
@@ -127,7 +126,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>-->
 
   <div class="modal fade modal-x" tabindex="-1" role="dialog">
     <div class="modal-dialog ">
@@ -148,26 +147,26 @@
             <div class="form-group">
               <label class="control-label col-sm-4" for="email">Name</label>
               <div class="col-sm-6">
-                <input type="email" class="form-control" id="email" placeholder="Enter Name" name="email">
+                <input type="email" class="form-control" id="email" placeholder="Enter Name" ng-model="data.name">
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-sm-4" for="pwd">Date</label>
               <div class="col-sm-6">
-                <input type="password" class="form-control" id="pwd" placeholder="today's date" name="pwd">
+                <input type="password" class="form-control" id="pwd" placeholder="today's date" ng-model="data.date">
               </div>
             </div>
 
             <div class="form-group">
               <label class="control-label col-sm-4" for="pwd">Upload Orthomosaic</label>
               <div class="col-sm-6">
-                <input type="file" class="form-control">
+                <upload-image multiple="true" required ng-model="data.cadFile"></upload-image>
               </div>
             </div>
 
             <div class="form-group">
               <div class="col-sm-offset-3 col-sm-4">
-                <button type="button" class="btn green btn-outline pull-right">SUBMIT</button>
+                <button type="button" class="btn green btn-outline pull-right" ng-click="saveExtcadfile(data)">SUBMIT</button>
               </div>
             </div>
 
@@ -247,7 +246,9 @@
                     <tr ng-repeat="cadData in allCadLineData track by $index">
 
                       <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData._id}}</a></td>
-                      <td><a ui-sref="cadfile-details({'cadId' : cadData._id})"></a></td>
+                      <td>
+                        <a ui-sref="cadfile-details({'cadId' : cadData._id})"></a>
+                      </td>
                       <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.acreage}}</a></td>
                       <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.status}}</a></td>
                       <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.createdAt | date}}</a></td>
