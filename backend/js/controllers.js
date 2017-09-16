@@ -286,12 +286,21 @@ firstapp
 
 
     })
-    .controller('TicketHistoryCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+    .controller('TicketHistoryCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("ticket-history");
         $scope.menutitle = NavigationService.makeactive("TicketHistory");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+
+        var ticket = {};
+        ticket._id = $stateParams.ticketId;
+        NavigationService.apiCallWithData("Ticket/getOne", ticket, function (data) {
+            if (data.value == true) {
+                $scope.ticket = data.data;
+                console.log("ticketdata is", $scope.ticket)
+            }
+        });
     })
 
     .controller('SupportCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
@@ -300,9 +309,18 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Support");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
+        $scope.accessLevel = "user";
+        // $scope.accessLevel = "admin";
+        $scope.formData = {
+            user: "59b8cf1fcae2b004106453aa"
+        }
+        NavigationService.apiCallWithData("Ticket/getTicketUser", $scope.formData, function (data2) {
 
+            $scope.ticketInfo = data2.data;
+            console.log("****data is**********************", data2);
+            console.log("****data is**********************", $scope.ticketInfo);
+
+        });
 
 
         //pagination
@@ -382,8 +400,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Missions");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
+        $scope.accessLevel = "user";
+        // $scope.accessLevel = "admin";
 
         $scope.dataSize = function (id) {
             console.log("inside size function", id);
@@ -459,6 +477,16 @@ firstapp
         //pagination end
 
 
+        $scope.formData = {
+            user: "59b8cf1fcae2b004106453aa"
+        }
+        NavigationService.apiCallWithData("Mission/getMissionUser", $scope.formData, function (data2) {
+
+            $scope.missionInfo = data2.data;
+            console.log("****data is**********************", $scope.missionInfo);
+
+        });
+
     })
 
     .controller('MissionsDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
@@ -469,16 +497,19 @@ firstapp
         $scope.navigation = NavigationService.getnav();
         // $scope.accessLevel = "user";
         $scope.accessLevel = "admin";
-
+        console.log("aaaaaaaaaaaaaa");
         var mission = {};
         mission._id = $stateParams.missionId;
-
         NavigationService.apiCallWithData("Mission/getSingleMissionData", mission, function (data) {
             if (data.value == true) {
                 $scope.MissionData = data.data;
+
             }
         });
 
+        $scope.getData = function () {
+            console.log("aaaaaaaaaaaaaa");
+        }
     })
 
     .controller('MailDetailCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
@@ -594,8 +625,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("CadfileDetails");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
+        $scope.accessLevel = "user";
+        // $scope.accessLevel = "admin";
         // $scope.accessLevel = "vendor";
 
         var cad = {};
@@ -614,8 +645,9 @@ firstapp
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
+        // $scope.accessLevel = "admin";
         // $scope.accessLevel = "vendor";
+        $scope.date = new Date();
         $scope.formData = {
             user: "59b8cf1fcae2b004106453aa"
         }
@@ -625,9 +657,13 @@ firstapp
         })
 
 
-        $scope.saveExtcadfile = function (form) {
-            console.log("form: ", form);
+        $scope.saveExtcadfile = function (data) {
+            console.log("form: ", data);
         };
+        NavigationService.apiCallWithData("CadLineWork/getCadbyeUser", $scope.formData, function (data) {
+            $scope.cadUserDetail = data.data;
+            console.log("*******cad file data is*****", $scope.cadUserDetail)
+        })
 
         //pagination
 

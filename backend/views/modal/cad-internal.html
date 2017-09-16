@@ -14,9 +14,9 @@
             <div class="form-group">
                 <label class="control-label col-sm-4" for="pwd">Select Mission</label>
                 <div class="col-sm-6">
-                    <select class="form-control" ng-repeat="mission in misssonInfo">
+                    <select class="form-control" ng-model="formData.missionId" ng-repeat="mission in misssonInfo">
 								<option value="">SELECT</option>
-								<option value="">{{mission._id}}</option>
+								<option value="{{mission._id}}">{{mission.name}}</option>
 								
 							</select>
                 </div>
@@ -24,7 +24,7 @@
 
             <div class="form-group">
                 <div class="col-sm-offset-4 col-sm-4">
-                    <button type="submit" class="btn green btn-outline pull-right" ui-sref="mission-details({'missionId':mission._id})">SUBMIT</button>
+                    <a class="btn green btn-outline pull-right" ui-sref="mission-details({'missionId':formData.missionId})">SUBMIT</a>
                 </div>
             </div>
 

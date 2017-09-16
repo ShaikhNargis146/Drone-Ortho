@@ -29,7 +29,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
         })
 
         .state('ticket-history', {
-            url: "/ticket-history",
+            url: "/ticket-history/:ticketId",
             templateUrl: "views/template.html",
             controller: 'TicketHistoryCtrl',
         })

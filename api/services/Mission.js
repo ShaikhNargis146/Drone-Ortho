@@ -62,6 +62,26 @@ module.exports = mongoose.model('Mission', schema);
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "serviceId user DFMSubscription", "serviceId user DFMSubscriptions"));
 var model = {
 
+      getMissionUser: function (data, callback) {
+        console.log("data is******", data)
+
+        Mission.find({
+            user: data.user
+        }).exec(function (err, found) {
+            if (err) {
+                console.log("inside error");
+                callback(err, null);
+            } else if (_.isEmpty(found)) {
+                console.log("isemapty")
+                callback(null, "noDataound");
+            } else {
+                console.log("found", found)
+                callback(null, found);
+            }
+
+        });
+    },
+
     createMission: function (data, callback) {
 
         Mission.saveData(data, function (err, created) {
@@ -346,6 +366,26 @@ var model = {
 
                 if (_.isEmpty(found)) {
                     callback(null, "noDataFound");
+                }
+                if (_.isEmpty(found[0].missionId)) {
+                    var year = new Date().getFullYear()
+                    var month = new Date().getMonth();
+                    var nextnum = "1"
+                    month = month + 1
+                    var m = month.toString().length;
+                    if (m == 1) {
+                        month = "0" + month
+                        var missionId = "CADE" + year + month + nextnum;
+                        console.log("*********", missionId)
+                    } else {
+                        if (m == 2) {
+
+                            var missionId = "CADE" + year + month + nextnum;
+                            console.log("*********", missionId)
+                        }
+                    }
+                    console.log("if  cdid is emapty", missionId)
+                    callback(null, missionId);
                 } else {
 
                     var missionId = found[0].missionId
