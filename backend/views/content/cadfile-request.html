@@ -49,6 +49,7 @@
                   </div>
                 </div>
               </div>
+
               </common-view>
               <div>
                 <table datatable="" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
@@ -64,13 +65,27 @@
                   </thead>
 
                   <tbody>
-                    <tr ng-repeat="cadData in allCadLineData track by $index">
-                      <td><a ui-sref="cadfile_details">cadData.mission</a></td>
-                      <td><a ui-sref="cadfile_details">mission_1</a></td>
-                      <td><a ui-sref="cadfile_details">cadData.acreage</a></td>
-                      <td><a ui-sref="cadfile_details">Completed</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
-                      <td><a ui-sref="cadfile_details">08/25/2017</a></td>
+
+                    <tr ng-repeat="cadfile in cadUserDetail">
+
+                      <td>
+                        <a ui-sref="cadfile-details ({cadId:cadfile._id})"></a>
+                      </td>
+                      <td>
+                        <a ui-sref="cadfile-details ({cadId:cadfile._id})"></a>
+                      </td>
+
+                      <td><a ui-sref="cadfile-details ({cadId:cadfile._id})">{{cadfile.acreage}}</a></td>
+                      <td>
+                        <a ui-sref="cadfile-details ({cadId:cadfile._id})"></a>
+                      </td>
+                      <td>
+                        <a ui-sref="cadfile-details ({cadId:cadfile._id})"></a>{{cadfile.createdAt| date:'yyyy-MM-dd'}}
+                      </td>
+                      <td>
+                        <a ui-sref="cadfile-details ({cadId:cadfile._id})"></a>
+                      </td>
+
 
                     </tr>
                   </tbody>
@@ -147,13 +162,13 @@
             <div class="form-group">
               <label class="control-label col-sm-4" for="email">Name</label>
               <div class="col-sm-6">
-                <input type="email" class="form-control" id="email" placeholder="Enter Name" ng-model="data.name">
+                <input type="text" class="form-control" placeholder="Enter Name" ng-model=data.name>
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-sm-4" for="pwd">Date</label>
               <div class="col-sm-6">
-                <input type="password" class="form-control" id="pwd" placeholder="today's date" ng-model="data.date">
+                <input type="text" class="form-control" value="{{date | date:'yyyy-MM-dd'}}" required>
               </div>
             </div>
 

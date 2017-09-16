@@ -53,7 +53,10 @@ var schema = new Schema({
         ref: 'Vendor',
         index: true
     },
-    vendorCharges: String
+    vendorCharges: String,
+    internalId: String,
+    externalId: String
+
 });
 
 schema.plugin(deepPopulate, {
@@ -80,6 +83,123 @@ module.exports = mongoose.model('CadLineWork', schema);
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "user mission", "user mission"));
 var model = {
 
+    InternalCadIdgenerate: function (data, callback) {
+        console.log("cad id data is", data)
+        CadLineWork.find({}).sort({
+            createdAt: -1
+        }).limit(1).exec(function (err, found) {
+            console.log("cad id data found", found)
+            if (err) {
+                callback(err, null);
+            } else {
+
+                if (_.isEmpty(found)) {
+                    callback(null, "noDataFound");
+                }
+                if (_.isEmpty(found[0].internalId)) {
+                    var year = new Date().getFullYear()
+                    var month = new Date().getMonth();
+                    var nextnum = "1"
+                    month = month + 1
+                    var m = month.toString().length;
+                    if (m == 1) {
+                        month = "0" + month
+                        var internalId = "CADE" + year + month + nextnum;
+                        console.log("*********", externalId)
+                    } else {
+                        if (m == 2) {
+
+                            var internalId = "CADE" + year + month + nextnum;
+                            console.log("*********", internalId)
+                        }
+                    }
+                    console.log("if  cdid is emapty", internalId)
+                    callback(null, internalId);
+                } else {
+
+                    var internalId = found[0].internalId
+                    var num = internalId.substring(10, 100)
+                    var nextnum = parseInt(num) + 1
+                    var year = new Date().getFullYear()
+                    var month = new Date().getMonth();
+                    month = month + 2
+                    var m = month.toString().length;
+                    if (m == 1) {
+                        month = "0" + month
+                        var internalId = "CADI" + year + month + nextnum;
+                        console.log("cad id data found*********", internalId)
+                    } else {
+                        if (m == 2) {
+
+                            var internalId = "CADI" + year + month + nextnum;
+                            console.log("cad id data found*********", internalId)
+                        }
+                    }
+                    callback(null, internalId);
+                }
+            }
+        });
+    },
+
+    ExternalCadIdgenerate: function (data, callback) {
+        console.log("cad id data is", data)
+        CadLineWork.find({}).sort({
+            createdAt: -1
+        }).limit(1).exec(function (err, found) {
+            console.log("cad id data found", found)
+            if (err) {
+                callback(err, null);
+            } else {
+
+                if (_.isEmpty(found)) {
+
+                    callback(null, "noDataFound");
+                }
+                if (_.isEmpty(found[0].externalId)) {
+                    var year = new Date().getFullYear()
+                    var month = new Date().getMonth();
+                    var nextnum = "1"
+                    month = month + 1
+                    var m = month.toString().length;
+                    if (m == 1) {
+                        month = "0" + month
+                        var externalId = "CADE" + year + month + nextnum;
+                        console.log("*********", externalId)
+                    } else {
+                        if (m == 2) {
+
+                            var externalId = "CADE" + year + month + nextnum;
+                            console.log("*********", externalId)
+                        }
+                    }
+                    console.log("if  cdid is emapty", externalId)
+                    callback(null, externalId);
+                } else {
+
+                    var externalId = found[0].externalId
+                    var num = externalId.substring(10, 100)
+                    var nextnum = parseInt(num) + 1
+                    var year = new Date().getFullYear()
+                    var month = new Date().getMonth();
+                    month = month + 1
+                    var m = month.toString().length;
+                    if (m == 1) {
+                        month = "0" + month
+                        var externalId = "CADE" + year + month + nextnum;
+                        console.log("cad id data found*********", externalId)
+                    } else {
+                        if (m == 2) {
+
+                            var externalId = "CADE" + year + month + nextnum;
+                            console.log("cad id data found*********", externalId)
+                        }
+                    }
+                    callback(null, externalId);
+                }
+            }
+        });
+    },
+
     getSingleCadData: function (data, callback) {
         this.findOne({
             _id: data._id
@@ -87,6 +207,19 @@ var model = {
             if (err || _.isEmpty(data)) {
                 callback(err, []);
             } else {
+                callback(null, data);
+            }
+        })
+    },
+    getCadbyeUser: function (data, callback) {
+        console.log("inside cadfile", data)
+        this.find({
+            user: data.user
+        }).exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, []);
+            } else {
+                console.log("found", data)
                 callback(null, data);
             }
         })

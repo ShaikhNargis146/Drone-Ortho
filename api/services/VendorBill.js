@@ -10,7 +10,9 @@ var schema = new Schema({
     balance: String,
     Advance: String,
     paymentStatus: String,
-    PaymentDate: Date
+    PaymentDate: Date,
+    paymentMode: String,
+    additionalInfo: String
 });
 
 schema.plugin(deepPopulate, {});

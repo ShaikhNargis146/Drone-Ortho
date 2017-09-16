@@ -10,6 +10,16 @@ var PNG = require('pngjs');
 // var sharp = require('sharp');
 var cron = require('node-cron');
 var controller = {
+
+    getMissionUser: function (req, res) {
+
+        if (req.body) {
+            Mission.getMissionUser(req.body, res.callback);
+        } else {
+            res.callback("Please provide Valid AccessToken", null);
+        }
+    },
+
     getCords: function (req, res) {
         console.log("path.join(process.cwd(), path.join('pix4dUpload', 'vashi_transparent_mosaic_group1.tif'))", path.join('./pix4dUpload', 'vashi_transparent_mosaic_group1.tif'));
         // var width, height, data = decode(fs.readFileSync(path.join(process.cwd(), path.join('pix4dUpload', 'vashi_transparent_mosaic_group1.tif'))));
