@@ -27,12 +27,19 @@ var schema = new Schema({
         type: String,
         enum: ['Pending', 'Processing', 'Completed']
     },
-    paymentStatus: {
+    userPaymentStatus: {
+        type: String,
+        enum: ['Paid', 'Unpaid']
+    },
+    vendorPaymentStatus: {
         type: String,
         enum: ['Paid', 'Unpaid']
     },
     mapCenter: String,
-    cadFile: String,
+    orthoFile: String,
+    cadFileFromVendor: String,
+    cadFileFromAdmin: String,
+
     name: String,
     cadLineName: String,
     mission: {
@@ -40,14 +47,13 @@ var schema = new Schema({
         ref: 'Mission',
         index: true
     },
-    transactionNo: String,
-    pdfFile: String,
     completionDate: Date,
     vendor: {
         type: Schema.Types.ObjectId,
         ref: 'Vendor',
         index: true
     },
+    vendorCharges: String
 });
 
 schema.plugin(deepPopulate, {
