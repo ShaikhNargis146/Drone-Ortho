@@ -33,7 +33,8 @@
                                                 <div class="dataTables_info" id="DataTables_Table_1_info" role="status" aria-live="polite">Showing 1 to 10 of 13 entries</div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div class="pull-right"> <label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_0"></label>
+                                                <div class="pull-right"> <label>Search:<input type="text " ng-change="getAllItems(true) " placeholder="Search Here...
+                        " ng-model="search.keyword " /></label>
                                                     <div class="dt-buttons btn-group"> <a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Copy</span>             </a>                                                        <a class="btn btn-default buttons-csv buttons-html5" tabindex="0"
                                                             aria-controls="DataTables_Table_0"><span>CSV</span>             </a>                                                        <a class="btn btn-default buttons-excel buttons-html5" tabindex="0"
                                                             aria-controls="DataTables_Table_0"><span>Excel</span>             </a>                                                        <a class="btn btn-default buttons-pdf buttons-html5" tabindex="0"
@@ -60,73 +61,30 @@
                                             </thead>
 
                                             <tbody>
-                                                <tr>
-                                                    <td>#_11</td>
+                                                <tr ng-repeat="billData in allBillData track by $index">
+                                                    <td>{{billData.cad.mission}}</td>
                                                     <td> VBI#_1</td>
-                                                    <td>30</td>
-                                                    <td>Paid</td>
-                                                    <td>Paid By cheque, Cheque no.561234</td>
-                                                    <td>08/21/2017</td>
-                                                    <td>30</td>
+                                                    <td>{{billData.paidAmount}}</td>
+                                                    <td>{{billData.paymentStatus}}</td>
+                                                    <td>{{billData.additionalInfo}}</td>
+                                                    <td>{{billData.createdAt}}</td>
+                                                    <td>{{billData.paidAmount}}</td>
                                                     <td>0</td>
                                                     <td>0</td>
 
                                                     <!-- <td><button type="button" ui-sref="invoice_view" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;<button type="button" class="btn green btn-outline btn-xs">Download</button></td>-->
 
                                                 </tr>
-                                                <tr>
-                                                    <td>#_12</td>
-                                                    <td> VBI#_1</td>
-                                                    <td>80</td>
-                                                    <td>Paid</td>
-                                                    <td>Paid By cheque, Cheque no.456123</td>
-                                                    <td>08/28/2017</td>
-                                                    <td>50</td>
-                                                    <td>30</td>
-                                                    <td>0</td>
-
-                                                </tr>
-
-                                                <tr>
-                                                    <td>#_13</td>
-                                                    <td> VBI#_2</td>
-                                                    <td>100</td>
-                                                    <td>Paid</td>
-                                                    <td>Paid By cheque, Cheque no.162345</td>
-                                                    <td>08/11/2017</td>
-                                                    <td>200</td>
-                                                    <td>0</td>
-                                                    <td>100</td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>#_14</td>
-                                                    <td> VBI#_3</td>
-                                                    <td>30</td>
-                                                    <td>Paid</td>
-                                                    <td>Paid By cheque, Cheque no.125634</td>
-                                                    <td>08/21/2017</td>
-                                                    <td>30</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-
-                                                </tr>
-
-                                                <tr>
-                                                    <td>#_15</td>
-                                                    <td> VBI#_4</td>
-                                                    <td>96</td>
-                                                    <td>Unpaid</td>
-                                                    <td>------</td>
-                                                    <td>------</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                </tr>
 
                                             </tbody>
                                         </table>
-                                        <pagination></pagination>
+                                        <div class="right-side">
+                                            <ul ng-if="totalItems " ng-change="changePage(currentPage); " uib-pagination total-items="totalItems
+                                            " items-per-page="maxRow " ng-model="currentPage " max-size="template.pageMax "
+                                                class="pagination-sm
+                                            " boundary-links="true " force-ellipses="true ">
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

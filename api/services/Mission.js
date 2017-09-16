@@ -62,7 +62,7 @@ module.exports = mongoose.model('Mission', schema);
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "serviceId user DFMSubscription", "serviceId user DFMSubscriptions"));
 var model = {
 
-      getMissionUser: function (data, callback) {
+    getMissionUser: function (data, callback) {
         console.log("data is******", data)
 
         Mission.find({
@@ -283,6 +283,7 @@ var model = {
 
         });
     },
+
     getByUser: function (data, callback) {
         this.find({
             "user": data.user

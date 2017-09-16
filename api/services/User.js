@@ -5,6 +5,7 @@ var schema = new Schema({
         type: String,
 
     },
+    userName: String,
     lastName: {
         type: String,
     },
@@ -103,7 +104,7 @@ var schema = new Schema({
     },
     accessLevel: {
         type: String,
-        enum: ["Admin", "User"],
+        enum: ["Admin", "User", "Vendor"],
         default: "User"
 
     },
@@ -140,6 +141,75 @@ module.exports = mongoose.model('User', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "cartProducts currentSubscription.plan", "cartProducts currentSubscription.plan"));
 var model = {
+
+    //----------------------Start----------------------//
+
+
+    getVendor: function (data, callback) {
+        if (data.count) {
+            var maxCount = data.count;
+        } else {
+            var maxCount = Config.maxRow;
+        }
+        var maxRow = maxCount
+        var page = 1;
+        if (data.page) {
+            page = data.page;
+        }
+        var field = data.field;
+        var options = {
+            field: data.field,
+            filters: {
+                keyword: {
+                    fields: ['name'],
+                    term: data.keyword
+                }
+            },
+            sort: {
+                desc: 'createdAt'
+            },
+            start: (page - 1) * maxRow,
+            count: maxRow
+        };
+        User.find({
+                accessLevel: 'Vendor'
+            })
+            .order(options)
+            .keyword(options)
+            .page(options,
+                function (err, found) {
+                    if (err) {
+                        console.log(err);
+                        callback(err, null);
+                    } else if (found) {
+                        callback(null, found);
+                    } else {
+                        callback("Invalid data", null);
+                    }
+                });
+    },
+
+    updateVendorData: function (data, callback) {
+        User.update({
+            _id: data._id
+        }, {
+            password: md5(data.password),
+            name: data.name,
+            userName: data.userName,
+            email: data.email,
+            address: data.address,
+            mobile: data.mobile
+        }).exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, []);
+            } else {
+                callback(null, data);
+            }
+        })
+    },
+
+
+    //----------------------End----------------------//
 
     addCardDetails: function (data, callback) {
         console.log("data inside addCardDetails: ", data);

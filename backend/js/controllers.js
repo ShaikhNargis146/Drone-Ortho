@@ -628,15 +628,42 @@ firstapp
         $scope.accessLevel = "user";
         // $scope.accessLevel = "admin";
         // $scope.accessLevel = "vendor";
-
+        $scope.formData = {};
         var cad = {};
         cad._id = $stateParams.cadId;
-        // console.log("missionData._id", cad);
         NavigationService.apiCallWithData("CadLineWork/getSingleCadData", cad, function (data) {
             if (data.value == true) {
                 $scope.cadData = data.data;
             }
         });
+
+        NavigationService.apiCallWithoutData("User/getVendor", function (data) {
+            if (data.value == true) {
+                $scope.allVendors = data.data.results;
+            }
+        });
+
+        $scope.cadVendorUpdate = function (data) {
+            data._id = $stateParams.cadId;
+            NavigationService.apiCallWithData("CadLineWork/save", data, function (data) {
+                if (data.value == true) {
+                    toastr.success("Request send successfully");
+                    $state.go("cadfile-request");
+                }
+            });
+        }
+
+        $scope.vendorPay = function (data) {
+            console.log("data", data);
+            data.cad = $stateParams.cadId;
+            NavigationService.apiCallWithData("VendorBill/save", data, function (data) {
+                if (data.value == true) {
+                    toastr.success("Payment in progress");
+                    $state.go("cadfile-details");
+                }
+            });
+        }
+
     })
     .controller('CadFileRequestCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams, $uibModal) {
         //Used to name the .html file
@@ -653,7 +680,7 @@ firstapp
         }
         NavigationService.apiCallWithData("Mission/getByUser", $scope.formData, function (data) {
             $scope.misssonInfo = data.data;
-            console.log("*******data is*****", $scope.data)
+            // console.log("*******data is*****", $scope.data)
         })
 
 
@@ -662,7 +689,7 @@ firstapp
         };
         NavigationService.apiCallWithData("CadLineWork/getCadbyeUser", $scope.formData, function (data) {
             $scope.cadUserDetail = data.data;
-            console.log("*******cad file data is*****", $scope.cadUserDetail)
+            // console.log("*******cad file data is*****", $scope.cadUserDetail)
         })
 
         //pagination
@@ -953,7 +980,8 @@ firstapp
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
     })
-    .controller('VendorsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+
+    .controller('VendorsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("vendors");
         $scope.menutitle = NavigationService.makeactive("Vendors");
@@ -961,6 +989,89 @@ firstapp
         $scope.navigation = NavigationService.getnav();
         $scope.accessLevel = "admin";
         // $scope.accessLevel = "vendor";
+
+
+        //pagination
+
+        var i = 0;
+        if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
+            $scope.currentPage = $stateParams.page;
+        } else {
+            $scope.currentPage = 1;
+        }
+
+        $scope.search = {
+            keyword: ""
+        };
+        if ($stateParams.keyword) {
+            $scope.search.keyword = $stateParams.keyword;
+        }
+        $scope.changePage = function (page) {
+            //  console.log("changePage: ", page);
+            var goTo = "vendors";
+            $scope.currentPage = page;
+            if ($scope.search.keyword) {
+                goTo = "vendors";
+            }
+            $state.go(goTo, {
+                page: page
+            });
+            $scope.getAllItems();
+        };
+
+        $scope.getAllItems = function (keywordChange, count) {
+            if (keywordChange != undefined && keywordChange != true) {
+                $scope.maxCount = keywordChange;
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("User/getVendor", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
+                    function (data, ini) {
+                        //  console.log("Data: ", data);
+                        if (ini == i) {
+                            $scope.allVendors = data.data.results;
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            } else {
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("User/getVendor", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword
+                    }, ++i,
+                    function (data, ini) {
+                        //  console.log("Data: ", data);
+                        if (ini == i) {
+                            $scope.allVendors = data.data.results;
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            }
+
+        };
+        //  JsonService.refreshView = $scope.getAllItems;
+        $scope.getAllItems();
+
+        //pagination end
+
+        $scope.removeVendor = function (vendorid) {
+            var vendor = {};
+            vendor._id = vendorid;
+            NavigationService.apiCallWithData("User/delete", vendor, function (data) {
+                if (data.value == true) {
+                    toastr.success("Vendor deleted successfully");
+                    $state.reload();
+                }
+            });
+
+        }
+
     })
     .controller('CreateVendorCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
@@ -1003,12 +1114,23 @@ firstapp
         $scope.navigation = NavigationService.getnav();
     })
 
-    .controller('EditVendorCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+    .controller('EditVendorCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("edit-vendor");
         $scope.menutitle = NavigationService.makeactive("EditVendor");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+
+
+        $scope.updateVendor = function (formData) {
+            formData._id = $stateParams.vendorId;
+            NavigationService.apiCallWithData("User/save", formData, function (data) {
+                if (data.value == true) {
+                    $state.go("vendors");
+                }
+            });
+        }
+
     })
     .controller('AdminProfileCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
@@ -1066,12 +1188,83 @@ firstapp
     })
     // ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** FOR ADMIN ONLY ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** *
     // ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** FOR VENDOR ONLY ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ****//
-    .controller('BillingCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+    .controller('BillingCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("billing");
         $scope.menutitle = NavigationService.makeactive("Billing");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+
+        //pagination
+
+        var i = 0;
+        if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
+            $scope.currentPage = $stateParams.page;
+        } else {
+            $scope.currentPage = 1;
+        }
+
+        $scope.search = {
+            keyword: ""
+        };
+        if ($stateParams.keyword) {
+            $scope.search.keyword = $stateParams.keyword;
+        }
+        $scope.changePage = function (page) {
+            //  console.log("changePage: ", page);
+            var goTo = "billing";
+            $scope.currentPage = page;
+            if ($scope.search.keyword) {
+                goTo = "billing";
+            }
+            $state.go(goTo, {
+                page: page
+            });
+            $scope.getAllItems();
+        };
+
+        $scope.getAllItems = function (keywordChange, count) {
+            if (keywordChange != undefined && keywordChange != true) {
+                $scope.maxCount = keywordChange;
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("VendorBill/getBill", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
+                    function (data, ini) {
+                        //  console.log("Data: ", data);
+                        if (ini == i) {
+                            $scope.allBillData = data.data.results;
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            } else {
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("VendorBill/getBill", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword
+                    }, ++i,
+                    function (data, ini) {
+                        //  console.log("Data: ", data);
+                        if (ini == i) {
+                            $scope.allBillData = data.data.results;
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            }
+
+        };
+        //  JsonService.refreshView = $scope.getAllItems;
+        $scope.getAllItems();
+
+        //pagination end
+
+
     })
     // ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** FOR VENDOR ONLY ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ***//
     //     .controller('missionCtrl', function ($scope, TemplateService, NavigationService, shareMission, $timeout, $state) {

@@ -169,7 +169,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
         })
 
         .state('edit-vendor', {
-            url: "/edit-vendor",
+            url: "/edit-vendor/:vendorId",
             templateUrl: "views/template.html",
             controller: 'EditVendorCtrl',
         })

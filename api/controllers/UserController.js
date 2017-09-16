@@ -160,6 +160,35 @@ var controller = {
                 }
             })
         }
-    }
+    },
+
+    //----------------------Start----------------------//
+    getVendor: function (req, res) {
+        if (req.body) {
+            User.getVendor(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            })
+        }
+    },
+
+    updateVendorData: function (req, res) {
+        if (req.body) {
+            User.updateVendorData(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            })
+        }
+    },
+
+    //----------------------End----------------------//
 };
 module.exports = _.assign(module.exports, controller);

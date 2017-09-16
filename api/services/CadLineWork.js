@@ -50,7 +50,7 @@ var schema = new Schema({
     completionDate: Date,
     vendor: {
         type: Schema.Types.ObjectId,
-        ref: 'Vendor',
+        ref: 'User',
         index: true
     },
     vendorCharges: String,
@@ -63,16 +63,13 @@ schema.plugin(deepPopulate, {
     Populate: {
         'user': {
             select: '_id name'
-        }
-
-    }
-});
-schema.plugin(deepPopulate, {
-    Populate: {
+        },
         'mission': {
             select: '_id name'
+        },
+        'vendor': {
+            select: '_id name'
         }
-
     }
 });
 schema.plugin(deepPopulate, {});
@@ -80,7 +77,7 @@ schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('CadLineWork', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "user mission", "user mission"));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "user mission vendor", "user mission vendor"));
 var model = {
 
     InternalCadIdgenerate: function (data, callback) {
@@ -203,7 +200,7 @@ var model = {
     getSingleCadData: function (data, callback) {
         this.findOne({
             _id: data._id
-        }).exec(function (err, data) {
+        }).deepPopulate("vendor").exec(function (err, data) {
             if (err || _.isEmpty(data)) {
                 callback(err, []);
             } else {
@@ -211,6 +208,7 @@ var model = {
             }
         })
     },
+
     getCadbyeUser: function (data, callback) {
         console.log("inside cadfile", data)
         this.find({

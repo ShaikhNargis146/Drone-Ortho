@@ -17,42 +17,42 @@
 				<div class="col-lg-12">
 					<div class="col-lg-3" style="padding-top:80px">
 						<table class="table table-responsive">
-								<tr>
-										<td>Mission ID</td>
-										<td>:</td>
-										<td>{{cadData.mission}}</td>
-									</tr>
-									<tr>
-										<td>Contours</td>
-										<td>:</td>
-										<td>{{cadData.contours}}</td>
-									</tr>
-									<tr>
-										<td>Contour Density</td>
-										<td>:</td>
-										<td> {{cadData.contoursDensity}}</td>
-									</tr>
-									<tr>
-										<td>Drafting Density </td>
-										<td>:</td>
-										<td> {{cadData.density}}</td>
-									</tr>
-									<tr>
-										<td>Status</td>
-										<td>:</td>
-										<td>{{cadData.status}}</td>
-									</tr>
-									<tr>
-										<td>CAD Request Amount </td>
-										<td>:</td>
-										<td> {{cadData.amount}}</td>
-									</tr>
-									<tr>
-										<td>Payment Status </td>
-										<td>:</td>
-										<td> {{cadData.status}}</td>
-									</tr>
-									<tr>
+							<tr>
+								<td>Mission ID</td>
+								<td>:</td>
+								<td>{{cadData.mission}}</td>
+							</tr>
+							<tr>
+								<td>Contours</td>
+								<td>:</td>
+								<td>{{cadData.contours}}</td>
+							</tr>
+							<tr>
+								<td>Contour Density</td>
+								<td>:</td>
+								<td> {{cadData.contoursDensity}}</td>
+							</tr>
+							<tr>
+								<td>Drafting Density </td>
+								<td>:</td>
+								<td> {{cadData.density}}</td>
+							</tr>
+							<tr>
+								<td>Status</td>
+								<td>:</td>
+								<td>{{cadData.status}}</td>
+							</tr>
+							<tr>
+								<td>CAD Request Amount </td>
+								<td>:</td>
+								<td> {{cadData.amount}}</td>
+							</tr>
+							<tr>
+								<td>Payment Status </td>
+								<td>:</td>
+								<td> {{cadData.status}}</td>
+							</tr>
+							<tr>
 
 						</table>
 						<button type="submit" class="btn green btn-outline ">Download CAD File</button>
@@ -87,7 +87,7 @@
 			<div class="wrapper-content  text-center">
 				<div class="col-lg-12">
 
-					<div class="col-lg-4" style="padding-top:10px">
+					<div class="col-lg-5" style="padding-top:10px">
 						<div class="ibox-content collapse in" id="demo6">
 							<div class="demo-container" style="height:600px">
 								<table class="table table-responsive">
@@ -129,21 +129,36 @@
 									<tr>
 										<td>Vendor Charge </td>
 										<td>:</td>
-										<td> $10</td>
+										<td ng-if="cadData.vendorCharges"> {{cadData.vendorCharges}}</td>
+										<td ng-if="!cadData.vendorCharges"> Pending</td>
 									</tr>
 									<tr>
-										<td>Vendor Billing ID </td>
+
+										<td>
+											Vendor Billing ID
+										</td>
 										<td>:</td>
-										<td> VBI#_1</td>
+										<td ng-if="cadData.vendor">{{cadData.vendor.name}}</td>
+										<td ng-if="!cadData.vendor">
+											<select class="cad-dropdown" ng-repeat="vedors in allVendors" ng-model="formData.vendor">
+                                            <option value="{{vedors._id}}">{{vedors.name}}</option>
+                                        </select>
+										</td>
 									</tr>
 									<tr>
 										<td>Vendor Payment Status </td>
 										<td>:</td>
-										<td><button type="submit" data-toggle="modal" data-target=".modal-m" class="btn green btn-outline btn-xs">Pay Now</button></td>
+										<td>
+											<button type="submit" data-toggle="modal" data-target=".modal-m" class="btn green btn-outline btn-xs" ng-if="cadData.vendor"
+											    ng-disabled="!cadData.vendorCharges">Pay Now</button>
+											<button type="submit" data-toggle="modal" data-target="" class="btn green btn-outline btn-xs" ng-click="cadVendorUpdate(formData)"
+											    ng-if="!cadData.vendor"> Sent Request</button>
+										</td>
 									</tr>
 
 								</table>
-								<button type="submit" class="btn green btn-outline ">Download CAD File</button>
+								<!--ng-href="../importFormat/{{form.model}}.xlsx"  download-->
+								<a class="btn green btn-outline">Download CAD File</a>
 								<button type="button" class="btn green btn-outline ">Upload Final CAD File</button>
 							</div>
 
@@ -163,23 +178,17 @@
 				<h4 class="modal-title" style="color:#fff">Pay to Vendor</h4>
 			</div>
 			<div class="modal-body">
-				<form class="form-horizontal" action="" method="POST">
+				<form class="form-horizontal">
 
-					<div class="form-group">
-						<label class="control-label col-sm-4" for="pwd">Vendor Billing ID: </label>
-						<div class="col-sm-6">
-							<input type="text" class="form-control" placeholder="Vendor Billing ID" disabled>
-						</div>
-					</div>
 					<div class="form-group">
 						<label class="control-label col-sm-4" for="pwd">Payment Mode:</label>
 						<div class="col-sm-6">
-							<select class="form-control">
+							<select class="form-control" ng-model="formData.paymentMode">
 								<option value="">SELECT</option>
-								<option value="">Bank Transfer</option>
-								<option value="">Check</option>
-								<option value="">Cash</option>
-								<option value="">Card</option>
+								<option value="Bank Transfer">Bank Transfer</option>
+								<option value="Check">Check</option>
+								<option value="Cash">Cash</option>
+								<option value="Card">Card</option>
 								
 							</select>
 						</div>
@@ -187,21 +196,20 @@
 					<div class="form-group">
 						<label class="control-label col-sm-4" for="pwd">Amount:</label>
 						<div class="col-sm-6">
-							<input type="text" class="form-control" placeholder="Enter Amount">
+							<input type="text" class="form-control" placeholder="Enter Amount" ng-model="formData.paidAmount">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="control-label col-sm-4" for="pwd">Additional Info:</label>
 						<div class="col-sm-6">
-							<textarea class="form-control"></textarea>
+							<textarea class="form-control" ng-model="formData.additionalInfo"></textarea>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-4 col-sm-4">
-							<button type="submit" class="btn green btn-outline pull-right">Pay</button>
+							<button type="submit" class="btn green btn-outline pull-right" ng-click="vendorPay(formData)">Pay</button>
 						</div>
 					</div>
-
 				</form>
 
 			</div>

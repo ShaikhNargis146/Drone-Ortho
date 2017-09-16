@@ -28,49 +28,42 @@
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">Vendor Name</label>
                                             <div class="col-sm-6">
-                                                <input class="form-control" type="text">
+                                                <input class="form-control" type="text" ng-model="formData.name">
                                             </div>
                                         </div>
                                         <hr>
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">User Name</label>
                                             <div class="col-sm-6">
-                                                <input class="form-control" name="" type="text">
+                                                <input class="form-control" name="" type="text" ng-model="formData.userName">
                                             </div>
                                         </div>
                                         <hr>
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">Email ID</label>
                                             <div class="col-sm-6">
-                                                <input class="form-control" name="" type="email">
+                                                <input class="form-control" name="" type="email" ng-model="formData.email">
                                             </div>
                                         </div>
                                         <hr>
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">Address</label>
                                             <div class="col-sm-6">
-                                                <input class="form-control" name="" type="text">
+                                                <input class="form-control" name="" type="text" ng-model="formData.address">
                                             </div>
                                         </div>
                                         <hr>
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">Contact Number</label>
                                             <div class="col-sm-6">
-                                                <input class="form-control" name="" type="text">
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label">Password</label>
-                                            <div class="col-sm-6">
-                                                <input class="form-control" name="" type="password">
+                                                <input class="form-control" name="" type="text" ng-model="formData.mobile">
                                             </div>
                                         </div>
                                         <hr>
                                         <div class="form-group">
                                             <div class="col-sm-6 col-sm-offset-6">
-                                                <button class="btn btn-white" type="submit">Cancel</button>
-                                                <button class="btn green" type="submit">Update</button>
+                                                <button class="btn btn-white" type="submit" ui-sref="vendors">Cancel</button>
+                                                <button class="btn green" type="submit" ng-click="updateVendor(formData)">Update</button>
                                             </div>
                                         </div>
                                     </form>
