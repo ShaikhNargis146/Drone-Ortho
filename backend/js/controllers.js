@@ -13,205 +13,170 @@ firstapp
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
 
-        $scope.accessLevel = "user";
+        // $scope.accessLevel = "user";
         // $scope.accessLevel = "admin";
-        // $scope.accessLevel = "vendor";
-
-
-        // function dashboard() {
-        //     var data1 = [
-        //         [gd(2012, 1, 1), 7],
-        //         [gd(2012, 1, 2), 6],
-        //         [gd(2012, 1, 3), 4],
-        //         [gd(2012, 1, 4), 8],
-        //         [gd(2012, 1, 5), 9],
-        //         [gd(2012, 1, 6), 7],
-        //         [gd(2012, 1, 7), 5],
-        //         [gd(2012, 1, 8), 4],
-        //         [gd(2012, 1, 9), 7],
-        //         [gd(2012, 1, 10), 8],
-        //         [gd(2012, 1, 11), 9],
-        //         [gd(2012, 1, 12), 6],
-        //         [gd(2012, 1, 13), 4],
-        //         [gd(2012, 1, 14), 5],
-        //         [gd(2012, 1, 15), 11],
-        //         [gd(2012, 1, 16), 8],
-        //         [gd(2012, 1, 17), 8],
-        //         [gd(2012, 1, 18), 11],
-        //         [gd(2012, 1, 19), 11],
-        //         [gd(2012, 1, 20), 6],
-        //         [gd(2012, 1, 21), 6],
-        //         [gd(2012, 1, 22), 8],
-        //         [gd(2012, 1, 23), 11],
-        //         [gd(2012, 1, 24), 13],
-        //         [gd(2012, 1, 25), 7],
-        //         [gd(2012, 1, 26), 9],
-        //         [gd(2012, 1, 27), 9],
-        //         [gd(2012, 1, 28), 8],
-        //         [gd(2012, 1, 29), 5],
-        //         [gd(2012, 1, 30), 8],
-        //         [gd(2012, 1, 31), 25]
-        //     ];
-
-        //     var data2 = [
-        //         [gd(2012, 1, 1), 800],
-        //         [gd(2012, 1, 2), 500],
-        //         [gd(2012, 1, 3), 600],
-        //         [gd(2012, 1, 4), 700],
-        //         [gd(2012, 1, 5), 500],
-        //         [gd(2012, 1, 6), 456],
-        //         [gd(2012, 1, 7), 800],
-        //         [gd(2012, 1, 8), 589],
-        //         [gd(2012, 1, 9), 467],
-        //         [gd(2012, 1, 10), 876],
-        //         [gd(2012, 1, 11), 689],
-        //         [gd(2012, 1, 12), 700],
-        //         [gd(2012, 1, 13), 500],
-        //         [gd(2012, 1, 14), 600],
-        //         [gd(2012, 1, 15), 700],
-        //         [gd(2012, 1, 16), 786],
-        //         [gd(2012, 1, 17), 345],
-        //         [gd(2012, 1, 18), 888],
-        //         [gd(2012, 1, 19), 888],
-        //         [gd(2012, 1, 20), 888],
-        //         [gd(2012, 1, 21), 987],
-        //         [gd(2012, 1, 22), 444],
-        //         [gd(2012, 1, 23), 999],
-        //         [gd(2012, 1, 24), 567],
-        //         [gd(2012, 1, 25), 786],
-        //         [gd(2012, 1, 26), 666],
-        //         [gd(2012, 1, 27), 888],
-        //         [gd(2012, 1, 28), 900],
-        //         [gd(2012, 1, 29), 178],
-        //         [gd(2012, 1, 30), 555],
-        //         [gd(2012, 1, 31), 993]
-        //     ];
-
-
-        //     var dataset = [{
-        //             label: "Number of orders",
-        //             grow: {
-        //                 stepMode: "linear"
-        //             },
-        //             data: data2,
-        //             color: "#41d0c8",
-        //             bars: {
-        //                 show: true,
-        //                 align: "center",
-        //                 barWidth: 24 * 60 * 60 * 600,
-        //                 lineWidth: 0
-        //             }
-
-        //         },
-        //         {
-        //             label: "Payments",
-        //             grow: {
-        //                 stepMode: "linear"
-        //             },
-        //             data: data1,
-        //             yaxis: 2,
-        //             color: "#2a2a2a",
-        //             lines: {
-        //                 lineWidth: 1,
-        //                 show: true,
-        //                 fill: true,
-        //                 fillColor: {
-        //                     colors: [{
-        //                             opacity: 0.2
-        //                         },
-        //                         {
-        //                             opacity: 0.2
-        //                         }
-        //                     ]
-        //                 }
-        //             }
-        //         }
-        //     ];
-
-
-        //     var options = {
-        //         grid: {
-        //             hoverable: true,
-        //             clickable: true,
-        //             tickColor: "#d5d5d5",
-        //             borderWidth: 0,
-        //             color: '#d5d5d5'
-        //         },
-        //         colors: ["#29aba4", "#464f88"],
-        //         tooltip: true,
-        //         xaxis: {
-        //             mode: "time",
-        //             tickSize: [3, "day"],
-        //             tickLength: 0,
-        //             axisLabel: "Date",
-        //             axisLabelUseCanvas: true,
-        //             axisLabelFontSizePixels: 12,
-        //             axisLabelFontFamily: 'Arial',
-        //             axisLabelPadding: 10,
-        //             color: "#d5d5d5"
-        //         },
-        //         yaxes: [{
-        //                 position: "left",
-        //                 max: 1070,
-        //                 color: "#d5d5d5",
-        //                 axisLabelUseCanvas: true,
-        //                 axisLabelFontSizePixels: 12,
-        //                 axisLabelFontFamily: 'Arial',
-        //                 axisLabelPadding: 3
-        //             },
-        //             {
-        //                 position: "right",
-        //                 color: "#d5d5d5",
-        //                 axisLabelUseCanvas: true,
-        //                 axisLabelFontSizePixels: 12,
-        //                 axisLabelFontFamily: ' Arial',
-        //                 axisLabelPadding: 67
-        //             }
-        //         ],
-        //         legend: {
-        //             noColumns: 1,
-        //             labelBoxBorderColor: "#d5d5d5",
-        //             position: "nw"
-        //         }
-
-        //     };
-
-        //     function gd(year, month, day) {
-        //         return new Date(year, month - 1, day).getTime();
-        //     }
-
-        //     /**
-        //      * Definition of variables
-        //      * Flot chart
-        //      */
-        //     this.flotData = dataset;
-        //     this.flotOptions = options;
-
-        // }
-
+        $scope.accessLevel = "vendor";
+        // *************************************************chart for user**********************************************************************************************************
         //
         // Standard Chart Example
         //
-
+        $scope.data1 = [
+            [gd(2012, 1, 1), 7],
+            [gd(2012, 1, 2), 6],
+            [gd(2012, 1, 3), 4],
+            [gd(2012, 1, 4), 8],
+            [gd(2012, 1, 5), 9],
+            [gd(2012, 1, 6), 7],
+            [gd(2012, 1, 7), 5],
+            [gd(2012, 1, 8), 4],
+            [gd(2012, 1, 9), 7],
+            [gd(2012, 1, 10), 8],
+            [gd(2012, 1, 11), 9],
+            [gd(2012, 1, 12), 6],
+            [gd(2012, 1, 13), 4],
+            [gd(2012, 1, 14), 5],
+            [gd(2012, 1, 15), 11],
+            [gd(2012, 1, 16), 8],
+            [gd(2012, 1, 17), 8],
+            [gd(2012, 1, 18), 11],
+            [gd(2012, 1, 19), 11],
+            [gd(2012, 1, 20), 6],
+            [gd(2012, 1, 21), 6],
+            [gd(2012, 1, 22), 8],
+            [gd(2012, 1, 23), 11],
+            [gd(2012, 1, 24), 13],
+            [gd(2012, 1, 25), 7],
+            [gd(2012, 1, 26), 9],
+            [gd(2012, 1, 27), 9],
+            [gd(2012, 1, 28), 8],
+            [gd(2012, 1, 29), 5],
+            [gd(2012, 1, 30), 8],
+            [gd(2012, 1, 31), 25]
+        ];
+        $scope.data2 = [
+            [gd(2012, 1, 1), 800],
+            [gd(2012, 1, 2), 500],
+            [gd(2012, 1, 3), 600],
+            [gd(2012, 1, 4), 700],
+            [gd(2012, 1, 5), 500],
+            [gd(2012, 1, 6), 456],
+            [gd(2012, 1, 7), 800],
+            [gd(2012, 1, 8), 589],
+            [gd(2012, 1, 9), 467],
+            [gd(2012, 1, 10), 876],
+            [gd(2012, 1, 11), 689],
+            [gd(2012, 1, 12), 700],
+            [gd(2012, 1, 13), 500],
+            [gd(2012, 1, 14), 600],
+            [gd(2012, 1, 15), 700],
+            [gd(2012, 1, 16), 786],
+            [gd(2012, 1, 17), 345],
+            [gd(2012, 1, 18), 888],
+            [gd(2012, 1, 19), 888],
+            [gd(2012, 1, 20), 888],
+            [gd(2012, 1, 21), 987],
+            [gd(2012, 1, 22), 444],
+            [gd(2012, 1, 23), 999],
+            [gd(2012, 1, 24), 567],
+            [gd(2012, 1, 25), 786],
+            [gd(2012, 1, 26), 666],
+            [gd(2012, 1, 27), 888],
+            [gd(2012, 1, 28), 900],
+            [gd(2012, 1, 29), 178],
+            [gd(2012, 1, 30), 555],
+            [gd(2012, 1, 31), 993]
+        ];
         $scope.dataset = [{
-            data: [],
-            yaxis: 2,
-            label: 'Payments',
-            color: "#2a2a2a",
-            grow: {
-                stepMode: "linear"
+                label: "Number of orders",
+                grow: {
+                    stepMode: "linear"
+                },
+                data: $scope.data2,
+                color: "#41d0c8",
+                bars: {
+                    show: true,
+                    align: "center",
+                    barWidth: 24 * 60 * 60 * 600,
+                    lineWidth: 0
+                }
+
             },
-        }];
+            {
+                label: "Payments",
+                grow: {
+                    stepMode: "linear"
+                },
+                data: $scope.data1,
+                yaxis: 2,
+                color: "#2a2a2a",
+                lines: {
+                    lineWidth: 1,
+                    show: true,
+                    fill: true,
+                    fillColor: {
+                        colors: [{
+                                opacity: 0.2
+                            },
+                            {
+                                opacity: 0.2
+                            }
+                        ]
+                    }
+                }
+            }
+
+        ];
+
+
         $scope.options = {
+            grid: {
+                hoverable: true,
+                clickable: true,
+                tickColor: "#d5d5d5",
+                borderWidth: 0,
+                color: '#d5d5d5'
+            },
+            colors: ["#29aba4", "#464f88"],
+            tooltip: true,
+            xaxis: {
+                mode: "time",
+                tickSize: [3, "day"],
+                tickLength: 0,
+                axisLabel: "Date",
+                axisLabelUseCanvas: true,
+                axisLabelFontSizePixels: 12,
+                axisLabelFontFamily: 'Arial',
+                axisLabelPadding: 10,
+                color: "#d5d5d5"
+            },
+            yaxes: [{
+                    position: "left",
+                    max: 1070,
+                    color: "#d5d5d5",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: 'Arial',
+                    axisLabelPadding: 3
+                },
+                {
+                    position: "right",
+                    color: "#d5d5d5",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: ' Arial',
+                    axisLabelPadding: 67
+                }
+            ],
             legend: {
-                container: '#legend',
-                show: true
+                noColumns: 1,
+                labelBoxBorderColor: "#d5d5d5",
+                position: "nw"
             }
         };
 
-        // for (var i = 0; i < 14; i += 0.5) {
-        //     $scope.dataset[0].data.push([i, Math.sin(i)]);
-        // }
+        function gd(year, month, day) {
+            return new Date(year, month - 1, day).getTime();
+        }
 
         //
         // Pie Chart Example
@@ -249,16 +214,354 @@ firstapp
                 hoverable: true
             }
         };
+        // *************************************************end of chart for user**********************************************************************************************************
 
-        // var pieSeries = Math.floor(Math.random() * 6) + 3;
+        // *************************************************start of chart for Admin**********************************************************************************************************
+        //
+        // Standard Chart Example
+        //
+        $scope.data1 = [
+            [gd(2012, 1, 1), 7],
+            [gd(2012, 1, 2), 6],
+            [gd(2012, 1, 3), 4],
+            [gd(2012, 1, 4), 8],
+            [gd(2012, 1, 5), 9],
+            [gd(2012, 1, 6), 7],
+            [gd(2012, 1, 7), 5],
+            [gd(2012, 1, 8), 4],
+            [gd(2012, 1, 9), 7],
+            [gd(2012, 1, 10), 8],
+            [gd(2012, 1, 11), 9],
+            [gd(2012, 1, 12), 6],
+            [gd(2012, 1, 13), 4],
+            [gd(2012, 1, 14), 5],
+            [gd(2012, 1, 15), 11],
+            [gd(2012, 1, 16), 8],
+            [gd(2012, 1, 17), 8],
+            [gd(2012, 1, 18), 11],
+            [gd(2012, 1, 19), 11],
+            [gd(2012, 1, 20), 6],
+            [gd(2012, 1, 21), 6],
+            [gd(2012, 1, 22), 8],
+            [gd(2012, 1, 23), 11],
+            [gd(2012, 1, 24), 13],
+            [gd(2012, 1, 25), 7],
+            [gd(2012, 1, 26), 9],
+            [gd(2012, 1, 27), 9],
+            [gd(2012, 1, 28), 8],
+            [gd(2012, 1, 29), 5],
+            [gd(2012, 1, 30), 8],
+            [gd(2012, 1, 31), 25]
+        ];
+        $scope.data2 = [
+            [gd(2012, 1, 1), 21],
+            [gd(2012, 1, 2), 13],
+            [gd(2012, 1, 3), 25],
+            [gd(2012, 1, 4), 50],
+            [gd(2012, 1, 5), 50],
+            [gd(2012, 1, 6), 45],
+            [gd(2012, 1, 7), 80],
+            [gd(2012, 1, 8), 58],
+            [gd(2012, 1, 9), 46],
+            [gd(2012, 1, 10), 86],
+            [gd(2012, 1, 11), 69],
+            [gd(2012, 1, 12), 70],
+            [gd(2012, 1, 13), 50],
+            [gd(2012, 1, 14), 60],
+            [gd(2012, 1, 15), 70],
+            [gd(2012, 1, 16), 78],
+            [gd(2012, 1, 17), 34],
+            [gd(2012, 1, 18), 88],
+            [gd(2012, 1, 19), 88],
+            [gd(2012, 1, 20), 88],
+            [gd(2012, 1, 21), 98],
+            [gd(2012, 1, 22), 44],
+            [gd(2012, 1, 23), 99],
+            [gd(2012, 1, 24), 56],
+            [gd(2012, 1, 25), 78],
+            [gd(2012, 1, 26), 66],
+            [gd(2012, 1, 27), 88],
+            [gd(2012, 1, 28), 90],
+            [gd(2012, 1, 29), 17],
+            [gd(2012, 1, 30), 55],
+            [gd(2012, 1, 31), 99]
+        ];
+        $scope.dataset = [{
+                label: "Internal CAD",
+                grow: {
+                    stepMode: "linear"
+                },
+                data: $scope.data2,
+                color: "#41d0c8",
+                bars: {
+                    show: true,
+                    align: "center",
+                    barWidth: 24 * 60 * 60 * 600,
+                    lineWidth: 0
+                }
 
-        // for (i = 0; i < pieSeries; i++) {
-        //     $scope.pieDataset[i] = {
+            },
+            {
+                label: "Exterrnal CAD",
+                grow: {
+                    stepMode: "linear"
+                },
+                data: $scope.data1,
+                yaxis: 2,
+                color: "#2a2a2a",
+                lines: {
+                    lineWidth: 1,
+                    show: true,
+                    fill: true,
+                    fillColor: {
+                        colors: [{
+                                opacity: 0.2
+                            },
+                            {
+                                opacity: 0.2
+                            }
+                        ]
+                    }
+                }
+            }
 
-        //         label: 'Total CAD Requested',
-        //         data: 30,
-        //     };
-        // }
+        ];
+
+
+        $scope.options = {
+            grid: {
+                hoverable: true,
+                clickable: true,
+                tickColor: "#d5d5d5",
+                borderWidth: 0,
+                color: '#d5d5d5'
+            },
+            colors: ["#29aba4", "#464f88"],
+            tooltip: true,
+            xaxis: {
+                mode: "time",
+                tickSize: [3, "day"],
+                tickLength: 0,
+                axisLabel: "Date",
+                axisLabelUseCanvas: true,
+                axisLabelFontSizePixels: 12,
+                axisLabelFontFamily: 'Arial',
+                axisLabelPadding: 10,
+                color: "#d5d5d5"
+            },
+            yaxes: [{
+                    position: "left",
+                    max: 1070,
+                    color: "#d5d5d5",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: 'Arial',
+                    axisLabelPadding: 3
+                },
+                {
+                    position: "right",
+                    color: "#d5d5d5",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: ' Arial',
+                    axisLabelPadding: 67
+                }
+            ],
+            legend: {
+                noColumns: 1,
+                labelBoxBorderColor: "#d5d5d5",
+                position: "nw"
+            }
+        };
+
+        function gd(year, month, day) {
+            return new Date(year, month - 1, day).getTime();
+        }
+
+        //
+        // Pie Chart Example of order
+        //
+
+        $scope.pieDatasetRevenue = [{
+                label: "CAD",
+                data: 200,
+                color: '#48b5d5',
+            },
+            {
+                label: "DFM",
+                data: 120,
+                color: '#82ddcb'
+            },
+            {
+                label: "DRONE",
+                data: 50,
+                color: '#979fd2'
+            },
+
+        ];
+        $scope.pieOptionsRevenue = {
+            series: {
+                pie: {
+                    innerRadius: 0.5,
+                    show: true,
+                    textinfo: "none"
+                }
+            },
+            legend: {
+                show: false
+            },
+            grid: {
+                hoverable: true
+            }
+        };
+        //
+        // Pie Chart Example Revenue
+        //
+
+        $scope.pieDatasetOrder = [{
+                label: "CAD",
+                data: 120,
+                color: '#48b5d5',
+            },
+            {
+                label: "DFM",
+                data: 30,
+                color: '#82ddcb'
+            },
+            {
+                label: "DRONE",
+                data: 90,
+                color: '#979fd2'
+            },
+
+        ];
+        $scope.pieOptionsOrder = {
+            series: {
+                pie: {
+                    innerRadius: 0.5,
+                    show: true,
+                    textinfo: "none"
+                }
+            },
+            legend: {
+                show: false
+            },
+            grid: {
+                hoverable: true
+            }
+        };
+        //
+        // Pie Chart Example2
+        //
+
+        $scope.pieDatasetRevenue = [{
+                label: "CAD",
+                data: 200,
+                color: '#48b5d5',
+            },
+            {
+                label: "DFM",
+                data: 120,
+                color: '#82ddcb'
+            },
+            {
+                label: "DRONE",
+                data: 50,
+                color: '#979fd2'
+            },
+
+        ];
+        $scope.pieOptionsRevenue = {
+            series: {
+                pie: {
+                    innerRadius: 0.5,
+                    show: true,
+                    textinfo: "none"
+                }
+            },
+            legend: {
+                show: false
+            },
+            grid: {
+                hoverable: true
+            }
+        };
+        // *************************************************end of chart for Admin**********************************************************************************************************
+        // *************************************************start of chart for vendor**********************************************************************************************************
+        //
+        // Pie Chart Example Cad
+        //
+
+        $scope.pieDatasetCad = [{
+                label: "Total CAD Files",
+                data: 120,
+                color: '#48b5d5',
+            },
+            {
+                label: "Completed CAD Files",
+                data: 30,
+                color: '#82ddcb'
+            },
+            {
+                label: "Incomplete CAD Files",
+                data: 90,
+                color: '#979fd2'
+            },
+
+        ];
+        $scope.pieOptionsCad = {
+            series: {
+                pie: {
+                    innerRadius: 0.5,
+                    show: true,
+                    textinfo: "none"
+                }
+            },
+            legend: {
+                show: false
+            },
+            grid: {
+                hoverable: true
+            }
+        };
+        //
+        // Pie Chart Month
+        //
+
+        $scope.pieDatasetMonth = [{
+                label: "Total Earning",
+                data: 20,
+                color: '#48b5d5',
+            },
+            {
+                label: "Paid",
+                data: 120,
+                color: '#82ddcb'
+            },
+            {
+                label: "Balance",
+                data: 50,
+                color: '#979fd2'
+            },
+
+        ];
+        $scope.pieOptionsMonth = {
+            series: {
+                pie: {
+                    innerRadius: 0.5,
+                    show: true,
+                    textinfo: "none"
+                }
+            },
+            legend: {
+                show: false
+            },
+            grid: {
+                hoverable: true
+            }
+        };
+        // *************************************************end of chart for vendor**********************************************************************************************************
+
 
 
     })
