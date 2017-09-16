@@ -14,6 +14,8 @@ module.exports = [
     "bower_components/Flot/jquery.flot.categories.js",
     "bower_components/Flot/jquery.flot.pie.js",
     "bower_components/Flot/jquery.flot.resize.js",
+    "bower_components/Flot/jquery.flot.time.js",
+
     // *****************************************************************************************************
 
     '../../js/tinymce/tinymce.js',

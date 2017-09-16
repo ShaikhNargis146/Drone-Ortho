@@ -13,8 +13,8 @@ firstapp
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
 
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
+        $scope.accessLevel = "user";
+        // $scope.accessLevel = "admin";
         // $scope.accessLevel = "vendor";
 
 
@@ -195,8 +195,12 @@ firstapp
 
         $scope.dataset = [{
             data: [],
-            yaxis: 1,
-            label: 'sin'
+            yaxis: 2,
+            label: 'Payments',
+            color: "#2a2a2a",
+            grow: {
+                stepMode: "linear"
+            },
         }];
         $scope.options = {
             legend: {
@@ -205,35 +209,56 @@ firstapp
             }
         };
 
-        for (var i = 0; i < 14; i += 0.5) {
-            $scope.dataset[0].data.push([i, Math.sin(i)]);
-        }
+        // for (var i = 0; i < 14; i += 0.5) {
+        //     $scope.dataset[0].data.push([i, Math.sin(i)]);
+        // }
 
         //
         // Pie Chart Example
         //
 
-        $scope.pieDataset = [];
+        $scope.pieDataset = [{
+                label: "Total Missions",
+                data: 20,
+                color: '#48b5d5',
+            },
+            {
+                label: "Total CAD Requested",
+                data: 30,
+                color: '#82ddcb'
+            },
+            {
+                label: "Total Amount Paid",
+                data: 90,
+                color: '#979fd2'
+            },
+
+        ];
         $scope.pieOptions = {
             series: {
                 pie: {
                     innerRadius: 0.5,
-                    show: true
+                    show: true,
+                    textinfo: "none"
                 }
             },
             legend: {
                 show: false
+            },
+            grid: {
+                hoverable: true
             }
         };
 
-        var pieSeries = Math.floor(Math.random() * 6) + 3;
+        // var pieSeries = Math.floor(Math.random() * 6) + 3;
 
-        for (i = 0; i < pieSeries; i++) {
-            $scope.pieDataset[i] = {
-                label: 'Series' + (i + 1),
-                data: Math.floor(Math.random() * 100) + 1
-            };
-        }
+        // for (i = 0; i < pieSeries; i++) {
+        //     $scope.pieDataset[i] = {
+
+        //         label: 'Total CAD Requested',
+        //         data: 30,
+        //     };
+        // }
 
 
     })
@@ -447,6 +472,7 @@ firstapp
 
         var mission = {};
         mission._id = $stateParams.missionId;
+
         NavigationService.apiCallWithData("Mission/getSingleMissionData", mission, function (data) {
             if (data.value == true) {
                 $scope.MissionData = data.data;
@@ -536,8 +562,27 @@ firstapp
 
 
         $scope.date = new Date();
+        $scope.date = new Date();
 
-        $scope.saveMission = function () {
+        var dd = $scope.date.getDate();
+        var mm = $scope.date.getMonth() + 1; //January is 0!
+        var yyyy = $scope.date.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+
+        $scope.today = mm + '/' + dd + '/' + yyyy;
+        console.log("date is &&&&&&", $scope.today);
+        console.log("date is &&&&&&", $scope.today);
+        $scope.saveMission = function (missiondata) {
+            missiondata.date = $scope.today
+            console.log("Mission is$$$$$$", missiondata)
+
 
 
         }
@@ -562,16 +607,27 @@ firstapp
             }
         });
     })
-    .controller('CadFileRequestCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
+    .controller('CadFileRequestCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams, $uibModal) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("cadfile-request");
         $scope.menutitle = NavigationService.makeactive("CadFileRequest");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "user";
+        $scope.accessLevel = "user";
         $scope.accessLevel = "admin";
         // $scope.accessLevel = "vendor";
+        $scope.formData = {
+            user: "59b8cf1fcae2b004106453aa"
+        }
+        NavigationService.apiCallWithData("Mission/getByUser", $scope.formData, function (data) {
+            $scope.misssonInfo = data.data;
+            console.log("*******data is*****", $scope.data)
+        })
 
+
+        $scope.saveExtcadfile = function (form) {
+            console.log("form: ", form);
+        };
 
         //pagination
 
@@ -642,6 +698,16 @@ firstapp
 
         //pagination end
 
+
+        $scope.cadOpen = function () {
+            $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/cad-internal.html',
+                scope: $scope,
+                size: 'sm',
+
+            });
+        };
     })
     .controller('AccandSubCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file

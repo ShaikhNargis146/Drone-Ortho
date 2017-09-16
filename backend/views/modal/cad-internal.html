@@ -1,0 +1,38 @@
+<div class="modal-content">
+    <div class="pull-right">
+        <a class="btn btn-clear" style="color:black" ng-click="$dismiss()">
+            <i class="ln-cross"></i>
+        </a>
+    </div>
+    <div class="modal-header" style="background-color:#36918b">
+
+        <h4 class="modal-title" style="color:#fff">Internal CAD Request</h4>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal">
+
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="pwd">Select Mission</label>
+                <div class="col-sm-6">
+                    <select class="form-control" ng-repeat="mission in misssonInfo">
+								<option value="">SELECT</option>
+								<option value="">{{mission._id}}</option>
+								
+							</select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button type="submit" class="btn green btn-outline pull-right" ui-sref="mission-details({'missionId':mission._id})">SUBMIT</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+    <div class="modal-footer ">
+        <button type="button " class="btn green btn-outline " ng-click="$dismiss() ">Close</button>
+
+    </div>
+</div>
