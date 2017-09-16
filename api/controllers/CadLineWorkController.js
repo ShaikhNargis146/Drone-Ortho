@@ -1,6 +1,31 @@
 module.exports = _.cloneDeep(require("sails-wohlig-controller"));
 var controller = {
 
+    InternalCadIdgenerate: function (req, res) {
+        if (req.body) {
+            CadLineWork.InternalCadIdgenerate(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            })
+        }
+    },
+    ExternalCadIdgenerate: function (req, res) {
+        if (req.body) {
+            CadLineWork.ExternalCadIdgenerate(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            })
+        }
+    },
+
     getSingleCadData: function (req, res) {
         if (req.body) {
             CadLineWork.getSingleCadData(req.body, res.callback);
@@ -15,6 +40,19 @@ var controller = {
 
     },
 
+    getCadbyeUser: function (req, res) {
+        if (req.body) {
+            CadLineWork.getCadbyeUser(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            });
+        }
+
+    },
     getCad: function (req, res) {
         if (req.body) {
             CadLineWork.getCad(req.body, res.callback);
