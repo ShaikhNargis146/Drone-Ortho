@@ -15,7 +15,7 @@ module.exports = [
     "bower_components/Flot/jquery.flot.pie.js",
     "bower_components/Flot/jquery.flot.resize.js",
     "bower_components/Flot/jquery.flot.time.js",
-
+    "bower_components/Flot/jquery.flot.symbol.js",
     // *****************************************************************************************************
 
     '../../js/tinymce/tinymce.js',
@@ -93,6 +93,7 @@ module.exports = [
     // 'backend/js/plugins/amcharts/10/radar.js',
     'backend/js/plugins/iCheck/icheck.min.js',
     'backend/js/plugins/ionRangeSlider/ion.rangeSlider.min.js',
+
     // 'backend/js/plugins/amcharts/plugins/export/libs/fabric.js/fabric.js',
     // 'backend/js/plugins/amcharts/plugins/export/libs/fabric.js/fabric.min.js',
     // 'backend/js/plugins/angular-morris/raphael-min.js',

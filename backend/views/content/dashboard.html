@@ -77,22 +77,10 @@
                                     <div class="widgets-container">
                                         <div class="row">
                                             <div class="col-sm-8">
-                                                <!--<div class="flot-chart-box">
-                                                    <div id="flot-dashboard-chart" flot class="demo-placeholder flot-chart-content" dataset="dataset" options="options"></div>
-                                                </div>-->
-
-                                                <flot dataset="dataset" options="options" height="480px"></flot>
-                                                <div id="legend" style="width: 200px; height: 200px;"></div>
-
-                                                <!-- Categories -->
-                                                <!--<hr>
-                                                <flot dataset="categoriesDataset" options="categoriesOptions" height="480px"></flot>-->
-
-
-                                                <!-- Events -->
-                                                <!--<hr>
-                                                <flot dataset="eventDataset" options="eventOptions" height="480px" on-plot-click="onEventExampleClicked(event, pos, item)"
-                                                    on-plot-hover="onEventExampleHover(event, pos, item)"></flot>-->
+                                                <div class="chart-user">
+                                                    <div id="legend"></div>
+                                                    <flot dataset="dataset" options="options" height="200px"></flot>
+                                                </div>
                                             </div>
                                             <div class="col-sm-3">
                                                 <ul class="stat-list">
@@ -143,16 +131,6 @@
                                 <h5>Usage Statistics</h5>
                                 <div class="ibox-tools"> <a class="btn green btn-xs" href=""> 31-Jan-2017</a> </div>
                             </div>
-                            <!--<div class="ibox-content collapse in" id="demo4">
-                                <div class="demo-container">
-                                    <div class="demo-placeholder" donut-chart donut-data='[
-										    {label: "Total Missions", value: 12},
-										    {label: "Total CAD Requested",value: 30},
-										    {label: "Total Amount Paid", value: 20}
-										]' donut-colors='["#83decc","#49b6d6","#98a0d3"]'>
-                                    </div>
-                                </div>
-                            </div>-->
                             <!-- Pie Chart -->
                             <div class="ibox-content collapse in">
                                 <div class="demo-container">
@@ -267,8 +245,9 @@
                                     <div class="widgets-container">
                                         <div class="row">
                                             <div class="col-sm-9">
-                                                <div class="flot-chart-box">
-                                                    <div id="flot-dashboard-chart" flot class="demo-placeholder flot-chart-content" dataset="chart.flotData" options="chart.flotOptions"></div>
+                                                <div class="chart-admin">
+                                                    <div id="legend"></div>
+                                                    <flot dataset="dataset" options="options" height="200px"></flot>
                                                 </div>
                                             </div>
                                             <div class="col-sm-3">
@@ -518,17 +497,10 @@
                                         <h5>Orders</h5>
 
                                     </div>
+                                    <!-- Pie Chart -->
                                     <div class="ibox-content collapse in">
-                                        <!--<div class="demo-container">
-                                            <div class="demo-placeholder" donut-chart donut-data='[
-													{label: "DFM", value: 120},
-													{label: "DRONE",value: 50},
-													{label: "CAD", value: 2000}
-												]' donut-colors='["#83decc","#49b6d6","#98a0d3"]'>
-                                            </div>
-                                        </div>-->
-                                        <div class="">
-                                            <div ctrl-chart="" donut-data="ctrl.chartData" ctrl-colors="ctrl.chartColors" ctrl-formatter="'currency'"></div>
+                                        <div class="demo-container">
+                                            <flot textinfo="none" dataset="pieDatasetOrder" options="pieOptionsOrder" height="380px"></flot>
                                         </div>
                                     </div>
                                 </div>
@@ -537,14 +509,10 @@
                                 <div class="ibox-title">
                                     <h5>Revenue</h5>
                                 </div>
-                                <div class="ibox-content collapse in" id="demo6">
+                                <!-- Pie Chart -->
+                                <div class="ibox-content collapse in">
                                     <div class="demo-container">
-                                        <div class="demo-placeholder" donut-chart donut-data='[
-													{label: "DFM", value: 120},
-													{label: "DRONE",value: 300},
-													{label: "CAD", value: 205}
-												]' donut-colors='["#83decc","#49b6d6","#98a0d3"]' donut-formatter='"currency"'>
-                                        </div>
+                                        <flot textinfo="none" dataset="pieDatasetRevenue" options="pieOptionsRevenue" height="380px"></flot>
                                     </div>
                                 </div>
                             </div>
@@ -628,18 +596,10 @@
                                     <!-- ibox-tools -->
 
                                 </div>
-                                <div class="ibox-content collapse in" id="demo6">
-                                    <div class="widgets-container ">
-                                        <div class="ibox-content collapse in" id="demo6">
-                                            <div class="demo-container">
-                                                <div class="demo-placeholder" donut-chart donut-data='[
-													{label: "Total CAD Files", value: 112},
-													{label: "Completed CAD Files",value: 68},
-													{label: "Incomplete CAD Files", value: 42}
-												]' donut-colors='["#83decc","#49b6d6","#98a0d3"]'>
-                                                </div>
-                                            </div>
-                                        </div>
+                                <!-- Pie Chart -->
+                                <div class="ibox-content collapse in">
+                                    <div class="demo-container">
+                                        <flot textinfo="none" dataset="pieDatasetCad" options="pieOptionsCad" height="380px"></flot>
                                     </div>
                                 </div>
                             </div>
@@ -654,20 +614,14 @@
                                     <!-- ibox-tools -->
 
                                 </div>
-                                <div class="ibox-content collapse in" id="demo6">
-                                    <div class="widgets-container ">
-                                        <div class="ibox-content collapse in" id="demo6">
-                                            <div class="demo-container">
-                                                <div class="demo-placeholder" donut-chart donut-data='[
-													{label: "Total Earning", value: 1200},
-													{label: "Paid",value: 1100},
-													{label: "Balance", value: 100 }
-												]' donut-colors='["#83decc","#49b6d6","#98a0d3"]'>
-                                                </div>
-                                            </div>
-                                        </div>
+
+                                <!-- Pie Chart -->
+                                <div class="ibox-content collapse in">
+                                    <div class="demo-container">
+                                        <flot textinfo="none" dataset="pieDatasetMonth" options="pieOptionsMonth" height="380px"></flot>
                                     </div>
                                 </div>
+
                             </div>
                             <!-- End feed -->
                         </div>
