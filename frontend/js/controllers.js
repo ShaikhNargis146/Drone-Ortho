@@ -712,6 +712,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.navigation = NavigationService.getnav();
         $scope.formData = {};
         $scope.test = function (size, formData) {
+            $scope.formData.lisence = "NDB"
             NavigationService.apiCallWithData("User/registerUser", formData, function (data) {
                 if (data.value === true) {
                     console.log("data saved successfully", data)
