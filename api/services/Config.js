@@ -103,6 +103,76 @@ var models = {
 
     },
 
+
+
+
+    generatePdf: function (page, callback) {
+        console.log("inside pdf", page)
+        var pdf = require('html-pdf');
+        var obj = {};
+        var env = {};
+        obj.firstName = page.firstName;
+        obj.lastName = page.lastName;
+        var file = "invoice";
+        var i = 0;
+        sails.hooks.views.render(file, obj, function (err, html) {
+            if (err) {
+                callback(err);
+            } else {
+                var path = "pdf/";
+                var newFilename = page._id + file + ".pdf";
+                var writestream = fs.createWriteStream(path + newFilename);
+                writestream.on('finish', function (err, res) {
+                    if (err) {
+                        console.log("Something Fishy", err);
+                    } else {
+                        callback(null, {
+                            name: newFilename,
+                            url: newFilename
+                        });
+                    }
+                });
+
+                var options = {
+                    "phantomPath": "node_modules/phantomjs/bin/phantomjs",
+                    // Export options 
+                    "directory": "/tmp",
+                    "height": "10.5in", // allowed units: mm, cm, in, px
+                    "width": "10in",
+                    // "format": "Letter", // allowed units: A3, A4, A5, Legal, Letter, Tabloid 
+                    // "orientation": "portrait", // portrait or landscape 
+                    // "zoomFactor": "1", // default is 1 
+                    // Page options 
+                    "border": {
+                        "top": "2cm", // default is 0, units: mm, cm, in, px 
+                        "right": "1cm",
+                        "bottom": "1cm",
+                        "left": "1cm"
+                    },
+                    // File options 
+                    "type": "pdf", // allowed file types: png, jpeg, pdf 
+                    "timeout": 30000, // Timeout that will cancel phantomjs, in milliseconds 
+                    "footer": {
+                        "height": "2cm",
+                    },
+                    // "filename": page.filename + ".pdf"
+                };
+
+                pdf.create(html, options).toStream(function (err, stream) {
+                    if (err) {
+                        callback(err);
+                    } else {
+                        green("IN PDF CREATE");
+                        console.log("In Config To generate PDF");
+                        i++;
+                        stream.pipe(writestream);
+                    }
+                });
+            }
+        });
+    },
+
+
     uploadFile: function (filename, callback) {
         var id = mongoose.Types.ObjectId();
         var extension = filename.split(".").pop();

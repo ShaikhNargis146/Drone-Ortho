@@ -68,6 +68,44 @@ var exports = _.cloneDeep(require("sails-wohlig-service")(schema));
 var model = {
 
 
+
+    invoiceGenerate: function (data, callback) {
+        async.waterfall([
+                function (callback) {
+                    console.log("data", data);
+                    ProductOrders.saveData(data, function (err, complete) {
+                        if (err || _.isEmpty(complete)) {
+                            callback(err, []);
+                        } else {
+                            callback(null, complete);
+                        }
+                    });
+                },
+                function (complete, callback) {
+                    console.log("complete", complete);
+                    Config.generatePdf(complete, function (err, data) {
+                        if (err) {
+                            // console.log(err);
+                            callback(err, null);
+                        } else {
+                            if (_.isEmpty(data)) {
+                                callback(err, null);
+                            } else {
+                                callback(null, data);
+                            }
+                        }
+                    })
+                }
+            ],
+            function (err, result) {
+                if (err || _.isEmpty(result)) {
+                    callback(err, []);
+                } else {
+                    callback(null, result);
+                }
+            });
+    },
+
     getProductOrders: function (data, callback) {
         if (data.count) {
             var maxCount = data.count;

@@ -813,9 +813,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             console.log(data);
             $scope.formSubmitted = true;
         };
-         $scope.saveData = function (data) {
-             console.log("$$$$data is:",data);
-         }
+        $scope.saveData = function (data) {
+
+            NavigationService.apiCallWithData("ProductOrders/save", data, function (data) {
+                console.log("product save", data)
+            });
+
+        }
         $scope.setShippingAddress = function (data) {
             if (!$scope.formData.shippingAddress) {
                 $scope.formData.shippingAddress = {};

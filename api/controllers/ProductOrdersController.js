@@ -16,7 +16,22 @@ var controller = {
 
 	getProductOrders: function (req, res) {
 		if (req.body) {
-			ProductOrder.getProductOrders(req.body, res.callback);
+			ProductOrders.getProductOrders(req.body, res.callback);
+		} else {
+			res.json({
+				value: false,
+				data: {
+					message: "Invalid Request"
+				}
+			});
+		}
+
+	},
+
+
+	invoiceGenerate: function (req, res) {
+		if (req.body) {
+			ProductOrders.invoiceGenerate(req.body, res.callback);
 		} else {
 			res.json({
 				value: false,
