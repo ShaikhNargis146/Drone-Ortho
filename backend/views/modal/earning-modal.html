@@ -1,0 +1,24 @@
+<div class="modal-content">
+    <div class="modal-header " style="background-color:#36918b ">
+        <h4 class="modal-title " style="color:#fff ">Set Earning</h4>
+    </div>
+    <div class="modal-body ">
+        <form class="form-horizontal" name="earningData">
+            <div class="form-group ">
+                <label class="control-label col-sm-3 " for="pwd ">Amount:</label>
+                <div class="col-sm-8 ">
+                    <input type="text " class="form-control " placeholder="Enter Amount in USD " ng-model="formData.vendorCharges " required>
+                </div>
+            </div>
+
+            <div class="form-group ">
+                <div class="col-sm-offset-4 col-sm-4 ">
+                    <button type="submit " class="btn green btn-outline pull-right " ng-click="vendorPriceSet(formData) " ng-disabled="earningData.$invalid">SET</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer ">
+        <button type="button " class="btn btn-default " ng-click="$dismiss()">Close</button>
+    </div>
+</div>

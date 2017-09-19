@@ -922,7 +922,7 @@ firstapp
         }
 
     })
-    .controller('CadfileDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
+    .controller('CadfileDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams, $uibModal) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("cadfile-details");
         $scope.menutitle = NavigationService.makeactive("CadfileDetails");
@@ -967,6 +967,78 @@ firstapp
             });
         }
 
+        $scope.uploadCadForAdmin = function (data) {
+            data._id = $stateParams.cadId;
+            NavigationService.apiCallWithData("CadLineWork/save", data, function (data) {
+                if (data.value == true) {
+                    toastr.success("File uploaded successfully");
+                    $state.reload();
+                }
+            });
+        }
+
+        //vendor 
+
+        var cad = {};
+        cad._id = $stateParams.cadId;
+        NavigationService.apiCallWithData("CadLineWork/getSingleCadData", cad, function (data) {
+            if (data.value == true) {
+                $scope.cadForVendorData = data.data;
+                console.log("$scope.cadForVendorData", $scope.cadForVendorData);
+            }
+        });
+
+
+        $scope.vendorPriceSet = function (data) {
+            console.log("data", data);
+            data._id = $stateParams.cadId;
+            NavigationService.apiCallWithData("CadLineWork/save", data, function (data) {
+                if (data.value == true) {
+                    toastr.success("Amount set");
+                    $state.reload();
+                }
+            });
+        }
+
+        $scope.uploadCadForVendor = function (data) {
+            data._id = $stateParams.cadId;
+            NavigationService.apiCallWithData("CadLineWork/save", data, function (data) {
+                if (data.value == true) {
+                    toastr.success("File uploaded successfully");
+                    $state.reload();
+                }
+            });
+        }
+
+        //vendor end
+
+        $scope.earningOpen = function () {
+            $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/earning-modal.html',
+                scope: $scope,
+                size: 'sm',
+
+            });
+        };
+        $scope.uploadOpen = function () {
+            $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/upload-file.html',
+                scope: $scope,
+                size: 'sm',
+
+            });
+        };
+        $scope.uploadvendorOpen = function () {
+            $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/upload-vendor.html',
+                scope: $scope,
+                size: 'sm',
+
+            });
+        };
     })
     .controller('CadFileRequestCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams, $uibModal) {
         //Used to name the .html file
@@ -995,7 +1067,7 @@ firstapp
             // console.log("*******cad file data is*****", $scope.cadUserDetail)
         })
 
-        //pagination
+        //pagination admin
 
         var i = 0;
         if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
@@ -1023,7 +1095,7 @@ firstapp
             $scope.getAllItems();
         };
 
-        $scope.getAllItems = function (keywordChange, count) {
+        $scope.getAllItems = function (keywordChange) {
             if (keywordChange != undefined && keywordChange != true) {
                 $scope.maxCount = keywordChange;
                 $scope.totalItems = undefined;
@@ -1062,7 +1134,7 @@ firstapp
         //  JsonService.refreshView = $scope.getAllItems;
         $scope.getAllItems();
 
-        //pagination end
+        //pagination end admin
 
 
         $scope.cadOpen = function () {
@@ -1074,6 +1146,81 @@ firstapp
 
             });
         };
+
+        //vendor page
+
+        //pagination vendor
+
+        var i = 0;
+        if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
+            $scope.currentPage = $stateParams.page;
+        } else {
+            $scope.currentPage = 1;
+        }
+
+        $scope.search = {
+            keyword: ""
+        };
+        if ($stateParams.keyword) {
+            $scope.search.keyword = $stateParams.keyword;
+        }
+        $scope.changePage = function (page) {
+            //  console.log("changePage: ", page);
+            var goTo = "cadfile-request";
+            $scope.currentPage = page;
+            if ($scope.search.keyword) {
+                goTo = "cadfile-request";
+            }
+            $state.go(goTo, {
+                page: page
+            });
+            $scope.getAllItems();
+        };
+
+        $scope.getAllItems = function (keywordChange) {
+            if (keywordChange != undefined && keywordChange != true) {
+                $scope.maxCount = keywordChange;
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("CadLineWork/getCadForVendor", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount,
+                        vendorId: "59bcf455b27db70b15a1c86a" //replace it with jstorage ID
+                    }, ++i,
+                    function (data, ini) {
+                        //  console.log("Data: ", data);
+                        if (ini == i) {
+                            $scope.allCadLineVendorData = data.data.results;
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            } else {
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("CadLineWork/getCadForVendor", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        vendorId: "59bcf455b27db70b15a1c86a" //replace it with jstorage ID
+                    }, ++i,
+                    function (data, ini) {
+                        //  console.log("Data: ", data);
+                        if (ini == i) {
+                            $scope.allCadLineVendorData = data.data.results;
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            }
+
+        };
+        //  JsonService.refreshView = $scope.getAllItems;
+        $scope.getAllItems();
+
+        //pagination end vendor
+
+
     })
     .controller('AccandSubCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
@@ -1282,6 +1429,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Reports");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+
     })
 
     .controller('VendorsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
