@@ -11,7 +11,6 @@ var schema = new Schema({
         type: Number,
         default: 0
     },
-    transactionDate: Date,
     transactionId: String,
     plan: [{
         type: Schema.Types.ObjectId,

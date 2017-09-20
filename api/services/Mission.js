@@ -64,8 +64,7 @@ var model = {
 
       getMissionUser: function (data, callback) {
         console.log("data is******", data)
-
-        Mission.find({
+         Mission.find({
             user: data.user
         }).exec(function (err, found) {
             if (err) {
@@ -73,9 +72,9 @@ var model = {
                 callback(err, null);
             } else if (_.isEmpty(found)) {
                 console.log("isemapty")
-                callback(null, "noDataound");
+                callback(null, "noDatafound");
             } else {
-                console.log("found", found)
+                console.log("found*****************", found)
                 callback(null, found);
             }
 
@@ -264,26 +263,26 @@ var model = {
         });
     },
 
-    getMission: function (data, callback) {
-        console.log("data is******", data)
+    // getMissionByUser: function (data, callback) {
+    //     console.log("data is******", data)
+    //     Mission.find({
+    //         user: data.user
+    //     }).exec(function (err, found) {
+    //         if (err) {
+    //             console.log("inside error");
+    //             callback(err, null);
+    //         } else if (_.isEmpty(found)) {
+    //             console.log("isemapty")
+    //             callback(null, "noDataound");
+    //         } else {
+    //             console.log("found", found)
+    //             callback(null, found);
+    //         }
 
-        Mission.find({
-            user: data.user
-        }).exec(function (err, found) {
-            if (err) {
-                console.log("inside error");
-                callback(err, null);
-            } else if (_.isEmpty(found)) {
-                console.log("isemapty")
-                callback(null, "noDataound");
-            } else {
-                console.log("found", found)
-                callback(null, found);
-            }
-
-        });
-    },
+    //     });
+    // },
     getByUser: function (data, callback) {
+        console.log("inside getuser",data)
         this.find({
             "user": data.user
         }, function (err, dataF) {

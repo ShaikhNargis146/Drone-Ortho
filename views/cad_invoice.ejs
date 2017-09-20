@@ -1,0 +1,93 @@
+<div class="page-container ">
+ 
+  <!-- Start page content wrapper -->
+  <div class="page-content-wrapper animated fadeInRight  ">
+    <div class="page-content" >
+      <div class="row wrapper border-bottom page-heading">
+        <div class="col-lg-12">
+          <h2>Receipts</h2>
+          <ol class="breadcrumb">
+            <li> <a href="#/dashboard1">Home</a> </li>
+            <li> <a> Receipts </a> </li>
+            <li class="active"> <strong>Invoice Details</strong> </li>
+          </ol>
+        </div>
+      </div>
+      <div class="wrapper-content ">
+        <div class="wrapper-content ">
+          <div class="widgets-container ">
+            <div class="clearfix">
+              <div class="text-center"> <img src="images/productDetail/123.png" alt="" width="200"> </div>
+              <h2 class="text-navy">Invoice No :</h2>
+              <div class="row">
+                <div class="col-sm-6">
+                  <address>
+                  <strong>Organization Name</strong><%= oraganization%>
+                  <div>Address : <%= apartment%> <%= city%> <%= state%> <%= country%> <br></div>
+                  <div>Phone :<%= phonenumber%></div>
+                  </address>
+                </div>
+                <div class="col-sm-6 text-right">
+                  <address>
+                  <div><span>Invoice Date :</span><%= createdAt%> </div>
+                  <div><span>Due Date :</span> September 17, 2016</div>
+                  </address>
+                </div>
+              </div>
+            </div>
+            <main>
+              <div class="table-scrollable">
+                <table class="table table-hover top15">
+                  <thead>
+                    <tr>
+                      <th class="service">SERVICE</th>
+                      <th class="service">REQUEST TYPE</th>
+                      <th class="desc">DESCRIPTION</th>
+                      <th>PRICE</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="service">Cad-line Request</td>
+                      <td class="service">NDB/UDB</td>
+                      <td class="desc">Acarage:</td>
+                      <td class="unit">$40.00</td>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+                <table class="table invoice-total">
+                  <tbody>
+                    
+                    <tr>
+                      <td><strong>TOTAL :</strong></td>
+                      <td>$40</td>
+                    </tr>
+                  </tbody>
+                </table>
+                
+              </div>
+              <div id="notices">
+                  <div>Thank you for Business with UNIFLI ..!</div>
+                
+              </div>
+              <div>Terms & Conditions:
+              
+                  <li style="margin-left:20px">A finance charge of 1.5% will be made on unpaid balances after 30 days.</li>
+                  <li style="margin-left:20px">A finance charge of 1.5% will be made on unpaid balances after 30 days.</li>
+                  <li style="margin-left:20px">A finance charge of 1.5% will be made on unpaid balances after 30 days.</li>
+                  <li style="margin-left:20px">A finance charge of 1.5% will be made on unpaid balances after 30 days.</li>
+                  <li style="margin-left:20px">A finance charge of 1.5% will be made on unpaid balances after 30 days.</li>
+                  </br>
+              </div>
+            </main>
+            <div>Note : Invoice was created on a computer and is valid without the signature and seal. </div>
+          </div>
+        </div>
+      </div>
+      
+
+</div>
+</div>
+</div>
+

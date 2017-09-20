@@ -12,16 +12,24 @@ var firstapp = angular.module('firstapp', [
     "internationalPhoneNumber",
     "jsonservicemod",
     'summernote',
-    'datePicker',
-    'angular-flot'
+    'datePicker'
+    // 'angular-flot'
 ]);
 
 L.mapbox.accessToken = 'pk.eyJ1IjoibmFyZ2lzLXNoYWlraCIsImEiOiJjajVsMWdjbTgyN2t0MzBuejY0YWZvYnU1In0.sxNSmPeAZRDks6p3JmRUkw';
 
 firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
     // for http request with session
+
+    var tempateURL = "views/login.html"; //Default Template URL
+
     $httpProvider.defaults.withCredentials = true;
     $stateProvider
+        .state('login', {
+            url: "/login",
+            templateUrl: "views/login.html",
+            controller: 'headerctrl'
+        })
         .state('dashboard', {
             url: "/dashboard",
             templateUrl: "views/template.html",
@@ -145,6 +153,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             templateUrl: "views/template.html",
             controller: 'ReportsCtrl',
         })
+      
         // ,************ common for vendor and admin **********
         .state('vendors', {
             url: "/vendors",
@@ -198,7 +207,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
         })
 
     // <****************** for vendor only ************>
-    $urlRouterProvider.otherwise("/dashboard");
+    $urlRouterProvider.otherwise("/login");
     $locationProvider.html5Mode(isproduction);
 });
 

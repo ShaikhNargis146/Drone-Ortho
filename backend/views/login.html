@@ -1,4 +1,4 @@
-<div class="page page-core page-login">
+<!--<div class="page page-core page-login">
 
     <div class="text-center">
         <h3 class="text-light text-white"><span class="text-lightred">Unifli</span></h3>
@@ -22,13 +22,36 @@
             </div>
 
             <div class="form-group text-left mt-20">
-                <button type="submit" class="btn btn-greensea b-0 br-2 mr-5" ng-click="login(user)" ng-disabled='form.$invalid'>Login</button>
+                <button type="submit" class="btn btn-greensea b-0 br-2 mr-5" ng-click="login(user)" ng-disabled='form.$invalid'>Login</button>-->
                 <!--<label class="checkbox checkbox-custom checkbox-custom-sm inline-block">
           <input type="checkbox"><i></i> Remember me
         </label>-->
                 <!--<a ui-sref="core.forgotpass" class="pull-right mt-10">Forgot Password?</a>-->
-            </div>
+            <!--</div>
         </form>
     </div>
 
+</div>-->
+<div >
+	<div class="middle-box text-center loginscreen">
+		<div class="widgets-container">
+			<div>
+				<img class="logo-default doneLoading" alt="logo" src="img/productDetail/unifli.png" class="img-responsive">
+			</div>
+			<h3>Welcome to UNIFLI</h3>
+			
+			<form action="index.html" class="top15">
+				<div class="form-group">
+					<input type="text" ng-model="data.name"required="" placeholder="Username" class="form-control">
+				</div>
+				<div class="form-group">
+					<input type="password" ng-model="data.password"required="" placeholder="Password" class="form-control">
+				</div>
+				<button class="btn green block full-width bottom15" type="submit" ng-click="loginUser(data)" ui-sref="dashboard">Login</button>
+				<a href="#/forgot_password"><small>Forgot password?</small></a>
+				<p class="text-muted text-center"><small>Do not have an account?</small></p>
+				<!--<a href="#/register" class="btn btn-sm btn-white btn-block">Create an account</a>-->
+			</form>
+		</div>
+	</div>
 </div>

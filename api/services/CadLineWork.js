@@ -212,17 +212,24 @@ var model = {
         })
     },
     getCadbyeUser: function (data, callback) {
-        console.log("inside cadfile", data)
-        this.find({
+        console.log("data isgetCadbyeUser******", data)
+
+        CadLineWork.find({
             user: data.user
-        }).exec(function (err, data) {
-            if (err || _.isEmpty(data)) {
-                callback(err, []);
+        }).exec(function (err, found) {
+            console.log()
+            if (err) {
+                console.log("inside error");
+                callback(err, null);
+            } else if (_.isEmpty(found)) {
+                console.log("isemapty")
+                callback(null, "noDataound");
             } else {
-                console.log("found", data)
-                callback(null, data);
+                console.log("found", found)
+                callback(null, found);
             }
-        })
+
+        });
     },
 
     getCad: function (data, callback) {
