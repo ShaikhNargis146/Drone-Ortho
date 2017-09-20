@@ -37,8 +37,8 @@ var schema = new Schema({
     },
     mapCenter: String,
     orthoFile: String,
-    cadFileFromVendor: String,
-    cadFileFromAdmin: String,
+    cadFileFromVendor: [String],
+    cadFileFromAdmin: [String],
 
     name: String,
     cadLineName: String,
@@ -50,12 +50,18 @@ var schema = new Schema({
     completionDate: Date,
     vendor: {
         type: Schema.Types.ObjectId,
-        ref: 'Vendor',
+        ref: 'User',
         index: true
     },
-    vendorCharges: String,
+    vendorCharges: Number,
     internalId: String,
-    externalId: String
+    externalId: String,
+
+    //****
+    requestType: {
+        type: String,
+        enum: ['Internal', 'External']
+    }
 
 });
 
@@ -63,16 +69,13 @@ schema.plugin(deepPopulate, {
     Populate: {
         'user': {
             select: '_id name'
-        }
-
-    }
-});
-schema.plugin(deepPopulate, {
-    Populate: {
+        },
         'mission': {
             select: '_id name'
+        },
+        'vendor': {
+            select: '_id name'
         }
-
     }
 });
 schema.plugin(deepPopulate, {});
@@ -80,7 +83,7 @@ schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('CadLineWork', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "user mission", "user mission"));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "user mission vendor", "user mission vendor"));
 var model = {
 
     InternalCadIdgenerate: function (data, callback) {
@@ -203,7 +206,7 @@ var model = {
     getSingleCadData: function (data, callback) {
         this.findOne({
             _id: data._id
-        }).exec(function (err, data) {
+        }).deepPopulate("vendor").exec(function (err, data) {
             if (err || _.isEmpty(data)) {
                 callback(err, []);
             } else {
@@ -211,6 +214,7 @@ var model = {
             }
         })
     },
+
     getCadbyeUser: function (data, callback) {
         console.log("data isgetCadbyeUser******", data)
 
@@ -231,6 +235,8 @@ var model = {
 
         });
     },
+
+    //******************** START *********************//
 
     getCad: function (data, callback) {
         if (data.count) {
@@ -274,5 +280,52 @@ var model = {
                     }
                 });
     },
+
+    getCadForVendor: function (data, callback) {
+        if (data.count) {
+            var maxCount = data.count;
+        } else {
+            var maxCount = Config.maxRow;
+        }
+        var maxRow = maxCount
+        var page = 1;
+        if (data.page) {
+            page = data.page;
+        }
+        var field = data.field;
+        var options = {
+            field: data.field,
+            filters: {
+                keyword: {
+                    fields: ['name'],
+                    term: data.keyword
+                }
+            },
+            sort: {
+                desc: 'createdAt'
+            },
+            start: (page - 1) * maxRow,
+            count: maxRow
+        };
+        this.find({
+                vendor: data.vendorId
+            })
+            .deepPopulate("serviceId user DFMSubscription")
+            .order(options)
+            .keyword(options)
+            .page(options,
+                function (err, found) {
+                    if (err) {
+                        console.log(err);
+                        callback(err, null);
+                    } else if (found) {
+                        callback(null, found);
+                    } else {
+                        callback("Invalid data", null);
+                    }
+                });
+    }
+
+    //******************** END *********************//
 };
 module.exports = _.assign(module.exports, exports, model);

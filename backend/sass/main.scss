@@ -4278,6 +4278,17 @@ WIDGETS
     text-align: right;
 }
 
+.cad-dropdown {
+    background: transparent;
+    border: 1px solid #44b6ae;
+    color: #44b6ae;
+    &:focus,
+    &:active {
+        border: 1px solid #44b6ae;
+        outline: none;
+    }
+}
+
 @import "adminbagdemo";
 @import "animate";
 @import "buttons";

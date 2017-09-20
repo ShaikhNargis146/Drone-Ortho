@@ -178,7 +178,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
         })
 
         .state('edit-vendor', {
-            url: "/edit-vendor",
+            url: "/edit-vendor/:vendorId",
             templateUrl: "views/template.html",
             controller: 'EditVendorCtrl',
         })
@@ -276,7 +276,6 @@ firstapp.directive('uploadImage', function ($http, $filter, $timeout) {
             callback: "&ngCallback"
         },
         link: function ($scope, element, attrs) {
-            console.log($scope.model);
             $scope.showImage = function () {};
             $scope.check = true;
             if (!$scope.type) {
@@ -298,15 +297,12 @@ firstapp.directive('uploadImage', function ($http, $filter, $timeout) {
             // }
 
             $scope.$watch("image", function (newVal, oldVal) {
-                console.log(newVal, oldVal);
                 isArr = _.isArray(newVal);
                 if (!isArr && newVal && newVal.file) {
                     $scope.uploadNow(newVal);
                 } else if (isArr && newVal.length > 0 && newVal[0].file) {
 
                     $timeout(function () {
-                        console.log(oldVal, newVal);
-                        console.log(newVal.length);
                         _.each(newVal, function (newV, key) {
                             if (newV && newV.file) {
                                 $scope.uploadNow(newV);
@@ -381,7 +377,6 @@ firstapp.directive('uploadImage', function ($http, $filter, $timeout) {
                             $scope.type = "image";
                         }
                         $scope.model = data.data[0];
-                        console.log($scope.model, 'model means blob')
 
                     }
                     $timeout(function () {
@@ -403,7 +398,6 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout) {
             callback: "&ngCallback"
         },
         link: function ($scope, element, attrs) {
-            console.log($scope.model);
             $scope.showImage = function () {};
             $scope.check = true;
             if (!$scope.type) {
@@ -425,15 +419,11 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout) {
             // }
 
             $scope.$watch("image", function (newVal, oldVal) {
-                console.log(newVal, oldVal);
                 isArr = _.isArray(newVal);
                 if (!isArr && newVal && newVal.file) {
                     $scope.uploadNow(newVal);
                 } else if (isArr && newVal.length > 0 && newVal[0].file) {
-                    console.log("new val", newVal);
                     $timeout(function () {
-                        console.log(oldVal, newVal);
-                        console.log(newVal.length);
                         async.eachLimit(newVal, 2, function (image, callback) {
                             // Perform operation on file here.
                             console.log('Processing file ' + image);
@@ -450,7 +440,6 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout) {
                                     },
                                     transformRequest: angular.identity
                                 }).then(function (data) {
-                                    console.log("data---", data);
                                     data = data.data;
                                     $scope.uploadStatus = "uploaded";
                                     if ($scope.isMultiple) {
@@ -477,7 +466,6 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout) {
                                         var fileList = {};
                                         fileList.file = data.data[0];
                                         $scope.model = fileList;
-                                        console.log($scope.model, 'model means blob')
                                         callback(null, "next");
                                     }
                                 });
@@ -547,7 +535,6 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout) {
                     },
                     transformRequest: angular.identity
                 }).then(function (data) {
-                    console.log("data---", data);
                     data = data.data;
                     $scope.uploadStatus = "uploaded";
                     if ($scope.isMultiple) {
@@ -572,7 +559,6 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout) {
                         var fileList = {};
                         fileList.file = data.data[0];
                         $scope.model = fileList;
-                        console.log($scope.model, 'model means blob')
 
                     }
                     $timeout(function () {

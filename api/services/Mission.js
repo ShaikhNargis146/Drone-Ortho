@@ -62,24 +62,7 @@ module.exports = mongoose.model('Mission', schema);
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "serviceId user DFMSubscription", "serviceId user DFMSubscriptions"));
 var model = {
 
-      getMissionUser: function (data, callback) {
-        console.log("data is******", data)
-         Mission.find({
-            user: data.user
-        }).exec(function (err, found) {
-            if (err) {
-                console.log("inside error");
-                callback(err, null);
-            } else if (_.isEmpty(found)) {
-                console.log("isemapty")
-                callback(null, "noDatafound");
-            } else {
-                console.log("found*****************", found)
-                callback(null, found);
-            }
-
-        });
-    },
+ 
 
     createMission: function (data, callback) {
 
@@ -158,6 +141,7 @@ var model = {
                 }
             });
     },
+    
     pix4dCommandExecution: function (imgPath, name, callback) {
         var pix4dPath = 'C:/Users/unifli/Documents/pix4d/' + name + '.p4d';
         // var pix4dPath = 'C:/Users/dell/Documents/pix4d/' + name + '.p4d';
@@ -263,24 +247,6 @@ var model = {
         });
     },
 
-    // getMissionByUser: function (data, callback) {
-    //     console.log("data is******", data)
-    //     Mission.find({
-    //         user: data.user
-    //     }).exec(function (err, found) {
-    //         if (err) {
-    //             console.log("inside error");
-    //             callback(err, null);
-    //         } else if (_.isEmpty(found)) {
-    //             console.log("isemapty")
-    //             callback(null, "noDataound");
-    //         } else {
-    //             console.log("found", found)
-    //             callback(null, found);
-    //         }
-
-    //     });
-    // },
     getByUser: function (data, callback) {
         console.log("inside getuser",data)
         this.find({

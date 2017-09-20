@@ -6,258 +6,561 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 firstapp
 
     .controller('DashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
-    //Used to name the .html file
+        //Used to name the .html file
 
-    $scope.template = TemplateService.changecontent("dashboard");
-    $scope.menutitle = NavigationService.makeactive("Dashboard");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
+        $scope.template = TemplateService.changecontent("dashboard");
+        $scope.menutitle = NavigationService.makeactive("Dashboard");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
 
-    $scope.accessLevel = "user";
-    // $scope.accessLevel = "admin";
-    // $scope.accessLevel = "vendor";
+        // $scope.accessLevel = "user";
+        // $scope.accessLevel = "admin";
+        $scope.accessLevel = "vendor";
+        // *************************************************chart for user**********************************************************************************************************
+        //
+        // Standard Chart Example
+        //
+        $scope.data1 = [
+            [gd(2012, 1, 1), 7],
+            [gd(2012, 1, 2), 6],
+            [gd(2012, 1, 3), 4],
+            [gd(2012, 1, 4), 8],
+            [gd(2012, 1, 5), 9],
+            [gd(2012, 1, 6), 7],
+            [gd(2012, 1, 7), 5],
+            [gd(2012, 1, 8), 4],
+            [gd(2012, 1, 9), 7],
+            [gd(2012, 1, 10), 8],
+            [gd(2012, 1, 11), 9],
+            [gd(2012, 1, 12), 6],
+            [gd(2012, 1, 13), 4],
+            [gd(2012, 1, 14), 5],
+            [gd(2012, 1, 15), 11],
+            [gd(2012, 1, 16), 8],
+            [gd(2012, 1, 17), 8],
+            [gd(2012, 1, 18), 11],
+            [gd(2012, 1, 19), 11],
+            [gd(2012, 1, 20), 6],
+            [gd(2012, 1, 21), 6],
+            [gd(2012, 1, 22), 8],
+            [gd(2012, 1, 23), 11],
+            [gd(2012, 1, 24), 13],
+            [gd(2012, 1, 25), 7],
+            [gd(2012, 1, 26), 9],
+            [gd(2012, 1, 27), 9],
+            [gd(2012, 1, 28), 8],
+            [gd(2012, 1, 29), 5],
+            [gd(2012, 1, 30), 8],
+            [gd(2012, 1, 31), 25]
+        ];
+        $scope.data2 = [
+            [gd(2012, 1, 1), 800],
+            [gd(2012, 1, 2), 500],
+            [gd(2012, 1, 3), 600],
+            [gd(2012, 1, 4), 700],
+            [gd(2012, 1, 5), 500],
+            [gd(2012, 1, 6), 456],
+            [gd(2012, 1, 7), 800],
+            [gd(2012, 1, 8), 589],
+            [gd(2012, 1, 9), 467],
+            [gd(2012, 1, 10), 876],
+            [gd(2012, 1, 11), 689],
+            [gd(2012, 1, 12), 700],
+            [gd(2012, 1, 13), 500],
+            [gd(2012, 1, 14), 600],
+            [gd(2012, 1, 15), 700],
+            [gd(2012, 1, 16), 786],
+            [gd(2012, 1, 17), 345],
+            [gd(2012, 1, 18), 888],
+            [gd(2012, 1, 19), 888],
+            [gd(2012, 1, 20), 888],
+            [gd(2012, 1, 21), 987],
+            [gd(2012, 1, 22), 444],
+            [gd(2012, 1, 23), 999],
+            [gd(2012, 1, 24), 567],
+            [gd(2012, 1, 25), 786],
+            [gd(2012, 1, 26), 666],
+            [gd(2012, 1, 27), 888],
+            [gd(2012, 1, 28), 900],
+            [gd(2012, 1, 29), 178],
+            [gd(2012, 1, 30), 555],
+            [gd(2012, 1, 31), 993]
+        ];
+        $scope.dataset = [{
+                label: "Number of orders",
+                grow: {
+                    stepMode: "linear"
+                },
+                data: $scope.data2,
+                color: "#41d0c8",
+                bars: {
+                    show: true,
+                    align: "center",
+                    barWidth: 24 * 60 * 60 * 600,
+                    lineWidth: 0
+                }
 
-
-    // function dashboard() {
-    //     var data1 = [
-    //         [gd(2012, 1, 1), 7],
-    //         [gd(2012, 1, 2), 6],
-    //         [gd(2012, 1, 3), 4],
-    //         [gd(2012, 1, 4), 8],
-    //         [gd(2012, 1, 5), 9],
-    //         [gd(2012, 1, 6), 7],
-    //         [gd(2012, 1, 7), 5],
-    //         [gd(2012, 1, 8), 4],
-    //         [gd(2012, 1, 9), 7],
-    //         [gd(2012, 1, 10), 8],
-    //         [gd(2012, 1, 11), 9],
-    //         [gd(2012, 1, 12), 6],
-    //         [gd(2012, 1, 13), 4],
-    //         [gd(2012, 1, 14), 5],
-    //         [gd(2012, 1, 15), 11],
-    //         [gd(2012, 1, 16), 8],
-    //         [gd(2012, 1, 17), 8],
-    //         [gd(2012, 1, 18), 11],
-    //         [gd(2012, 1, 19), 11],
-    //         [gd(2012, 1, 20), 6],
-    //         [gd(2012, 1, 21), 6],
-    //         [gd(2012, 1, 22), 8],
-    //         [gd(2012, 1, 23), 11],
-    //         [gd(2012, 1, 24), 13],
-    //         [gd(2012, 1, 25), 7],
-    //         [gd(2012, 1, 26), 9],
-    //         [gd(2012, 1, 27), 9],
-    //         [gd(2012, 1, 28), 8],
-    //         [gd(2012, 1, 29), 5],
-    //         [gd(2012, 1, 30), 8],
-    //         [gd(2012, 1, 31), 25]
-    //     ];
-
-    //     var data2 = [
-    //         [gd(2012, 1, 1), 800],
-    //         [gd(2012, 1, 2), 500],
-    //         [gd(2012, 1, 3), 600],
-    //         [gd(2012, 1, 4), 700],
-    //         [gd(2012, 1, 5), 500],
-    //         [gd(2012, 1, 6), 456],
-    //         [gd(2012, 1, 7), 800],
-    //         [gd(2012, 1, 8), 589],
-    //         [gd(2012, 1, 9), 467],
-    //         [gd(2012, 1, 10), 876],
-    //         [gd(2012, 1, 11), 689],
-    //         [gd(2012, 1, 12), 700],
-    //         [gd(2012, 1, 13), 500],
-    //         [gd(2012, 1, 14), 600],
-    //         [gd(2012, 1, 15), 700],
-    //         [gd(2012, 1, 16), 786],
-    //         [gd(2012, 1, 17), 345],
-    //         [gd(2012, 1, 18), 888],
-    //         [gd(2012, 1, 19), 888],
-    //         [gd(2012, 1, 20), 888],
-    //         [gd(2012, 1, 21), 987],
-    //         [gd(2012, 1, 22), 444],
-    //         [gd(2012, 1, 23), 999],
-    //         [gd(2012, 1, 24), 567],
-    //         [gd(2012, 1, 25), 786],
-    //         [gd(2012, 1, 26), 666],
-    //         [gd(2012, 1, 27), 888],
-    //         [gd(2012, 1, 28), 900],
-    //         [gd(2012, 1, 29), 178],
-    //         [gd(2012, 1, 30), 555],
-    //         [gd(2012, 1, 31), 993]
-    //     ];
-
-
-    //     var dataset = [{
-    //             label: "Number of orders",
-    //             grow: {
-    //                 stepMode: "linear"
-    //             },
-    //             data: data2,
-    //             color: "#41d0c8",
-    //             bars: {
-    //                 show: true,
-    //                 align: "center",
-    //                 barWidth: 24 * 60 * 60 * 600,
-    //                 lineWidth: 0
-    //             }
-
-    //         },
-    //         {
-    //             label: "Payments",
-    //             grow: {
-    //                 stepMode: "linear"
-    //             },
-    //             data: data1,
-    //             yaxis: 2,
-    //             color: "#2a2a2a",
-    //             lines: {
-    //                 lineWidth: 1,
-    //                 show: true,
-    //                 fill: true,
-    //                 fillColor: {
-    //                     colors: [{
-    //                             opacity: 0.2
-    //                         },
-    //                         {
-    //                             opacity: 0.2
-    //                         }
-    //                     ]
-    //                 }
-    //             }
-    //         }
-    //     ];
-
-
-    //     var options = {
-    //         grid: {
-    //             hoverable: true,
-    //             clickable: true,
-    //             tickColor: "#d5d5d5",
-    //             borderWidth: 0,
-    //             color: '#d5d5d5'
-    //         },
-    //         colors: ["#29aba4", "#464f88"],
-    //         tooltip: true,
-    //         xaxis: {
-    //             mode: "time",
-    //             tickSize: [3, "day"],
-    //             tickLength: 0,
-    //             axisLabel: "Date",
-    //             axisLabelUseCanvas: true,
-    //             axisLabelFontSizePixels: 12,
-    //             axisLabelFontFamily: 'Arial',
-    //             axisLabelPadding: 10,
-    //             color: "#d5d5d5"
-    //         },
-    //         yaxes: [{
-    //                 position: "left",
-    //                 max: 1070,
-    //                 color: "#d5d5d5",
-    //                 axisLabelUseCanvas: true,
-    //                 axisLabelFontSizePixels: 12,
-    //                 axisLabelFontFamily: 'Arial',
-    //                 axisLabelPadding: 3
-    //             },
-    //             {
-    //                 position: "right",
-    //                 color: "#d5d5d5",
-    //                 axisLabelUseCanvas: true,
-    //                 axisLabelFontSizePixels: 12,
-    //                 axisLabelFontFamily: ' Arial',
-    //                 axisLabelPadding: 67
-    //             }
-    //         ],
-    //         legend: {
-    //             noColumns: 1,
-    //             labelBoxBorderColor: "#d5d5d5",
-    //             position: "nw"
-    //         }
-
-    //     };
-
-    //     function gd(year, month, day) {
-    //         return new Date(year, month - 1, day).getTime();
-    //     }
-
-    //     /**
-    //      * Definition of variables
-    //      * Flot chart
-    //      */
-    //     this.flotData = dataset;
-    //     this.flotOptions = options;
-
-    // }
-
-    //
-    // Standard Chart Example
-    //
-
-    $scope.dataset = [{
-        data: [],
-        yaxis: 2,
-        label: 'Payments',
-        color: "#2a2a2a",
-        grow: {
-            stepMode: "linear"
-        },
-    }];
-    $scope.options = {
-        legend: {
-            container: '#legend',
-            show: true
-        }
-    };
-
-    // for (var i = 0; i < 14; i += 0.5) {
-    //     $scope.dataset[0].data.push([i, Math.sin(i)]);
-    // }
-
-    //
-    // Pie Chart Example
-    //
-
-    $scope.pieDataset = [{
-            label: "Total Missions",
-            data: 20,
-            color: '#48b5d5',
-        }, {
-            label: "Total CAD Requested",
-            data: 30,
-            color: '#82ddcb'
-        }, {
-            label: "Total Amount Paid",
-            data: 90,
-            color: '#979fd2'
-        },
-
-    ];
-    $scope.pieOptions = {
-        series: {
-            pie: {
-                innerRadius: 0.5,
-                show: true,
-                textinfo: "none"
+            },
+            {
+                label: "Payments",
+                grow: {
+                    stepMode: "linear"
+                },
+                data: $scope.data1,
+                yaxis: 2,
+                color: "#2a2a2a",
+                lines: {
+                    lineWidth: 1,
+                    show: true,
+                    fill: true,
+                    fillColor: {
+                        colors: [{
+                                opacity: 0.2
+                            },
+                            {
+                                opacity: 0.2
+                            }
+                        ]
+                    }
+                }
             }
-        },
-        legend: {
-            show: false
-        },
-        grid: {
-            hoverable: true
+
+        ];
+
+
+        $scope.options = {
+            grid: {
+                hoverable: true,
+                clickable: true,
+                tickColor: "#d5d5d5",
+                borderWidth: 0,
+                color: '#d5d5d5'
+            },
+            colors: ["#29aba4", "#464f88"],
+            tooltip: true,
+            xaxis: {
+                mode: "time",
+                tickSize: [3, "day"],
+                tickLength: 0,
+                axisLabel: "Date",
+                axisLabelUseCanvas: true,
+                axisLabelFontSizePixels: 12,
+                axisLabelFontFamily: 'Arial',
+                axisLabelPadding: 10,
+                color: "#d5d5d5"
+            },
+            yaxes: [{
+                    position: "left",
+                    max: 1070,
+                    color: "#d5d5d5",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: 'Arial',
+                    axisLabelPadding: 3
+                },
+                {
+                    position: "right",
+                    color: "#d5d5d5",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: ' Arial',
+                    axisLabelPadding: 67
+                }
+            ],
+            legend: {
+                noColumns: 1,
+                labelBoxBorderColor: "#d5d5d5",
+                position: "nw"
+            }
+        };
+
+        function gd(year, month, day) {
+            return new Date(year, month - 1, day).getTime();
         }
-    };
 
-    // var pieSeries = Math.floor(Math.random() * 6) + 3;
+        //
+        // Pie Chart Example
+        //
 
-    // for (i = 0; i < pieSeries; i++) {
-    //     $scope.pieDataset[i] = {
+        $scope.pieDataset = [{
+                label: "Total Missions",
+                data: 20,
+                color: '#48b5d5',
+            },
+            {
+                label: "Total CAD Requested",
+                data: 30,
+                color: '#82ddcb'
+            },
+            {
+                label: "Total Amount Paid",
+                data: 90,
+                color: '#979fd2'
+            },
 
-    //         label: 'Total CAD Requested',
-    //         data: 30,
-    //     };
-    // }
+        ];
+        $scope.pieOptions = {
+            series: {
+                pie: {
+                    innerRadius: 0.5,
+                    show: true,
+                    textinfo: "none"
+                }
+            },
+            legend: {
+                show: false
+            },
+            grid: {
+                hoverable: true
+            }
+        };
+        // *************************************************end of chart for user**********************************************************************************************************
 
+        // *************************************************start of chart for Admin**********************************************************************************************************
+        //
+        // Standard Chart Example
+        //
+        $scope.data1 = [
+            [gd(2012, 1, 1), 7],
+            [gd(2012, 1, 2), 6],
+            [gd(2012, 1, 3), 4],
+            [gd(2012, 1, 4), 8],
+            [gd(2012, 1, 5), 9],
+            [gd(2012, 1, 6), 7],
+            [gd(2012, 1, 7), 5],
+            [gd(2012, 1, 8), 4],
+            [gd(2012, 1, 9), 7],
+            [gd(2012, 1, 10), 8],
+            [gd(2012, 1, 11), 9],
+            [gd(2012, 1, 12), 6],
+            [gd(2012, 1, 13), 4],
+            [gd(2012, 1, 14), 5],
+            [gd(2012, 1, 15), 11],
+            [gd(2012, 1, 16), 8],
+            [gd(2012, 1, 17), 8],
+            [gd(2012, 1, 18), 11],
+            [gd(2012, 1, 19), 11],
+            [gd(2012, 1, 20), 6],
+            [gd(2012, 1, 21), 6],
+            [gd(2012, 1, 22), 8],
+            [gd(2012, 1, 23), 11],
+            [gd(2012, 1, 24), 13],
+            [gd(2012, 1, 25), 7],
+            [gd(2012, 1, 26), 9],
+            [gd(2012, 1, 27), 9],
+            [gd(2012, 1, 28), 8],
+            [gd(2012, 1, 29), 5],
+            [gd(2012, 1, 30), 8],
+            [gd(2012, 1, 31), 25]
+        ];
+        $scope.data2 = [
+            [gd(2012, 1, 1), 21],
+            [gd(2012, 1, 2), 13],
+            [gd(2012, 1, 3), 25],
+            [gd(2012, 1, 4), 50],
+            [gd(2012, 1, 5), 50],
+            [gd(2012, 1, 6), 45],
+            [gd(2012, 1, 7), 80],
+            [gd(2012, 1, 8), 58],
+            [gd(2012, 1, 9), 46],
+            [gd(2012, 1, 10), 86],
+            [gd(2012, 1, 11), 69],
+            [gd(2012, 1, 12), 70],
+            [gd(2012, 1, 13), 50],
+            [gd(2012, 1, 14), 60],
+            [gd(2012, 1, 15), 70],
+            [gd(2012, 1, 16), 78],
+            [gd(2012, 1, 17), 34],
+            [gd(2012, 1, 18), 88],
+            [gd(2012, 1, 19), 88],
+            [gd(2012, 1, 20), 88],
+            [gd(2012, 1, 21), 98],
+            [gd(2012, 1, 22), 44],
+            [gd(2012, 1, 23), 99],
+            [gd(2012, 1, 24), 56],
+            [gd(2012, 1, 25), 78],
+            [gd(2012, 1, 26), 66],
+            [gd(2012, 1, 27), 88],
+            [gd(2012, 1, 28), 90],
+            [gd(2012, 1, 29), 17],
+            [gd(2012, 1, 30), 55],
+            [gd(2012, 1, 31), 99]
+        ];
+        $scope.dataset = [{
+                label: "Internal CAD",
+                grow: {
+                    stepMode: "linear"
+                },
+                data: $scope.data2,
+                color: "#41d0c8",
+                bars: {
+                    show: true,
+                    align: "center",
+                    barWidth: 24 * 60 * 60 * 600,
+                    lineWidth: 0
+                }
+
+            },
+            {
+                label: "Exterrnal CAD",
+                grow: {
+                    stepMode: "linear"
+                },
+                data: $scope.data1,
+                yaxis: 2,
+                color: "#2a2a2a",
+                lines: {
+                    lineWidth: 1,
+                    show: true,
+                    fill: true,
+                    fillColor: {
+                        colors: [{
+                                opacity: 0.2
+                            },
+                            {
+                                opacity: 0.2
+                            }
+                        ]
+                    }
+                }
+            }
+
+        ];
+
+
+        $scope.options = {
+            grid: {
+                hoverable: true,
+                clickable: true,
+                tickColor: "#d5d5d5",
+                borderWidth: 0,
+                color: '#d5d5d5'
+            },
+            colors: ["#29aba4", "#464f88"],
+            tooltip: true,
+            xaxis: {
+                mode: "time",
+                tickSize: [3, "day"],
+                tickLength: 0,
+                axisLabel: "Date",
+                axisLabelUseCanvas: true,
+                axisLabelFontSizePixels: 12,
+                axisLabelFontFamily: 'Arial',
+                axisLabelPadding: 10,
+                color: "#d5d5d5"
+            },
+            yaxes: [{
+                    position: "left",
+                    max: 1070,
+                    color: "#d5d5d5",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: 'Arial',
+                    axisLabelPadding: 3
+                },
+                {
+                    position: "right",
+                    color: "#d5d5d5",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: ' Arial',
+                    axisLabelPadding: 67
+                }
+            ],
+            legend: {
+                noColumns: 1,
+                labelBoxBorderColor: "#d5d5d5",
+                position: "nw"
+            }
+        };
+
+        function gd(year, month, day) {
+            return new Date(year, month - 1, day).getTime();
+        }
+
+        //
+        // Pie Chart Example of order
+        //
+
+        $scope.pieDatasetRevenue = [{
+                label: "CAD",
+                data: 200,
+                color: '#48b5d5',
+            },
+            {
+                label: "DFM",
+                data: 120,
+                color: '#82ddcb'
+            },
+            {
+                label: "DRONE",
+                data: 50,
+                color: '#979fd2'
+            },
+
+        ];
+        $scope.pieOptionsRevenue = {
+            series: {
+                pie: {
+                    innerRadius: 0.5,
+                    show: true,
+                    textinfo: "none"
+                }
+            },
+            legend: {
+                show: false
+            },
+            grid: {
+                hoverable: true
+            }
+        };
+        //
+        // Pie Chart Example Revenue
+        //
+
+        $scope.pieDatasetOrder = [{
+                label: "CAD",
+                data: 120,
+                color: '#48b5d5',
+            },
+            {
+                label: "DFM",
+                data: 30,
+                color: '#82ddcb'
+            },
+            {
+                label: "DRONE",
+                data: 90,
+                color: '#979fd2'
+            },
+
+        ];
+        $scope.pieOptionsOrder = {
+            series: {
+                pie: {
+                    innerRadius: 0.5,
+                    show: true,
+                    textinfo: "none"
+                }
+            },
+            legend: {
+                show: false
+            },
+            grid: {
+                hoverable: true
+            }
+        };
+        //
+        // Pie Chart Example2
+        //
+
+        $scope.pieDatasetRevenue = [{
+                label: "CAD",
+                data: 200,
+                color: '#48b5d5',
+            },
+            {
+                label: "DFM",
+                data: 120,
+                color: '#82ddcb'
+            },
+            {
+                label: "DRONE",
+                data: 50,
+                color: '#979fd2'
+            },
+
+        ];
+        $scope.pieOptionsRevenue = {
+            series: {
+                pie: {
+                    innerRadius: 0.5,
+                    show: true,
+                    textinfo: "none"
+                }
+            },
+            legend: {
+                show: false
+            },
+            grid: {
+                hoverable: true
+            }
+        };
+        // *************************************************end of chart for Admin**********************************************************************************************************
+        // *************************************************start of chart for vendor**********************************************************************************************************
+        //
+        // Pie Chart Example Cad
+        //
+
+        $scope.pieDatasetCad = [{
+                label: "Total CAD Files",
+                data: 120,
+                color: '#48b5d5',
+            },
+            {
+                label: "Completed CAD Files",
+                data: 30,
+                color: '#82ddcb'
+            },
+            {
+                label: "Incomplete CAD Files",
+                data: 90,
+                color: '#979fd2'
+            },
+
+        ];
+        $scope.pieOptionsCad = {
+            series: {
+                pie: {
+                    innerRadius: 0.5,
+                    show: true,
+                    textinfo: "none"
+                }
+            },
+            legend: {
+                show: false
+            },
+            grid: {
+                hoverable: true
+            }
+        };
+        //
+        // Pie Chart Month
+        //
+
+        $scope.pieDatasetMonth = [{
+                label: "Total Earning",
+                data: 20,
+                color: '#48b5d5',
+            },
+            {
+                label: "Paid",
+                data: 120,
+                color: '#82ddcb'
+            },
+            {
+                label: "Balance",
+                data: 50,
+                color: '#979fd2'
+            },
+
+        ];
+        $scope.pieOptionsMonth = {
+            series: {
+                pie: {
+                    innerRadius: 0.5,
+                    show: true,
+                    textinfo: "none"
+                }
+            },
+            legend: {
+                show: false
+            },
+            grid: {
+                hoverable: true
+            }
+        };
+        // *************************************************end of chart for vendor**********************************************************************************************************
 
 })
 
@@ -638,7 +941,7 @@ firstapp
         }
 
     })
-    .controller('CadfileDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
+    .controller('CadfileDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams, $uibModal) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("cadfile-details");
         $scope.menutitle = NavigationService.makeactive("CadfileDetails");
@@ -647,15 +950,114 @@ firstapp
         $scope.accessLevel = "user";
         // $scope.accessLevel = "admin";
         // $scope.accessLevel = "vendor";
-
+        $scope.formData = {};
         var cad = {};
         cad._id = $stateParams.cadId;
-        // console.log("missionData._id", cad);
         NavigationService.apiCallWithData("CadLineWork/getSingleCadData", cad, function (data) {
             if (data.value == true) {
                 $scope.cadData = data.data;
             }
         });
+
+        NavigationService.apiCallWithoutData("User/getVendor", function (data) {
+            if (data.value == true) {
+                $scope.allVendors = data.data.results;
+            }
+        });
+
+        $scope.cadVendorUpdate = function (data) {
+            data._id = $stateParams.cadId;
+            NavigationService.apiCallWithData("CadLineWork/save", data, function (data) {
+                if (data.value == true) {
+                    toastr.success("Request send successfully");
+                    $state.go("cadfile-request");
+                }
+            });
+        }
+
+        $scope.vendorPay = function (data) {
+            console.log("data", data);
+            data.cad = $stateParams.cadId;
+            NavigationService.apiCallWithData("VendorBill/save", data, function (data) {
+                if (data.value == true) {
+                    toastr.success("Payment in progress");
+                    $state.go("cadfile-details");
+                }
+            });
+        }
+
+        $scope.uploadCadForAdmin = function (data) {
+            data._id = $stateParams.cadId;
+            NavigationService.apiCallWithData("CadLineWork/save", data, function (data) {
+                if (data.value == true) {
+                    toastr.success("File uploaded successfully");
+                    $state.reload();
+                }
+            });
+        }
+
+        //vendor 
+
+        var cad = {};
+        cad._id = $stateParams.cadId;
+        NavigationService.apiCallWithData("CadLineWork/getSingleCadData", cad, function (data) {
+            if (data.value == true) {
+                $scope.cadForVendorData = data.data;
+                console.log("$scope.cadForVendorData", $scope.cadForVendorData);
+            }
+        });
+
+
+        $scope.vendorPriceSet = function (data) {
+            console.log("data", data);
+            data._id = $stateParams.cadId;
+            NavigationService.apiCallWithData("CadLineWork/save", data, function (data) {
+                if (data.value == true) {
+                    toastr.success("Amount set");
+                    $state.reload();
+                }
+            });
+        }
+
+        $scope.uploadCadForVendor = function (data) {
+            data._id = $stateParams.cadId;
+            NavigationService.apiCallWithData("CadLineWork/save", data, function (data) {
+                if (data.value == true) {
+                    toastr.success("File uploaded successfully");
+                    $state.reload();
+                }
+            });
+        }
+
+        //vendor end
+
+        $scope.earningOpen = function () {
+            $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/earning-modal.html',
+                scope: $scope,
+                size: 'sm',
+
+            });
+        };
+        $scope.uploadOpen = function () {
+            $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/upload-file.html',
+                scope: $scope,
+                size: 'sm',
+
+            });
+        };
+        $scope.uploadvendorOpen = function () {
+            $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/upload-vendor.html',
+                scope: $scope,
+                size: 'sm',
+
+            });
+        };
     })
     .controller('CadFileRequestCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams, $uibModal) {
         //Used to name the .html file
@@ -676,18 +1078,17 @@ firstapp
                 $scope.misssonInfo = data.data;
                 console.log("*******data is*****", $scope.misssonInfo)
             })
-
-
+   
         $scope.saveExtcadfile = function (data) {
             console.log("form: ", data);
         };
         console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&",formdata)
         NavigationService.apiCallWithData("CadLineWork/getCadbyeUser", formdata, function (data) {
             $scope.cadUserDetail = data.data;
-            console.log("*******cad file data is*****", $scope.cadUserDetail)
+            // console.log("*******cad file data is*****", $scope.cadUserDetail)
         })
 
-        //pagination
+        //pagination admin
 
         var i = 0;
         if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
@@ -715,7 +1116,7 @@ firstapp
             $scope.getAllItems();
         };
 
-        $scope.getAllItems = function (keywordChange, count) {
+        $scope.getAllItems = function (keywordChange) {
             if (keywordChange != undefined && keywordChange != true) {
                 $scope.maxCount = keywordChange;
                 $scope.totalItems = undefined;
@@ -754,7 +1155,7 @@ firstapp
         //  JsonService.refreshView = $scope.getAllItems;
         $scope.getAllItems();
 
-        //pagination end
+        //pagination end admin
 
 
         $scope.cadOpen = function () {
@@ -766,6 +1167,81 @@ firstapp
 
             });
         };
+
+        //vendor page
+
+        //pagination vendor
+
+        var i = 0;
+        if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
+            $scope.currentPage = $stateParams.page;
+        } else {
+            $scope.currentPage = 1;
+        }
+
+        $scope.search = {
+            keyword: ""
+        };
+        if ($stateParams.keyword) {
+            $scope.search.keyword = $stateParams.keyword;
+        }
+        $scope.changePage = function (page) {
+            //  console.log("changePage: ", page);
+            var goTo = "cadfile-request";
+            $scope.currentPage = page;
+            if ($scope.search.keyword) {
+                goTo = "cadfile-request";
+            }
+            $state.go(goTo, {
+                page: page
+            });
+            $scope.getAllItems();
+        };
+
+        $scope.getAllItems = function (keywordChange) {
+            if (keywordChange != undefined && keywordChange != true) {
+                $scope.maxCount = keywordChange;
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("CadLineWork/getCadForVendor", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount,
+                        vendorId: "59bcf455b27db70b15a1c86a" //replace it with jstorage ID
+                    }, ++i,
+                    function (data, ini) {
+                        //  console.log("Data: ", data);
+                        if (ini == i) {
+                            $scope.allCadLineVendorData = data.data.results;
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            } else {
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("CadLineWork/getCadForVendor", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        vendorId: "59bcf455b27db70b15a1c86a" //replace it with jstorage ID
+                    }, ++i,
+                    function (data, ini) {
+                        //  console.log("Data: ", data);
+                        if (ini == i) {
+                            $scope.allCadLineVendorData = data.data.results;
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            }
+
+        };
+        //  JsonService.refreshView = $scope.getAllItems;
+        $scope.getAllItems();
+
+        //pagination end vendor
+
+
     })
     .controller('AccandSubCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $uibModal) {
         //Used to name the .html file
@@ -985,8 +1461,10 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Reports");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+
     })
-    .controller('VendorsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+
+    .controller('VendorsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("vendors");
         $scope.menutitle = NavigationService.makeactive("Vendors");
@@ -994,6 +1472,89 @@ firstapp
         $scope.navigation = NavigationService.getnav();
         $scope.accessLevel = "admin";
         // $scope.accessLevel = "vendor";
+
+
+        //pagination
+
+        var i = 0;
+        if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
+            $scope.currentPage = $stateParams.page;
+        } else {
+            $scope.currentPage = 1;
+        }
+
+        $scope.search = {
+            keyword: ""
+        };
+        if ($stateParams.keyword) {
+            $scope.search.keyword = $stateParams.keyword;
+        }
+        $scope.changePage = function (page) {
+            //  console.log("changePage: ", page);
+            var goTo = "vendors";
+            $scope.currentPage = page;
+            if ($scope.search.keyword) {
+                goTo = "vendors";
+            }
+            $state.go(goTo, {
+                page: page
+            });
+            $scope.getAllItems();
+        };
+
+        $scope.getAllItems = function (keywordChange, count) {
+            if (keywordChange != undefined && keywordChange != true) {
+                $scope.maxCount = keywordChange;
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("User/getVendor", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
+                    function (data, ini) {
+                        //  console.log("Data: ", data);
+                        if (ini == i) {
+                            $scope.allVendors = data.data.results;
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            } else {
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("User/getVendor", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword
+                    }, ++i,
+                    function (data, ini) {
+                        //  console.log("Data: ", data);
+                        if (ini == i) {
+                            $scope.allVendors = data.data.results;
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            }
+
+        };
+        //  JsonService.refreshView = $scope.getAllItems;
+        $scope.getAllItems();
+
+        //pagination end
+
+        $scope.removeVendor = function (vendorid) {
+            var vendor = {};
+            vendor._id = vendorid;
+            NavigationService.apiCallWithData("User/delete", vendor, function (data) {
+                if (data.value == true) {
+                    toastr.success("Vendor deleted successfully");
+                    $state.reload();
+                }
+            });
+
+        }
+
     })
     .controller('CreateVendorCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
@@ -1036,12 +1597,26 @@ firstapp
         $scope.navigation = NavigationService.getnav();
     })
 
-.controller('EditVendorCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+
+
+    .controller('EditVendorCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
+
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("edit-vendor");
         $scope.menutitle = NavigationService.makeactive("EditVendor");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+
+
+        $scope.updateVendor = function (formData) {
+            formData._id = $stateParams.vendorId;
+            NavigationService.apiCallWithData("User/save", formData, function (data) {
+                if (data.value == true) {
+                    $state.go("vendors");
+                }
+            });
+        }
+
     })
     .controller('AdminProfileCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
@@ -1099,12 +1674,83 @@ firstapp
     })
     // ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** FOR ADMIN ONLY ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** *
     // ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** FOR VENDOR ONLY ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ****//
-    .controller('BillingCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+    .controller('BillingCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("billing");
         $scope.menutitle = NavigationService.makeactive("Billing");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+
+        //pagination
+
+        var i = 0;
+        if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
+            $scope.currentPage = $stateParams.page;
+        } else {
+            $scope.currentPage = 1;
+        }
+
+        $scope.search = {
+            keyword: ""
+        };
+        if ($stateParams.keyword) {
+            $scope.search.keyword = $stateParams.keyword;
+        }
+        $scope.changePage = function (page) {
+            //  console.log("changePage: ", page);
+            var goTo = "billing";
+            $scope.currentPage = page;
+            if ($scope.search.keyword) {
+                goTo = "billing";
+            }
+            $state.go(goTo, {
+                page: page
+            });
+            $scope.getAllItems();
+        };
+
+        $scope.getAllItems = function (keywordChange, count) {
+            if (keywordChange != undefined && keywordChange != true) {
+                $scope.maxCount = keywordChange;
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("VendorBill/getBill", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
+                    function (data, ini) {
+                        //  console.log("Data: ", data);
+                        if (ini == i) {
+                            $scope.allBillData = data.data.results;
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            } else {
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("VendorBill/getBill", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword
+                    }, ++i,
+                    function (data, ini) {
+                        //  console.log("Data: ", data);
+                        if (ini == i) {
+                            $scope.allBillData = data.data.results;
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            }
+
+        };
+        //  JsonService.refreshView = $scope.getAllItems;
+        $scope.getAllItems();
+
+        //pagination end
+
+
     })
     // ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** FOR VENDOR ONLY ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ***//
     //     .controller('missionCtrl', function ($scope, TemplateService, NavigationService, shareMission, $timeout, $state) {
