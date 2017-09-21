@@ -1,12 +1,17 @@
 <style>
-  #my-thumbs-list {
+  #imgblock {
     overflow: auto;
-    width: 300px;
-    height: 500px;
+    height: 100px;
   }
 
   .img-responsive {
     width: 200px;
+  }
+
+  img.uploadingImage {
+    max-width: 75px;
+    max-height: 75px;
+    margin: 10px 0px;
   }
 </style>
 
@@ -17,13 +22,14 @@
 
   <!-- <label for="exampleInputEmail1" style="margin:5px;">Image Upload</label> -->
   <div class="img-box" ng-if="model && !isMultiple" ng-hide="noShow">
-    <img ng-src="{{model.file|uploadpath}}" class="img-responsive uploadingImage img-thumbnail" ng-if="type=='image'" />
-    <iframe src="{{model.file|uploadpath}}" style="width:400px; height:400px;" frameborder="0" ng-if="type=='pdf'"></iframe>
+    <img ng-src="{{model.file|uploadpathlocal}}" class="img-responsive uploadingImage img-thumbnail" ng-if="type=='image'" />
+    <iframe src="{{model.file|uploadpathlocal}}" style="width:400px; height:400px;" frameborder="0" ng-if="type=='pdf'"></iframe>
   </div>
-  <div class="clearfix" ng-if="model && isMultiple" ng-hide="noShow">
+  <div class="clearfix" ng-if="model && isMultiple" id="imgblock">
     <div class="img-box" style="float:left;" ng-repeat="sImage in model track by $index">
       <i class="fa fa-times" ng-click="removeImage($index)"></i>
-      <img alt="" ng-src="{{sImage.file|uploadpath}}" class="img-responsive uploadingImage img-thumbnail" />
+      <img alt="" ng-src="{{sImage.file|uploadpathlocal}}" class="img-responsive uploadingImage img-thumbnail" style="width: 75px;
+    height: 75px;" />
     </div>
   </div>
   <div class="btn-upload btn btn-primary btn-outline btn-small create-btn">
