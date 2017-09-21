@@ -143,6 +143,50 @@ var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "cartProducts 
 var model = {
 
     //----------------------Start----------------------//
+    getUser: function (data, callback) {
+        if (data.count) {
+            var maxCount = data.count;
+        } else {
+            var maxCount = Config.maxRow;
+        }
+        var maxRow = maxCount
+        var page = 1;
+        if (data.page) {
+            page = data.page;
+        }
+        var field = data.field;
+        var options = {
+            field: data.field,
+            filters: {
+                keyword: {
+                    fields: ['name'],
+                    term: data.keyword
+                }
+            },
+            sort: {
+                desc: 'createdAt'
+            },
+            start: (page - 1) * maxRow,
+            count: maxRow
+        };
+        User.find({})
+            .deepPopulate("serviceId user DFMSubscription")
+            .order(options)
+            .keyword(options)
+            .page(options,
+                function (err, found) {
+                    console.log("inside paggingtion cadline file", found)
+                    if (err) {
+                        console.log(err);
+                        callback(err, null);
+                    } else if (found) {
+                        callback(null, found);
+                    } else {
+                        callback("Invalid data", null);
+                    }
+                });
+    },
+
 
 
     getVendor: function (data, callback) {
@@ -235,10 +279,35 @@ var model = {
 
         });
     },
-    Updateuser: function (data, callback) {
+
+    Updatepassword: function (data, callback) {
         console.log("data is******", data)
 
         User.update({
+            _id: mongoose.Types.ObjectId(data._id)
+        }, {
+            $set: {
+                password: md5(data.password)
+            }
+        }).exec(function (err, found) {
+            if (err) {
+                console.log("inside error");
+                callback(err, null);
+            } else if (_.isEmpty(found)) {
+                console.log("isemapty")
+                callback(null, "noDataound");
+            } else {
+                console.log("found", found)
+                callback(null, found);
+            }
+
+        });
+    },
+
+    Updateuser: function (data, callback) {
+        console.log("data is******", data)
+
+        User.findOneAndUpdate({
             _id: mongoose.Types.ObjectId(data._id)
         }, {
             $set: {
@@ -248,6 +317,8 @@ var model = {
                 address: data.address,
                 password: data.password
             }
+        }, {
+            new: true
         }).exec(function (err, found) {
             if (err) {
                 console.log("inside error");
@@ -286,27 +357,6 @@ var model = {
         });
     },
 
-    getUser: function (data, callback) {
-        console.log("data", data)
-        User.findOne({
-            _id: data._id
-        }).exec(function (err, found) {
-            if (err) {
-
-                callback(err, null);
-            } else {
-                if (found) {
-
-                    callback(null, found);
-                } else {
-                    callback({
-                        message: "Incorrect Credentials!"
-                    }, null);
-                }
-            }
-
-        });
-    },
     getByUrl: function (data, callback) {
         this.findOne({
             "myslug": data.myslug

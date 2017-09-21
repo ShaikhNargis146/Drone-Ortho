@@ -55,7 +55,7 @@ var model = {
 
     getDfm: function (data, callback) {
         console.log('inside dfm', data)
-        DFMSubscription.find({
+        DFMSubscription.findOne({
             user: data.user
         }, function (err, found) {
             if (err) {

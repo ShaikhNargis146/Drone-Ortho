@@ -86,6 +86,52 @@ module.exports = mongoose.model('CadLineWork', schema);
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "user mission vendor", "user mission vendor"));
 var model = {
 
+    getCadByUSer: function (data, callback) {
+        if (data.count) {
+            var maxCount = data.count;
+        } else {
+            var maxCount = Config.maxRow;
+        }
+        var maxRow = maxCount
+        var page = 1;
+        if (data.page) {
+            page = data.page;
+        }
+        var field = data.field;
+        var options = {
+            field: data.field,
+            filters: {
+                keyword: {
+                    fields: ['name'],
+                    term: data.keyword
+                }
+            },
+            sort: {
+                desc: 'createdAt'
+            },
+            start: (page - 1) * maxRow,
+            count: maxRow
+        };
+        CadLineWork.find({
+                user: data.user
+            })
+            .deepPopulate("serviceId user DFMSubscription")
+            .order(options)
+            .keyword(options)
+            .page(options,
+                function (err, found) {
+                    console.log("inside paggingtion cadline file", found)
+                    if (err) {
+                        console.log(err);
+                        callback(err, null);
+                    } else if (found) {
+                        callback(null, found);
+                    } else {
+                        callback("Invalid data", null);
+                    }
+                });
+    },
+
     InternalCadIdgenerate: function (data, callback) {
         console.log("cad id data is", data)
         CadLineWork.find({}).sort({
@@ -213,27 +259,6 @@ var model = {
                 callback(null, data);
             }
         })
-    },
-
-    getCadbyeUser: function (data, callback) {
-        console.log("data isgetCadbyeUser******", data)
-
-        CadLineWork.find({
-            user: data.user
-        }).exec(function (err, found) {
-            console.log()
-            if (err) {
-                console.log("inside error");
-                callback(err, null);
-            } else if (_.isEmpty(found)) {
-                console.log("isemapty")
-                callback(null, "noDataound");
-            } else {
-                console.log("found", found)
-                callback(null, found);
-            }
-
-        });
     },
 
     //******************** START *********************//

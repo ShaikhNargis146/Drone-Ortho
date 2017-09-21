@@ -151,8 +151,8 @@ var models = {
                     "format": "A4",
                     // Export options 
                     "directory": "/tmp",
-                    "height": "10.5in", // allowed units: mm, cm, in, px
-                    "width": "10in",
+                    "height": "13in", // allowed units: mm, cm, in, px
+                    "width": "14in",
                     // "format": "Letter", // allowed units: A3, A4, A5, Legal, Letter, Tabloid 
                     // "orientation": "portrait", // portrait or landscape 
                     // "zoomFactor": "1", // default is 1 

@@ -1,6 +1,18 @@
 module.exports = _.cloneDeep(require("sails-wohlig-controller"));
 var controller = {
 
+   getUser: function (req, res) {
+        console.log("***");
+        if (req.body) {
+            console.log("**$$$$*");
+            User.getUser(req.body, res.callback);
+        } else {
+            console.log("*%%%%%**");
+            res.callback("Please provide Valid AccessToken", null);
+        }
+    },
+
+
     addCardDetails: function (req, res) {
         console.log("***");
         if (req.body) {
@@ -11,7 +23,14 @@ var controller = {
             res.callback("Please provide Valid AccessToken", null);
         }
     },
-    Updateuser: function (req, res) {
+    Updatepassword: function (req, res) {
+        if (req.body && req.body.accessToken) {
+            User.Updatepassword(req.body, res.callback);
+        } else {
+            res.callback("Please provide Valid AccessToken", null);
+        }
+    },
+        Updateuser: function (req, res) {
         if (req.body && req.body.accessToken) {
             User.Updateuser(req.body, res.callback);
         } else {

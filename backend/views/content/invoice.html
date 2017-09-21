@@ -1,5 +1,4 @@
 <div class="page-container ">
-
   <!-- Start page content wrapper -->
   <div class="page-content-wrapper animated fadeInRight  ">
     <div class="page-content">
@@ -16,24 +15,20 @@
       <div class="wrapper-content ">
         <div class="row">
           <div class="col-lg-12">
-
             <div class="ibox float-e-margins">
               <!--<div class="ibox-title">
                 <h5>Missions</h5>
               </div>-->
-
-
               <div class="ibox-content collapse in">
-
-
                 <div class="widgets-container">
                   <div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
                     <div class="row">
-                      <div class="col-md-6"> <label>Show          <select name="DataTables_Table_2_length" ng-change="dataSize(selectData)" ng-model="selectData" aria-controls="DataTables_Table_2" class="form-control input-sm">              <option value="10">10</option>              <option value="25">25</option>              <option value="50">50</option>              <option value="100">100</option>          </select> entries        </label>
+                      <div class="col-md-6"> <label>Show          <select name="DataTables_Table_2_length" ng-change="getAllItems(selectData)" ng-model="selectData" aria-controls="DataTables_Table_2" class="form-control input-sm">              <option value="10">10</option>              <option value="25">25</option>              <option value="50">50</option>              <option value="100">100</option>          </select> entries        </label>
                         <div class="dataTables_info" id="DataTables_Table_1_info" role="status" aria-live="polite">Showing 1 to 10 of 13 entries</div>
                       </div>
                       <div class="col-md-6">
-                        <div class="pull-right"> <label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_0"></label>
+                        <div class="pull-right"> <label>Search:<input type="text " ng-change="getAllItems(true) " placeholder="Search Here...
+                        " ng-model="search.keyword " /></label>
                           <div class="dt-buttons btn-group"> <a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Copy</span>             </a>                            <a class="btn btn-default buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>CSV</span>             </a>                            <a class="btn btn-default buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Excel</span>             </a>                            <a class="btn btn-default buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>PDF</span>             </a>                            <a class="btn btn-default buttons-print" tabindex="0" aria-controls="DataTables_Table_0"><span>Print</span>             </a>                            </div>
                         </div>
                       </div>
@@ -53,65 +48,73 @@
                           <th>Download Receipt</th>
                         </tr>
                       </thead>
-<!--//for Product-->
-                      <tbody ng-repeat="product in productData" >
+                      <!--//for Product-->
+                      <tbody ng-repeat="product in productData">
                         <tr ng-repeat="abc in product.products" ng-if="abc._id">
+                        <!--<tr ng-repeat="abc in product.products">-->
+                          
                           <td><a ui-sref="popup">{{abc.name}}</a></td>
                           <td></td>
                           <td>{{abc.price}}</td>
                           <td></td>
                           <td>{{abc.status}}</td>
                           <td></td>
-                          <td><button type="button" ng-click="getInvoice()"class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;
+                          <td><button type="button" ng-click="getInvoice()" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;
                             <button type="button" class="btn green btn-outline btn-xs" ng-click="downloadInvoice()">Download</button>
                           </td>
                         </tr>
                       </tbody>
                       <!--//for Product end-->
-                      <!--//for cad--><pre>{{productData}}</pre>
-                         <tbody  >
+                      <!--//for cad-->
+                     
+                      <tbody>
                         <tr ng-repeat="cad in productData" ng-if="cad.cadLineWork._id">
+                        <!--<tr ng-repeat="cad in productData">-->
+                          
                           <td><a ui-sref="popup">{{cad.cadLineWork._id}}</a></td>
                           <td>{{cad.cadLineWork.createdAt}}</td>
                           <td>{{cad.cadLineWork.amount}}</td>
                           <td>{{cad.cadLineWork.DiscountAmount}}</td>
                           <td>{{cad.cadLineWork.status}}</td>
                           <td></td>
-                          <td><button type="button" ng-click="getInvoice()"class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;
+                          <td><button type="button" ng-click="getInvoice()" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;
                             <button type="button" class="btn green btn-outline btn-xs">Download</button>
                           </td>
                         </tr>
                       </tbody>
-                      
-                          <!--//for cad end-->
-
-                              <!--//for dfm-->
-                           <tbody  >
+                      <!--//for cad end-->
+                      <!--//for dfm-->
+                      <tbody>
                         <tr ng-repeat="dfm in productData" ng-if="dfm.dfmSubscription._id">
+                        <!--<tr ng-repeat="dfm in productData" >-->
+                          
                           <td><a ui-sref="popup">{{dfm.dfmSubscription._id}}</a></td>
                           <td>{{dfm.dfmSubscription.createdAt}}</td>
                           <td>{{dfm.dfmSubscription.amount}}</td>
                           <td>{{dfm.dfmSubscription.DiscountAmount}}</td>
                           <td>{{cad.dfmSubscription.status}}</td>
                           <td></td>
-                          <td><button type="button" ng-click="getInvoice()"class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;
+                          <td><button type="button" ng-click="getInvoice()" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;
                             <button type="button" class="btn green btn-outline btn-xs">Download</button>
                           </td>
                         </tr>
                       </tbody>
-                          <!--//for dfm end-->
+                      <!--//for dfm end-->
                     </table>
-                    <pagination></pagination>
+                    <div class="right-side">
+                      <ul ng-if="totalItems " ng-change="changePage(currentPage); " uib-pagination total-items="totalItems
+                                            " items-per-page="maxRow " ng-model="currentPage " max-size="template.pageMax "
+                        class="pagination-sm
+                                            " boundary-links="true " force-ellipses="true ">
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
       </div>
-
-
     </div>
   </div>
 </div>
