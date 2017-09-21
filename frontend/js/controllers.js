@@ -802,7 +802,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         // }
 
     })
-    .controller('ShippingCtrl', function ($scope, TemplateService, NavigationService, $timeout) {
+  .controller('ShippingCtrl', function ($scope, TemplateService, NavigationService, $timeout) {
         $scope.template = TemplateService.changecontent("shipping"); //Use same name of .html file
         $scope.menutitle = NavigationService.makeactive("Shipping"); //This is the Title of the Website
         TemplateService.title = $scope.menutitle;
@@ -814,13 +814,24 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             console.log(data);
             $scope.formSubmitted = true;
         };
-        $scope.saveData = function (data) {
+              $scope.saveData = function (data) {
+             console.log("$$$$data is:",data);
 
-            NavigationService.apiCallWithData("ProductOrders/save", data, function (data) {
-                console.log("product save", data)
-            });
+             $scope.shippingAddress={
+                 city:data.city,
+                 country:data.country,
+                 state:data.state,
+                 zip:data.zip
+             }
 
-        }
+             data.shippingAddress=$scope.shippingAddress
+console.log("$$$$data is******:",data);
+                NavigationService.apiCallWithData("ProductOrders/invoiceGenerate", data, function (data1) {
+console.log("LLLLLLLLLLLLLL:",data1);
+                        
+                    });
+
+         }
         $scope.setShippingAddress = function (data) {
             if (!$scope.formData.shippingAddress) {
                 $scope.formData.shippingAddress = {};
@@ -829,7 +840,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             if (document.getElementById("agree").checked) {
                 $scope.formData.shippingAddress.name = $scope.formData.address.name;
                 $scope.formData.shippingAddress.lname = $scope.formData.address.lname;
-                $scope.formData.shippingAddress.company = $scope.formData.address.company;
+                $scope.formData.shippingAddress.oraganization = $scope.formData.address.oraganization;
                 $scope.formData.shippingAddress.address1 = $scope.formData.address.address1;
                 $scope.formData.shippingAddress.apartment = $scope.formData.address.apartment;
                 $scope.formData.shippingAddress.city = $scope.formData.address.city;
@@ -856,7 +867,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     $scope.formData.address.address1 = data.data.address;
                     $scope.formData.address.state = data.data.state;
                     $scope.formData.address.phonenumber = data.data.mobile;
-                    $scope.formData.address.company = data.data.organization;
+                    $scope.formData.address.oraganization = data.data.oraganization;
                     $scope.formData.address.country = data.data.country;
                     console.log("data found successfully")
                 } else {
@@ -918,6 +929,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }
             }
     })
+
 
     .controller('Blog-IndividualCtrl', function ($scope, TemplateService, NavigationService, $timeout, $stateParams) {
         $scope.template = TemplateService.changecontent("blog-individual"); //Use same name of .html file

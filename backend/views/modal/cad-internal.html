@@ -5,33 +5,27 @@
         </a>
     </div>
     <div class="modal-header" style="background-color:#36918b">
-
         <h4 class="modal-title" style="color:#fff">Internal CAD Request</h4>
     </div>
     <div class="modal-body">
         <form class="form-horizontal">
-
             <div class="form-group">
                 <label class="control-label col-sm-4" for="pwd">Select Mission</label>
                 <div class="col-sm-6">
-                    <select class="form-control" ng-model="formData.missionId" ng-repeat="mission in misssonInfo">
+                    <select class="form-control" ng-model="formData.missionId">
 								<option value="">SELECT</option>
-								<option value="{{mission._id}}">{{mission.name}}</option>
-							</select>
+								<option  ng-repeat="mission in misssonInfo" value="{{mission._id}}">{{mission.name}}</option>
+                    </select>
                 </div>
             </div>
-
             <div class="form-group">
                 <div class="col-sm-offset-4 col-sm-4">
                     <a class="btn green btn-outline pull-right" ui-sref="mission-details({'missionId':formData.missionId})">SUBMIT</a>
                 </div>
             </div>
-
         </form>
-
     </div>
     <div class="modal-footer ">
         <button type="button " class="btn green btn-outline " ng-click="$dismiss() ">Close</button>
-
     </div>
 </div>

@@ -115,6 +115,7 @@ var controller = {
         }
 
     },
+    
 
     getMission: function (req, res) {
         if (req.body) {
@@ -129,6 +130,7 @@ var controller = {
         }
 
     },
+   
 
 
     getSingleMissionData: function (req, res) {

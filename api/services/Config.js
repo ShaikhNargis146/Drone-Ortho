@@ -111,14 +111,25 @@ var models = {
         var pdf = require('html-pdf');
         var obj = {};
         var env = {};
-        obj.firstName = page.firstName;
-        obj.lastName = page.lastName;
-        var file = "invoice";
+        obj.name = page.name;
+        obj.lname = page.lname;
+        obj.oraganization = page.oraganization;
+        obj.city = page.shippingAddress.city;
+        obj.country = page.shippingAddress.country;
+        obj.state = page.shippingAddress.state;
+        obj.createdAt = page.createdAt;
+        obj.status = page.status;
+        obj.phonenumber = page.phonenumber;
+        obj.apartment = page.apartment
         var i = 0;
+
+        var file = "cad_invoice";
         sails.hooks.views.render(file, obj, function (err, html) {
             if (err) {
+                console.log("errr", err);
                 callback(err);
             } else {
+                console.log("else");
                 var path = "pdf/";
                 var newFilename = page._id + file + ".pdf";
                 var writestream = fs.createWriteStream(path + newFilename);
@@ -126,7 +137,9 @@ var models = {
                     if (err) {
                         console.log("Something Fishy", err);
                     } else {
+                        red("Finish is working");
                         callback(null, {
+                            id: page._id,
                             name: newFilename,
                             url: newFilename
                         });
@@ -134,7 +147,8 @@ var models = {
                 });
 
                 var options = {
-                    "phantomPath": "node_modules/phantomjs/bin/phantomjs",
+                 "phantomPath": "node_modules/phantomjs/bin/phantomjs",
+                    "format": "A4",
                     // Export options 
                     "directory": "/tmp",
                     "height": "10.5in", // allowed units: mm, cm, in, px
@@ -157,6 +171,10 @@ var models = {
                     },
                     // "filename": page.filename + ".pdf"
                 };
+                // var options = {
+                //     "phantomPath": "node_modules/phantomjs/bin/phantomjs",
+                //     "format": "A4"
+                // };
 
                 pdf.create(html, options).toStream(function (err, stream) {
                     if (err) {
@@ -169,6 +187,7 @@ var models = {
                     }
                 });
             }
+
         });
     },
 
@@ -472,8 +491,6 @@ var models = {
         }
         //error handling, e.g. file does not exist
     },
-
-
     import: function (name) {
         var jsonExcel = xlsx.parse(name);
         var retVal = [];

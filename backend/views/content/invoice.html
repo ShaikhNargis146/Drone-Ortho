@@ -53,74 +53,53 @@
                           <th>Download Receipt</th>
                         </tr>
                       </thead>
-
-                      <tbody>
-                        <tr>
-                          <td><a ui-sref="popup">Jor</a></td>
-                          <td>System Architect</td>
-                          <td>London</td>
-                          <td>61</td>
-                          <td>System Architect</td>
-                          <td>London</td>
-                          <td><button type="button" ui-sref="invoice-view" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;
-                            <button type="button" class="btn green btn-outline btn-xs">Download</button>
+<!--//for Product-->
+                      <tbody ng-repeat="product in productData" >
+                        <tr ng-repeat="abc in product.products" ng-if="abc._id">
+                          <td><a ui-sref="popup">{{abc.name}}</a></td>
+                          <td></td>
+                          <td>{{abc.price}}</td>
+                          <td></td>
+                          <td>{{abc.status}}</td>
+                          <td></td>
+                          <td><button type="button" ng-click="getInvoice()"class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;
+                            <button type="button" class="btn green btn-outline btn-xs" ng-click="downloadInvoice()">Download</button>
                           </td>
-
                         </tr>
-                        <tr>
-                          <td><a ui-sref="popup">dan</a></td>
-                          <td>Accountant</td>
-                          <td>London</td>
-                          <td>63</td>
-                          <td>System Architect</td>
-                          <td>London</td>
-                          <td><button type="button" ui-sref="invoice-view" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;
-                            <button type="button" class="btn green btn-outline btn-xs">Download</button>
-                          </td>
-
-                        </tr>
-
-                        <tr>
-                          <td><a ui-sref="popup">Bel</a></td>
-                          <td>Accountant</td>
-                          <td>London</td>
-                          <td>63</td>
-                          <td>System Architect</td>
-                          <td>London</td>
-                          <td><button type="button" ui-sref="invoice-view" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;
-                            <button type="button" class="btn green btn-outline btn-xs">Download</button>
-                          </td>
-
-                        </tr>
-
-                        <tr>
-                          <td><a ui-sref="popup">fort</a></td>
-                          <td>Accountant</td>
-                          <td>London</td>
-                          <td>63</td>
-                          <td>System Architect</td>
-                          <td>London</td>
-                          <td><button type="button" ui-sref="invoice-view" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;
-                            <button type="button" class="btn green btn-outline btn-xs">Download</button>
-                          </td>
-
-                        </tr>
-
-                        <tr>
-                          <td><a ui-sref="popup">Belf</a></td>
-                          <td>Accountant</td>
-                          <td>London</td>
-                          <td>63</td>
-                          <td>System Architect</td>
-                          <td>London</td>
-
-                          <td><button type="button" ui-sref="invoice-view" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;
-                            <button type="button" class="btn green btn-outline btn-xs">Download</button>
-                          </td>
-
-                        </tr>
-
                       </tbody>
+                      <!--//for Product end-->
+                      <!--//for cad--><pre>{{productData}}</pre>
+                         <tbody  >
+                        <tr ng-repeat="cad in productData" ng-if="cad.cadLineWork._id">
+                          <td><a ui-sref="popup">{{cad.cadLineWork._id}}</a></td>
+                          <td>{{cad.cadLineWork.createdAt}}</td>
+                          <td>{{cad.cadLineWork.amount}}</td>
+                          <td>{{cad.cadLineWork.DiscountAmount}}</td>
+                          <td>{{cad.cadLineWork.status}}</td>
+                          <td></td>
+                          <td><button type="button" ng-click="getInvoice()"class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;
+                            <button type="button" class="btn green btn-outline btn-xs">Download</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                      
+                          <!--//for cad end-->
+
+                              <!--//for dfm-->
+                           <tbody  >
+                        <tr ng-repeat="dfm in productData" ng-if="dfm.dfmSubscription._id">
+                          <td><a ui-sref="popup">{{dfm.dfmSubscription._id}}</a></td>
+                          <td>{{dfm.dfmSubscription.createdAt}}</td>
+                          <td>{{dfm.dfmSubscription.amount}}</td>
+                          <td>{{dfm.dfmSubscription.DiscountAmount}}</td>
+                          <td>{{cad.dfmSubscription.status}}</td>
+                          <td></td>
+                          <td><button type="button" ng-click="getInvoice()"class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;
+                            <button type="button" class="btn green btn-outline btn-xs">Download</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                          <!--//for dfm end-->
                     </table>
                     <pagination></pagination>
                   </div>

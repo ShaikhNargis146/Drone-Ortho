@@ -1,14 +1,24 @@
 var schema = new Schema({
-    firstName: String,
-    lastName: String,
-    mobile: String,
+    name: String,
+    lname: String,
+    phonenumber: String,
     email: {
         type: String,
         validate: validators.isEmail(),
     },
-    user: {
+user: {
         type: Schema.Types.ObjectId,
         ref: 'User',
+        index: true
+    },
+    cadLineWork: {
+        type: Schema.Types.ObjectId,
+        ref: 'CadLineWork',
+        index: true
+    },
+    dfmSubscription: {
+        type: Schema.Types.ObjectId,
+        ref: 'DFMSubscription',
         index: true
     },
     products: [{
@@ -55,20 +65,77 @@ var schema = new Schema({
         type: String,
         default: "Processing"
     },
+    pdf:String,
     transactionNo: String,
-    trackingCode: String
+    trackingCode: String,
+    oraganization:String,
+    apartment:String
 });
 
+
+
+schema.plugin(deepPopulate, {
+    populate: {
+        products: {
+            select: ""
+        },
+         user: {
+            select: ""
+        },
+         cadLineWork: {
+            select: ""
+        },
+         dfmSubscription: {
+            select: ""
+        }
+    }
+});
 schema.plugin(deepPopulate, {});
 schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('ProductOrders', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema,"products user cadLineWork dfmSubscription","products user cadLineWork dfmSubscription"));
 var model = {
 
+  getreciptData: function (data, callback) {
+        console.log("data is******", data)
 
+        ProductOrders.find({
+            user: data.user
+        }).deepPopulate("products user cadLineWork dfmSubscription").exec(function (err, found) {
+            if (err) {
+                console.log("inside error");
+                callback(err, null);
+            } else if (_.isEmpty(found)) {
+                console.log("isemapty")
+                callback(null, "noDataound");
+            } else {
+                console.log("found", found)
+                callback(null, found);
+            }
 
+        });
+    },
+ getuser: function (data, callback) {
+        console.log("data is******", data)
+
+        ProductOrders.findOne({
+            user: data.user
+        }).deepPopulate("products user cadLineWork dfmSubscription").exec(function (err, found) {
+            if (err) {
+                console.log("inside error");
+                callback(err, null);
+            } else if (_.isEmpty(found)) {
+                console.log("isemapty")
+                callback(null, "noDataound");
+            } else {
+                console.log("found", found)
+                callback(null, found);
+            }
+
+        });
+    },
     invoiceGenerate: function (data, callback) {
         async.waterfall([
                 function (callback) {
@@ -95,12 +162,39 @@ var model = {
                             }
                         }
                     })
-                }
+                },
+                function (pdfData, callback) {
+                    console.log("pdfData", pdfData);
+
+        ProductOrders.update({
+            _id: pdfData.id
+        }, {
+            $set: {
+                pdf:pdfData.name
+            }
+        }).exec(function (err, found) {
+            if (err) {
+                console.log("inside error");
+                callback(err, null);
+            } else if (_.isEmpty(found)) {
+                console.log("isemapty")
+                callback(null, "noDataound");
+            } else {
+                console.log("found", found)
+                callback(null, found);
+            }
+
+        });
+
+                    
+                },
             ],
             function (err, result) {
                 if (err || _.isEmpty(result)) {
                     callback(err, []);
+
                 } else {
+            console.log("final result is ****",result)
                     callback(null, result);
                 }
             });
