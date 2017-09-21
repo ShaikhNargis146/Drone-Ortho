@@ -6,7 +6,7 @@ var schema = new Schema({
         type: String,
         validate: validators.isEmail(),
     },
-    user: {
+user: {
         type: Schema.Types.ObjectId,
         ref: 'User',
         index: true
@@ -65,11 +65,11 @@ var schema = new Schema({
         type: String,
         default: "Processing"
     },
-    pdf: String,
+    pdf:String,
     transactionNo: String,
     trackingCode: String,
-    oraganization: String,
-    apartment: String
+    oraganization:String,
+    apartment:String
 });
 
 
@@ -79,13 +79,13 @@ schema.plugin(deepPopulate, {
         products: {
             select: ""
         },
-        user: {
+         user: {
             select: ""
         },
-        cadLineWork: {
+         cadLineWork: {
             select: ""
         },
-        dfmSubscription: {
+         dfmSubscription: {
             select: ""
         }
     }
@@ -95,64 +95,20 @@ schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('ProductOrders', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "products user cadLineWork dfmSubscription", "products user cadLineWork dfmSubscription"));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema,"products user cadLineWork dfmSubscription","products user cadLineWork dfmSubscription"));
 var model = {
 
-    getProductData: function (data, callback) {
-        console.log("inside get ticket api", data)
-        if (data.count) {
-            var maxCount = data.count;
-        } else {
-            var maxCount = Config.maxRow;
-        }
-        var maxRow = maxCount
-        var page = 1;
-        if (data.page) {
-            page = data.page;
-        }
-        var field = data.field;
-        var options = {
-            field: data.field,
-            filters: {
-                keyword: {
-                    fields: ['name'],
-                    term: data.keyword
-                }
-            },
-            sort: {
-                desc: 'createdAt'
-            },
-            start: (page - 1) * maxRow,
-            count: maxRow
-        };
-        ProductOrders.find({
-                user: data.user
-            })
-            .deepPopulate("serviceId user DFMSubscription cadLineWork dfmSubscription")
-            .order(options)
-            .keyword(options)
-            .page(options,
-                function (err, found) {
-                    console.log("inside paggingtion ProductOrders file", found)
-                    if (err) {
-                        console.log(err);
-                        callback(err, null);
-                    } else if (found) {
-                        callback(null, found);
-                    } else {
-                        callback("Invalid data", null);
-                    }
-                });
-    },
+  getreciptData: function (data, callback) {
+        console.log("data is******", data)
 
-    getuser: function (data, callback) {
-        ProductOrders.findOne({
+        ProductOrders.find({
             user: data.user
         }).deepPopulate("products user cadLineWork dfmSubscription").exec(function (err, found) {
             if (err) {
                 console.log("inside error");
                 callback(err, null);
             } else if (_.isEmpty(found)) {
+                console.log("isemapty")
                 callback(null, "noDataound");
             } else {
                 console.log("found", found)
@@ -161,7 +117,25 @@ var model = {
 
         });
     },
+ getuser: function (data, callback) {
+        console.log("data is******", data)
 
+        ProductOrders.findOne({
+            user: data.user
+        }).deepPopulate("products user cadLineWork dfmSubscription").exec(function (err, found) {
+            if (err) {
+                console.log("inside error");
+                callback(err, null);
+            } else if (_.isEmpty(found)) {
+                console.log("isemapty")
+                callback(null, "noDataound");
+            } else {
+                console.log("found", found)
+                callback(null, found);
+            }
+
+        });
+    },
     invoiceGenerate: function (data, callback) {
         async.waterfall([
                 function (callback) {
@@ -192,27 +166,27 @@ var model = {
                 function (pdfData, callback) {
                     console.log("pdfData", pdfData);
 
-                    ProductOrders.update({
-                        _id: pdfData.id
-                    }, {
-                        $set: {
-                            pdf: pdfData.name
-                        }
-                    }).exec(function (err, found) {
-                        if (err) {
-                            console.log("inside error");
-                            callback(err, null);
-                        } else if (_.isEmpty(found)) {
-                            console.log("isemapty")
-                            callback(null, "noDataound");
-                        } else {
-                            console.log("found", found)
-                            callback(null, found);
-                        }
+        ProductOrders.update({
+            _id: pdfData.id
+        }, {
+            $set: {
+                pdf:pdfData.name
+            }
+        }).exec(function (err, found) {
+            if (err) {
+                console.log("inside error");
+                callback(err, null);
+            } else if (_.isEmpty(found)) {
+                console.log("isemapty")
+                callback(null, "noDataound");
+            } else {
+                console.log("found", found)
+                callback(null, found);
+            }
 
-                    });
+        });
 
-
+                    
                 },
             ],
             function (err, result) {
@@ -220,7 +194,7 @@ var model = {
                     callback(err, []);
 
                 } else {
-                    console.log("final result is ****", result)
+            console.log("final result is ****",result)
                     callback(null, result);
                 }
             });
@@ -252,7 +226,7 @@ var model = {
             start: (page - 1) * maxRow,
             count: maxRow
         };
-        ProductOrders.find({})
+        ProductOrder.find({})
             .order(options)
             .keyword(options)
             .page(options,

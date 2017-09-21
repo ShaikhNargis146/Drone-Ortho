@@ -37,8 +37,7 @@
                                                 <div class="dataTables_info" id="DataTables_Table_1_info" role="status" aria-live="polite">Showing 1 to 10 of 13 entries</div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div class="pull-right"> <label>Search:<input type="text " ng-change="getAllItems(true) " placeholder="Search Here...
-                        " ng-model="search.keyword " /></label>
+                                                <div class="pull-right"> <label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_0"></label>
                                                     <div class="dt-buttons btn-group"> <a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Copy</span>             </a>                                                        <a class="btn btn-default buttons-csv buttons-html5" tabindex="0"
                                                             aria-controls="DataTables_Table_0"><span>CSV</span>             </a>                                                        <a class="btn btn-default buttons-excel buttons-html5" tabindex="0"
                                                             aria-controls="DataTables_Table_0"><span>Excel</span>             </a>                                                        <a class="btn btn-default buttons-pdf buttons-html5" tabindex="0"
@@ -63,26 +62,68 @@
                                             <tbody>
                                                 <tr ng-repeat="Product in Products">{{Product}}
 
-                                                    <td>{{Product.name}}</td>
+                                                    <td>{{Product._id}}</td>
                                                     <td>{{Product.price}}</td>
                                                     <td>{{Product.status}}</td>
                                                     <td>{{Product.validity}}</td>
                                                     <td><button type="submit" ui-sref="product-detail({productId:Product._id})"
                                                             class="btn green btn-outline btn-xs"><i class="fa fa-eye"></i> View</button>&nbsp;&nbsp;&nbsp;
-                                                        <button type="submit" <button type="submit" ui-sref="edit-product({productId:Product._id})" class="btn blue btn-outline btn-xs"><i class="fa fa-pencil"></i> Edit</button>                                                        &nbsp;&nbsp;&nbsp;
-                                                        <button type="submit" class="btn red btn-outline btn-xs" ng-click="deleteProduct(Product._id)"><i class="fa fa-trash"></i> Delete</button>
+                                                        <td><button type="submit" <button type="submit" ui-sref="edit-product({productId:Product._id})"
+                                                                class="btn blue btn-outline btn-xs"><i class="fa fa-pencil"></i> Edit</button>                                                            &nbsp;&nbsp;&nbsp;
+                                                            <button type="submit" class="btn red btn-outline btn-xs" ng-click="deleteProduct(Product._id)"><i class="fa fa-trash"></i> Delete</button>
+                                                        </td>
+
+                                                </tr>
+                                                <!--<tr>
+                                                    <td>DFM-0114</a>
+                                                    </td>
+                                                    <td>49</td>
+                                                    <td>Active</td>
+                                                    <td>1 Month</td>
+                                                    <td><button type="submit" ui-sref="product-detail" class="btn green btn-outline btn-xs"><i class="fa fa-eye"></i> View</button>&nbsp;&nbsp;&nbsp;
+                                                        <button type="submit" ui-sref="edit-product" class="btn blue btn-outline btn-xs"><i class="fa fa-pencil"></i> Edit</button>                                                        &nbsp;&nbsp;&nbsp;
+                                                        <button type="submit" ui-sref="" class="btn red btn-outline btn-xs"><i class="fa fa-trash"></i> Delete</button>
                                                     </td>
 
                                                 </tr>
+
+                                                <tr>
+                                                    <td>Drone-014</td>
+                                                    <td>7999</td>
+                                                    <td>Active</td>
+                                                    <td>2 Months</td>
+                                                    <td><button type="submit" ui-sref="product-detail" class="btn green btn-outline btn-xs"><i class="fa fa-eye"></i> View</button>&nbsp;&nbsp;&nbsp;
+                                                        <button type="submit" ui-sref="edit-product" class="btn blue btn-outline btn-xs"><i class="fa fa-pencil"></i> Edit</button>                                                        &nbsp;&nbsp;&nbsp;
+                                                        <button type="submit" ui-sref="" class="btn red btn-outline btn-xs"><i class="fa fa-trash"></i> Delete</button>
+                                                    </td>
+
+                                                </tr>
+
+                                                <tr>
+                                                    <td>DFM-121</td>
+                                                    <td>129</td>
+                                                    <td>Inactive</td>
+                                                    <td>1 Month</td>
+                                                    <td><button type="submit" ui-sref="product-detail" class="btn green btn-outline btn-xs"><i class="fa fa-eye"></i> View</button>&nbsp;&nbsp;&nbsp;
+                                                        <button type="submit" ui-sref="edit-product" class="btn blue btn-outline btn-xs"><i class="fa fa-pencil"></i> Edit</button>                                                        &nbsp;&nbsp;&nbsp;
+                                                        <button type="submit" ui-sref="" class="btn red btn-outline btn-xs"><i class="fa fa-trash"></i> Delete</button>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>FC-250</td>
+                                                    <td>8499</td>
+                                                    <td>Active</td>
+                                                    <td>2 Months</td>
+                                                    <td><button type="submit" ui-sref="product-detail" class="btn green btn-outline btn-xs"><i class="fa fa-eye"></i> View</button>&nbsp;&nbsp;&nbsp;
+                                                        <button type="submit" ui-sref="edit-product" class="btn blue btn-outline btn-xs"><i class="fa fa-pencil"></i> Edit</button>                                                        &nbsp;&nbsp;&nbsp;
+                                                        <button type="submit" ui-sref="" class="btn red btn-outline btn-xs"><i class="fa fa-trash"></i> Delete</button>
+                                                    </td>
+                                                </tr>-->
+
                                             </tbody>
                                         </table>
-                                        <div class="right-side">
-                                            <ul ng-if="totalItems " ng-change="changePage(currentPage); " uib-pagination total-items="totalItems
-                                            " items-per-page="maxRow " ng-model="currentPage " max-size="template.pageMax "
-                                                class="pagination-sm
-                                            " boundary-links="true " force-ellipses="true ">
-                                            </ul>
-                                        </div>
+                                        <pagination></pagination>
                                     </div>
                                 </div>
                             </div>
