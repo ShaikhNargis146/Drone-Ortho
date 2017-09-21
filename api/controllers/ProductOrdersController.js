@@ -14,11 +14,11 @@ var ups = new upsAPI({
 });
 var controller = {
 
- getreciptData: function (req, res) {
+ getProductData: function (req, res) {
         console.log("***");
         if (req.body) {
             console.log("**$$$$*");
-            ProductOrders.getreciptData(req.body, res.callback);
+            ProductOrders.getProductData(req.body, res.callback);
         } else {
             console.log("*%%%%%**");
             res.callback("Please provide Valid AccessToken", null);

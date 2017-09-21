@@ -1,93 +1,147 @@
-<div class="page-container ">
+<style>
+
+.text-center {
+    text-align: center;
+}
+img {
+    vertical-align: middle;
+    height: 100px;
+    width: 200px;
+}
+.text-navy {
+    color: #29aba4;
+    font-size:24px;
+}
+address {
+    margin-bottom: 20px;
+    font-style: normal;
+    line-height: 1.42857143;
+}
+table-scrollable {
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+}
+
+#parent {
+  display: flex;
+}
+#narrow {
+  width: 200px;
  
-  <!-- Start page content wrapper -->
-  <div class="page-content-wrapper animated fadeInRight  ">
-    <div class="page-content" >
-      <div class="row wrapper border-bottom page-heading">
-        <div class="col-lg-12">
-          <h2>Receipts</h2>
-          <ol class="breadcrumb">
-            <li> <a href="#/dashboard1">Home</a> </li>
-            <li> <a> Receipts </a> </li>
-            <li class="active"> <strong>Invoice Details</strong> </li>
-          </ol>
-        </div>
-      </div>
-      <div class="wrapper-content ">
-        <div class="wrapper-content ">
-          <div class="widgets-container ">
-            <div class="clearfix">
-              <div class="text-center"> <img src="images/productDetail/123.png" alt="" width="200"> </div>
-              <h2 class="text-navy">Invoice No :</h2>
-              <div class="row">
-                <div class="col-sm-6">
-                  <address>
-                  <strong>Organization Name</strong><%= oraganization%>
-                  <div>Address : <%= apartment%> <%= city%> <%= state%> <%= country%> <br></div>
-                  <div>Phone :<%= phonenumber%></div>
-                  </address>
-                </div>
-                <div class="col-sm-6 text-right">
-                  <address>
-                  <div><span>Invoice Date :</span><%= createdAt%> </div>
-                  <div><span>Due Date :</span> September 17, 2016</div>
-                  </address>
-                </div>
-              </div>
-            </div>
-            <main>
-              <div class="table-scrollable">
-                <table class="table table-hover top15">
-                  <thead>
-                    <tr>
-                      <th class="service">SERVICE</th>
-                      <th class="service">REQUEST TYPE</th>
-                      <th class="desc">DESCRIPTION</th>
-                      <th>PRICE</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="service">Cad-line Request</td>
-                      <td class="service">NDB/UDB</td>
-                      <td class="desc">Acarage:</td>
-                      <td class="unit">$40.00</td>
-                    </tr>
-                    
-                  </tbody>
-                </table>
-                <table class="table invoice-total">
-                  <tbody>
-                    
-                    <tr>
-                      <td><strong>TOTAL :</strong></td>
-                      <td>$40</td>
-                    </tr>
-                  </tbody>
-                </table>
-                
-              </div>
-              <div id="notices">
-                  <div>Thank you for Business with UNIFLI ..!</div>
-                
-              </div>
-              <div>Terms & Conditions:
+}
+#wide {
+  flex: 1;
+  
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+<div class="page-container ">
+    
+     <!-- Start page content wrapper -->
+     <div class="page-content-wrapper animated fadeInRight  ">
+       <div class="page-content" >
+         <div class="wrapper-content ">
+           <div class="wrapper-content ">
+             <div class="widgets-container ">
+               <div class="clearfix">
+                 <div class="text-center"> <img src="123.png" alt=""> </div>
+                 <h2 class="text-navy">Invoice No :#12345</h2>
               
-                  <li style="margin-left:20px">A finance charge of 1.5% will be made on unpaid balances after 30 days.</li>
-                  <li style="margin-left:20px">A finance charge of 1.5% will be made on unpaid balances after 30 days.</li>
-                  <li style="margin-left:20px">A finance charge of 1.5% will be made on unpaid balances after 30 days.</li>
-                  <li style="margin-left:20px">A finance charge of 1.5% will be made on unpaid balances after 30 days.</li>
-                  <li style="margin-left:20px">A finance charge of 1.5% will be made on unpaid balances after 30 days.</li>
-                  </br>
+
+               <div id="parent">
+                <div id="wide">
+                    <table>
+                        <tr>
+                          <td>Organization Name:</td>
+                        </tr>
+                        <tr>
+                          <td>Address :A-102,Florida</td>
+                        </tr>
+                        <tr>
+                          <td>Phone :(602) 519-0450</td>
+                        </tr>
+                      </table>
+                    </div>
+                <div id="narrow">
+                    <table>
+                        <tr>
+                          <td>Invoice Date : 08/17/2016</td>
+                        </tr>
+                        <tr>
+                          <td>Due Date :09/17/2016</td>
+                        </tr>
+                        <tr>
+                          <td>Status :Paid / Unpaid</td>
+                        </tr>
+                      </table>
+                </div>
               </div>
-            </main>
-            <div>Note : Invoice was created on a computer and is valid without the signature and seal. </div>
-          </div>
-        </div>
-      </div>
-      
-
-</div>
-</div>
-</div>
-
+               <main>
+               </br></br></br></br>
+                 <div>
+                   <table style="border:1px solid #29aba4; width:100%">
+                     <thead>
+                       <tr>
+                         <th style="border:1px solid #29aba4; width:33%">PRODUCT</th>
+                         <th style="border:1px solid #29aba4; width:33%">DESCRIPTION</th>
+                         <th style="border:1px solid #29aba4; width:33%">PRICE</th>
+                       </tr>
+                     </thead>
+                     <tbody style="text-align:center">
+                       <tr>
+                         <td style="border:1px solid #29aba4; width:33%">DRONE</td>
+                         <td style="border:1px solid #29aba4; width:33%">FC-250</td>
+                         <td style="border:1px solid #29aba4; width:33%">$8499.00</td>
+                       </tr>
+                       
+                     </tbody>
+                   </table>
+                   <table style="text-align:right;width:100%"">
+                     <tbody>
+                       
+                       <tr>
+                         <td colspan="4"><strong></strong>TOTAL :</strong></strong>  $8499</td>
+                        
+                       </tr>
+                     </tbody>
+                   </table>
+                   
+                 </div>
+                </br>
+                 <div id="notices">
+                     <div style="color:#29aba4">Thank you for Business with UNIFLI ..!</div>
+                   
+                 </div>
+                </br></br>
+                 <div>Terms & Conditions:
+                 
+                     <li style="margin-left:20px">A finance charge of 1.5% will be made on unpaid balances after 30 days.</li>
+                     <li style="margin-left:20px">A finance charge of 1.5% will be made on unpaid balances after 30 days.</li>
+                     <li style="margin-left:20px">A finance charge of 1.5% will be made on unpaid balances after 30 days.</li>
+                     <li style="margin-left:20px">A finance charge of 1.5% will be made on unpaid balances after 30 days.</li>
+                     <li style="margin-left:20px">A finance charge of 1.5% will be made on unpaid balances after 30 days.</li>
+                     </br>
+                 </div>
+               </main>
+               <div>Note : Invoice was created on a computer and is valid without the signature and seal. </div>
+             </div>
+           </div>
+         </div>
+         
+   
+   </div>
+   </div>
+   </div>
+   
+   

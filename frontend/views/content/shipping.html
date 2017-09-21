@@ -41,7 +41,7 @@
                     <label for="company">Company</label>
                     <input type="text" class="form-control" ng-model="formData.address.oraganization" placeholder="Company name">
                   </div>
-                  <div class="form-group" ng-class="{'form-invalid': formName.address1.$invalid && formName.address1.$touched}">
+                  <div class="form-group" ng-class="{'form-invalid': formName.address1.$invalid && formName.address.$touched}">
                     <label>Street Address* </label>
                     <input type="text" name="address1" class="form-control" ng-model="formData.address.address1" placeholder="Street Address c/o"
                       required>
@@ -63,7 +63,7 @@
                     <div class="col-md-6">
                       <div class="form-group ">
                         <label for="zip ">Zip Code</label>
-                        <input type="text " class="form-control " ng-model="formData.address.zipcode">
+                        <input type="text " class="form-control " ng-model="formData.address.zip">
                       </div>
                     </div>
 
@@ -97,7 +97,8 @@
                   <label>Billing Address Same as Shipping?</label> <input type="checkbox" id="agree" ng-click="setShippingAddress(formData.address)">
                 </div>
               </div>
-
+</form>
+<form>
               <div class="col-md-6">
 
 
@@ -111,40 +112,40 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="text">First Name*</label>
-                        <input type="text" class="form-control" ng-model="formData.shippingAddress.name">
+                        <input type="text" class="form-control" ng-model="formData.deliveryAddress.name">
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="text">Last Name*</label>
-                        <input type="text" class="form-control" ng-model="formData.shippingAddress.lname">
+                        <input type="text" class="form-control" ng-model="formData.deliveryAddress.lname">
                       </div>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="company">Company</label>
-                    <input type="text" class="form-control" ng-model="formData.shippingAddress.oraganization" placeholder="Company name">
+                    <input type="text" class="form-control" ng-model="formData.deliveryAddress.oraganization" placeholder="Company name">
                   </div>
                   <div class="form-group">
                     <label for="address">Street Address*</label>
-                    <input type="text" class="form-control" ng-model="formData.shippingAddress.address1" placeholder="Street Address c/o">
+                    <input type="text" class="form-control" ng-model="formData.deliveryAddress.address" placeholder="Street Address c/o">
                   </div>
                   <div class="form-group">
                     <label>Apartment/suite</label>
-                    <input type="text" class="form-control" ng-model="formData.shippingAddress.apartment" placeholder=" Apt, suit, (optional) ">
+                    <input type="text" class="form-control" ng-model="formData.deliveryAddress.apartment" placeholder=" Apt, suit, (optional) ">
                     <label>Please note that we cannot ship to a PO Box</label>
                   </div>
                   <div class="row ">
                     <div class="col-md-6 ">
                       <div class="form-group ">
                         <label for="city ">City*</label>
-                        <input type="text " class="form-control " ng-model="formData.shippingAddress.city">
+                        <input type="text " class="form-control " ng-model="formData.deliveryAddress.city">
                       </div>
                     </div>
                     <div class="col-md-6 ">
                       <div class="form-group ">
                         <label for="zip ">Zip Code*</label>
-                        <input type="text " only-Digits class="form-control " ng-model="formData.shippingAddress.zipCode">
+                        <input type="text " only-Digits class="form-control " ng-model="formData.deliveryAddress.zip">
                       </div>
                     </div>
 
@@ -153,13 +154,13 @@
                     <div class="col-md-6 ">
                       <div class="form-group ">
                         <label for="country ">Country</label>
-                        <input type="text " ng-readonly="true" class="form-control " ng-model="formData.shippingAddress.country" aria-label="Readonly field">
+                        <input type="text " ng-readonly="true" class="form-control " ng-model="formData.deliveryAddress.country" aria-label="Readonly field">
                       </div>
                     </div>
                     <div class="col-md-6 ">
                       <div class="form-group ">
                         <label for="state ">State</label>
-                        <input type="tel " class="form-control " ng-model="formData.shippingAddress.state">
+                        <input type="tel " class="form-control " ng-model="formData.deliveryAddress.state">
                       </div>
                     </div>
 
@@ -168,14 +169,14 @@
 
                   <div class="form-group">
                     <label>Phone Number* </label>
-                    <input type="text" name="phonenumber" class="form-control" ng-model="formData.shippingAddress.phonenumber">
+                    <input type="text" name="phonenumber" class="form-control" ng-model="formData.deliveryAddress.phonenumber">
                   </div>
                 </div>
               </div>
             </div>
             <div class="text-center ">
               <button class="btn btn-default btn-gray btn-size ">Back</button>
-              <button type="button " class="btn btn-primary btn-size " ng-click="saveData(formData.address)">Save & Continue</button>
+              <button type="button " class="btn btn-primary btn-size " ng-click="saveData(formData.deliveryAddress)">Save & Continue</button>
             </div>
 
           </form>

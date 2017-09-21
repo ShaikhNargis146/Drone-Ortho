@@ -13,16 +13,11 @@
                 </div>
             </div>
             <div class="wrapper-content ">
-
                 <div class="ibox float-e-margins">
                     <!--<div class="ibox-title">
                 <h5>Missions</h5>
               </div>-->
-
-
                     <div class="ibox-content collapse in">
-
-
                         <div class="widgets-container">
                             <div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
                                 <div class="row">
@@ -30,7 +25,8 @@
                                         <div class="dataTables_info" id="DataTables_Table_1_info" role="status" aria-live="polite">Showing 1 to 10 of 13 entries</div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="pull-right"> <label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_0"></label>
+                                        <div class="pull-right"> <label>Search:<input type="text " ng-change="getAllItems(true) " placeholder="Search Here...
+                        " ng-model="search.keyword " /></label>
                                             <div class="dt-buttons btn-group"> <a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Copy</span>             </a>                                                <a class="btn btn-default buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>CSV</span>             </a>                                                <a class="btn btn-default buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Excel</span>             </a>                                                <a class="btn btn-default buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>PDF</span>             </a>                                                <a class="btn btn-default buttons-print" tabindex="0" aria-controls="DataTables_Table_0"><span>Print</span>             </a>                                                </div>
                                         </div>
                                     </div>
@@ -51,161 +47,36 @@
                                             <th>Status</th>
                                         </tr>
                                     </thead>
-
                                     <tbody>
-
-
                                         <tr ng-repeat="user in userInfo  track by $index">
                                             <td><a ui-sref="user-details ({userId:user._id})">{{$index+1}}</a></td>
                                             <td><a ui-sref="user-details ({userId:user._id})">{{user.name}}</a></td>
                                             <td><a ui-sref="user-details ({userId:user._id})">{{user.email}}</a></td>
                                             <td><a ui-sref="user-details ({userId:user._id})">{{user.accessLevel}}</a></td>
-                                            <td><a ui-sref="user-details ({userId:user._id})"></a></td>
-                                            <td><a ui-sref="user-details ({userId:user._id})"></a></td>
+                                            <td>
+                                                <a ui-sref="user-details ({userId:user._id})"></a>
+                                            </td>
+                                            <td>
+                                                <a ui-sref="user-details ({userId:user._id})"></a>
+                                            </td>
                                             <td><a ui-sref="user-details ({userId:user._id})">{{user.lisence}}</a></td>
-                                            <td><a ui-sref="user-details ({userId:user._id})"></a></td>
-
+                                            <td>
+                                                <a ui-sref="user-details ({userId:user._id})"></a>
+                                            </td>
                                         </tr>
-                                        <!--<tr>
-                                            <td><a ui-sref="user_details">#_2</a></td>
-                                            <td><a ui-sref="user_details">AL</a></td>
-                                            <td><a ui-sref="user_details">al@example.com</a></td>
-                                            <td><a ui-sref="user_details">Inactive</a></td>
-                                            <td><a ui-sref="user_details">PRO</a></td>
-                                            <td><a ui-sref="user_details">Client</a></td>
-                                            <td><a ui-sref="user_details">UDB</a></td>
-                                            <td><a ui-sref="user_details">Inactive</a></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><a ui-sref="user_details">#_3</a></td>
-                                            <td><a ui-sref="user_details">JSON</a></td>
-                                            <td><a ui-sref="user_details">json@example.com</a></td>
-                                            <td><a ui-sref="user_details">Active</a></td>
-                                            <td><a ui-sref="user_details">Standard</a></td>
-                                            <td><a ui-sref="user_details">Vendor</a></td>
-                                            <td><a ui-sref="user_details">UDB</a></td>
-                                            <td><a ui-sref="user_details">Active</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a ui-sref="user_details">#_4</a></td>
-                                            <td><a ui-sref="user_details">Danny</a></td>
-                                            <td><a ui-sref="user_details">danny@example.com</a></td>
-                                            <td><a ui-sref="user_details">Inactive</a></td>
-                                            <td><a ui-sref="user_details">Standard</a></td>
-                                            <td><a ui-sref="user_details">Client</a></td>
-                                            <td><a ui-sref="user_details">UDB</a></td>
-                                            <td><a ui-sref="user_details">Suspended</a></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><a ui-sref="user_details">#_5</a></td>
-                                            <td><a ui-sref="user_details">Joy</a></td>
-                                            <td><a ui-sref="user_details">joy@example.com</a></td>
-                                            <td><a ui-sref="user_details">Active</a></td>
-                                            <td><a ui-sref="user_details">PRO</a></td>
-                                            <td><a ui-sref="user_details">Vendor</a></td>
-                                            <td><a ui-sref="user_details">NDB</a></td>
-                                            <td><a ui-sref="user_details">Active</a></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><a ui-sref="user_details">#_6</a></td>
-                                            <td><a ui-sref="user_details">Amy</a></td>
-                                            <td><a ui-sref="user_details">amy@example.com</a></td>
-                                            <td><a ui-sref="user_details">Inactive</a></td>
-                                            <td><a ui-sref="user_details">PRO</a></td>
-                                            <td><a ui-sref="user_details">Client</a></td>
-                                            <td><a ui-sref="user_details">NDB</a></td>
-                                            <td><a ui-sref="user_details">Inactive</a></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><a ui-sref="user_details">#_7</a></td>
-                                            <td><a ui-sref="user_details">Scott</a></td>
-                                            <td><a ui-sref="user_details">scott@example.com</a></td>
-                                            <td><a ui-sref="user_details">Active</a></td>
-                                            <td><a ui-sref="user_details">Standard</a></td>
-                                            <td><a ui-sref="user_details">Vendor</a></td>
-                                            <td><a ui-sref="user_details">NDB</a></td>
-                                            <td><a ui-sref="user_details">Inactive</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a ui-sref="user_details">#_8</a></td>
-                                            <td><a ui-sref="user_details">Jimmy</a></td>
-                                            <td><a ui-sref="user_details">jimmy@example.com</a></td>
-                                            <td><a ui-sref="user_details">Active</a></td>
-                                            <td><a ui-sref="user_details">FREE</a></td>
-                                            <td><a ui-sref="user_details">Vendor</a></td>
-                                            <td><a ui-sref="user_details">UDB</a></td>
-                                            <td><a ui-sref="user_details">Suspended</a></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><a ui-sref="user_details">#_9</a></td>
-                                            <td><a ui-sref="user_details">Charle</a></td>
-                                            <td><a ui-sref="user_details">charle@example.com</a></td>
-                                            <td><a ui-sref="user_details">Inactive</a></td>
-                                            <td><a ui-sref="user_details">PRO</a></td>
-                                            <td><a ui-sref="user_details">Client</a></td>
-                                            <td><a ui-sref="user_details">UDB</a></td>
-                                            <td><a ui-sref="user_details">Active</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a ui-sref="user_details">#_10</a></td>
-                                            <td><a ui-sref="user_details">Johnson</a></td>
-                                            <td><a ui-sref="user_details">johnson@example.com</a></td>
-                                            <td><a ui-sref="user_details">Active</a></td>
-                                            <td><a ui-sref="user_details">FREE</a></td>
-                                            <td><a ui-sref="user_details">Vendor</a></td>
-                                            <td><a ui-sref="user_details">NDB</a></td>
-                                            <td><a ui-sref="user_details">Suspended</a></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td><a ui-sref="user_details">#_11</a></td>
-                                            <td><a ui-sref="user_details">James</a></td>
-                                            <td><a ui-sref="user_details">james@etc.com</a></td>
-                                            <td><a ui-sref="user_details">Inactive</a></td>
-                                            <td><a ui-sref="user_details">PRO</a></td>
-                                            <td><a ui-sref="user_details">Client</a></td>
-                                            <td><a ui-sref="user_details">NDB</a></td>
-                                            <td><a ui-sref="user_details">Inactive</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a ui-sref="user_details">#_12</a></td>
-                                            <td><a ui-sref="user_details">Emmy</a></td>
-                                            <td><a ui-sref="user_details">emmy@example.com</a></td>
-                                            <td><a ui-sref="user_details">Inactive</a></td>
-                                            <td><a ui-sref="user_details">FREE</a></td>
-                                            <td><a ui-sref="user_details">Vendor</a></td>
-                                            <td><a ui-sref="user_details">UDB</a></td>
-                                            <td><a ui-sref="user_details">Suspended</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a ui-sref="user_details">#_13</a></td>
-                                            <td><a ui-sref="user_details">Robinson</a></td>
-                                            <td><a ui-sref="user_details">robinson@example.com</a></td>
-                                            <td><a ui-sref="user_details">Inactive</a></td>
-                                            <td><a ui-sref="user_details">FREE</a></td>
-                                            <td><a ui-sref="user_details">Client</a></td>
-                                            <td><a ui-sref="user_details">UDB</a></td>
-                                            <td><a ui-sref="user_details">Active</a></td>
-                                        </tr>-->
                                     </tbody>
                                 </table>
-
-                                <pagination></pagination>
+                                <div class="right-side">
+                                    <ul ng-if="totalItems " ng-change="changePage(currentPage); " uib-pagination total-items="totalItems
+                                            " items-per-page="maxRow " ng-model="currentPage " max-size="template.pageMax "
+                                        class="pagination-sm
+                                            " boundary-links="true " force-ellipses="true ">
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-
-
-
                 </div>
-
-
             </div>
         </div>
     </div>

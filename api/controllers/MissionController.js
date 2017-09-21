@@ -11,6 +11,17 @@ var PNG = require('pngjs');
 var cron = require('node-cron');
 var controller = {
 
+    getMission: function (req, res) {
+        console.log("***");
+        if (req.body) {
+            console.log("**$$$$*");
+            Mission.getMission(req.body, res.callback);
+        } else {
+            console.log("*%%%%%**");
+            res.callback("Please provide Valid AccessToken", null);
+        }
+    },
+
     getMissionUser: function (req, res) {
 
         if (req.body) {

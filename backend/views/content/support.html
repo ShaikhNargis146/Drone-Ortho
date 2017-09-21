@@ -23,19 +23,16 @@
               <!--<div class="ibox-title">
                 <h5>Missions</h5>
               </div>-->
-
-
               <div class="ibox-content collapse in">
-
-
                 <div class="widgets-container">
                   <div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
                     <div class="row">
-                      <div class="col-md-6"> <label>Show          <select name="DataTables_Table_2_length" ng-change="dataSize(selectData)" ng-model="selectData" aria-controls="DataTables_Table_2" class="form-control input-sm">              <option value="10">10</option>              <option value="25">25</option>              <option value="50">50</option>              <option value="100">100</option>          </select> entries        </label>
+                      <div class="col-md-6"> <label>Show          <select name="DataTables_Table_2_length" ng-change="getAllItems(selectData)" ng-model="selectData" aria-controls="DataTables_Table_2" class="form-control input-sm">              <option value="10">10</option>              <option value="25">25</option>              <option value="50">50</option>              <option value="100">100</option>          </select> entries        </label>
                         <div class="dataTables_info" id="DataTables_Table_1_info" role="status" aria-live="polite">Showing 1 to 10 of 13 entries</div>
                       </div>
                       <div class="col-md-6">
-                        <div class="pull-right"> <label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_0"></label>
+                        <div class="pull-right"> <label>Search: <input type="text " ng-change="getAllItems(true) " placeholder="Search Here...
+                        " ng-model="search.keyword " /></label>
                           <div class="dt-buttons btn-group"> <a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Copy</span>             </a>                            <a class="btn btn-default buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>CSV</span>             </a>                            <a class="btn btn-default buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Excel</span>             </a>                            <a class="btn btn-default buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>PDF</span>             </a>                            <a class="btn btn-default buttons-print" tabindex="0" aria-controls="DataTables_Table_0"><span>Print</span>             </a>                            </div>
                         </div>
                       </div>
@@ -54,7 +51,6 @@
                           <th>Closing Date</th>
                         </tr>
                       </thead>
-
                       <tbody>
                         <tr ng-repeat="ticket in ticketInfo">
                           <td><a ui-sref="ticket-history({'ticketId' : ticket._id})">#_1</a></td>
@@ -63,131 +59,21 @@
                           <td><a ui-sref="ticket-history({'ticketId' : ticket._id})">{{ticket.description}}</a></td>
                           <td><a ui-sref="ticket-history({'ticketId' : ticket._id})">{{ticket.status}}</a></td>
                           <td><a ui-sref="ticket-history({'ticketId' : ticket._id})">08/23/2017</a></td>
-
                         </tr>
-                        <!--<tr>
-                          <td><a ui-sref="ticket_history">#_2</a></td>
-                          <td><a ui-sref="ticket_history">08/20/2017</a></td>
-                          <td><a ui-sref="ticket_history">ticket_2</a></td>
-                          <td><a ui-sref="ticket_history">India</a></td>
-                          <td><a ui-sref="ticket_history">Active</a></td>
-                          <td><a ui-sref="ticket_history">08/24/2017
-                          
-                        </tr>
-                        <tr>
-                          <td><a ui-sref="ticket_history">#_3</a></td>
-                          <td><a ui-sref="ticket_history">08/20/2017</a></td>
-                          <td><a ui-sref="ticket_history">ticket_3</a></td>
-                          <td><a ui-sref="ticket_history">London</a></td>
-                          <td><a ui-sref="ticket_history">Inactive</a></td>
-                          <td><a ui-sref="ticket_history">08/25/2017</a></td>
-
-                        </tr>
-                        <tr>
-                          <td><a ui-sref="ticket_history">#_4</a></td>
-                          <td><a ui-sref="ticket_history">08/20/2017</a></td>
-                          <td><a ui-sref="ticket_history">ticket_4</a></td>
-                          <td><a ui-sref="ticket_history">India</a></td>
-                          <td><a ui-sref="ticket_history">Inactive</a></td>
-                          <td><a ui-sref="ticket_history">08/26/2017</a></td>
-
-
-                        </tr>
-                        <tr>
-                          <td><a ui-sref="ticket_history">#_5</a></td>
-                          <td><a ui-sref="ticket_history">08/20/2017</a></td>
-                          <td><a ui-sref="ticket_history">ticket_5</a></td>
-                          <td><a ui-sref="ticket_history">London</a></td>
-                          <td><a ui-sref="ticket_history">Active</a></td>
-                          <td><a ui-sref="ticket_history">08/22/2017</a></td>
-
-
-                        </tr>-->
-                        <!--<tr>
-                          <td><a ui-sref="ticket_history">#_6</a></td>
-                          <td><a ui-sref="ticket_history">08/20/2017</a></td>
-                          <td><a ui-sref="ticket_history">ticket_6</a></td>
-                          <td><a ui-sref="ticket_history">London</a></td>
-                          <td><a ui-sref="ticket_history">Inactive</a></td>
-                          <td><a ui-sref="ticket_history">08/21/2017</a></td>
-
-
-                        </tr>
-                        <tr>
-                          <td><a ui-sref="ticket_history">#_7</a></td>
-                          <td><a ui-sref="ticket_history">08/20/2017</a></td>
-                          <td><a ui-sref="ticket_history">ticket_7</a></td>
-                          <td><a ui-sref="ticket_history">London</a></td>
-                          <td><a ui-sref="ticket_history">Inactive</a></td>
-                          <td><a ui-sref="ticket_history">08/20/2017</a></td>
-
-                        </tr>
-                        <tr>
-                          <td><a ui-sref="ticket_history">#_8</a></td>
-                          <td><a ui-sref="ticket_history">08/18/2017</a></td>
-                          <td><a ui-sref="ticket_history">ticket_8</a></td>
-                          <td><a ui-sref="ticket_history">London</a></td>
-                          <td><a ui-sref="ticket_history">Active</a></td>
-                          <td><a ui-sref="ticket_history">07/23/2017</a></td>
-
-
-                        </tr>
-                        <tr>
-                          <td><a ui-sref="ticket_history">#_9</a></td>
-                          <td><a ui-sref="ticket_history">08/18/2017</a></td>
-                          <td><a ui-sref="ticket_history">ticket_9</a></td>
-                          <td><a ui-sref="ticket_history">London</a></td>
-                          <td><a ui-sref="ticket_history">Active</a></td>
-                          <td><a ui-sref="ticket_history">07/20/2017</a></td>
-
-                        </tr>
-                        <tr>
-                          <td><a ui-sref="ticket_history">#_10</a></td>
-                          <td><a ui-sref="ticket_history">08/18/2017</a></td>
-                          <td><a ui-sref="ticket_history">ticket_10</a></td>
-                          <td><a ui-sref="ticket_history">London</a></td>
-                          <td><a ui-sref="ticket_history">Active</a></td>
-                          <td><a ui-sref="ticket_history">Inactive</a></td>
-
-                        </tr>
-
-                        <tr>
-                          <td><a ui-sref="ticket_history">#_11</a></td>
-                          <td><a ui-sref="ticket_history">08/18/2017</a></td>
-                          <td><a ui-sref="ticket_history">ticket_11</a></td>
-                          <td><a ui-sref="ticket_history">London</a></td>
-                          <td><a ui-sref="ticket_history">Active</a></td>
-                          <td><a ui-sref="ticket_history">08/18/2017</a></td>
-
-                        </tr>
-                        <tr>
-                          <td><a ui-sref="ticket_history">#_12</a></td>
-                          <td><a ui-sref="ticket_history">08/21/2017</a></td>
-                          <td><a ui-sref="ticket_history">ticket_12</a></td>
-                          <td><a ui-sref="ticket_history">London</a></td>
-                          <td><a ui-sref="ticket_history">Active</a></td>
-                          <td><a ui-sref="ticket_history">08/21/2017</a></td>
-
-                        </tr>
-                        <tr>
-                          <td><a ui-sref="ticket_history">#_13</a></td>
-                          <td><a ui-sref="ticket_history">08/30/2017</a></td>
-                          <td><a ui-sref="ticket_history">ticket_13</a></td>
-                          <td><a ui-sref="ticket_history">London</a></td>
-                          <td><a ui-sref="ticket_history">Inactive</a></td>
-                          <td><a ui-sref="ticket_history">08/30/2017</a></td>
-
-                        </tr>-->
                       </tbody>
                     </table>
-                    <pagination></pagination>
+                    <div class="right-side">
+                  <ul ng-if="totalItems " ng-change="changePage(currentPage); " uib-pagination total-items="totalItems
+                                            " items-per-page="maxRow " ng-model="currentPage " max-size="template.pageMax "
+                    class="pagination-sm
+                                            " boundary-links="true " force-ellipses="true ">
+                  </ul>
+                </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-
         </div>
       </div>
     </div>
@@ -210,13 +96,8 @@
         </div>
       </div>
       <div class="wrapper-content ">
-
         <div class="ibox float-e-margins">
-
-
           <div class="ibox-content collapse in">
-
-
             <div class="widgets-container">
               <div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
                 <div class="row">
@@ -244,7 +125,6 @@
                       <th>Ticket Closing Date</th>
                     </tr>
                   </thead>
-
                   <tbody>
                     <tr ng-repeat="ticket in allTicketData">
                       <td><a ui-sref="support-details({'ticketId' : ticket._id})">{{ticket.ticketId}}</a></td>
@@ -266,10 +146,7 @@
               </div>
             </div>
           </div>
-
-
         </div>
-
       </div>
     </div>
   </div>
