@@ -1,7 +1,7 @@
 module.exports = _.cloneDeep(require("sails-wohlig-controller"));
 var controller = {
 
-    getTicketUser: function (req, res) {
+    getTicket: function (req, res) {
         console.log("***");
         if (req.body) {
             console.log("**$$$$*");

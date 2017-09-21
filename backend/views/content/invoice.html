@@ -60,7 +60,7 @@
                           <td>{{abc.status}}</td>
                           <td></td>
                           <td><button type="button" ng-click="getInvoice()" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;
-                            <button type="button" class="btn green btn-outline btn-xs" ng-click="downloadInvoice()">Download</button>
+                            <button type="button" class="btn green btn-outline btn-xs" ng-click="downloadInvoice(product.pdf)">Download</button>
                           </td>
                         </tr>
                       </tbody>
@@ -78,7 +78,7 @@
                           <td>{{cad.cadLineWork.status}}</td>
                           <td></td>
                           <td><button type="button" ng-click="getInvoice()" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;
-                            <button type="button" class="btn green btn-outline btn-xs">Download</button>
+                            <button type="button" class="btn green btn-outline btn-xs" ng-click="downloadInvoice(cad.pdf)" >Download</button>
                           </td>
                         </tr>
                       </tbody>
@@ -88,14 +88,14 @@
                         <tr ng-repeat="dfm in productData" ng-if="dfm.dfmSubscription._id">
                         <!--<tr ng-repeat="dfm in productData" >-->
                           
-                          <td><a ui-sref="popup">{{dfm.dfmSubscription._id}}</a></td>
+                          <td>{{dfm.dfmSubscription._id}}</a></td>
                           <td>{{dfm.dfmSubscription.createdAt}}</td>
                           <td>{{dfm.dfmSubscription.amount}}</td>
                           <td>{{dfm.dfmSubscription.DiscountAmount}}</td>
                           <td>{{cad.dfmSubscription.status}}</td>
                           <td></td>
                           <td><button type="button" ng-click="getInvoice()" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;
-                            <button type="button" class="btn green btn-outline btn-xs">Download</button>
+                            <button type="button" class="btn green btn-outline btn-xs"  ng-click="downloadInvoice(dfm.pdf)">Download</button>
                           </td>
                         </tr>
                       </tbody>

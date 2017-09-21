@@ -119,6 +119,7 @@ module.exports = {
         Config.readUploaded(req.query.file, req.query.width, req.query.height, req.query.style, res);
     },
     readFileFromFolder: function (req,res) {
-            res.download("pdf/59bfca411e61f45df3793eb8cad_invoice.pdf");
+        // console.log("---",req.allParams().name);
+            res.download("pdf/"+ req.allParams().name);
     },
 };
