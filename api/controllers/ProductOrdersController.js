@@ -14,27 +14,28 @@ var ups = new upsAPI({
 });
 var controller = {
 
- getreciptData: function (req, res) {
-        console.log("***");
-        if (req.body) {
-            console.log("**$$$$*");
-            ProductOrders.getreciptData(req.body, res.callback);
-        } else {
-            console.log("*%%%%%**");
-            res.callback("Please provide Valid AccessToken", null);
-        }
-    },
+	getreciptData: function (req, res) {
+		console.log("***");
+		if (req.body) {
+			console.log("**$$$$*");
+			ProductOrders.getreciptData(req.body, res.callback);
+		} else {
+			console.log("*%%%%%**");
+			res.callback("Please provide Valid AccessToken", null);
+		}
+	},
 
- getuser: function (req, res) {
-        console.log("***");
-        if (req.body) {
-            console.log("**$$$$*");
-            ProductOrders.getuser(req.body, res.callback);
-        } else {
-            console.log("*%%%%%**");
-            res.callback("Please provide Valid AccessToken", null);
-        }
-    },
+	getuser: function (req, res) {
+		console.log("***");
+		if (req.body) {
+			console.log("**$$$$*");
+			ProductOrders.getuser(req.body, res.callback);
+		} else {
+			console.log("*%%%%%**");
+			res.callback("Please provide Valid AccessToken", null);
+		}
+	},
+
 	getProductOrders: function (req, res) {
 		if (req.body) {
 			ProductOrders.getProductOrders(req.body, res.callback);
@@ -62,6 +63,17 @@ var controller = {
 			});
 		}
 
+	},
+
+	getProductData: function (req, res) {
+		console.log("***");
+		if (req.body) {
+			console.log("**$$$$*");
+			ProductOrders.getProductData(req.body, res.callback);
+		} else {
+			console.log("*%%%%%**");
+			res.callback("Please provide Valid AccessToken", null);
+		}
 	},
 
 
