@@ -350,7 +350,7 @@ mail image
         overflow: auto;
     }
     .page-content-wrapper {
-        margin-top: 94px;
+        /*margin-top: 94px;*/
     }
     .note-editor {
         height: auto !important;

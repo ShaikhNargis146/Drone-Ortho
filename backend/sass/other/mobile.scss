@@ -1,18 +1,19 @@
 @media (max-width:$screen-xs-max) {
   .info-holder {
-      height: auto;
+    height: auto;
   }
   .first-half {
-      width: 100%;
-      padding: 0 !important;
-      text-align: center;
-      &.pull-right, .pull-right {
-        float: none !important;
-      }
-      .mt-18 {
-        float: none !important;
-        margin: 0;
-      }
+    width: 100%;
+    padding: 0 !important;
+    text-align: center;
+    &.pull-right,
+    .pull-right {
+      float: none !important;
+    }
+    .mt-18 {
+      float: none !important;
+      margin: 0;
+    }
   }
   .compny {
     text-align: center !important;
@@ -22,14 +23,26 @@
     text-align: center;
     margin-top: 15px;
   }
-  .who-post-detail > h3 {
+  .who-post-detail>h3 {
     font-size: 16px;
     line-height: 120%;
   }
-  .who-post-this > span {
+  .who-post-this>span {
     display: none;
   }
   .info-house {
     right: 28%;
+  }
+  .page-sidebar .sidebar-search {
+    margin: 0;
+  }
+}
+
+@media (max-width:$screen-sm-max) {
+  .main-content {
+    padding: 0;
+  }
+  .page-sidebar .sidebar-search {
+    margin: 0;
   }
 }
