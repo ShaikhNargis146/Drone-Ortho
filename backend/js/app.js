@@ -249,6 +249,27 @@ firstapp.filter('uploadpath', function () {
     };
 });
 
+firstapp.filter('uploadpathlocal', function () {
+    return function (input, width, height, style) {
+        var other = "";
+        if (width && width !== "") {
+            other += "&width=" + width;
+        }
+        if (height && height !== "") {
+            other += "&height=" + height;
+        }
+        if (style && style !== "") {
+            other += "&style=" + style;
+        }
+        if (input) {
+            if (input.indexOf('https://') == -1) {
+                return imgpath1 + "?file=" + input + other;
+            } else {
+                return input;
+            }
+        }
+    };
+});
 firstapp.filter('showdate', function () {
     return function (input) {
         return new Date(input);
@@ -638,7 +659,7 @@ firstapp.directive('img', function ($compile, $parse) {
         link: function ($scope, element, attrs) {
             var $element = $(element);
             if (!attrs.noloading) {
-                $element.after("<img src='img/loading.gif' class='loading' />");
+                // $element.after("<img src='img/loading.gif' class='loading' />");
                 var $loading = $element.next(".loading");
                 $element.load(function () {
                     $loading.remove();

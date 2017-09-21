@@ -26,11 +26,12 @@
                         <div class="widgets-container">
                             <div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
                                 <div class="row">
-                                    <div class="col-md-6"> <label>Show          <select name="DataTables_Table_2_length" ng-change="dataSize(selectData)" ng-model="selectData" aria-controls="DataTables_Table_2" class="form-control input-sm">              <option value="10">10</option>              <option value="25">25</option>              <option value="50">50</option>              <option value="100">100</option>          </select> entries        </label>
+                                    <div class="col-md-6"> <label>Show          <select name="DataTables_Table_2_length" ng-change="getAllItems(selectData)" ng-model="selectData" aria-controls="DataTables_Table_2" class="form-control input-sm">              <option value="10">10</option>              <option value="25">25</option>              <option value="50">50</option>              <option value="100">100</option>          </select> entries        </label>
                                         <div class="dataTables_info" id="DataTables_Table_1_info" role="status" aria-live="polite">Showing 1 to 10 of 13 entries</div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="pull-right"> <label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_0"></label>
+                                        <div class="pull-right"> <label>Search:<input type="text " ng-change="getAllItems(true) " placeholder="Search Here...
+                        " ng-model="search.keyword " /></label>
                                             <div class="dt-buttons btn-group"> <a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Copy</span>             </a>                                                <a class="btn btn-default buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>CSV</span>             </a>                                                <a class="btn btn-default buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Excel</span>             </a>                                                <a class="btn btn-default buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>PDF</span>             </a>                                                <a class="btn btn-default buttons-print" tabindex="0" aria-controls="DataTables_Table_0"><span>Print</span>             </a>                                                </div>
                                         </div>
                                     </div>
@@ -55,171 +56,29 @@
                                     </thead>
 
                                     <tbody>
-                                        <tr>
-                                            <td>#_1</td>
-                                            <td>#_1234</td>
-                                            <td>08/25/2017</td>
-                                            <td>DFM-Pro</td>
-                                            <td>99</td>
-                                            <td>NDB</td>
-                                            <td>cc-01110</td>
-                                            <td>670 Peshwar Place Washington, DC 20521-6170</td>
-                                            <td>Paid</td>
-                                            <td><button type="submit" class="btn green btn-outline btn-xs">Downlaod</button></td>
+                                        <tr ng-repeat="orderData in allOrderData track by $index">
+                                            <td>{{orderData.user}}</td>
+                                            <td>transactionId</td>
+                                            <td>transactionDate</td>
+                                            <td>{{orderData.cadLineWork.name || orderData.dfmSubscription.name }}</td>
+                                            <td>{{orderData.totalAmount}}</td>
+                                            <td>{{orderData.user.lisence}}</td>
+                                            <td>{{orderData.discountCoupon}}</td>
+                                            <td>{{orderData.shippingAddress.city}}</td>
+                                            <td>{{orderData.status}}</td>
+                                            <td><button type="submit" class="btn green btn-outline btn-xs" ng-click="downloadInvoice(orderData.pdf)">Downlaod</button></td>
 
                                         </tr>
-                                        <tr>
-                                            <td>#_2</td>
-                                            <td>#_1235</td>
-                                            <td>08/25/2017</td>
-                                            <td>DFM-Standard</td>
-                                            <td>99</td>
-                                            <td>UDB</td>
-                                            <td>cc-01111</td>
-                                            <td>A-101,Lane no.12,Nyc</td>
-                                            <td>Paid</td>
-                                            <td><button type="submit" class="btn green btn-outline btn-xs">Downlaod</button></td>
 
-                                        </tr>
-                                        <tr>
-                                            <td>#_3</td>
-                                            <td>#_1236</td>
-                                            <td>08/25/2017</td>
-                                            <td>DFM-Pro</td>
-                                            <td>99</td>
-                                            <td>NDB</td>
-                                            <td>cc-01112</td>
-                                            <td>670 Peshwar Place Washington, DC 20521-6170</td>
-                                            <td>Paid</td>
-                                            <td><button type="submit" class="btn green btn-outline btn-xs">Downlaod</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>#_4</td>
-                                            <td>#_1237</td>
-                                            <td>08/20/2017</td>
-                                            <td>DFM-Standard</td>
-                                            <td>99</td>
-                                            <td>UDB</td>
-                                            <td>cc-01113</td>
-                                            <td>A-101,Lane no.12,Nyc</td>
-                                            <td>Paid</td>
-                                            <td><button type="submit" class="btn green btn-outline btn-xs">Downlaod</button></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>#_5</td>
-                                            <td>#_1238</td>
-                                            <td>08/25/2017</td>
-                                            <td>FC-250</td>
-                                            <td>8499</td>
-                                            <td>NDB</td>
-                                            <td>cc-01114</td>
-                                            <td>670 Peshwar Place Washington, DC 20521-6170</td>
-                                            <td>Paid</td>
-                                            <td><button type="submit" class="btn green btn-outline btn-xs">Downlaod</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>#_6</td>
-                                            <td>#_1239</td>
-                                            <td>08/25/2017</td>
-                                            <td>DFM-Pro</td>
-                                            <td>99</td>
-                                            <td>NDB</td>
-                                            <td>cc-01115</td>
-                                            <td>552 Quebec Place Washington, DC 20521-5520</td>
-                                            <td>Paid</td>
-                                            <td><button type="submit" class="btn green btn-outline btn-xs">Downlaod</button></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>#_7</td>
-                                            <td>#_1240</td>
-                                            <td>08/22/2017</td>
-                                            <td>DFM-Standard</td>
-                                            <td>99</td>
-                                            <td>UDB</td>
-                                            <td>cc-01116</td>
-                                            <td>84 London Place Washington, DC 20521-8400</td>
-                                            <td>Paid</td>
-                                            <td><button type="submit" class="btn green btn-outline btn-xs">Downlaod</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>#_8</td>
-                                            <td>#_1241</td>
-                                            <td>08/28/2017</td>
-                                            <td>DFM-Standard</td>
-                                            <td>99</td>
-                                            <td>NDB</td>
-                                            <td>cc-01117</td>
-                                            <td>552 Quebec Place Washington, DC 20521-5520</td>
-                                            <td>Paid</td>
-                                            <td><button type="submit" class="btn green btn-outline btn-xs">Downlaod</button></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>#_9</td>
-                                            <td>#_1242</td>
-                                            <td>08/25/2017</td>
-                                            <td>FC-250</td>
-                                            <td>8499</td>
-                                            <td>UDB</td>
-                                            <td>cc-01118</td>
-                                            <td>A-11,Near Liberty statue,USA</td>
-                                            <td>Paid</td>
-                                            <td><button type="submit" class="btn green btn-outline btn-xs">Downlaod</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>#_10</td>
-                                            <td>#_1243</td>
-                                            <td>08/25/2017</td>
-                                            <td>DFM-Standard</td>
-                                            <td>99</td>
-                                            <td>UDB</td>
-                                            <td>cc-01119</td>
-                                            <td>A-11,Lane no.14,USA</td>
-                                            <td>Paid</td>
-                                            <td><button type="submit" class="btn green btn-outline btn-xs">Downlaod</button></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>#_11</td>
-                                            <td>#_1244</td>
-                                            <td>08/21/2017</td>
-                                            <td>DFM-Standard</td>
-                                            <td>99</td>
-                                            <td>NDB</td>
-                                            <td>cc-01120</td>
-                                            <td>A-11,Near Liberty statue</td>
-                                            <td>Paid</td>
-                                            <td><button type="submit" class="btn green btn-outline btn-xs">Downlaod</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>#_12</td>
-                                            <td>#_1245</td>
-                                            <td>08/27/2017</td>
-                                            <td>DFM-Pro</td>
-                                            <td>99</td>
-                                            <td>NDB</td>
-                                            <td>cc-01121</td>
-                                            <td>A-101,Lane no.12,Nyc</td>
-                                            <td>Paid</td>
-                                            <td><button type="submit" class="btn green btn-outline btn-xs">Downlaod</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>#_13</td>
-                                            <td>#_1246</td>
-                                            <td>08/30/2017</td>
-                                            <td>FC-250</td>
-                                            <td>8499</td>
-                                            <td>NDB</td>
-                                            <td>cc-01122</td>
-                                            <td>552 Quebec Place Washington, DC 20521-5520</td>
-                                            <td>Paid</td>
-                                            <td><button type="submit" class="btn green btn-outline btn-xs">Downlaod</button></td>
-                                        </tr>
                                     </tbody>
                                 </table>
-                                <pagination></pagination>
+                                <div class="right-side">
+                                    <ul ng-if="totalItems " ng-change="changePage(currentPage); " uib-pagination total-items="totalItems
+                                            " items-per-page="maxRow " ng-model="currentPage " max-size="template.pageMax "
+                                        class="pagination-sm
+                                            " boundary-links="true " force-ellipses="true ">
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>

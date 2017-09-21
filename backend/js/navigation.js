@@ -1,6 +1,7 @@
 var imgurl = adminurl + "upload/";
 var missionFileUrl = imgurl + "customisedUpload"
 var imgpath = imgurl + "readFile";
+var imgpath1 = imgurl + "readFileFromLocal"
 var uploadurl = imgurl;
 var navigationservice = angular.module('navigationservice', [])
 

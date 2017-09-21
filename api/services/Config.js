@@ -385,6 +385,112 @@ var models = {
         }
         //error handling, e.g. file does not exist
     },
+    readUploadedFromLocal: function (filename, width, height, style, res) {
+        res.set({
+            'Cache-Control': 'public, max-age=31557600',
+            'Expires': new Date(Date.now() + 345600000).toUTCString(),
+            'Content-Type': 'image/jpeg'
+        });
+        var readstream = fs.createReadStream(path.join(path.join(process.cwd(), "pix4dUpload"), filename));
+
+        readstream.on('error', function (err) {
+            res.json({
+                value: false,
+                error: err
+            });
+        });
+        var buf;
+        var newNameExtire;
+        var bufs = [];
+        var proceedI = 0;
+        var wi;
+        var he;
+        readstream.on('data', function (d) {
+            bufs.push(d);
+        });
+        readstream.on('end', function () {
+            buf = Buffer.concat(bufs);
+            proceed();
+        });
+
+
+        function proceed() {
+            proceedI++;
+            if (proceedI === 2) {
+                Jimp.read(buf, function (err, image) {
+                    if (err) {
+                        callback(err, null);
+                    } else {
+                        if (style === "contain" && width && height) {
+                            image.contain(width, height).getBuffer(Jimp.AUTO, writer2);
+                        } else if (style === "cover" && (width && width > 0) && (height && height > 0)) {
+                            image.cover(width, height).getBuffer(Jimp.AUTO, writer2);
+                        } else if ((width && width > 0) && (height && height > 0)) {
+                            image.resize(width, height).getBuffer(Jimp.AUTO, writer2);
+                        } else if ((width && width > 0) && !(height && height > 0)) {
+                            image.resize(width, Jimp.AUTO).getBuffer(Jimp.AUTO, writer2);
+                        } else {
+                            image.resize(Jimp.AUTO, height).getBuffer(Jimp.AUTO, writer2);
+                        }
+                    }
+                });
+            }
+        }
+
+        function writer2(err, imageBuf) {
+            var writestream2 = fs.createWriteStream(path.join(path.join(process.cwd(), "pix4dUpload"), newNameExtire));
+            var bufferStream = new stream.PassThrough();
+            bufferStream.end(imageBuf);
+            bufferStream.pipe(writestream2);
+            res.send(imageBuf);
+        }
+
+        function read2(filename2) {
+            var readstream2 = fs.createReadStream(path.join(path.join(process.cwd(), "pix4dUpload"), filename2));
+            readstream2.on('error', function (err) {
+                res.json({
+                    value: false,
+                    error: err
+                });
+            });
+            readstream2.pipe(res);
+        }
+        var onlyName = filename.split(".")[0];
+        var extension = filename.split(".").pop();
+        console.log("onlyName", onlyName)
+        if ((extension == "jpg" || extension == "png" || extension == "gif") && ((width && width > 0) || (height && height > 0))) {
+            //attempt to get same size image and serve
+            var newName = onlyName;
+            if (width > 0) {
+                newName += "-" + width;
+            } else {
+                newName += "-" + 0;
+            }
+            if (height) {
+                newName += "-" + height;
+            } else {
+                newName += "-" + 0;
+            }
+            if (style && (style == "contain" || style == "cover")) {
+                newName += "-" + style;
+            } else {
+                newName += "-" + 0;
+            }
+            newNameExtire = newName + "." + extension;
+            console.log("newNameExtire", newNameExtire);
+            fs.existsAsync(path.join(path.join(process.cwd(), "pix4dUpload"), newNameExtire)).then(function (exists) {
+                if (exists) {
+                    read2(newNameExtire);
+                } else {
+                    proceed();
+                }
+            })
+            //else create a resized image and serve
+        } else {
+            readstream.pipe(res);
+        }
+        //error handling, e.g. file does not exist
+    },
     import: function (name) {
         var jsonExcel = xlsx.parse(name);
         var retVal = [];
