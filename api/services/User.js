@@ -144,6 +144,7 @@ var model = {
 
     //----------------------Start----------------------//
     getUser: function (data, callback) {
+        console.log("inside get getUser api", data)
         if (data.count) {
             var maxCount = data.count;
         } else {
