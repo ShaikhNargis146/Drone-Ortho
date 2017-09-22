@@ -14,12 +14,15 @@ firstapp
     $scope.navigation = NavigationService.getnav();
 
     // $scope.accessLevel = "user";
-    $scope.accessLevel = "admin";
+    // $scope.accessLevel = "admin";
     // $scope.accessLevel = "vendor";
     // *************************************************chart for user**********************************************************************************************************
     //
     // Standard Chart Example
     //
+
+    $scope.accessLevel = $.jStorage.get("user").accessLevel;
+    console.log("inside dashboard", $scope.accessLevel)
     $scope.data1 = [
         [gd(2012, 1, 1), 7],
         [gd(2012, 1, 2), 6],
@@ -548,9 +551,10 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("ProductDetail");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
-
+        // $scope.accessLevel = "User";
+        // $scope.accessLevel = "Admin";
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log("inside dashboard", $scope.accessLevel)
         $scope._id = {
             _id: $stateParams.productId
         };
@@ -562,6 +566,8 @@ firstapp
     })
     .controller('TicketHistoryCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log("inside dashboard", $scope.accessLevel)
         $scope.template = TemplateService.changecontent("ticket-history");
         $scope.menutitle = NavigationService.makeactive("TicketHistory");
         TemplateService.title = $scope.menutitle;
@@ -584,14 +590,15 @@ firstapp
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     // $scope.accessLevel = "user";
-    $scope.accessLevel = "admin";
-
-    if ($scope.accessLevel = "user") {
+    // $scope.accessLevel = "Admin";
+    $scope.accessLevel = $.jStorage.get("user").accessLevel;
+    console.log("inside dashboard", $scope.accessLevel)
+    if ($scope.accessLevel == "User") {
         var formdata = {};
         formdata.user = $.jStorage.get("user")._id;
         console.log(" formdata._id", formdata)
             //pagination user
-        if ($scope.accessLevel = "user") {
+        if ($scope.accessLevel == "User") {
             var userId = $.jStorage.get("user")._id;
             console.log("userId", userId);
 
@@ -664,7 +671,7 @@ firstapp
         }
         //pagination end user
 
-    } else if ($scope.accessLevel = "admin") {
+    } else if ($scope.accessLevel == "Admin") {
 
         //pagination admin
 
@@ -745,11 +752,11 @@ firstapp
     $scope.menutitle = NavigationService.makeactive("Missions");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
-    // $scope.accessLevel = "user";
-    $scope.accessLevel = "admin";
-
-
-    if ($scope.accessLevel == "admin") {
+    // $scope.accessLevel = "User";
+    // $scope.accessLevel = "Admin";
+    $scope.accessLevel = $.jStorage.get("user").accessLevel;
+    console.log("inside dashboard", $scope.accessLevel)
+    if ($scope.accessLevel == "Admin") {
 
         //pagination admin
 
@@ -817,7 +824,7 @@ firstapp
 
         //pagination end admin
 
-    } else if ($scope.accessLevel = "user") {
+    } else if ($scope.accessLevel = "User") {
 
         //pagination user
 
@@ -902,8 +909,10 @@ firstapp
     $scope.menutitle = NavigationService.makeactive("MissionDetails");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
-    // $scope.accessLevel = "user";
-    $scope.accessLevel = "admin";
+    // $scope.accessLevel = "User";
+    // $scope.accessLevel = "Admin";
+    $scope.accessLevel = $.jStorage.get("user").accessLevel;
+    console.log("inside dashboard", $scope.accessLevel)
     var mission = {};
     mission._id = $stateParams.missionId;
     NavigationService.apiCallWithData("Mission/getSingleMissionData", mission, function (data) {
@@ -976,7 +985,8 @@ firstapp
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
 
-
+    $scope.accessLevel = $.jStorage.get("user").accessLevel;
+    console.log("inside dashboard", $scope.accessLevel)
     var formdata = {};
     formdata.user = $.jStorage.get("user")._id;
 
@@ -1086,6 +1096,8 @@ firstapp
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
 
+    $scope.accessLevel = $.jStorage.get("user").accessLevel;
+    console.log("inside dashboard", $scope.accessLevel)
     $scope.date = new Date();
     $scope.saveMission = function (missiondata) {
         console.log("create mission", missiondata)
@@ -1098,7 +1110,7 @@ firstapp
     $scope.menutitle = NavigationService.makeactive("CadfileDetails");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
-    // $scope.accessLevel = "user";
+    $scope.accessLevel = "user";
     $scope.accessLevel = "admin";
     // $scope.accessLevel = "vendor";
 
@@ -1109,7 +1121,7 @@ firstapp
     NavigationService.apiCallWithData("CadLineWork/getSingleCadData", cad, function (data) {
         if (data.value == true) {
             $scope.cadData = data.data;
-            console.log("$scope.cadData ",$scope.cadData );
+            console.log("$scope.cadData ", $scope.cadData);
         }
     });
 
@@ -1221,9 +1233,10 @@ firstapp
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     // $scope.accessLevel = "user";
-    $scope.accessLevel = "admin";
+    // $scope.accessLevel = "admin";
     // $scope.accessLevel = "vendor";
-
+    $scope.accessLevel = $.jStorage.get("user").accessLevel;
+    console.log("inside dashboard", $scope.accessLevel)
     $scope.cadOpen = function () {
         $uibModal.open({
             animation: true,
@@ -1470,7 +1483,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("AccandSub");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log("inside dashboard", $scope.accessLevel)
         $scope.formdata = {};
         $scope.formdata.data = $.jStorage.get("user");
         $scope.formdata1 = {};
@@ -1496,7 +1510,7 @@ firstapp
         };
 
         $scope.updatePassword = function (password) {
-            console.log("password is",password)
+            console.log("password is", password)
             $scope.formdata2.password = password;
             NavigationService.apiCallWithData("User/Updatepassword", $scope.formdata2, function (data) {
                 $scope.data = data.data;
@@ -1532,8 +1546,9 @@ firstapp
     $scope.menutitle = NavigationService.makeactive("ProductsPlans");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
-
-    //pagination admin
+    $scope.accessLevel = $.jStorage.get("user").accessLevel;
+    console.log("inside dashboard", $scope.accessLevel)
+        //pagination admin
 
     var i = 0;
     if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
@@ -1629,8 +1644,9 @@ firstapp
     $scope.menutitle = NavigationService.makeactive("Users");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
-
-    //pagination admin
+    $scope.accessLevel = $.jStorage.get("user").accessLevel;
+    console.log("inside dashboard", $scope.accessLevel)
+        //pagination admin
 
     var i = 0;
     if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
@@ -1788,6 +1804,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("EditProduct");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log("inside dashboard", $scope.accessLevel)
         $scope._id = {
             _id: $stateParams.productId
         };
@@ -1824,9 +1842,10 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Vendors");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = "admin";
-        // $scope.accessLevel = "vendor";
-
+        // $scope.accessLevel = "Admin";
+        // $scope.accessLevel = "Vendor";
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log("inside dashboard", $scope.accessLevel)
 
         //pagination
 
@@ -1928,6 +1947,8 @@ firstapp
          * summernoteText - used for Summernote plugin
          */
         this.summernoteText = [].join('');
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log("inside dashboard", $scope.accessLevel)
         $scope.submitProduct = function (data) {
             NavigationService.apiCallWithData("Products/save", data, function (data2) {
                 if (data2.value == true) {
@@ -1984,7 +2005,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("SupportDetails");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log("inside dashboard", $scope.accessLevel)
         var ticketId = {};
         ticketId._id = $stateParams.ticketId;
         NavigationService.apiCallWithData("Ticket/getTicketData", ticketId, function (data) {
@@ -2033,8 +2055,9 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Billing");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-
-        //pagination
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log("inside dashboard", $scope.accessLevel)
+            //pagination
 
         var i = 0;
         if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
@@ -4555,7 +4578,6 @@ firstapp
     $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         $(window).scrollTop(0);
     });
-    console.log("$$$$$inside header ctrl*****************")
     $scope.loginUser = function (info) {
         console.log("inside login", info);
         NavigationService.apiCallWithData("User/login", info, function (data) {

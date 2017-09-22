@@ -22,9 +22,9 @@ var schema = new Schema({
         index: true
     },
     products: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Products',
-        index: true
+        id:String,
+        name:String,
+        amt:Number
     }],
     totalAmount: {
         type: Number,
