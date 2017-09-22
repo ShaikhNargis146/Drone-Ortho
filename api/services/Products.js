@@ -110,6 +110,60 @@ var model = {
 
         });
     },
+
+
+        productIdGenerate: function (data, callback) {
+        Products.find({}).sort({
+            createdAt: -1
+        }).limit(1).exec(function (err, found) {
+            if (err) {
+                callback(err, null);
+            } else {
+
+                if (_.isEmpty(found)) {
+                    callback(null, "noDataFound");
+                }
+                if (_.isEmpty(found[0].productId)) {
+                    var year = new Date().getFullYear()
+                    var month = new Date().getMonth();
+                    var nextnum = "1"
+                    month = month + 1
+                    var m = month.toString().length;
+                    if (m == 1) {
+                        month = "0" + month
+                        var productId = "CADE" + year + month + nextnum;
+                        console.log("*********", productId)
+                    } else {
+                        if (m == 2) {
+
+                            var productId = "CADE" + year + month + nextnum;
+                            console.log("*********", productId)
+                        }
+                    }
+                    console.log("if  cdid is emapty", productId)
+                    callback(null, productId);
+                } else {
+
+                    var productId = found[0].productId
+                    var num = productId.substring(7, 100)
+                    var nextnum = parseInt(num) + 1
+                    var year = new Date().getFullYear()
+                    var month = new Date().getMonth();
+                    month = month + 2
+                    var m = month.toString().length;
+                    if (m == 1) {
+                        month = "0" + month
+                        var productId = "P" + year + month + nextnum;
+                    } else {
+                        if (m == 2) {
+                            var productId = "P" + year + month + nextnum;
+                        }
+                    }
+                    callback(null, productId);
+                }
+            }
+        });
+        },
     getProduct: function (data, callback) {
         console.log("data is", data)
         console.log("data", data)

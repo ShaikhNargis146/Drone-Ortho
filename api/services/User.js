@@ -282,8 +282,7 @@ var model = {
     },
 
     Updatepassword: function (data, callback) {
-        console.log("data is******", data)
-
+       
         User.update({
             _id: mongoose.Types.ObjectId(data._id)
         }, {
@@ -292,13 +291,10 @@ var model = {
             }
         }).exec(function (err, found) {
             if (err) {
-                console.log("inside error");
                 callback(err, null);
             } else if (_.isEmpty(found)) {
-                console.log("isemapty")
                 callback(null, "noDataound");
             } else {
-                console.log("found", found)
                 callback(null, found);
             }
 
