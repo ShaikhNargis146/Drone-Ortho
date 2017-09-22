@@ -13,13 +13,17 @@ firstapp
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
 
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
-        // $scope.accessLevel = "vendor";
+        // $scope.accessLevel = "User";
+        // $scope.accessLevel = "Admin";
+        // $scope.accessLevel = "Vendor";
         // *************************************************chart for user**********************************************************************************************************
         //
         // Standard Chart Example
         //
+
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" DashboardCtrl accessLevel", $scope.accessLevel)
+
         $scope.data1 = [
             [gd(2012, 1, 1), 7],
             [gd(2012, 1, 2), 6],
@@ -548,9 +552,10 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("ProductDetail");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
-
+        // $scope.accessLevel = "User";
+        // $scope.accessLevel = "Admin";
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" ProductDetailCtrl accessLevel", $scope.accessLevel)
         $scope._id = {
             _id: $stateParams.productId
         };
@@ -566,7 +571,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("TicketHistory");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" TicketHistoryCtrl accessLevel", $scope.accessLevel)
         var ticket = {};
         ticket._id = $stateParams.ticketId;
         NavigationService.apiCallWithData("Ticket/getOne", ticket, function (data) {
@@ -583,88 +589,87 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Support");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
+        // $scope.accessLevel = "User";
+        // $scope.accessLevel = "Admin";
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" SupportCtrl accessLevel", $scope.accessLevel)
 
-        if ($scope.accessLevel = "user") {
-            var formdata = {};
-            formdata.user = $.jStorage.get("user")._id;
-            console.log(" formdata._id", formdata)
-            //pagination user
-            if ($scope.accessLevel = "user") {
-                var userId = $.jStorage.get("user")._id;
-                console.log("userId", userId);
 
-                var i = 0;
-                if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
-                    $scope.currentPage = $stateParams.page;
-                } else {
-                    $scope.currentPage = 1;
-                }
+        //pagination user
+        if ($scope.accessLevel = "User") {
+            var userId = $.jStorage.get("user")._id;
+            console.log("userId", userId);
 
-                $scope.search = {
-                    keyword: ""
-                };
-                if ($stateParams.keyword) {
-                    $scope.search.keyword = $stateParams.keyword;
-                }
-                $scope.changePage = function (page) {
-                    //  console.log("changePage: ", page);
-                    var goTo = "support";
-                    $scope.currentPage = page;
-                    if ($scope.search.keyword) {
-                        goTo = "support";
-                    }
-                    $state.go(goTo, {
-                        page: page
-                    });
-                    $scope.getAllItems();
-                };
-
-                $scope.getAllItems = function (keywordChange, count) {
-                    if (keywordChange != undefined && keywordChange != true) {
-                        $scope.maxCount = keywordChange;
-                        $scope.totalItems = undefined;
-                        if (keywordChange) {}
-                        NavigationService.searchCall("Ticket/getTicket", {
-                                page: $scope.currentPage,
-                                keyword: $scope.search.keyword,
-                                count: $scope.maxCount,
-                                user: formdata.user
-                            }, ++i,
-                            function (data, ini) {
-                                //  console.log("Data: ", data);
-                                if (ini == i) {
-                                    $scope.ticketInfo = data.data.results;
-                                    $scope.totalItems = data.data.total;
-                                    $scope.maxRow = data.data.options.count;
-                                }
-                            });
-                    } else {
-                        $scope.totalItems = undefined;
-                        if (keywordChange) {}
-                        NavigationService.searchCall("Ticket/getTicket", {
-                                page: $scope.currentPage,
-                                keyword: $scope.search.keyword,
-                                user: formdata.user
-                            }, ++i,
-                            function (data, ini) {
-                                //  console.log("Data: ", data);
-                                if (ini == i) {
-                                    $scope.ticketInfo = data.data.results;
-                                    $scope.totalItems = data.data.total;
-                                    $scope.maxRow = data.data.options.count;
-                                }
-                            });
-                    }
-
-                };
-                //  JsonService.refreshView = $scope.getAllItems;
-                $scope.getAllItems();
+            var i = 0;
+            if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
+                $scope.currentPage = $stateParams.page;
+            } else {
+                $scope.currentPage = 1;
             }
+
+            $scope.search = {
+                keyword: ""
+            };
+            if ($stateParams.keyword) {
+                $scope.search.keyword = $stateParams.keyword;
+            }
+            $scope.changePage = function (page) {
+                //  console.log("changePage: ", page);
+                var goTo = "support";
+                $scope.currentPage = page;
+                if ($scope.search.keyword) {
+                    goTo = "support";
+                }
+                $state.go(goTo, {
+                    page: page
+                });
+                $scope.getAllItems();
+            };
+
+            $scope.getAllItems = function (keywordChange, count) {
+                if (keywordChange != undefined && keywordChange != true) {
+                    $scope.maxCount = keywordChange;
+                    $scope.totalItems = undefined;
+                    if (keywordChange) {}
+                    NavigationService.searchCall("Ticket/getTicket", {
+                            page: $scope.currentPage,
+                            keyword: $scope.search.keyword,
+                            count: $scope.maxCount,
+                            user: formdata.user
+                        }, ++i,
+                        function (data, ini) {
+                            //  console.log("Data: ", data);
+                            if (ini == i) {
+                                $scope.ticketInfo = data.data.results;
+                                $scope.totalItems = data.data.total;
+                                $scope.maxRow = data.data.options.count;
+                            }
+                        });
+                } else {
+                    $scope.totalItems = undefined;
+                    if (keywordChange) {}
+                    NavigationService.searchCall("Ticket/getTicket", {
+                            page: $scope.currentPage,
+                            keyword: $scope.search.keyword,
+                            user: formdata.user
+                        }, ++i,
+                        function (data, ini) {
+                            //  console.log("Data: ", data);
+                            if (ini == i) {
+                                $scope.ticketInfo = data.data.results;
+                                $scope.totalItems = data.data.total;
+                                $scope.maxRow = data.data.options.count;
+                            }
+                        });
+                }
+
+            };
+            //  JsonService.refreshView = $scope.getAllItems;
+            $scope.getAllItems();
+
             //pagination end user
 
-        } else if ($scope.accessLevel = "admin") {
+        } else if ($scope.accessLevel == "Admin") {
 
             //pagination admin
 
@@ -745,11 +750,12 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Missions");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
+        // $scope.accessLevel = "User";
+        // $scope.accessLevel = "Admin";
 
-
-        if ($scope.accessLevel == "admin") {
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" formdata._id", $scope.accessLevel)
+        if ($scope.accessLevel == "Admin") {
 
             //pagination admin
 
@@ -817,7 +823,7 @@ firstapp
 
             //pagination end admin
 
-        } else if ($scope.accessLevel = "user") {
+        } else if ($scope.accessLevel == "User") {
 
             //pagination user
 
@@ -902,8 +908,10 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("MissionDetails");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
+        // $scope.accessLevel = "User";
+        // $scope.accessLevel = "Admin";
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" MissionsDetailsCtrl.accessLevel", $scope.accessLevel)
         var mission = {};
         mission._id = $stateParams.missionId;
         NavigationService.apiCallWithData("Mission/getSingleMissionData", mission, function (data) {
@@ -919,6 +927,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("MailDetail");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" MailDetailCtrl.accessLevel", $scope.accessLevel)
     })
 
     .controller('MailComposeCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
@@ -927,7 +937,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("MailCompose");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" MailComposeCtrl.accessLevel", $scope.accessLevel)
         $scope.submitTicket = function (data1) {
 
             $scope.data = {
@@ -958,6 +969,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("IssueTracker");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" IssueTrackerCtrl.accessLevel", $scope.accessLevel)
     })
 
     .controller('InvoiceViewCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
@@ -966,6 +979,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("InvoiceView");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" InvoiceViewCtrl.accessLevel", $scope.accessLevel)
     })
 
 
@@ -975,7 +990,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Invoice");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" InvoiceCtrl.accessLevel", $scope.accessLevel)
 
         var formdata = {};
         formdata.user = $.jStorage.get("user")._id;
@@ -1077,6 +1093,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("ForgotPassword");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" ForgotPasswordCtrl.accessLevel", $scope.accessLevel)
     })
 
     .controller('CreatemissionCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
@@ -1085,7 +1103,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("CreateMission");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" CreatemissionCtrl.accessLevel", $scope.accessLevel)
         $scope.date = new Date();
         $scope.saveMission = function (missiondata) {
             console.log("create mission", missiondata)
@@ -1098,10 +1117,11 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("CadfileDetails");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
-        // $scope.accessLevel = "vendor";
-
+        // $scope.accessLevel = "User";
+        // $scope.accessLevel = "Admin";
+        // $scope.accessLevel = "Vendor";
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" formdata._id", $scope.accessLevel)
 
         $scope.formData = {};
         var cad = {};
@@ -1225,10 +1245,11 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("CadFileRequest");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "user";
-        $scope.accessLevel = "admin";
-        // $scope.accessLevel = "vendor";
-
+        // $scope.accessLevel = "User";
+        // $scope.accessLevel = "Admin";
+        // $scope.accessLevel = "Vendor";
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" CadFileRequestCtrl.accessLevel", $scope.accessLevel)
         $scope.cadOpen = function () {
             $uibModal.open({
                 animation: true,
@@ -1253,7 +1274,7 @@ firstapp
             console.log("form: ", data);
         };
 
-        if ($scope.accessLevel == "user") {
+        if ($scope.accessLevel == "User") {
 
             //pagination user
             var userId = $.jStorage.get("user")._id;
@@ -1327,7 +1348,7 @@ firstapp
             //pagination end user
 
 
-        } else if ($scope.accessLevel == "admin") {
+        } else if ($scope.accessLevel == "Admin") {
 
 
             //pagination admin
@@ -1397,7 +1418,7 @@ firstapp
 
             //pagination end admin
 
-        } else if ($scope.accessLevel == "vendor") {
+        } else if ($scope.accessLevel == "Vendor") {
 
             //pagination vendor
 
@@ -1477,7 +1498,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("AccandSub");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" AccandSubCtrl.accessLevel", $scope.accessLevel)
         $scope.formdata = {};
         $scope.formdata.data = $.jStorage.get("user");
         $scope.formdata1 = {};
@@ -1539,7 +1561,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("ProductsPlans");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" ProductsPlansCtrl.accessLevel", $scope.accessLevel)
         //pagination admin
 
         var i = 0;
@@ -1636,7 +1659,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Users");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" UsersCtrl.accessLevel", $scope.accessLevel)
         //pagination admin
 
         var i = 0;
@@ -1713,7 +1737,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Ecommerce");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" EcommerceCtrl.accessLevel", $scope.accessLevel)
         //pagination ecommerce
 
         var i = 0;
@@ -1795,6 +1820,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("EditProduct");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" EditProductCtrl.accessLevel", $scope.accessLevel)
         $scope._id = {
             _id: $stateParams.productId
         };
@@ -1822,7 +1849,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Reports");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" ReportsCtrl.accessLevel", $scope.accessLevel)
     })
 
     .controller('VendorsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
@@ -1831,9 +1859,10 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Vendors");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = "admin";
-        // $scope.accessLevel = "vendor";
-
+        // $scope.accessLevel = "Admin";
+        // $scope.accessLevel = "Vendor";
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" VendorsCtrl.accessLevel", $scope.accessLevel)
 
         //pagination
 
@@ -1923,6 +1952,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("CreateVendor");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" CreateVendorCtrl.accessLevel", $scope.accessLevel)
     })
     .controller('AddProductCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
@@ -1934,6 +1965,8 @@ firstapp
         /**
          * summernoteText - used for Summernote plugin
          */
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" AddProductCtrl.accessLevel", $scope.accessLevel)
         this.summernoteText = [].join('');
         $scope.submitProduct = function (data) {
             NavigationService.apiCallWithData("Products/save", data, function (data2) {
@@ -1954,6 +1987,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("EcomDetails");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" EcomDetailsCtrl.accessLevel", $scope.accessLevel)
     })
 
 
@@ -1965,7 +2000,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("EditVendor");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" EditVendorCtrl.accessLevel", $scope.accessLevel)
 
         $scope.updateVendor = function (formData) {
             formData._id = $stateParams.vendorId;
@@ -1983,6 +2019,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("AdminProfile");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" AdminProfileCtrl.accessLevel", $scope.accessLevel)
     })
 
     .controller('SupportDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
@@ -1991,7 +2029,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("SupportDetails");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" SupportDetailsCtrl.accessLevel", $scope.accessLevel)
         var ticketId = {};
         ticketId._id = $stateParams.ticketId;
         NavigationService.apiCallWithData("Ticket/getTicketData", ticketId, function (data) {
@@ -2019,7 +2058,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("UsersDetails");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" UserDetailsCtrl.accessLevel", $scope.accessLevel)
         $scope._id = {
             _id: $stateParams.userId
         };
@@ -2040,7 +2080,8 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Billing");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        console.log(" BillingCtrl.accessLevel", $scope.accessLevel)
         //pagination
 
         var i = 0;
