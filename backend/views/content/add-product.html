@@ -7,8 +7,8 @@
 
                     <h2>Add Product </h2>
                     <ol class="breadcrumb">
-                        <li> <a href="#/dashboard1">Home</a> </li>
-                        <li> <a>Add Product </a> </li>
+                        <li> <a ui-sref="dashboard">Home</a> </li>
+                        <li> <a ui-sref="products-plans">Product Plans</a> </li>
                         <li class="active"> <strong>Add Product</strong> </li>
                     </ol>
                 </div>
@@ -21,13 +21,15 @@
                                 <td>Product Image</td>
                             </tr>
                             <tr>
-                                <td><img src="img/productDetail/placeholders.jpg" ng-model="data.img"></td>
+                                <td><img src="img/productDetail/placeholders.jpg" ng-if="!data.image">
+                                    <img ng-src="{{data.image | serverimage}}" ng-if="data.image">
+                                </td>
                             </tr>
                             <tr>
                                 <!--<td><input class="form-control" type="file" name="" id="">
                                 </td>-->
                                 <td>
-                                    <upload-image multiple="true" required ng-model="data.img"></upload-image>
+                                    <upload-image required ng-model="data.image" no-view></upload-image>
                                 </td>
                                 <!--<td><button type="button" ui-sref="" class="btn green btn-outline btn-md">Upload</button></td>-->
                             </tr>
@@ -62,6 +64,11 @@
                                         </div>
                                     </div>
                                 </td>
+                            </tr>
+                            <tr>
+                                <td>Name</td>
+                                <td>:</td>
+                                <td><input class="form-control" ng-model="data.name" type="text" value="" placeholder="Enter name"></td>
                             </tr>
                             <tr>
                                 <td>Amount</td>
