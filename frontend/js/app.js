@@ -89,7 +89,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             controller: 'ContinueCtrl'
         })
         .state('mycart', {
-            url: "/mycart",
+            url: "/mycart/:product",
             templateUrl: templateURL,
             controller: 'MycartCtrl'
         })
