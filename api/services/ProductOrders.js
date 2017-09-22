@@ -188,7 +188,7 @@ var model = {
             start: (page - 1) * maxRow,
             count: maxRow
         };
-        ProductOrder.find({})
+        ProductOrders.find({})
             .order(options)
             .keyword(options)
             .page(options,

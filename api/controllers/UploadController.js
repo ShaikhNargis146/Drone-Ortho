@@ -92,7 +92,7 @@ module.exports = {
         }
 
     },
-     readFileFromLocal: function (req, res) {
+    readFileFromLocal: function (req, res) {
         if (req.query.file) {
             var width;
             var height;
@@ -114,12 +114,11 @@ module.exports = {
         }
 
     },
-    
+
     wallpaper: function (req, res) {
         Config.readUploaded(req.query.file, req.query.width, req.query.height, req.query.style, res);
     },
-    readFileFromFolder: function (req,res) {
-        // console.log("---",req.allParams().name);
-            res.download("pdf/"+ req.allParams().name);
+    readFileFromFolder: function (req, res) {
+        res.download("pdf/" + req.allParams().name);
     },
 };

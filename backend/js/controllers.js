@@ -15,7 +15,7 @@ firstapp
 
     // $scope.accessLevel = "user";
     $scope.accessLevel = "admin";
-    $scope.accessLevel = "vendor";
+    // $scope.accessLevel = "vendor";
     // *************************************************chart for user**********************************************************************************************************
     //
     // Standard Chart Example
@@ -1109,12 +1109,13 @@ firstapp
     NavigationService.apiCallWithData("CadLineWork/getSingleCadData", cad, function (data) {
         if (data.value == true) {
             $scope.cadData = data.data;
+            console.log("$scope.cadData ",$scope.cadData );
         }
     });
 
     NavigationService.apiCallWithoutData("User/getVendor", function (data) {
         if (data.value == true) {
-            $scope.allVendors = data.data.results;
+            $scope.allVendorsForRequest = data.data.results;
         }
     });
 
@@ -1247,7 +1248,7 @@ firstapp
         console.log("form: ", data);
     };
 
-    if ($scope.accessLevel = "user") {
+    if ($scope.accessLevel == "user") {
 
         //pagination user
         var userId = $.jStorage.get("user")._id;
@@ -1319,7 +1320,7 @@ firstapp
         $scope.getAllItems();
 
         //pagination end user
-    } else if ($scope.accessLevel = "admin") {
+    } else if ($scope.accessLevel == "admin") {
         //pagination admin
 
         var i = 0;
@@ -1388,7 +1389,7 @@ firstapp
 
         //pagination end admin
 
-    } else if ($scope.accessLevel = "vendor") {
+    } else if ($scope.accessLevel == "vendor") {
 
         //pagination vendor
 
