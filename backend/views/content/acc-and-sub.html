@@ -1,4 +1,4 @@
-<div class="page-container ">
+<div class="page-container " ng-if="accessLevel=='User'">
 	<!-- Start page content wrapper -->
 	<div class="page-content-wrapper animated fadeInRight  ">
 		<div class="page-content">
@@ -154,7 +154,7 @@
 														</div>
 														<div class="form-group ">
 															<label for="exampleInputPassword1 ">Change Plan</label>
-															<button ui-sref="product-detail " class="btn green m-t-xs bottom15-xs pull-right ">Upgrade to Standard or PRO</button>
+															<button ui-sref="frontend/views/content/member-page " class="btn green m-t-xs bottom15-xs pull-right ">Upgrade to Standard or PRO</button>
 
 
 
@@ -188,12 +188,13 @@
 													<form>
 														<div class="form-group ">
 															<label for="exampleInputPassword1 ">New Password</label>
-															<input type="password" name="password " class="password form-control m-t-xxs " id="exampleInputPassword1 " ng-model="password
-																			" type="password ">
+															<input type="password " name="password " class="password form-control m-t-xxs " id="exampleInputPassword1
+																			" ng-model="password " type="password ">
 														</div>
 														<div class="form-group ">
 															<label for="exampleInputPassword1 ">Re-password</label>
-															<input type="password" name="password " class="password form-control m-t-xxs " id="exampleInputPassword1 " type="password ">
+															<input type="password " name="password " class="password form-control m-t-xxs " id="exampleInputPassword1
+																			" type="password ">
 														</div> 
 
 

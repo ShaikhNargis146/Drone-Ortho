@@ -596,9 +596,12 @@ firstapp
 
 
         //pagination user
-        if ($scope.accessLevel = "User") {
+        if ($scope.accessLevel == "User") {
             var userId = $.jStorage.get("user")._id;
             console.log("userId", userId);
+                  var formdata = {};
+            formdata.user = $.jStorage.get("user")._id;
+            console.log(" formdata._id", formdata)
 
             var i = 0;
             if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {

@@ -6,7 +6,7 @@ var uploadurl = imgurl;
 var navigationservice = angular.module('navigationservice', [])
 
     .factory('NavigationService', function ($http) {
-        if (accessLevel = "user") {
+        if (accessLevel = "User") {
             var navigation1 = [{
                     name: "Dashboard",
                     classis: "active",
