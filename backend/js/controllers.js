@@ -599,7 +599,7 @@ firstapp
         if ($scope.accessLevel == "User") {
             var userId = $.jStorage.get("user")._id;
             console.log("userId", userId);
-                  var formdata = {};
+            var formdata = {};
             formdata.user = $.jStorage.get("user")._id;
             console.log(" formdata._id", formdata)
 
@@ -917,9 +917,9 @@ firstapp
         console.log(" MissionsDetailsCtrl.accessLevel", $scope.accessLevel)
         var mission = {};
         mission._id = $stateParams.missionId;
-        NavigationService.apiCallWithData("Mission/getSingleMissionData", mission, function (data) {
-            if (data.value == true) {
-                $scope.MissionData = data.data;
+        NavigationService.apiCall("Mission/getOne", mission, function (data) {
+            if (data.value === true) {
+                $scope.missionDetails = data.data;
             }
         });
     })
@@ -1109,8 +1109,20 @@ firstapp
         $scope.accessLevel = $.jStorage.get("user").accessLevel;
         console.log(" CreatemissionCtrl.accessLevel", $scope.accessLevel)
         $scope.date = new Date();
+        $scope.mission = {};
         $scope.saveMission = function (missiondata) {
             console.log("create mission", missiondata)
+            if ($.jStorage.get("user")) {
+                missiondata.user = $.jStorage.get("user")._id;
+                NavigationService.apiCall("Mission/createMission", missiondata, function (data) {
+                    // if (data.value === true) {
+                    console.log("data saved successfully");
+                    $("#modal-4").modal();
+                    // } else {
+                    //     //  toastr.warning('Error submitting the form', 'Please try again');
+                    // }
+                });
+            }
         }
     })
 

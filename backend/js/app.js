@@ -153,7 +153,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             templateUrl: "views/template.html",
             controller: 'ReportsCtrl',
         })
-      
+
         // ,************ common for vendor and admin **********
         .state('vendors', {
             url: "/vendors",
@@ -410,7 +410,7 @@ firstapp.directive('uploadImage', function ($http, $filter, $timeout) {
     };
 });
 
-firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout) {
+firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $state) {
     return {
         templateUrl: 'views/directive/uploadImageFiles.html',
         scope: {
@@ -501,6 +501,14 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout) {
                                 console.log('A file failed to process');
                             } else {
                                 console.log('All files have been processed successfully');
+                                console.log($scope.$parent.mission);
+                                if ($scope.$parent.mission.selected == true) {
+                                    $http.post(adminurl + "Mission/createMission", $scope.$parent.mission).then(function (data) {
+                                        data = data.data;
+                                        console.log("missionCreated", $state.$current.name)
+                                        $state.go("missions")
+                                    });
+                                }
                             }
                         });
                         // _.each(newVal, function (newV, key) {
@@ -587,6 +595,9 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout) {
                     }, 15000);
                 });
             };
+        },
+        controller: function ($scope) {
+            // here you can access the controller scope by using $parent
         }
     };
 });
@@ -1068,18 +1079,18 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
         restrict: 'C',
         link: function ($scope, element, attrs) {
             var locations = {};
-            if ($scope.missionDetails && $scope.missionDetails.name) {
-                locations = $scope.missionDetails.geoLocation;
-            } else {
-                locations = $scope.cadLineDetails.geoLocation;
-            }
-            // var locations = {
-            //     upperLeft: [32.77840210218494, -117.23545173119574],
-            //     lowerLeft: [32.77740264966007, -117.23544909909386],
-            //     upperRight: [32.77840829977591, -117.23213078512207],
-            //     lowerRight: [32.77740884701485, -117.23212819014402],
-            //     center: [-117.23378995150006, 32.77790548568292]
+            // if ($scope.missionDetails && $scope.missionDetails.name) {
+            //     locations = $scope.missionDetails.geoLocation;
+            // } else {
+            //     locations = $scope.cadLineDetails.geoLocation;
             // }
+            var locations = {
+                upperLeft: [32.77840210218494, -117.23545173119574],
+                lowerLeft: [32.77740264966007, -117.23544909909386],
+                upperRight: [32.77840829977591, -117.23213078512207],
+                lowerRight: [32.77740884701485, -117.23212819014402],
+                center: [-117.23378995150006, 32.77790548568292]
+            }
             // var mapStyle = {
             //     "version": 8,
             //     "name": "Dark",
@@ -1214,11 +1225,11 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
             //     }]
             // };
             var imageUrl;
-            if ($scope.missionDetails && $scope.missionDetails.name) {
-                imageUrl = 'http://35.194.160.101:80/' + $scope.missionDetails.name + '.png';
-            } else {
-                imageUrl = 'http://35.194.160.101:80/' + $scope.cadLineDetails.name + '.png';
-            }
+            // if ($scope.missionDetails && $scope.missionDetails.name) {
+            //     imageUrl = 'http://localhost:1337/' + $scope.missionDetails.name + '.png';
+            // } else {
+            //     imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.name + '.png';
+            // }
             // This is the trickiest part - you'll need accurate coordinates for the
             // corners of the image. You can find and create appropriate values at
             // http://maps.nypl.org/warper/ or
@@ -1246,8 +1257,8 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
             attribution.addTo(map);
             // See full documentation for the ImageOverlay type:
             // http://leafletjs.com/reference.html#imageoverlay
-            var overlay = L.imageOverlay(imageUrl, imageBounds)
-                .addTo(map);
+            // var overlay = L.imageOverlay(imageUrl, imageBounds)
+            //     .addTo(map);
             var polygon;
             if ($scope.cadLineDetails && !_.isEmpty($scope.cadLineDetails.points)) {
                 polygon = L.polygon(latlngs, {

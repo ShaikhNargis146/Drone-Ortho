@@ -143,8 +143,8 @@ var model = {
                         callback(err, null);
                     } else {
                         console.log("succefully completed the waterfall");
+                        callback(null, data);
                         model.pix4dCommandExecution(folder, missionName, callback);
-                        // callback(null, data);
                     }
                 });
             } else {
@@ -191,7 +191,7 @@ var model = {
     },
 
     pix4dCommandExecution: function (imgPath, name, callback) {
-        var pix4dPath = 'C:/Users/unifli/Documents/pix4d/' + name + '.p4d';
+        var pix4dPath = 'C:/Users/dell/Documents/pix4d/' + name + '.p4d';
         // var pix4dPath = 'C:/Users/dell/Documents/pix4d/' + name + '.p4d';
         console.log("inside pix4dCommandExecution", name, imgPath, pix4dPath);
 
@@ -293,19 +293,6 @@ var model = {
 
             }
         });
-    },
-
-
-    getSingleMissionData: function (data, callback) {
-        this.findOne({
-            _id: data._id
-        }).exec(function (err, data) {
-            if (err || _.isEmpty(data)) {
-                callback(err, []);
-            } else {
-                callback(null, data);
-            }
-        })
     },
 
     getMission: function (data, callback) {
