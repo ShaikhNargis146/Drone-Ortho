@@ -63,26 +63,26 @@ table-scrollable {
                 <div id="wide">
                     <table>
                         <tr>
-                          <td>Organization Name:</td>
+                          <td>Organization Name:   <%=oraganization%></td>
                         </tr>
                         <tr>
-                          <td>Address :A-102,Florida</td>
+                          <td>Address :<%= apartment%> <%= city%> <%= state%></td>
                         </tr>
                         <tr>
-                          <td>Phone :(602) 519-0450</td>
+                          <td>Phone :<%=phonenumber%></td>
                         </tr>
                       </table>
                     </div>
                 <div id="narrow">
                     <table>
                         <tr>
-                          <td>Invoice Date : 08/17/2016</td>
+                          <td>Invoice Date : <%=createdAt%></td>
                         </tr>
                         <tr>
                           <td>Due Date :09/17/2016</td>
                         </tr>
                         <tr>
-                          <td>Status :Paid / Unpaid</td>
+                          <td>Status :<%=status%></td>
                         </tr>
                       </table>
                 </div>
