@@ -3,7 +3,7 @@ var schema = new Schema({
     acreage: String,
     contours: Boolean,
     contoursDensity: String,
-    density: String,
+    draftingDensity: String,
     amount: {
         type: Number,
         default: 0

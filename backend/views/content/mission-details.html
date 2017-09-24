@@ -21,7 +21,7 @@
 							<div class="faq-question text-center" data-target="#faq1" data-toggle="collapse"><span class="fa fa-sort-desc "></span> </div>
 						</div>
 					</div>
-					<div class="panel-collapse collapse " id="faq1">
+					<div>
 						<div class="col-lg-12">
 
 							<div class="faq-answer">
@@ -113,7 +113,7 @@
 <!--<button class="btn aqua btn-circle btn-outline btn-sm " type="button" tooltip-placement="Bottom" popover-placement="bottom" title="" uib-tooltip="SELECT AREA" data-toggle="modal" data-target=".modal-m"><i class="fa fa-photo"></i> </button> -->
 
 
-<div class="modal fade modal-m" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+<div class="modal fade modal-m" id="myModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
 	<div class="modal-dialog ">
 		<div class="modal-content">
 			<div class="modal-header" style="background-color:#36918b">
@@ -126,23 +126,23 @@
 					<div class="form-group">
 						<label class="control-label col-sm-4" for="pwd">Mission Name</label>
 						<div class="col-sm-6">
-							<input type="text" class="form-control" placeholder="Enter Mission Name">
+							<input type="text" id="missionName" ng-model="cadLineDetails.cadLineName" class="form-control" placeholder="Enter Mission Name">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="control-label col-sm-4" for="pwd">Acreage</label>
 						<div class="col-sm-6">
-							<input type="password" class="form-control" id="pwd" placeholder="Enter Acreage" name="pwd">
+							<input type="text" ng-model="cadLineDetails.acreage" class="form-control" id="pwd" placeholder="Enter Acreage" name="pwd">
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label class="control-label col-sm-4" for="pwd">Contours</label>
 						<div class="col-sm-6">
-							<select class="form-control">
+							<select class="form-control" ng-model="cadLineDetails.contours">
 								<option value="">SELECT</option>
-								<option value="">Yes</option>
-								<option value="">No</option>
+								<option value="true">Yes</option>
+								<option value="false">No</option>
 							</select>
 						</div>
 					</div>
@@ -150,11 +150,11 @@
 					<div class="form-group">
 						<label class="control-label col-sm-4" for="pwd">Contour Density</label>
 						<div class="col-sm-6">
-							<select class="form-control">
+							<select class="form-control" ng-model="cadLineDetails.contoursDensity">
 								<option value="">SELECT</option>
-								<option value="">High</option>
-								<option value="">Medium</option>
-								<option value="">Low</option>
+								<option value="high">High</option>
+								<option value="medium">Medium</option>
+								<option value="low">Low</option>
 							</select>
 						</div>
 					</div>
@@ -162,11 +162,11 @@
 					<div class="form-group">
 						<label class="control-label col-sm-4" for="pwd">Drafting Density</label>
 						<div class="col-sm-6">
-							<select class="form-control">
+							<select class="form-control" ng-model="cadLineDetails.draftingDensity">
 								<option value="">SELECT</option>
-								<option value="">High</option>
-								<option value="">Medium</option>
-								<option value="">Low</option>
+								<option value="high">High</option>
+								<option value="medium">Medium</option>
+								<option value="low">Low</option>
 							</select>
 						</div>
 					</div>
@@ -174,7 +174,7 @@
 					<div class="form-group">
 						<label class="control-label col-sm-4" for="pwd">Description</label>
 						<div class="col-sm-8">
-							<textarea class="input-large" rows="5"></textarea>
+							<textarea class="input-large" ng-model="cadLineDetails.instruction" rows="5"></textarea>
 						</div>
 					</div>
 
@@ -182,20 +182,21 @@
 
 					<div class="form-group">
 						<div class="col-sm-offset-6 col-sm-6">
-							<button type="button" class="btn green">Calculate Cost</button>
+							<button type="button" ng-click="calculateAmount(cadLineDetails)" class="btn green">Calculate Cost</button>
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label class="control-label col-sm-4" for="pwd">Amount</label>
 						<div class="col-sm-6">
-							<input type="password" class="form-control" id="pwd" placeholder="Calculated Amount" name="pwd" disabled>
+							<input type="text" ng-model="cadLineDetails.amount" class="form-control" id="pwd" placeholder="Calculated Amount" name="pwd"
+							    disabled>
 						</div>
 					</div>
 
 					<div class="form-group">
 						<div class="col-sm-offset-6 col-sm-4">
-							<button type="button" class="btn green btn-outline pull-right">Proceed to Pay</button>
+							<button type="button" ng-click="calLineName(cadLineDetails)" class="btn green btn-outline pull-right">Proceed to Pay</button>
 						</div>
 					</div>
 

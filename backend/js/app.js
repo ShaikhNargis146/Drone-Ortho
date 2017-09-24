@@ -1079,18 +1079,18 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
         restrict: 'C',
         link: function ($scope, element, attrs) {
             var locations = {};
-            // if ($scope.missionDetails && $scope.missionDetails.name) {
-            //     locations = $scope.missionDetails.geoLocation;
-            // } else {
-            //     locations = $scope.cadLineDetails.geoLocation;
-            // }
-            var locations = {
-                upperLeft: [32.77840210218494, -117.23545173119574],
-                lowerLeft: [32.77740264966007, -117.23544909909386],
-                upperRight: [32.77840829977591, -117.23213078512207],
-                lowerRight: [32.77740884701485, -117.23212819014402],
-                center: [-117.23378995150006, 32.77790548568292]
+            if ($scope.missionDetails && $scope.missionDetails.name) {
+                locations = $scope.missionDetails.geoLocation;
+            } else {
+                locations = $scope.cadLineDetails.geoLocation;
             }
+            // var locations = {
+            //     upperLeft: [32.77840210218494, -117.23545173119574],
+            //     lowerLeft: [32.77740264966007, -117.23544909909386],
+            //     upperRight: [32.77840829977591, -117.23213078512207],
+            //     lowerRight: [32.77740884701485, -117.23212819014402],
+            //     center: [-117.23378995150006, 32.77790548568292]
+            // }
             // var mapStyle = {
             //     "version": 8,
             //     "name": "Dark",
@@ -1225,11 +1225,12 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
             //     }]
             // };
             var imageUrl;
-            // if ($scope.missionDetails && $scope.missionDetails.name) {
-            //     imageUrl = 'http://localhost:1337/' + $scope.missionDetails.name + '.png';
-            // } else {
-            //     imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.name + '.png';
-            // }
+            if ($scope.missionDetails && $scope.missionDetails.name) {
+                console.log("$scope.missionDetails.name", $scope.missionDetails.name);
+                imageUrl = 'http://localhost:1337/' + $scope.missionDetails.name + '.webp';
+            } else {
+                imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.name + '.png';
+            }
             // This is the trickiest part - you'll need accurate coordinates for the
             // corners of the image. You can find and create appropriate values at
             // http://maps.nypl.org/warper/ or
@@ -1257,8 +1258,8 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
             attribution.addTo(map);
             // See full documentation for the ImageOverlay type:
             // http://leafletjs.com/reference.html#imageoverlay
-            // var overlay = L.imageOverlay(imageUrl, imageBounds)
-            //     .addTo(map);
+            var overlay = L.imageOverlay(imageUrl, imageBounds)
+                .addTo(map);
             var polygon;
             if ($scope.cadLineDetails && !_.isEmpty($scope.cadLineDetails.points)) {
                 polygon = L.polygon(latlngs, {
@@ -1323,12 +1324,13 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
                     $scope.cadLineDetails.acreage = acres;
                     $scope.cadLineDetails.points = e.layer._latlngs;
                 }
-                var mapmodal = $uibModal.open({
-                    animation: $scope.animationsEnabled,
-                    templateUrl: '/backend/views/modal/cadline-name.html',
-                    size: 'sm',
-                    scope: $scope
-                });
+                $("#myModal").modal();
+                // var mapmodal = $uibModal.open({
+                //     animation: $scope.animationsEnabled,
+                //     templateUrl: '/backend/views/modal/cadline-name.html',
+                //     size: 'sm',
+                //     scope: $scope
+                // });
             }
 
 
@@ -1364,7 +1366,7 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
             //     e.layer.openPopup();
             //     alert("hello")
             // }
-            var calcButton = document.getElementById('calculate');
+            var calcButton = document.getElementById('missionName');
             calcButton.onclick = function () {
                 var data = drawControl.getAll();
 
@@ -1374,6 +1376,7 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
                     var area = turf.area(data);
                     // restrict to area to 2 decimal points
                     var rounded_area = Math.round(area * 100) / 100;
+                    $scope.cadLineDetails.acreage = rounded_area
                     var answer = document.getElementById('calculated-area');
                     answer.innerHTML = '<p><strong>' + rounded_area + '</strong></p><p>square meters</p>' + 'All co-ordinates' + polyCoord.length;
                     console.log("polyCoord", polyCoord);
