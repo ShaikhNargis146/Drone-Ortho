@@ -143,6 +143,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.classb = '';
         $scope.classc = '';
         $scope.checkMyCart = false;
+        var isExist = false;
 
         NavigationService.callApi("Products/search", function (data) {
             if (data.value === true) {
@@ -159,36 +160,48 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             console.log($scope.viewDetail);
         }
 
+
+
         $scope.addToCart = function (data) {
             var formdata = {};
             formdata = $.jStorage.get('user')
-            formdata.cartProducts.push($scope.productData[0][data - 1]._id);
-            if (formdata.cart) {
-                // console.log("formdata.cart", formdata.cart);
-                formdata.cart.totalAmount = Number(formdata.cart.totalAmount) + Number($scope.productData[0][data - 1].price);
-
-            } else {
-                formdata.cart = {};
-                formdata.cart.totalAmount = Number($scope.productData[0][data - 1].price);
-            }
-            NavigationService.apiCallWithData("User/save", formdata, function (data) {
-                if (data.value === true) {
-                    NavigationService.apiCallWithData("User/getOne", formdata, function (data) {
-                        if (data.value === true) {
-                            // console.log("data saved successfully", data)
-                            $.jStorage.set("user", data.data);
-                            $scope.template.userProfile = data.data;
-                            var products = data.data.cartProducts;
-                            //  $state.go('mycart');
-                        }
-                    });
-                    $state.go('mycart', {
-                        product: 'product'
-                    });
-                } else {
-                    //  toastr.warning('Error submitting the form', 'Please try again');
+            _.forEach(formdata.cartProducts, function (n) {
+                console.log(n._id);
+                if (n._id == $scope.productData[0][data - 1]._id) {
+                    isExist = true;
                 }
-            });
+            })
+            if (!isExist) {
+                formdata.cartProducts.push($scope.productData[0][data - 1]._id);
+                if (formdata.cart) {
+                    // console.log("formdata.cart", formdata.cart);
+                    formdata.cart.totalAmount = Number(formdata.cart.totalAmount) + Number($scope.productData[0][data - 1].price);
+
+                } else {
+                    formdata.cart = {};
+                    formdata.cart.totalAmount = Number($scope.productData[0][data - 1].price);
+                }
+                NavigationService.apiCallWithData("User/save", formdata, function (data) {
+                    if (data.value === true) {
+                        NavigationService.apiCallWithData("User/getOne", formdata, function (data) {
+                            if (data.value === true) {
+                                // console.log("data saved successfully", data)
+                                $.jStorage.set("user", data.data);
+                                $scope.template.userProfile = data.data;
+                                var products = data.data.cartProducts;
+                                //  $state.go('mycart');
+                            }
+                        });
+                        $state.go('mycart', {
+                            product: 'product'
+                        });
+                    } else {
+                        //  toastr.warning('Error submitting the form', 'Please try again');
+                    }
+                });
+            } else {
+                alert("Already Exist");
+            }
         }
 
         $scope.tabchange = function (tab, a) {
@@ -540,7 +553,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.formSubmitted = true;
         }
     })
-    .controller('MycartCtrl', function ($scope, TemplateService, $filter, $state, NavigationService, $timeout) {
+    .controller('MycartCtrl', function ($scope, TemplateService, $filter, $state, NavigationService, $timeout, $stateParams) {
         $scope.template = TemplateService.changecontent("mycart"); //Use same name of .html file
         $scope.menutitle = NavigationService.makeactive("Mycart"); //This is the Title of the Website
         TemplateService.title = $scope.menutitle;
@@ -548,8 +561,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
         $scope.formSubmitted = false;
 
+        $scope.packOrProduct = $stateParams.product;
+
         $scope.submitForm = function (data) {
-            console.log(data);
+            // console.log(data);
             $scope.formSubmitted = true;
         }
         var formdata = {};
@@ -557,9 +572,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         formdata._id = $.jStorage.get('user')._id;
         NavigationService.apiCallWithData("User/getcart", formdata, function (data) {
             if (data.value === true) {
-                console.log("data saved successfully", data)
+                // console.log("data saved successfully", data)
                 $scope.myCart = data.data;
-
                 //  $state.go('mycart');
             }
         });
@@ -580,7 +594,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 if (data.value === true) {
                     NavigationService.apiCallWithData("User/getOne", formdata, function (data) {
                         if (data.value === true) {
-                            console.log("data saved successfully", data)
+                            // console.log("data saved successfully", data)
                             $.jStorage.set("user", data.data);
                             $scope.template.userProfile = data.data;
                             //  $state.go('mycart');
@@ -594,9 +608,27 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
 
         $scope.removeCartProduct = function (data) {
-            console.log("data----");
-        }
+            var cartDetails = {};
+            cartDetails = $.jStorage.get("user");
+            var removedProduct = _.remove(cartDetails.cartProducts, function (n) {
+                return n._id == data;
+            });
+            var cardDetailsData = {};
+            cardDetailsData.cartProducts = cartDetails.cartProducts;
+            cardDetailsData._id = $.jStorage.get("user")._id;
+            NavigationService.apiCallWithData("User/save", cardDetailsData, function (data) {
+                if (data.value === true) {
+                    NavigationService.apiCallWithData("User/getOne", formdata, function (data) {
+                        if (data.value === true) {
+                            $.jStorage.set("user", data.data);
+                            $scope.template.userProfile = data.data;
+                            $state.reload();
+                        }
+                    });
 
+                }
+            });
+        }
 
     })
     .controller('CheckoutCtrl', function ($scope, TemplateService, NavigationService, $timeout) {
@@ -633,7 +665,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             }
             NavigationService.apiCallWithData("ProductOrders/save", formdata, function (data) {
                 if (data.value === true) {
-                    console.log("data saved successfully")
+                    // console.log("data saved successfully")
                 }
             });
         }
@@ -678,20 +710,94 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
     })
 
-    .controller('MemberPageCtrl', function ($scope, TemplateService, NavigationService, $timeout) {
+    .controller('MemberPageCtrl', function ($scope, $state, TemplateService, NavigationService, $timeout) {
         $scope.template = TemplateService.changecontent("member-page"); //Use same name of .html file
         $scope.menutitle = NavigationService.makeactive("MemberPage"); //This is the Title of the Website
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
 
-        $scope.formSubmitted = false;
+        $scope.saveFreeTrial = function () {
+            if ($.jStorage.get("user")) {
+                console.log("if condition")
+                $state.go("checkout")
+            } else {
+                $state.go("member")
+            }
+            $scope.FreeTrial = {};
+            // $scope.FreeTrial.user = $.jStorage.get("user")._id;
+            $scope.FreeTrial.name = "USAGE LIMIT";
+            $scope.FreeTrial.invitations = "0";
+            $scope.FreeTrial.missions = "20";
+            $scope.FreeTrial.UploadPhoto = "500";
+            $scope.FreeTrial.UploadSize = "4.9GB";
+            $scope.FreeTrial.Mosaic = " 5";
+            $scope.FreeTrial.exportKMZ = " 15";
+            $scope.FreeTrial.exportOrthophoto = "USAGE LIMIT";
+            $scope.FreeTrial.exportDEM = "USAGE LIMIT";
+            $scope.FreeTrial.exportPointCloud = "false";
+            console.log("*****************************", $scope.FreeTrial);
+            NavigationService.apiCallWithData("DFMSubscription/save", $scope.FreeTrial, function (data) {
+                console.log("%%%%%%%%%%%%", data)
+            });
 
-        $scope.submitForm = function (data) {
-            console.log(data);
-            $scope.formSubmitted = true;
         }
+        $scope.saveStandard = function () {
+            if ($.jStorage.get("user")) {
+                console.log("if condition")
+                $state.go("checkout")
+                $scope.standard = {};
+                $scope.standard.user = $.jStorage.get("user")._id;
+                $scope.standard.name = "USAGE LIMIT";
+                $scope.standard.invitations = "15";
+                $scope.standard.missions = "50";
+                $scope.standard.UploadPhoto = " 500";
+                $scope.standard.UploadSize = "5GB ";
+                $scope.standard.Mosaic = " 10";
+                $scope.standard.exportKMZ = "15";
+                $scope.standard.exportOrthophoto = "USAGE LIMIT";
+                $scope.standard.exportDEM = "USAGE LIMIT";
+                $scope.standard.exportPointCloud = "USAGE LIMIT";
+                console.log("*****************************", $scope.standard);
+                NavigationService.apiCallWithData("DFMSubscription/save", $scope.standard, function (data) {
+                    console.log("%%%%%%%%%%%%", data)
+                });
+            } else {
+                $state.go("member")
+            }
 
+        }
+        $scope.savepremimum = function () {
+            if ($.jStorage.get("user")) {
+                $state.go("checkout")
+                $scope.premimum = {};
+                $scope.premimum.user = $.jStorage.get("user")._id;
+                $scope.premimum.name = "USAGE LIMIT";
+                $scope.premimum.invitations = "25";
+                $scope.premimum.missions = "100";
+                $scope.premimum.UploadPhoto = "500";
+                $scope.premimum.UploadSize = " 10GB";
+                $scope.premimum.Mosaic = " 15";
+                $scope.premimum.exportKMZ = " 25";
+                $scope.premimum.exportOrthophoto = "USAGE LIMIT";
+                $scope.premimum.exportDEM = "USAGE LIMIT";
+                $scope.premimum.exportPointCloud = "USAGE LIMIT";
+
+                console.log("****************************", $scope.premimum);
+                NavigationService.apiCallWithData("DFMSubscription/save", $scope.premimum, function (data) {
+                    console.log("%%%%%%%%%%%%", data)
+                });
+
+                console.log("*****************************", $scope.premimum);
+                NavigationService.apiCallWithData("DFMSubscription/getDfm", $scope.premimum, function (data) {
+                    console.log("%%%%%%%%%%%%", data)
+                });
+            } else {
+                $state.go("member")
+            }
+
+        }
     })
+
     .controller('ContactUsCtrl', function ($scope, $state, TemplateService, NavigationService, $timeout) {
         $scope.template = TemplateService.changecontent("contactus"); //Use same name of .html file
         $scope.menutitle = NavigationService.makeactive("ContactUs"); //This is the Title of the Website
@@ -702,7 +808,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.saveContact = function (formData) {
             NavigationService.apiCallWithData("ContactUs/save", formData, function (data) {
                 if (data.value === true) {
-                    console.log("data saved successfully", data)
+                    // console.log("data saved successfully", data)
                     $state.go('home');
                 } else {
                     //  toastr.warning('Error submitting the form', 'Please try again');
@@ -724,7 +830,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.formData.lisence = "NDB"
             NavigationService.apiCallWithData("User/registerUser", formData, function (data) {
                 if (data.value === true) {
-                    console.log("data saved successfully", data)
+                    // console.log("data saved successfully", data)
                     $scope.formData = {};
                     $scope.testModal = $uibModal.open({
                         animation: true,
@@ -811,7 +917,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         // }
 
     })
-    .controller('ShippingCtrl', function ($scope, TemplateService, NavigationService, $timeout, $uibModal) {
+    .controller('ShippingCtrl', function ($scope, TemplateService, NavigationService, $timeout, $uibModal, $window) {
         $scope.template = TemplateService.changecontent("shipping"); //Use same name of .html file
         $scope.menutitle = NavigationService.makeactive("Shipping"); //This is the Title of the Website
         TemplateService.title = $scope.menutitle;
@@ -823,22 +929,17 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.formSubmitted = true;
         };
         $scope.saveData = function (data) {
-
             $scope.deliveryAddress = {
                 city: data.city,
                 country: data.country,
                 state: data.state,
                 zip: data.zip
             }
-
             data.shippingAddress = $scope.deliveryAddress
             formdata = {};
             formdata.user = $.jStorage.get("user")._id;
             data.user = formdata.user
-            NavigationService.apiCallWithData("ProductOrders/invoiceGenerate", data, function (data1) {
-
-            });
-
+            NavigationService.apiCallWithData("ProductOrders/invoiceGenerate", data, function (data1) {});
         }
         $scope.setShippingAddress = function (data) {
             if (!$scope.formData.deliveryAddress) {
@@ -958,6 +1059,12 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
             });
         };
+
+        $scope.goBack = function () {
+            $window.history.back();
+        }
+
+
     })
 
 

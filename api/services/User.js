@@ -144,7 +144,6 @@ var model = {
 
     //----------------------Start----------------------//
     getUser: function (data, callback) {
-        console.log("inside get getUser api", data)
         if (data.count) {
             var maxCount = data.count;
         } else {
@@ -187,8 +186,6 @@ var model = {
                     }
                 });
     },
-
-
 
     getVendor: function (data, callback) {
         if (data.count) {
@@ -253,8 +250,44 @@ var model = {
         })
     },
 
-
     //----------------------End----------------------//
+
+    UpdateUserDfm: function (data, callback) {
+        console.log("inside update User DFM", data)
+        User.update({
+            _id: data.user
+        }, {
+            $set: {
+                currentSubscription: data._id
+            }
+        }).deepPopulate("currentSubscription").exec(function (err, found) {
+            if (err) {
+                callback(err, null);
+            } else if (_.isEmpty(found)) {
+                callback(null, "noDataound");
+            } else {
+                callback(null, found);
+            }
+
+        });
+    },
+
+    getByDfm: function (data, callback) {
+        console.log("inside getbyDfm", data)
+        User.findOne({
+            _id: data.user
+        }).deepPopulate("currentSubscription").exec(function (err, found) {
+            if (err) {
+                callback(err, null);
+            } else if (_.isEmpty(found)) {
+                callback(null, "noDataound");
+            } else {
+                console.log("inside getby dfm")
+                callback(null, found);
+            }
+
+        });
+    },
 
     addCardDetails: function (data, callback) {
         console.log("data inside addCardDetails: ", data);
@@ -282,7 +315,7 @@ var model = {
     },
 
     Updatepassword: function (data, callback) {
-       
+
         User.update({
             _id: mongoose.Types.ObjectId(data._id)
         }, {
