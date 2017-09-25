@@ -107,7 +107,6 @@ var models = {
 
 
     generatePdf: function (page, callback) {
-        console.log("inside pdf", page)
         var pdf = require('html-pdf');
         var obj = {};
         var env = {};
@@ -147,7 +146,7 @@ var models = {
                 });
 
                 var options = {
-                 "phantomPath": "node_modules/phantomjs/bin/phantomjs",
+                    "phantomPath": "node_modules/phantomjs/bin/phantomjs",
                     "format": "A4",
                     // Export options 
                     "directory": "/tmp",

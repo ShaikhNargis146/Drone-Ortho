@@ -29,15 +29,16 @@
 
             <div class="form-group ">
                 <div class="col-sm-offset-6 col-sm-4 ">
-                    <button type="button " ng-click="addCardDetail(data1) " class="btn green btn-outline pull-right ">PAY NOW</button>
+                    <button type="button " ng-click="cardDetailsPayment(data1) " class="btn green btn-outline pull-right ">PAY NOW</button>
                 </div>
+
             </div>
 
         </form>
 
     </div>
     <div class="modal-footer ">
-        <button type="button " class="btn green btn-outline " data-dismiss="modal ">Close</button>
+        <button type="button " class="btn green btn-outline " ng-click="$dismiss() ">Close</button>
 
     </div>
 </div>

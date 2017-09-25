@@ -939,8 +939,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             formdata = {};
             formdata.user = $.jStorage.get("user")._id;
             data.user = formdata.user
-            NavigationService.apiCallWithData("ProductOrders/invoiceGenerate", data, function (data1) {});
+            NavigationService.apiCallWithData("ProductOrders/save", data, function (data1) {});
         }
+
         $scope.setShippingAddress = function (data) {
             if (!$scope.formData.deliveryAddress) {
                 $scope.formData.deliveryAddress = {};
@@ -960,9 +961,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
                 // console.log("formdafterdta", $scope.formData, "data", data);
             } else {
-
                 console.log("------");
-
                 // $scope.formdata.deliveryAddress = {};
                 $scope.formData.deliveryAddress.name = "";
                 $scope.formData.deliveryAddress.lname = "";
@@ -1048,21 +1047,26 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     // alert('Please enter the location');
                     toastr.error('Please enter the location');
                 }
+            },
+
+            $scope.cad = function () {
+                $scope.cadModal = $uibModal.open({
+                    animation: true,
+                    templateUrl: 'frontend/views/content/Modal/carddetail.html',
+                    scope: $scope,
+                    size: 'md'
+                    // windowClass: "login-modal"
+
+                });
+            },
+
+            $scope.goBack = function () {
+                $window.history.back();
+            },
+
+            $scope.cardDetailsPayment = function (data) {
+                NavigationService.apiCallWithData("ProductOrders/chargeCreditCard", data, function (data1) {});
             }
-        $scope.cad = function () {
-            $scope.cadModal = $uibModal.open({
-                animation: true,
-                templateUrl: 'frontend/views/content/Modal/carddetail.html',
-                scope: $scope,
-                size: 'md'
-                // windowClass: "login-modal"
-
-            });
-        };
-
-        $scope.goBack = function () {
-            $window.history.back();
-        }
 
 
     })
