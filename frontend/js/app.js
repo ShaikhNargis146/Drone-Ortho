@@ -8,7 +8,7 @@ var firstapp = angular.module('firstapp', [
     'angulartics',
     'angulartics.google.analytics',
     'ngMap',
-
+    'datePicker'
 ]);
 
 firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
@@ -247,7 +247,14 @@ firstapp.directive('onlyDigits', function () {
         }
     };
 });
-
+firstapp.filter('momentDate', function () {
+    return function (date, format) {
+        if (!format) {
+            format = "Do MMM YYYY, ddd";
+        }
+        return moment(date).format(format);
+    };
+});
 firstapp.filter('sumFilter', function () {
 
     return function (cartProducts) {

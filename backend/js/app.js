@@ -12,8 +12,8 @@ var firstapp = angular.module('firstapp', [
     "internationalPhoneNumber",
     "jsonservicemod",
     'summernote',
-    'datePicker'
-    // 'angular-flot'
+    'datePicker',
+    'angular-flot'
 ]);
 
 L.mapbox.accessToken = 'pk.eyJ1IjoibmFyZ2lzLXNoYWlraCIsImEiOiJjajVsMWdjbTgyN2t0MzBuejY0YWZvYnU1In0.sxNSmPeAZRDks6p3JmRUkw';

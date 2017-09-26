@@ -26,6 +26,18 @@
 																			" name="pwd ">
                 </div>
             </div>
+            <div class="form-group">
+
+                <label for="exampleInputPassword1" class="col-sm-4 control-label">To date</label>
+                <!--<input name="password" class="password form-control m-t-xxs" id="exampleInputPassword1" type="password">-->
+                <div class="col-sm-5">
+                    <div class="input-group">
+                        <input type="datetime" class="form-control" date-time ng-model="sampleDate" view="year" auto-close="true">
+                        <span class="input-group-addon"><i class="fa fa-calendar" ng-model="sampleDate"></i></span>
+                    </div>
+                </div>
+
+            </div>
 
             <div class="form-group ">
                 <div class="col-sm-offset-6 col-sm-4 ">
@@ -33,6 +45,7 @@
                 </div>
 
             </div>
+
 
         </form>
 
