@@ -905,7 +905,7 @@ firstapp
 
     })
 
-    .controller('MissionsDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
+    .controller('MissionsDetailsCtrl', function ($scope, TemplateService, NavigationService, $uibModal, $timeout, $state, toastr, $stateParams) {
         //Used to name the .html file
 
         // $scope.accessLevel = "User";
@@ -1255,6 +1255,55 @@ firstapp
                 })
             }
 
+        }
+        $scope.cadSave = function (data) {
+            console.log("cadLine data", $scope.cadLineDetails);
+            console.log("data", data);
+            $scope.cadLineDetails.mission = $scope.missionDetails._id;
+            $scope.cadLineDetails.geoLocation = $scope.missionDetails.geoLocation
+            $scope.cadLineDetails.user = $.jStorage.get("user")._id;
+            NavigationService.apiCall("CadLineWork/save", $scope.cadLineDetails, function (data) {
+                if (data.value === true) {
+                    var formdata = {}
+                    formdata.cadLineWork = $scope.cadLineDetails._id;
+                    formdata.user = $scope.profileDetails._id;
+                    formdata.totalAmount = $scope.cadLineDetails.amount;
+                    console.log("formdata.totalAmount", formdata.totalAmount);
+                    NavigationService.apiCall("ProductOrders/save", formdata, function (data) {
+                        if (data.value === true) {
+                            console.log("productOrder.value", data.value);
+                            $scope.productOrder = data.data;
+
+                        } else {
+                            //  toastr.warning('Error submitting the form', 'Please try again');
+                        }
+                    });
+                } else {
+                    //  toastr.warning('Error submitting the form', 'Please try again');
+                }
+            });
+            $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/card-detail.html',
+                scope: $scope,
+                size: 'sm',
+
+            });
+        };
+        $scope.cadpayment = function (data) {
+            var formdata = {};
+            formdata = data;
+            formdata.expirationDate = "0819"
+            formdata.amount = $scope.productOrder.totalAmount;
+            formdata.productOrder = $scope.productOrder._id;
+            NavigationService.apiCall("ProductOrders/chargeCreditCard", formdata, function (data) {
+                if (data.data.resultCode === "Ok") {
+                    console.log("productOrder.value", data);
+
+                } else {
+                    //  toastr.warning('Error submitting the form', 'Please try again');
+                }
+            });
         }
 
     })
@@ -1810,7 +1859,20 @@ firstapp
         $scope.cadSave = function (data) {
             NavigationService.apiCall("CadLineWork/save", data, function (data) {
                 if (data.value === true) {
-                    console.log("data.value", data.value);
+                    var formdata = {}
+                    formdata.cadLineWork = $scope.cadLineDetails._id;
+                    formdata.user = $scope.profileDetails._id;
+                    formdata.totalAmount = $scope.cadLineDetails.amount;
+                    console.log("formdata.totalAmount", formdata.totalAmount);
+                    NavigationService.apiCall("ProductOrders/save", formdata, function (data) {
+                        if (data.value === true) {
+                            console.log("productOrder.value", data.value);
+                            $scope.productOrder = data.data;
+
+                        } else {
+                            //  toastr.warning('Error submitting the form', 'Please try again');
+                        }
+                    });
                 } else {
                     //  toastr.warning('Error submitting the form', 'Please try again');
                 }
@@ -1823,6 +1885,21 @@ firstapp
 
             });
         };
+        $scope.cadpayment = function (data) {
+            var formdata = {};
+            formdata = data;
+            formdata.expirationDate = "0819"
+            formdata.amount = $scope.productOrder.totalAmount;
+            formdata.productOrder = $scope.productOrder._id;
+            NavigationService.apiCall("ProductOrders/chargeCreditCard", formdata, function (data) {
+                if (data.resultCode === "OK") {
+                    console.log("productOrder.value", data);
+
+                } else {
+                    //  toastr.warning('Error submitting the form', 'Please try again');
+                }
+            });
+        }
 
         NavigationService.apiCallWithoutData("User/getVendor", function (data) {
             if (data.value == true) {
@@ -1959,8 +2036,8 @@ firstapp
         $scope.date = new Date();
         var formdata = {};
         formdata.user = $.jStorage.get("user")._id;
-        NavigationService.apiCallWithData("Mission/getMissionUser", formdata, function (data) {
-            $scope.misssonInfo = data.data.results;
+        NavigationService.apiCallWithData("Mission/getMissionForCad", formdata, function (data) {
+            $scope.misssonInfo = data.data;
             console.log("inside mission dropdown", $scope.misssonInfo)
         })
 
@@ -5307,6 +5384,9 @@ firstapp
                 $scope.user = data.data;
                 $.jStorage.set("user", data.data);
             });
+        }
+        $scope.logout = function (info) {
+            $.jStorage.flush();
         }
     })
 
