@@ -4020,9 +4020,11 @@ jqv mape
 .pace-inactive {
     display: none;
 }
-.btn-pro{
-padding:6px 8px !important;
+
+.btn-pro {
+    padding: 6px 8px !important;
 }
+
 
 /*------------------------------------------------
 
@@ -4289,6 +4291,23 @@ WIDGETS
         border: 1px solid #44b6ae;
         outline: none;
     }
+}
+
+.leaflet-bar .leaflet-control-zoom-in {
+    opacity: 1;
+    padding: 3px 7px;
+    font-size: 20px;
+}
+
+.leaflet-bar .leaflet-control-zoom-out {
+    opacity: 1;
+    padding: 0 8px;
+    font-size: 30px;
+}
+
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+    text-indent: 0;
 }
 
 @import "adminbagdemo";

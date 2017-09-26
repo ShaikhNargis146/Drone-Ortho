@@ -25,6 +25,7 @@ var schema = new Schema({
     isDiscounted: Boolean,
     status: {
         type: String,
+        default: "Processing",
         enum: ['Pending', 'Processing', 'Completed']
     },
     userPaymentStatus: {
@@ -36,7 +37,13 @@ var schema = new Schema({
         enum: ['Paid', 'Unpaid']
     },
     mapCenter: String,
-    orthoFile: String,
+    orthoFile: [{
+        file: String,
+        status: {
+            type: String,
+            default: 'Proceesing'
+        }
+    }],
     cadFileFromVendor: [String],
     cadFileFromAdmin: [String],
 
@@ -142,7 +149,6 @@ var model = {
             if (err) {
                 callback(err, null);
             } else {
-
                 if (_.isEmpty(found)) {
                     callback(null, "noDataFound");
                 }
@@ -180,7 +186,6 @@ var model = {
                         console.log("cad id data found*********", internalId)
                     } else {
                         if (m == 2) {
-
                             var internalId = "CADI" + year + month + nextnum;
                             console.log("cad id data found*********", internalId)
                         }
@@ -259,7 +264,7 @@ var model = {
             } else {
                 callback(null, data);
             }
-        })
+        });
     },
 
     //******************** START *********************//

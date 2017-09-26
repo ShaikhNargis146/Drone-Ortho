@@ -1,0 +1,54 @@
+<div class="modal-content ">
+    <div class="modal-header " style="background-color:#36918b ">
+
+        <h4 class="modal-title " style="color:#fff ">Card Details form</h4>
+    </div>
+    <div class="modal-body ">
+        <form class="form-horizontal ">
+
+            <div class="form-group ">
+                <label class="control-label col-sm-4 " for="pwd ">Name on card</label>
+                <div class="col-sm-6 ">
+                    <input type="text " class="form-control " ng-model="data1.nameOnCard " placeholder="Name on card ">
+                </div>
+            </div>
+
+            <!--<div class="form-group ">
+                <label class="control-label col-sm-4 " for="pwd ">Card Type</label>
+                <div class="col-sm-6 ">
+                    <select class="form-control " ng-model="data1.cardType ">
+								<option value="SELECT ">SELECT</option>
+								<option value="Visa ">Visa</option>
+								<option value="Master Card ">Master Card</option>
+							</select>
+                </div>
+            </div>-->
+            <div class="form-group ">
+                <label class="control-label col-sm-4 " for="pwd ">Card Number</label>
+                <div class="col-sm-6 ">
+                    <input type="text " class="form-control " id="pwd " ng-model="data1.cardNumber " placeholder="Enter card Number
+																			" name="pwd ">
+                </div>
+            </div>
+            <div class="form-group ">
+                <label class="control-label col-sm-4 " for="pwd ">CVV</label>
+                <div class="col-sm-6 ">
+                    <input type="password " class="form-control " id="pwd " ng-model="data1.securityCode " placeholder="Enter CVV
+																			" name="pwd ">
+                </div>
+            </div>
+
+            <div class="form-group ">
+                <div class="col-sm-offset-6 col-sm-4 ">
+                    <button type="button " ng-click="addCardDetail(data1) " class="btn green btn-outline pull-right ">ADD</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+    <div class="modal-footer ">
+        <button type="button " class="btn green btn-outline " data-dismiss="modal ">Close</button>
+
+    </div>
+</div>

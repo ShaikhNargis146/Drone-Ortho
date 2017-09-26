@@ -147,7 +147,7 @@ var models = {
                 });
 
                 var options = {
-                 "phantomPath": "node_modules/phantomjs/bin/phantomjs",
+                    "phantomPath": "node_modules/phantomjs/bin/phantomjs",
                     "format": "A4",
                     // Export options 
                     "directory": "/tmp",
@@ -259,9 +259,10 @@ var models = {
         }
         fs.rename(filename, newPath, function (err) {
             if (err) {
+                console.log("error---", err);
                 callback(err, null);
             } else {
-                console.log("folder", newPath);
+                console.log("folder----->>>>>", newPath);
                 callback(null, {
                     name: newFilename
                 });

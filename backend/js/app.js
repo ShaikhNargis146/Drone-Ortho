@@ -501,13 +501,15 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                                 console.log('A file failed to process');
                             } else {
                                 console.log('All files have been processed successfully');
-                                console.log($scope.$parent.mission);
-                                if ($scope.$parent.mission.selected == true) {
-                                    $http.post(adminurl + "Mission/createMission", $scope.$parent.mission).then(function (data) {
-                                        data = data.data;
-                                        console.log("missionCreated", $state.$current.name)
-                                        $state.go("missions")
-                                    });
+                                if ($scope.$parent.mission) {
+                                    console.log($scope.$parent.mission);
+                                    if ($scope.$parent.mission.selected == true) {
+                                        $http.post(adminurl + "Mission/createMission", $scope.$parent.mission).then(function (data) {
+                                            data = data.data;
+                                            console.log("missionCreated", $state.$current.name)
+                                            $state.go("missions")
+                                        });
+                                    }
                                 }
                             }
                         });
@@ -1081,16 +1083,18 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
             var locations = {};
             if ($scope.missionDetails && $scope.missionDetails.name) {
                 locations = $scope.missionDetails.geoLocation;
-            } else {
+            } else if ($scope.cadLineDetails) {
                 locations = $scope.cadLineDetails.geoLocation;
+            } else {
+                locations = {
+                    upperLeft: [32.77840210218494, -117.23545173119574],
+                    lowerLeft: [32.77740264966007, -117.23544909909386],
+                    upperRight: [32.77840829977591, -117.23213078512207],
+                    lowerRight: [32.77740884701485, -117.23212819014402],
+                    center: [-117.23378995150006, 32.77790548568292]
+                }
             }
-            // var locations = {
-            //     upperLeft: [32.77840210218494, -117.23545173119574],
-            //     lowerLeft: [32.77740264966007, -117.23544909909386],
-            //     upperRight: [32.77840829977591, -117.23213078512207],
-            //     lowerRight: [32.77740884701485, -117.23212819014402],
-            //     center: [-117.23378995150006, 32.77790548568292]
-            // }
+
             // var mapStyle = {
             //     "version": 8,
             //     "name": "Dark",
@@ -1228,19 +1232,22 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
             if ($scope.missionDetails && $scope.missionDetails.name) {
                 console.log("$scope.missionDetails.name", $scope.missionDetails.name);
                 imageUrl = 'http://localhost:1337/' + $scope.missionDetails.name + '.webp';
-            } else {
-                imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.name + '.png';
+            } else if ($scope.cadLineDetails) {
+                imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.orthoFile[0].file.split(".")[0] + '.png';
             }
             // This is the trickiest part - you'll need accurate coordinates for the
             // corners of the image. You can find and create appropriate values at
             // http://maps.nypl.org/warper/ or
             // http://www.georeferencer.org/
-            var imageBounds = L.latLngBounds([
-                locations.upperLeft.reverse(),
-                locations.lowerLeft.reverse(),
-                locations.upperRight.reverse(),
-                locations.lowerRight.reverse()
-            ]);
+            var imageBounds;
+            if (!_.isEmpty(locations)) {
+                imageBounds = L.latLngBounds([
+                    locations.upperLeft.reverse(),
+                    locations.lowerLeft.reverse(),
+                    locations.upperRight.reverse(),
+                    locations.lowerRight.reverse()
+                ]);
+            }
             var latlngs;
             if ($scope.cadLineDetails && !_.isEmpty($scope.cadLineDetails.points)) {
                 latlngs = [
@@ -1366,7 +1373,12 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
             //     e.layer.openPopup();
             //     alert("hello")
             // }
-            var calcButton = document.getElementById('missionName');
+            var calcButton;
+            if ($scope.missionDetails && $scope.missionDetails.name) {
+                calcButton = document.getElementById('missionName');
+            } else if ($scope.cadLineDetails) {
+                calcButton = document.getElementById('contours');
+            }
             calcButton.onclick = function () {
                 var data = drawControl.getAll();
 
