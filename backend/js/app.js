@@ -1231,11 +1231,11 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
             var imageUrl;
             if ($scope.missionDetails && $scope.missionDetails.name) {
                 console.log("$scope.missionDetails.name", $scope.missionDetails.name);
-                imageUrl = 'http://localhost:1337/' + $scope.missionDetails.name + '.webp';
+                imageUrl = 'http://35.201.210.67:80/' + $scope.missionDetails.name + '.webp';
             } else if ($scope.cadLineDetails && $scope.cadLineDetails.orthoFile[0]) {
-                imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.orthoFile[0].file.split(".")[0] + '.png';
+                imageUrl = 'http://35.201.210.67:80/' + $scope.cadLineDetails.orthoFile[0].file.split(".")[0] + '.png';
             } else if ($scope.cadLineDetails && $scope.cadLineDetails.mission) {
-                imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.mission.name + '.webp';
+                imageUrl = 'http://35.201.210.67:80/' + $scope.cadLineDetails.mission.name + '.webp';
             }
             console.log("imageUrl", imageUrl);
             // This is the trickiest part - you'll need accurate coordinates for the
