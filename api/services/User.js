@@ -276,7 +276,7 @@ var model = {
         console.log("inside getbyDfm", data)
         User.findOne({
             _id: data.user
-        }).deepPopulate("currentSubscription").exec(function (err, found) {
+        }).deepPopulate("currentSubscription currentSubscription.plan").exec(function (err, found) {
             if (err) {
                 callback(err, null);
             } else if (_.isEmpty(found)) {
