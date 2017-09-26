@@ -21,6 +21,9 @@ module.exports = [
     'bower_components/angular-swiper/dist/angular-swiper.js',
     'bower_components/ngmap/build/scripts/ng-map.min.js',
     'bower_components/highcharts-ng/dist/highcharts-ng.js',
+    "bower_components/moment/min/moment.min.js",
+    'frontend/js/plugins/datapicker/angular-datepicker.js',
+    // /home/wohlig / Documents / htdocs / unifli - backend / frontend / js / plugins / datapicker
     //Work files
     'frontend/js/app.js',
     'frontend/js/language.js',

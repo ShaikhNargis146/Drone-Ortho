@@ -1,11 +1,12 @@
 // var globalfunction = {};
-angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', "jsonservicemod", 'ui.bootstrap', 'ui.select', 'ngAnimate', 'toastr', 'ngSanitize', 'angular-flexslider', 'ui.tinymce', 'imageupload', 'ngMap', 'toggle-switch', 'cfp.hotkeys', 'ui.sortable'])
+angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', "jsonservicemod", 'ui.bootstrap', 'ui.select',  'toastr', 'angular-flexslider', 'ui.tinymce', 'imageupload', 'ngMap', 'toggle-switch', 'cfp.hotkeys', 'ui.sortable'])
 // .run([function () {
 //     mapboxgl.accessToken = 'pk.eyJ1IjoibmFpbWlrYW4iLCJhIjoiY2lraXJkOXFjMDA0OXdhbTYzNTE0b2NtbiJ9.O64XgZQHNHcV2gwNLN2a0Q';
 // }])
 firstapp
 
-    .controller('DashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+  
+ .controller('DashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
 
         $scope.template = TemplateService.changecontent("dashboard");
@@ -13,17 +14,16 @@ firstapp
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
 
-        // $scope.accessLevel = "User";
-        // $scope.accessLevel = "Admin";
-        // $scope.accessLevel = "Vendor";
+        // $scope.accessLevel = "user";
+        // $scope.accessLevel = "admin";
+        // $scope.accessLevel = "vendor";
         // *************************************************chart for user**********************************************************************************************************
         //
+
+
+          $scope.accessLevel = $.jStorage.get("user").accessLevel;
         // Standard Chart Example
         //
-
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
-        console.log(" DashboardCtrl accessLevel", $scope.accessLevel)
-
         $scope.data1 = [
             [gd(2012, 1, 1), 7],
             [gd(2012, 1, 2), 6],
@@ -104,7 +104,8 @@ firstapp
                     lineWidth: 0
                 }
 
-            }, {
+            },
+            {
                 label: "Payments",
                 grow: {
                     stepMode: "linear"
@@ -118,10 +119,12 @@ firstapp
                     fill: true,
                     fillColor: {
                         colors: [{
-                            opacity: 0.2
-                        }, {
-                            opacity: 0.2
-                        }]
+                                opacity: 0.2
+                            },
+                            {
+                                opacity: 0.2
+                            }
+                        ]
                     }
                 }
             }
@@ -151,21 +154,23 @@ firstapp
                 color: "#d5d5d5"
             },
             yaxes: [{
-                position: "left",
-                max: 1070,
-                color: "#d5d5d5",
-                axisLabelUseCanvas: true,
-                axisLabelFontSizePixels: 12,
-                axisLabelFontFamily: 'Arial',
-                axisLabelPadding: 3
-            }, {
-                position: "right",
-                color: "#d5d5d5",
-                axisLabelUseCanvas: true,
-                axisLabelFontSizePixels: 12,
-                axisLabelFontFamily: ' Arial',
-                axisLabelPadding: 67
-            }],
+                    position: "left",
+                    max: 1070,
+                    color: "#d5d5d5",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: 'Arial',
+                    axisLabelPadding: 3
+                },
+                {
+                    position: "right",
+                    color: "#d5d5d5",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: ' Arial',
+                    axisLabelPadding: 67
+                }
+            ],
             legend: {
                 noColumns: 1,
                 labelBoxBorderColor: "#d5d5d5",
@@ -185,11 +190,13 @@ firstapp
                 label: "Total Missions",
                 data: 20,
                 color: '#48b5d5',
-            }, {
+            },
+            {
                 label: "Total CAD Requested",
                 data: 30,
                 color: '#82ddcb'
-            }, {
+            },
+            {
                 label: "Total Amount Paid",
                 data: 90,
                 color: '#979fd2'
@@ -201,7 +208,14 @@ firstapp
                 pie: {
                     innerRadius: 0.5,
                     show: true,
-                    textinfo: "none"
+                    textinfo: "none",
+                    label: {
+                        show: true,
+                        formatter: function (label, point) {
+                            return (point.percent.toFixed(2) + '$');
+
+                        }
+                    }
                 }
             },
             legend: {
@@ -297,7 +311,8 @@ firstapp
                     lineWidth: 0
                 }
 
-            }, {
+            },
+            {
                 label: "Exterrnal CAD",
                 grow: {
                     stepMode: "linear"
@@ -311,10 +326,12 @@ firstapp
                     fill: true,
                     fillColor: {
                         colors: [{
-                            opacity: 0.2
-                        }, {
-                            opacity: 0.2
-                        }]
+                                opacity: 0.2
+                            },
+                            {
+                                opacity: 0.2
+                            }
+                        ]
                     }
                 }
             }
@@ -344,21 +361,23 @@ firstapp
                 color: "#d5d5d5"
             },
             yaxes: [{
-                position: "left",
-                max: 1070,
-                color: "#d5d5d5",
-                axisLabelUseCanvas: true,
-                axisLabelFontSizePixels: 12,
-                axisLabelFontFamily: 'Arial',
-                axisLabelPadding: 3
-            }, {
-                position: "right",
-                color: "#d5d5d5",
-                axisLabelUseCanvas: true,
-                axisLabelFontSizePixels: 12,
-                axisLabelFontFamily: ' Arial',
-                axisLabelPadding: 67
-            }],
+                    position: "left",
+                    max: 1070,
+                    color: "#d5d5d5",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: 'Arial',
+                    axisLabelPadding: 3
+                },
+                {
+                    position: "right",
+                    color: "#d5d5d5",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: ' Arial',
+                    axisLabelPadding: 67
+                }
+            ],
             legend: {
                 noColumns: 1,
                 labelBoxBorderColor: "#d5d5d5",
@@ -366,9 +385,9 @@ firstapp
             }
         };
 
-        function gd(year, month, day) {
-            return new Date(year, month - 1, day).getTime();
-        }
+        // function gd(year, month, day) {
+        //     return new Date(year, month - 1, day).getTime();
+        // }
 
         //
         // Pie Chart Example of order
@@ -378,11 +397,13 @@ firstapp
                 label: "CAD",
                 data: 200,
                 color: '#48b5d5',
-            }, {
+            },
+            {
                 label: "DFM",
                 data: 120,
                 color: '#82ddcb'
-            }, {
+            },
+            {
                 label: "DRONE",
                 data: 50,
                 color: '#979fd2'
@@ -394,7 +415,14 @@ firstapp
                 pie: {
                     innerRadius: 0.5,
                     show: true,
-                    textinfo: "none"
+                    textinfo: "none",
+                    label: {
+                        show: true,
+                        formatter: function (label, point) {
+                            return (point.percent.toFixed(2) + '' + label);
+
+                        }
+                    }
                 }
             },
             legend: {
@@ -412,11 +440,13 @@ firstapp
                 label: "CAD",
                 data: 120,
                 color: '#48b5d5',
-            }, {
+            },
+            {
                 label: "DFM",
                 data: 30,
                 color: '#82ddcb'
-            }, {
+            },
+            {
                 label: "DRONE",
                 data: 90,
                 color: '#979fd2'
@@ -428,7 +458,14 @@ firstapp
                 pie: {
                     innerRadius: 0.5,
                     show: true,
-                    textinfo: "none"
+                    textinfo: "none",
+                    label: {
+                        show: true,
+                        formatter: function (label, point) {
+                            return (point.percent.toFixed(2) + '$' + label);
+
+                        }
+                    }
                 }
             },
             legend: {
@@ -446,11 +483,13 @@ firstapp
                 label: "CAD",
                 data: 200,
                 color: '#48b5d5',
-            }, {
+            },
+            {
                 label: "DFM",
                 data: 120,
                 color: '#82ddcb'
-            }, {
+            },
+            {
                 label: "DRONE",
                 data: 50,
                 color: '#979fd2'
@@ -462,7 +501,14 @@ firstapp
                 pie: {
                     innerRadius: 0.5,
                     show: true,
-                    textinfo: "none"
+                    textinfo: "none",
+                    label: {
+                        show: true,
+                        formatter: function (label, point) {
+                            return (point.percent.toFixed(2) + '$' + label);
+
+                        }
+                    }
                 }
             },
             legend: {
@@ -482,11 +528,13 @@ firstapp
                 label: "Total CAD Files",
                 data: 120,
                 color: '#48b5d5',
-            }, {
+            },
+            {
                 label: "Completed CAD Files",
                 data: 30,
                 color: '#82ddcb'
-            }, {
+            },
+            {
                 label: "Incomplete CAD Files",
                 data: 90,
                 color: '#979fd2'
@@ -498,7 +546,14 @@ firstapp
                 pie: {
                     innerRadius: 0.5,
                     show: true,
-                    textinfo: "none"
+                    textinfo: "none",
+                    label: {
+                        show: true,
+                        formatter: function (label, point) {
+                            return (point.percent.toFixed(2) + '');
+
+                        }
+                    }
                 }
             },
             legend: {
@@ -516,11 +571,13 @@ firstapp
                 label: "Total Earning",
                 data: 20,
                 color: '#48b5d5',
-            }, {
+            },
+            {
                 label: "Paid",
                 data: 120,
                 color: '#82ddcb'
-            }, {
+            },
+            {
                 label: "Balance",
                 data: 50,
                 color: '#979fd2'
@@ -532,7 +589,14 @@ firstapp
                 pie: {
                     innerRadius: 0.5,
                     show: true,
-                    textinfo: "none"
+                    textinfo: "none",
+                    label: {
+                        show: true,
+                        formatter: function (label, point) {
+                            return (point.percent.toFixed(2) + '');
+
+                        }
+                    }
                 }
             },
             legend: {
@@ -543,6 +607,8 @@ firstapp
             }
         };
         // *************************************************end of chart for vendor**********************************************************************************************************
+
+
 
     })
 
