@@ -12,17 +12,6 @@
                     <input type="text " class="form-control " ng-model="data1.nameOnCard " placeholder="Name on card ">
                 </div>
             </div>
-
-            <!--<div class="form-group ">
-                <label class="control-label col-sm-4 " for="pwd ">Card Type</label>
-                <div class="col-sm-6 ">
-                    <select class="form-control " ng-model="data1.cardType ">
-								<option value="SELECT ">SELECT</option>
-								<option value="Visa ">Visa</option>
-								<option value="Master Card ">Master Card</option>
-							</select>
-                </div>
-            </div>-->
             <div class="form-group ">
                 <label class="control-label col-sm-4 " for="pwd ">Card Number</label>
                 <div class="col-sm-6 ">
@@ -40,15 +29,16 @@
 
             <div class="form-group ">
                 <div class="col-sm-offset-6 col-sm-4 ">
-                    <button type="button " ng-click="addCardDetail(data1) " class="btn green btn-outline pull-right ">ADD</button>
+                    <button type="button " ng-click="cardDetailsPayment(data1) " class="btn green btn-outline pull-right ">PAY NOW</button>
                 </div>
+
             </div>
 
         </form>
 
     </div>
     <div class="modal-footer ">
-        <button type="button " class="btn green btn-outline " data-dismiss="modal ">Close</button>
+        <button type="button " class="btn green btn-outline " ng-click="$dismiss() ">Close</button>
 
     </div>
 </div>

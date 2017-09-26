@@ -79,7 +79,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             controller: 'How-We-WorkCtrl'
         })
         .state('checkout', {
-            url: "/checkout",
+            url: "/checkout/:id",
             templateUrl: templateURL,
             controller: 'ShippingCtrl'
         })

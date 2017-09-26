@@ -24,6 +24,11 @@ var navigationservice = angular.module('navigationservice', [])
                     classis: "active",
                     sref: "cadfile-request",
                     icon: "picture-o"
+                },                {
+                    name: "Products & Plans",
+                    classis: "active",
+                    sref: "products-plans",
+                    icon: "list"
                 },
 
                 {

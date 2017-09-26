@@ -9,8 +9,8 @@
           <thead>
             <tr class="text-center mycart-row">
               <th class="mycart-head weight-700">Serial No.</th>
-              <th class="mycart-head weight-700">Product</th>
-              <th class="mycart-head weight-700">Package</th>
+              <th class="mycart-head weight-700" ng-show="packOrProduct=='product'">Product</th>
+              <th class="mycart-head weight-700" ng-show="packOrProduct=='package'">Package</th>
               <th class="mycart-head weight-700">Quantity</th>
               <th class="mycart-head weight-700">Amount</th>
               <th class="mycart-head weight-700">Total</th>
@@ -19,20 +19,20 @@
           <tbody>
             <tr class="mycart-row1" ng-repeat="cart in myCart.cartProducts">
               <td>{{$index+1}}</td>
-              <td>{{cart.name}}</td>
-              <td>{{cart.package}}</td>
+              <td ng-show="packOrProduct=='product'">{{cart.name}}</td>
+              <td ng-show="packOrProduct=='package'">{{cart.package}}</td>
               <td class="qty-detail">
                 <i class="fa fa-minus-square" ng-click="reduceQuantity($index)" aria-hidden="true"></i>
                 <input class="form-control" type="text" ng-model="cart.quantity" ng-init="cart.quantity=1">
                 <i class="fa fa-plus-square" ng-click="addQuantity($index)" aria-hidden="true"></i>
               </td>
               <td>${{cart.price}} </td>
-              <td>${{cart.price*cart.quantity}} <span class="delete-span"><i class="fa fa-trash" aria-hidden="true" ng-click="removeCartProduct($index)"></i></span></td>
+              <td>${{cart.price*cart.quantity}} <span class="delete-span"><i class="fa fa-trash" aria-hidden="true" ng-click="removeCartProduct(cart._id)"></i></span></td>
             </tr>
           </tbody>
           <tfoot>
             <tr class="mycart-row1">
-              <td class="total" colspan="5">Total Amount:</td>
+              <td class="total" colspan="4">Total Amount:</td>
               <td class="text-center total">${{myCart.cartProducts | sumFilter}}</td>
             </tr>
           </tfoot>

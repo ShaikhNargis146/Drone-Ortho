@@ -107,7 +107,6 @@ var models = {
 
 
     generatePdf: function (page, callback) {
-        console.log("inside pdf", page)
         var pdf = require('html-pdf');
         var obj = {};
         var env = {};
