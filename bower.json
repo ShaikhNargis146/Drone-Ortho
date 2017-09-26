@@ -67,7 +67,7 @@
     "mapbox-gl-js": "https://github.com/mapbox/mapbox-gl-js.git#^0.39.1",
     "mapbox.js": "^3.1.1",
     "angular-morris": "angular-morris-chart#^1.3.0",
-    "flot": "https://github.com/flot/flot",
+    // "flot": "https://github.com/flot/flot",
     "flot-charts": "*",
     "angular-flot": "^0.0.17"
   }
