@@ -271,7 +271,6 @@ var model = {
     },
 
     addCardDetails: function (data, callback) {
-        console.log("data inside addCardDetails: ", data);
         User.update({
             _id: mongoose.Types.ObjectId(data._id)
         }, {
@@ -316,7 +315,6 @@ var model = {
     },
 
     Updateuser: function (data, callback) {
-        console.log("data is******", data)
 
         User.findOneAndUpdate({
             _id: mongoose.Types.ObjectId(data._id)
@@ -345,7 +343,6 @@ var model = {
         });
     },
     doLogin: function (data, callback) {
-        console.log("data", data)
         User.findOne({
             name: data.name,
             password: md5(data.password)
