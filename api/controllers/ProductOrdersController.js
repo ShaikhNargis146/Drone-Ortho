@@ -235,10 +235,11 @@ var controller = {
 			res.callback(null, response.messages);
 		});
 
+		// calculateRate: function (callback) {
+		// 	ups.rates({}, function (err, result) {});
+		// }
 	},
-	// calculateRate: function (callback) {
-	// 	ups.rates({}, function (err, result) {});
-	// }
+
 };
 
 

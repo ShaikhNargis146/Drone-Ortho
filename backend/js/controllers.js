@@ -1,12 +1,12 @@
 // var globalfunction = {};
-angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', "jsonservicemod", 'ui.bootstrap', 'ui.select',  'toastr', 'angular-flexslider', 'ui.tinymce', 'imageupload', 'ngMap', 'toggle-switch', 'cfp.hotkeys', 'ui.sortable'])
+angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', "jsonservicemod", 'ui.bootstrap', 'ui.select', 'toastr', 'angular-flexslider', 'ui.tinymce', 'imageupload', 'ngMap', 'toggle-switch', 'cfp.hotkeys', 'ui.sortable'])
 // .run([function () {
 //     mapboxgl.accessToken = 'pk.eyJ1IjoibmFpbWlrYW4iLCJhIjoiY2lraXJkOXFjMDA0OXdhbTYzNTE0b2NtbiJ9.O64XgZQHNHcV2gwNLN2a0Q';
 // }])
 firstapp
 
-  
- .controller('DashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+
+    .controller('DashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
 
         $scope.template = TemplateService.changecontent("dashboard");
@@ -20,8 +20,7 @@ firstapp
         // *************************************************chart for user**********************************************************************************************************
         //
 
-
-          $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
         // Standard Chart Example
         //
         $scope.data1 = [
@@ -5440,15 +5439,19 @@ firstapp
     //         };
     //     })
 
-    .controller('headerctrl', function ($scope, NavigationService, TemplateService, $uibModal) {
+    .controller('headerctrl', function ($scope, NavigationService, TemplateService, $uibModal, $state) {
         $scope.template = TemplateService;
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             $(window).scrollTop(0);
         });
+
         $scope.loginUser = function (info) {
             NavigationService.apiCallWithData("User/login", info, function (data) {
                 $scope.user = data.data;
                 $.jStorage.set("user", data.data);
+                console.log($scope.user);
+                $scope.template.profile = data.data.data;
+                $state.go("dashboard");
             });
         }
         $scope.logout = function (info) {
