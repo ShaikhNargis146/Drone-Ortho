@@ -127,7 +127,7 @@ h6 {
 }
 
 h1 {
-    font-size: 30px;
+    font-size: 25px;
 }
 
 h2 {
@@ -4308,6 +4308,52 @@ WIDGETS
 .leaflet-control-zoom-in,
 .leaflet-control-zoom-out {
     text-indent: 0;
+}
+
+//scss for loader
+.loading-img {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: rgba(43, 54, 67, 0.36);
+    z-index: 2000;
+    img {
+        border: none;
+        width: 15%;
+        text-align: center;
+        top: 30%;
+        left: 50%;
+        position: absolute;
+    }
+}
+
+.loading-img-modal {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    background: rgba(43, 54, 67, 0.27);
+    img {
+        border: none;
+        width: 15%;
+        text-align: center;
+        top: 40%;
+        z-index: 99999;
+        left: 45%;
+        position: absolute;
+    }
+}
+
+.modal-z {
+    overflow: hidden !important;
+    .modal-dialog {
+        z-index: -99;
+    }
+}
+
+.loading-img,
+.loading-img-modal {
+    display: none;
 }
 
 @import "adminbagdemo";

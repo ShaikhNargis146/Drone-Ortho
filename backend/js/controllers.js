@@ -1304,10 +1304,10 @@ firstapp
             $scope.cadLineDetails.mission = $scope.missionDetails._id;
             $scope.cadLineDetails.geoLocation = $scope.missionDetails.geoLocation
             $scope.cadLineDetails.user = $.jStorage.get("user")._id;
-            NavigationService.apiCall("CadLineWork/save", $scope.cadLineDetails, function (data) {
+            NavigationService.apiCall("CadLineWork/createCad", $scope.cadLineDetails, function (data) {
                 if (data.value === true) {
                     var formdata = {}
-                    formdata.cadLineWork = $scope.cadLineDetails._id;
+                    formdata.cadLineWork = data.data._id;
                     formdata.user = $scope.profileDetails._id;
                     formdata.totalAmount = $scope.cadLineDetails.amount;
                     NavigationService.apiCall("ProductOrders/save", formdata, function (data) {
@@ -1340,6 +1340,14 @@ firstapp
                 if (data.data.resultCode === "Ok") {
                     console.log("productOrder.value", data);
                     cardDetails.close();
+                    $scope.productOrder.status = "Paid";
+                    NavigationService.apiCall("ProductOrders/save", $scope.productOrder, function (data) {
+                        if (data.value === true) {
+                            console.log("payment successful");
+                        } else {
+                            //  toastr.warning('Error submitting the form', 'Please try again');
+                        }
+                    });
                 } else {
                     //  toastr.warning('Error submitting the form', 'Please try again');
                 }
@@ -1515,6 +1523,7 @@ firstapp
 
     .controller('CreatemissionCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
+
         $scope.template = TemplateService.changecontent("create-mission");
         $scope.menutitle = NavigationService.makeactive("CreateMission");
         TemplateService.title = $scope.menutitle;
@@ -1877,11 +1886,11 @@ firstapp
             }
 
         }
-        $scope.cadSave = function (data) {
-            NavigationService.apiCall("CadLineWork/save", data, function (data) {
+        $scope.cadSave = function (formdata) {
+            NavigationService.apiCall("CadLineWork/save", formdata, function (data) {
                 if (data.value === true) {
                     var formdata = {}
-                    formdata.cadLineWork = $scope.cadLineDetails._id;
+                    formdata.cadLineWork = data.data._id;
                     formdata.user = $scope.profileDetails._id;
                     formdata.totalAmount = $scope.cadLineDetails.amount;
                     NavigationService.apiCall("ProductOrders/save", formdata, function (data) {
@@ -1914,6 +1923,14 @@ firstapp
                 if (data.resultCode === "OK") {
                     console.log("productOrder.value", data);
                     cardDetails.close();
+                    $scope.productOrder.status = "Paid";
+                    NavigationService.apiCall("ProductOrders/save", $scope.productOrder, function (data) {
+                        if (data.value === true) {
+                            console.log("payment successful");
+                        } else {
+                            //  toastr.warning('Error submitting the form', 'Please try again');
+                        }
+                    });
                 } else {
                     //  toastr.warning('Error submitting the form', 'Please try again');
                 }
@@ -2059,7 +2076,7 @@ firstapp
 
         $scope.saveExtcadfile = function (data) {
             data.user = $.jStorage.get("user")._id;
-            NavigationService.apiCallWithData("CadLineWork/ExternalCadIdgenerate", data, function (data) {
+            NavigationService.apiCallWithData("CadLineWork/createCad", data, function (data) {
                 $scope.cadLineDetails = data.data.results;
             })
         };

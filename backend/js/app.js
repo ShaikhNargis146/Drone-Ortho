@@ -438,12 +438,19 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
             // } else {
             //     $scope.required = false;
             // }
-
             $scope.$watch("image", function (newVal, oldVal) {
+
                 isArr = _.isArray(newVal);
                 if (!isArr && newVal && newVal.file) {
+                    $(".loading-img").css("display", "block");
+                    $(".loading-img-modal").css("display", "block");
+
                     $scope.uploadNow(newVal);
+
                 } else if (isArr && newVal.length > 0 && newVal[0].file) {
+                    $(".loading-img").css("display", "block");
+                    $(".loading-img-modal").css("display", "block");
+
                     $timeout(function () {
                         async.eachLimit(newVal, 2, function (image, callback) {
                             // Perform operation on file here.
@@ -463,6 +470,9 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                                 }).then(function (data) {
                                     data = data.data;
                                     $scope.uploadStatus = "uploaded";
+                                    $(".loading-img").css("display", "none");
+                                    $(".loading-img-modal").css("display", "none");
+
                                     if ($scope.isMultiple) {
                                         if ($scope.inObject) {
                                             $scope.model.push({
@@ -568,9 +578,11 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                     transformRequest: angular.identity
                 }).then(function (data) {
                     data = data.data;
+                    $(".loading-img").css("display", "none");
+                    $(".loading-img-modal").css("display", "none");
                     $scope.uploadStatus = "uploaded";
                     if ($scope.isMultiple) {
-                        if ($scope.inObject) {
+                        if ($scope.inObject) {  
                             $scope.model.push({
                                 "image": data.data[0]
                             });

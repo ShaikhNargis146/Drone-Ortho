@@ -25,7 +25,7 @@
     <img ng-src="{{model.file|uploadpathlocal}}" class="img-responsive uploadingImage img-thumbnail" ng-if="type=='image'" />
     <iframe src="{{model.file|uploadpathlocal}}" style="width:400px; height:400px;" frameborder="0" ng-if="type=='pdf'"></iframe>
   </div>
-  <div class="clearfix" ng-if="model && isMultiple" id="imgblock">
+  <div class="clearfix" ng-if="model && isMultiple" id="imgblock" ng-hide="noShow">
     <div class="img-box" style="float:left;" ng-repeat="sImage in model track by $index">
       <i class="fa fa-times" ng-click="removeImage($index)"></i>
       <img alt="" ng-src="{{sImage.file|uploadpathlocal}}" class="img-responsive uploadingImage img-thumbnail" style="width: 75px;
