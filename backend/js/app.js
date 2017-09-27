@@ -502,8 +502,9 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                             } else {
                                 console.log('All files have been processed successfully');
                                 if ($scope.$parent.mission) {
-                                    console.log($scope.$parent.mission);
+                                    console.log($scope.$parent.mission, $scope.$parent.profile);
                                     if ($scope.$parent.mission.selected == true) {
+                                        $scope.$parent.mission.user = $scope.$parent.profile._id;
                                         $http.post(adminurl + "Mission/createMission", $scope.$parent.mission).then(function (data) {
                                             data = data.data;
                                             console.log("missionCreated", $state.$current.name)
@@ -1231,11 +1232,15 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
             var imageUrl;
             if ($scope.missionDetails && $scope.missionDetails.name) {
                 console.log("$scope.missionDetails.name", $scope.missionDetails.name);
-                imageUrl = 'http://35.201.210.67:80/' + $scope.missionDetails.name + '.webp';
+                // imageUrl = 'http://35.201.210.67:80/' + $scope.missionDetails.name + '.webp';
+                imageUrl = 'http://localhost:1337/' + $scope.missionDetails.name + '.webp';
             } else if ($scope.cadLineDetails && $scope.cadLineDetails.orthoFile[0]) {
-                imageUrl = 'http://35.201.210.67:80/' + $scope.cadLineDetails.orthoFile[0].file.split(".")[0] + '.png';
+                // imageUrl = 'http://35.201.210.67:80/' + $scope.cadLineDetails.orthoFile[0].file.split(".")[0] + '.png';
+                imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.orthoFile[0].file.split(".")[0] + '.png';
             } else if ($scope.cadLineDetails && $scope.cadLineDetails.mission) {
-                imageUrl = 'http://35.201.210.67:80/' + $scope.cadLineDetails.mission.name + '.webp';
+                // imageUrl = 'http://35.201.210.67:80/' + $scope.cadLineDetails.mission.name + '.webp';
+                imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.mission.name + '.webp';
+
             }
             console.log("imageUrl", imageUrl);
             // This is the trickiest part - you'll need accurate coordinates for the

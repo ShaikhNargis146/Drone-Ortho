@@ -161,7 +161,7 @@ var model = {
                     } else {
                         console.log("succefully completed the waterfall");
                         callback(null, data);
-                        model.pix4dCommandExecution(folder, missionName, callback);
+                        model.pix4dCommandExecution(folder, missionName);
                     }
                 });
             } else {
@@ -207,9 +207,9 @@ var model = {
             });
     },
 
-    pix4dCommandExecution: function (imgPath, name, callback) {
-        var pix4dPath = 'C:/Users/unifli/Documents/pix4d/' + name + '.p4d';
-        // var pix4dPath = 'C:/Users/dell/Documents/pix4d/' + name + '.p4d';
+    pix4dCommandExecution: function (imgPath, name) {
+        // var pix4dPath = 'C:/Users/unifli/Documents/pix4d/' + name + '.p4d';
+        var pix4dPath = 'C:/Users/dell/Documents/pix4d/' + name + '.p4d';
         console.log("inside pix4dCommandExecution", name, imgPath, pix4dPath);
 
         exec('cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -n --image-dir ' + imgPath + ' ' + pix4dPath, {
@@ -296,17 +296,17 @@ var model = {
                     ], function asyncComplete(err, data) {
                         if (err) {
                             console.warn('Error updating file status', err);
-                            callback(err, null);
+                            // callback(err, null);
                         } else {
                             console.log("succefully completed the waterfall---02");
-                            callback(null, data);
+                            // callback(null, data);
                         }
                     });
                 }
 
             } else {
                 console.log("stderr", stderr);
-                callback(null, stderr);
+                // callback(null, stderr);
 
             }
         });

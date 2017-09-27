@@ -1,12 +1,12 @@
 // var globalfunction = {};
-angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', "jsonservicemod", 'ui.bootstrap', 'ui.select',  'toastr', 'angular-flexslider', 'ui.tinymce', 'imageupload', 'ngMap', 'toggle-switch', 'cfp.hotkeys', 'ui.sortable'])
+angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', "jsonservicemod", 'ui.bootstrap', 'ui.select', 'toastr', 'angular-flexslider', 'ui.tinymce', 'imageupload', 'ngMap', 'toggle-switch', 'cfp.hotkeys', 'ui.sortable'])
 // .run([function () {
 //     mapboxgl.accessToken = 'pk.eyJ1IjoibmFpbWlrYW4iLCJhIjoiY2lraXJkOXFjMDA0OXdhbTYzNTE0b2NtbiJ9.O64XgZQHNHcV2gwNLN2a0Q';
 // }])
 firstapp
 
-  
- .controller('DashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+
+    .controller('DashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
 
         $scope.template = TemplateService.changecontent("dashboard");
@@ -21,7 +21,7 @@ firstapp
         //
 
 
-          $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        $scope.accessLevel = $.jStorage.get("user").accessLevel;
         // Standard Chart Example
         //
         $scope.data1 = [
@@ -1322,6 +1322,7 @@ firstapp
             }
 
         }
+        var cardDetails;
         $scope.cadSave = function (data) {
             console.log("cadLine data", $scope.cadLineDetails);
             console.log("data", data);
@@ -1348,7 +1349,7 @@ firstapp
                     //  toastr.warning('Error submitting the form', 'Please try again');
                 }
             });
-            $uibModal.open({
+            cardDetails = $uibModal.open({
                 animation: true,
                 templateUrl: 'views/modal/card-detail.html',
                 scope: $scope,
@@ -1365,7 +1366,7 @@ firstapp
             NavigationService.apiCall("ProductOrders/chargeCreditCard", formdata, function (data) {
                 if (data.data.resultCode === "Ok") {
                     console.log("productOrder.value", data);
-
+                    cardDetails.close();
                 } else {
                     //  toastr.warning('Error submitting the form', 'Please try again');
                 }
@@ -1557,6 +1558,7 @@ firstapp
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        $scope.profile = $.jStorage.get("user");
         console.log(" CreatemissionCtrl.accessLevel", $scope.accessLevel)
         $scope.date = new Date();
         $scope.mission = {};
@@ -1943,7 +1945,7 @@ firstapp
                     //  toastr.warning('Error submitting the form', 'Please try again');
                 }
             });
-            $uibModal.open({
+            var cardDetails = $uibModal.open({
                 animation: true,
                 templateUrl: 'views/modal/card-detail.html',
                 scope: $scope,
@@ -1960,7 +1962,7 @@ firstapp
             NavigationService.apiCall("ProductOrders/chargeCreditCard", formdata, function (data) {
                 if (data.resultCode === "OK") {
                     console.log("productOrder.value", data);
-
+                    cardDetails.close();
                 } else {
                     //  toastr.warning('Error submitting the form', 'Please try again');
                 }
