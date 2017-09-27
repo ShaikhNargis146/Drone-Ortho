@@ -61,8 +61,7 @@ var schema = new Schema({
         index: true
     },
     vendorCharges: Number,
-    internalId: String,
-    externalId: String,
+     cadId: String,
 
     //****
     requestType: {
@@ -140,6 +139,72 @@ var model = {
                 });
     },
 
+
+    CadIdgenerate: function (data, callback) {
+        var temp;
+        var findQuery = {};
+        var internalRequest = true;
+        if (internalRequest) {
+            findQuery = {
+                cadId: {
+                    $regex: '^CADI.*',
+                    $options: 'm'
+                }
+            }
+         temp = "CADI"
+        } else {
+            findQuery = {
+                cadId: {
+                    $regex: '^CADE.*',
+                    $options: 'm'
+                }
+            }
+         temp = "CADE"
+        }
+        CadLineWork.findOne(findQuery).sort({
+            createdAt: -1
+        }).exec(function (err, found) {
+            if (err || _.isEmpty(found)) {
+                callback(err, []);
+            } else {
+                if (_.isEmpty(found.cadId)) {
+                    var year = new Date().getFullYear()
+                    var month = new Date().getMonth();
+                    var nextnum = "1"
+                    month = month + 1
+                    var m = month.toString().length;
+                    if (m == 1) {
+                        month = "0" + month
+                        var cadId = temp + year + month + nextnum;
+                    } else {
+                        if (m == 2) {
+                            var cadId = temp + year + month + nextnum;
+                        }
+                    }
+                    callback(null, cadId);
+                } else {
+
+                    var cadId = found.cadId
+                    var num = cadId.substring(10, 100)
+                    var nextnum = parseInt(num) + 1
+                    var year = new Date().getFullYear()
+                    var month = new Date().getMonth();
+                    month = month + 1
+                    var m = month.toString().length;
+                    if (m == 1) {
+                        month = "0" + month
+                        var cadId = temp + year + month + nextnum;
+                    } else {
+                        if (m == 2) {
+                            var cadId = temp + year + month + nextnum;
+                        }
+                    }
+                    callback(null, cadId);
+                }
+            }
+        });
+    },
+    
     InternalCadIdgenerate: function (data, callback) {
         console.log("cad id data is", data)
         CadLineWork.find({}).sort({

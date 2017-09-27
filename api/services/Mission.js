@@ -128,49 +128,61 @@ var model = {
         });
     },
 
-    createMission: function (data, callback) {
-
-        Mission.saveData(data, function (err, created) {
-            if (err) {
-                callback(err, null);
-            } else if (created) {
-                var dir;
-                var folder;
-                console.log("created", created, process.cwd());
-                dir = path.join(process.cwd(), "pix4dUpload");
-                if (!fs.existsSync(dir)) {
-                    fs.mkdirSync(dir);
-                    folder = path.join(dir, created._id.toString());
-                    fs.mkdirSync(folder)
-                } else {
-                    folder = path.join(dir, created._id.toString());
-                    fs.mkdirSync(folder)
-                }
-                var missionName = created.name;
-                async.waterfall([
-                    function concatFiles(callback) {
-                        console.log("inside concatFiles create", created.files);
-                        async.concatLimit(created.files, 20, function (image, callback) {
-                            model.uploadFileToServer(folder, image, callback);
-                        }, callback);
-                    }
-                ], function asyncComplete(err, data) {
+  createMission: function (data, callback) {
+        async.waterfall([
+            function (callback) { // generate mission id
+                Mission.missionIdGenerate(data, function (err, data1) {
+                    callback(null, data1);
+                })
+            },
+            function (missionID, callback) { //create mission
+                data.missionId = missionID;
+                Mission.saveData(data, function (err, created) {
                     if (err) {
-                        console.warn('Error updating file status', err);
                         callback(err, null);
+                    } else if (created) {
+                        var dir;
+                        var folder;
+                        dir = path.join(process.cwd(), "pix4dUpload");
+                        if (!fs.existsSync(dir)) {
+                            fs.mkdirSync(dir);
+                            folder = path.join(dir, created._id.toString());
+                            fs.mkdirSync(folder)
+                        } else {
+                            folder = path.join(dir, created._id.toString());
+                            fs.mkdirSync(folder)
+                        }
+                        var missionName = created.name;
+                        async.waterfall([
+                            function concatFiles(callback) {
+                                console.log("inside concatFiles create", created.files);
+                                async.concatLimit(created.files, 20, function (image, callback) {
+                                    model.uploadFileToServer(folder, image, callback);
+                                }, callback);
+                            }
+                        ], function asyncComplete(err, data) {
+                            if (err) {
+                                console.warn('Error updating file status', err);
+                                callback(err, null);
+                            } else {
+                                console.log("succefully completed the waterfall");
+                                callback(null, data);
+                                model.pix4dCommandExecution(folder, missionName, callback);
+                            }
+                        });
                     } else {
-                        console.log("succefully completed the waterfall");
-                        callback(null, data);
-                        model.pix4dCommandExecution(folder, missionName);
+                        callback(null, {});
                     }
                 });
+            }
+        ], function (err, data) { // execute Violation
+            if (err || _.isEmpty(data)) {
+                callback(null, "Error")
             } else {
-                callback(null, {});
+                callback(null, data)
             }
         });
-
     },
-
     uploadFileToServer: function (imgPath, image, callback) {
         console.log("inside uploadFileToServer---");
         async.waterfall([
@@ -362,15 +374,10 @@ var model = {
             if (err) {
                 callback(err, null);
             } else {
-
-                if (_.isEmpty(found)) {
-                    callback(null, "noDataFound");
-                }
-                if (_.isEmpty(found[0].missionId)) {
+                if (_.isEmpty(found[0])) {
                     var year = new Date().getFullYear()
-                    var month = new Date().getMonth();
-                    var nextnum = "1"
-                    month = month + 1
+                    var month = new Date().getMonth() + 1;
+                    var nextnum = "1";
                     var m = month.toString().length;
                     if (m == 1) {
                         month = "0" + month
@@ -382,25 +389,56 @@ var model = {
                     }
                     callback(null, missionId);
                 } else {
-
-                    var missionId = found[0].missionId
-                    var num = missionId.substring(7, 100)
-                    var nextnum = parseInt(num) + 1
-                    var year = new Date().getFullYear()
-                    var month = new Date().getMonth();
-                    month = month + 2
-                    var m = month.toString().length;
-                    if (m == 1) {
-                        month = "0" + month
-                        var missionId = "M" + year + month + nextnum;
-                    } else {
-                        if (m == 2) {
+                    if (_.isEmpty(found[0])) {
+                        var year = new Date().getFullYear()
+                        var month = new Date().getMonth() + 1;
+                        var nextnum = "1";
+                        var m = month.toString().length;
+                        if (m == 1) {
+                            month = "0" + month
                             var missionId = "M" + year + month + nextnum;
+                        } else {
+                            if (m == 2) {
+                                var missionId = "m" + year + month + nextnum;
+                            }
+                        }
+                        callback(null, missionId);
+                    } else {
+                        if (!found[0].missionId) {
+                            var year = new Date().getFullYear()
+                            var month = new Date().getMonth() + 1;
+                            var nextnum = "1";
+                            var m = month.toString().length;
+                            if (m == 1) {
+                                month = "0" + month
+                                var missionId = "M" + year + month + nextnum;
+                            } else {
+                                if (m == 2) {
+                                    var missionId = "m" + year + month + nextnum;
+                                }
+                            }
+                            callback(null, missionId);
+                        } else {
+                            var missionId = found[0].missionId
+                            var num = missionId.substring(7, 100);
+                            var nextnum = parseInt(num) + 1
+                            var year = new Date().getFullYear()
+                            var month = new Date().getMonth() + 1;
+                            var m = month.toString().length;
+                            if (m == 1) {
+                                month = "0" + month
+                                var missionId = "M" + year + month + nextnum;
+                            } else {
+                                if (m == 2) {
+                                    var missionId = "M" + year + month + nextnum;
+                                }
+                            }
+                            callback(null, missionId);
                         }
                     }
-                    callback(null, missionId);
                 }
             }
+
         });
     },
 

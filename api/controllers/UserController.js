@@ -25,6 +25,13 @@ var controller = {
             res.callback("Please provide Valid AccessToken", null);
         }
     },
+       getByDfm: function (req, res) {
+        if (req.body) {
+            User.getByDfm(req.body, res.callback);
+        } else {
+            res.callback("Please provide Valid AccessToken", null);
+        }
+    },
     Updateuser: function (req, res) {
         if (req.body && req.body.accessToken) {
             User.Updateuser(req.body, res.callback);

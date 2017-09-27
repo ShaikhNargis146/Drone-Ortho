@@ -22,33 +22,31 @@ var controller = {
         }
     },
 
-    InternalCadIdgenerate: function (req, res) {
+   CadIdgenerate: function (req, res) {
         if (req.body) {
-            CadLineWork.InternalCadIdgenerate(req.body, res.callback);
+            CadLineWork.CadIdgenerate(req.body, res.callback);
         } else {
             res.json({
                 value: false,
                 data: {
                     message: "Invalid Request"
                 }
-            })
-        }
-    },
-    ExternalCadIdgenerate: function (req, res) {
-        if (req.body) {
-            CadLineWork.saveData(req.body, function (err, cadData) {
-                res.callback(null, cadData);
-                console.log('m in external cad', cadData);
-                controller.generatePng(cadData, res.callback);
             });
+        }
+
+    },
+      createCad: function (req, res) {
+        if (req.body) {
+            CadLineWork.createCad(req.body, res.callback);
         } else {
             res.json({
                 value: false,
                 data: {
                     message: "Invalid Request"
                 }
-            })
+            });
         }
+
     },
 
     getSingleCadData: function (req, res) {
