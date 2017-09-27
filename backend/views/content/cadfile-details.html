@@ -20,7 +20,7 @@
 							<tr>
 								<td>Mission ID</td>
 								<td>:</td>
-								<td>{{cadLineDetails.mission}}</td>
+								<td>{{cadLineDetails.mission._id}}</td>
 							</tr>
 							<tr>
 								<td>Contours</td>
@@ -61,11 +61,11 @@
 					<div class="col-lg-8">
 						<div class="img-map">
 							<div id='map' class="map-box"></div>
-							<div class='calculation-box'>
+							<!--<div class='calculation-box'>
 								<p>Draw a polygon using the draw tools.</p>
 								<div id='calculate' class='button button'>Calculate area</div>
 								<div id='calculated-area'></div>
-							</div>
+							</div>-->
 						</div>
 					</div>
 				</div>
@@ -94,7 +94,7 @@
 			<div class="wrapper-content  text-center">
 				<div class="col-lg-12">
 
-					<div class="col-lg-5" style="padding-top:10px">
+					<div class="col-lg-3" style="padding-top:10px">
 						<div class="ibox-content collapse in" id="demo6">
 							<div class="demo-container" style="height:600px">
 								<table class="table table-responsive">
@@ -174,6 +174,16 @@
 						</div>
 
 					</div>
+					<div class="col-lg-8">
+						<div class="img-map">
+							<div id='map' class="map-box"></div>
+							<!--<div class='calculation-box'>
+								<p>Draw a polygon using the draw tools.</p>
+								<div id='calculate' class='button button'>Calculate area</div>
+								<div id='calculated-area'></div>
+							</div>-->
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -251,8 +261,7 @@
 			</div>
 			<div class="wrapper-content  text-center">
 				<div class="col-lg-12">
-
-					<div class="col-lg-5" style="padding-top:10px">
+					<div class="col-lg-3" style="padding-top:10px">
 						<div class="ibox-content collapse in" id="demo6">
 							<div class="demo-container" style="height:600px">
 								<table class="table table-responsive">
@@ -274,7 +283,7 @@
 									<tr>
 										<td>Drafting Density </td>
 										<td>:</td>
-										<td> {{cadForVendorData.density}}</td>
+										<td> {{cadForVendorData.draftingDensity}}</td>
 									</tr>
 									<tr>
 										<td>Status</td>
@@ -311,7 +320,16 @@
 						</div>
 
 					</div>
-
+					<div class="col-lg-8">
+						<div class="img-map">
+							<div id='map' class="map-box"></div>
+							<!--<div class='calculation-box'>
+								<p>Draw a polygon using the draw tools.</p>
+								<div id='calculate' class='button button'>Calculate area</div>
+								<div id='calculated-area'></div>
+							</div>-->
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

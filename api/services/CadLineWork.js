@@ -78,7 +78,7 @@ schema.plugin(deepPopulate, {
             select: '_id name'
         },
         'mission': {
-            select: '_id name'
+            select: ''
         },
         'vendor': {
             select: '_id name'
@@ -258,7 +258,7 @@ var model = {
     getSingleCadData: function (data, callback) {
         this.findOne({
             _id: data._id
-        }).deepPopulate("vendor").exec(function (err, data) {
+        }).deepPopulate("vendor mission").exec(function (err, data) {
             if (err || _.isEmpty(data)) {
                 callback(err, []);
             } else {

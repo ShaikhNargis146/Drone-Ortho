@@ -109,7 +109,24 @@ var model = {
                     }
                 });
     },
+    getMissionForCad: function (data, callback) {
+        console.log("inside get ticket api", data)
+        Mission.find({
+            user: data.user,
+            status: "ready"
+        }).exec(function (err, found) {
+            console.log("inside paggingtion cadline file", found)
 
+            if (err) {
+                console.log(err);
+                callback(err, null);
+            } else if (found) {
+                callback(null, found);
+            } else {
+                callback("Invalid data", null);
+            }
+        });
+    },
 
     createMission: function (data, callback) {
 
@@ -191,7 +208,7 @@ var model = {
     },
 
     pix4dCommandExecution: function (imgPath, name, callback) {
-        var pix4dPath = 'C:/Users/dell/Documents/pix4d/' + name + '.p4d';
+        var pix4dPath = 'C:/Users/unifli/Documents/pix4d/' + name + '.p4d';
         // var pix4dPath = 'C:/Users/dell/Documents/pix4d/' + name + '.p4d';
         console.log("inside pix4dCommandExecution", name, imgPath, pix4dPath);
 

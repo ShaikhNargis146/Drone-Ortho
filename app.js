@@ -32,7 +32,6 @@ mongoose.connect('mongodb://localhost:27017/' + database, {
     if (err) {
         console.log(err);
     }
-    useMongoClient: true
 });
 // Ensure a "sails" can be located:
 (function () {
