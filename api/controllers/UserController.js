@@ -8,24 +8,6 @@ var controller = {
             res.callback("Please provide Valid AccessToken", null);
         }
     },
-
-    UpdateUserDfm: function (req, res) {
-        if (req.body) {
-            User.UpdateUserDfm(req.body, res.callback);
-        } else {
-            res.callback("Please provide Valid AccessToken", null);
-        }
-    },
-
-    getByDfm: function (req, res) {
-        if (req.body) {
-            User.getByDfm(req.body, res.callback);
-        } else {
-            res.callback("Please provide Valid AccessToken", null);
-        }
-    },
-
-
     addCardDetails: function (req, res) {
         console.log("***");
         if (req.body) {

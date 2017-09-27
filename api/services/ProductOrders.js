@@ -240,6 +240,61 @@ var model = {
 
     //for user end
 
+    invoiceNumberGenerate: function (data, callback) {
+        ProductOrders.find({}).sort({
+            createdAt: -1
+        }).limit(2).deepPopulate('products user cadLineWork dfmSubscription').exec(function (err, found) {
+            if (err) {
+                callback(err, null);
+            } else {
+                if (_.isEmpty(found)) {
+                    callback(null, "noDataFound");
+                } else {
+                    if (_.isEmpty(found[1])) {
+                        var year = new Date().getFullYear().toString().substr(-2);
+                        var month = new Date().getMonth() + 1;
+                        var m = month.toString().length;
+                        if (m == 1) {
+                            month = "0" + month
+                            var invoiceNumber = "INV" + year + month + "-" + "1";
+                        } else if (m == 2) {
+                            var invoiceNumber = "INV" + year + month + "-" + "1";
+                        }
+                        callback(null, invoiceNumber);
+                    } else {
+                        if (!found[1].transactionNo) {
+                            var year = new Date().getFullYear().toString().substr(-2);
+                            var month = new Date().getMonth() + 1;
+                            var m = month.toString().length;
+                            if (m == 1) {
+                                month = "0" + month
+                                var invoiceNumber = "INV" + year + month + "-" + "1";
+                            } else if (m == 2) {
+                                var invoiceNumber = "INV" + year + month + "-" + "1";
+                            }
+                            callback(null, invoiceNumber);
+                        } else {
+                            var invoiceData = found[1].transactionNo.split("-");
+                            var num = parseInt(invoiceData[1]);
+                            var nextNum = num + 1;
+                            var year = new Date().getFullYear().toString().substr(-2);
+                            var month = new Date().getMonth() + 1;
+                            var m = month.toString().length;
+                            if (m == 1) {
+                                month = "0" + month
+                                var invoiceNumber = "INV" + year + month + "-" + nextNum;
+                            } else if (m == 2) {
+                                var invoiceNumber = "INV" + year + month + "-" + nextNum;
+                            }
+                            callback(null, invoiceNumber);
+                        }
+                    }
+                }
+            }
+
+        });
+    },
+
 
 };
 module.exports = _.assign(module.exports, exports, model);

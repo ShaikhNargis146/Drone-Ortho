@@ -47,26 +47,50 @@ var controller = {
 				}
 			});
 		}
+	},
 
+	invoiceNumberGenerate: function (req, res) {
+		if (req.body) {
+			ProductOrders.invoiceNumberGenerate(req.body, res.callback);
+		} else {
+			res.json({
+				value: false,
+				data: {
+					message: "Invalid Request"
+				}
+			});
+		}
 	},
 
 
-	chargeCreditCard: function (callback) {
+	chargeCreditCard: function (data, callback) {
+
+		console.log("data---", data);
+
+		if (data.date) {
+			var date = new Date(data.date);
+			var year = date.getFullYear().toString().substr(-2);
+			var month = date.getMonth() + 1;
+			var m = month.toString().length;
+			if (m == 1) {
+				month = "0" + month
+			}
+		}
 
 		var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
 		merchantAuthenticationType.setName(constants.apiLoginKey);
 		merchantAuthenticationType.setTransactionKey(constants.transactionKey);
 
 		var creditCard = new ApiContracts.CreditCardType();
-		creditCard.setCardNumber('4242424242424242');
-		creditCard.setExpirationDate('0822');
-		creditCard.setCardCode('999');
+		creditCard.setCardNumber(data.cardNumber);
+		creditCard.setExpirationDate(month + year);
+		creditCard.setCardCode(data.securityCode);
 
 		var paymentType = new ApiContracts.PaymentType();
 		paymentType.setCreditCard(creditCard);
 
 		var orderDetails = new ApiContracts.OrderType();
-		orderDetails.setInvoiceNumber('INV-12345');
+		// orderDetails.setInvoiceNumber('INV-12345');
 		orderDetails.setDescription('Product Description');
 
 		var tax = new ApiContracts.ExtendedAmountType();
@@ -221,6 +245,7 @@ var controller = {
 			//	callback(response);
 		});
 	},
+
 	calculateRate: function (callback) {
 		ups.rates({}, function (err, result) {});
 	}

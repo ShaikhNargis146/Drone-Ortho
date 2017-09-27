@@ -252,25 +252,6 @@ var model = {
 
     //----------------------End----------------------//
 
-    UpdateUserDfm: function (data, callback) {
-        console.log("inside update User DFM", data)
-        User.update({
-            _id: data.user
-        }, {
-            $set: {
-                currentSubscription: data._id
-            }
-        }).deepPopulate("currentSubscription").exec(function (err, found) {
-            if (err) {
-                callback(err, null);
-            } else if (_.isEmpty(found)) {
-                callback(null, "noDataound");
-            } else {
-                callback(null, found);
-            }
-
-        });
-    },
 
     getByDfm: function (data, callback) {
         console.log("inside getbyDfm", data)

@@ -1739,6 +1739,22 @@ footer {
     margin-bottom: 20px;
 }
 
+.full button span {
+    background-color: limegreen;
+    border-radius: 32px;
+    color: black;
+}
+
+.text-info {
+    color: white;
+}
+
+.partially button span {
+    background-color: orange;
+    border-radius: 32px;
+    color: black;
+}
+
 //timeline
 @import "fancybox-override";
 @import "ruchi";
