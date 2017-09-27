@@ -1028,10 +1028,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.dt.setDate($scope.dt.getDate() + 30);
         $scope.formData = {};
         if ($.jStorage.get("user")) {
-
             $scope.dfmData = [{
-
-
                 name: "TRIAL",
                 invitations: "0",
                 missions: "20",
@@ -1083,6 +1080,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         } else {
             var dfmData = [];
         }
+
         $scope.id = $stateParams.id;
         $scope.amount = $scope.dfmData[$scope.id].amount;
 
@@ -1255,6 +1253,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
             $scope.cardDetailsPayment = function (data) {
                 // $scope.productId = $scope.Id
+                data.amount = $scope.amount;
                 NavigationService.apiCallWithData("ProductOrders/chargeCreditCard", data, function (data1) {
                     console.log("-----------------------------", data1);
                 });
