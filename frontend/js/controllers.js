@@ -1095,8 +1095,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         } else {
             var dfmData = [];
         }
-        $scope.id = $stateParams.id;
-        $scope.amount = $scope.dfmData[$scope.id].amount;
+       
 
 
 
@@ -1113,7 +1112,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             data.user = formdata.user
 
             if ($stateParams.id) {
-                $scope.id = $stateParams.id;
+                 $scope.id = $stateParams.id;
+        $scope.amount = $scope.dfmData[$scope.id].amount;
+                // $scope.id = $stateParams.id;
                 NavigationService.apiCallWithData("DFMSubscription/save", $scope.dfmData[$scope.id], function (dfm) {
                     $scope.id = {
                         id: dfm.data._id

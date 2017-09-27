@@ -1461,6 +1461,7 @@ firstapp
                     function (data, ini) {
                         if (ini == i) {
                             $scope.productData = data.data.results;
+                            console.log("$scope.productData ",$scope.productData )
                             $scope.totalItems = data.data.total;
                             $scope.maxRow = data.data.options.count;
                         }

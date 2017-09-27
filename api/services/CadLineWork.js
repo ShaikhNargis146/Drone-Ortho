@@ -121,7 +121,7 @@ var model = {
         CadLineWork.find({
                 user: data.user
             })
-            .deepPopulate("serviceId user DFMSubscription")
+            .deepPopulate("serviceId user DFMSubscription mission")
             .order(options)
             .keyword(options)
             .page(options,

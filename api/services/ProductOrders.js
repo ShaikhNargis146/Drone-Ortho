@@ -22,9 +22,9 @@ var schema = new Schema({
         index: true
     },
     products: [{
-        id: String,
-        name: String,
-        amt: Number
+        type: Schema.Types.ObjectId,
+        ref: 'Products',
+        index: true
     }],
     totalAmount: {
         type: Number,
@@ -192,7 +192,7 @@ var model = {
     //for user
 
     getProductData: function (data, callback) {
-        console.log("inside get ticket api", data)
+        console.log("inside get getProductData api", data)
         if (data.count) {
             var maxCount = data.count;
         } else {
@@ -221,7 +221,7 @@ var model = {
         ProductOrders.find({
                 user: data.user
             })
-            .deepPopulate("serviceId user DFMSubscription cadLineWork dfmSubscription")
+            .deepPopulate("serviceId user DFMSubscription products cadLineWork dfmSubscription")
             .order(options)
             .keyword(options)
             .page(options,
