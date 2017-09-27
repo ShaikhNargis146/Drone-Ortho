@@ -167,7 +167,6 @@ var model = {
     },
     
     CadIdgenerate: function (data, callback) {
-        console.log("inside CadIdgenerate",data);
         var findQuery = {};
         var temp;
         var internalRequest = false;
