@@ -2306,11 +2306,24 @@ firstapp
             });
         };
 
+
         $scope.updatePassword = function (password) {
-            $scope.formdata2.password = password;
-            NavigationService.apiCallWithData("User/Updatepassword", $scope.formdata2, function (data) {
-                $scope.data = data.data;
-            });
+            var check = _.isEqual(password.checkPassword, password.password)
+            if (check == true) {
+                NavigationService.apiCallWithData("User/Updatepassword", password, function (data) {
+                    if (data.value == true) {
+                        $scope.data = data.data;
+                        $uibModal.open({
+                            animation: true,
+                            templateUrl: 'views/modal/updatepassword.html',
+                            scope: $scope,
+                            size: 'sm',
+                        });
+                    }
+                });
+            } else {
+                toastr.error('Check Entered Password');
+            }
         }
 
         NavigationService.apiCallWithData("User/getByDfm", $scope.formdata1, function (dfm) {
@@ -5342,7 +5355,7 @@ firstapp
     //         };
     //     })
 
-    .controller('headerctrl', function ($scope, NavigationService, TemplateService, $uibModal, $state) {
+    .controller('headerctrl', function ($scope, NavigationService, TemplateService, $uibModal, $state, toastr) {
         $scope.template = TemplateService;
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             $(window).scrollTop(0);
@@ -5350,11 +5363,14 @@ firstapp
 
         $scope.loginUser = function (info) {
             NavigationService.apiCallWithData("User/login", info, function (data) {
-                $scope.user = data.data;
-                $.jStorage.set("user", data.data);
-                console.log($scope.user);
-                $scope.template.profile = data.data.data;
-                $state.go("dashboard");
+                if (data.value == true) {
+                    $scope.user = data.data;
+                    $.jStorage.set("user", data.data);
+                    $scope.template.profile = data.data.data;
+                    $state.go("dashboard");
+                } else {
+                    toastr.error('Incorrect credentials');
+                }
             });
         }
         $scope.logout = function (info) {

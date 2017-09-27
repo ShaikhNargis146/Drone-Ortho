@@ -30,7 +30,10 @@ var schema = new Schema({
         type: String,
         default: ''
     },
-    status: String,
+    status: {
+        type: String,
+        default: 'Proceesing'
+    },
     date: Date,
     geoLocation: {
         upperLeft: [],
@@ -63,7 +66,6 @@ var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "serviceId use
 var model = {
 
     getMissionUser: function (data, callback) {
-        console.log("inside get ticket api", data)
         if (data.count) {
             var maxCount = data.count;
         } else {
@@ -97,10 +99,7 @@ var model = {
             .keyword(options)
             .page(options,
                 function (err, found) {
-                    console.log("inside paggingtion cadline file", found)
-
                     if (err) {
-                        console.log(err);
                         callback(err, null);
                     } else if (found) {
                         callback(null, found);
@@ -109,14 +108,12 @@ var model = {
                     }
                 });
     },
+
     getMissionForCad: function (data, callback) {
-        console.log("inside get ticket api", data)
         Mission.find({
             user: data.user,
             status: "ready"
         }).exec(function (err, found) {
-            console.log("inside paggingtion cadline file", found)
-
             if (err) {
                 console.log(err);
                 callback(err, null);
@@ -128,7 +125,7 @@ var model = {
         });
     },
 
-  createMission: function (data, callback) {
+    createMission: function (data, callback) {
         async.waterfall([
             function (callback) { // generate mission id
                 Mission.missionIdGenerate(data, function (err, data1) {
@@ -155,17 +152,14 @@ var model = {
                         var missionName = created.name;
                         async.waterfall([
                             function concatFiles(callback) {
-                                console.log("inside concatFiles create", created.files);
                                 async.concatLimit(created.files, 20, function (image, callback) {
                                     model.uploadFileToServer(folder, image, callback);
                                 }, callback);
                             }
                         ], function asyncComplete(err, data) {
                             if (err) {
-                                console.warn('Error updating file status', err);
                                 callback(err, null);
                             } else {
-                                console.log("succefully completed the waterfall");
                                 callback(null, data);
                                 model.pix4dCommandExecution(folder, missionName, callback);
                             }
@@ -183,8 +177,8 @@ var model = {
             }
         });
     },
+
     uploadFileToServer: function (imgPath, image, callback) {
-        console.log("inside uploadFileToServer---");
         async.waterfall([
                 // function (callback) {
                 //     request(global["env"].realHost + '/api/upload/readFile?file=' + image.file).pipe(fs.createWriteStream(image.file)).on('finish', function (myImg) {
@@ -195,14 +189,12 @@ var model = {
                 //     });
                 // },
                 function (callback) {
-                    console.log("image", image);
                     var oldPath = path.join(path.join(process.cwd(), "pix4dUpload"), image.file);
                     var newPath = path.join(imgPath, image.file);
                     fs.rename(oldPath, newPath, function (err) {
                         if (err) {
                             callback(err, null);
                         } else {
-                            console.log("folder", imgPath);
                             callback(null, imgPath);
                         }
                     });
@@ -443,6 +435,7 @@ var model = {
     },
 
 };
+
 // cron.schedule('1 * * * * *', function () {
 //     Mission.find({
 //         status: {
