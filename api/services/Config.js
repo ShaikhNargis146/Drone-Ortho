@@ -104,8 +104,6 @@ var models = {
     },
 
 
-
-
     generatePdf: function (page, callback) {
         var pdf = require('html-pdf');
         var obj = {};
@@ -189,7 +187,6 @@ var models = {
 
         });
     },
-
 
     uploadFile: function (filename, callback) {
         var id = mongoose.Types.ObjectId();

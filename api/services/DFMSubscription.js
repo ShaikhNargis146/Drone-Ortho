@@ -6,7 +6,7 @@ var schema = new Schema({
     },
     expiryDate: Date,
     transactionDate: Date,
-name:String,
+    name: String,
     amount: {
         type: Number,
         default: 0
@@ -54,17 +54,16 @@ var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "plan user", "
 var model = {
 
     getDfm: function (data, callback) {
-        console.log('inside dfm', data)
-       DFMSubscription.findOne({user:data.user}).sort({
+        DFMSubscription.findOne({
+            user: data.user
+        }).sort({
             createdAt: -1
         }).limit(1).exec(function (err, found) {
             if (err) {
                 callback(err, null);
             } else {
                 if (found) {
-
                     User.UpdateUserDfm(found, callback)
-                   
                 } else {
                     callback({
                         message: "Something went wrong!"
@@ -75,7 +74,6 @@ var model = {
     },
 
     getByUser: function (data, callback) {
-        console.log("inside get by user api",data)
         this.findOne({
             "user": data.user
         }, function (err, dataF) {
@@ -83,7 +81,6 @@ var model = {
                 callback(err, null);
             } else {
                 if (dataF) {
-                    console.log("found",dataF)
                     callback(null, dataF);
                 } else {
                     callback({

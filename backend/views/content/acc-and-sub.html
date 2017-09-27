@@ -116,8 +116,7 @@
 														</div>
 														<div class="form-group">
 															<label for="exampleInputEmail1">Current Plan</label>
-															<input class="form-control m-t-xxs" id="exampleInputEmail1" ng-model="dfmData.currentSubscription.plan[0].name" type="text">
-														</div>
+															<input class="form-control m-t-xxs" id="exampleInputEmail1" ng-model="dfmData.currentSubscription.name" type="text">															</div>
 														<div class="form-group">
 															<label for="exampleInputEmail1">DFM Status</label>
 															<input class="form-control m-t-xxs" id="exampleInputEmail1" ng-model="dfmData.currentSubscription.status" type="text">
@@ -136,40 +135,32 @@
 														</div>
 														<div class="form-group">
 															<label for="exampleInputPassword1">Mosaic (resolution cm/px)</label>
-															<input name="password" class="password form-control m-t-xxs" ng-model=dfmData.currentSubscription.Mosaic " id="exampleInputPassword1 "
-															    type="text ">
+															<input class="password form-control m-t-xxs" ng-model="dfmData.currentSubscription.Mosaic " id="exampleInputPassword1 " type="text ">
 														</div>
 
 														<div class="form-group ">
 															<label for="exampleInputPassword1 ">Activation date</label>
 															<input name="password " class="password form-control m-t-xxs " id="exampleInputPassword1 " type="text
-																			" ng-model="dfmData.currentSubscription.updatedAt | date:
-																			'yyyy-MM-dd'  ">
-																			
+" ng-model="dfmData.currentSubscription.updatedAt | date:
+'dd-MM-yyyy'  ">
 														</div>
 														<div class="form-group ">
 															<label for="exampleInputPassword1 ">Expiration date</label>
 															<input name="password " class="password form-control m-t-xxs " ng-model="dfmData.currentSubscription.expiryDate| date:
-																			'yyyy-MM-dd' " id="exampleInputPassword1 "
-															    type="text ">
+'dd-MM-yyyy' " id="exampleInputPassword1 " type="text ">
 														</div>
 														<div class="form-group ">
 															<label for="exampleInputPassword1 ">Change Plan</label>
-															<a href="https://unifli.aero/member-page"  target="blank" class="btn green m-t-xs bottom15-xs pull-right btn-pro ">Upgrade to Standard or PRO</a>
-
-
-
-														</div>
-														<div class="form-check ">
-															<div class="i-checks ">
-																<input type="checkbox " iCheck ng-model="main.unCheck2 ">
-																<strong><span style="color:#36918b ">Auto-Renewal</span></strong> </div>
+															<a href="https://unifli.aero/member-page " target="blank " class="btn green m-t-xs bottom15-xs pull-right
+															    btn-pro ">Upgrade to Standard or PRO</a>
 														</div>
 
-
+														<div class="form-check">
+															<div class="i-checks">
+																<input type="checkbox" iCheck ng-model="main.unCheck2">
+																<strong><span style="color:#36918b">Auto-Renewal</span></strong> </div>
+														</div>
 												</div>
-
-
 												</form>
 											</div>
 
@@ -190,20 +181,19 @@
 														<div class="form-group ">
 															<label for="exampleInputPassword1 ">New Password</label>
 															<input type="password " name="password " class="password form-control m-t-xxs " id="exampleInputPassword1
-																			" ng-model="password " type="password ">
+															    " ng-model="data.password " type="password ">
 														</div>
 														<div class="form-group ">
 															<label for="exampleInputPassword1 ">Re-password</label>
 															<input type="password " name="password " class="password form-control m-t-xxs " id="exampleInputPassword1
-																			" type="password ">
-														</div> 
-
-
+															    " type="password " ng-model="data.checkPassword ">
+														</div>
 													</form>
 												</div>
 											</div>
-											<button type="submit " class="btn green m-t-xs bottom15-xs pull-right " ng-click="updatePassword(password) ">Update</button>
+											<button type="submit " class="btn green m-t-xs bottom15-xs pull-right " ng-click="updatePassword(data) ">Update</button>
 										</div>
+
 									</div>
 								</uib-tab>
 							</uib-tabset>
@@ -248,14 +238,14 @@
 						<label class="control-label col-sm-4 " for="pwd ">Card Number</label>
 						<div class="col-sm-6 ">
 							<input type="text " class="form-control " id="pwd " ng-model="data1.cardNumber " placeholder="Enter card Number
-																			" name="pwd ">
+															    " name="pwd ">
 						</div>
 					</div>
 					<div class="form-group ">
 						<label class="control-label col-sm-4 " for="pwd ">CVV</label>
 						<div class="col-sm-6 ">
 							<input type="password " class="form-control " id="pwd " ng-model="data1.securityCode " placeholder="Enter CVV
-																			" name="pwd ">
+															    " name="pwd ">
 						</div>
 					</div>
 

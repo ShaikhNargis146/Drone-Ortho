@@ -798,61 +798,85 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("MemberPage"); //This is the Title of the Website
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.dfmData = [{
+        $scope.dt = new Date();
+        $scope.dt.setDate($scope.dt.getDate() + 30);
+        console.log("setdate is", $scope.dt)
+        if ($.jStorage.get("user")) {
+            $scope.dfmData = [{
+                name: "TRIAL",
+                invitations: "0",
+                missions: "20",
+                UploadPhoto: "500",
+                UploadSize: "4.9GB",
+                Mosaic: " 5",
+                exportKMZ: " 15",
+                exportOrthophoto: "USAGE LIMIT",
+                exportDEM: "USAGE LIMIT",
+                exportPointCloud: "false",
+                status: "Active",
+                amount: "0",
+                expiryDate: $scope.dt,
+            }, {
+                id: 1,
+                user: $.jStorage.get("user")._id,
+                name: "STANDARD",
+                invitations: "15",
+                missions: "50",
+                UploadPhoto: " 500",
+                UploadSize: "5GB ",
+                Mosaic: " 10",
+                exportKMZ: "15",
+                exportOrthophoto: "USAGE LIMIT",
+                exportDEM: "USAGE LIMIT",
+                exportPointCloud: "USAGE LIMIT",
+                status: "Active",
+                amount: "149",
+                expiryDate: $scope.dt,
+            }, {
 
-            name: "USAGE LIMIT",
-            invitations: "0",
-            missions: "20",
-            UploadPhoto: "500",
-            UploadSize: "4.9GB",
-            Mosaic: " 5",
-            exportKMZ: " 15",
-            exportOrthophoto: "USAGE LIMIT",
-            exportDEM: "USAGE LIMIT",
-            exportPointCloud: "false",
-        }, {
-            id: 1,
-            user: $.jStorage.get("user")._id,
-            name: "USAGE LIMIT",
-            invitations: "15",
-            missions: "50",
-            UploadPhoto: " 500",
-            UploadSize: "5GB ",
-            Mosaic: " 10",
-            exportKMZ: "15",
-            exportOrthophoto: "USAGE LIMIT",
-            exportDEM: "USAGE LIMIT",
-            exportPointCloud: "USAGE LIMIT",
-        }, {
-
-            id: 2,
-            user: $.jStorage.get("user")._id,
-            name: "USAGE LIMIT",
-            invitations: "25",
-            missions: "100",
-            UploadPhoto: "500",
-            UploadSize: " 10GB",
-            Mosaic: " 15",
-            exportKMZ: " 25",
-            exportOrthophoto: "USAGE LIMIT",
-            exportDEM: "USAGE LIMIT",
-            exportPointCloud: "USAGE LIMIT",
-
-        }]
+                id: 2,
+                user: $.jStorage.get("user")._id,
+                name: "PREMIUM",
+                invitations: "25",
+                missions: "100",
+                UploadPhoto: "500",
+                UploadSize: " 10GB",
+                Mosaic: " 15",
+                exportKMZ: " 25",
+                exportOrthophoto: "USAGE LIMIT",
+                exportDEM: "USAGE LIMIT",
+                exportPointCloud: "USAGE LIMIT",
+                status: "Active",
+                amount: "199",
+                expiryDate: $scope.dt,
+            }]
+        } else {
+            var dfmData = [];
+        }
 
 
 
         $scope.saveFreeTrial = function () {
             if ($.jStorage.get("user")) {
-                console.log("if condition")
+                console.log("trial data to save", $scope.dfmData[0])
+
+                NavigationService.apiCallWithData("DFMSubscription/save", $scope.dfmData[0], function (dfm) {
+                    console.log("dfm id is", dfm.data._id)
+                    $scope.dfmId = dfm.data._id;
+                    if (dfm.data._id) {
+                        var formdata = {};
+                        formdata._id = $.jStorage.get("user")._id;
+                        console.log("trial data to userid", formdata._id)
+                        formdata.currentSubscription = $scope.dfmId;
+                        console.log("trial data to current", formdata.currentSubscription)
+                        console.log("trial data to save", formdata)
+                        NavigationService.apiCallWithData("User/save", formdata, function (dfmData) {});
+                    }
+                });
 
             } else {
                 $state.go("member")
             }
-            $scope.FreeTrial = {};
-
-
-
         }
         $scope.saveStandard = function () {
             if ($.jStorage.get("user")) {
@@ -998,6 +1022,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         // }
 
     })
+
     .controller('ShippingCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $uibModal, $window) {
         $scope.template = TemplateService.changecontent("shipping"); //Use same name of .html file
         $scope.menutitle = NavigationService.makeactive("Shipping"); //This is the Title of the Website
@@ -1009,6 +1034,70 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.submitForm = function (data) {
             $scope.formSubmitted = true;
         };
+
+
+        $scope.dt = new Date();
+        $scope.dt.setDate($scope.dt.getDate() + 30);
+        $scope.formData = {};
+        if ($.jStorage.get("user")) {
+
+            $scope.dfmData = [{
+
+
+                name: "TRIAL",
+                invitations: "0",
+                missions: "20",
+                UploadPhoto: "500",
+                UploadSize: "4.9GB",
+                Mosaic: " 5",
+                exportKMZ: " 15",
+                exportOrthophoto: "USAGE LIMIT",
+                exportDEM: "USAGE LIMIT",
+                exportPointCloud: "false",
+                status: "Active",
+                amount: "0",
+                expiryDate: $scope.dt,
+            }, {
+                id: 1,
+                user: $.jStorage.get("user")._id,
+                name: "STANDARD",
+                invitations: "15",
+                missions: "50",
+                UploadPhoto: " 500",
+                UploadSize: "5GB ",
+                Mosaic: " 10",
+                exportKMZ: "15",
+                exportOrthophoto: "USAGE LIMIT",
+                exportDEM: "USAGE LIMIT",
+                exportPointCloud: "USAGE LIMIT",
+                status: "Active",
+                amount: "149",
+                expiryDate: $scope.dt,
+            }, {
+
+                id: 2,
+                user: $.jStorage.get("user")._id,
+                name: "PREMIUM",
+                invitations: "25",
+                missions: "100",
+                UploadPhoto: "500",
+                UploadSize: " 10GB",
+                Mosaic: " 15",
+                exportKMZ: " 25",
+                exportOrthophoto: "USAGE LIMIT",
+                exportDEM: "USAGE LIMIT",
+                exportPointCloud: "USAGE LIMIT",
+                status: "Active",
+                amount: "199",
+                expiryDate: $scope.dt,
+            }]
+
+        } else {
+            var dfmData = [];
+        }
+        $scope.id = $stateParams.id;
+        $scope.amount = $scope.dfmData[$scope.id].amount;
+
 
 
         $scope.saveData = function (data) {
@@ -1024,54 +1113,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             data.user = formdata.user
 
             if ($stateParams.id) {
-                console.log("inside if")
-                if ($.jStorage.get("user")) {
-
-                    $scope.dfmData = [{
-
-                        name: "USAGE LIMIT",
-                        invitations: "0",
-                        missions: "20",
-                        UploadPhoto: "500",
-                        UploadSize: "4.9GB",
-                        Mosaic: " 5",
-                        exportKMZ: " 15",
-                        exportOrthophoto: "USAGE LIMIT",
-                        exportDEM: "USAGE LIMIT",
-                        exportPointCloud: "false",
-                    }, {
-                        id: 1,
-                        user: $.jStorage.get("user")._id,
-                        name: "USAGE LIMIT",
-                        invitations: "15",
-                        missions: "50",
-                        UploadPhoto: " 500",
-                        UploadSize: "5GB ",
-                        Mosaic: " 10",
-                        exportKMZ: "15",
-                        exportOrthophoto: "USAGE LIMIT",
-                        exportDEM: "USAGE LIMIT",
-                        exportPointCloud: "USAGE LIMIT",
-                    }, {
-
-                        id: 2,
-                        user: $.jStorage.get("user")._id,
-                        name: "USAGE LIMIT",
-                        invitations: "25",
-                        missions: "100",
-                        UploadPhoto: "500",
-                        UploadSize: " 10GB",
-                        Mosaic: " 15",
-                        exportKMZ: " 25",
-                        exportOrthophoto: "USAGE LIMIT",
-                        exportDEM: "USAGE LIMIT",
-                        exportPointCloud: "USAGE LIMIT",
-
-                    }]
-
-                } else {
-                    var dfmData = [];
-                }
                 $scope.id = $stateParams.id;
                 NavigationService.apiCallWithData("DFMSubscription/save", $scope.dfmData[$scope.id], function (dfm) {
                     $scope.id = {
@@ -1080,7 +1121,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     if (dfm.data._id) {
                         data.dfmSubscription = dfm.data._id;
                         var dfmId = dfm.data._id;
-                        NavigationService.apiCallWithData("ProductOrders/save", data, function (data1) {
+                        NavigationService.apiCallWithData("ProductOrders/createInvoice", data, function (data1) {
                             $scope.Id = data1.data._id;
                             if (data1.data._id) {
                                 var formdata = {};
@@ -1091,10 +1132,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                         });
                     }
                 });
-
-
             } else {
-                console.log("inside else")
                 forProduct = {};
                 forProduct._id = $.jStorage.get("user")._id;
                 NavigationService.apiCallWithData("User/getOne", forProduct, function (data1) {
@@ -1142,7 +1180,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 $scope.formData.deliveryAddress.zip = "";
             }
         };
-
         if ($.jStorage.get("user")) {
             formdata = {};
             formdata._id = $.jStorage.get("user")._id;
@@ -1162,6 +1199,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }
             });
         }
+
         $scope.autoLocation = function () {
                 var input = document.getElementById('locationCity');
                 var autocomplete = new google.maps.places.Autocomplete(input);
@@ -1170,14 +1208,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 // // });
                 autocomplete.addListener('place_changed', function () {
                     $scope.addLocation();
-
-
                 });
-
             },
 
             $scope.addLocation = function () {
-
                 if (!_.isEmpty(document.getElementById("locationCity").value)) {
                     var valText = document.getElementById("locationCity").value;
                     console.log(valText)
@@ -1232,18 +1266,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             },
 
             $scope.cardDetailsPayment = function (data) {
-                console.log("data----------------------", data);
-                var date = new Date(data.date);
-                var year = date.getFullYear().toString().substr(-2);
-                var month = date.getMonth() + 1;
-                var m = month.toString().length;
-                if (m == 1) {
-                    month = "0" + month
-                }
-                console.log("year", year);
-                console.log("month", month);
                 // $scope.productId = $scope.Id
-                // NavigationService.apiCallWithData("ProductOrders/chargeCreditCard", data, function (data1) {});
+                NavigationService.apiCallWithData("ProductOrders/chargeCreditCard", data, function (data1) {
+                    console.log("-----------------------------", data1);
+                });
             }
 
         // 88888888888888********************************************
@@ -1288,8 +1314,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.open1 = function () {
             $scope.popup1.opened = true;
         };
-
-        ;
 
         $scope.setDate = function (year, month, day) {
             $scope.dt = new Date(year, month, day);

@@ -64,7 +64,15 @@ var controller = {
 
 
 	chargeCreditCard: function (req, res) {
-
+		if (req.body.expirationDate) {
+			var date = new Date(req.body.expirationDate);
+			var year = date.getFullYear().toString().substr(-2);
+			var month = date.getMonth() + 1;
+			var m = month.toString().length;
+			if (m == 1) {
+				month = "0" + month
+			}
+		}
 		var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
 		merchantAuthenticationType.setName(constants.apiLoginKey);
 		merchantAuthenticationType.setTransactionKey(constants.transactionKey);
@@ -72,7 +80,7 @@ var controller = {
 		var creditCard = new ApiContracts.CreditCardType();
 
 		creditCard.setCardNumber(req.body.cardNumber);
-		creditCard.setExpirationDate(req.body.expirationDate);
+		creditCard.setExpirationDate(month + year);
 		creditCard.setCardCode(req.body.cardCode);
 
 
@@ -238,6 +246,19 @@ var controller = {
 		// calculateRate: function (callback) {
 		// 	ups.rates({}, function (err, result) {});
 		// }
+	},
+
+	createInvoice: function (req, res) {
+		if (req.body) {
+			ProductOrders.createInvoice(req.body, res.callback);
+		} else {
+			res.json({
+				value: false,
+				data: {
+					message: "Invalid Request"
+				}
+			});
+		}
 	},
 
 };
