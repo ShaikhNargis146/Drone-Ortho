@@ -47,7 +47,19 @@ var controller = {
 				}
 			});
 		}
+	},
 
+	invoiceNumberGenerate: function (req, res) {
+		if (req.body) {
+			ProductOrders.invoiceNumberGenerate(req.body, res.callback);
+		} else {
+			res.json({
+				value: false,
+				data: {
+					message: "Invalid Request"
+				}
+			});
+		}
 	},
 
 
@@ -58,14 +70,17 @@ var controller = {
 		merchantAuthenticationType.setTransactionKey(constants.transactionKey);
 
 		var creditCard = new ApiContracts.CreditCardType();
+
 		creditCard.setCardNumber(req.body.cardNumber);
 		creditCard.setExpirationDate(req.body.expirationDate);
 		creditCard.setCardCode(req.body.cardCode);
+
 
 		var paymentType = new ApiContracts.PaymentType();
 		paymentType.setCreditCard(creditCard);
 
 		var orderDetails = new ApiContracts.OrderType();
+
 		orderDetails.setInvoiceNumber("99889");
 		orderDetails.setDescription('Product Description');
 
@@ -219,10 +234,12 @@ var controller = {
 			}
 			res.callback(null, response.messages);
 		});
-	}
-	// calculateRate: function (callback) {
-	// 	ups.rates({}, function (err, result) {});
-	// }
+
+		// calculateRate: function (callback) {
+		// 	ups.rates({}, function (err, result) {});
+		// }
+	},
+
 };
 
 

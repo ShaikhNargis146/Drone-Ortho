@@ -80,6 +80,7 @@
     "sails-disk": "~0.10.9",
     "sails-wohlig-controller": "latest",
     "sails-wohlig-service": "latest",
+    "sharp": "^0.18.4",
     "shipping-ups": "^0.5.7",
     "tiff-to-png": "^1.0.5",
     "unirest": "^0.5.1"

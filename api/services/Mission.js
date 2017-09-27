@@ -375,15 +375,11 @@ var model = {
                     if (m == 1) {
                         month = "0" + month
                         var missionId = "M" + year + month + nextnum;
-                        console.log("*********", missionId)
                     } else {
                         if (m == 2) {
-
                             var missionId = "m" + year + month + nextnum;
-                            console.log("*********", missionId)
                         }
                     }
-                    console.log("if  MissionId is emapty", missionId)
                     callback(null, missionId);
                 } else {
 

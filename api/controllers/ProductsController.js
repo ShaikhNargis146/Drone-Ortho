@@ -13,7 +13,7 @@ var controller = {
             })
         }
     },
-       productIdGenerate: function (req, res) {
+    productIdGenerate: function (req, res) {
         if (req.body) {
             Products.productIdGenerate(req.body, res.callback);
         } else {

@@ -252,25 +252,6 @@ var model = {
 
     //----------------------End----------------------//
 
-    UpdateUserDfm: function (data, callback) {
-        console.log("inside update User DFM", data)
-        User.update({
-            _id: data.user
-        }, {
-            $set: {
-                currentSubscription: data._id
-            }
-        }).deepPopulate("currentSubscription").exec(function (err, found) {
-            if (err) {
-                callback(err, null);
-            } else if (_.isEmpty(found)) {
-                callback(null, "noDataound");
-            } else {
-                callback(null, found);
-            }
-
-        });
-    },
 
     getByDfm: function (data, callback) {
         console.log("inside getbyDfm", data)
@@ -290,7 +271,6 @@ var model = {
     },
 
     addCardDetails: function (data, callback) {
-        console.log("data inside addCardDetails: ", data);
         User.update({
             _id: mongoose.Types.ObjectId(data._id)
         }, {
@@ -335,7 +315,6 @@ var model = {
     },
 
     Updateuser: function (data, callback) {
-        console.log("data is******", data)
 
         User.findOneAndUpdate({
             _id: mongoose.Types.ObjectId(data._id)
@@ -364,7 +343,6 @@ var model = {
         });
     },
     doLogin: function (data, callback) {
-        console.log("data", data)
         User.findOne({
             name: data.name,
             password: md5(data.password)
