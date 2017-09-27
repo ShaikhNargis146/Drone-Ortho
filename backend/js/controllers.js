@@ -1537,11 +1537,12 @@ firstapp
             if ($.jStorage.get("user")) {
                 missiondata.user = $.jStorage.get("user")._id;
                 NavigationService.apiCall("Mission/createMission", missiondata, function (data) {
-                    // if (data.value === true) {
                     $("#modal-4").modal();
-                    // } else {
-                    //     //  toastr.warning('Error submitting the form', 'Please try again');
-                    // }
+                    if (data.value === true) {
+                        $state.go("missions");
+                    } else {
+                        toastr.warning('Failed to create a mission');
+                    }
                 });
             }
         }

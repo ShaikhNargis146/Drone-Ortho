@@ -237,6 +237,7 @@ var models = {
 
 
     },
+
     moveFile: function (filename, callback) {
         var id = mongoose.Types.ObjectId();
         var extension = filename.split(".").pop();
@@ -265,6 +266,7 @@ var models = {
             }
         });
     },
+
     readUploaded: function (filename, width, height, style, res) {
         res.set({
             'Cache-Control': 'public, max-age=31557600',
@@ -382,6 +384,7 @@ var models = {
         }
         //error handling, e.g. file does not exist
     },
+
     readUploadedFromLocal: function (filename, width, height, style, res) {
         res.set({
             'Cache-Control': 'public, max-age=31557600',
@@ -488,6 +491,7 @@ var models = {
         }
         //error handling, e.g. file does not exist
     },
+
     import: function (name) {
         var jsonExcel = xlsx.parse(name);
         var retVal = [];
@@ -502,6 +506,7 @@ var models = {
         });
         return dataObj;
     },
+
     importGS: function (filename, callback) {
         var readstream = gfs.createReadStream({
             filename: filename
