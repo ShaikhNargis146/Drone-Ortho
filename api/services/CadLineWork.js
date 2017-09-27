@@ -140,11 +140,38 @@ var model = {
     },
 
 
+ createCad: function (data, callback) {
+        async.waterfall([
+            function (callback) { // generate cad id
+                CadLineWork.CadIdgenerate(data, function (err, data1) {
+                    callback(null, data1);
+                })
+            },
+            function (cadId, callback) { //create cad
+                data.cadId = cadId;
+                CadLineWork.saveData(data, function (err, found) {
+                    if (err || _.isEmpty(found)) {
+                        callback(err, []);
+                    } else {
+                        callback(null, found);
+                    }
+                });
+            }
+        ], function (err, data) { // execute Violation
+            if (err || _.isEmpty(data)) {
+                callback(null, "Error")
+            } else {
+                callback(null, data)
+            }
+        });
+    },
+    
     CadIdgenerate: function (data, callback) {
-        var temp;
+        console.log("inside CadIdgenerate",data);
         var findQuery = {};
-        var internalRequest = true;
-        if (internalRequest) {
+        var temp;
+        var internalRequest = false;
+        if (data.mission) {
             findQuery = {
                 cadId: {
                     $regex: '^CADI.*',
@@ -159,15 +186,15 @@ var model = {
                     $options: 'm'
                 }
             }
-         temp = "CADE"
+             temp = "CADE"
         }
         CadLineWork.findOne(findQuery).sort({
             createdAt: -1
         }).exec(function (err, found) {
-            if (err || _.isEmpty(found)) {
-                callback(err, []);
-            } else {
-                if (_.isEmpty(found.cadId)) {
+            if (err) {
+                callback(err, null);
+            }else {
+                if (_.isEmpty(found)) {
                     var year = new Date().getFullYear()
                     var month = new Date().getMonth();
                     var nextnum = "1"
@@ -183,6 +210,22 @@ var model = {
                     }
                     callback(null, cadId);
                 } else {
+                if (_.isEmpty(found.cadId)) {
+                    var year = new Date().getFullYear()
+                    var month = new Date().getMonth();
+                    var nextnum = "1"
+                    month = month + 1
+                    var m = month.toString().length;
+                    if (m == 1) {
+                        month = "0" + month
+                        var cadId = temp + year + month + nextnum;
+                    } else {
+                        if (m == 2) {
+                            var cadId = temp + year + month + nextnum;
+                        }
+                    }
+                    callback(null, cadId);
+                }else {
 
                     var cadId = found.cadId
                     var num = cadId.substring(10, 100)
@@ -201,124 +244,12 @@ var model = {
                     }
                     callback(null, cadId);
                 }
-            }
-        });
-    },
-    
-    InternalCadIdgenerate: function (data, callback) {
-        console.log("cad id data is", data)
-        CadLineWork.find({}).sort({
-            createdAt: -1
-        }).limit(1).exec(function (err, found) {
-            console.log("cad id data found", found)
-            if (err) {
-                callback(err, null);
-            } else {
-                if (_.isEmpty(found)) {
-                    callback(null, "noDataFound");
-                }
-                if (_.isEmpty(found[0].internalId)) {
-                    var year = new Date().getFullYear()
-                    var month = new Date().getMonth();
-                    var nextnum = "1"
-                    month = month + 1
-                    var m = month.toString().length;
-                    if (m == 1) {
-                        month = "0" + month
-                        var internalId = "CADE" + year + month + nextnum;
-                        console.log("*********", externalId)
-                    } else {
-                        if (m == 2) {
-
-                            var internalId = "CADE" + year + month + nextnum;
-                            console.log("*********", internalId)
-                        }
-                    }
-                    console.log("if  cdid is emapty", internalId)
-                    callback(null, internalId);
-                } else {
-
-                    var internalId = found[0].internalId
-                    var num = internalId.substring(10, 100)
-                    var nextnum = parseInt(num) + 1
-                    var year = new Date().getFullYear()
-                    var month = new Date().getMonth();
-                    month = month + 2
-                    var m = month.toString().length;
-                    if (m == 1) {
-                        month = "0" + month
-                        var internalId = "CADI" + year + month + nextnum;
-                        console.log("cad id data found*********", internalId)
-                    } else {
-                        if (m == 2) {
-                            var internalId = "CADI" + year + month + nextnum;
-                            console.log("cad id data found*********", internalId)
-                        }
-                    }
-                    callback(null, internalId);
                 }
             }
+
         });
     },
-
-    ExternalCadIdgenerate: function (data, callback) {
-        console.log("cad id data is", data)
-        CadLineWork.find({}).sort({
-            createdAt: -1
-        }).limit(1).exec(function (err, found) {
-            console.log("cad id data found", found)
-            if (err) {
-                callback(err, null);
-            } else {
-
-                if (_.isEmpty(found)) {
-
-                    callback(null, "noDataFound");
-                }
-                if (_.isEmpty(found[0].externalId)) {
-                    var year = new Date().getFullYear()
-                    var month = new Date().getMonth();
-                    var nextnum = "1"
-                    month = month + 1
-                    var m = month.toString().length;
-                    if (m == 1) {
-                        month = "0" + month
-                        var externalId = "CADE" + year + month + nextnum;
-                        console.log("*********", externalId)
-                    } else {
-                        if (m == 2) {
-
-                            var externalId = "CADE" + year + month + nextnum;
-                            console.log("*********", externalId)
-                        }
-                    }
-                    console.log("if  cdid is emapty", externalId)
-                    callback(null, externalId);
-                } else {
-
-                    var externalId = found[0].externalId
-                    var num = externalId.substring(10, 100)
-                    var nextnum = parseInt(num) + 1
-                    var year = new Date().getFullYear()
-                    var month = new Date().getMonth();
-                    month = month + 1
-                    var m = month.toString().length;
-                    if (m == 1) {
-                        month = "0" + month
-                        var externalId = "CADE" + year + month + nextnum;
-                        console.log("cad id data found*********", externalId)
-                    } else {
-                        if (m == 2) {
-
-                            var externalId = "CADE" + year + month + nextnum;
-                            console.log("cad id data found*********", externalId)
-                        }
-                    }
-                    callback(null, externalId);
-                }
-            }
-        });
-    },
+  
 
     getSingleCadData: function (data, callback) {
         this.findOne({
