@@ -44,6 +44,7 @@ module.exports.routes = {
         skipAssets: true,
         skipRegex: /api|backend/i
     },
+
     'GET /*': {
         controller: "WebController",
         action: "index",
@@ -63,6 +64,10 @@ module.exports.routes = {
         controller: "WebController",
         action: "backend",
         skipAssets: true
+    },
+    'GET /pdf/:filename': {
+        controller: "WebController",
+        action: "getPdf"
     },
 
     /***************************************************************************
