@@ -906,6 +906,14 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             } else {
                 $state.go("member")
             }
+             $uibModal.open({
+                animation: true,
+                templateUrl: 'frontend/views/content/Modal/freetrial.html',
+                scope: $scope,
+                size: 'md'
+                    // windowClass: "login-modal"
+
+            });
         }
         $scope.saveStandard = function () {
             if ($.jStorage.get("user")) {
@@ -959,6 +967,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.formData = {};
         $scope.test = function (size, formData) {
             $scope.formData.lisence = "NDB"
+             $scope.formData.status = "Active"
             NavigationService.apiCallWithData("User/registerUser", formData, function (data) {
                 if (data.value === true) {
                     // console.log("data saved successfully", data)
