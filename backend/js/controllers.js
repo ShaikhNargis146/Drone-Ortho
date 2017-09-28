@@ -4,9 +4,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 //     mapboxgl.accessToken = 'pk.eyJ1IjoibmFpbWlrYW4iLCJhIjoiY2lraXJkOXFjMDA0OXdhbTYzNTE0b2NtbiJ9.O64XgZQHNHcV2gwNLN2a0Q';
 // }])
 firstapp
+ 
 
-
-    .controller('DashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+  .controller('DashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
 
         $scope.template = TemplateService.changecontent("dashboard");
@@ -17,10 +17,11 @@ firstapp
         // $scope.accessLevel = "user";
         // $scope.accessLevel = "admin";
         // $scope.accessLevel = "vendor";
+
+         $scope.accessLevel = $.jStorage.get("user").accessLevel;
+         
         // *************************************************chart for user**********************************************************************************************************
         //
-
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
         // Standard Chart Example
         //
         $scope.data1 = [
@@ -56,6 +57,7 @@ firstapp
             [gd(2012, 1, 30), 8],
             [gd(2012, 1, 31), 25]
         ];
+
         $scope.data2 = [
             [gd(2012, 1, 1), 800],
             [gd(2012, 1, 2), 500],
@@ -211,7 +213,7 @@ firstapp
                     label: {
                         show: true,
                         formatter: function (label, point) {
-                            return (point.percent.toFixed(2) + '$');
+                            return (label + point.percent.toFixed(2) + '');
 
                         }
                     }
@@ -230,7 +232,7 @@ firstapp
         //
         // Standard Chart Example
         //
-        $scope.data1 = [
+        $scope.data3 = [
             [gd(2012, 1, 1), 7],
             [gd(2012, 1, 2), 6],
             [gd(2012, 1, 3), 4],
@@ -263,7 +265,7 @@ firstapp
             [gd(2012, 1, 30), 8],
             [gd(2012, 1, 31), 25]
         ];
-        $scope.data2 = [
+        $scope.data4 = [
             [gd(2012, 1, 1), 21],
             [gd(2012, 1, 2), 13],
             [gd(2012, 1, 3), 25],
@@ -296,12 +298,12 @@ firstapp
             [gd(2012, 1, 30), 55],
             [gd(2012, 1, 31), 99]
         ];
-        $scope.dataset = [{
+        $scope.datasetadmin = [{
                 label: "Internal CAD",
                 grow: {
                     stepMode: "linear"
                 },
-                data: $scope.data2,
+                data: $scope.data4,
                 color: "#41d0c8",
                 bars: {
                     show: true,
@@ -316,7 +318,7 @@ firstapp
                 grow: {
                     stepMode: "linear"
                 },
-                data: $scope.data1,
+                data: $scope.data3,
                 yaxis: 2,
                 color: "#2a2a2a",
                 lines: {
@@ -338,7 +340,7 @@ firstapp
         ];
 
 
-        $scope.options = {
+        $scope.optionsadmin = {
             grid: {
                 hoverable: true,
                 clickable: true,
@@ -384,9 +386,9 @@ firstapp
             }
         };
 
-        // function gd(year, month, day) {
-        //     return new Date(year, month - 1, day).getTime();
-        // }
+        function gd(year, month, day) {
+            return new Date(year, month - 1, day).getTime();
+        }
 
         //
         // Pie Chart Example of order
@@ -418,7 +420,7 @@ firstapp
                     label: {
                         show: true,
                         formatter: function (label, point) {
-                            return (point.percent.toFixed(2) + '' + label);
+                            return (point.percent.toFixed(2) + '$');
 
                         }
                     }
@@ -461,7 +463,7 @@ firstapp
                     label: {
                         show: true,
                         formatter: function (label, point) {
-                            return (point.percent.toFixed(2) + '$' + label);
+                            return (label + ' ' + point.percent.toFixed(2));
 
                         }
                     }
@@ -504,7 +506,8 @@ firstapp
                     label: {
                         show: true,
                         formatter: function (label, point) {
-                            return (point.percent.toFixed(2) + '$' + label);
+
+                            return (label + ' $' + point.percent.toFixed(2));
 
                         }
                     }
