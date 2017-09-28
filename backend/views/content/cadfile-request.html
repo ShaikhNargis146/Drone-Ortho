@@ -150,7 +150,7 @@
     </div>
   </div>-->
 
-  <div class="modal fade modal-x" tabindex="-1" role="dialog">
+  <div class="modal fade modal-x modal-z" tabindex="-1" role="dialog">
     <div class="modal-dialog ">
       <div class="modal-content">
         <div class="modal-header" style="background-color:#36918b">
@@ -183,7 +183,7 @@
               <label class="control-label col-sm-4" for="pwd">Upload Orthomosaic</label>
               <div class="col-sm-6">
                 <!--<upload-image multiple="true" required ng-model="data.orthoFile"></upload-image>-->
-                <upload-image-files ng-model="data.orthoFile" no-view="true" multiple="true" ng-disabled="type.disabled"></upload-image-files>
+                <upload-image-files ng-model="data.orthoFile" no-view multiple="true" ng-disabled="type.disabled"></upload-image-files>
 
               </div>
             </div>
@@ -205,6 +205,9 @@
         <div class="modal-footer">
           <button type="button" class="btn green btn-outline" data-dismiss="modal">Close</button>
 
+        </div>
+        <div class="loading-img-modal">
+          <img src="img/loading.gif" class="img-responsive">
         </div>
       </div>
     </div>
