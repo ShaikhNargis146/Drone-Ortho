@@ -30,18 +30,15 @@
                 <label for="exampleInputPassword1" class="col-sm-4 control-label">To date</label>
                 <!--<input name="password" class="password form-control m-t-xxs" id="exampleInputPassword1" type="password">-->
                 <div class="col-sm-5">
-                    <!--<div class="input-group">-->
-                    <p class="input-group">
-                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data1.expirationDate" is-open="popup1.opened"
-                            datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"
-                        />
-                        <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
-          </span>
-                    </p>
-                    <!--<input type="datetime" class="form-control" uib-datepicker-popup is-open="popup1.opened" ng-required="true" close-text="Close">
-                        <span class="input-group-addon" ng-click="open1()" style="cursor: pointer;"><i class="fa fa-calendar" ng-model="sampleDate"></i></span>-->
-                    <!--</div>-->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" uib-datepicker-popup is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true"
+                                close-text="Close" ng-model="enquiryInfo.enquirerdate">
+                            <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="openDatePicker();"><i class="glyphicon glyphicon-calendar" ></i></button>
+                                        </span>
+                        </div>
+                    </div>
                 </div>
 
             </div>

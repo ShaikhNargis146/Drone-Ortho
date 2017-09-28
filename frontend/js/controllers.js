@@ -116,6 +116,32 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
 
     })
+    .controller('ThankyouCtrl', function ($scope, TemplateService, NavigationService, $timeout) {
+        $scope.template = TemplateService.changecontent("thankyou"); //Use same name of .html file
+        $scope.menutitle = NavigationService.makeactive("Thankyou"); //This is the Title of the Website
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+
+        $scope.formSubmitted = false;
+
+        $scope.submitForm = function (data) {
+            console.log(data);
+            $scope.formSubmitted = true;
+        }
+    })
+    .controller('SorryCtrl', function ($scope, TemplateService, NavigationService, $timeout) {
+        $scope.template = TemplateService.changecontent("sorry"); //Use same name of .html file
+        $scope.menutitle = NavigationService.makeactive("Sorry"); //This is the Title of the Website
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+
+        $scope.formSubmitted = false;
+
+        $scope.submitForm = function (data) {
+            console.log(data);
+            $scope.formSubmitted = true;
+        }
+    })
     .controller('FormCtrl', function ($scope, TemplateService, NavigationService, $timeout) {
         $scope.template = TemplateService.changecontent("form"); //Use same name of .html file
         $scope.menutitle = NavigationService.makeactive("Form"); //This is the Title of the Website
@@ -1084,7 +1110,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
         $scope.id = $stateParams.id;
         $scope.amount = $scope.dfmData[$scope.id].amount;
- $scope.saveData = function (data) {
+        $scope.saveData = function (data) {
             $scope.deliveryAddress = {
                 city: data.city,
                 country: data.country,
@@ -1097,8 +1123,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             data.user = formdata.user
 
             if ($stateParams.id) {
-                 $scope.id = $stateParams.id;
-        $scope.amount = $scope.dfmData[$scope.id].amount;
+                $scope.id = $stateParams.id;
+                $scope.amount = $scope.dfmData[$scope.id].amount;
                 // $scope.id = $stateParams.id;
                 NavigationService.apiCallWithData("DFMSubscription/save", $scope.dfmData[$scope.id], function (dfm) {
                     $scope.id = {
