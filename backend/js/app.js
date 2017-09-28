@@ -452,7 +452,7 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                     $(".loading-img-modal").css("display", "block");
 
                     $timeout(function () {
-                        async.eachLimit(newVal, 2, function (image, callback) {
+                        async.eachLimit(newVal, 1, function (image, callback) {
                             // Perform operation on file here.
                             console.log('Processing file ' + image);
                             if (image && image.file) {
