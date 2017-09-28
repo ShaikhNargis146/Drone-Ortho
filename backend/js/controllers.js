@@ -4,9 +4,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 //     mapboxgl.accessToken = 'pk.eyJ1IjoibmFpbWlrYW4iLCJhIjoiY2lraXJkOXFjMDA0OXdhbTYzNTE0b2NtbiJ9.O64XgZQHNHcV2gwNLN2a0Q';
 // }])
 firstapp
- 
 
-  .controller('DashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+
+    .controller('DashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
 
         $scope.template = TemplateService.changecontent("dashboard");
@@ -18,16 +18,11 @@ firstapp
         // $scope.accessLevel = "admin";
         // $scope.accessLevel = "vendor";
 
-         $scope.accessLevel = $.jStorage.get("user").accessLevel;
-         
-        // *************************************************chart for user**********************************************************************************************************
-        //
-<<<<<<< HEAD
+
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
-=======
->>>>>>> ea281bd8815032d75cafa59a97861bdba4b9e197
+
         // Standard Chart Example
         //
         $scope.data1 = [
