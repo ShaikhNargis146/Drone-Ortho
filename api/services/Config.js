@@ -110,14 +110,15 @@ var models = {
         var env = {};
         obj.name = page.name;
         obj.lname = page.lname;
-        obj.oraganization = page.oraganization;
+        obj.organization = page.organization;
         obj.city = page.shippingAddress.city;
         obj.country = page.shippingAddress.country;
         obj.state = page.shippingAddress.state;
         obj.createdAt = page.createdAt;
         obj.status = page.status;
         obj.phonenumber = page.phonenumber;
-        obj.apartment = page.apartment
+        obj.apartment = page.apartment;
+        obj.invoiceNo = page.invoiceNo;
         var i = 0;
 
         var file = "cad_invoice";
@@ -126,9 +127,8 @@ var models = {
                 console.log("errr", err);
                 callback(err);
             } else {
-                console.log("else");
                 var path = "pdf/";
-                var newFilename = page._id + file + ".pdf";
+                var newFilename = page.invoiceNo + ".pdf";
                 var writestream = fs.createWriteStream(path + newFilename);
                 writestream.on('finish', function (err, res) {
                     if (err) {
@@ -526,6 +526,7 @@ var models = {
             callback(null, Config.import(buffer));
         });
     },
+
     generateExcel: function (name, found, res) {
         // name = _.kebabCase(name);
         var excelData = [];
@@ -570,6 +571,7 @@ var models = {
             return undefined;
         }
     },
+
     downloadFromUrl: function (url, callback) {
         var dest = "./.tmp/" + moment().valueOf() + "-" + _.last(url.split("/"));
         var file = fs.createWriteStream(dest);

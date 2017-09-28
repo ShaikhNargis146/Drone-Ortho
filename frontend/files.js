@@ -23,6 +23,9 @@ module.exports = [
     'bower_components/highcharts-ng/dist/highcharts-ng.js',
     "bower_components/moment/min/moment.min.js",
     'frontend/js/plugins/datapicker/angular-datepicker.js',
+    "bower_components/angular-toastr/dist/angular-toastr.js",
+    "bower_components/angular-toastr/dist/angular-toastr.tpls.js",
+
     // /home/wohlig / Documents / htdocs / unifli - backend / frontend / js / plugins / datapicker
     //Work files
     'frontend/js/app.js',

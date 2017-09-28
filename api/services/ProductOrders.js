@@ -101,6 +101,17 @@ var model = {
     invoiceGenerate: function (data, callback) {
         async.waterfall([
                 function (callback) {
+                    ProductOrders.findOne({
+                        invoiceNo: data.invoiceNo
+                    }).exec(function (err, data) {
+                        if (err || _.isEmpty(data)) {
+                            callback(err, [])
+                        } else {
+                            callback(null, data);
+                        }
+                    })
+                },
+                function (complete, callback) {
                     Config.generatePdf(complete, function (err, data) {
                         if (err) {
                             // console.log(err);
@@ -119,17 +130,15 @@ var model = {
                         _id: pdfData.id
                     }, {
                         $set: {
-                            pdf: pdfData.name
+                            pdf: pdfData.name,
+                            status: 'Paid'
                         }
                     }).exec(function (err, found) {
                         if (err) {
-                            console.log("inside error");
                             callback(err, null);
                         } else if (_.isEmpty(found)) {
-                            console.log("isemapty")
                             callback(null, "noDataound");
                         } else {
-                            console.log("found", found)
                             callback(null, found);
                         }
 

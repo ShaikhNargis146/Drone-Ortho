@@ -4,9 +4,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 //     mapboxgl.accessToken = 'pk.eyJ1IjoibmFpbWlrYW4iLCJhIjoiY2lraXJkOXFjMDA0OXdhbTYzNTE0b2NtbiJ9.O64XgZQHNHcV2gwNLN2a0Q';
 // }])
 firstapp
+ 
 
-
-    .controller('DashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+  .controller('DashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
 
         $scope.template = TemplateService.changecontent("dashboard");
@@ -17,10 +17,17 @@ firstapp
         // $scope.accessLevel = "user";
         // $scope.accessLevel = "admin";
         // $scope.accessLevel = "vendor";
+
+         $scope.accessLevel = $.jStorage.get("user").accessLevel;
+         
         // *************************************************chart for user**********************************************************************************************************
         //
-
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+<<<<<<< HEAD
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        }
+=======
+>>>>>>> ea281bd8815032d75cafa59a97861bdba4b9e197
         // Standard Chart Example
         //
         $scope.data1 = [
@@ -56,6 +63,7 @@ firstapp
             [gd(2012, 1, 30), 8],
             [gd(2012, 1, 31), 25]
         ];
+
         $scope.data2 = [
             [gd(2012, 1, 1), 800],
             [gd(2012, 1, 2), 500],
@@ -211,7 +219,7 @@ firstapp
                     label: {
                         show: true,
                         formatter: function (label, point) {
-                            return (point.percent.toFixed(2) + '$');
+                            return (label + point.percent.toFixed(2) + '');
 
                         }
                     }
@@ -230,7 +238,7 @@ firstapp
         //
         // Standard Chart Example
         //
-        $scope.data1 = [
+        $scope.data3 = [
             [gd(2012, 1, 1), 7],
             [gd(2012, 1, 2), 6],
             [gd(2012, 1, 3), 4],
@@ -263,7 +271,7 @@ firstapp
             [gd(2012, 1, 30), 8],
             [gd(2012, 1, 31), 25]
         ];
-        $scope.data2 = [
+        $scope.data4 = [
             [gd(2012, 1, 1), 21],
             [gd(2012, 1, 2), 13],
             [gd(2012, 1, 3), 25],
@@ -296,12 +304,12 @@ firstapp
             [gd(2012, 1, 30), 55],
             [gd(2012, 1, 31), 99]
         ];
-        $scope.dataset = [{
+        $scope.datasetadmin = [{
                 label: "Internal CAD",
                 grow: {
                     stepMode: "linear"
                 },
-                data: $scope.data2,
+                data: $scope.data4,
                 color: "#41d0c8",
                 bars: {
                     show: true,
@@ -316,7 +324,7 @@ firstapp
                 grow: {
                     stepMode: "linear"
                 },
-                data: $scope.data1,
+                data: $scope.data3,
                 yaxis: 2,
                 color: "#2a2a2a",
                 lines: {
@@ -338,7 +346,7 @@ firstapp
         ];
 
 
-        $scope.options = {
+        $scope.optionsadmin = {
             grid: {
                 hoverable: true,
                 clickable: true,
@@ -384,9 +392,9 @@ firstapp
             }
         };
 
-        // function gd(year, month, day) {
-        //     return new Date(year, month - 1, day).getTime();
-        // }
+        function gd(year, month, day) {
+            return new Date(year, month - 1, day).getTime();
+        }
 
         //
         // Pie Chart Example of order
@@ -418,7 +426,7 @@ firstapp
                     label: {
                         show: true,
                         formatter: function (label, point) {
-                            return (point.percent.toFixed(2) + '' + label);
+                            return (point.percent.toFixed(2) + '$');
 
                         }
                     }
@@ -461,7 +469,7 @@ firstapp
                     label: {
                         show: true,
                         formatter: function (label, point) {
-                            return (point.percent.toFixed(2) + '$' + label);
+                            return (label + ' ' + point.percent.toFixed(2));
 
                         }
                     }
@@ -504,7 +512,8 @@ firstapp
                     label: {
                         show: true,
                         formatter: function (label, point) {
-                            return (point.percent.toFixed(2) + '$' + label);
+
+                            return (label + ' $' + point.percent.toFixed(2));
 
                         }
                     }
@@ -619,7 +628,9 @@ firstapp
         $scope.navigation = NavigationService.getnav();
         // $scope.accessLevel = "User";
         // $scope.accessLevel = "Admin";
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        }
         $scope._id = {
             _id: $stateParams.productId
         };
@@ -635,7 +646,9 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("TicketHistory");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        }
         var ticket = {};
         ticket._id = $stateParams.ticketId;
         NavigationService.apiCallWithData("Ticket/getOne", ticket, function (data) {
@@ -653,8 +666,9 @@ firstapp
         $scope.navigation = NavigationService.getnav();
         // $scope.accessLevel = "User";
         // $scope.accessLevel = "Admin";
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
-
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        }
 
         //pagination user
         if ($scope.accessLevel == "User") {
@@ -809,7 +823,9 @@ firstapp
         // $scope.accessLevel = "User";
         // $scope.accessLevel = "Admin";
 
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        }
         if ($scope.accessLevel == "Admin") {
 
             //pagination admin
@@ -961,7 +977,9 @@ firstapp
         // $scope.accessLevel = "User";
         // $scope.accessLevel = "Admin";
         $scope.profileDetails = $.jStorage.get("user");
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        }
         $scope.cadLineDetails = {}
         var mission = {};
         mission._id = $stateParams.missionId;
@@ -1362,7 +1380,9 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("MailDetail");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        }
     })
 
     .controller('MailComposeCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
@@ -1371,7 +1391,9 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("MailCompose");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        }
         $scope.submitTicket = function (data1) {
 
             $scope.data = {
@@ -1402,7 +1424,9 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("IssueTracker");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        }
     })
 
     .controller('InvoiceViewCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
@@ -1411,7 +1435,9 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("InvoiceView");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        }
     })
 
 
@@ -1421,15 +1447,18 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Invoice");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
-
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        }
         var formdata = {};
-        formdata.user = $.jStorage.get("user")._id;
+        if ($.jStorage.get("user")) {
+            formdata.user = $.jStorage.get("user")._id;
+        }
 
         //pagination user
-
-        var userId = $.jStorage.get("user")._id;
-
+        if ($.jStorage.get("user")) {
+            var userId = $.jStorage.get("user")._id;
+        }
         var i = 0;
         if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
             $scope.currentPage = $stateParams.page;
@@ -1469,7 +1498,7 @@ firstapp
                     function (data, ini) {
                         if (ini == i) {
                             $scope.productData = data.data.results;
-                            console.log("$scope.productData ",$scope.productData )
+                            console.log("$scope.productData ", $scope.productData)
                             $scope.totalItems = data.data.total;
                             $scope.maxRow = data.data.options.count;
                         }
@@ -1519,7 +1548,9 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("ForgotPassword");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        }
     })
 
     .controller('CreatemissionCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
@@ -1529,7 +1560,9 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("CreateMission");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        }
         $scope.profile = $.jStorage.get("user");
         console.log(" CreatemissionCtrl.accessLevel", $scope.accessLevel)
         $scope.date = new Date();
@@ -1556,8 +1589,9 @@ firstapp
         // $scope.accessLevel = "Admin";
         // $scope.accessLevel = "Vendor";
         $scope.profileDetails = $.jStorage.get("user");
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
-
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        }
         $scope.formData = {};
         var cad = {};
         cad._id = $stateParams.cadId;
@@ -2056,7 +2090,9 @@ firstapp
         // $scope.accessLevel = "User";
         // $scope.accessLevel = "Admin";
         // $scope.accessLevel = "Vendor";
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        }
         $scope.cadOpen = function () {
             $uibModal.open({
                 animation: true,
@@ -2300,7 +2336,9 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("AccandSub");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        }
         $scope.formdata = {};
         $scope.formdata.data = $.jStorage.get("user");
         $scope.formdata1 = {};
@@ -2327,7 +2365,8 @@ firstapp
 
 
         $scope.updatePassword = function (password) {
-            var check = _.isEqual(password.checkPassword, password.password)
+            var check = _.isEqual(password.checkPassword, password.password);
+            password._id = $.jStorage.get("user")._id;
             if (check == true) {
                 NavigationService.apiCallWithData("User/Updatepassword", password, function (data) {
                     if (data.value == true) {
@@ -2468,8 +2507,9 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Users");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
-        //pagination admin
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        } //pagination admin
 
         var i = 0;
         if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
@@ -2842,15 +2882,36 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("UsersDetails");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
-        $scope._id = {
-            _id: $stateParams.userId
-        };
-        NavigationService.apiCallWithData("User/getUser", $scope._id, function (data) {
-            if (data.value == true) {
-                $scope.UserDetailInfo = data.data;
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+            $scope.formdata1 = {};
+            $scope.formdata1.user = $stateParams.userId;
+            $scope.formdata = {};
+            $scope.formdata._id = $stateParams.userId;
+            NavigationService.apiCallWithData("User/getByDfm", $scope.formdata1, function (dfm) {
+                $scope.dfmData = dfm.data
+            });
+            NavigationService.apiCallWithData("Mission/totalMission", $scope.formdata1, function (mission) {
+                $scope.totalMission = mission.data;
+            });
+            NavigationService.apiCallWithData("CadLineWork/totalCadReq", $scope.formdata1, function (cadReq) {
+                $scope.totalCadReq = cadReq.data;
+            });
+
+            $scope.setStatus = function (status1) {
+                console.log("inside setStatus", status1)
+                $scope.formdata.status = status1.status
+                NavigationService.apiCallWithData("User/save", $scope.formdata, function (dfm) {
+
+                });
+
             }
-        });
+            $scope.setAccLevel = function (accessLevel1) {
+                console.log("inside setAccLevel", accessLevel1)
+                $scope.formdata.accessLevel = accessLevel1.accessLevel
+                NavigationService.apiCallWithData("User/save", $scope.formdata, function (dfm) {});
+            }
+        }
     })
     // ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** FOR ADMIN ONLY ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** *
     // ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** FOR VENDOR ONLY ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ****//
@@ -4203,11 +4264,11 @@ firstapp
 
     //     })
     .controller('AccessController', function ($scope, TemplateService, NavigationService, $timeout, $state) {
-        // if ($.jStorage.get("accessToken")) {
+        if ($.jStorage.get("accessToken")) {
 
-        // } else {
-        //     $state.go("login");
-        // }
+        } else {
+            $state.go("login");
+        }
     })
 
     //     .controller('JagzCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, $interval) {
@@ -4766,49 +4827,54 @@ firstapp
     //         };
     //     })
 
-    //     .controller('LoginCtrl', function ($scope, TemplateService, NavigationService, $timeout, $stateParams, $state, toastr) {
-    //         //Used to name the .html file
-    //         $scope.template = TemplateService.changecontent("login");
-    //         $scope.menutitle = NavigationService.makeactive("Login");
-    //         TemplateService.title = $scope.menutitle;
-    //         $scope.currentHost = window.location.origin;
-    //         // if ($stateParams.id) {
-    //         //     if ($stateParams.id === "AccessNotAvailable") {
-    //         //         toastr.error("You do not have access for the Backend.");
-    //         //     } else {
-    //         //         NavigationService.parseAccessToken($stateParams.id, function () {
-    //         //             NavigationService.profile(function () {
-    //         //                 $state.go("dashboard");
-    //         //             }, function () {
-    //         //                 $state.go("login");
-    //         //             });
-    //         //         });
-    //         //     }
-    //         // } else {
-    //         //     NavigationService.removeAccessToken();
-    //         // }
-    //         $scope.login = function (formData) {
-    //             console.log("login", formData);
-    //             NavigationService.apiCall("User/login", formData, function (data) {
-    //                 if (data.value === true) {
-    //                     $scope.profileDetails = data.data;
-    //                     NavigationService.parseAccessToken(data.data._id, function () {
-    //                         NavigationService.profile(function () {
-    //                             $scope.template.profile = data.data;
-    //                             $state.go("dashboard");
-    //                         }, function () {
-    //                             $state.go("login");
-    //                         });
-    //                     });
-    //                     console.log("profileDetails found successfully", $scope.profileDetails);
-    //                 } else {
-    //                     //  toastr.warning('Error submitting the form', 'Please try again');
-    //                 }
-    //             });
-    //         }
+    .controller('LoginCtrl', function ($scope, TemplateService, NavigationService, $timeout, $stateParams, $state, toastr) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("login");
+        $scope.menutitle = NavigationService.makeactive("Login");
+        TemplateService.title = $scope.menutitle;
+        $scope.currentHost = window.location.origin;
+        // if ($stateParams.id) {
+        //     if ($stateParams.id === "AccessNotAvailable") {
+        //         toastr.error("You do not have access for the Backend.");
+        //     } else {
+        //         NavigationService.parseAccessToken($stateParams.id, function () {
+        //             NavigationService.profile(function () {
+        //                 $state.go("dashboard");
+        //             }, function () {
+        //                 $state.go("login");
+        //             });
+        //         });
+        //     }
+        // } else {
+        //     NavigationService.removeAccessToken();
+        // }
+        $scope.loginUser = function (formData) {
+            NavigationService.apiCall("User/login", formData, function (data) {
+                if (data.value === true) {
+                    $scope.profileDetails = data.data;
+                    NavigationService.parseAccessToken(data.data._id, function () {
+                        NavigationService.profile(function () {
+                            $scope.template.profile = data.data;
+                            $state.go("dashboard");
+                        }, function () {
+                            $state.go("login");
+                        });
+                    });
+                    console.log("profileDetails found successfully", $scope.profileDetails);
+                } else {
+                    //  toastr.warning('Error submitting the form', 'Please try again');
+                }
+            });
+        }
 
+        $scope.logout = function () {
+            NavigationService.removeAccessToken("", function () {
+                $state.go("login");
+            });
+            $.jStorage.flush();
+        }
 
-    //     })
+    })
 
     //     .controller('CountryCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, $stateParams, toastr) {
     //         //Used to name the .html file
@@ -5383,10 +5449,14 @@ firstapp
         $scope.loginUser = function (info) {
             NavigationService.apiCallWithData("User/login", info, function (data) {
                 if (data.value == true) {
-                    $scope.user = data.data;
-                    $.jStorage.set("user", data.data);
-                    $scope.template.profile = data.data.data;
-                    $state.go("dashboard");
+                    NavigationService.parseAccessToken(data.data._id, function () {
+                        NavigationService.profile(function () {
+                            $scope.template.profile = data.data;
+                            $state.go("dashboard");
+                        }, function () {
+                            $state.go("login");
+                        });
+                    });
                 } else {
                     toastr.error('Incorrect credentials');
                 }

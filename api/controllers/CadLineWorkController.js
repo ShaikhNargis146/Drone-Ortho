@@ -22,32 +22,26 @@ var controller = {
         }
     },
 
-   CadIdgenerate: function (req, res) {
+    createCad: function (req, res) {
         if (req.body) {
-            CadLineWork.CadIdgenerate(req.body, res.callback);
+            CadLineWork.createCad(req.body, function (err, cadData) {
+                res.callback(null, cadData);
+                console.log('m in external cad', cadData);
+                if (!cadData.mission) {
+                    controller.generatePng(cadData, res.callback);
+                }
+            });
         } else {
             res.json({
                 value: false,
                 data: {
                     message: "Invalid Request"
                 }
-            });
+            })
         }
-
     },
-      createCad: function (req, res) {
-        if (req.body) {
-            CadLineWork.createCad(req.body, res.callback);
-        } else {
-            res.json({
-                value: false,
-                data: {
-                    message: "Invalid Request"
-                }
-            });
-        }
 
-    },
+
       totalCadReq: function (req, res) {
         if (req.body) {
             CadLineWork.totalCadReq(req.body, res.callback);
