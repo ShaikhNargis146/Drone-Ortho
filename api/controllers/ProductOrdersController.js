@@ -12,6 +12,7 @@ var ups = new upsAPI({
 	access_key: 'UPSACCESSTOKEN',
 	imperial: true // set to false for metric
 });
+
 var controller = {
 
 	getProductData: function (req, res) {
@@ -48,20 +49,6 @@ var controller = {
 			});
 		}
 	},
-
-	invoiceNumberGenerate: function (req, res) {
-		if (req.body) {
-			ProductOrders.invoiceNumberGenerate(req.body, res.callback);
-		} else {
-			res.json({
-				value: false,
-				data: {
-					message: "Invalid Request"
-				}
-			});
-		}
-	},
-
 
 	chargeCreditCard: function (req, res) {
 		if (req.body.expirationDate) {
