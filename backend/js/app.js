@@ -1244,14 +1244,14 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
             var imageUrl;
             if ($scope.missionDetails && $scope.missionDetails.name) {
                 console.log("$scope.missionDetails.name", $scope.missionDetails.name);
-                imageUrl = 'http://35.201.210.67:80/' + $scope.missionDetails.name + '.webp';
-                // imageUrl = 'http://localhost:1337/' + $scope.missionDetails.name + '.webp';
+                imageUrl = 'http://35.201.210.67:80/' + $scope.missionDetails.name + '.png';
+                // imageUrl = 'http://localhost:1337/' + $scope.missionDetails.name + '.png';
             } else if ($scope.cadLineDetails && $scope.cadLineDetails.orthoFile[0]) {
                 imageUrl = 'http://35.201.210.67:80/' + $scope.cadLineDetails.orthoFile[0].file.split(".")[0] + '.png';
                 // imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.orthoFile[0].file.split(".")[0] + '.png';
             } else if ($scope.cadLineDetails && $scope.cadLineDetails.mission) {
-                imageUrl = 'http://35.201.210.67:80/' + $scope.cadLineDetails.mission.name + '.webp';
-                // imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.mission.name + '.webp';
+                imageUrl = 'http://35.201.210.67:80/' + $scope.cadLineDetails.mission.name + '.png';
+                // imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.mission.name + '.png';
 
             }
             console.log("imageUrl", imageUrl);

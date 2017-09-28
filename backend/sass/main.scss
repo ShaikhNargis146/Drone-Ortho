@@ -4377,3 +4377,24 @@ WIDGETS
 @import "../js/plugins/ionRangeSlider/ion.rangeSlider";
 @import "../js/plugins/ionRangeSlider/ion.rangeSlider.skinFlat";
 // @import "../js/plugins/angular-morris/morris";
+.leaflet-retina .leaflet-draw-toolbar a {
+    background-image: url(../img/spritesheet-2x.png);
+    background-image: linear-gradient(transparent, transparent), url(../img/spritesheet.svg);
+}
+
+.leaflet-draw-toolbar a {
+    background-image: url(../img/spritesheet.png);
+    background-image: linear-gradient(transparent, transparent), url(../img/spritesheet.svg);
+}
+
+.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-polygon {
+    background-position: -31px -3px;
+}
+
+.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-edit.leaflet-disabled {
+    background-position: -212px -1px;
+}
+
+.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-remove.leaflet-disabled {
+    background-position: -242px -2px;
+}
