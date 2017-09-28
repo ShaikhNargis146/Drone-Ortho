@@ -124,6 +124,16 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             templateUrl: templateURL,
             controller: 'ShippingCtrl'
         })
+        .state('thankyou', {
+            url: "/thankyou",
+            templateUrl: templateURL,
+            controller: 'ThankyouCtrl'
+        })
+        .state('sorry', {
+            url: "/sorry",
+            templateUrl: templateURL,
+            controller: 'SorryCtrl'
+        })
         .state('form', {
             url: "/form",
             templateUrl: templateURL,

@@ -116,6 +116,32 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
 
     })
+    .controller('ThankyouCtrl', function ($scope, TemplateService, NavigationService, $timeout) {
+        $scope.template = TemplateService.changecontent("thankyou"); //Use same name of .html file
+        $scope.menutitle = NavigationService.makeactive("Thankyou"); //This is the Title of the Website
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+
+        $scope.formSubmitted = false;
+
+        $scope.submitForm = function (data) {
+            console.log(data);
+            $scope.formSubmitted = true;
+        }
+    })
+    .controller('SorryCtrl', function ($scope, TemplateService, NavigationService, $timeout) {
+        $scope.template = TemplateService.changecontent("sorry"); //Use same name of .html file
+        $scope.menutitle = NavigationService.makeactive("Sorry"); //This is the Title of the Website
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+
+        $scope.formSubmitted = false;
+
+        $scope.submitForm = function (data) {
+            console.log(data);
+            $scope.formSubmitted = true;
+        }
+    })
     .controller('FormCtrl', function ($scope, TemplateService, NavigationService, $timeout) {
         $scope.template = TemplateService.changecontent("form"); //Use same name of .html file
         $scope.menutitle = NavigationService.makeactive("Form"); //This is the Title of the Website
@@ -1011,7 +1037,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     })
 
-    .controller('ShippingCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $uibModal, $window) {
+    .controller('ShippingCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $uibModal, $window, toastr) {
         $scope.template = TemplateService.changecontent("shipping"); //Use same name of .html file
         $scope.menutitle = NavigationService.makeactive("Shipping"); //This is the Title of the Website
         TemplateService.title = $scope.menutitle;
@@ -1019,6 +1045,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         TemplateService.header = "";
         $scope.formSubmitted = false;
         $scope.formData = {};
+        var invoiceNumber = {};
         $scope.submitForm = function (data) {
             $scope.formSubmitted = true;
         };
@@ -1083,8 +1110,19 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
 
         $scope.id = $stateParams.id;
-        $scope.amount = $scope.dfmData[$scope.id].amount;
- $scope.saveData = function (data) {
+        if ($stateParams.id) {
+            $scope.amount = $scope.dfmData[$scope.id].amount;
+        } else {
+            forProduct = {};
+            forProduct._id = $.jStorage.get("user")._id;
+            NavigationService.apiCallWithData("User/getOne", forProduct, function (data1) {
+                if (data1.value == true) {
+                    $scope.amount = data1.data.cart.totalAmount;
+                }
+            });
+        }
+
+        $scope.saveData = function (data) {
             $scope.deliveryAddress = {
                 city: data.city,
                 country: data.country,
@@ -1096,10 +1134,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             formdata.user = $.jStorage.get("user")._id;
             data.user = formdata.user
 
-            if ($stateParams.id) {
-                 $scope.id = $stateParams.id;
-        $scope.amount = $scope.dfmData[$scope.id].amount;
-                // $scope.id = $stateParams.id;
+            if ($stateParams.id) { //for package
+                $scope.id = $stateParams.id;
+                $scope.amount = $scope.dfmData[$scope.id].amount;
                 NavigationService.apiCallWithData("DFMSubscription/save", $scope.dfmData[$scope.id], function (dfm) {
                     $scope.id = {
                         id: dfm.data._id
@@ -1109,6 +1146,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                         var dfmId = dfm.data._id;
                         NavigationService.apiCallWithData("ProductOrders/createInvoice", data, function (data1) {
                             $scope.Id = data1.data._id;
+                            invoiceNumber = data1.data.invoiceNo;
                             if (data1.data._id) {
                                 var formdata = {};
                                 formdata._id = $.jStorage.get("user")._id;
@@ -1118,15 +1156,16 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                         });
                     }
                 });
-            } else {
+            } else { //for product
                 forProduct = {};
                 forProduct._id = $.jStorage.get("user")._id;
                 NavigationService.apiCallWithData("User/getOne", forProduct, function (data1) {
                     data.products = data1.data.cartProducts;
-                    console.log("data for storing productData", data);
                     if (data1.data.cartProducts) {
-                        NavigationService.apiCallWithData("ProductOrders/save", data, function (dfmData) {
-
+                        NavigationService.apiCallWithData("ProductOrders/createInvoice", data, function (data1) {
+                            if (data1.value == true) {
+                                invoiceNumber = data1.data.invoiceNo;
+                            }
                         });
                     }
                 });
@@ -1200,13 +1239,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.addLocation = function () {
                 if (!_.isEmpty(document.getElementById("locationCity").value)) {
                     var valText = document.getElementById("locationCity").value;
-                    console.log(valText)
                     var valArr = [];
                     //console.log(!/\d/.test(valText)); //returns true if contains numbers
                     if (!/\d/.test(valText)) {
                         valArr = valText.split(",");
                         if (!/\d/.test(valArr[0])) {
-                            console.log("******lenght******", valArr.length)
                             if (valArr.length == 3) {
                                 // $scope.arrLocation.push(valArr[0]);
                                 document.getElementById("locationCity").value = null;
@@ -1214,12 +1251,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                                 $scope.formData.address.state = valArr[1];
                                 $scope.formData.address.country = valArr[2];
                                 $scope.$digest();
-                                console.log($scope.formData.address.city);
                             } else {
                                 if (valArr.length == 2) {
-                                    console.log("*******inside else***", valArr.length);
-                                    console.log("valArr[0]", valArr[0]);
-                                    console.log("valArr[1]", valArr[1]);
                                     // document.getElementById("locationCity").value = null;
                                     $scope.formData.address.city = valArr[0];
                                     $scope.formData.address.country = valArr[1];
@@ -1252,10 +1285,19 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             },
 
             $scope.cardDetailsPayment = function (data) {
-                // $scope.productId = $scope.Id
+                console.log("invoiceUserId", invoiceUserId);
+                var invoiceUserId = {};
+                invoiceUserId.invoiceNo = invoiceNumber;
                 data.amount = $scope.amount;
+                console.log("invoiceUserId", invoiceUserId);
                 NavigationService.apiCallWithData("ProductOrders/chargeCreditCard", data, function (data1) {
-                    console.log("-----------------------------", data1);
+                    if (data1.value == true) {
+                        NavigationService.apiCallWithData("ProductOrders/invoiceGenerate", invoiceUserId, function (data1) {
+                            if (data1.value == true) {
+                                toastr.success('Payment successfully Done');
+                            }
+                        });
+                    }
                 });
             }
 
