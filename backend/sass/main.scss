@@ -4292,7 +4292,16 @@ WIDGETS
         outline: none;
     }
 }
-
+.access-select{
+    select{
+            border: none;
+    background: none;
+    &:focus,&:active{
+        outline: none;
+    }
+    
+    }
+}
 .leaflet-bar .leaflet-control-zoom-in {
     opacity: 1;
     padding: 3px 7px;

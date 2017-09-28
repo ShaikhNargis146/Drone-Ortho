@@ -48,6 +48,19 @@ var controller = {
         }
 
     },
+      totalCadReq: function (req, res) {
+        if (req.body) {
+            CadLineWork.totalCadReq(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            });
+        }
+
+    },
 
     getSingleCadData: function (req, res) {
         if (req.body) {

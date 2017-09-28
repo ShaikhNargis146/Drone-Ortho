@@ -125,6 +125,20 @@ var model = {
         });
     },
 
+    totalMission: function (data, callback) {
+        Mission.find({
+            user: data.user,
+        }).count().exec(function (err, found) {
+            if (err) {
+                console.log(err);
+                callback(err, null);
+            } else if (found) {
+                callback(null, found);
+            } else {
+                callback("Invalid data", null);
+            }
+        });
+    },
     createMission: function (data, callback) {
         async.waterfall([
             function (callback) { // generate mission id
@@ -205,7 +219,6 @@ var model = {
                 if (err) {
                     callback(null, err);
                 } else {
-                    console.log("data", data);
                     callback(null, data);
                 }
             });

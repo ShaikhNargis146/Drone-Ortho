@@ -140,6 +140,21 @@ var model = {
     },
 
 
+   totalCadReq: function (data, callback) {
+        CadLineWork.find({
+            user: data.user,
+        }).count().exec(function (err, found) {
+            if (err) {
+                console.log(err);
+                callback(err, null);
+            } else if (found) {
+                callback(null, found);
+            } else {
+                callback("Invalid data", null);
+            }
+        });
+    },
+
  createCad: function (data, callback) {
         async.waterfall([
             function (callback) { // generate cad id

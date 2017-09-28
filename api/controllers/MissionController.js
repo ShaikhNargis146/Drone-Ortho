@@ -125,7 +125,19 @@ var controller = {
 
     },
 
+   totalMission: function (req, res) {
+        if (req.body) {
+            Mission.totalMission(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            });
+        }
 
+    },
 
     getSingleMissionData: function (req, res) {
         if (req.body) {
