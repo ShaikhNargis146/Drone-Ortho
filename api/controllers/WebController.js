@@ -45,14 +45,9 @@ module.exports = {
             res.notFound();
         }
     },
-    demo: function (req, res) {
-        sails.renderView('email/welcome', {
-            name: "Pooja",
-            lastname: "Thakre",
-            hobbies: ["cricket", "name", "email", "phone"]
-        }, function (err, view) {
-
-            res.send(view);
-        });
+    getPdf: function (req, res) {
+        res.set('Content-Type', "application/octet-stream");
+        files = fs.readFileSync(sails.config.appPath + "/pdf/" + req.param("filename"));
+        res.send(files);
     }
 };
