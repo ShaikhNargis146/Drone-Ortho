@@ -16,15 +16,12 @@ module.exports = {
         req.file("file").upload({
             maxBytes: 10000000 // 10 MB Storage 1 MB = 10^6
         }, function (err, uploadedFile) {
-            // console.log("uploaded file", uploadedFile);
             if (uploadedFile && uploadedFile.length > 0) {
                 async.eachLimit(uploadedFile, 2, function (n, callback) {
-                    console.log("n----", n);
                     Config.uploadFile(n.fd, function (err, value) {
                         if (err) {
                             callback(err);
                         } else {
-                            console.log("after upload file", value);
                             fileNames.push(value.name);
                             callback(null);
                         }
@@ -48,15 +45,13 @@ module.exports = {
         req.file("file").upload({
             maxBytes: 10000000000 // 1000 MB Storage 1 MB = 10^10
         }, function (err, uploadedFile) {
-            console.log("uploaded file", uploadedFile);
+            // console.log("uploaded file", uploadedFile);
             if (uploadedFile && uploadedFile.length > 0) {
                 async.eachLimit(uploadedFile, 2, function (n, callback) {
-                    console.log("n----", n);
                     Config.moveFile(n.fd, function (err, value) {
                         if (err) {
                             callback(err);
                         } else {
-                            console.log("after upload file", value);
                             fileNames.push(value.name);
                             callback(null);
                         }
@@ -70,6 +65,7 @@ module.exports = {
             }
         });
     },
+
     readFile: function (req, res) {
         if (req.query.file) {
             var width;
@@ -90,8 +86,8 @@ module.exports = {
         } else {
             res.callback("No Such File Found");
         }
-
     },
+
     readFileFromLocal: function (req, res) {
         if (req.query.file) {
             var width;

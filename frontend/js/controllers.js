@@ -800,7 +800,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.navigation = NavigationService.getnav();
         $scope.dt = new Date();
         $scope.dt.setDate($scope.dt.getDate() + 30);
-        console.log("setdate is", $scope.dt)
         if ($.jStorage.get("user")) {
             $scope.dfmData = [{
                 name: "TRIAL",
@@ -854,22 +853,14 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             var dfmData = [];
         }
 
-
-
         $scope.saveFreeTrial = function () {
             if ($.jStorage.get("user")) {
-                console.log("trial data to save", $scope.dfmData[0])
-
                 NavigationService.apiCallWithData("DFMSubscription/save", $scope.dfmData[0], function (dfm) {
-                    console.log("dfm id is", dfm.data._id)
                     $scope.dfmId = dfm.data._id;
                     if (dfm.data._id) {
                         var formdata = {};
                         formdata._id = $.jStorage.get("user")._id;
-                        console.log("trial data to userid", formdata._id)
                         formdata.currentSubscription = $scope.dfmId;
-                        console.log("trial data to current", formdata.currentSubscription)
-                        console.log("trial data to save", formdata)
                         NavigationService.apiCallWithData("User/save", formdata, function (dfmData) {});
                     }
                 });
@@ -891,15 +882,12 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
         $scope.savepremimum = function () {
             if ($.jStorage.get("user")) {
-
                 $state.go('checkout', {
                     'id': $scope.dfmData[2].id
                 });
-
             } else {
                 $state.go("member")
             }
-
         }
     })
 
@@ -1040,10 +1028,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.dt.setDate($scope.dt.getDate() + 30);
         $scope.formData = {};
         if ($.jStorage.get("user")) {
-
             $scope.dfmData = [{
-
-
                 name: "TRIAL",
                 invitations: "0",
                 missions: "20",
@@ -1095,12 +1080,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         } else {
             var dfmData = [];
         }
+
+
         $scope.id = $stateParams.id;
         $scope.amount = $scope.dfmData[$scope.id].amount;
-
-
-
-        $scope.saveData = function (data) {
+ $scope.saveData = function (data) {
             $scope.deliveryAddress = {
                 city: data.city,
                 country: data.country,
@@ -1113,7 +1097,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             data.user = formdata.user
 
             if ($stateParams.id) {
-                $scope.id = $stateParams.id;
+                 $scope.id = $stateParams.id;
+        $scope.amount = $scope.dfmData[$scope.id].amount;
+                // $scope.id = $stateParams.id;
                 NavigationService.apiCallWithData("DFMSubscription/save", $scope.dfmData[$scope.id], function (dfm) {
                     $scope.id = {
                         id: dfm.data._id
@@ -1267,6 +1253,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
             $scope.cardDetailsPayment = function (data) {
                 // $scope.productId = $scope.Id
+                data.amount = $scope.amount;
                 NavigationService.apiCallWithData("ProductOrders/chargeCreditCard", data, function (data1) {
                     console.log("-----------------------------", data1);
                 });

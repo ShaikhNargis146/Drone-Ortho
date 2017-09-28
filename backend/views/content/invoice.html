@@ -54,10 +54,11 @@
                         <!--<tr ng-repeat="abc in product.products">-->
                           
                           <td><a ui-sref="popup">{{abc.name}}</a></td>
-                          <td></td>
-                          <td>{{abc.price}}</td>
+                          <td>{{abc.createdAt |  date:
+'dd-MM-yyyy'}}</td>
                           <td></td>
                           <td>{{abc.status}}</td>
+                          <td></td>
                           <td></td>
                           <td><button type="button" ng-click="getInvoice()" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;
                             <button type="button" class="btn green btn-outline btn-xs" ng-click="downloadInvoice(product.pdf)">Download</button>
@@ -77,6 +78,7 @@
                           <td>{{cad.cadLineWork.DiscountAmount}}</td>
                           <td>{{cad.cadLineWork.status}}</td>
                           <td></td>
+             
                           <td><button type="button" ng-click="getInvoice()" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;
                             <button type="button" class="btn green btn-outline btn-xs" ng-click="downloadInvoice(cad.pdf)" >Download</button>
                           </td>
@@ -88,8 +90,9 @@
                         <tr ng-repeat="dfm in productData" ng-if="dfm.dfmSubscription._id">
                         <!--<tr ng-repeat="dfm in productData" >-->
                           
-                          <td>{{dfm.dfmSubscription._id}}</a></td>
-                          <td>{{dfm.dfmSubscription.createdAt}}</td>
+                          <td>{{dfm.dfmSubscription.name}}</a></td>
+                          <td>{{dfm.dfmSubscription.updatedAt |  date:
+'dd-MM-yyyy'}}</td>
                           <td>{{dfm.dfmSubscription.amount}}</td>
                           <td>{{dfm.dfmSubscription.DiscountAmount}}</td>
                           <td>{{cad.dfmSubscription.status}}</td>
