@@ -452,7 +452,7 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                     $(".loading-img-modal").css("display", "block");
 
                     $timeout(function () {
-                        async.eachLimit(newVal, 2, function (image, callback) {
+                        async.eachLimit(newVal, 1, function (image, callback) {
                             // Perform operation on file here.
                             console.log('Processing file ' + image);
                             if (image && image.file) {
@@ -582,7 +582,7 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                     $(".loading-img-modal").css("display", "none");
                     $scope.uploadStatus = "uploaded";
                     if ($scope.isMultiple) {
-                        if ($scope.inObject) {  
+                        if ($scope.inObject) {
                             $scope.model.push({
                                 "image": data.data[0]
                             });
@@ -1244,14 +1244,14 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
             var imageUrl;
             if ($scope.missionDetails && $scope.missionDetails.name) {
                 console.log("$scope.missionDetails.name", $scope.missionDetails.name);
-                // imageUrl = 'http://35.201.210.67:80/' + $scope.missionDetails.name + '.webp';
-                imageUrl = 'http://localhost:1337/' + $scope.missionDetails.name + '.webp';
+                imageUrl = 'http://35.201.210.67:80/' + $scope.missionDetails.name + '.webp';
+                // imageUrl = 'http://localhost:1337/' + $scope.missionDetails.name + '.webp';
             } else if ($scope.cadLineDetails && $scope.cadLineDetails.orthoFile[0]) {
-                // imageUrl = 'http://35.201.210.67:80/' + $scope.cadLineDetails.orthoFile[0].file.split(".")[0] + '.png';
-                imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.orthoFile[0].file.split(".")[0] + '.png';
+                imageUrl = 'http://35.201.210.67:80/' + $scope.cadLineDetails.orthoFile[0].file.split(".")[0] + '.png';
+                // imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.orthoFile[0].file.split(".")[0] + '.png';
             } else if ($scope.cadLineDetails && $scope.cadLineDetails.mission) {
-                // imageUrl = 'http://35.201.210.67:80/' + $scope.cadLineDetails.mission.name + '.webp';
-                imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.mission.name + '.webp';
+                imageUrl = 'http://35.201.210.67:80/' + $scope.cadLineDetails.mission.name + '.webp';
+                // imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.mission.name + '.webp';
 
             }
             console.log("imageUrl", imageUrl);
