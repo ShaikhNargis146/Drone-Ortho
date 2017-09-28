@@ -108,6 +108,7 @@ var schema = new Schema({
         default: "User"
 
     },
+    status: String,
     googleAccessToken: String,
     googleRefreshToken: String,
     oauthLogin: {

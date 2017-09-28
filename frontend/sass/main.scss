@@ -7,6 +7,7 @@ $output-bourbon-deprecation-warnings: false;
 @import "../../bower_components/fancyBox/source/jquery.fancybox";
 @import "../../bower_components/swiper/dist/css/swiper.min";
 @import "../../bower_components/smart-app-banner/smart-app-banner";
+@import "../../bower_components/angular-toastr/dist/angular-toastr";
 
 /* Bootstrap Variables Goes Here */
 
@@ -1766,6 +1767,21 @@ footer {
         margin-top: 250px;
         text-align: center;
     }
+}
+
+.btn-thank {
+    font-weight: bold;
+    background: #04423b;
+    font-size: 25px;
+    width: 140px;
+    border: none;
+    color: white;
+    margin: 25px auto;
+    display: block;
+}
+
+#toast-container .toast {
+    margin: 100px 0 0 0!important;
 }
 
 @import "fancybox-override";

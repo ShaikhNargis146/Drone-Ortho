@@ -1,7 +1,7 @@
 var initMap = function () {};
 var codeAddress = function () {};
 //var deleteMarkers=function(){};
-angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ui.bootstrap', , 'ngSanitize', 'angular-flexslider', 'ksSwiper', 'ngMap'])
+angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ui.bootstrap', , 'ngSanitize', 'angular-flexslider', 'ksSwiper', 'toastr', 'ngMap'])
 
     .controller('HomeCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         $scope.template = TemplateService.changecontent("home"); //Use same name of .html file
@@ -141,6 +141,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             console.log(data);
             $scope.formSubmitted = true;
         }
+
+        $scope.goBack = function () {
+            $window.history.back();
+        }
     })
     .controller('FormCtrl', function ($scope, TemplateService, NavigationService, $timeout) {
         $scope.template = TemplateService.changecontent("form"); //Use same name of .html file
@@ -158,7 +162,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
 
 
-    .controller('ProductCtrl', function ($scope, TemplateService, $state, NavigationService, $timeout) {
+    .controller('ProductCtrl', function ($scope, TemplateService, $state, NavigationService, $timeout, toastr) {
         $scope.template = TemplateService.changecontent("product"); //Use same name of .html file
         $scope.menutitle = NavigationService.makeactive("Product"); //This is the Title of the Website
         TemplateService.title = $scope.menutitle;
@@ -177,7 +181,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 $scope.productData = _.chunk($scope.productData, 3)
                 // console.log("data found successfully")
             } else {
-                //  toastr.warning('Error submitting the form', 'Please try again');
+                toastr.warning('Error submitting the form', 'Please try again');
             }
         });
         $scope.viewDetail = 1;
@@ -192,17 +196,17 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             var formdata = {};
             formdata = $.jStorage.get('user')
             _.forEach(formdata.cartProducts, function (n) {
-                console.log(n._id);
+                console.log($scope.productData[0][0]._id);
                 if (n._id == $scope.productData[0][0]._id) {
                     isExist = true;
+                } else {
+                    isExist = false;
                 }
             })
             if (!isExist) {
                 formdata.cartProducts.push($scope.productData[0][0]._id);
                 if (formdata.cart) {
-                    // console.log("formdata.cart", formdata.cart);
                     formdata.cart.totalAmount = Number(formdata.cart.totalAmount) + Number($scope.productData[0][0].price);
-
                 } else {
                     formdata.cart = {};
                     formdata.cart.totalAmount = Number($scope.productData[0][0].price);
@@ -226,18 +230,22 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     }
                 });
             } else {
-                alert("Already Exist");
+                toastr.error('Product already exist');
             }
         }
+
         $scope.addToCartProduct2 = function (data) {
             var formdata = {};
             formdata = $.jStorage.get('user')
             _.forEach(formdata.cartProducts, function (n) {
-                console.log(n._id);
-                if (n._id == $scope.productData[0][data - 1]._id) {
+                console.log($scope.productData[0][1]._id);
+                if (n._id == $scope.productData[0][1]._id) {
                     isExist = true;
+                } else {
+                    isExist = false;
                 }
             })
+
             if (!isExist) {
                 formdata.cartProducts.push($scope.productData[0][1]._id);
                 if (formdata.cart) {
@@ -267,16 +275,19 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     }
                 });
             } else {
-                alert("Already Exist");
+                toastr.error('Product already exist');
             }
         }
+
         $scope.addToCartProduct3 = function (data) {
             var formdata = {};
             formdata = $.jStorage.get('user')
             _.forEach(formdata.cartProducts, function (n) {
-                console.log(n._id);
+                console.log($scope.productData[0][2]._id);
                 if (n._id == $scope.productData[0][2]._id) {
                     isExist = true;
+                } else {
+                    isExist = false;
                 }
             })
             if (!isExist) {
@@ -308,7 +319,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     }
                 });
             } else {
-                alert("Already Exist");
+                toastr.error('Product already exist');
+
             }
         }
 
@@ -1294,9 +1306,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     if (data1.value == true) {
                         NavigationService.apiCallWithData("ProductOrders/invoiceGenerate", invoiceUserId, function (data1) {
                             if (data1.value == true) {
-                                toastr.success('Payment successfully Done');
+                                $state.go("thankyou");
                             }
                         });
+                    } else {
+                        $state.go("sorry");
                     }
                 });
             }

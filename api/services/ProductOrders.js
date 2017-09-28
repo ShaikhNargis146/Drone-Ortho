@@ -130,7 +130,8 @@ var model = {
                         _id: pdfData.id
                     }, {
                         $set: {
-                            pdf: pdfData.name
+                            pdf: pdfData.name,
+                            status: 'Paid'
                         }
                     }).exec(function (err, found) {
                         if (err) {

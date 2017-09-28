@@ -143,7 +143,7 @@ var navigationservice = angular.module('navigationservice', [])
                 $http.post(adminurl + 'user/getOne', data).then(function (data) {
                     data = data.data;
                     if (data.value === true) {
-                        $.jStorage.set("profile", data.data);
+                        $.jStorage.set("user", data.data);
                         callback();
                     } else {
                         errorCallback(data.error);

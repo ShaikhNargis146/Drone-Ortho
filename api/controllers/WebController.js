@@ -46,7 +46,7 @@ module.exports = {
         }
     },
     getPdf: function (req, res) {
-        res.set('Content-Type', "application/octet-stream");
+        res.set('Content-Type', "application/pdf");
         files = fs.readFileSync(sails.config.appPath + "/pdf/" + req.param("filename"));
         res.send(files);
     }
