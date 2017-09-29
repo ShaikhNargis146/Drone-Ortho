@@ -260,8 +260,6 @@
                   <thead>
                     <tr>
                       <th>Mission ID</th>
-                      <th>Request Type</th>
-                      <th>Map Area Link</th>
                       <th>Acreage</th>
                       <th>Status</th>
                       <th>Date of Request</th>
@@ -272,14 +270,10 @@
                   <tbody>
                     <tr ng-repeat="cadData in allCadLineData track by $index">
 
-                      <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData._id}}</a></td>
-                      <td>
-                        <a ui-sref="cadfile-details({'cadId' : cadData._id})"></a>
-                      </td>
+                      <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.mission.missionId}}</a></td>
                       <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.acreage}}</a></td>
                       <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.status}}</a></td>
                       <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.createdAt | date}}</a></td>
-                      <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">YES </a></td>
                       <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">YES </a></td>
                     </tr>
                   </tbody>
@@ -345,8 +339,6 @@
                   <thead>
                     <tr>
                       <th>Mission ID</th>
-                      <th>Request Type</th>
-                      <th>Map Area Link</th>
                       <th>Acreage</th>
                       <th>Status</th>
                       <th>Date of Request</th>
@@ -357,13 +349,7 @@
                   <tbody>
                     <tr ng-repeat="cadVendorData in allCadLineVendorData track by $index">
 
-                      <td><a ui-sref="cadfile-details({'cadId' : cadVendorData._id})">{{cadVendorData.mission}}</a></td>
-                      <td>
-                        <a ui-sref="cadfile-details({'cadId' : cadVendorData._id})">{{cadVendorData.requestType}}</a>
-                      </td>
-                      <td>
-                        <a ui-sref="cadfile-details({'cadId' : cadVendorData._id})">Map Area Link</a>
-                      </td>
+                      <td><a ui-sref="cadfile-details({'cadId' : cadVendorData._id})">{{cadVendorData.mission.missionId}}</a></td>
                       <td><a ui-sref="cadfile-details({'cadId' : cadVendorData._id})">{{cadVendorData.acreage}}</a></td>
                       <td><a ui-sref="cadfile-details({'cadId' : cadVendorData._id})">{{cadVendorData.status}}</a></td>
                       <td><a ui-sref="cadfile-details({'cadId' : cadVendorData._id})">{{cadVendorData.createdAt | date}}</a></td>

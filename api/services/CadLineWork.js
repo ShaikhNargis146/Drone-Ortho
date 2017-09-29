@@ -61,7 +61,7 @@ var schema = new Schema({
         index: true
     },
     vendorCharges: Number,
-     cadId: String,
+    cadId: String,
 
     //****
     requestType: {
@@ -74,13 +74,13 @@ var schema = new Schema({
 schema.plugin(deepPopulate, {
     Populate: {
         'user': {
-            select: '_id name'
+            select: ''
         },
         'mission': {
             select: ''
         },
         'vendor': {
-            select: '_id name'
+            select: ''
         }
     }
 });
@@ -140,7 +140,7 @@ var model = {
     },
 
 
- createCad: function (data, callback) {
+    createCad: function (data, callback) {
         async.waterfall([
             function (callback) { // generate cad id
                 CadLineWork.CadIdgenerate(data, function (err, data1) {
@@ -165,7 +165,7 @@ var model = {
             }
         });
     },
-    
+
     CadIdgenerate: function (data, callback) {
         var findQuery = {};
         var temp;
@@ -177,7 +177,7 @@ var model = {
                     $options: 'm'
                 }
             }
-         temp = "CADI"
+            temp = "CADI"
         } else {
             findQuery = {
                 cadId: {
@@ -185,14 +185,14 @@ var model = {
                     $options: 'm'
                 }
             }
-             temp = "CADE"
+            temp = "CADE"
         }
         CadLineWork.findOne(findQuery).sort({
             createdAt: -1
         }).exec(function (err, found) {
             if (err) {
                 callback(err, null);
-            }else {
+            } else {
                 if (_.isEmpty(found)) {
                     var year = new Date().getFullYear()
                     var month = new Date().getMonth();
@@ -209,46 +209,46 @@ var model = {
                     }
                     callback(null, cadId);
                 } else {
-                if (_.isEmpty(found.cadId)) {
-                    var year = new Date().getFullYear()
-                    var month = new Date().getMonth();
-                    var nextnum = "1"
-                    month = month + 1
-                    var m = month.toString().length;
-                    if (m == 1) {
-                        month = "0" + month
-                        var cadId = temp + year + month + nextnum;
-                    } else {
-                        if (m == 2) {
+                    if (_.isEmpty(found.cadId)) {
+                        var year = new Date().getFullYear()
+                        var month = new Date().getMonth();
+                        var nextnum = "1"
+                        month = month + 1
+                        var m = month.toString().length;
+                        if (m == 1) {
+                            month = "0" + month
                             var cadId = temp + year + month + nextnum;
+                        } else {
+                            if (m == 2) {
+                                var cadId = temp + year + month + nextnum;
+                            }
                         }
-                    }
-                    callback(null, cadId);
-                }else {
+                        callback(null, cadId);
+                    } else {
 
-                    var cadId = found.cadId
-                    var num = cadId.substring(10, 100)
-                    var nextnum = parseInt(num) + 1
-                    var year = new Date().getFullYear()
-                    var month = new Date().getMonth();
-                    month = month + 1
-                    var m = month.toString().length;
-                    if (m == 1) {
-                        month = "0" + month
-                        var cadId = temp + year + month + nextnum;
-                    } else {
-                        if (m == 2) {
+                        var cadId = found.cadId
+                        var num = cadId.substring(10, 100)
+                        var nextnum = parseInt(num) + 1
+                        var year = new Date().getFullYear()
+                        var month = new Date().getMonth();
+                        month = month + 1
+                        var m = month.toString().length;
+                        if (m == 1) {
+                            month = "0" + month
                             var cadId = temp + year + month + nextnum;
+                        } else {
+                            if (m == 2) {
+                                var cadId = temp + year + month + nextnum;
+                            }
                         }
+                        callback(null, cadId);
                     }
-                    callback(null, cadId);
-                }
                 }
             }
 
         });
     },
-  
+
 
     getSingleCadData: function (data, callback) {
         this.findOne({
@@ -291,7 +291,7 @@ var model = {
             count: maxRow
         };
         this.find({})
-            .deepPopulate("serviceId user DFMSubscription")
+            .deepPopulate("user mission vendor")
             .order(options)
             .keyword(options)
             .page(options,
@@ -336,7 +336,7 @@ var model = {
         this.find({
                 vendor: data.vendorId
             })
-            .deepPopulate("serviceId user DFMSubscription")
+            .deepPopulate("user mission vendor")
             .order(options)
             .keyword(options)
             .page(options,

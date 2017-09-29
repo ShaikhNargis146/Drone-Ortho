@@ -57,12 +57,24 @@ var schema = new Schema({
     }]
 });
 
-schema.plugin(deepPopulate, {});
+schema.plugin(deepPopulate, {
+    Populate: {
+        'user': {
+            select: ''
+        },
+        'DFMSubscription': {
+            select: ''
+        },
+        "others.serviceId": {
+            select: ''
+        }
+    }
+});
 schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('Mission', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "serviceId user DFMSubscription", "serviceId user DFMSubscriptions"));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "others.serviceId user DFMSubscription", "others.serviceId user DFMSubscriptions"));
 var model = {
 
     getMissionUser: function (data, callback) {
@@ -343,7 +355,7 @@ var model = {
             count: maxRow
         };
         Mission.find({})
-            .deepPopulate("serviceId user DFMSubscription")
+            .deepPopulate("others.serviceId user DFMSubscription")
             .order(options)
             .keyword(options)
             .page(options,
@@ -412,7 +424,7 @@ var model = {
                             callback(null, missionId);
                         } else {
                             var missionId = found[0].missionId
-                            var num = missionId.substring(7, 100);
+                            var num = missionId.substring(7, 10000);
                             var nextnum = parseInt(num) + 1
                             var year = new Date().getFullYear()
                             var month = new Date().getMonth() + 1;

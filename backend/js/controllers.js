@@ -815,12 +815,12 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Missions");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "User";
-        // $scope.accessLevel = "Admin";
 
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
+
+
         if ($scope.accessLevel == "Admin") {
 
             //pagination admin
@@ -1580,12 +1580,9 @@ firstapp
     .controller('CadfileDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams, $uibModal) {
         //Used to name the .html file
 
-        // $scope.accessLevel = "User";
-        // $scope.accessLevel = "Admin";
-        // $scope.accessLevel = "Vendor";
-        $scope.profileDetails = $.jStorage.get("user");
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
+            $scope.profileDetails = $.jStorage.get("user");
         }
         $scope.formData = {};
         var cad = {};
@@ -1599,6 +1596,7 @@ firstapp
                 $scope.navigation = NavigationService.getnav();
             }
         });
+
         $scope.priceListForNDB = [{
                 "from": 0,
                 "to": 1,
@@ -1893,6 +1891,7 @@ firstapp
                 }
             }
         ];
+
         $scope.calculateAmount = function (data) {
             if (data.contoursDensity || data.density) {
                 var priceList;
@@ -1917,6 +1916,7 @@ firstapp
             }
 
         }
+
         $scope.cadSave = function (formdata) {
             NavigationService.apiCall("CadLineWork/save", formdata, function (data) {
                 if (data.value === true) {
@@ -1944,6 +1944,7 @@ firstapp
 
             });
         };
+
         $scope.cadpayment = function (data) {
             var formdata = {};
             formdata = data;
@@ -2082,12 +2083,13 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("CadFileRequest");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "User";
-        // $scope.accessLevel = "Admin";
-        // $scope.accessLevel = "Vendor";
+
+
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
+            var userId = $.jStorage.get("user")._id;
         }
+
         $scope.cadOpen = function () {
             $uibModal.open({
                 animation: true,
@@ -2100,6 +2102,7 @@ firstapp
 
 
         //*****************user CadFileRequest start*****************************
+
         $scope.date = new Date();
         var formdata = {};
         formdata.user = $.jStorage.get("user")._id;
@@ -2114,10 +2117,11 @@ firstapp
             })
         };
 
+
         if ($scope.accessLevel == "User") {
 
             //pagination user
-            var userId = $.jStorage.get("user")._id;
+
             var i = 0;
             if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
                 $scope.currentPage = $stateParams.page;
@@ -2187,7 +2191,6 @@ firstapp
 
         } else if ($scope.accessLevel == "Admin") {
 
-
             //pagination admin
 
             var i = 0;
@@ -2228,6 +2231,7 @@ firstapp
                         function (data, ini) {
                             if (ini == i) {
                                 $scope.allCadLineData = data.data.results;
+                                console.log("$scope.allCadLineData", $scope.allCadLineData);
                                 $scope.totalItems = data.data.total;
                                 $scope.maxRow = data.data.options.count;
                             }
@@ -2242,6 +2246,7 @@ firstapp
                         function (data, ini) {
                             if (ini == i) {
                                 $scope.allCadLineData = data.data.results;
+                                console.log("$scope.allCadLineData", $scope.allCadLineData);
                                 $scope.totalItems = data.data.total;
                                 $scope.maxRow = data.data.options.count;
                             }
@@ -2290,7 +2295,7 @@ firstapp
                             page: $scope.currentPage,
                             keyword: $scope.search.keyword,
                             count: $scope.maxCount,
-                            vendorId: "59bcf455b27db70b15a1c86a" //replace it with jstorage ID
+                            vendorId: userId //replace it with jstorage ID
                         }, ++i,
                         function (data, ini) {
                             if (ini == i) {
@@ -2305,7 +2310,7 @@ firstapp
                     NavigationService.searchCall("CadLineWork/getCadForVendor", {
                             page: $scope.currentPage,
                             keyword: $scope.search.keyword,
-                            vendorId: "59bcf455b27db70b15a1c86a" //replace it with jstorage ID
+                            vendorId: userId //replace it with jstorage ID
                         }, ++i,
                         function (data, ini) {
                             if (ini == i) {

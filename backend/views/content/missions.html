@@ -7,9 +7,8 @@
         <div class="col-lg-12">
           <h2>Missions </h2>
           <ol class="breadcrumb">
-            <li> <a href="#/dashboard1">Home</a> </li>
-            <li> <a>Missions</a> </li>
-            <li class="active"> <strong>Missions Listing</strong> </li>
+            <li> <a ui-sref="dashboard">Home</a> </li>
+            <li> Missions </li>
           </ol>
         </div>
         <div class="col-lg-12"> </div>
@@ -104,9 +103,8 @@
         <div class="col-lg-12">
           <h2>Missions </h2>
           <ol class="breadcrumb">
-            <li> <a href="#/dashboard1">Home</a> </li>
-            <li> <a> Page Layouts </a> </li>
-            <li class="active"> <strong>Blank Page Layout</strong> </li>
+            <li> <a ui-sref="dashboard">Home</a> </li>
+            <li> Mission </li>
           </ol>
         </div>
       </div>
@@ -158,11 +156,11 @@
                       <tbody>
                         <tr ng-repeat="missionData in allMissionData track by $index">
 
-                          <td><a ui-sref="mission-details({'missionId' : missionData._id})">{{missionData._id}}</a></td>
+                          <td><a ui-sref="mission-details({'missionId' : missionData._id})">{{missionData.missionId}}</a></td>
                           <td><a ui-sref="mission-details({'missionId' : missionData._id})">{{missionData.user._id}}</a></td>
                           <td><a ui-sref="mission-details({'missionId' : missionData._id})">{{missionData.name}}</a></td>
                           <td><a ui-sref="mission-details({'missionId' : missionData._id})">{{missionData.createdAt | date}}</a></td>
-                          <td><a ui-sref="mission-details({'missionId' : missionData._id})">{{missionData.fileUploadStatus}}</a></td>
+                          <td><a ui-sref="mission-details({'missionId' : missionData._id})">{{missionData.status}}</a></td>
                           <td><a ui-sref="mission-details({'missionId' : missionData._id})">YES </a></td>
                         </tr>
 
