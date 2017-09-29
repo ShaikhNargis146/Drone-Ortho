@@ -40,23 +40,21 @@ var controller = {
             })
         }
     },
-    // CadIdgenerate: function (req, res) {
-    //     if (req.body) {
-    //         CadLineWork.CadIdgenerate(req.body, res.callback);
-    //         if (req.body.mission) {
-    //             generatePng(req, res);
-    //         }
-    //     } else {
-    //         res.json({
-    //             value: false,
-    //             data: {
-    //                 message: "Invalid Request"
-    //             }
-    //         });
-    //     }
 
-    // },
 
+      totalCadReq: function (req, res) {
+        if (req.body) {
+            CadLineWork.totalCadReq(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            });
+        }
+
+    },
 
     getSingleCadData: function (req, res) {
         if (req.body) {

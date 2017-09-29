@@ -5,7 +5,6 @@
 			<div class="row wrapper border-bottom page-heading">
 				<div class="col-lg-12">
 					<h2> User Details</h2>
-
 					<ol class="breadcrumb">
 						<li> <a href="#/dashboard1">Home</a> </li>
 						<li> <a> User Details </a> </li>
@@ -20,61 +19,55 @@
 							<tr>
 								<h2 style="color:#29aba4">DFM INFORMATION</h2>
 							</tr>
-							<pre>{{UserDetailInfo}}</pre>
 							<tr>
 								<td>Activation Date</td>
 								<td>:</td>
-								<td>08/30/2017</td>
+								<td>{{dfmData.currentSubscription.updatedAt | date: 'dd-MM-yyyy'}}
+								</td>
 							</tr>
 							<tr>
 								<td>Expiration Date</td>
 								<td>:</td>
-								<td>10/29/2017</td>
+								<td>{{dfmData.currentSubscription.expiryDate| date: 'dd-MM-yyyy'}}
+								</td>
 							</tr>
 							<tr>
 								<td>Current Plan</td>
 								<td>:</td>
-								<td> DFM Standard</td>
+								<td> {{dfmData.currentSubscription.name}}</td>
 							</tr>
-
 							<tr>
 								<td>Current Plan Missions</td>
 								<td>:</td>
-								<td> 1/3</td>
+								<td> {{dfmData.currentSubscription.missions}}</td>
 							</tr>
-
 							<tr>
 								<td>Current Plan Uploads</td>
 								<td>:</td>
-								<td> 100 MB / 1 GB</td>
+								<td> {{dfmData.currentSubscription.UploadSize}}</td>
 							</tr>
 							<tr>
 								<td>Current Plan Photo Uploads</td>
 								<td>:</td>
-								<td>500/1000</td>
+								<td>{{dfmData.currentSubscription.UploadPhoto}}</td>
 							</tr>
 							<tr>
 								<td>Total Missions Created</td>
 								<td>:</td>
-								<td> 10</td>
+								<td>{{totalMission}} </td>
 							</tr>
-
-
 							<tr>
 								<td>Total CAD Requests</td>
 								<td>:</td>
-								<td>6</td>
+								<td>{{totalCadReq}}</td>
 							</tr>
 							<tr>
 								<td>Drone Bought</td>
 								<td>:</td>
 								<td>Yes/No</td>
 							</tr>
-
 						</table>
-
 					</div>
-
 					<div class="col-lg-6" style="padding-top:10px">
 						<table class="table table-responsive">
 							<tr>
@@ -83,48 +76,51 @@
 							<tr>
 								<td>Address</td>
 								<td>:</td>
-								<td>A-101,Lazy lane</td>
+								<td>{{dfmData.address}}</td>
 							</tr>
 							<tr>
 								<td>City</td>
 								<td>:</td>
-								<td>NewYork</td>
+								<td>{{dfmData.city}}</td>
 							</tr>
 							<tr>
 								<td>State</td>
 								<td>:</td>
-								<td>NY</td>
+								<td>{{dfmData.state}}</td>
 							</tr>
 							<tr>
 								<td>Company</td>
 								<td>:</td>
-								<td>TipTop</td>
+								<td>{{dfmData.country}}</td>
 							</tr>
 							<tr>
 								<td>User Status</td>
 								<td>:</td>
-								<td> Activate
-									<div class="btn-group" uib-dropdown is-open="status.isopen"><span style="color:red;font-size:16px">
-                                            <i class="fa fa-pencil" uib-dropdown-toggle ng-disabled="disabled">
-												</i></span>
-										</button>
-										<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-											<li role="menuitem"><a href="javascript:void(0)">Activate</a></li>
-											<li role="menuitem"><a href="javascript:void(0)">Deactivate</a></li>
-											<li role="menuitem"><a href="javascript:void(0)">Suspended</a></li>
-
-										</ul>
+								<td>
+									<div class="access-select">
+										<select uib-dropdown-menu role="menu" ng-model="dfmData.status" ng-click="setStatus(dfmData)" aria-labelledby="single-button" class="fa fa-pencil">
+											<option role="menuitem" value="Activate" ><a href="javascript:void(0)">Activate</a></option>
+											<option role="menuitem" value="Deactivate"><a href="javascript:void(0)">Deactivate</a></option>
+											<option role="menuitem" value="Suspended"><a href="javascript:void(0)">Suspended</a></option>
+										</select>
 									</div>
 								</td>
-
-
 							</tr>
-
+						<tr>
+								<td>Access Level</td>
+								<td>:</td>
+								<td>
+									<div class="access-select">
+										<select uib-dropdown-menu role="menu" ng-model="dfmData.accessLevel" ng-click="setAccLevel(dfmData)" aria-labelledby="single-button" class="fa fa-pencil">
+											<option role="menuitem" value="User" ><a href="javascript:void(0)">User</a></option>
+											<option role="menuitem" value="Admin"><a href="javascript:void(0)">Admin</a></option>
+											<option role="menuitem" value="Vendor"><a href="javascript:void(0)">Vendor</a></option>
+										</select>
+									</div>
+								</td>
+							</tr>
 						</table>
-
 					</div>
-
-
 				</div>
 				<div class="col-lg-12">
 					<div class="col-lg-6" style="padding-top:10px">
@@ -152,11 +148,8 @@
 								<td>:</td>
 								<td>$ 0000</td>
 							</tr>
-
 						</table>
-
 					</div>
-
 					<div class="col-lg-6" style="padding-top:10px">
 						<table class="table table-responsive">
 							<tr>
@@ -177,12 +170,8 @@
 								<td>:</td>
 								<td> $ 221</td>
 							</tr>
-
 						</table>
-
 					</div>
-
-
 				</div>
 			</div>
 		</div>
