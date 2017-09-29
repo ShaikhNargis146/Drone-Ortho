@@ -9,11 +9,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         $scope.subscribe = function (formData) {
-            console.log("email", formData);
             if (formData.email) {
                 NavigationService.apiCallWithData("NewsLetter/save", formData, function (data) {
                     if (data.value === true) {
-                        console.log("data saved successfully", data)
                         $state.go('home');
                     } else {
                         //  toastr.warning('Error submitting the form', 'Please try again');
@@ -52,7 +50,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         });
         $scope.showMenu = false;
         $scope.getMenu = function () {
-            console.log('amit');
             if ($scope.showMenu == false) {
                 // alert('test');
                 $scope.showMenu = true;
@@ -77,11 +74,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
 
         $scope.loginclose = function (formData) {
-            console.log(formData);
             if (formData) {
                 NavigationService.profile("User/login", formData, function (data) {
                     if (data.value === true) {
-                        console.log("login", data.data)
                         $scope.loginModal.close();
                         $.jStorage.set("user", data.data);
                         $scope.template.userProfile = data.data;
@@ -125,7 +120,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.formSubmitted = false;
 
         $scope.submitForm = function (data) {
-            console.log(data);
             $scope.formSubmitted = true;
         }
     })
@@ -138,7 +132,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.formSubmitted = false;
 
         $scope.submitForm = function (data) {
-            console.log(data);
             $scope.formSubmitted = true;
         }
 
@@ -155,7 +148,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.formSubmitted = false;
 
         $scope.submitForm = function (data) {
-            console.log(data);
             $scope.formSubmitted = true;
         }
     })
@@ -187,7 +179,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.viewDetail = 1;
         $scope.showDetails = function (data) {
             $scope.viewDetail = data;
-            console.log($scope.viewDetail);
         }
 
 
@@ -196,7 +187,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             var formdata = {};
             formdata = $.jStorage.get('user')
             _.forEach(formdata.cartProducts, function (n) {
-                console.log($scope.productData[0][0]._id);
                 if (n._id == $scope.productData[0][0]._id) {
                     isExist = true;
                 } else {
@@ -238,7 +228,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             var formdata = {};
             formdata = $.jStorage.get('user')
             _.forEach(formdata.cartProducts, function (n) {
-                console.log($scope.productData[0][1]._id);
                 if (n._id == $scope.productData[0][1]._id) {
                     isExist = true;
                 } else {
@@ -283,7 +272,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             var formdata = {};
             formdata = $.jStorage.get('user')
             _.forEach(formdata.cartProducts, function (n) {
-                console.log($scope.productData[0][2]._id);
                 if (n._id == $scope.productData[0][2]._id) {
                     isExist = true;
                 } else {
@@ -357,7 +345,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.formSubmitted = false;
 
         $scope.submitForm = function (data) {
-            console.log(data);
             $scope.formSubmitted = true;
         }
 
@@ -391,7 +378,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.formSubmitted = false;
 
         $scope.submitForm = function (data) {
-            console.log(data);
             $scope.formSubmitted = true;
         }
     })
@@ -418,17 +404,14 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
         };
         $scope.submitMapCalc = function (formData) {
-            console.log(formData);
             if (formData) {
                 formData.points = [];
                 for (var i = 0; i < $scope.vertices.getLength(); i++) {
                     var xy = $scope.vertices.getAt(i);
-                    console.log("xy", xy);
                     formData.points.push(xy);
                 }
                 NavigationService.profile("CadLineWork/save", formData, function (data) {
                     if (data.value === true) {
-                        console.log("CadLineWork saved successfully");
                         // $state.go("home");
                         // toastr.success('You have been successfully logged in', 'Login Success';
                     } else {
@@ -439,11 +422,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
         }
         $scope.loginclose = function (formData) {
-            console.log(formData);
             if (formData) {
                 NavigationService.profile("User/login", formData, function (data) {
                     if (data.value === true) {
-                        console.log("login", data.data)
                         $scope.loginModal.close();
                         $.jStorage.set("user", data.data);
                         $scope.template.userProfile = data.data;
@@ -500,10 +481,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 var coordinates = (polygon.getPath().getArray());
                 var z = google.maps.geometry.spherical.computeArea(polygon.getPath().getArray());
                 var area = google.maps.geometry.spherical.computeArea(polygon.getPath());
-                console.log("area", area);
                 $scope.mapData.sqft = Number(area) * Number(10.763910417);
                 $scope.mapData.acreage = Number(area) * Number(0.00024711);
-                console.log("area", $scope.mapData.sqft);
                 $scope.vertices = polygon.getPath();
                 var contentString;
                 for (var i = 0; i < $scope.vertices.getLength(); i++) {
@@ -617,7 +596,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.formSubmitted = false;
 
         $scope.submitForm = function (data) {
-            console.log(data);
             $scope.formSubmitted = true;
         }
 
@@ -643,7 +621,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.formSubmitted = false;
 
         $scope.submitForm = function (data) {
-            console.log(data);
             $scope.formSubmitted = true;
         }
     })
@@ -656,7 +633,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.formSubmitted = false;
 
         $scope.submitForm = function (data) {
-            console.log(data);
             $scope.formSubmitted = true;
         }
     })
@@ -669,7 +645,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.formSubmitted = false;
 
         $scope.submitForm = function (data) {
-            console.log(data);
             $scope.formSubmitted = true;
         }
     })
@@ -760,7 +735,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.formSubmitted = false;
 
         $scope.submitForm = function (data) {
-            console.log(data);
             $scope.formSubmitted = true;
         }
         $scope.sameAsBil = function (data) {
@@ -800,7 +774,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.formSubmitted = false;
 
         $scope.submitForm = function (data) {
-            console.log(data);
             $scope.formSubmitted = true;
         }
     })
@@ -813,7 +786,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.formSubmitted = false;
 
         $scope.submitForm = function (data) {
-            console.log(data);
             $scope.formSubmitted = true;
         }
     })
@@ -826,7 +798,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.formSubmitted = false;
 
         $scope.submitForm = function (data) {
-            console.log(data);
             $scope.formSubmitted = true;
         }
     })
@@ -906,12 +877,12 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             } else {
                 $state.go("member")
             }
-             $uibModal.open({
+            $uibModal.open({
                 animation: true,
                 templateUrl: 'frontend/views/content/Modal/freetrial.html',
                 scope: $scope,
                 size: 'md'
-                    // windowClass: "login-modal"
+                // windowClass: "login-modal"
 
             });
         }
@@ -962,12 +933,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("Member"); //This is the Title of the Website
         TemplateService.title = $scope.menutitle;
         $scope.id = $stateParams.id;
-        console.log($scope.id);
         $scope.navigation = NavigationService.getnav();
         $scope.formData = {};
         $scope.test = function (size, formData) {
             $scope.formData.lisence = "NDB"
-             $scope.formData.status = "Active"
+            $scope.formData.status = "Active"
             NavigationService.apiCallWithData("User/registerUser", formData, function (data) {
                 if (data.value === true) {
                     // console.log("data saved successfully", data)
@@ -986,7 +956,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             })
         };
         $scope.getCity = function () {
-            console.log("hiiiiiiiiiiiiiiiiiiiiiii");
             var input = document.getElementById('locationCity');
             var autocomplete = new google.maps.places.Autocomplete(input);
             // google.maps.event.addListener(autocomplete, 'click', function () {
@@ -1004,27 +973,21 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
             if (!_.isEmpty(document.getElementById("locationCity").value)) {
                 var valText = document.getElementById("locationCity").value;
-                console.log(valText)
                 var valArr = [];
                 //console.log(!/\d/.test(valText)); //returns true if contains numbers
                 if (!/\d/.test(valText)) {
                     valArr = valText.split(",");
                     if (!/\d/.test(valArr[0])) {
-                        console.log("******lenght******", valArr.length)
                         if (valArr.length == 3) {
                             // $scope.arrLocation.push(valArr[0]);
                             document.getElementById("locationCity").value = null;
                             $scope.formData.city = valArr[0];
                             $scope.formData.state = valArr[1];
                             $scope.formData.country = valArr[2];
-                            console.log("country is:", $scope.formData.country)
                             $scope.$digest();
 
                         } else {
                             if (valArr.length == 2) {
-                                console.log("*******inside else***", valArr.length);
-                                console.log("valArr[0]", valArr[0]);
-                                console.log("valArr[1]", valArr[1]);
                                 // document.getElementById("locationCity").value = null;
                                 $scope.formData.city = valArr[0];
                                 $scope.formData.state = "";
@@ -1306,11 +1269,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             },
 
             $scope.cardDetailsPayment = function (data) {
-                console.log("invoiceUserId", invoiceUserId);
                 var invoiceUserId = {};
                 invoiceUserId.invoiceNo = invoiceNumber;
                 data.amount = $scope.amount;
-                console.log("invoiceUserId", invoiceUserId);
                 NavigationService.apiCallWithData("ProductOrders/chargeCreditCard", data, function (data1) {
                     if (data1.value == true) {
                         NavigationService.apiCallWithData("ProductOrders/invoiceGenerate", invoiceUserId, function (data1) {
@@ -1431,7 +1392,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             switch ($stateParams.id) {
                 case '1':
                     $scope.blogShow = false;
-                    console.log("im in case1");
                     $scope.blogDetail = {
                         "image": "frontend/img/new/7.jpg",
                         "title": "AN ASSORTMENT OF APPLICATION",
@@ -1445,7 +1405,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     break;
                 case '2':
                     $scope.blogShow = false;
-                    console.log("im in case2");
                     $scope.blogDetail = {
                         "id": '2',
                         "image": "frontend/img/new/13.jpg",
@@ -1463,7 +1422,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     break;
                 case '3':
                     $scope.blogShow = false;
-                    console.log("im in case3");
                     $scope.blogDetail = {
                         "image": "frontend/img/new/58.jpg",
                         "title": "THIS ONE STOP SHOP IS THE SOLUTION<br> TO ALL YOUR DRONE SURVEYING PROBLEMS!",
@@ -1478,7 +1436,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
                     break;
                 case '4':
-                    console.log("im in case3");
                     $scope.blogShow = true;
                     $scope.blogDetail = [{
                             "image": "frontend/img/new/copy.jpg",
@@ -1570,7 +1527,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     .controller('languageCtrl', function ($scope, TemplateService, $translate, $rootScope) {
 
         $scope.changeLanguage = function () {
-            console.log("Language CLicked");
 
             if (!$.jStorage.get("language")) {
                 $translate.use("hi");
@@ -1588,6 +1544,4 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
 
 
-    })
-
-;
+    });

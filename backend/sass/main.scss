@@ -1,4 +1,4 @@
-/*!
+    /*!
  * Adminbag v1.3 (http://adminbag-v1.3.bittyfox.com/)
  * Copyright AdminBag Company © 2017 
  * 
@@ -4292,16 +4292,18 @@ WIDGETS
         outline: none;
     }
 }
-.access-select{
-    select{
-            border: none;
-    background: none;
-    &:focus,&:active{
-        outline: none;
-    }
-    
+
+.access-select {
+    select {
+        border: none;
+        background: none;
+        &:focus,
+        &:active {
+            outline: none;
+        }
     }
 }
+
 .leaflet-bar .leaflet-control-zoom-in {
     opacity: 1;
     padding: 3px 7px;
@@ -4400,10 +4402,22 @@ WIDGETS
     background-position: -31px -3px;
 }
 
-.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-edit.leaflet-disabled {
-    background-position: -212px -1px;
+.leaflet-draw-toolbar .leaflet-draw-draw-polygon {
+    background-position: -46px -2px;
 }
 
-.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-remove.leaflet-disabled {
-    background-position: -242px -2px;
+.leaflet-draw-toolbar .leaflet-draw-draw-circlemarker {
+    background-position: -257px -2px;
+    .leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-edit.leaflet-disabled {
+        background-position: -212px -1px;
+    }
 }
+    .leaflet-draw-toolbar .leaflet-draw-edit-edit.leaflet-disabled {
+        background-position: -226px -2px;
+    }
+    .leaflet-draw-toolbar .leaflet-draw-edit-remove.leaflet-disabled {
+        background-position: -257px -2px;
+    }
+    .leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-remove.leaflet-disabled {
+        background-position: -242px -2px;
+    }

@@ -117,7 +117,7 @@ var schema = new Schema({
             socialProvider: String
         }]
     },
-
+    status: String
 });
 
 
@@ -176,9 +176,7 @@ var model = {
             .keyword(options)
             .page(options,
                 function (err, found) {
-                    console.log("inside paggingtion cadline file", found)
                     if (err) {
-                        console.log(err);
                         callback(err, null);
                     } else if (found) {
                         callback(null, found);
@@ -222,7 +220,6 @@ var model = {
             .page(options,
                 function (err, found) {
                     if (err) {
-                        console.log(err);
                         callback(err, null);
                     } else if (found) {
                         callback(null, found);
@@ -331,13 +328,10 @@ var model = {
             new: true
         }).exec(function (err, found) {
             if (err) {
-                console.log("inside error");
                 callback(err, null);
             } else if (_.isEmpty(found)) {
-                console.log("isemapty")
                 callback(null, "noDataound");
             } else {
-                console.log("found", found)
                 callback(null, found);
             }
 
@@ -349,7 +343,6 @@ var model = {
             password: md5(data.password)
         }).exec(function (err, found) {
             if (err) {
-
                 callback(err, null);
             } else {
                 if (found) {
@@ -377,6 +370,7 @@ var model = {
             }
         });
     },
+
     existsSocial: function (user, callback) {
         var Model = this;
         Model.findOne({

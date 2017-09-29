@@ -148,9 +148,7 @@ var model = {
             function (err, result) {
                 if (err || _.isEmpty(result)) {
                     callback(err, []);
-
                 } else {
-                    console.log("final result is ****", result)
                     callback(null, result);
                 }
             });
@@ -188,7 +186,6 @@ var model = {
             .page(options,
                 function (err, found) {
                     if (err) {
-                        console.log(err);
                         callback(err, null);
                     } else if (found) {
                         callback(null, found);
@@ -230,12 +227,11 @@ var model = {
         ProductOrders.find({
                 user: data.user
             })
-            .deepPopulate("serviceId user DFMSubscription products cadLineWork dfmSubscription")
+            .deepPopulate("products user cadLineWork dfmSubscription")
             .order(options)
             .keyword(options)
             .page(options,
                 function (err, found) {
-                    console.log("inside paggingtion ProductOrders file", found)
                     if (err) {
                         console.log(err);
                         callback(err, null);

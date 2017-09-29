@@ -7,9 +7,8 @@
         <div class="col-lg-12">
           <h2> Support </h2>
           <ol class="breadcrumb">
-            <li> <a href="#/dashboard1">Home</a> </li>
-            <li> <a> Support</a> </li>
-            <li class="active"> <strong> Support</strong> </li>
+            <li> <a ui-sref="dashboard">Home</a> </li>
+            <li class="active"> <strong>Support</strong> </li>
           </ol>
         </div>
       </div>
@@ -89,9 +88,8 @@
         <div class="col-lg-12">
           <h2>Support</h2>
           <ol class="breadcrumb">
-            <li> <a href="#/dashboard1">Home</a> </li>
-            <li> <a> Page Layouts </a> </li>
-            <li class="active"> <strong>Blank Page Layout</strong> </li>
+            <li> <a ui-sref="dashboard">Home</a> </li>
+            <li class="active"> <strong>Support</strong> </li>
           </ol>
         </div>
       </div>
@@ -127,12 +125,12 @@
                   </thead>
                   <tbody>
                     <tr ng-repeat="ticket in allTicketData">
-                      <td><a ui-sref="support-details({'ticketId' : ticket._id})">{{ticket.ticketId}}</a></td>
-                      <td><a ui-sref="support-details({'ticketId' : ticket._id})">{{ticket.createdAt}}</a></td>
+                      <td><a ui-sref="support-details({'ticketId' : ticket._id})">{{ticket._id}}</a></td>
+                      <td><a ui-sref="support-details({'ticketId' : ticket._id})">{{ticket.createdAt | date}}</a></td>
                       <td><a ui-sref="support-details({'ticketId' : ticket._id})">{{ticket.subject}}</a></td>
                       <td><a ui-sref="support-details({'ticketId' : ticket._id})">{{ticket.description}}</a></td>
                       <td><a ui-sref="support-details({'ticketId' : ticket._id})">{{ticket.status}}</a></td>
-                      <td><a ui-sref="support-details({'ticketId' : ticket._id})">{{ticket.closingDate}}</a></td>
+                      <td><a ui-sref="support-details({'ticketId' : ticket._id})">{{ticket.replyDate | date}}</a></td>
                     </tr>
                   </tbody>
                 </table>
