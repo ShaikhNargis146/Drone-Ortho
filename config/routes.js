@@ -69,6 +69,10 @@ module.exports.routes = {
         controller: "WebController",
         action: "getPdf"
     },
+    'GET /file/:filename': {
+        controller: "WebController",
+        action: "getFile"
+    },
 
     /***************************************************************************
      *                                                                          *

@@ -13,7 +13,6 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Dashboard");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
@@ -966,12 +965,14 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
+        $scope.missionID = {};
         $scope.cadLineDetails = {}
         var mission = {};
         mission._id = $stateParams.missionId;
         NavigationService.apiCall("Mission/getOne", mission, function (data) {
             if (data.value === true) {
                 $scope.missionDetails = data.data;
+                $scope.missionID = $scope.missionDetails.missionId;
                 $scope.template = TemplateService.changecontent("mission-details");
                 $scope.menutitle = NavigationService.makeactive("MissionDetails");
                 TemplateService.title = $scope.menutitle;
@@ -1062,6 +1063,41 @@ firstapp
                 }
             });
         }
+
+        //download Files
+
+        $scope.downloadInputImage = function () {
+                window.open('http://wohlig.io:1337/file/' + 'xyz.jpg', '_self');
+            },
+
+            $scope.downloadOrtho = function () {
+                window.open('http://wohlig.io:1337/file/' + 'xyz.jpg', '_self');
+            },
+
+            $scope.downloadDsm = function () {
+                window.open('http://wohlig.io:1337/file/' + 'xyz.jpg', '_self');
+            },
+
+            $scope.downloadMeshObj = function () {
+                window.open('http://wohlig.io:1337/file/' + 'xyz.jpg', '_self');
+            },
+
+            $scope.downloadMeshFbx = function () {
+                window.open('http://wohlig.io:1337/file/' + 'xyz.jpg', '_self');
+            },
+
+            $scope.downloadPointCloud = function () {
+                window.open('http://wohlig.io:1337/file/' + 'xyz.jpg', '_self');
+            },
+
+            $scope.downloadQualityReports = function () {
+                window.open('http://wohlig.io:1337/file/' + 'xyz.jpg', '_self');
+            },
+
+
+            $scope.downloadProcessingLog = function () {
+                window.open('http://wohlig.io:1337/file/' + 'xyz.jpg', '_self');
+            }
 
     })
 
@@ -5161,7 +5197,6 @@ firstapp
                     NavigationService.parseAccessToken(data.data._id, function () {
                         NavigationService.profile(function () {
                             $scope.template.profile = data.data;
-                            console.log("$scope.template.profiles", $scope.template.profile);
                             $state.go("dashboard");
                         }, function () {
                             $state.go("login");
