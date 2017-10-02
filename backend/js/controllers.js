@@ -999,14 +999,14 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
-        $scope.missionID = {};
+        var missionName = {};
         $scope.cadLineDetails = {}
         var mission = {};
         mission._id = $stateParams.missionId;
         NavigationService.apiCall("Mission/getOne", mission, function (data) {
             if (data.value === true) {
                 $scope.missionDetails = data.data;
-                $scope.missionID = $scope.missionDetails.missionId;
+                missionName = $scope.missionDetails.name;
                 $scope.template = TemplateService.changecontent("mission-details");
                 $scope.menutitle = NavigationService.makeactive("MissionDetails");
                 TemplateService.title = $scope.menutitle;
@@ -1112,28 +1112,28 @@ firstapp
 
         //download Files
 
-        $scope.downloadInputImage = function () {
-                window.open('http://wohlig.io:1337/file/' + 'xyz.jpg', '_self');
-            },
+        $scope.downloadInputImage = function (missionId) {
+                // window.open('http://35.201.210.67/file/' + 'xyz.jpg', '_self');
+            }, //pending
 
             $scope.downloadOrtho = function () {
-                window.open('http://wohlig.io:1337/file/' + 'xyz.jpg', '_self');
+                window.open('http://35.201.210.67/file/' + missionName + "\3_dsm_ortho\2_mosaic\\", missionName + "_transparent_mosaic_group1.tif", '_self');
             },
 
             $scope.downloadDsm = function () {
-                window.open('http://wohlig.io:1337/file/' + 'xyz.jpg', '_self');
+                window.open('http://35.201.210.67/file/' + 'xyz.jpg', '_self');
             },
 
             $scope.downloadMeshObj = function () {
-                window.open('http://wohlig.io:1337/file/' + 'xyz.jpg', '_self');
+                window.open('http://35.201.210.67/file/' + 'xyz.jpg', '_self');
             },
 
             $scope.downloadMeshFbx = function () {
-                window.open('http://wohlig.io:1337/file/' + 'xyz.jpg', '_self');
+                window.open('http://35.201.210.67/file/' + 'xyz.jpg', '_self');
             },
 
             $scope.downloadPointCloud = function () {
-                window.open('http://wohlig.io:1337/file/' + 'xyz.jpg', '_self');
+                window.open('http://35.201.210.67/file/' + 'xyz.jpg', '_self');
             },
 
             $scope.downloadQualityReports = function () {
