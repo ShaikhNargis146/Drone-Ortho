@@ -22,6 +22,7 @@ $output-bourbon-deprecation-warnings: false;
 @import "../../bower_components/mapbox.js/mapbox";
 @import "../../node_modules/leaflet-draw/dist/leaflet.draw";
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "../../bower_components/angularjs-slider/dist/rzslider";
 @import "template/icons";
 @import "template/main";
 @import "template/responsive";
@@ -4385,8 +4386,10 @@ WIDGETS
 @import "../js/plugins/summernote/summernote-bs3";
 @import "../js/plugins/datapicker/angular-datapicker";
 @import "../js/plugins/iCheck/custom";
-@import "../js/plugins/ionRangeSlider/ion.rangeSlider";
-@import "../js/plugins/ionRangeSlider/ion.rangeSlider.skinFlat";
+
+// @import "../js/plugins/ionRangeSlider/ion.rangeSlider";
+// @import "../js/plugins/ionRangeSlider/ion.rangeSlider.skinFlat";
+// @import "../js/plugins/angular-rangeslider/angular.rangeSlider";
 // @import "../js/plugins/angular-morris/morris";
 .leaflet-retina .leaflet-draw-toolbar a {
     background-image: url(../img/spritesheet-2x.png);
@@ -4421,3 +4424,34 @@ WIDGETS
     .leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-remove.leaflet-disabled {
         background-position: -242px -2px;
     }
+    .rzslider .rz-pointer{
+            width: 20px;
+    height: 20px;
+    border-radius: 50% !important;
+        top: -8px;
+&:focus,&:active,&::visited{
+    outline:none;
+}
+    }
+    .rzslider .rz-pointer:after {
+    top: 7px;
+    left: 7px;
+    width: 7px;
+    height: 7px;
+
+
+
+
+}
+
+#a,#c{
+    display: none;
+}
+.chart-user:hover{
+    #a{display:block;}
+}
+.chart-admin:hover{
+    #c{display:block;}
+    }
+    .img-map{
+ background-color:red;}

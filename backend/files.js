@@ -16,6 +16,8 @@ module.exports = [
     "bower_components/Flot/jquery.flot.resize.js",
     "bower_components/Flot/jquery.flot.time.js",
     "bower_components/Flot/jquery.flot.symbol.js",
+   
+
     // *****************************************************************************************************
 
     '../../js/tinymce/tinymce.js',
@@ -56,6 +58,7 @@ module.exports = [
     // *******my bower component********
 
     // "bower_components/highcharts-ng/dist/highcharts-ng.js",
+      "bower_components/angularjs-slider/dist/rzslider.js",
     "bower_components/mapbox.js/mapbox.js",
     "node_modules/mapbox-gl-draw/dist/mapbox-gl-draw.js",
     "node_modules/@turf/turf/turf.min.js",
@@ -92,9 +95,10 @@ module.exports = [
     // 'backend/js/plugins/amcharts/10/plugins/export/export.js',
     // 'backend/js/plugins/amcharts/10/radar.js',
     'backend/js/plugins/iCheck/icheck.min.js',
-    'backend/js/plugins/ionRangeSlider/ion.rangeSlider.min.js',
-    'backend/js/plugins/ion.rangeslider-angularjs/ionic-range-slider.js',
-    'backend/js/plugins/angular-rangeslider/angular.rangeSlider.js'
+   
+    // 'backend/js/plugins/ionRangeSlider/ion.rangeSlider.min.js',
+    // 'backend/js/plugins/ion.rangeslider-angularjs/ionic-range-slider.js',
+    // 'backend/js/plugins/angular-rangeslider/angular.rangeSlider.js'
 
     // 'backend/js/plugins/amcharts/plugins/export/libs/fabric.js/fabric.js',
     // 'backend/js/plugins/amcharts/plugins/export/libs/fabric.js/fabric.min.js',

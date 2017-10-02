@@ -79,45 +79,47 @@
                                             <div class="col-sm-8">
                                                 <div class="chart-user">
                                                     <div id="legend"></div>
-                                                    <flot dataset="dataset" id="flot-placeholder" options="options" on-plot-click="onEventExampleClicked(event, pos, item)" on-plot-hover="onEventExampleHover(event, pos, item)"
+                                                    <div class="flot-chart-box">
+                                                       <flot dataset="dataset" id="flot-placeholder" options="options" on-plot-click="onEventExampleClicked(event, pos, item)" on-plot-hover="onEventExampleHover(event, pos, item)"
                                                         height="200px"></flot>
                                                     <div id="a" style="position:fixed;">
                                                         <div id="b" style="background: white; color:black;border:1px solid black">{{toolsvalue}}</div>
                                                     </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3">
-                                                <ul class="stat-list">
+                                            <div class="col-sm-3 ">
+                                                <ul class="stat-list ">
                                                     <li>
-                                                        <h2 class="no-margins">9,888</h2>
+                                                        <h2 class="no-margins ">9,888</h2>
                                                         <small>Total CAD Orders in AUG</small>
-                                                        <div class="stat-percent">58% <i class="fa fa-level-up text-navy"></i></div>
-                                                        <div class="progress progress-mini">
-                                                            <div class="progress-bar" style="width: 58%;"></div>
+                                                        <div class="stat-percent ">58% <i class="fa fa-level-up text-navy "></i></div>
+                                                        <div class="progress progress-mini ">
+                                                            <div class="progress-bar " style="width: 58%; "></div>
                                                         </div>
                                                     </li>
                                                     <li>
-                                                        <h2 class="no-margins">7,666</h2>
+                                                        <h2 class="no-margins ">7,666</h2>
                                                         <small>Total CAD Orders in SEPT</small>
-                                                        <div class="stat-percent">48% <i class="fa fa-level-up text-navy"></i></div>
-                                                        <div class="progress progress-mini">
-                                                            <div class="progress-bar" style="width: 48%;"></div>
+                                                        <div class="stat-percent ">48% <i class="fa fa-level-up text-navy "></i></div>
+                                                        <div class="progress progress-mini ">
+                                                            <div class="progress-bar " style="width: 48%; "></div>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <h2 class="no-margins ">4,422</h2>
                                                         <small>Total CAD Orders in OCT</small>
-                                                        <div class="stat-percent">60% <i class="fa fa-level-down text-navy"></i></div>
-                                                        <div class="progress progress-mini">
-                                                            <div class="progress-bar" style="width: 60%;"></div>
+                                                        <div class="stat-percent ">60% <i class="fa fa-level-down text-navy "></i></div>
+                                                        <div class="progress progress-mini ">
+                                                            <div class="progress-bar " style="width: 60%; "></div>
                                                         </div>
                                                     </li>
                                                     <!--<li>
                                                             <h2 class="no-margins ">9,180</h2>
                                                             <small>Monthly income from orders</small>
-                                                            <div class="stat-percent">22% <i class="fa fa-bolt text-navy"></i></div>
-                                                            <div class="progress progress-mini">
-                                                                <div class="progress-bar" style="width: 22%;"></div>
+                                                            <div class="stat-percent ">22% <i class="fa fa-bolt text-navy "></i></div>
+                                                            <div class="progress progress-mini ">
+                                                                <div class="progress-bar " style="width: 22%; "></div>
                                                             </div>
                                                         </li>-->
                                                 </ul>
@@ -129,664 +131,28 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-8">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
+                    <div class="col-lg-8 ">
+                        <div class="ibox float-e-margins ">
+                            <div class="ibox-title ">
                                 <h5>Usage Statistics</h5>
-                                <div class="ibox-tools"> <a class="btn green btn-xs" href=""> 31-Jan-2017</a> </div>
+                                <div class="ibox-tools "> <a class="btn green btn-xs " href=" "> 31-Jan-2017</a> </div>
                             </div>
                             <!-- Pie Chart -->
-                            <!--****************************** START OF USER VIEW **************************************************************************************8-->
-                            <div class="page-container" ng-if="accessLevel=='user'">
-
-                                <!-- Start page content wrapper -->
-                                <div class="page-content-wrapper animated fadeInRight">
-                                    <div class="page-content">
-                                        <div class="wrapper-content ">
-                                            <div class="row">
-                                                <!-- begin col-3 -->
-                                                <div class="col-md-3 col-sm-6">
-                                                    <div class="widget widget-stats red-bg">
-                                                        <div class="stats-icon stats-icon-lg"><i class="fa fa-diamond fa-fw"></i></div>
-                                                        <div class="stats-title">TOTAL MISSIONS</div>
-                                                        <div class="stats-number">152</div>
-                                                        <div class="stats-progress progress">
-                                                            <div style="width: 70.1%;" class="progress-bar"></div>
-                                                        </div>
-                                                        <div class="stats-desc">Better than last week (70.1%)</div>
-                                                    </div>
-                                                </div>
-                                                <!-- end col-3 -->
-                                                <!-- begin col-3 -->
-                                                <div class="col-md-3 col-sm-6 mtop15">
-                                                    <div class="widget widget-stats aqua-bg ">
-                                                        <div class="stats-icon stats-icon-lg"><i class="fa fa-picture-o fa-fw"></i></div>
-                                                        <div class="stats-title">TOTAL CAD FILE REQUESTED</div>
-                                                        <div class="stats-number">230</div>
-                                                        <div class="stats-progress progress">
-                                                            <div style="width: 40.5%;" class="progress-bar"></div>
-                                                        </div>
-                                                        <div class="stats-desc">Better than last week (40.5%)</div>
-                                                    </div>
-                                                </div>
-                                                <!-- end col-3 -->
-                                                <!-- begin col-3 -->
-                                                <div class="col-md-3 col-sm-6 mtop15">
-                                                    <div class="widget widget-stats purple-bg">
-                                                        <div class="stats-icon stats-icon-lg"><i class="fa fa-sliders fa-fw"></i></div>
-                                                        <div class="stats-title">DFM STATUS</div>
-                                                        <div class="stats-number" style="color:#8e44ad">000</div>
-                                                        <div class="stats-progress progress">
-                                                            <!-- <div style="width: 76.3%;" class="progress-bar"></div>-->
-                                                        </div>
-                                                        <div class="stats-desc">Active</div>
-                                                    </div>
-                                                </div>
-                                                <!-- end col-3 -->
-                                                <!-- begin col-3 -->
-                                                <div class="col-md-3 col-sm-6 mtop15">
-                                                    <div class="widget widget-stats black-bg">
-                                                        <div class="stats-icon stats-icon-lg"><i class="fa fa-calendar-times-o fa-fw"></i></div>
-                                                        <div class="stats-title">DFM EXPIRATION DATE</div>
-                                                        <div class="stats-number" style="color:#2f353b">000</div>
-                                                        <div class="stats-progress progress">
-                                                            <!--<div style="width: 54.9%;" class="progress-bar"></div>-->
-                                                        </div>
-                                                        <div class="stats-desc">08/22/2019</div>
-                                                    </div>
-                                                </div>
-                                                <!-- end col-3 -->
-                                            </div>
-                                            <div class="row top20">
-                                                <div class="col-lg-12">
-                                                    <div class="ibox float-e-margins">
-                                                        <div class="ibox-title">
-                                                            <h5>Orders</h5>
-                                                            <!--<div class="pull-right">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-xs btn-white active">Today</button>
-                                            <button type="button" class="btn btn-xs btn-white">Monthly</button>
-                                            <button type="button" class="btn btn-xs btn-white">Annual</button>
-                                        </div>
-                                    </div>-->
-                                                        </div>
-                                                        <div class="ibox-content collapse in">
-                                                            <div>
-                                                                <div class="widgets-container">
-                                                                    <div class="row">
-                                                                        <div class="col-sm-8">
-                                                                            <div class="chart-user">
-                                                                                <div id="legend"></div>
-                                                                                <flot dataset="dataset" id="flot-placeholder" options="options" height="200px"></flot>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-sm-3">
-                                                                            <ul class="stat-list">
-                                                                                <li>
-                                                                                    <h2 class="no-margins">9,888</h2>
-                                                                                    <small>Total CAD Orders in AUG</small>
-                                                                                    <div class="stat-percent">58% <i class="fa fa-level-up text-navy"></i></div>
-                                                                                    <div class="progress progress-mini">
-                                                                                        <div class="progress-bar" style="width: 58%;"></div>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <h2 class="no-margins">7,666</h2>
-                                                                                    <small>Total CAD Orders in SEPT</small>
-                                                                                    <div class="stat-percent">48% <i class="fa fa-level-up text-navy"></i></div>
-                                                                                    <div class="progress progress-mini">
-                                                                                        <div class="progress-bar" style="width: 48%;"></div>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <h2 class="no-margins ">4,422</h2>
-                                                                                    <small>Total CAD Orders in OCT</small>
-                                                                                    <div class="stat-percent">60% <i class="fa fa-level-down text-navy"></i></div>
-                                                                                    <div class="progress progress-mini">
-                                                                                        <div class="progress-bar" style="width: 60%;"></div>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <!--<li>
-                                                            <h2 class="no-margins ">9,180</h2>
-                                                            <small>Monthly income from orders</small>
-                                                            <div class="stat-percent">22% <i class="fa fa-bolt text-navy"></i></div>
-                                                            <div class="progress progress-mini">
-                                                                <div class="progress-bar" style="width: 22%;"></div>
-                                                            </div>
-                                                        </li>-->
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-8">
-                                                    <div class="ibox float-e-margins">
-                                                        <div class="ibox-title">
-                                                            <h5>Usage Statistics</h5>
-                                                            <div class="ibox-tools"> <a class="btn green btn-xs" href=""> 31-Jan-2017</a> </div>
-                                                        </div>
-                                                        <!-- Pie Chart -->
-                                                        <div class="ibox-content collapse in">
-                                                            <div class="demo-container">
-                                                                <flot textinfo="none" dataset="pieDataset" options="pieOptions" height="380px"></flot>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <!-- Start feed -->
-                                                    <div class="ibox float-e-margins">
-                                                        <div class="ibox-title">
-                                                            <h1>Do you want to upgrade your DFM or buy a Drone?</h1>
-                                                            <!-- ibox-tools -->
-                                                            <div class="col-lg-12" style="padding-left:60px; padding-top:30px ; padding-bottom:50px">
-                                                                <button class="btn  green btn-outline " ui-sref="product-detail"> Click to upgrade DFM or buy a Drone</button>
-                                                            </div>
-
-                                                        </div>
-
-
-
-
-
-                                                        <!-- End feed -->
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--****************************** END OF USER VIEW **************************************************************************************8-->
-                            <!--****************************** START OF ADMIN VIEW **************************************************************************************8-->
-                            <div class="page-container" ng-if="accessLevel=='admin'">
-                                <!-- Start page content wrapper -->
-                                <div class="page-content-wrapper animated fadeInRight">
-                                    <div class="page-content">
-                                        <div class="wrapper-content ">
-                                            <div class="row">
-                                                <!-- begin col-3 -->
-                                                <div class="col-md-3 col-sm-6">
-                                                    <div class="widget widget-stats red-bg">
-                                                        <div class="stats-icon stats-icon-lg"><i class="fa fa-user-circle-o fa-fw"></i></div>
-                                                        <div class="stats-title">TOTAL USERS</div>
-                                                        <div class="stats-number">1342</div>
-                                                        <div class="stats-progress progress">
-                                                            <!-- <div style="width: 70.1%;" class="progress-bar"></div>-->
-                                                        </div>
-                                                        <div class="stats-desc">Clients + Vendors</div>
-                                                    </div>
-                                                </div>
-                                                <!-- end col-3 -->
-                                                <!-- begin col-3 -->
-                                                <div class="col-md-3 col-sm-6 mtop15">
-                                                    <div class="widget widget-stats aqua-bg ">
-                                                        <div class="stats-icon stats-icon-lg"><i class="fa fa-paper-plane-o fa-fw"></i></div>
-                                                        <div class="stats-title">TOTAL DRONES SOLD </div>
-                                                        <div class="stats-number">355</div>
-                                                        <div class="stats-progress progress">
-                                                            <!-- <div style="width: 40.5%;" class="progress-bar"></div>-->
-                                                        </div>
-                                                        <div class="stats-desc">FC - 250</div>
-                                                    </div>
-                                                </div>
-                                                <!-- end col-3 -->
-                                                <!-- begin col-3 -->
-                                                <div class="col-md-3 col-sm-6 mtop15">
-                                                    <div class="widget widget-stats purple-bg">
-                                                        <div class="stats-icon stats-icon-lg"><i class="fa fa-picture-o fa-fw"></i></div>
-                                                        <div class="stats-title">TOTAL CAD REQUESTED</div>
-                                                        <div class="stats-number">3002</div>
-                                                        <div class="stats-progress progress">
-                                                            <!--<div style="width: 76.3%;" class="progress-bar"></div>-->
-                                                        </div>
-                                                        <div class="stats-desc">Till Current Date</div>
-
-                                                    </div>
-                                                </div>
-                                                <!-- end col-3 -->
-                                                <!-- begin col-3 -->
-                                                <div class="col-md-3 col-sm-6 mtop15">
-                                                    <div class="widget widget-stats green-bg">
-                                                        <div class="stats-icon stats-icon-lg"><i class="fa fa-diamond fa-fw"></i></div>
-                                                        <div class="stats-title">TOTAL MISSIONS</div>
-                                                        <div class="stats-number">600</div>
-                                                        <div class="stats-progress progress">
-                                                            <!-- <div style="width: 54.9%;" class="progress-bar"></div>-->
-                                                        </div>
-                                                        <div class="stats-desc"> Till Current Date</div>
-                                                    </div>
-                                                </div>
-                                                <!-- end col-3 -->
-                                            </div>
-                                            <div class="row top20">
-                                                <div class="col-lg-12">
-                                                    <div class="ibox float-e-margins">
-                                                        <div class="ibox-title">
-                                                            <h5> CAD Orders</h5>
-                                                            <div class="pull-right">
-                                                                <div class="btn-group">
-                                                                    <button type="button" class="btn btn-xs btn-white active">Today</button>
-                                                                    <button type="button" class="btn btn-xs btn-white">Monthly</button>
-                                                                    <button type="button" class="btn btn-xs btn-white">Annual</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="ibox-content collapse in">
-                                                            <div>
-                                                                <div class="widgets-container">
-                                                                    <div class="row">
-                                                                        <div class="col-sm-9">
-                                                                            <div class="chart-admin">
-                                                                                <div id="legend"></div>
-                                                                                <flot dataset="datasetadmin" id="flot-placeholder" options="optionsadmin" height="200px"></flot>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-sm-3">
-                                                                            <ul class="stat-list">
-                                                                                <li>
-                                                                                    <h2 class="no-margins">1000</h2>
-                                                                                    <small>Total DFM Revenue</small>
-                                                                                    <div class="stat-percent">58% <i class="fa fa-level-up text-navy"></i></div>
-                                                                                    <div class="progress progress-mini">
-                                                                                        <div class="progress-bar" style="width: 58%;"></div>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <h2 class="no-margins">2500</h2>
-                                                                                    <small>Total DRONE Revenue</small>
-                                                                                    <div class="stat-percent">48% <i class="fa fa-level-up text-navy"></i></div>
-                                                                                    <div class="progress progress-mini">
-                                                                                        <div class="progress-bar" style="width: 48%;"></div>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <h2 class="no-margins ">1500</h2>
-                                                                                    <small>Total CAD Revenue</small>
-                                                                                    <div class="stat-percent">60% <i class="fa fa-level-down text-navy"></i></div>
-                                                                                    <div class="progress progress-mini">
-                                                                                        <div class="progress-bar" style="width: 60%;"></div>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <h2 class="no-margins ">5000</h2>
-                                                                                    <small>Total Revenue</small>
-                                                                                    <div class="stat-percent">22% <i class="fa fa-bolt text-navy"></i></div>
-                                                                                    <div class="progress progress-mini">
-                                                                                        <div class="progress-bar" style="width: 22%;"></div>
-                                                                                    </div>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div class="col-lg-12">
-                                                        <div class="ibox float-e-margins">
-                                                            <div class="ibox-title">
-                                                                <h5>Last Month CAD </h5>
-                                                                <div class="ibox-tools"> <a class="btn green btn-xs" href=""> 31-Jan-2017</a> </div>
-                                                            </div>
-                                                            <div class="ibox-content collapse in">
-                                                                <div class="widgets-container tabs-container dashboard-tab-data-box">
-                                                                    <div class="table table-hover">
-                                                                        <table datatable="" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
-                                                                            <thead>
-                                                                                <tr>
-                                                                                    <th>Mission ID</th>
-                                                                                    <th>Request Type</th>
-                                                                                    <th>Map Area Link</th>
-                                                                                    <th>Acreage</th>
-                                                                                    <th>Status</th>
-                                                                                    <th>Date of Request</th>
-                                                                                    <th>Completion Date</th>
-                                                                                </tr>
-                                                                            </thead>
-
-                                                                            <tbody>
-                                                                                <tr>
-                                                                                    <td>#_1</td>
-                                                                                    <td>Internal</td>
-                                                                                    <td>link</td>
-                                                                                    <td>61</td>
-                                                                                    <td>Complete</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>#_2</td>
-                                                                                    <td>External</td>
-                                                                                    <td>link</td>
-                                                                                    <td>61</td>
-                                                                                    <td>Complete</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>#_3</td>
-                                                                                    <td>External</td>
-                                                                                    <td>link</td>
-                                                                                    <td>61</td>
-                                                                                    <td>Inprogress</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>#_4</td>
-                                                                                    <td>External</td>
-                                                                                    <td>link</td>
-                                                                                    <td>61</td>
-                                                                                    <td>Complete</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>#_5</td>
-                                                                                    <td>Internal</td>
-                                                                                    <td>link</td>
-                                                                                    <td>61</td>
-                                                                                    <td>Inprogress</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>#_6</td>
-                                                                                    <td>Internal</td>
-                                                                                    <td>link</td>
-                                                                                    <td>61</td>
-                                                                                    <td>Complete</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>#_7</td>
-                                                                                    <td>External</td>
-                                                                                    <td>link</td>
-                                                                                    <td>61</td>
-                                                                                    <td>Inprogress</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>#_8</td>
-                                                                                    <td>External</td>
-                                                                                    <td>link</td>
-                                                                                    <td>61</td>
-                                                                                    <td>Inprogress</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>#_9</td>
-                                                                                    <td>External</td>
-                                                                                    <td>link</td>
-                                                                                    <td>61</td>
-                                                                                    <td>Complete</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>#_10</td>
-                                                                                    <td>Internal</td>
-                                                                                    <td>link</td>
-                                                                                    <td>61</td>
-                                                                                    <td>Cancelled</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>#_11</td>
-                                                                                    <td>Internal</td>
-                                                                                    <td>link</td>
-                                                                                    <td>61</td>
-                                                                                    <td>Cancelled</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>#_12</td>
-                                                                                    <td>External</td>
-                                                                                    <td>link</td>
-                                                                                    <td>61</td>
-                                                                                    <td>Cancelled</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>#_13</td>
-                                                                                    <td>Internal</td>
-                                                                                    <td>link</td>
-                                                                                    <td>61</td>
-                                                                                    <td>Cancelled</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>#_14</td>
-                                                                                    <td>Internal</td>
-                                                                                    <td>link</td>
-                                                                                    <td>61</td>
-                                                                                    <td>Inprogress</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>#_15</td>
-                                                                                    <td>Internal</td>
-                                                                                    <td>link</td>
-                                                                                    <td>61</td>
-                                                                                    <td>Inprogress</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>#_16</td>
-                                                                                    <td>Internal</td>
-                                                                                    <td>link</td>
-                                                                                    <td>61</td>
-                                                                                    <td>Inprogress</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>#_17</td>
-                                                                                    <td>External</td>
-                                                                                    <td>link</td>
-                                                                                    <td>61</td>
-                                                                                    <td>Complete</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>#_18</td>
-                                                                                    <td>External</td>
-                                                                                    <td>link</td>
-                                                                                    <td>61</td>
-                                                                                    <td>Complete</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                    <td>2011/04/25</td>
-                                                                                </tr>
-
-
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="col-lg-12">
-                                                        <div class="col-lg-6">
-                                                            <!-- Start feed -->
-                                                            <div class="ibox float-e-margins">
-                                                                <div class="ibox-title">
-                                                                    <h5>Orders</h5>
-
-                                                                </div>
-                                                                <!-- Pie Chart -->
-                                                                <div class="ibox-content collapse in">
-                                                                    <div class="demo-container">
-                                                                        <flot textinfo="none" dataset="pieDatasetOrder" options="pieOptionsOrder" height="380px"></flot>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <div class="ibox-title">
-                                                                <h5>Revenue</h5>
-                                                            </div>
-                                                            <!-- Pie Chart -->
-                                                            <div class="ibox-content collapse in">
-                                                                <div class="demo-container">
-                                                                    <flot textinfo="none" dataset="pieDatasetRevenue" options="pieOptionsRevenue" height="380px"></flot>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--****************************** END OF ADMIN VIEW **************************************************************************************8-->
-                            <!--****************************** START OF VENDOR VIEW **************************************************************************************8-->
-                            <div class="page-container" ng-if="accessLevel=='vendor'">
-                                <!-- Start page content wrapper -->
-                                <div class="page-content-wrapper animated fadeInRight  ">
-                                    <div class="page-content">
-                                        <div class="wrapper-content ">
-                                            <div class="row">
-                                                <!-- begin col-3 -->
-                                                <div class="col-md-3 col-sm-6">
-                                                    <div class="widget widget-stats red-bg">
-                                                        <div class="stats-icon stats-icon-lg"><i class="fa fa-picture-o fa-fw"></i></div>
-                                                        <div class="stats-title">TOTAL RECEIVED CAD FILES</div>
-                                                        <div class="stats-number">900</div>
-                                                        <div class="stats-progress progress">
-                                                            <!--<div style="width: 70.1%;" class="progress-bar"></div>-->
-                                                        </div>
-                                                        <div class="stats-desc">Till Date</div>
-                                                    </div>
-                                                </div>
-                                                <!-- end col-3 -->
-                                                <!-- begin col-3 -->
-                                                <div class="col-md-3 col-sm-6 mtop15">
-                                                    <div class="widget widget-stats aqua-bg ">
-                                                        <div class="stats-icon stats-icon-lg"><i class="fa fa-check-square-o fa-fw"></i></div>
-                                                        <div class="stats-title">TOTAL COMPLETED CAD FILES</div>
-                                                        <div class="stats-number">460</div>
-                                                        <div class="stats-progress progress">
-                                                            <!--<div style="width: 40.5%;" class="progress-bar"></div>-->
-                                                        </div>
-                                                        <div class="stats-desc">Till Date</div>
-                                                    </div>
-                                                </div>
-                                                <!-- end col-3 -->
-                                                <!-- begin col-3 -->
-                                                <div class="col-md-3 col-sm-6 mtop15">
-                                                    <div class="widget widget-stats purple-bg">
-                                                        <div class="stats-icon stats-icon-lg"><i class="fa fa-file-image-o fa-fw"></i></div>
-                                                        <div class="stats-title">TOTAL INCOMPLETED CAD FILES</div>
-                                                        <div class="stats-number">440</div>
-                                                        <div class="stats-progress progress">
-                                                            <!--<div style="width: 76.3%;" class="progress-bar"></div>-->
-                                                        </div>
-                                                        <div class="stats-desc">Till Date</div>
-                                                    </div>
-                                                </div>
-                                                <!-- end col-3 -->
-                                                <!-- begin col-3 -->
-                                                <div class="col-md-3 col-sm-6 mtop15">
-                                                    <div class="widget widget-stats green-bg">
-                                                        <div class="stats-icon stats-icon-lg"><i class="fa fa-usd fa-fw"></i></div>
-                                                        <div class="stats-title">TOTAL EARNING</div>
-                                                        <div class="stats-number">3000</div>
-                                                        <div class="stats-progress progress">
-                                                            <!--<div style="width: 54.9%;" class="progress-bar"></div>-->
-                                                        </div>
-                                                        <div class="stats-desc">Till Date</div>
-                                                    </div>
-                                                </div>
-                                                <!-- end col-3 -->
-                                            </div>
-                                            <div class="row top20">
-
-                                                <div>
-
-                                                    <div class="col-lg-6">
-                                                        <!-- Start feed -->
-                                                        <div class="ibox float-e-margins">
-                                                            <div class="ibox-title">
-                                                                <h5>Current Month CAD Statitics </h5>
-                                                                <!-- ibox-tools -->
-
-                                                            </div>
-                                                            <!-- Pie Chart -->
-                                                            <div class="ibox-content collapse in">
-                                                                <div class="demo-container">
-                                                                    <flot textinfo="none" dataset="pieDatasetCad" options="pieOptionsCad" height="380px"></flot>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End feed -->
-                                                    </div>
-
-                                                    <div class="col-lg-6">
-                                                        <!-- Start feed -->
-                                                        <div class="ibox float-e-margins">
-                                                            <div class="ibox-title">
-                                                                <h5>Current Month Earning Statitics</h5>
-                                                                <!-- ibox-tools -->
-
-                                                            </div>
-
-                                                            <!-- Pie Chart -->
-                                                            <div class="ibox-content collapse in">
-                                                                <div class="demo-container">
-                                                                    <flot textinfo="none" dataset="pieDatasetMonth" options="pieOptionsMonth" height="380px"></flot>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                        <!-- End feed -->
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--****************************** END OF VENDOR VIEW **************************************************************************************8-->
-                            <div class="ibox-content collapse in">
-                                <div class="demo-container">
-                                    <flot textinfo="none" dataset="pieDataset" options="pieOptions" height="380px"></flot>
+                            <div class="ibox-content collapse in ">
+                                <div class="demo-container ">
+                                    <flot textinfo="none " dataset="pieDataset " options="pieOptions " height="380px "></flot>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 ">
                         <!-- Start feed -->
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
+                        <div class="ibox float-e-margins ">
+                            <div class="ibox-title ">
                                 <h1>Do you want to upgrade your DFM or buy a Drone?</h1>
                                 <!-- ibox-tools -->
-                                <div class="col-lg-12" style="padding-left:60px; padding-top:30px ; padding-bottom:50px">
-                                    <button class="btn  green btn-outline " ui-sref="product-detail"> Click to upgrade DFM or buy a Drone</button>
+                                <div class="col-lg-12 " style="padding-left:60px; padding-top:30px ; padding-bottom:50px ">
+                                    <button class="btn green btn-outline " ui-sref="product-detail "> Click to upgrade DFM or buy a Drone</button>
                                 </div>
 
                             </div>
@@ -807,123 +173,129 @@
 
 <!--****************************** END OF USER VIEW **************************************************************************************8-->
 <!--****************************** START OF ADMIN VIEW **************************************************************************************8-->
-<div class="page-container" ng-if="accessLevel=='Admin'">
+<div class="page-container " ng-if="accessLevel=='Admin' ">
     <!-- Start page content wrapper -->
-    <div class="page-content-wrapper animated fadeInRight">
-        <div class="page-content">
+    <div class="page-content-wrapper animated fadeInRight ">
+        <div class="page-content ">
             <div class="wrapper-content ">
-                <div class="row">
+                <div class="row ">
                     <!-- begin col-3 -->
-                    <div class="col-md-3 col-sm-6">
-                        <div class="widget widget-stats red-bg">
-                            <div class="stats-icon stats-icon-lg"><i class="fa fa-user-circle-o fa-fw"></i></div>
-                            <div class="stats-title">TOTAL USERS</div>
-                            <div class="stats-number">1342</div>
-                            <div class="stats-progress progress">
-                                <!-- <div style="width: 70.1%;" class="progress-bar"></div>-->
+                    <div class="col-md-3 col-sm-6 ">
+                        <div class="widget widget-stats red-bg ">
+                            <div class="stats-icon stats-icon-lg "><i class="fa fa-user-circle-o fa-fw "></i></div>
+                            <div class="stats-title ">TOTAL USERS</div>
+                            <div class="stats-number ">1342</div>
+                            <div class="stats-progress progress ">
+                                <!-- <div style="width: 70.1%; " class="progress-bar "></div>-->
                             </div>
-                            <div class="stats-desc">Clients + Vendors</div>
+                            <div class="stats-desc ">Clients + Vendors</div>
                         </div>
                     </div>
                     <!-- end col-3 -->
                     <!-- begin col-3 -->
-                    <div class="col-md-3 col-sm-6 mtop15">
+                    <div class="col-md-3 col-sm-6 mtop15 ">
                         <div class="widget widget-stats aqua-bg ">
-                            <div class="stats-icon stats-icon-lg"><i class="fa fa-paper-plane-o fa-fw"></i></div>
-                            <div class="stats-title">TOTAL DRONES SOLD </div>
-                            <div class="stats-number">355</div>
-                            <div class="stats-progress progress">
-                                <!-- <div style="width: 40.5%;" class="progress-bar"></div>-->
+                            <div class="stats-icon stats-icon-lg "><i class="fa fa-paper-plane-o fa-fw "></i></div>
+                            <div class="stats-title ">TOTAL DRONES SOLD </div>
+                            <div class="stats-number ">355</div>
+                            <div class="stats-progress progress ">
+                                <!-- <div style="width: 40.5%; " class="progress-bar "></div>-->
                             </div>
-                            <div class="stats-desc">FC - 250</div>
+                            <div class="stats-desc ">FC - 250</div>
                         </div>
                     </div>
                     <!-- end col-3 -->
                     <!-- begin col-3 -->
-                    <div class="col-md-3 col-sm-6 mtop15">
-                        <div class="widget widget-stats purple-bg">
-                            <div class="stats-icon stats-icon-lg"><i class="fa fa-picture-o fa-fw"></i></div>
-                            <div class="stats-title">TOTAL CAD REQUESTED</div>
-                            <div class="stats-number">3002</div>
-                            <div class="stats-progress progress">
-                                <!--<div style="width: 76.3%;" class="progress-bar"></div>-->
+                    <div class="col-md-3 col-sm-6 mtop15 ">
+                        <div class="widget widget-stats purple-bg ">
+                            <div class="stats-icon stats-icon-lg "><i class="fa fa-picture-o fa-fw "></i></div>
+                            <div class="stats-title ">TOTAL CAD REQUESTED</div>
+                            <div class="stats-number ">3002</div>
+                            <div class="stats-progress progress ">
+                                <!--<div style="width: 76.3%; " class="progress-bar "></div>-->
                             </div>
-                            <div class="stats-desc">Till Current Date</div>
+                            <div class="stats-desc ">Till Current Date</div>
 
                         </div>
                     </div>
                     <!-- end col-3 -->
                     <!-- begin col-3 -->
-                    <div class="col-md-3 col-sm-6 mtop15">
-                        <div class="widget widget-stats green-bg">
-                            <div class="stats-icon stats-icon-lg"><i class="fa fa-diamond fa-fw"></i></div>
-                            <div class="stats-title">TOTAL MISSIONS</div>
-                            <div class="stats-number">600</div>
-                            <div class="stats-progress progress">
-                                <!-- <div style="width: 54.9%;" class="progress-bar"></div>-->
+                    <div class="col-md-3 col-sm-6 mtop15 ">
+                        <div class="widget widget-stats green-bg ">
+                            <div class="stats-icon stats-icon-lg "><i class="fa fa-diamond fa-fw "></i></div>
+                            <div class="stats-title ">TOTAL MISSIONS</div>
+                            <div class="stats-number ">600</div>
+                            <div class="stats-progress progress ">
+                                <!-- <div style="width: 54.9%; " class="progress-bar "></div>-->
                             </div>
-                            <div class="stats-desc"> Till Current Date</div>
+                            <div class="stats-desc "> Till Current Date</div>
                         </div>
                     </div>
                     <!-- end col-3 -->
                 </div>
-                <div class="row top20">
-                    <div class="col-lg-12">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
+                <div class="row top20 ">
+                    <div class="col-lg-12 ">
+                        <div class="ibox float-e-margins ">
+                            <div class="ibox-title ">
                                 <h5> CAD Orders</h5>
-                                <div class="pull-right">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-xs btn-white active">Today</button>
-                                        <button type="button" class="btn btn-xs btn-white">Monthly</button>
-                                        <button type="button" class="btn btn-xs btn-white">Annual</button>
+                                <div class="pull-right ">
+                                    <div class="btn-group ">
+                                        <button type="button " class="btn btn-xs btn-white active ">Today</button>
+                                        <button type="button " class="btn btn-xs btn-white ">Monthly</button>
+                                        <button type="button " class="btn btn-xs btn-white ">Annual</button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="ibox-content collapse in">
-                                <div class="widgets-container">
-                                    <div class="row">
-                                        <div class="col-sm-9">
-                                            <div class="chart-admin">
-                                                <div id="legend"></div>
-                                                <flot dataset="dataset" options="options" height="200px"></flot>
+                            <div class="ibox-content collapse in ">
+                                <div>
+                                    <div class="widgets-container ">
+                                        <div class="row ">
+                                            <div class="col-sm-9 ">
+                                                <div class="chart-admin ">
+                                                    <div id="legend "></div>
+                                                              <flot dataset="datasetadmin" id="flot-placeholder" options="optionsadmin" on-plot-click="onEventExampleClicked1(event, pos, item)" on-plot-hover="onEventExampleHover1(event, pos, item)"
+                                                        height="200px"></flot>
+                                                    <div id="c" style="position:fixed;">
+                                                        <div id="d" style="background: white; color:black;border:1px solid black">{{toolsvalue1}}</div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <ul class="stat-list">
-                                                <li>
-                                                    <h2 class="no-margins">1000</h2>
-                                                    <small>Total DFM Revenue</small>
-                                                    <div class="stat-percent">58% <i class="fa fa-level-up text-navy"></i></div>
-                                                    <div class="progress progress-mini">
-                                                        <div class="progress-bar" style="width: 58%;"></div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <h2 class="no-margins">2500</h2>
-                                                    <small>Total DRONE Revenue</small>
-                                                    <div class="stat-percent">48% <i class="fa fa-level-up text-navy"></i></div>
-                                                    <div class="progress progress-mini">
-                                                        <div class="progress-bar" style="width: 48%;"></div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <h2 class="no-margins ">1500</h2>
-                                                    <small>Total CAD Revenue</small>
-                                                    <div class="stat-percent">60% <i class="fa fa-level-down text-navy"></i></div>
-                                                    <div class="progress progress-mini">
-                                                        <div class="progress-bar" style="width: 60%;"></div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <h2 class="no-margins ">5000</h2>
-                                                    <small>Total Revenue</small>
-                                                    <div class="stat-percent">22% <i class="fa fa-bolt text-navy"></i></div>
-                                                    <div class="progress progress-mini">
-                                                        <div class="progress-bar" style="width: 22%;"></div>
-                                                    </div>
-                                                </li>
-                                            </ul>
+                                            <div class="col-sm-3 ">
+                                                <ul class="stat-list ">
+                                                    <li>
+                                                        <h2 class="no-margins ">1000</h2>
+                                                        <small>Total DFM Revenue</small>
+                                                        <div class="stat-percent ">58% <i class="fa fa-level-up text-navy "></i></div>
+                                                        <div class="progress progress-mini ">
+                                                            <div class="progress-bar " style="width: 58%; "></div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <h2 class="no-margins ">2500</h2>
+                                                        <small>Total DRONE Revenue</small>
+                                                        <div class="stat-percent ">48% <i class="fa fa-level-up text-navy "></i></div>
+                                                        <div class="progress progress-mini ">
+                                                            <div class="progress-bar " style="width: 48%; "></div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <h2 class="no-margins ">1500</h2>
+                                                        <small>Total CAD Revenue</small>
+                                                        <div class="stat-percent ">60% <i class="fa fa-level-down text-navy "></i></div>
+                                                        <div class="progress progress-mini ">
+                                                            <div class="progress-bar " style="width: 60%; "></div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <h2 class="no-margins ">5000</h2>
+                                                        <small>Total Revenue</small>
+                                                        <div class="stat-percent ">22% <i class="fa fa-bolt text-navy "></i></div>
+                                                        <div class="progress progress-mini ">
+                                                            <div class="progress-bar " style="width: 22%; "></div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -931,16 +303,17 @@
                         </div>
                     </div>
                     <div>
-                        <div class="col-lg-12">
-                            <div class="ibox float-e-margins">
-                                <div class="ibox-title">
+                        <div class="col-lg-12 ">
+                            <div class="ibox float-e-margins ">
+                                <div class="ibox-title ">
                                     <h5>Last Month CAD </h5>
-                                    <div class="ibox-tools"> <a class="btn green btn-xs" href=""> 31-Jan-2017</a> </div>
+                                    <div class="ibox-tools "> <a class="btn green btn-xs " href=" "> 31-Jan-2017</a> </div>
                                 </div>
-                                <div class="ibox-content collapse in">
-                                    <div class="widgets-container tabs-container dashboard-tab-data-box">
-                                        <div class="table table-hover">
-                                            <table datatable="" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
+                                <div class="ibox-content collapse in ">
+                                    <div class="widgets-container tabs-container dashboard-tab-data-box ">
+                                        <div class="table table-hover ">
+                                            <table datatable=" " dt-options="dtOptions " class="table table-striped table-bordered
+                                                            table-hover dataTables-example ">
                                                 <thead>
                                                     <tr>
                                                         <th>Mission ID</th>
@@ -1127,30 +500,32 @@
                         </div>
 
 
-                        <div class="col-lg-12">
-                            <div class="col-lg-6">
+                        <div class="col-lg-12 ">
+                            <div class="col-lg-6 ">
                                 <!-- Start feed -->
-                                <div class="ibox float-e-margins">
-                                    <div class="ibox-title">
+                                <div class="ibox float-e-margins ">
+                                    <div class="ibox-title ">
                                         <h5>Orders</h5>
 
                                     </div>
                                     <!-- Pie Chart -->
-                                    <div class="ibox-content collapse in">
-                                        <div class="demo-container">
-                                            <flot textinfo="none" dataset="pieDatasetOrder" options="pieOptionsOrder" height="380px"></flot>
+                                    <div class="ibox-content collapse in ">
+                                        <div class="demo-container ">
+                                            <flot textinfo="none " dataset="pieDatasetOrder " options="pieOptionsOrder
+                                                            " height="380px "></flot>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="ibox-title">
+                            <div class="col-lg-6 ">
+                                <div class="ibox-title ">
                                     <h5>Revenue</h5>
                                 </div>
                                 <!-- Pie Chart -->
-                                <div class="ibox-content collapse in">
-                                    <div class="demo-container">
-                                        <flot textinfo="none" dataset="pieDatasetRevenue" options="pieOptionsRevenue" height="380px"></flot>
+                                <div class="ibox-content collapse in ">
+                                    <div class="demo-container ">
+                                        <flot textinfo="none " dataset="pieDatasetRevenue " options="pieOptionsRevenue
+                                                            " height="380px "></flot>
                                     </div>
                                 </div>
                             </div>
@@ -1163,100 +538,102 @@
 </div>
 <!--****************************** END OF ADMIN VIEW **************************************************************************************8-->
 <!--****************************** START OF VENDOR VIEW **************************************************************************************8-->
-<div class="page-container" ng-if="accessLevel=='Vendor'">
+<div class="page-container " ng-if="accessLevel=='Vendor' ">
     <!-- Start page content wrapper -->
-    <div class="page-content-wrapper animated fadeInRight  ">
-        <div class="page-content">
+    <div class="page-content-wrapper animated fadeInRight ">
+        <div class="page-content ">
             <div class="wrapper-content ">
-                <div class="row">
+                <div class="row ">
                     <!-- begin col-3 -->
-                    <div class="col-md-3 col-sm-6">
-                        <div class="widget widget-stats red-bg">
-                            <div class="stats-icon stats-icon-lg"><i class="fa fa-picture-o fa-fw"></i></div>
-                            <div class="stats-title">TOTAL RECEIVED CAD FILES</div>
-                            <div class="stats-number">900</div>
-                            <div class="stats-progress progress">
-                                <!--<div style="width: 70.1%;" class="progress-bar"></div>-->
+                    <div class="col-md-3 col-sm-6 ">
+                        <div class="widget widget-stats red-bg ">
+                            <div class="stats-icon stats-icon-lg "><i class="fa fa-picture-o fa-fw "></i></div>
+                            <div class="stats-title ">TOTAL RECEIVED CAD FILES</div>
+                            <div class="stats-number ">900</div>
+                            <div class="stats-progress progress ">
+                                <!--<div style="width: 70.1%; " class="progress-bar "></div>-->
                             </div>
-                            <div class="stats-desc">Till Date</div>
+                            <div class="stats-desc ">Till Date</div>
                         </div>
                     </div>
                     <!-- end col-3 -->
                     <!-- begin col-3 -->
-                    <div class="col-md-3 col-sm-6 mtop15">
+                    <div class="col-md-3 col-sm-6 mtop15 ">
                         <div class="widget widget-stats aqua-bg ">
-                            <div class="stats-icon stats-icon-lg"><i class="fa fa-check-square-o fa-fw"></i></div>
-                            <div class="stats-title">TOTAL COMPLETED CAD FILES</div>
-                            <div class="stats-number">460</div>
-                            <div class="stats-progress progress">
-                                <!--<div style="width: 40.5%;" class="progress-bar"></div>-->
+                            <div class="stats-icon stats-icon-lg "><i class="fa fa-check-square-o fa-fw "></i></div>
+                            <div class="stats-title ">TOTAL COMPLETED CAD FILES</div>
+                            <div class="stats-number ">460</div>
+                            <div class="stats-progress progress ">
+                                <!--<div style="width: 40.5%; " class="progress-bar "></div>-->
                             </div>
-                            <div class="stats-desc">Till Date</div>
+                            <div class="stats-desc ">Till Date</div>
                         </div>
                     </div>
                     <!-- end col-3 -->
                     <!-- begin col-3 -->
-                    <div class="col-md-3 col-sm-6 mtop15">
-                        <div class="widget widget-stats purple-bg">
-                            <div class="stats-icon stats-icon-lg"><i class="fa fa-file-image-o fa-fw"></i></div>
-                            <div class="stats-title">TOTAL INCOMPLETED CAD FILES</div>
-                            <div class="stats-number">440</div>
-                            <div class="stats-progress progress">
-                                <!--<div style="width: 76.3%;" class="progress-bar"></div>-->
+                    <div class="col-md-3 col-sm-6 mtop15 ">
+                        <div class="widget widget-stats purple-bg ">
+                            <div class="stats-icon stats-icon-lg "><i class="fa fa-file-image-o fa-fw "></i></div>
+                            <div class="stats-title ">TOTAL INCOMPLETED CAD FILES</div>
+                            <div class="stats-number ">440</div>
+                            <div class="stats-progress progress ">
+                                <!--<div style="width: 76.3%; " class="progress-bar "></div>-->
                             </div>
-                            <div class="stats-desc">Till Date</div>
+                            <div class="stats-desc ">Till Date</div>
                         </div>
                     </div>
                     <!-- end col-3 -->
                     <!-- begin col-3 -->
-                    <div class="col-md-3 col-sm-6 mtop15">
-                        <div class="widget widget-stats green-bg">
-                            <div class="stats-icon stats-icon-lg"><i class="fa fa-usd fa-fw"></i></div>
-                            <div class="stats-title">TOTAL EARNING</div>
-                            <div class="stats-number">3000</div>
-                            <div class="stats-progress progress">
-                                <!--<div style="width: 54.9%;" class="progress-bar"></div>-->
+                    <div class="col-md-3 col-sm-6 mtop15 ">
+                        <div class="widget widget-stats green-bg ">
+                            <div class="stats-icon stats-icon-lg "><i class="fa fa-usd fa-fw "></i></div>
+                            <div class="stats-title ">TOTAL EARNING</div>
+                            <div class="stats-number ">3000</div>
+                            <div class="stats-progress progress ">
+                                <!--<div style="width: 54.9%; " class="progress-bar "></div>-->
                             </div>
-                            <div class="stats-desc">Till Date</div>
+                            <div class="stats-desc ">Till Date</div>
                         </div>
                     </div>
                     <!-- end col-3 -->
                 </div>
-                <div class="row top20">
+                <div class="row top20 ">
 
                     <div>
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 ">
                             <!-- Start feed -->
-                            <div class="ibox float-e-margins">
-                                <div class="ibox-title">
+                            <div class="ibox float-e-margins ">
+                                <div class="ibox-title ">
                                     <h5>Current Month CAD Statitics </h5>
                                     <!-- ibox-tools -->
 
                                 </div>
                                 <!-- Pie Chart -->
-                                <div class="ibox-content collapse in">
-                                    <div class="demo-container">
-                                        <flot textinfo="none" dataset="pieDatasetCad" options="pieOptionsCad" height="380px"></flot>
+                                <div class="ibox-content collapse in ">
+                                    <div class="demo-container ">
+                                        <flot textinfo="none " dataset="pieDatasetCad " options="pieOptionsCad
+                                                            " height="380px "></flot>
                                     </div>
                                 </div>
                             </div>
                             <!-- End feed -->
                         </div>
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 ">
                             <!-- Start feed -->
-                            <div class="ibox float-e-margins">
-                                <div class="ibox-title">
+                            <div class="ibox float-e-margins ">
+                                <div class="ibox-title ">
                                     <h5>Current Month Earning Statitics</h5>
                                     <!-- ibox-tools -->
 
                                 </div>
 
                                 <!-- Pie Chart -->
-                                <div class="ibox-content collapse in">
-                                    <div class="demo-container">
-                                        <flot textinfo="none" dataset="pieDatasetMonth" options="pieOptionsMonth" height="380px"></flot>
+                                <div class="ibox-content collapse in ">
+                                    <div class="demo-container ">
+                                        <flot textinfo="none " dataset="pieDatasetMonth " options="pieOptionsMonth
+                                                            " height="380px "></flot>
                                     </div>
                                 </div>
 
