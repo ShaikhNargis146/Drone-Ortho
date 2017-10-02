@@ -180,33 +180,44 @@ firstapp
         function gd(year, month, day) {
             return new Date(year, month - 1, day).getTime();
         }
+
+        // ***************for tooltip***********************
         $scope.onEventExampleClicked = function (event, pos, item) {
             // alert('Click! ' + event.timeStamp + ' ' + pos.pageX + ' ' + pos.pageY);
             // highlight('Hover! ' + event.timeStamp + ' ' + pos.pageX + ' ' + pos.pageY);
             console.log(event, pos, item, "click");
+            chart - use
             console.log(item.dataIndex, item.series.label);
             hoverShow(item.dataIndex, item.series.label, pos.pageX, pos.pageY);
         };
 
         $scope.onEventExampleHover = function (event, pos, item) {
             // console.log('Hover! ' + event.timeStamp + ' ' + pos.pageX + ' ' + pos.pageY);
+            // if(item.dataIndex=!null){
             hoverShow(item.dataIndex, item.series.label, pos.pageX, pos.pageY);
-
+            // }
 
         };
 
         function hoverShow(index, label, x, y) {
             if (label == "Payments") {
-                $scope.toolsvalue = $scope.data1[index] + "  " + label;
+                var a = $scope.data1[index][0];
+                var k = new Date(a);
+                var b = $scope.data1[index][1];
+                $scope.toolsvalue = "x: " + k.toUTCString() + " y: " + b + label;
             } else {
-                $scope.toolsvalue = $scope.data2[index] + "  " + label;
+                var a = $scope.data2[index][0];
+                var k = new Date(a);
+                var b = $scope.data2[index][1];
+
+                $scope.toolsvalue = "x: " + k.toUTCString() + " y: " + b + label;
 
             }
             $('#a').css("top", y);
             $('#a').css("left", x);
 
         }
-
+        // ***************for tooltip***********************
         //
         // Pie Chart Example
         //
@@ -413,7 +424,42 @@ firstapp
         function gd(year, month, day) {
             return new Date(year, month - 1, day).getTime();
         }
+        // ***************for tooltip***********************
+        $scope.onEventExampleClicked1 = function (event, pos, item) {
+            // alert('Click! ' + event.timeStamp + ' ' + pos.pageX + ' ' + pos.pageY);
+            // highlight('Hover! ' + event.timeStamp + ' ' + pos.pageX + ' ' + pos.pageY);
+            console.log(event, pos, item, "click");
+            chart - use
+            console.log(item.dataIndex, item.series.label);
+            hoverShow1(item.dataIndex, item.series.label, pos.pageX, pos.pageY);
+        };
 
+        $scope.onEventExampleHover1 = function (event, pos, item) {
+            // console.log('Hover! ' + event.timeStamp + ' ' + pos.pageX + ' ' + pos.pageY);
+            // if(item.dataIndex=!null){
+            hoverShow1(item.dataIndex, item.series.label, pos.pageX, pos.pageY);
+            // }
+
+        };
+
+        function hoverShow1(index, label, x, y) {
+            if (label == "Internal CAD") {
+                var a = $scope.data3[index][0];
+                var s = new Date(a);
+                var b = $scope.data3[index][1];
+                $scope.toolsvalue1 = "x: " + s.toUTCString() + " y: " + b + label;
+            } else {
+                var a = $scope.data4[index][0];
+                var s = new Date(a);
+                var b = $scope.data4[index][1];
+                $scope.toolsvalue1 = "x: " + s.toUTCString() + " y: " + b + label;
+
+            }
+            $('#c').css("top", y);
+            $('#d').css("left", x);
+
+        }
+        // ***************for tooltip***********************
         //
         // Pie Chart Example of order
         //
@@ -500,6 +546,8 @@ firstapp
                 hoverable: true
             }
         };
+
+
         //
         // Pie Chart Example2
         //
@@ -633,7 +681,6 @@ firstapp
             }
         };
         // *************************************************end of chart for vendor**********************************************************************************************************
-
 
 
     })
@@ -995,18 +1042,28 @@ firstapp
             valueB: 3000
         };
 
+        $scope.slider = {
+            value: 0.5,
+            options: {
+                floor: 0,
+                ceil: 1,
+                step: 0.1,
+                precision: 1
+            }
+        };
+
         $scope.profileDetails = $.jStorage.get("user");
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
-        var missionName = {};
+        var missionIdForDownload = {};
         $scope.cadLineDetails = {}
         var mission = {};
         mission._id = $stateParams.missionId;
         NavigationService.apiCall("Mission/getOne", mission, function (data) {
             if (data.value === true) {
                 $scope.missionDetails = data.data;
-                missionName = $scope.missionDetails.name;
+                missionIdForDownload = $scope.missionDetails.id;
                 $scope.template = TemplateService.changecontent("mission-details");
                 $scope.menutitle = NavigationService.makeactive("MissionDetails");
                 TemplateService.title = $scope.menutitle;
@@ -1113,37 +1170,36 @@ firstapp
         //download Files
 
         $scope.downloadInputImage = function (missionId) {
-                // window.open('http://35.201.210.67/file/' + 'xyz.jpg', '_self');
+                window.open('http://35.201.210.67/api/getInputImage/' + missionIdForDownload + ".tif", '_self');
             }, //pending
 
             $scope.downloadOrthoM = function () {
-                window.open('http://35.201.210.67/api/getOrthoM/' + missionName + ".tif", '_self');
+                window.open('http://35.201.210.67/api/getOrthoM/' + missionIdForDownload + ".tif", '_self');
             },
 
             $scope.downloadDsm = function () {
-                // window.open('http://35.201.210.67/file/' + 'xyz.jpg', '_self');
+                window.open('http://35.201.210.67/api/getDsm/' + missionIdForDownload + ".tif", '_self');
             },
 
             $scope.downloadMeshObj = function () {
-                // window.open('http://35.201.210.67/file/' + 'xyz.jpg', '_self');
+                window.open('http://35.201.210.67/api/getMeshObj/' + missionIdForDownload + ".tif", '_self');
             },
 
             $scope.downloadMeshFbx = function () {
-                // window.open('http://35.201.210.67/file/' + 'xyz.jpg', '_self');
+                window.open('http://35.201.210.67/api/getMeshFbx/' + missionIdForDownload + ".tif", '_self');
             },
 
             $scope.downloadPointCloud = function () {
-                // window.open('http://35.201.210.67/file/' + 'xyz.jpg', '_self');
+                window.open('http://35.201.210.67/api/getPointCloud/' + missionIdForDownload + ".tif", '_self');
             },
 
             $scope.downloadQualityReports = function () {
-                // window.open('http://wohlig.io:1337/file/' + 'xyz.jpg', '_self');
-            },
-
-
-            $scope.downloadProcessingLog = function () {
-                window.open('http://wohlig.io:1337/file/' + 'xyz.jpg', '_self');
+                window.open('http://35.201.210.67/api/getProcessingLog/' + missionIdForDownload + ".tif", '_self');
             }
+
+        $scope.downloadProcessingLog = function () {
+            window.open('http://35.201.210.67/api/getProcessingLog/' + missionIdForDownload + ".tif", '_self');
+        }
 
     })
 

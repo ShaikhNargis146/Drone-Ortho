@@ -56,8 +56,6 @@ module.exports = {
 
     getInputImage: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
-        // console.log("------------------------", sails.config.appPath); //check path 
-        console.log("------------------------", req.param("filename"));
         var filePath = path.join("C:\Users", "unifli\Documents\pix4d");
         files = fs.readFileSync(path.join(filePath, req.param("filename")));
         res.send(files);
@@ -66,7 +64,6 @@ module.exports = {
     getOrthoM: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
         var name = req.param("filename").split('.')[0]
-        console.log(name)
         var filePath = "C:/Users/dell/Documents/pix4d/" + name + "/3_dsm_ortho/2_mosaic/" + name + "_transparent_mosaic_group1.tif";
         files = fs.readFileSync(filePath);
         res.send(files);
@@ -91,6 +88,15 @@ module.exports = {
     },
 
     getMeshFbx: function (req, res) {
+        res.set('Content-Type', "application/octet-stream");
+        // console.log("------------------------", sails.config.appPath); //check path 
+        console.log("------------------------", req.param("filename"));
+        var filePath = path.join("C:\Users", "unifli\Documents\pix4d");
+        files = fs.readFileSync(path.join(filePath, req.param("filename")));
+        res.send(files);
+    },
+
+    getPointCloud: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
         // console.log("------------------------", sails.config.appPath); //check path 
         console.log("------------------------", req.param("filename"));
