@@ -7,8 +7,7 @@
         <div class="col-lg-12">
           <h2> ​CAD File Requests </h2>
           <ol class="breadcrumb">
-            <li> <a href="#/dashboard1">Home</a> </li>
-            <li> <a> ​CAD File Requests </a> </li>
+            <li> <a ui-sref="dashboard">Home</a> </li>
             <li class="active"> <strong>​CAD File Requests</strong> </li>
           </ol>
         </div>
@@ -57,8 +56,8 @@
                   <thead>
                     <tr>
                       <th>Mission ID</th>
-                      <th>Map Area Link</th>
                       <th>Acreage</th>
+                      <th>Contours</th>
                       <th>Status</th>
                       <th>Date of Request</th>
                       <th>Completion Date</th>
@@ -72,11 +71,8 @@
                       <td>
                         <a ui-sref="cadfile-details ({cadId:cadfile._id})">{{cadfile.mission.missionId}}</a>
                       </td>
-                      <td>
-                        <a ui-sref="cadfile-details ({cadId:cadfile._id})"></a>
-                      </td>
-
                       <td><a ui-sref="cadfile-details ({cadId:cadfile._id})">{{cadfile.acreage}}</a></td>
+                      <td><a ui-sref="cadfile-details ({cadId:cadfile._id})">{{cadfile.contours}}</a></td>
                       <td>
                         <a ui-sref="cadfile-details ({cadId:cadfile._id})">{{cadfile.status}}</a>
                       </td>
@@ -223,8 +219,7 @@
         <div class="col-lg-12">
           <h2> ​CAD File Requests </h2>
           <ol class="breadcrumb">
-            <li> <a href="#/dashboard1">Home</a> </li>
-            <li> <a> ​CAD File Requests </a> </li>
+            <li> <a ui-sref="dashboard">Home</a> </li>
             <li class="active"> <strong>​CAD File Requests</strong> </li>
           </ol>
         </div>
@@ -261,6 +256,8 @@
                     <tr>
                       <th>Mission ID</th>
                       <th>Acreage</th>
+                      <th>Contours</th>
+
                       <th>Status</th>
                       <th>Date of Request</th>
                       <th>Completion Date</th>
@@ -272,6 +269,8 @@
 
                       <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.mission.missionId}}</a></td>
                       <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.acreage}}</a></td>
+                      <td><a ui-sref="cadfile-details ({cadId:cadfile._id})">{{cadfile.contours}}</a></td>
+
                       <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.status}}</a></td>
                       <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.createdAt | date}}</a></td>
                       <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">YES </a></td>
@@ -304,9 +303,8 @@
         <div class="col-lg-12">
           <h2> ​CAD Request </h2>
           <ol class="breadcrumb">
-            <li> <a href="#/dashboard1">Home</a> </li>
-            <li> <a> ​CAD Request </a> </li>
-            <li class="active"> <strong>​CAD Request </strong> </li>
+            <li> <a ui-sref="dashboard">Home</a> </li>
+            <li class="active"> <strong>​CAD File Requests</strong> </li>
           </ol>
         </div>
       </div>
@@ -340,6 +338,7 @@
                     <tr>
                       <th>Mission ID</th>
                       <th>Acreage</th>
+                      <th>Contours</th>
                       <th>Status</th>
                       <th>Date of Request</th>
                       <th>Completion Date</th>
@@ -351,6 +350,8 @@
 
                       <td><a ui-sref="cadfile-details({'cadId' : cadVendorData._id})">{{cadVendorData.mission.missionId}}</a></td>
                       <td><a ui-sref="cadfile-details({'cadId' : cadVendorData._id})">{{cadVendorData.acreage}}</a></td>
+                      <td><a ui-sref="cadfile-details({'cadId' : cadVendorData._id})">{{cadVendorData.contours}}</a></td>
+
                       <td><a ui-sref="cadfile-details({'cadId' : cadVendorData._id})">{{cadVendorData.status}}</a></td>
                       <td><a ui-sref="cadfile-details({'cadId' : cadVendorData._id})">{{cadVendorData.createdAt | date}}</a></td>
                       <td><a ui-sref="cadfile-details({'cadId' : cadVendorData._id})">YES </a></td>

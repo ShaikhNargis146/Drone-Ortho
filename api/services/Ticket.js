@@ -39,7 +39,6 @@ var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "user", "user"
 var model = {
 
     getTicket: function (data, callback) {
-        console.log("inside get ticket api", data)
         if (data.count) {
             var maxCount = data.count;
         } else {
@@ -73,9 +72,7 @@ var model = {
             .keyword(options)
             .page(options,
                 function (err, found) {
-                    console.log("inside paggingtion cadline file", found)
                     if (err) {
-                        console.log(err);
                         callback(err, null);
                     } else if (found) {
                         callback(null, found);
@@ -118,7 +115,6 @@ var model = {
             .page(options,
                 function (err, found) {
                     if (err) {
-                        console.log(err);
                         callback(err, null);
                     } else if (found) {
                         callback(null, found);

@@ -13,12 +13,6 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Dashboard");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-
-        // $scope.accessLevel = "user";
-        // $scope.accessLevel = "admin";
-        // $scope.accessLevel = "vendor";
-
-
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
@@ -650,11 +644,10 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("ProductDetail");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "User";
-        // $scope.accessLevel = "Admin";
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
+
         $scope._id = {
             _id: $stateParams.productId
         };
@@ -688,18 +681,19 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Support");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.accessLevel = "User";
-        // $scope.accessLevel = "Admin";
+
+
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
+            var userId = $.jStorage.get("user")._id;
         }
 
-        //pagination user
-        if ($scope.accessLevel == "User") {
-            var userId = $.jStorage.get("user")._id;
-            var formdata = {};
-            formdata.user = $.jStorage.get("user")._id;
 
+        if ($scope.accessLevel == "User") {
+
+            //pagination user
+            var formdata = {};
+            formdata.user = userId;
             var i = 0;
             if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
                 $scope.currentPage = $stateParams.page;
@@ -769,7 +763,6 @@ firstapp
         } else if ($scope.accessLevel == "Admin") {
 
             //pagination admin
-
             var i = 0;
             if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
                 $scope.currentPage = $stateParams.page;
@@ -784,10 +777,10 @@ firstapp
                 $scope.search.keyword = $stateParams.keyword;
             }
             $scope.changePage = function (page) {
-                var goTo = "missions";
+                var goTo = "support";
                 $scope.currentPage = page;
                 if ($scope.search.keyword) {
-                    goTo = "missions";
+                    goTo = "support";
                 }
                 $state.go(goTo, {
                     page: page
@@ -996,33 +989,24 @@ firstapp
     })
 
     .controller('MissionsDetailsCtrl', function ($scope, TemplateService, NavigationService, $uibModal, $timeout, $state, toastr, $stateParams) {
-        //Used to name the .html file
 
-        // $scope.accessLevel = "User";
-        // $scope.accessLevel = "Admin";
-
-        // $scope.opacityv = 0;
-        // $scope.rangechange = function () {
-        //     console.log("rangechange");
-        //     // console($('.irs-single').text());
-        // }
-        // set available range
         $scope.demo6 = {
             valueA: 5000,
             valueB: 3000
         };
 
-
         $scope.profileDetails = $.jStorage.get("user");
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
+        $scope.missionID = {};
         $scope.cadLineDetails = {}
         var mission = {};
         mission._id = $stateParams.missionId;
         NavigationService.apiCall("Mission/getOne", mission, function (data) {
             if (data.value === true) {
                 $scope.missionDetails = data.data;
+                $scope.missionID = $scope.missionDetails.missionId;
                 $scope.template = TemplateService.changecontent("mission-details");
                 $scope.menutitle = NavigationService.makeactive("MissionDetails");
                 TemplateService.title = $scope.menutitle;
@@ -1030,300 +1014,7 @@ firstapp
                 $scope.cadLineDetails = {};
             }
         });
-        $scope.priceListForNDB = [{
-                "from": 0,
-                "to": 1,
-                "density": {
-                    "low": 30,
-                    "medium": 40,
-                    "high": 50
-                },
-                "contoursDensity": {
-                    "low": 45,
-                    "medium": 55,
-                    "high": 65
-                }
-            },
-            {
-                "from": 1.1,
-                "to": 2,
-                "density": {
-                    "low": 40,
-                    "medium": 50,
-                    "high": 60
-                },
-                "contoursDensity": {
-                    "low": 60,
-                    "medium": 70,
-                    "high": 80
-                }
-            },
-            {
-                "from": 2,
-                "to": 3.5,
-                "density": {
-                    "low": 50,
-                    "medium": 60,
-                    "high": 70
-                },
-                "contoursDensity": {
-                    "low": 70,
-                    "medium": 80,
-                    "high": 90
-                }
-            }, {
-                "from": 3.6,
-                "to": 5,
-                "density": {
-                    "low": 80,
-                    "medium": 90,
-                    "high": 100
-                },
-                "contoursDensity": {
-                    "low": 110,
-                    "medium": 120,
-                    "high": 130
-                }
-            }, {
-                "from": 5.1,
-                "to": 8,
-                "density": {
-                    "low": 120,
-                    "medium": 130,
-                    "high": 140
-                },
-                "contoursDensity": {
-                    "low": 165,
-                    "medium": 175,
-                    "high": 185
-                }
-            }, {
-                "from": 8.1,
-                "to": 12,
-                "density": {
-                    "low": 150,
-                    "medium": 160,
-                    "high": 170
-                },
-                "contoursDensity": {
-                    "low": 210,
-                    "medium": 220,
-                    "high": 280
-                }
-            }, {
-                "from": 12.1,
-                "to": 17,
-                "density": {
-                    "low": 200,
-                    "medium": 210,
-                    "high": 220
-                },
-                "contoursDensity": {
-                    "low": 275,
-                    "medium": 285,
-                    "high": 295
-                }
-            }, {
-                "from": 17.1,
-                "to": 22,
-                "density": {
-                    "low": 230,
-                    "medium": 240,
-                    "high": 250
-                },
-                "contoursDensity": {
-                    "low": 320,
-                    "medium": 330,
-                    "high": 340
-                }
-            }, {
-                "from": 22.1,
-                "to": 27,
-                "density": {
-                    "low": 240,
-                    "medium": 250,
-                    "high": 260
-                },
-                "contoursDensity": {
-                    "low": 330,
-                    "medium": 340,
-                    "high": 350
-                }
-            }, {
-                "from": 27.1,
-                "to": 32,
-                "density": {
-                    "low": 240,
-                    "medium": 250,
-                    "high": 260
-                },
-                "contoursDensity": {
-                    "low": 330,
-                    "medium": 340,
-                    "high": 350
-                }
-            }, {
-                "from": 32.1,
-                "to": 40,
-                "density": {
-                    "low": 250,
-                    "medium": 260,
-                    "high": 270
-                },
-                "contoursDensity": {
-                    "low": 340,
-                    "medium": 350,
-                    "high": 360
-                }
-            }
-        ];
-        $scope.priceListForUDB = [{
-                "from": 0,
-                "to": 1,
-                "density": {
-                    "low": 67.50,
-                    "medium": 82.50,
-                    "high": 97.50
-                },
-                "contoursDensity": {
-                    "low": 90.00,
-                    "medium": 105.00,
-                    "high": 120.00
-                }
-            },
-            {
-                "from": 1.1,
-                "to": 2,
-                "density": {
-                    "low": 70.00,
-                    "medium": 87.50,
-                    "high": 105.00
-                },
-                "contoursDensity": {
-                    "low": 105.00,
-                    "medium": 122.50,
-                    "high": 140.00
-                }
-            },
-            {
-                "from": 2,
-                "to": 3.5,
-                "density": {
-                    "low": 50,
-                    "medium": 60,
-                    "high": 70
-                },
-                "contoursDensity": {
-                    "low": 70,
-                    "medium": 80,
-                    "high": 90
-                }
-            }, {
-                "from": 3.6,
-                "to": 5,
-                "density": {
-                    "low": 80,
-                    "medium": 90,
-                    "high": 100
-                },
-                "contoursDensity": {
-                    "low": 110,
-                    "medium": 120,
-                    "high": 130
-                }
-            }, {
-                "from": 5.1,
-                "to": 8,
-                "density": {
-                    "low": 120,
-                    "medium": 130,
-                    "high": 140
-                },
-                "contoursDensity": {
-                    "low": 165,
-                    "medium": 175,
-                    "high": 185
-                }
-            }, {
-                "from": 8.1,
-                "to": 12,
-                "density": {
-                    "low": 150,
-                    "medium": 160,
-                    "high": 170
-                },
-                "contoursDensity": {
-                    "low": 210,
-                    "medium": 220,
-                    "high": 280
-                }
-            }, {
-                "from": 12.1,
-                "to": 17,
-                "density": {
-                    "low": 200,
-                    "medium": 210,
-                    "high": 220
-                },
-                "contoursDensity": {
-                    "low": 275,
-                    "medium": 285,
-                    "high": 295
-                }
-            }, {
-                "from": 17.1,
-                "to": 22,
-                "density": {
-                    "low": 230,
-                    "medium": 240,
-                    "high": 250
-                },
-                "contoursDensity": {
-                    "low": 320,
-                    "medium": 330,
-                    "high": 340
-                }
-            }, {
-                "from": 22.1,
-                "to": 27,
-                "density": {
-                    "low": 240,
-                    "medium": 250,
-                    "high": 260
-                },
-                "contoursDensity": {
-                    "low": 330,
-                    "medium": 340,
-                    "high": 350
-                }
-            }, {
-                "from": 27.1,
-                "to": 32,
-                "density": {
-                    "low": 240,
-                    "medium": 250,
-                    "high": 260
-                },
-                "contoursDensity": {
-                    "low": 330,
-                    "medium": 340,
-                    "high": 350
-                }
-            }, {
-                "from": 32.1,
-                "to": 40,
-                "density": {
-                    "low": 250,
-                    "medium": 260,
-                    "high": 270
-                },
-                "contoursDensity": {
-                    "low": 340,
-                    "medium": 350,
-                    "high": 360
-                }
-            }
-        ];
+
         $scope.calculateAmount = function (data) {
             if (data.contoursDensity || data.density) {
                 var priceList;
@@ -1354,6 +1045,7 @@ firstapp
             }
 
         }
+
         var cardDetails;
         $scope.cadSave = function (data) {
             $scope.cadLineDetails.mission = $scope.missionDetails._id;
@@ -1393,13 +1085,10 @@ firstapp
             formdata.productOrder = $scope.productOrder._id;
             NavigationService.apiCall("ProductOrders/chargeCreditCard", formdata, function (data) {
                 if (data.data.resultCode === "Ok") {
-                    console.log("productOrder.value", data);
                     cardDetails.close();
                     $scope.productOrder.status = "Paid";
                     NavigationService.apiCall("ProductOrders/save", $scope.productOrder, function (data) {
-                        if (data.value === true) {
-                            console.log("payment successful");
-                        } else {
+                        if (data.value === true) {} else {
                             //  toastr.warning('Error submitting the form', 'Please try again');
                         }
                     });
@@ -1420,6 +1109,41 @@ firstapp
                 showSelectionBar: true
             }
         };
+
+        //download Files
+
+        $scope.downloadInputImage = function () {
+                window.open('http://wohlig.io:1337/file/' + 'xyz.jpg', '_self');
+            },
+
+            $scope.downloadOrtho = function () {
+                window.open('http://wohlig.io:1337/file/' + 'xyz.jpg', '_self');
+            },
+
+            $scope.downloadDsm = function () {
+                window.open('http://wohlig.io:1337/file/' + 'xyz.jpg', '_self');
+            },
+
+            $scope.downloadMeshObj = function () {
+                window.open('http://wohlig.io:1337/file/' + 'xyz.jpg', '_self');
+            },
+
+            $scope.downloadMeshFbx = function () {
+                window.open('http://wohlig.io:1337/file/' + 'xyz.jpg', '_self');
+            },
+
+            $scope.downloadPointCloud = function () {
+                window.open('http://wohlig.io:1337/file/' + 'xyz.jpg', '_self');
+            },
+
+            $scope.downloadQualityReports = function () {
+                window.open('http://wohlig.io:1337/file/' + 'xyz.jpg', '_self');
+            },
+
+
+            $scope.downloadProcessingLog = function () {
+                window.open('http://wohlig.io:1337/file/' + 'xyz.jpg', '_self');
+            }
 
     })
 
@@ -1498,16 +1222,11 @@ firstapp
         $scope.navigation = NavigationService.getnav();
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
-        }
-        var formdata = {};
-        if ($.jStorage.get("user")) {
-            formdata.user = $.jStorage.get("user")._id;
+            var userId = $.jStorage.get("user")._id;
         }
 
         //pagination user
-        if ($.jStorage.get("user")) {
-            var userId = $.jStorage.get("user")._id;
-        }
+
         var i = 0;
         if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
             $scope.currentPage = $stateParams.page;
@@ -1547,7 +1266,6 @@ firstapp
                     function (data, ini) {
                         if (ini == i) {
                             $scope.productData = data.data.results;
-                            console.log("$scope.productData ", $scope.productData)
                             $scope.totalItems = data.data.total;
                             $scope.maxRow = data.data.options.count;
                         }
@@ -1558,7 +1276,7 @@ firstapp
                 NavigationService.searchCall("ProductOrders/getProductData", {
                         page: $scope.currentPage,
                         keyword: $scope.search.keyword,
-                        user: formdata.user
+                        user: userId
                     }, ++i,
                     function (data, ini) {
                         if (ini == i) {
@@ -1582,9 +1300,6 @@ firstapp
         $scope.getInvoice = function () {
             NavigationService.apiCallWithData("ProductOrders/getuser", $scope.formData, function (data) {
                 $scope.productData = data.data;
-
-                //  window.open(adminurl + 'upload/readFile?file=' + data.data.pdf, '_self');
-
                 window.open(adminurl + 'pdf/' + data.data.pdf, '_self');
             })
         }
@@ -1611,14 +1326,13 @@ firstapp
         $scope.navigation = NavigationService.getnav();
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
+            var userId = $.jStorage.get("user")._id;
         }
         $scope.profile = $.jStorage.get("user");
-        console.log(" CreatemissionCtrl.accessLevel", $scope.accessLevel)
         $scope.date = new Date();
         $scope.mission = {};
         $scope.saveMission = function (missiondata) {
-            if ($.jStorage.get("user")) {
-                missiondata.user = $.jStorage.get("user")._id;
+            missiondata.user =
                 NavigationService.apiCall("Mission/createMission", missiondata, function (data) {
                     $("#modal-4").modal();
                     if (data.value === true) {
@@ -1627,7 +1341,6 @@ firstapp
                         toastr.warning('Failed to create a mission');
                     }
                 });
-            }
         }
     })
 
@@ -2159,13 +1872,13 @@ firstapp
 
         $scope.date = new Date();
         var formdata = {};
-        formdata.user = $.jStorage.get("user")._id;
+        formdata.user = userId;
         NavigationService.apiCallWithData("Mission/getMissionForCad", formdata, function (data) {
             $scope.misssonInfo = data.data;
         })
 
         $scope.saveExtcadfile = function (data) {
-            data.user = $.jStorage.get("user")._id;
+            data.user = userId;
             NavigationService.apiCallWithData("CadLineWork/createCad", data, function (data) {
                 $scope.cadLineDetails = data.data.results;
             })
@@ -2285,7 +1998,6 @@ firstapp
                         function (data, ini) {
                             if (ini == i) {
                                 $scope.allCadLineData = data.data.results;
-                                console.log("$scope.allCadLineData", $scope.allCadLineData);
                                 $scope.totalItems = data.data.total;
                                 $scope.maxRow = data.data.options.count;
                             }
@@ -2300,7 +2012,6 @@ firstapp
                         function (data, ini) {
                             if (ini == i) {
                                 $scope.allCadLineData = data.data.results;
-                                console.log("$scope.allCadLineData", $scope.allCadLineData);
                                 $scope.totalItems = data.data.total;
                                 $scope.maxRow = data.data.options.count;
                             }
@@ -2393,12 +2104,12 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
-        $scope.formdata = {};
-        $scope.formdata.data = $.jStorage.get("user");
-        $scope.formdata1 = {};
-        $scope.formdata2 = {};
-        $scope.formdata1.user = $.jStorage.get("user")._id;
-        $scope.formdata2._id = $.jStorage.get("user")._id;
+        // $scope.formdata = {};
+        // $scope.formdata.data = $.jStorage.get("user");
+        // $scope.formdata1 = {};
+        // $scope.formdata2 = {};
+        // $scope.formdata1.user = $.jStorage.get("user")._id;
+        // $scope.formdata2._id = $.jStorage.get("user")._id;
 
         $scope.updateUser = function (data) {
             NavigationService.apiCallWithData("User/Updateuser", data, function (data2) {
@@ -2467,7 +2178,10 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("ProductsPlans");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        }
+
         //pagination admin
 
         var i = 0;
@@ -2538,7 +2252,6 @@ firstapp
                 _id: id
             };
             NavigationService.apiCallWithData("Products/delete", $scope._id, function (data) {
-
                 $scope.product = data;
             });
             $state.reload();
@@ -2563,7 +2276,10 @@ firstapp
         $scope.navigation = NavigationService.getnav();
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
-        } //pagination admin
+        }
+
+
+        //pagination admin
 
         var i = 0;
         if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
@@ -2636,7 +2352,11 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Ecommerce");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        }
+
+
         //pagination ecommerce
 
         var i = 0;
@@ -2715,7 +2435,9 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("EditProduct");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        }
         $scope._id = {
             _id: $stateParams.productId
         };
@@ -2740,7 +2462,9 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Reports");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        }
     })
 
     .controller('VendorsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
@@ -2751,8 +2475,9 @@ firstapp
         $scope.navigation = NavigationService.getnav();
         // $scope.accessLevel = "Admin";
         // $scope.accessLevel = "Vendor";
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
-
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        }
         //pagination
 
         var i = 0;
@@ -2838,7 +2563,9 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("CreateVendor");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        }
     })
     .controller('AddProductCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
@@ -2849,7 +2576,9 @@ firstapp
         /**
          * summernoteText - used for Summernote plugin
          */
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        }
         this.summernoteText = [].join('');
         $scope.submitProduct = function (data) {
             NavigationService.apiCallWithData("Products/save", data, function (data2) {
@@ -2870,7 +2599,9 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("EcomDetails");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        }
     })
 
 
@@ -2882,8 +2613,9 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("EditVendor");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
-
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        }
         $scope.updateVendor = function (formData) {
             formData._id = $stateParams.vendorId;
             NavigationService.apiCallWithData("User/save", formData, function (data) {
@@ -2900,7 +2632,9 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("AdminProfile");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        }
     })
 
     .controller('SupportDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
@@ -2909,7 +2643,9 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("SupportDetails");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        }
         var ticketId = {};
         ticketId._id = $stateParams.ticketId;
         NavigationService.apiCallWithData("Ticket/getTicketData", ticketId, function (data) {
@@ -2975,8 +2711,9 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Billing");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.accessLevel = $.jStorage.get("user").accessLevel;
-
+        if ($.jStorage.get("user")) {
+            $scope.accessLevel = $.jStorage.get("user").accessLevel;
+        }
         //pagination
         var i = 0;
         if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
@@ -4902,31 +4639,31 @@ firstapp
         // } else {
         //     NavigationService.removeAccessToken();
         // }
-        $scope.loginUser = function (formData) {
-            NavigationService.apiCall("User/login", formData, function (data) {
-                if (data.value === true) {
-                    $scope.profileDetails = data.data;
-                    NavigationService.parseAccessToken(data.data._id, function () {
-                        NavigationService.profile(function () {
-                            $scope.template.profile = data.data;
-                            $state.go("dashboard");
-                        }, function () {
-                            $state.go("login");
-                        });
-                    });
-                    console.log("profileDetails found successfully", $scope.profileDetails);
-                } else {
-                    //  toastr.warning('Error submitting the form', 'Please try again');
-                }
-            });
-        }
+        // $scope.loginUser = function (formData) {
+        //     NavigationService.apiCall("User/login", formData, function (data) {
+        //         if (data.value === true) {
+        //             $scope.profileDetails = data.data;
+        //             NavigationService.parseAccessToken(data.data._id, function () {
+        //                 NavigationService.profile(function () {
+        //                     $scope.template.profile = data.data;
+        //                     $state.go("dashboard");
+        //                 }, function () {
+        //                     $state.go("login");
+        //                 });
+        //             });
+        //             console.log("profileDetails found successfully", $scope.profileDetails);
+        //         } else {
+        //             //  toastr.warning('Error submitting the form', 'Please try again');
+        //         }
+        //     });
+        // }
 
-        $scope.logout = function () {
-            NavigationService.removeAccessToken("", function () {
-                $state.go("login");
-            });
-            $.jStorage.flush();
-        }
+        // $scope.logout = function () {
+        //     NavigationService.removeAccessToken("", function () {
+        //         $state.go("login");
+        //     });
+        //     $.jStorage.flush();
+        // }
 
     })
 

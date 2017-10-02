@@ -62,7 +62,6 @@ var model = {
             .page(options,
                 function (err, found) {
                     if (err) {
-                        console.log(err);
                         callback(err, null);
                     } else if (found) {
                         callback(null, found);

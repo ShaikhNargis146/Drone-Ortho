@@ -49,5 +49,12 @@ module.exports = {
         res.set('Content-Type', "application/pdf");
         files = fs.readFileSync(sails.config.appPath + "/pdf/" + req.param("filename"));
         res.send(files);
-    }
+    },
+
+    getFile: function (req, res) {
+        res.set('Content-Type', "application/octet-stream");
+        console.log(sails.config.appPath); //check path first
+        // files = fs.readFileSync("C:\Users\nifli\Documents\pix4d" + req.param("filename"));
+        res.send(files);
+    },
 };

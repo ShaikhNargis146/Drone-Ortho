@@ -106,7 +106,7 @@ var model = {
         Mission.find({
                 user: data.user
             })
-            .deepPopulate("serviceId user DFMSubscription")
+            .deepPopulate("others.serviceId user DFMSubscription")
             .order(options)
             .keyword(options)
             .page(options,
@@ -127,7 +127,6 @@ var model = {
             status: "ready"
         }).exec(function (err, found) {
             if (err) {
-                console.log(err);
                 callback(err, null);
             } else if (found) {
                 callback(null, found);
@@ -142,7 +141,6 @@ var model = {
             user: data.user,
         }).count().exec(function (err, found) {
             if (err) {
-                console.log(err);
                 callback(err, null);
             } else if (found) {
                 callback(null, found);
@@ -151,6 +149,7 @@ var model = {
             }
         });
     },
+
     createMission: function (data, callback) {
         async.waterfall([
             function (callback) { // generate mission id
@@ -374,7 +373,6 @@ var model = {
             .page(options,
                 function (err, found) {
                     if (err) {
-                        console.log(err);
                         callback(err, null);
                     } else if (found) {
                         callback(null, found);

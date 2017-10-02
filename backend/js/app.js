@@ -1246,7 +1246,7 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
             // };
             var imageUrl;
             if ($scope.missionDetails && $scope.missionDetails.name) {
-                console.log("$scope.missionDetails.name", $scope.missionDetails.name);
+                // console.log("$scope.missionDetails.name", $scope.missionDetails.name);
                 imageUrl = 'http://35.201.210.67:80/' + $scope.missionDetails.name + '.png';
                 // imageUrl = 'http://localhost:1337/' + $scope.missionDetails.name + '.png';
             } else if ($scope.cadLineDetails && $scope.cadLineDetails.orthoFile[0]) {

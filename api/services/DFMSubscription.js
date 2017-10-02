@@ -45,12 +45,21 @@ var schema = new Schema({
     unlimitedUsedApps: String,
 });
 
-schema.plugin(deepPopulate, {});
+schema.plugin(deepPopulate, {
+    Populate: {
+        'user': {
+            select: ''
+        },
+        'discountCoupon': {
+            select: ''
+        }
+    }
+});
 schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('DFMSubscription', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "plan user", "plan user"));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "user discountCoupon", "discountCoupon user"));
 var model = {
 
     getDfm: function (data, callback) {

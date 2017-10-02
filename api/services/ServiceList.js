@@ -18,15 +18,13 @@ module.exports = mongoose.model('ServiceList', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema));
 var model = {
+
     getByMission: function (data, callback) {
-        console.log("data", data);
         ServiceList.find().lean().exec(function (err, data2) {
 
             Mission.findOne({
                 "_id": data._id
             }).lean().exec(function (err, data3) {
-                // console.log("data3", data3);
-
                 var missionArr = data3.others;
                 var returnVal = _.map(data2, function (n) {
                     if (!_.isEmpty(missionArr)) {
@@ -40,11 +38,8 @@ var model = {
                             n.status = missionObj[0].status;
                         }
                     }
-                    console.log("missionObj", missionObj)
                     return n;
-
                 });
-                console.log(returnVal);
                 callback(err, returnVal);
             })
         });
