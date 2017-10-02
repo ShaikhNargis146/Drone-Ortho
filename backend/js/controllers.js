@@ -1116,28 +1116,28 @@ firstapp
                 // window.open('http://35.201.210.67/file/' + 'xyz.jpg', '_self');
             }, //pending
 
-            $scope.downloadOrtho = function () {
-                window.open('http://35.201.210.67/file/' + missionName + "\3_dsm_ortho\2_mosaic\\", missionName + "_transparent_mosaic_group1.tif", '_self');
+            $scope.downloadOrthoM = function () {
+                window.open('http://35.201.210.67/file/' + missionName, '_self');
             },
 
             $scope.downloadDsm = function () {
-                window.open('http://35.201.210.67/file/' + 'xyz.jpg', '_self');
+                // window.open('http://35.201.210.67/file/' + 'xyz.jpg', '_self');
             },
 
             $scope.downloadMeshObj = function () {
-                window.open('http://35.201.210.67/file/' + 'xyz.jpg', '_self');
+                // window.open('http://35.201.210.67/file/' + 'xyz.jpg', '_self');
             },
 
             $scope.downloadMeshFbx = function () {
-                window.open('http://35.201.210.67/file/' + 'xyz.jpg', '_self');
+                // window.open('http://35.201.210.67/file/' + 'xyz.jpg', '_self');
             },
 
             $scope.downloadPointCloud = function () {
-                window.open('http://35.201.210.67/file/' + 'xyz.jpg', '_self');
+                // window.open('http://35.201.210.67/file/' + 'xyz.jpg', '_self');
             },
 
             $scope.downloadQualityReports = function () {
-                window.open('http://wohlig.io:1337/file/' + 'xyz.jpg', '_self');
+                // window.open('http://wohlig.io:1337/file/' + 'xyz.jpg', '_self');
             },
 
 
