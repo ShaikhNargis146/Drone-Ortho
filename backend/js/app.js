@@ -13,7 +13,8 @@ var firstapp = angular.module('firstapp', [
     "jsonservicemod",
     'summernote',
     'datePicker',
-    'angular-flot'
+    'angular-flot',
+   'rzModule'
 ]);
 
 L.mapbox.accessToken = 'pk.eyJ1IjoibmFyZ2lzLXNoYWlraCIsImEiOiJjajVsMWdjbTgyN2t0MzBuejY0YWZvYnU1In0.sxNSmPeAZRDks6p3JmRUkw';
@@ -1094,7 +1095,7 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
         restrict: 'C',
         link: function ($scope, element, attrs) {
             var locations = {};
-            if ($scope.missionDetails && $scope.missionDetails.name) {
+            if ($scope.missionDetails && $scope.missionDetails.missionId) {
                 locations = $scope.missionDetails.geoLocation;
             } else if ($scope.cadLineDetails) {
                 locations = $scope.cadLineDetails.geoLocation;
@@ -1242,15 +1243,15 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
             //     }]
             // };
             var imageUrl;
-            if ($scope.missionDetails && $scope.missionDetails.name) {
+            if ($scope.missionDetails && $scope.missionDetails.missionId) {
                 // console.log("$scope.missionDetails.name", $scope.missionDetails.name);
-                imageUrl = 'http://35.201.210.67:80/' + $scope.missionDetails.name + '.png';
+                imageUrl = 'http://35.201.210.67:80/' + $scope.missionDetails.missionId + '.png';
                 // imageUrl = 'http://localhost:1337/' + $scope.missionDetails.name + '.png';
             } else if ($scope.cadLineDetails && $scope.cadLineDetails.orthoFile[0]) {
                 imageUrl = 'http://35.201.210.67:80/' + $scope.cadLineDetails.orthoFile[0].file.split(".")[0] + '.png';
                 // imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.orthoFile[0].file.split(".")[0] + '.png';
             } else if ($scope.cadLineDetails && $scope.cadLineDetails.mission) {
-                imageUrl = 'http://35.201.210.67:80/' + $scope.cadLineDetails.mission.name + '.png';
+                imageUrl = 'http://35.201.210.67:80/' + $scope.cadLineDetails.mission.missionId + '.png';
                 // imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.mission.name + '.png';
 
             }
@@ -1394,7 +1395,7 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
             //     alert("hello")
             // }
             var calcButton;
-            if ($scope.missionDetails && $scope.missionDetails.name) {
+            if ($scope.missionDetails && $scope.missionDetails.missionId) {
                 calcButton = document.getElementById('missionName');
             } else if ($scope.cadLineDetails) {
                 calcButton = document.getElementById('contours');

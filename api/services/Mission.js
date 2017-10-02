@@ -174,7 +174,7 @@ var model = {
                             folder = path.join(dir, created._id.toString());
                             fs.mkdirSync(folder)
                         }
-                        var missionName = created.name;
+                        var missionName = missionID;
                         async.waterfall([
                             function concatFiles(callback) {
                                 async.concatLimit(created.files, 20, function (image, callback) {

@@ -193,8 +193,8 @@ cron.schedule('1 * * * *', function () {
             var mosaicList;
             var geoLocation;
             async.eachSeries(found, function (value, callback1) {
-                    console.log("value", value.name);
-                    dirName1 = 'C:/Users/unifli/Documents/pix4d/' + value.name + '/3_dsm_ortho/2_mosaic'
+                    console.log("value", value.missionId);
+                    dirName1 = 'C:/Users/unifli/Documents/pix4d/' + value.missionId + '/3_dsm_ortho/2_mosaic'
                     if (fs.existsSync(dirName1)) {
                         fs.readdir(dirName1, function (err, items) {
                             if (err) {
