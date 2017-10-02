@@ -1117,7 +1117,7 @@ firstapp
             }, //pending
 
             $scope.downloadOrthoM = function () {
-                window.open('http://35.201.210.67/getOrthoM/' + missionName, '_self');
+                window.open('http://35.201.210.67/api/getOrthoM/' + missionName + ".tif", '_self');
             },
 
             $scope.downloadDsm = function () {
