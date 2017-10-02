@@ -8,7 +8,7 @@ firstapp
 
     .controller('DashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
-
+        $scope.toolsvalue = 0;
         $scope.template = TemplateService.changecontent("dashboard");
         $scope.menutitle = NavigationService.makeactive("Dashboard");
         TemplateService.title = $scope.menutitle;
@@ -25,6 +25,9 @@ firstapp
 
         // Standard Chart Example
         //
+        //   *********************************************************************************************************88
+
+        // ********************************************************************************************************************88
         $scope.data1 = [
             [gd(2012, 1, 1), 7],
             [gd(2012, 1, 2), 6],
@@ -182,6 +185,32 @@ firstapp
 
         function gd(year, month, day) {
             return new Date(year, month - 1, day).getTime();
+        }
+        $scope.onEventExampleClicked = function (event, pos, item) {
+            // alert('Click! ' + event.timeStamp + ' ' + pos.pageX + ' ' + pos.pageY);
+            // highlight('Hover! ' + event.timeStamp + ' ' + pos.pageX + ' ' + pos.pageY);
+            console.log(event, pos, item, "click");
+            console.log(item.dataIndex, item.series.label);
+            hoverShow(item.dataIndex, item.series.label, pos.pageX, pos.pageY);
+        };
+
+        $scope.onEventExampleHover = function (event, pos, item) {
+            // console.log('Hover! ' + event.timeStamp + ' ' + pos.pageX + ' ' + pos.pageY);
+            hoverShow(item.dataIndex, item.series.label, pos.pageX, pos.pageY);
+
+
+        };
+
+        function hoverShow(index, label, x, y) {
+            if (label == "Payments") {
+                $scope.toolsvalue = $scope.data1[index] + "  " + label;
+            } else {
+                $scope.toolsvalue = $scope.data2[index] + "  " + label;
+
+            }
+            $('#a').css("top", y);
+            $('#a').css("left", x);
+
         }
 
         //
@@ -971,6 +1000,19 @@ firstapp
 
         // $scope.accessLevel = "User";
         // $scope.accessLevel = "Admin";
+
+        // $scope.opacityv = 0;
+        // $scope.rangechange = function () {
+        //     console.log("rangechange");
+        //     // console($('.irs-single').text());
+        // }
+        // set available range
+        $scope.demo6 = {
+            valueA: 5000,
+            valueB: 3000
+        };
+
+
         $scope.profileDetails = $.jStorage.get("user");
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
@@ -1366,6 +1408,18 @@ firstapp
                 }
             });
         }
+        //Minimal slider config
+        $scope.minSlider = {
+            value: 10
+        };
+
+        //Slider with selection bar
+        $scope.slider_visible_bar = {
+            value: 10,
+            options: {
+                showSelectionBar: true
+            }
+        };
 
     })
 

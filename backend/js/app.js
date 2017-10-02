@@ -13,7 +13,10 @@ var firstapp = angular.module('firstapp', [
     "jsonservicemod",
     'summernote',
     'datePicker',
-    'angular-flot'
+    'angular-flot',
+    'ion.rangeslider',
+    'ui-rangeSlider',
+    'rzSliderDemo'
 ]);
 
 L.mapbox.accessToken = 'pk.eyJ1IjoibmFyZ2lzLXNoYWlraCIsImEiOiJjajVsMWdjbTgyN2t0MzBuejY0YWZvYnU1In0.sxNSmPeAZRDks6p3JmRUkw';
@@ -1532,14 +1535,14 @@ firstapp.directive('commonView', function () {
 /**
  * ionRangeSlider - Directive for Ion Range Slider
  */
-firstapp.directive('ionRangeSlider', function () {
-    return {
-        restrict: 'A',
-        scope: {
-            rangeOptions: '='
-        },
-        link: function (scope, elem, attrs) {
-            elem.ionRangeSlider(scope.rangeOptions);
-        }
-    }
-});
+// firstapp.directive('ionRangeSlider', function () {
+//     return {
+//         restrict: 'A',
+//         scope: {
+//             rangeOptions: '=',
+//         },
+//         link: function (scope, elem, attrs) {
+//             elem.ionRangeSlider(scope.rangeOptions);
+//         }
+//     }
+// });

@@ -93,6 +93,8 @@ module.exports = [
     // 'backend/js/plugins/amcharts/10/radar.js',
     'backend/js/plugins/iCheck/icheck.min.js',
     'backend/js/plugins/ionRangeSlider/ion.rangeSlider.min.js',
+    'backend/js/plugins/ion.rangeslider-angularjs/ionic-range-slider.js',
+    'backend/js/plugins/angular-rangeslider/angular.rangeSlider.js'
 
     // 'backend/js/plugins/amcharts/plugins/export/libs/fabric.js/fabric.js',
     // 'backend/js/plugins/amcharts/plugins/export/libs/fabric.js/fabric.min.js',

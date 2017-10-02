@@ -4292,16 +4292,18 @@ WIDGETS
         outline: none;
     }
 }
-.access-select{
-    select{
-            border: none;
-    background: none;
-    &:focus,&:active{
-        outline: none;
-    }
-    
+
+.access-select {
+    select {
+        border: none;
+        background: none;
+        &:focus,
+        &:active {
+            outline: none;
+        }
     }
 }
+
 .leaflet-bar .leaflet-control-zoom-in {
     opacity: 1;
     padding: 3px 7px;
@@ -4385,6 +4387,7 @@ WIDGETS
 @import "../js/plugins/iCheck/custom";
 @import "../js/plugins/ionRangeSlider/ion.rangeSlider";
 @import "../js/plugins/ionRangeSlider/ion.rangeSlider.skinFlat";
+@import "../js/plugins/angular-rangeslider/angular.rangeSlider";
 // @import "../js/plugins/angular-morris/morris";
 .leaflet-retina .leaflet-draw-toolbar a {
     background-image: url(../img/spritesheet-2x.png);
