@@ -1155,18 +1155,15 @@ firstapp
             });
         }
         //Minimal slider config
-        $scope.minSlider = {
-            value: 10
-        };
-
-        //Slider with selection bar
-        $scope.slider_visible_bar = {
-            value: 10,
+        $scope.slider = {
+            value: 0.5,
             options: {
-                showSelectionBar: true
+                floor: 0,
+                ceil: 1,
+                step: 0.1,
+                precision: 1
             }
         };
-
         //download Files
 
         $scope.downloadInputImage = function (missionId) {
