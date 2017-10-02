@@ -54,12 +54,12 @@ module.exports = {
         res.send(files);
     },
 
-    getInputImage: function (req, res) {
-        res.set('Content-Type', "application/octet-stream");
-        var filePath = path.join("C:\Users", "unifli\Documents\pix4d");
-        files = fs.readFileSync(path.join(filePath, req.param("filename")));
-        res.send(files);
-    },
+    // getInputImage: function (req, res) {
+    //     res.set('Content-Type', "application/octet-stream");
+    //     var filePath = path.join("C:\Users", "unifli\Documents\pix4d");
+    //     files = fs.readFileSync(path.join(filePath, req.param("filename")));
+    //     res.send(files);
+    // },
 
     getOrthoM: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
@@ -69,57 +69,61 @@ module.exports = {
         res.send(files);
     },
 
+
+    //C: \Users\ unifli\ Documents\ pix4d\ missionByMe2\ 3 _dsm_ortho\ 1 _dsm
+    //missionByMe2_dsm
+
     getDsm: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
-        // console.log("------------------------", sails.config.appPath); //check path 
-        console.log("------------------------", req.param("filename"));
-        var filePath = path.join("C:\Users", "unifli\Documents\pix4d");
-        files = fs.readFileSync(path.join(filePath, req.param("filename")));
+        var name = req.param("filename").split('.')[0]
+        var filePath = "C:/Users/dell/Documents/pix4d/" + name + "/3_dsm_ortho/1 _dsm/" + name + "_transparent_mosaic_group1.tif";
+        files = fs.readFileSync(filePath);
         res.send(files);
     },
 
-    getMeshObj: function (req, res) {
-        res.set('Content-Type', "application/octet-stream");
-        // console.log("------------------------", sails.config.appPath); //check path 
-        console.log("------------------------", req.param("filename"));
-        var filePath = path.join("C:\Users", "unifli\Documents\pix4d");
-        files = fs.readFileSync(path.join(filePath, req.param("filename")));
-        res.send(files);
-    },
+    //C:\Users\unifli\Documents\pix4d\missionByMe2\2_densification\3d_mesh
+    //missionByMe2_simplified_3d_mesh.fbx
 
     getMeshFbx: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
-        // console.log("------------------------", sails.config.appPath); //check path 
-        console.log("------------------------", req.param("filename"));
-        var filePath = path.join("C:\Users", "unifli\Documents\pix4d");
-        files = fs.readFileSync(path.join(filePath, req.param("filename")));
+        var name = req.param("filename").split('.')[0]
+        var filePath = "C:/Users/dell/Documents/pix4d/" + name + "/2_densification/3d_mesh/" + name + "_simplified_3d_mesh.fbx";
+        files = fs.readFileSync(filePath);
         res.send(files);
     },
+
+    //C:\Users\unifli\Documents\pix4d\missionByMe2\2_densification\point_cloud
+    //missionByMe2_group1_densified_point_cloud.las
 
     getPointCloud: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
-        // console.log("------------------------", sails.config.appPath); //check path 
-        console.log("------------------------", req.param("filename"));
-        var filePath = path.join("C:\Users", "unifli\Documents\pix4d");
-        files = fs.readFileSync(path.join(filePath, req.param("filename")));
+        var name = req.param("filename").split('.')[0]
+        var filePath = "C:/Users/dell/Documents/pix4d/" + name + "/2_densification/point_cloud/" + name + "_group1_densified_point_cloud.las";
+        files = fs.readFileSync(filePath);
         res.send(files);
     },
+
+    //C:\Users\unifli\Documents\pix4d\missionByMe2\1_initial\report
+    //missionByMe2_report
 
     getQualityReports: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
-        // console.log("------------------------", sails.config.appPath); //check path 
-        console.log("------------------------", req.param("filename"));
-        var filePath = path.join("C:\Users", "unifli\Documents\pix4d");
-        files = fs.readFileSync(path.join(filePath, req.param("filename")));
+        var name = req.param("filename").split('.')[0]
+        var filePath = "C:/Users/dell/Documents/pix4d/" + name + "/1_initial/report/" + name + "_report.pdf";
+        files = fs.readFileSync(filePath);
         res.send(files);
     },
 
+
+    // C:\Users\unifli\Documents\pix4d\missionByMe2
+    // missionByMe2
+    // .txt
+
     getProcessingLog: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
-        // console.log("------------------------", sails.config.appPath); //check path 
-        console.log("------------------------", req.param("filename"));
-        var filePath = path.join("C:\Users", "unifli\Documents\pix4d");
-        files = fs.readFileSync(path.join(filePath, req.param("filename")));
+        var name = req.param("filename").split('.')[0]
+        var filePath = "C:/Users/dell/Documents/pix4d/" + name + "/" + name + ".txt";
+        files = fs.readFileSync(filePath);
         res.send(files);
     }
 

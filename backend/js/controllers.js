@@ -1169,11 +1169,11 @@ firstapp
 
         //download Files
 
-        $scope.downloadInputImage = function (missionId) {
-                window.open('http://35.201.210.67/api/getInputImage/' + missionIdForDownload + ".tif", '_self');
-            }, //pending
+        // $scope.downloadInputImage = function (missionId) {
+        //         window.open('http://35.201.210.67/api/getInputImage/' + missionIdForDownload + ".tif", '_self');
+        //     }, //pending
 
-            $scope.downloadOrthoM = function () {
+        $scope.downloadOrthoM = function () {
                 window.open('http://35.201.210.67/api/getOrthoM/' + missionIdForDownload + ".tif", '_self');
             },
 
@@ -1181,24 +1181,20 @@ firstapp
                 window.open('http://35.201.210.67/api/getDsm/' + missionIdForDownload + ".tif", '_self');
             },
 
-            $scope.downloadMeshObj = function () {
-                window.open('http://35.201.210.67/api/getMeshObj/' + missionIdForDownload + ".tif", '_self');
-            },
-
             $scope.downloadMeshFbx = function () {
-                window.open('http://35.201.210.67/api/getMeshFbx/' + missionIdForDownload + ".tif", '_self');
+                window.open('http://35.201.210.67/api/getMeshFbx/' + missionIdForDownload + ".fbx", '_self');
             },
 
             $scope.downloadPointCloud = function () {
-                window.open('http://35.201.210.67/api/getPointCloud/' + missionIdForDownload + ".tif", '_self');
+                window.open('http://35.201.210.67/api/getPointCloud/' + missionIdForDownload + ".las", '_self');
             },
 
             $scope.downloadQualityReports = function () {
-                window.open('http://35.201.210.67/api/getProcessingLog/' + missionIdForDownload + ".tif", '_self');
+                window.open('http://35.201.210.67/api/getProcessingLog/' + missionIdForDownload + ".pdf", '_self');
             }
 
         $scope.downloadProcessingLog = function () {
-            window.open('http://35.201.210.67/api/getProcessingLog/' + missionIdForDownload + ".tif", '_self');
+            window.open('http://35.201.210.67/api/getProcessingLog/' + missionIdForDownload + ".txt", '_self');
         }
 
     })
