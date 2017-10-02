@@ -51,27 +51,62 @@ module.exports.routes = {
         skipAssets: true,
         skipRegex: /api|backend/i
     },
+
     "/api/download/:filename": {
         controller: "WebController",
         action: "download"
     },
+
     'GET /backend/*': {
         controller: "WebController",
         action: "backend",
         skipAssets: true
     },
+
     'GET /backend': {
         controller: "WebController",
         action: "backend",
         skipAssets: true
     },
+
     'GET /pdf/:filename': {
         controller: "WebController",
         action: "getPdf"
     },
-    'GET /file/:filename': {
+
+    'GET /api/getInputImage/:filename': {
         controller: "WebController",
-        action: "getFile"
+        action: "getInputImage"
+    },
+
+    'GET /api/getOrthoM/:filename': {
+        controller: "WebController",
+        action: "getOrthoM"
+    },
+
+    'GET /api/getDsm/:filename': {
+        controller: "WebController",
+        action: "getDsm"
+    },
+
+    'GET /api/getMeshObj/:filename': {
+        controller: "WebController",
+        action: "getMeshObj"
+    },
+
+    'GET /api/getMeshFbx/:filename': {
+        controller: "WebController",
+        action: "getMeshFbx"
+    },
+
+    'GET /api/getQualityReports/:filename': {
+        controller: "WebController",
+        action: "getQualityReports"
+    },
+
+    'GET /api/getProcessingLog/:filename': {
+        controller: "WebController",
+        action: "getProcessingLog"
     },
 
     /***************************************************************************
