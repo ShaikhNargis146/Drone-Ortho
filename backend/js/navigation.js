@@ -105,7 +105,7 @@ var navigationservice = angular.module('navigationservice', [])
                 var navigation = [];
                 if ($.jStorage.get("user") && $.jStorage.get("user").accessLevel == 'Admin') {
                     _.forEach(_.cloneDeep(navigation1), function (val) {
-                        if (_.isEqual(val.name, 'Dashboard') || _.isEqual(val.name, 'Missions') || _.isEqual(val.name, 'CAD File Requests') || _.isEqual(val.name, 'Users') || _.isEqual(val.name, 'Ecommerce') || _.isEqual(val.name, 'Support') || _.isEqual(val.name, 'Vendors')) {
+                        if (_.isEqual(val.name, 'Dashboard') || _.isEqual(val.name, 'Missions') || _.isEqual(val.name, 'CAD File Requests') || _.isEqual(val.name, 'Users') || _.isEqual(val.name, 'Ecommerce') || _.isEqual(val.name, 'Support') || _.isEqual(val.name, 'Vendors') || _.isEqual(val.name, 'Reports')) {
                             navigation.push(val);
                         }
                     });
