@@ -74,10 +74,10 @@ module.exports.routes = {
         action: "getPdf"
     },
 
-    'GET /api/getInputImage/:filename': {
-        controller: "WebController",
-        action: "getInputImage"
-    },
+    // 'GET /api/getInputImage/:filename': {
+    //     controller: "WebController",
+    //     action: "getInputImage"
+    // },
 
     'GET /api/getOrthoM/:filename': {
         controller: "WebController",
@@ -89,10 +89,10 @@ module.exports.routes = {
         action: "getDsm"
     },
 
-    'GET /api/getMeshObj/:filename': {
-        controller: "WebController",
-        action: "getMeshObj"
-    },
+    // 'GET /api/getMeshObj/:filename': {
+    //     controller: "WebController",
+    //     action: "getMeshObj"
+    // },
 
     'GET /api/getMeshFbx/:filename': {
         controller: "WebController",
