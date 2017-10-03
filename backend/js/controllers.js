@@ -1381,15 +1381,15 @@ firstapp
         $scope.date = new Date();
         $scope.mission = {};
         $scope.saveMission = function (missiondata) {
-            missiondata.user =
-                NavigationService.apiCall("Mission/createMission", missiondata, function (data) {
-                    $("#modal-4").modal();
-                    if (data.value === true) {
-                        $state.go("missions");
-                    } else {
-                        toastr.warning('Failed to create a mission');
-                    }
-                });
+            missiondata.user = userId;
+            NavigationService.apiCall("Mission/createMission", missiondata, function (data) {
+                $("#modal-4").modal();
+                if (data.value === true) {
+                    $state.go("missions");
+                } else {
+                    toastr.warning('Failed to create a mission');
+                }
+            });
         }
     })
 
