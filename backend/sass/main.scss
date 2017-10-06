@@ -4247,8 +4247,9 @@ WIDGETS
     .loading-img,
     .loading-img-modal {
         display: none;
-    }
-
+    } // .modal-lg {
+    //     width: 900px !important;
+    // }
     @import "adminbagdemo";
     @import "animate";
     @import "buttons";
@@ -4314,8 +4315,8 @@ WIDGETS
         top: -8px;
         &:focus,
         &:active,
-        &::visited {
-            outline: none;
+        &:visited {
+            outline: none !important;
         }
     }
 
@@ -4341,4 +4342,9 @@ WIDGETS
         #c {
             display: block;
         }
+    }
+
+    #imgblock {
+        border: 1px solid grey;
+        margin-bottom: 5px;
     }

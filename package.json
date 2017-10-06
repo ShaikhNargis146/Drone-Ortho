@@ -16,6 +16,7 @@
     "ejs": "2.3.4",
     "epsg-to-proj": "^1.0.0",
     "form-data": "^2.2.0",
+    "gdal": "^0.9.6",
     "geotiff": "^0.4.1",
     "geotiff-extents": "^1.0.0",
     "gridfs-stream": "^1.1.1",

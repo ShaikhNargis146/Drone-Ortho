@@ -7,8 +7,8 @@ var firstapp = angular.module('firstapp', [
     'pascalprecht.translate',
     'angulartics',
     'angulartics.google.analytics',
-    'ngMap',
-    'datePicker'
+    'ngMap'
+    // 'datePicker'
 ]);
 
 firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {

@@ -1035,21 +1035,11 @@ firstapp
 
     })
 
-    .controller('MissionsDetailsCtrl', function ($scope, TemplateService, NavigationService, $uibModal, $timeout, $state, toastr, $stateParams) {
+    .controller('MissionsDetailsCtrl', function ($scope, $rootScope, TemplateService, NavigationService, $uibModal, $timeout, $state, toastr, $stateParams) {
 
         $scope.demo6 = {
             valueA: 5000,
             valueB: 3000
-        };
-
-        $scope.slider = {
-            value: 0.5,
-            options: {
-                floor: 0,
-                ceil: 1,
-                step: 0.1,
-                precision: 1
-            }
         };
 
         $scope.profileDetails = $.jStorage.get("user");
@@ -1062,6 +1052,7 @@ firstapp
         mission._id = $stateParams.missionId;
         NavigationService.apiCall("Mission/getOne", mission, function (data) {
             if (data.value === true) {
+
                 $scope.missionDetails = data.data;
                 missionIdForDownload = $scope.missionDetails.id;
                 $scope.template = TemplateService.changecontent("mission-details");
@@ -1154,9 +1145,21 @@ firstapp
                 }
             });
         }
-        //Minimal slider config
+        //slider 
+        // var slider = document.getElementById('slider');
+        // var sliderValue = document.getElementById('slider-value');
+        // slider.addEventListener('input', function (e) {
+        // Adjust the layers opacity. layer here is arbitrary - this could
+        // be another layer name found in your style or a custom layer
+        // added on the fly using `addSource`.
+        // map.setPaintProperty('chicago', 'raster-opacity', parseInt(e.target.value, 10) / 100);
+
+        // Value indicator
+        // sliderValue.textContent = e.target.value + '%';
+        // });
+        $scope.value = 0.5;
         $scope.slider = {
-            value: 0.5,
+            value: $scope.value,
             options: {
                 floor: 0,
                 ceil: 1,
@@ -1164,8 +1167,14 @@ firstapp
                 precision: 1
             }
         };
-        //download Files
 
+        $scope.afterChange = function (newValue) {
+            $scope.value = newValue;
+            $scope.slider.value = newValue;
+            $rootScope.$broadcast('greeting', $scope.slider);
+            // console.log("afterChange $scope.slider.value", $scope.slider.value);
+            // console.log("afterChange $scope.slider.value", $scope.slider);
+        }
         // $scope.downloadInputImage = function (missionId) {
         //         window.open('http://35.201.210.67/api/getInputImage/' + missionIdForDownload + ".tif", '_self');
         //     }, //pending
@@ -1193,7 +1202,41 @@ firstapp
         $scope.downloadProcessingLog = function () {
             window.open('http://35.201.210.67/api/getProcessingLog/' + missionIdForDownload + ".txt", '_self');
         }
+        $scope.mapOpen = function () {
+            $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/map.html',
+                scope: $scope,
+                size: 'lg',
+            });
+        };
 
+        ///map//
+        // var slider = document.getElementById('slider');
+        // var sliderValue = document.getElementById('slider.value');
+
+        // map.on('load', function () {
+
+        //     map.addLayer({
+        //         "id": "chicago",
+        //         "source": {
+        //             "type": "raster",
+        //             "url": "mapbox://mapbox.u8yyzaor"
+        //         },
+        //         "type": "raster"
+        //     });
+
+        //     slider.addEventListener('input', function (e) {
+        //         // Adjust the layers opacity. layer here is arbitrary - this could
+        //         // be another layer name found in your style or a custom layer
+        //         // added on the fly using `addSource`.
+        //         map.setPaintProperty('chicago', 'raster-opacity', parseInt(e.target.value, 10) / 100);
+
+        //         // Value indicator
+        //         sliderValue.textContent = e.target.value + '%';
+        //     });
+        // });
+        ///map//
     })
 
     .controller('MailDetailCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
@@ -1852,6 +1895,9 @@ firstapp
             });
         }
 
+        // $scope.downloadOrtho = function (data) {
+        //     window.open('http://35.201.210.67/api/getOrtho/' + data + ".tif", '_self');
+        // }
 
         // download ortho
 
@@ -2514,6 +2560,20 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
+        // ***FOR DATEPICKER****
+        $scope.popup1 = {
+            opened: false
+        };
+        $scope.open1 = function () {
+            $scope.popup1.opened = true;
+        };
+        $scope.popup2 = {
+            opened: false
+        };
+        $scope.open2 = function () {
+            $scope.popup2.opened = true;
+        };
+        // ***FOR DATEPICKER****
     })
 
     .controller('VendorsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {

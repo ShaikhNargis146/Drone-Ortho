@@ -30,13 +30,13 @@
                 <label for="exampleInputPassword1" class="col-sm-4 control-label">To date</label>
                 <!--<input name="password" class="password form-control m-t-xxs" id="exampleInputPassword1" type="password">-->
                 <div class="col-sm-5">
-                    <div class="form-group">
+                    <div class="form-group form-margin">
                         <div class="input-group">
-                            <input type="text" class="form-control" uib-datepicker-popup is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true"
-                                close-text="Close" ng-model="enquiryInfo.enquirerdate">
+                            <input type="text" class="form-control" uib-datepicker-popup ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions"
+                                ng-required="true" close-text="Close" />
                             <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default" ng-click="openDatePicker();"><i class="glyphicon glyphicon-calendar" ></i></button>
-                                        </span>
+                                                 <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                                </span>
                         </div>
                     </div>
                 </div>

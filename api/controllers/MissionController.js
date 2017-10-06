@@ -84,7 +84,7 @@ var controller = {
         // });
 
     },
-   
+
     createMission: function (req, res) { //pix4dmapper -c -n --image-dir C:\Users\dell\Pictures\newMissionImages D:\mining\myquarry.p4d 
         if (req.body) {
             Mission.createMission(req.body, res.callback);
@@ -114,7 +114,7 @@ var controller = {
 
     },
 
-   totalMission: function (req, res) {
+    totalMission: function (req, res) {
         if (req.body) {
             Mission.totalMission(req.body, res.callback);
         } else {
@@ -195,6 +195,7 @@ cron.schedule('1 * * * *', function () {
             async.eachSeries(found, function (value, callback1) {
                     console.log("value", value.missionId);
                     dirName1 = 'C:/Users/unifli/Documents/pix4d/' + value.missionId + '/3_dsm_ortho/2_mosaic'
+                    // dirName1 = 'C:/Users/dell/Documents/pix4d/' + value.missionId + '/3_dsm_ortho/2_mosaic'   //for local                 
                     if (fs.existsSync(dirName1)) {
                         fs.readdir(dirName1, function (err, items) {
                             if (err) {
