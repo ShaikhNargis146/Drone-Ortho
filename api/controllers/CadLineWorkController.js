@@ -42,7 +42,7 @@ var controller = {
     },
 
 
-      totalCadReq: function (req, res) {
+    totalCadReq: function (req, res) {
         if (req.body) {
             CadLineWork.totalCadReq(req.body, res.callback);
         } else {
@@ -115,7 +115,7 @@ var controller = {
         var cadData = req;
         async.waterfall([
                 function (callback) {
-                    fs.readFile(path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile[0].file, function (err, data) {
+                    fs.readFile(path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile.file, function (err, data) {
                         if (err) {
                             console.log("err", err);
                             callback(null, "err");
@@ -174,11 +174,11 @@ var controller = {
                     }
                 },
                 function (msg, callback) {
-                    console.log("fileName[0]----", cadData.orthoFile[0].file);
-                    var firstName = cadData.orthoFile[0].file.split(".");
-                    var extension = cadData.orthoFile[0].file.split(".").pop();
-                    console.log("fileName[0] ", './tmp/public/' + firstName[0] + '.png', path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile[0].file)
-                    sharp(path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile[0].file)
+                    console.log("fileName[0]----", cadData.orthoFile.file);
+                    var firstName = cadData.orthoFile.file.split(".");
+                    var extension = cadData.orthoFile.file.split(".").pop();
+                    console.log("fileName[0] ", './tmp/public/' + firstName[0] + '.png', path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile.file)
+                    sharp(path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile.file)
                         .png()
                         .toFile('./.tmp/public/' + firstName[0] + '.png', function (err, info) {
                             console.log("done");

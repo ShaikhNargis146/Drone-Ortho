@@ -25,7 +25,8 @@
 							<tr>
 								<td>Contours</td>
 								<td>:</td>
-								<td>{{cadLineDetails.contours}}</td>
+								<td ng-if="cadLineDetails.contours==true">Yes</td>
+								<td ng-if="cadLineDetails.contours==false">No</td>
 							</tr>
 							<tr>
 								<td>Contour Density</td>
@@ -106,7 +107,8 @@
 									<tr>
 										<td>Contours</td>
 										<td>:</td>
-										<td>{{cadLineDetails.contours}}</td>
+										<td ng-if="cadLineDetails.contours==true">Yes</td>
+										<td ng-if="cadLineDetails.contours==false">No</td>
 									</tr>
 									<tr>
 										<td>Contour Density</td>
@@ -156,7 +158,7 @@
 										<td>Vendor Payment Status </td>
 										<td>:</td>
 										<td>
-											<button type="submit" data-toggle="modal" data-target=".modal-m" class="btn green btn-outline btn-xs" ng-if="cadLineDetails.vendor"
+											<button type="submit" data-toggle="modal" data-target=".modal-n" class="btn green btn-outline btn-xs" ng-if="cadLineDetails.vendor"
 											    ng-disabled="!cadLineDetails.vendorCharges">Pay Now</button>
 											<button type="submit" data-toggle="modal" data-target="" class="btn green btn-outline btn-xs" ng-click="cadVendorUpdate(formData)"
 											    ng-if="!cadLineDetails.vendor"> Sent Request</button>
@@ -165,7 +167,7 @@
 
 								</table>
 								<!--ng-href="../importFormat/{{form.model}}.xlsx"  download-->
-								<a class="btn green btn-outline">Download CAD File</a>
+								<a class="btn green btn-outline" ng-click="downloadOrtho(cadLineDetails.cadFileFromVendor)">Download CAD File</a>
 								<button type="button" class="btn green btn-outline " ng-click="uploadOpen();">
 									Upload Final CAD File</button>
 
@@ -189,7 +191,7 @@
 		</div>
 	</div>
 </div>
-<div class="modal fade modal-m" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+<div class="modal fade modal-n" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
 	<div class="modal-dialog ">
 		<div class="modal-content">
 			<div class="modal-header" style="background-color:#36918b">
@@ -312,7 +314,7 @@
 								</tr>-->
 
 								</table>
-								<button type="submit" class="btn green btn-outline">Download Orthomosaic</button>
+								<button type="submit" class="btn green btn-outline" ng-click="downloadOrtho(cadForVendorData.orthoFile.file)">Download Orthomosaic</button>
 								<button type="button" class="btn green btn-outline " ng-click="uploadvendorOpen();">
 									Upload Final CAD File</button>
 							</div>

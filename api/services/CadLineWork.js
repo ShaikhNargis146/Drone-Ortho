@@ -26,7 +26,7 @@ var schema = new Schema({
     status: {
         type: String,
         default: "Processing",
-        enum: ['Pending', 'Processing', 'Completed']
+        enum: ['Processing', 'Qc', 'Completed', 'cancelled']
     },
     userPaymentStatus: {
         type: String,
@@ -37,13 +37,13 @@ var schema = new Schema({
         enum: ['Paid', 'Unpaid']
     },
     mapCenter: String,
-    orthoFile: [{
+    orthoFile: {
         file: String,
         status: {
             type: String,
             default: 'Proceesing'
         }
-    }],
+    },
     cadFileFromVendor: [String],
     cadFileFromAdmin: [String],
 

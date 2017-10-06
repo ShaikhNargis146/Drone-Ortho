@@ -55,7 +55,7 @@
                 <table datatable="" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
                   <thead>
                     <tr>
-                      <th>Mission ID</th>
+                      <th>Cad ID</th>
                       <th>Acreage</th>
                       <th>Contours</th>
                       <th>Status</th>
@@ -69,10 +69,13 @@
                     <tr ng-repeat="cadfile in cadUserDetail">
 
                       <td>
-                        <a ui-sref="cadfile-details ({cadId:cadfile._id})">{{cadfile.mission.missionId}}</a>
+                        <a ui-sref="cadfile-details ({cadId:cadfile._id})">{{cadfile.cadId}}</a>
                       </td>
                       <td><a ui-sref="cadfile-details ({cadId:cadfile._id})">{{cadfile.acreage}}</a></td>
-                      <td><a ui-sref="cadfile-details ({cadId:cadfile._id})">{{cadfile.contours}}</a></td>
+                      <td>
+                        <a ui-sref="cadfile-details ({cadId:cadfile._id})" ng-if="cadfile.contours==true">Yes</a>
+                        <a ui-sref="cadfile-details ({cadId:cadfile._id})" ng-if="cadfile.contours==false">No</a>
+                      </td>
                       <td>
                         <a ui-sref="cadfile-details ({cadId:cadfile._id})">{{cadfile.status}}</a>
                       </td>
@@ -179,7 +182,7 @@
               <label class="control-label col-sm-4" for="pwd">Upload Orthomosaic</label>
               <div class="col-sm-6">
                 <!--<upload-image multiple="true" required ng-model="data.orthoFile"></upload-image>-->
-                <upload-image-files ng-model="data.orthoFile" no-view multiple="true" ng-disabled="type.disabled"></upload-image-files>
+                <upload-image-files ng-model="data.orthoFile" no-view multiple ng-disabled="type.disabled"></upload-image-files>
 
               </div>
             </div>
@@ -254,7 +257,7 @@
                 <table datatable="" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
                   <thead>
                     <tr>
-                      <th>Mission ID</th>
+                      <th>Cad ID</th>
                       <th>Acreage</th>
                       <th>Contours</th>
 
@@ -267,9 +270,12 @@
                   <tbody>
                     <tr ng-repeat="cadData in allCadLineData track by $index">
 
-                      <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.mission.missionId}}</a></td>
+                      <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.cadId}}</a></td>
                       <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.acreage}}</a></td>
-                      <td><a ui-sref="cadfile-details ({cadId:cadfile._id})">{{cadfile.contours}}</a></td>
+                      <td>
+                        <a ui-sref="cadfile-details ({cadId:cadfile._id})" ng-if="cadData.contours==true">Yes</a>
+                        <a ui-sref="cadfile-details ({cadId:cadfile._id})" ng-if="cadData.contours==false">No</a>
+                      </td>
 
                       <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.status}}</a></td>
                       <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.createdAt | date}}</a></td>

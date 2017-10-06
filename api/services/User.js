@@ -250,6 +250,478 @@ var model = {
 
     //----------------------End----------------------//
 
+    //--------------dashboard api for admin-------------//
+
+    getTotalUsers: function (data, callback) {
+        User.find({
+            "accessLevel": {
+                $in: ["User", "Vendor"]
+            }
+        }).count().exec(function (err, data) {
+            if (err) {
+                callback(err, null);
+            } else {
+                callback(null, data);
+            }
+        })
+    },
+
+    getTotalDronesSold: function (data, callback) {
+        ProductOrders.find({
+            "products": {
+                $exists: true,
+                $ne: []
+            }
+        }).count().exec(function (err, data) {
+            if (err) {
+                callback(err, null);
+            } else {
+                callback(null, data);
+            }
+        })
+    },
+
+    getTotalMissions: function (data, callback) {
+        Mission.find({}).count().exec(function (err, data) {
+            if (err) {
+                callback(err, null);
+            } else {
+                callback(null, data);
+            }
+        })
+    },
+
+    getTotalCadRequest: function (data, callback) {
+        CadLineWork.find({}).count().exec(function (err, data) {
+            if (err) {
+                callback(err, null);
+            } else {
+                callback(null, data);
+            }
+        })
+    },
+
+    getLastTenCad: function (data, callback) {
+        CadLineWork.find({}).limit(10).sort({
+            createdAt: -1
+        }).exec(function (err, data) {
+            if (err) {
+                callback(err, null);
+            } else {
+                callback(null, data);
+            }
+        })
+    },
+
+    getCadOrderDetails: function (data, callback) {
+        var currentDate = new Date();
+        var dateFrom = moment(currentDate).subtract(1, 'months').startOf('month').format();
+        var dateTo = moment(currentDate).subtract(1, 'months').endOf('month').format();
+        var previousYear = moment(currentDate).subtract(1, 'year').format();
+        var currentYear = moment(currentDate).format();
+        var previousDay = moment(currentDate).subtract(1, 'days').format();
+        if (data.timeData == 'Today') {
+            ProductOrders.find({
+                createdAt: {
+                    $gte: previousDay,
+                    $lte: currentDate
+                }
+            }).lean().select('totalAmount _id dfmSubscription products cadLineWork').exec(function (err, data) {
+                if (err || _.isEmpty(data)) {
+                    callback(err, [])
+                } else {
+                    var finalResult = {
+                        totalProductSum: 0,
+                        totalCadSum: 0,
+                        totalDfmSum: 0,
+                        totalSum: 0
+                    };
+                    _.map(data, function (n) {
+                        if (!_.isEmpty(n.dfmSubscription)) {
+                            finalResult.totalDfmSum = finalResult.totalDfmSum + n.totalAmount;
+                        } else if (!_.isEmpty(n.products)) {
+                            finalResult.totalProductSum = finalResult.totalProductSum + n.totalAmount;
+                        } else if (!_.isEmpty(n.cadLineWork)) {
+                            finalResult.totalCadSum = finalResult.totalCadSum + n.totalAmount;
+                        }
+                        finalResult.totalSum = finalResult.totalSum + n.totalAmount;
+                    });
+                    callback(null, finalResult);
+                }
+            })
+        } else if (data.timeData == 'Month') {
+            ProductOrders.find({
+                createdAt: {
+                    $gte: dateFrom,
+                    $lte: dateTo
+                }
+            }).lean().select('totalAmount _id dfmSubscription products cadLineWork').exec(function (err, data) {
+                if (err || _.isEmpty(data)) {
+                    callback(err, [])
+                } else {
+                    var finalResult = {
+                        totalProductSum: 0,
+                        totalCadSum: 0,
+                        totalDfmSum: 0,
+                        totalSum: 0
+                    };
+                    _.map(data, function (n) {
+                        if (!_.isEmpty(n.dfmSubscription)) {
+                            finalResult.totalDfmSum = finalResult.totalDfmSum + n.totalAmount;
+                        } else if (!_.isEmpty(n.products)) {
+                            finalResult.totalProductSum = finalResult.totalProductSum + n.totalAmount;
+                        } else if (!_.isEmpty(n.cadLineWork)) {
+                            finalResult.totalCadSum = finalResult.totalCadSum + n.totalAmount;
+                        }
+                        finalResult.totalSum = finalResult.totalSum + n.totalAmount;
+                    });
+                    callback(null, finalResult);
+                }
+            })
+        } else if (data.timeData == 'Year') {
+            ProductOrders.find({
+                createdAt: {
+                    $gte: previousYear,
+                    $lte: currentYear
+                }
+            }).lean().select('totalAmount _id dfmSubscription products cadLineWork').exec(function (err, data) {
+                if (err || _.isEmpty(data)) {
+                    callback(err, [])
+                } else {
+                    var finalResult = {
+                        totalProductSum: 0,
+                        totalCadSum: 0,
+                        totalDfmSum: 0,
+                        totalSum: 0
+                    };
+                    _.map(data, function (n) {
+                        if (!_.isEmpty(n.dfmSubscription)) {
+                            finalResult.totalDfmSum = finalResult.totalDfmSum + n.totalAmount;
+                        } else if (!_.isEmpty(n.products)) {
+                            finalResult.totalProductSum = finalResult.totalProductSum + n.totalAmount;
+                        } else if (!_.isEmpty(n.cadLineWork)) {
+                            finalResult.totalCadSum = finalResult.totalCadSum + n.totalAmount;
+                        }
+                        finalResult.totalSum = finalResult.totalSum + n.totalAmount;
+                    });
+                    callback(null, finalResult);
+                }
+            })
+        }
+    },
+
+    getTotalProductOrdersData: function (data, callback) {
+        var currentDate = new Date();
+        var lastMonth = moment(currentDate).subtract(3, 'months').format();
+        ProductOrders.find({
+            createdAt: {
+                $gte: lastMonth,
+                $lte: currentDate
+            }
+        }).lean().select('totalAmount _id dfmSubscription products cadLineWork').exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                var count1 = 0;
+                var count2 = 0;
+                var count3 = 0;
+                var finalResult = {
+                    totalProductSum: 0,
+                    totalCadSum: 0,
+                    totalDfmSum: 0,
+                    totalProductCount: 0,
+                    totalCadCount: 0,
+                    totalDfmCount: 0,
+                };
+                _.map(data, function (n) {
+                    if (!_.isEmpty(n.dfmSubscription)) {
+                        count1++;
+                        finalResult.totalDfmSum = finalResult.totalDfmSum + n.totalAmount;
+                        finalResult.totalDfmCount = count1;
+                    } else if (!_.isEmpty(n.products)) {
+                        count2++;
+                        finalResult.totalProductSum = finalResult.totalProductSum + n.totalAmount;
+                        finalResult.totalProductCount = count2;
+                    } else if (!_.isEmpty(n.cadLineWork)) {
+                        count3++;
+                        finalResult.totalCadSum = finalResult.totalCadSum + n.totalAmount;
+                        finalResult.totalCadCount = count3;
+                    }
+                });
+                callback(null, finalResult);
+            }
+        })
+    },
+
+    //--------------dashboard api End-------------//
+
+    //--------------dashboard api for Vendor-------------//
+
+    getTotalCadForVendor: function (data, callback) {
+        CadLineWork.find({
+            vendor: data.vendorId
+        }).count().exec(function (err, data) {
+            if (err) {
+                callback(err, null)
+            } else {
+                callback(null, data)
+            }
+        })
+    },
+
+    getTotalCompletedCadForVendor: function (data, callback) {
+        CadLineWork.find({
+            vendor: data.vendorId,
+            status: 'Completed'
+        }).lean().count().exec(function (err, data) {
+            if (err) {
+                callback(err, null)
+            } else {
+                callback(null, data)
+            }
+        })
+    },
+
+    getTotalIncompletedCadForVendor: function (data, callback) {
+        CadLineWork.find({
+            vendor: data.vendorId,
+            "status": {
+                $in: ["Pending", "Processing"]
+            }
+        }).lean().count().exec(function (err, data) {
+            if (err) {
+                callback(err)
+            } else {
+                callback(null, data)
+            }
+        })
+    },
+
+    getTotalEarningData: function (data, callback) {
+        CadLineWork.find({
+            vendor: vendorId
+        }).lean().select('amount _id').exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                var finalResult = {
+                    totalAmount: 0
+                };
+                _.forEach(data, function (value) {
+                    finalResult.totalAmount = finalResult.totalAmount + value.amount;
+                });
+                callback(null, finalResult);
+            }
+        })
+    },
+
+    getCurrentMonthCadStats: function (data, callback) {
+        CadLineWork.find({
+            vendor: data.vendorId
+        }).lean().select('amount _id status').exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                var count1 = 0;
+                var count2 = 0;
+                var count3 = 0;
+                var count4 = 0
+                var finalResult = {
+                    totalProcessingCount: 0,
+                    totalQcCount: 0,
+                    totalCompletedCount: 0,
+                    totalCancelledCount: 0
+                };
+                _.map(data, function (n) {
+                    if (n.status == 'Processing') {
+                        count1++;
+                        finalResult.totalProcessingCount = count1;
+                    } else if (n.status == 'Qc') {
+                        count2++;
+                        finalResult.totalQcCount = count2;
+                    } else if (n.status == 'Completed') {
+                        count3++;
+                        finalResult.totalCompletedCount = count3;
+                    } else if (n.status == 'cancelled') {
+                        count4++;
+                        finalResult.totalCancelledCount = count4;
+                    }
+                });
+
+                callback(null, finalResult);
+            }
+        })
+    },
+
+    getCurrentMonthCadEarningStats: function (data, callback) {
+        CadLineWork.find({
+            vendor: data.vendorId
+        }).lean().select('_id vendorPaymentStatus').exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                var count1 = 0;
+                var count2 = 0;
+                var finalResult = {
+                    totalPaidCount: 0,
+                    totalOutstandingCount: 0
+                };
+                _.map(data, function (n) {
+                    if (n.vendorPaymentStatus == 'Paid') {
+                        count1++;
+                        finalResult.totalPaidCount = count1;
+                    } else if (n.status == 'Unpaid') {
+                        count2++;
+                        finalResult.totalOutstandingCount = count2;
+                    }
+                });
+                callback(null, finalResult);
+            }
+        })
+    },
+
+    //--------------dashboard api  vendorEnd-------------//
+
+    //--------------dashboard api for User-------------//
+
+    getAllMission: function (data, callback) {
+        Mission.find({}).count().exec(function (err, data) {
+            if (err) {
+                callback(err, null)
+            } else {
+                callback(null, data);
+            }
+        })
+    },
+
+    getTotalCadFile: function (data, callback) {
+        CadLineWork.find({
+            user: data.userId
+        }).count().exec(function (err, data) {
+            if (err) {
+                callback(err, null)
+            } else {
+                callback(null, data);
+            }
+        })
+    },
+
+    getOrdersDetails: function (data, callback) {
+        var currentDate = new Date();
+        var lastMonthStart = moment(currentDate).subtract(1, 'months').startOf('month').format();
+        var lastMonthEnd = moment(currentDate).subtract(1, 'months').endOf('month').format();
+        var last1MonthStart = moment(currentDate).subtract(2, 'months').startOf('month').format();
+        var last1MonthEnd = moment(currentDate).subtract(2, 'months').endOf('month').format();
+        var last2MonthStart = moment(currentDate).subtract(3, 'months').startOf('month').format();
+        var last2MonthEnd = moment(currentDate).subtract(3, 'months').endOf('month').format();
+        var lastMonth = moment(lastMonthStart).format("MMMM");
+        var last1Month = moment(last1MonthStart).format("MMMM");
+        var last2Month = moment(last2MonthStart).format("MMMM");
+        var allData = {};
+        async.waterfall([
+                function (callback) {
+                    CadLineWork.find({
+                        user: data.userId,
+                        createdAt: {
+                            $gte: lastMonthStart,
+                            $lte: lastMonthEnd
+                        }
+                    }).select('_id amount').exec(function (err, data) {
+                        if (err) {
+                            callback(err, null)
+                        } else {
+                            var totalAmount = 0;
+                            _.forEach(data, function (value) {
+                                totalAmount = totalAmount + value.amount;
+                            });
+                            allData.lastMonthData = totalAmount;
+                            allData.lastMonth = lastMonth;
+                            callback(null, data);
+                        }
+                    })
+                },
+                function (data, callback) {
+                    CadLineWork.find({
+                        user: data.userId,
+                        createdAt: {
+                            $gte: last1MonthStart,
+                            $lte: last1MonthEnd
+                        }
+                    }).select('_id amount').exec(function (err, data) {
+                        if (err) {
+                            callback(err, null)
+                        } else {
+                            var totalAmount1 = 0;
+                            _.forEach(data, function (value) {
+                                totalAmount1 = totalAmount1 + value.amount;
+                            });
+                            allData.last1MonthData = totalAmount1;
+                            allData.last1Month = last1Month;
+                            callback(null, data);
+                        }
+                    })
+                },
+                function (data, callback) {
+                    CadLineWork.find({
+                        user: data.userId,
+                        createdAt: {
+                            $gte: last1MonthStart,
+                            $lte: last1MonthEnd
+                        }
+                    }).select('_id amount').exec(function (err, data) {
+                        if (err) {
+                            callback(err, null)
+                        } else {
+                            var totalAmount2 = 0;
+                            _.forEach(data, function (value) {
+                                totalAmount2 = totalAmount2 + value.amount;
+                            });
+                            allData.last2MonthData = totalAmount2;
+                            allData.last2Month = last2Month;
+                            callback(null, allData);
+                        }
+                    })
+                },
+            ],
+            function (err, results) {
+                if (err || _.isEmpty(results)) {
+                    callback(err);
+                } else {
+                    callback(null, results);
+                }
+            }
+        );
+    },
+
+    getStatsForPie: function (data, callback) {
+        ProductOrders.find({
+            user: data.userId
+        }).lean().select('totalAmount _id dfmSubscription products cadLineWork').exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                var finalResult = {
+                    totalProductSum: 0,
+                    totalCadSum: 0,
+                    totalDfmSum: 0,
+                    totalSum: 0
+                };
+                _.map(data, function (n) {
+                    if (!_.isEmpty(n.dfmSubscription)) {
+                        finalResult.totalDfmSum = finalResult.totalDfmSum + n.totalAmount;
+                    } else if (!_.isEmpty(n.products)) {
+                        finalResult.totalProductSum = finalResult.totalProductSum + n.totalAmount;
+                    } else if (!_.isEmpty(n.cadLineWork)) {
+                        finalResult.totalCadSum = finalResult.totalCadSum + n.totalAmount;
+                    }
+                    finalResult.totalSum = finalResult.totalSum + n.totalAmount;
+                });
+                callback(null, finalResult);
+            }
+        })
+    },
+
+    //--------------dashboard api for User End-------------//
 
     getByDfm: function (data, callback) {
         console.log("inside getbyDfm", data)

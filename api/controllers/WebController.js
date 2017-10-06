@@ -125,6 +125,12 @@ module.exports = {
         var filePath = "C:/Users/dell/Documents/pix4d/" + name + "/" + name + ".txt";
         files = fs.readFileSync(filePath);
         res.send(files);
+    },
+
+    getOrtho: function (req, res) {
+        res.set('Content-Type', "application/octet-stream");
+        files = fs.readFileSync(sails.config.appPath + "/pix4dUpload/" + req.param("filename"));
+        res.send(files);
     }
 
 };

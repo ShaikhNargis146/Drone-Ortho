@@ -25,7 +25,7 @@ var controller = {
             res.callback("Please provide Valid AccessToken", null);
         }
     },
-       getByDfm: function (req, res) {
+    getByDfm: function (req, res) {
         if (req.body) {
             User.getByDfm(req.body, res.callback);
         } else {
@@ -196,8 +196,229 @@ var controller = {
                 }
             })
         }
-    }
+    },
+
+    getTotalUsers: function (req, res) {
+        if (req.body) {
+            User.getTotalUsers(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            })
+        }
+    },
+
+    getTotalDronesSold: function (req, res) {
+        if (req.body) {
+            User.getTotalDronesSold(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            })
+        }
+    },
+
+    getTotalMissions: function (req, res) {
+        if (req.body) {
+            User.getTotalMissions(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            })
+        }
+    },
+
+    getTotalCadRequest: function (req, res) {
+        if (req.body) {
+            User.getTotalCadRequest(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            })
+        }
+    },
+
+    getLastTenCad: function (req, res) {
+        if (req.body) {
+            User.getLastTenCad(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            })
+        }
+    },
+
+    getCadOrderDetails: function (req, res) {
+        if (req.body) {
+            User.getCadOrderDetails(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            })
+        }
+    },
+
+    getTotalProductOrdersData: function (req, res) {
+        if (req.body) {
+            User.getTotalProductOrdersData(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            })
+        }
+    },
 
     //----------------------End----------------------//
+
+    //--------------dashboard for vendor-------------//
+
+    getTotalCadForVendor: function (req, res) {
+        if (req.body) {
+            User.getTotalCadForVendor(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            })
+        }
+    },
+
+    getTotalCompletedCadForVendor: function (req, res) {
+        if (req.body) {
+            User.getTotalCompletedCadForVendor(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            })
+        }
+    },
+
+    getTotalIncompletedCadForVendor: function (req, res) {
+        if (req.body) {
+            User.getTotalIncompletedCadForVendor(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            })
+        }
+    },
+
+    getCurrentMonthCadStats: function (req, res) {
+        if (req.body) {
+            User.getCurrentMonthCadStats(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            })
+        }
+    },
+
+    getCurrentMonthCadEarningStats: function (req, res) {
+        if (req.body) {
+            User.getCurrentMonthCadEarningStats(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            })
+        }
+    },
+
+
+    //--------------dashboard for vendor End-------------//
+
+    //--------------dashboard for User-------------//
+
+    getAllMission: function (req, res) {
+        if (req.body) {
+            User.getAllMission(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            })
+        }
+    },
+
+    getTotalCadFile: function (req, res) {
+        if (req.body) {
+            User.getTotalCadFile(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            })
+        }
+    },
+
+    getOrdersDetails: function (req, res) {
+        if (req.body) {
+            User.getOrdersDetails(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            })
+        }
+    },
+
+    getStatsForPie: function (req, res) {
+        if (req.body) {
+            User.getStatsForPie(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            })
+        }
+    },
+
+    //--------------dashboard for User End-------------//
+
+
+
+
 };
 module.exports = _.assign(module.exports, controller);
