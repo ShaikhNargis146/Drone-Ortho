@@ -89,7 +89,19 @@ var model = {
     },
 
     cadRevenue: function (data, callback) {
-
+        ProductOrders.find({
+            "cadLineWork": {
+                $exists: true,
+                $ne: []
+            },
+            status: 'Paid'
+        }).exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, []);
+            } else {
+                callback(null, data);
+            }
+        })
     },
 
     droneSales: function (data, callback) {

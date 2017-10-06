@@ -63,7 +63,8 @@ var schema = new Schema({
     },
     status: {
         type: String,
-        default: "Processing"
+        default: "Processing",
+        enum: ['Processing', 'Paid']
     },
     pdf: String,
     invoiceNo: String,

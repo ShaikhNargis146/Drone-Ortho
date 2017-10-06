@@ -22,18 +22,14 @@
                                     <form>
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Select Report for</label>
-                                            <select class="form-control">
-									<option value="">SELECT</option>
-									<option value="">Total CAD Request</option>
-									<option value="">Drone Sales</option>
-									<option value="">DFM Sales</option>
-									<option value="">Active DFM Subscribers</option>
-									<option value="">Total Subscribers</option>
-									<option value="">Deactive DFM Subscribers</option>
-									<option value="">CAD Revenue</option>
-									<option value="">CAD Order Status</option>
-									<option value="">Outstanding Invoices</option>
-									<option value="">Vendor Billing Summary</option>
+                                            <select class="form-control" ng-model="formData.type">
+									<!--<option value="">SELECT</option>-->
+									<option value="Cad">Total CAD Request</option>
+									<option value="Drone">Drone Sales</option>
+									<option value="DfmSales">DFM Sales</option>
+									<option value="DfmSub">DFM Subscribers</option>
+									<option value="CadRev">CAD Revenue</option>
+									<option value="VendorBill">Vendor Billing Summary</option>
 								</select>
 
                                         </div>
