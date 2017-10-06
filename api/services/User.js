@@ -126,8 +126,8 @@ schema.plugin(deepPopulate, {
         'cartProducts': {
             select: '_id name'
         },
-        'currentSubscription.plan': {
-            select: '_id name'
+        'currentSubscription': {
+            select: ''
         }
 
     }
@@ -140,7 +140,7 @@ schema.plugin(URLSlugs('name', {
 
 module.exports = mongoose.model('User', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "cartProducts currentSubscription.plan", "cartProducts currentSubscription.plan"));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "cartProducts currentSubscription", "cartProducts currentSubscription"));
 var model = {
 
     //----------------------Start----------------------//
@@ -328,7 +328,7 @@ var model = {
                 }
             }).lean().select('totalAmount _id dfmSubscription products cadLineWork').exec(function (err, data) {
                 if (err || _.isEmpty(data)) {
-                    callback(err, [])
+                    callback(err, "noData")
                 } else {
                     var finalResult = {
                         totalProductSum: 0,
@@ -357,7 +357,7 @@ var model = {
                 }
             }).lean().select('totalAmount _id dfmSubscription products cadLineWork').exec(function (err, data) {
                 if (err || _.isEmpty(data)) {
-                    callback(err, [])
+                    callback(err, "noData")
                 } else {
                     var finalResult = {
                         totalProductSum: 0,
@@ -386,7 +386,7 @@ var model = {
                 }
             }).lean().select('totalAmount _id dfmSubscription products cadLineWork').exec(function (err, data) {
                 if (err || _.isEmpty(data)) {
-                    callback(err, [])
+                    callback(err, "noData")
                 } else {
                     var finalResult = {
                         totalProductSum: 0,
@@ -473,7 +473,7 @@ var model = {
         CadLineWork.find({
             vendor: data.vendorId,
             status: 'Completed'
-        }).lean().count().exec(function (err, data) {
+        }).count().exec(function (err, data) {
             if (err) {
                 callback(err, null)
             } else {
@@ -499,7 +499,7 @@ var model = {
 
     getTotalEarningData: function (data, callback) {
         CadLineWork.find({
-            vendor: vendorId
+            vendor: data.vendorId
         }).lean().select('amount _id').exec(function (err, data) {
             if (err || _.isEmpty(data)) {
                 callback(err, [])
@@ -585,7 +585,9 @@ var model = {
     //--------------dashboard api for User-------------//
 
     getAllMission: function (data, callback) {
-        Mission.find({}).count().exec(function (err, data) {
+        Mission.find({
+            user: data.userId
+        }).count().exec(function (err, data) {
             if (err) {
                 callback(err, null)
             } else {

@@ -15,6 +15,7 @@ firstapp
         $scope.navigation = NavigationService.getnav();
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
+            var userId = $.jStorage.get("user")._id;
         }
 
         // Standard Chart Example
@@ -682,6 +683,145 @@ firstapp
         };
         // *************************************************end of chart for vendor**********************************************************************************************************
 
+
+        if ($scope.accessLevel == "Admin") {
+
+            //-------------------dashboard for admin api call---------------------------//
+
+
+            NavigationService.apiCallWithoutData("User/getTotalUsers", function (data) {
+                if (data.value === true) {
+                    $scope.totalUsers = data.data;
+                }
+            });
+
+            NavigationService.apiCallWithoutData("User/getTotalDronesSold", function (data) {
+                if (data.value === true) {
+                    $scope.totalDronesSold = data.data;
+                }
+            });
+
+            NavigationService.apiCallWithoutData("User/getTotalCadRequest", function (data) {
+                if (data.value === true) {
+                    $scope.totalCad = data.data;
+                }
+            });
+
+            NavigationService.apiCallWithoutData("User/getTotalMissions", function (data) {
+                if (data.value === true) {
+                    $scope.totalMission = data.data;
+                }
+            });
+
+            NavigationService.apiCallWithoutData("User/getLastTenCad", function (data) {
+                if (data.value === true) {
+                    $scope.totalTenCad = data.data;
+                }
+            });
+
+
+            $scope.getAllData = function (data) {
+                var sendData = {};
+                sendData.timeData = data;
+                NavigationService.apiCallWithData("User/getCadOrderDetails", sendData, function (data) {
+                    if (data.value === true && data.data != 'noData') {
+                        $scope.totalCadSum = data.data.totalCadSum;
+                        $scope.totalDfmSum = data.data.totalDfmSum;
+                        $scope.totalProductSum = data.data.totalProductSum;
+                        $scope.totalSum = data.data.totalSum;
+                    } else {
+                        $scope.totalCadSum = 0;
+                        $scope.totalDfmSum = 0;
+                        $scope.totalProductSum = 0;
+                        $scope.totalSum = 0;
+                    }
+                });
+            };
+
+            $scope.getAllData('Today');
+
+
+            NavigationService.apiCallWithoutData("User/getTotalProductOrdersData", function (data) {
+                if (data.value === true) {
+                    $scope.totalCadCount = data.data.totalCadCount;
+                    $scope.totalCadSum = data.data.totalCadSum;
+                    $scope.totalDfmCount = data.data.totalDfmCount;
+                    $scope.totalDfmSum = data.data.totalDfmSum;
+                    $scope.totalProductCount = data.data.totalProductCount;
+                    $scope.totalProductSum = data.data.totalProductSum;
+                }
+            });
+
+            //-------------------dashboard for admin api call End---------------------------//
+
+        } else if ($scope.accessLevel == "User") {
+
+
+            var dataToSend = {}
+            dataToSend.userId = userId;
+            NavigationService.apiCallWithData("User/getAllMission", dataToSend, function (data) {
+                if (data.value === true) {
+                    $scope.totalMissionsForUser = data.data;
+                }
+            });
+
+            NavigationService.apiCallWithData("User/getTotalCadFile", dataToSend, function (data) {
+                if (data.value === true) {
+                    $scope.totalCadForUser = data.data;
+                }
+            });
+
+            var sendId = {};
+            sendId._id = userId;
+            NavigationService.apiCallWithData("User/getOne", sendId, function (data) {
+                if (data.value === true) {
+                    $scope.dfmDateAndStatusOfUser = data.data;
+                }
+            });
+
+            NavigationService.apiCallWithData("User/getOrdersDetails", dataToSend, function (data) {
+                if (data.value === true) {
+                    $scope.last1Month = data.data.last1Month;
+                    $scope.last1MonthData = data.data.last1MonthData;
+                    $scope.last2Month = data.data.last2Month;
+                    $scope.last2MonthData = data.data.last2MonthData;
+                    $scope.lastMonth = data.data.lastMonth;
+                    $scope.lastMonthData = data.data.lastMonthData;
+                }
+            });
+
+
+        } else if ($scope.accessLevel == "Vendor") {
+
+            var dataToSend = {}
+            dataToSend.vendorId = userId;
+            NavigationService.apiCallWithData("User/getTotalCadForVendor", dataToSend, function (data) {
+                if (data.value === true) {
+                    $scope.totalCadForVendor = data.data;
+                }
+            });
+
+            NavigationService.apiCallWithData("User/getTotalCompletedCadForVendor", dataToSend, function (data) {
+                if (data.value === true && data.data != 'No Data Found') {
+                    $scope.totalCadCompletedForVendor = data.data;
+                } else {
+                    $scope.totalCadCompletedForVendor = 0;
+                }
+            });
+
+            NavigationService.apiCallWithData("User/getTotalIncompletedCadForVendor", dataToSend, function (data) {
+                if (data.value === true) {
+                    $scope.totalCadIncompletedForVendor = data.data;
+                }
+            });
+
+            NavigationService.apiCallWithData("User/getTotalEarningData", dataToSend, function (data) {
+                if (data.value === true) {
+                    $scope.totalEarningForVendor = data.data.totalAmount;
+                }
+            });
+
+        }
 
     })
 

@@ -16,9 +16,9 @@ var controller = {
 
     //-----report api----//
 
-    totalCadRequest: function (req, res) {
+    exceltotalCadRequest: function (req, res) {
         if (req.body) {
-            VendorBill.totalCadRequest(req.body, res.callback);
+            VendorBill.exceltotalCadRequest(req.body, res.callback);
         } else {
             res.json({
                 value: false,

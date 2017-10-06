@@ -358,6 +358,19 @@ var controller = {
         }
     },
 
+    getTotalEarningData: function (req, res) {
+        if (req.body) {
+            User.getTotalEarningData(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            })
+        }
+    },
+
 
     //--------------dashboard for vendor End-------------//
 
