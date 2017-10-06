@@ -2551,6 +2551,7 @@ firstapp
         });
 
     })
+
     .controller('ReportsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("reports");
@@ -2574,6 +2575,13 @@ firstapp
             $scope.popup2.opened = true;
         };
         // ***FOR DATEPICKER****
+
+        $scope.excelGenerateData = function (data) {
+            console.log("-------", data);
+            var fromData = moment(data.fromDate).format();
+            console.log("---fromData----", fromData);
+
+        }
     })
 
     .controller('VendorsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {

@@ -70,5 +70,89 @@ var model = {
                     }
                 });
     },
+
+    //----------------report api-------------//
+
+    totalCadRequest: function (data, callback) {
+        CadLineWork.find({
+            createdAt: {
+                $gte: data.fromDate,
+                $lte: data.toDate
+            }
+        }).exec(function (err, data) {
+            if (err) {
+                callback(err, null)
+            } else {
+                callback(null, data)
+            }
+        })
+    },
+
+    cadRevenue: function (data, callback) {
+
+    },
+
+    droneSales: function (data, callback) {
+        ProductOrders.find({
+            "products": {
+                $exists: true,
+                $ne: []
+            }
+        }).exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, []);
+            } else {
+                callback(null, data);
+            }
+        })
+    },
+
+    dfmSales: function (data, callback) {
+        ProductOrders.find({
+            "dfmSubscription": {
+                $exists: true,
+                $ne: []
+            }
+        }).exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, []);
+            } else {
+                callback(null, data);
+            }
+        })
+    },
+
+    allDfmSub: function (data, callback) {
+        DFMSubscription.find({
+            createdAt: {
+                $gte: data.fromDate,
+                $lte: data.toDate
+            }
+        }).exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        })
+    },
+
+    vendorBill: function (data, callback) {
+        VendorBill.find({
+            createdAt: {
+                $gte: data.fromDate,
+                $lte: data.toDate
+            }
+        }, function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        })
+    }
+
+
+    //----------------report api end-------------//
 };
 module.exports = _.assign(module.exports, exports, model);

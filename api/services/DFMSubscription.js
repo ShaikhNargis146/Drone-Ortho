@@ -26,7 +26,11 @@ var schema = new Schema({
         ref: 'CouponCode',
         index: true
     },
-    status: String,
+    status: {
+        type: String,
+        default: "Processing",
+        enum: ['Processing', 'Qc', 'Completed', 'cancelled']
+    },
     autoRenewal: Boolean,
     emailReminder: Boolean,
     upgradeEmail: Boolean,
