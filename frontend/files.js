@@ -22,7 +22,6 @@ module.exports = [
     'bower_components/ngmap/build/scripts/ng-map.min.js',
     'bower_components/highcharts-ng/dist/highcharts-ng.js',
     "bower_components/moment/min/moment.min.js",
-    'frontend/js/plugins/datapicker/angular-datepicker.js',
     "bower_components/angular-toastr/dist/angular-toastr.js",
     "bower_components/angular-toastr/dist/angular-toastr.tpls.js",
 

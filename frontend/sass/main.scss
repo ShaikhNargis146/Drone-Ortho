@@ -20,6 +20,12 @@ $brand-info: #000072 !default;
 @import url('https://fonts.googleapis.com/css?family=Share+Tech');
 @import url('https://fonts.googleapis.com/css?family=Abel');
 // $font-share-tech: 'Share Tech', 'Arial', sans-serif;
+@font-face {
+    font-family: 'Glyphicons Halflings';
+    src: url("../fonts/glyphicons-halflings-regular.eot");
+    src: url("../fonts/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/glyphicons-halflings-regular.woff2") format("woff2"), url("../fonts/glyphicons-halflings-regular.woff") format("woff"), url("../fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg");
+}
+
 body {
     font-family: 'Abel', sans-serif;
 }
@@ -156,10 +162,9 @@ nav li:hover .dropdown-menu {
     display: block;
 }
 
-#map img {
-    opacity: 1;
-}
-
+// #map img {
+//     opacity: 1;
+// }
 a,
 .btn,
 [ui-sref] {
@@ -1784,6 +1789,43 @@ footer {
     margin: 100px 0 0 0!important;
 }
 
+.form-margin {
+    margin-left: 0px !important;
+}
+
+///map ///
+.map-overlay {
+    font: bold 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    position: absolute;
+    width: 25%;
+    top: 0;
+    left: 0;
+    padding: 10px;
+}
+
+.map-overlay .map-overlay-inner {
+    background-color: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.20);
+    border-radius: 3px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.map-overlay label {
+    display: block;
+    margin: 0 0 10px;
+}
+
+.map-overlay input {
+    background-color: transparent;
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    margin: 0;
+    cursor: ew-resize;
+}
+
+///end of map///
 @import "fancybox-override";
 @import "ruchi";
 @import "mobile";

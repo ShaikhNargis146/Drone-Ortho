@@ -34,12 +34,7 @@
 									<div class="form-group" ng-show="setOpacity">
 										<label class="control-label">Set Opacity</label>
 										<div class="input-group col-md-10">
-											<!--<div ion-range-slider range-options="slider.ionSliderOptions2" from='0' to='20'></div>-->
-
-											<rzslider rz-slider-model="slider.value" rz-slider-options="slider.options"></rzslider>
-
-											<!--<div range-slider min="minPrice" max="maxPrice" model-max="userMaxPrice" step="0.1"></div>-->
-
+											<rzslider rz-slider-model="slider.value" rz-slider-options="slider.options" ng-mouseup="afterChange(slider.value)" ng-model="myVal"></rzslider>
 											<p>Set min value, max value and start point
 											</p>
 										</div>
@@ -56,7 +51,8 @@
 									</div>
 								</div>
 								<div ng-show="setCadr">
-									<p> Use Icon <button class="btn" type="button" tooltip-placement="Bottom" popover-placement="bottom" title="" uib-tooltip="SELECT AREA"><img src="img/icon/custompoly.png"></button>										to measure area on the map below
+									<p> Use Icon <button class="btn" type="button" tooltip-placement="Bottom" popover-placement="bottom" title="" uib-tooltip="SELECT AREA"><img src="img/icon/polygon.png"></button>										to measure area on the map below <i class="fa fa-info-circle" aria-hidden="true" style="font-size: 20px;cursor: pointer"
+										    ng-click="mapOpen();"></i>
 									</p>
 								</div>
 
@@ -92,7 +88,13 @@
 						</div>
 						<div class="col-lg-12">
 							<div class="img-map">
-								<div id='map' class="map-box" style="opacity:{{slider.value}}"></div>
+								<div id='map' class="map-box"></div>
+								<!--<div class='map-overlay top'>
+									<div class='map-overlay-inner'>
+										<label>Layer opacity: <span id='slider-value'>100%</span></label>
+										<input id='slider' type='range' min='0' max='100' step='0' value='100' />
+									</div>
+								</div>-->
 								<!--<div class='calculation-box'>
 									<p>Draw a polygon using the draw tools.</p>
 									<div id='calculate' class='button button'>Calculate area</div>

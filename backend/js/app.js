@@ -14,7 +14,7 @@ var firstapp = angular.module('firstapp', [
     'summernote',
     'datePicker',
     'angular-flot',
-   'rzModule'
+    'rzModule'
 ]);
 
 L.mapbox.accessToken = 'pk.eyJ1IjoibmFyZ2lzLXNoYWlraCIsImEiOiJjajVsMWdjbTgyN2t0MzBuejY0YWZvYnU1In0.sxNSmPeAZRDks6p3JmRUkw';
@@ -1090,7 +1090,7 @@ firstapp.directive('ngFiles', ['$parse', function ($parse) {
 }]);
 
 
-firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
+firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, $uibModal) {
     return {
         restrict: 'C',
         link: function ($scope, element, attrs) {
@@ -1245,17 +1245,17 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
             var imageUrl;
             if ($scope.missionDetails && $scope.missionDetails.missionId) {
                 // console.log("$scope.missionDetails.name", $scope.missionDetails.name);
-                imageUrl = 'http://35.201.210.67:80/' + $scope.missionDetails.missionId + '.png';
-                // imageUrl = 'http://localhost:1337/' + $scope.missionDetails.name + '.png';
-            } else if ($scope.cadLineDetails && $scope.cadLineDetails.orthoFile[0]) {
-                imageUrl = 'http://35.201.210.67:80/' + $scope.cadLineDetails.orthoFile[0].file.split(".")[0] + '.png';
+                // imageUrl = 'http://35.201.210.67:80/' + $scope.missionDetails.missionId + '.png';
+                imageUrl = 'http://localhost:1337/' + $scope.missionDetails.name + '.webp';
+            } else if ($scope.cadLineDetails && $scope.cadLineDetails.orthoFile) {
+                imageUrl = 'http://35.201.210.67:80/' + $scope.cadLineDetails.orthoFile.file.split(".")[0] + '.png';
                 // imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.orthoFile[0].file.split(".")[0] + '.png';
             } else if ($scope.cadLineDetails && $scope.cadLineDetails.mission) {
                 imageUrl = 'http://35.201.210.67:80/' + $scope.cadLineDetails.mission.missionId + '.png';
                 // imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.mission.name + '.png';
 
             }
-            console.log("imageUrl", imageUrl);
+
             // This is the trickiest part - you'll need accurate coordinates for the
             // corners of the image. You can find and create appropriate values at
             // http://maps.nypl.org/warper/ or
@@ -1286,8 +1286,13 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
             attribution.addTo(map);
             // See full documentation for the ImageOverlay type:
             // http://leafletjs.com/reference.html#imageoverlay
+            console.log("gccygeruygreufheurhfuerhuerhfurhrieowuepoupwoidpiwodwoeudiewudieuifueiuferfureruhsss", $scope.slider.value);
             var overlay = L.imageOverlay(imageUrl, imageBounds)
                 .addTo(map);
+            overlay.setOpacity($scope.slider.value);
+            $rootScope.$on('greeting', function (event, arg) {
+                overlay.setOpacity(arg.value);
+            })
             var polygon;
             if ($scope.cadLineDetails && !_.isEmpty($scope.cadLineDetails.points)) {
                 polygon = L.polygon(latlngs, {
@@ -1417,8 +1422,18 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $uibModal) {
                     alert("Use the draw tools to draw a polygon!");
                 }
             };
+
             map.on('load', function () {
                 // ALL YOUR APPLICATION CODE
+                slider.addEventListener('input', function (e) {
+                    // Adjust the layers opacity. layer here is arbitrary - this could
+                    // be another layer name found in your style or a custom layer
+                    // added on the fly using `addSource`.
+                    map.setPaintProperty('chicago', 'raster-opacity', parseInt(e.target.value, 10) / 100);
+
+                    // Value indicator
+                    sliderValue.textContent = e.target.value + '%';
+                });
                 console.log("hi,its loaded");
             });
         }
