@@ -11,11 +11,11 @@
                         <div class="widget widget-stats red-bg">
                             <div class="stats-icon stats-icon-lg"><i class="fa fa-diamond fa-fw"></i></div>
                             <div class="stats-title">TOTAL MISSIONS</div>
-                            <div class="stats-number">152</div>
+                            <div class="stats-number">{{totalMissionsForUser}}</div>
                             <div class="stats-progress progress">
                                 <div style="width: 70.1%;" class="progress-bar"></div>
                             </div>
-                            <div class="stats-desc">Better than last week (70.1%)</div>
+                            <!--<div class="stats-desc">Better than last week (70.1%)</div>-->
                         </div>
                     </div>
                     <!-- end col-3 -->
@@ -24,11 +24,11 @@
                         <div class="widget widget-stats aqua-bg ">
                             <div class="stats-icon stats-icon-lg"><i class="fa fa-picture-o fa-fw"></i></div>
                             <div class="stats-title">TOTAL CAD FILE REQUESTED</div>
-                            <div class="stats-number">230</div>
+                            <div class="stats-number">{{totalCadForUser}}</div>
                             <div class="stats-progress progress">
                                 <div style="width: 40.5%;" class="progress-bar"></div>
                             </div>
-                            <div class="stats-desc">Better than last week (40.5%)</div>
+                            <!--<div class="stats-desc">Better than last week (40.5%)</div>-->
                         </div>
                     </div>
                     <!-- end col-3 -->
@@ -41,7 +41,7 @@
                             <div class="stats-progress progress">
                                 <!-- <div style="width: 76.3%;" class="progress-bar"></div>-->
                             </div>
-                            <div class="stats-desc">Active</div>
+                            <div class="stats-desc">{{dfmDateAndStatusOfUser.currentSubscription.status}}</div>
                         </div>
                     </div>
                     <!-- end col-3 -->
@@ -54,7 +54,7 @@
                             <div class="stats-progress progress">
                                 <!--<div style="width: 54.9%;" class="progress-bar"></div>-->
                             </div>
-                            <div class="stats-desc">08/22/2019</div>
+                            <div class="stats-desc">{{dfmDateAndStatusOfUser.currentSubscription.expiryDate | date}}</div>
                         </div>
                     </div>
                     <!-- end col-3 -->
@@ -80,38 +80,38 @@
                                                 <div class="chart-user">
                                                     <div id="legend"></div>
                                                     <div class="flot-chart-box">
-                                                       <flot dataset="dataset" id="flot-placeholder" options="options" on-plot-click="onEventExampleClicked(event, pos, item)" on-plot-hover="onEventExampleHover(event, pos, item)"
-                                                        height="200px"></flot>
-                                                    <div id="a" style="position:fixed;">
-                                                        <div id="b" style="background: white; color:black;border:1px solid black">{{toolsvalue}}</div>
-                                                    </div>
+                                                        <flot dataset="dataset" id="flot-placeholder" options="options" on-plot-click="onEventExampleClicked(event, pos, item)" on-plot-hover="onEventExampleHover(event, pos, item)"
+                                                            height="200px"></flot>
+                                                        <div id="a" style="position:fixed;">
+                                                            <div id="b" style="background: white; color:black;border:1px solid black">{{toolsvalue}}</div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-3 ">
                                                 <ul class="stat-list ">
                                                     <li>
-                                                        <h2 class="no-margins ">9,888</h2>
-                                                        <small>Total CAD Orders in AUG</small>
-                                                        <div class="stat-percent ">58% <i class="fa fa-level-up text-navy "></i></div>
+                                                        <h2 class="no-margins ">{{lastMonthData}}</h2>
+                                                        <small>Total CAD Orders in {{lastMonth}}</small>
+                                                        <div class="stat-percent ">{{lastMonthData/100}}% <i class="fa fa-level-up text-navy "></i></div>
                                                         <div class="progress progress-mini ">
-                                                            <div class="progress-bar " style="width: 58%; "></div>
+                                                            <div class="progress-bar " style="width: {{lastMonthData/100}}%; "></div>
                                                         </div>
                                                     </li>
                                                     <li>
-                                                        <h2 class="no-margins ">7,666</h2>
-                                                        <small>Total CAD Orders in SEPT</small>
-                                                        <div class="stat-percent ">48% <i class="fa fa-level-up text-navy "></i></div>
+                                                        <h2 class="no-margins ">{{last1MonthData}}</h2>
+                                                        <small>Total CAD Orders in {{last1Month}}</small>
+                                                        <div class="stat-percent ">{{last1MonthData/100}}% <i class="fa fa-level-up text-navy "></i></div>
                                                         <div class="progress progress-mini ">
-                                                            <div class="progress-bar " style="width: 48%; "></div>
+                                                            <div class="progress-bar " style="width:{{last1MonthData/100}}%; "></div>
                                                         </div>
                                                     </li>
                                                     <li>
-                                                        <h2 class="no-margins ">4,422</h2>
-                                                        <small>Total CAD Orders in OCT</small>
-                                                        <div class="stat-percent ">60% <i class="fa fa-level-down text-navy "></i></div>
+                                                        <h2 class="no-margins ">{{last2MonthData}}</h2>
+                                                        <small>Total CAD Orders in {{last2Month}}</small>
+                                                        <div class="stat-percent ">{{last2MonthData/100}}% <i class="fa fa-level-down text-navy "></i></div>
                                                         <div class="progress progress-mini ">
-                                                            <div class="progress-bar " style="width: 60%; "></div>
+                                                            <div class="progress-bar " style="width:{{last2MonthData/100}}%; "></div>
                                                         </div>
                                                     </li>
                                                     <!--<li>
@@ -135,7 +135,7 @@
                         <div class="ibox float-e-margins ">
                             <div class="ibox-title ">
                                 <h5>Usage Statistics</h5>
-                                <div class="ibox-tools "> <a class="btn green btn-xs " href=" "> 31-Jan-2017</a> </div>
+                                <!--<div class="ibox-tools "> <a class="btn green btn-xs " href=" "> 31-Jan-2017</a> </div>-->
                             </div>
                             <!-- Pie Chart -->
                             <div class="ibox-content collapse in ">
@@ -154,13 +154,7 @@
                                 <div class="col-lg-12 " style="padding-left:60px; padding-top:30px ; padding-bottom:50px ">
                                     <button class="btn green btn-outline " ui-sref="product-detail "> Click to upgrade DFM or buy a Drone</button>
                                 </div>
-
                             </div>
-
-
-
-
-
                             <!-- End feed -->
                         </div>
 
@@ -184,7 +178,7 @@
                         <div class="widget widget-stats red-bg ">
                             <div class="stats-icon stats-icon-lg "><i class="fa fa-user-circle-o fa-fw "></i></div>
                             <div class="stats-title ">TOTAL USERS</div>
-                            <div class="stats-number ">1342</div>
+                            <div class="stats-number ">{{totalUsers}}</div>
                             <div class="stats-progress progress ">
                                 <!-- <div style="width: 70.1%; " class="progress-bar "></div>-->
                             </div>
@@ -197,7 +191,7 @@
                         <div class="widget widget-stats aqua-bg ">
                             <div class="stats-icon stats-icon-lg "><i class="fa fa-paper-plane-o fa-fw "></i></div>
                             <div class="stats-title ">TOTAL DRONES SOLD </div>
-                            <div class="stats-number ">355</div>
+                            <div class="stats-number ">{{totalDronesSold}}</div>
                             <div class="stats-progress progress ">
                                 <!-- <div style="width: 40.5%; " class="progress-bar "></div>-->
                             </div>
@@ -210,7 +204,7 @@
                         <div class="widget widget-stats purple-bg ">
                             <div class="stats-icon stats-icon-lg "><i class="fa fa-picture-o fa-fw "></i></div>
                             <div class="stats-title ">TOTAL CAD REQUESTED</div>
-                            <div class="stats-number ">3002</div>
+                            <div class="stats-number ">{{totalCad}}</div>
                             <div class="stats-progress progress ">
                                 <!--<div style="width: 76.3%; " class="progress-bar "></div>-->
                             </div>
@@ -224,7 +218,7 @@
                         <div class="widget widget-stats green-bg ">
                             <div class="stats-icon stats-icon-lg "><i class="fa fa-diamond fa-fw "></i></div>
                             <div class="stats-title ">TOTAL MISSIONS</div>
-                            <div class="stats-number ">600</div>
+                            <div class="stats-number ">{{totalMission}}</div>
                             <div class="stats-progress progress ">
                                 <!-- <div style="width: 54.9%; " class="progress-bar "></div>-->
                             </div>
@@ -240,9 +234,9 @@
                                 <h5> CAD Orders</h5>
                                 <div class="pull-right ">
                                     <div class="btn-group ">
-                                        <button type="button " class="btn btn-xs btn-white active ">Today</button>
-                                        <button type="button " class="btn btn-xs btn-white ">Monthly</button>
-                                        <button type="button " class="btn btn-xs btn-white ">Annual</button>
+                                        <button type="button " class="btn btn-xs btn-white active " ng-click="getAllData('Today')">Today</button>
+                                        <button type="button " class="btn btn-xs btn-white " ng-click="getAllData('Month')">Monthly</button>
+                                        <button type="button " class="btn btn-xs btn-white " ng-click="getAllData('Year')">Annual</button>
                                     </div>
                                 </div>
                             </div>
@@ -253,8 +247,8 @@
                                             <div class="col-sm-9 ">
                                                 <div class="chart-admin ">
                                                     <div id="legend "></div>
-                                                              <flot dataset="datasetadmin" id="flot-placeholder" options="optionsadmin" on-plot-click="onEventExampleClicked1(event, pos, item)" on-plot-hover="onEventExampleHover1(event, pos, item)"
-                                                        height="200px"></flot>
+                                                    <flot dataset="datasetadmin" id="flot-placeholder" options="optionsadmin" on-plot-click="onEventExampleClicked1(event, pos, item)"
+                                                        on-plot-hover="onEventExampleHover1(event, pos, item)" height="200px"></flot>
                                                     <div id="c" style="position:fixed;">
                                                         <div id="d" style="background: white; color:black;border:1px solid black">{{toolsvalue1}}</div>
                                                     </div>
@@ -263,35 +257,35 @@
                                             <div class="col-sm-3 ">
                                                 <ul class="stat-list ">
                                                     <li>
-                                                        <h2 class="no-margins ">1000</h2>
+                                                        <h2 class="no-margins ">{{totalDfmSum}}</h2>
                                                         <small>Total DFM Revenue</small>
-                                                        <div class="stat-percent ">58% <i class="fa fa-level-up text-navy "></i></div>
+                                                        <div class="stat-percent ">{{totalDfmSum/100}}<i class="fa fa-level-up text-navy "></i></div>
                                                         <div class="progress progress-mini ">
-                                                            <div class="progress-bar " style="width: 58%; "></div>
+                                                            <div class="progress-bar " style="width: {{totalDfmSum/100}}%; "></div>
                                                         </div>
                                                     </li>
                                                     <li>
-                                                        <h2 class="no-margins ">2500</h2>
+                                                        <h2 class="no-margins ">{{totalProductSum}}</h2>
                                                         <small>Total DRONE Revenue</small>
-                                                        <div class="stat-percent ">48% <i class="fa fa-level-up text-navy "></i></div>
+                                                        <div class="stat-percent ">{{totalProductSum/100}}<i class="fa fa-level-up text-navy "></i></div>
                                                         <div class="progress progress-mini ">
-                                                            <div class="progress-bar " style="width: 48%; "></div>
+                                                            <div class="progress-bar " style="width: {{totalProductSum/100}}%; "></div>
                                                         </div>
                                                     </li>
                                                     <li>
-                                                        <h2 class="no-margins ">1500</h2>
+                                                        <h2 class="no-margins ">{{totalCadSum}}</h2>
                                                         <small>Total CAD Revenue</small>
-                                                        <div class="stat-percent ">60% <i class="fa fa-level-down text-navy "></i></div>
+                                                        <div class="stat-percent ">{{totalCadSum/100}}<i class="fa fa-level-down text-navy "></i></div>
                                                         <div class="progress progress-mini ">
-                                                            <div class="progress-bar " style="width: 60%; "></div>
+                                                            <div class="progress-bar " style="width: {{totalCadSum/100}}%; "></div>
                                                         </div>
                                                     </li>
                                                     <li>
-                                                        <h2 class="no-margins ">5000</h2>
+                                                        <h2 class="no-margins ">{{totalSum}}</h2>
                                                         <small>Total Revenue</small>
-                                                        <div class="stat-percent ">22% <i class="fa fa-bolt text-navy "></i></div>
+                                                        <div class="stat-percent ">{{totalSum/100}}<i class="fa fa-bolt text-navy "></i></div>
                                                         <div class="progress progress-mini ">
-                                                            <div class="progress-bar " style="width: 22%; "></div>
+                                                            <div class="progress-bar " style="width: {{totalSum/100}}%; "></div>
                                                         </div>
                                                     </li>
                                                 </ul>
@@ -306,8 +300,8 @@
                         <div class="col-lg-12 ">
                             <div class="ibox float-e-margins ">
                                 <div class="ibox-title ">
-                                    <h5>Last Month CAD </h5>
-                                    <div class="ibox-tools "> <a class="btn green btn-xs " href=" "> 31-Jan-2017</a> </div>
+                                    <h5>Last 10 CAD </h5>
+                                    <!--<div class="ibox-tools "> <a class="btn green btn-xs " href=" "> 31-Jan-2017</a> </div>-->
                                 </div>
                                 <div class="ibox-content collapse in ">
                                     <div class="widgets-container tabs-container dashboard-tab-data-box ">
@@ -316,9 +310,7 @@
                                                             table-hover dataTables-example ">
                                                 <thead>
                                                     <tr>
-                                                        <th>Mission ID</th>
-                                                        <th>Request Type</th>
-                                                        <th>Map Area Link</th>
+                                                        <th>CAD ID</th>
                                                         <th>Acreage</th>
                                                         <th>Status</th>
                                                         <th>Date of Request</th>
@@ -327,170 +319,13 @@
                                                 </thead>
 
                                                 <tbody>
-                                                    <tr>
-                                                        <td>#_1</td>
-                                                        <td>Internal</td>
-                                                        <td>link</td>
-                                                        <td>61</td>
-                                                        <td>Complete</td>
-                                                        <td>2011/04/25</td>
-                                                        <td>2011/04/25</td>
+                                                    <tr ng-repeat="cadData in totalTenCad track by $index">
+                                                        <td>{{cadData.cadId}}</td>
+                                                        <td>{{cadData.acreage}}</td>
+                                                        <td>{{cadData.status}}</td>
+                                                        <td>{{cadData.createdAt | date}}</td>
+                                                        <td>{{cadData.acreage}}</td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>#_2</td>
-                                                        <td>External</td>
-                                                        <td>link</td>
-                                                        <td>61</td>
-                                                        <td>Complete</td>
-                                                        <td>2011/04/25</td>
-                                                        <td>2011/04/25</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>#_3</td>
-                                                        <td>External</td>
-                                                        <td>link</td>
-                                                        <td>61</td>
-                                                        <td>Inprogress</td>
-                                                        <td>2011/04/25</td>
-                                                        <td>2011/04/25</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>#_4</td>
-                                                        <td>External</td>
-                                                        <td>link</td>
-                                                        <td>61</td>
-                                                        <td>Complete</td>
-                                                        <td>2011/04/25</td>
-                                                        <td>2011/04/25</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>#_5</td>
-                                                        <td>Internal</td>
-                                                        <td>link</td>
-                                                        <td>61</td>
-                                                        <td>Inprogress</td>
-                                                        <td>2011/04/25</td>
-                                                        <td>2011/04/25</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>#_6</td>
-                                                        <td>Internal</td>
-                                                        <td>link</td>
-                                                        <td>61</td>
-                                                        <td>Complete</td>
-                                                        <td>2011/04/25</td>
-                                                        <td>2011/04/25</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>#_7</td>
-                                                        <td>External</td>
-                                                        <td>link</td>
-                                                        <td>61</td>
-                                                        <td>Inprogress</td>
-                                                        <td>2011/04/25</td>
-                                                        <td>2011/04/25</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>#_8</td>
-                                                        <td>External</td>
-                                                        <td>link</td>
-                                                        <td>61</td>
-                                                        <td>Inprogress</td>
-                                                        <td>2011/04/25</td>
-                                                        <td>2011/04/25</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>#_9</td>
-                                                        <td>External</td>
-                                                        <td>link</td>
-                                                        <td>61</td>
-                                                        <td>Complete</td>
-                                                        <td>2011/04/25</td>
-                                                        <td>2011/04/25</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>#_10</td>
-                                                        <td>Internal</td>
-                                                        <td>link</td>
-                                                        <td>61</td>
-                                                        <td>Cancelled</td>
-                                                        <td>2011/04/25</td>
-                                                        <td>2011/04/25</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>#_11</td>
-                                                        <td>Internal</td>
-                                                        <td>link</td>
-                                                        <td>61</td>
-                                                        <td>Cancelled</td>
-                                                        <td>2011/04/25</td>
-                                                        <td>2011/04/25</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>#_12</td>
-                                                        <td>External</td>
-                                                        <td>link</td>
-                                                        <td>61</td>
-                                                        <td>Cancelled</td>
-                                                        <td>2011/04/25</td>
-                                                        <td>2011/04/25</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>#_13</td>
-                                                        <td>Internal</td>
-                                                        <td>link</td>
-                                                        <td>61</td>
-                                                        <td>Cancelled</td>
-                                                        <td>2011/04/25</td>
-                                                        <td>2011/04/25</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>#_14</td>
-                                                        <td>Internal</td>
-                                                        <td>link</td>
-                                                        <td>61</td>
-                                                        <td>Inprogress</td>
-                                                        <td>2011/04/25</td>
-                                                        <td>2011/04/25</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>#_15</td>
-                                                        <td>Internal</td>
-                                                        <td>link</td>
-                                                        <td>61</td>
-                                                        <td>Inprogress</td>
-                                                        <td>2011/04/25</td>
-                                                        <td>2011/04/25</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>#_16</td>
-                                                        <td>Internal</td>
-                                                        <td>link</td>
-                                                        <td>61</td>
-                                                        <td>Inprogress</td>
-                                                        <td>2011/04/25</td>
-                                                        <td>2011/04/25</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>#_17</td>
-                                                        <td>External</td>
-                                                        <td>link</td>
-                                                        <td>61</td>
-                                                        <td>Complete</td>
-                                                        <td>2011/04/25</td>
-                                                        <td>2011/04/25</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>#_18</td>
-                                                        <td>External</td>
-                                                        <td>link</td>
-                                                        <td>61</td>
-                                                        <td>Complete</td>
-                                                        <td>2011/04/25</td>
-                                                        <td>2011/04/25</td>
-                                                    </tr>
-
-
                                                 </tbody>
                                             </table>
                                         </div>
@@ -549,7 +384,7 @@
                         <div class="widget widget-stats red-bg ">
                             <div class="stats-icon stats-icon-lg "><i class="fa fa-picture-o fa-fw "></i></div>
                             <div class="stats-title ">TOTAL RECEIVED CAD FILES</div>
-                            <div class="stats-number ">900</div>
+                            <div class="stats-number ">{{totalCadForVendor}}</div>
                             <div class="stats-progress progress ">
                                 <!--<div style="width: 70.1%; " class="progress-bar "></div>-->
                             </div>
@@ -562,7 +397,7 @@
                         <div class="widget widget-stats aqua-bg ">
                             <div class="stats-icon stats-icon-lg "><i class="fa fa-check-square-o fa-fw "></i></div>
                             <div class="stats-title ">TOTAL COMPLETED CAD FILES</div>
-                            <div class="stats-number ">460</div>
+                            <div class="stats-number ">{{totalCadCompletedForVendor}}</div>
                             <div class="stats-progress progress ">
                                 <!--<div style="width: 40.5%; " class="progress-bar "></div>-->
                             </div>
@@ -575,7 +410,7 @@
                         <div class="widget widget-stats purple-bg ">
                             <div class="stats-icon stats-icon-lg "><i class="fa fa-file-image-o fa-fw "></i></div>
                             <div class="stats-title ">TOTAL INCOMPLETED CAD FILES</div>
-                            <div class="stats-number ">440</div>
+                            <div class="stats-number ">{{totalCadIncompletedForVendor}}</div>
                             <div class="stats-progress progress ">
                                 <!--<div style="width: 76.3%; " class="progress-bar "></div>-->
                             </div>
@@ -588,7 +423,7 @@
                         <div class="widget widget-stats green-bg ">
                             <div class="stats-icon stats-icon-lg "><i class="fa fa-usd fa-fw "></i></div>
                             <div class="stats-title ">TOTAL EARNING</div>
-                            <div class="stats-number ">3000</div>
+                            <div class="stats-number ">{{totalEarningForVendor}}</div>
                             <div class="stats-progress progress ">
                                 <!--<div style="width: 54.9%; " class="progress-bar "></div>-->
                             </div>
