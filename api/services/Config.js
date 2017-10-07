@@ -558,9 +558,10 @@ var models = {
                         // res.send(excel);
                         res({
                             excel: excel,
-                            path: path
+                            path: path,
+                            finalPath: finalPath
                         })
-                        fs.unlink(finalPath);
+                        // fs.unlink(finalPath);    
                     }
                 });
             }

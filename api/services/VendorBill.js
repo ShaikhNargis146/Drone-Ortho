@@ -77,10 +77,10 @@ var model = {
 
     exceltotalCadRequest: function (data, callback) {
         CadLineWork.find({
-            createdAt: {
-                $gte: data.fromDate,
-                $lte: data.toDate
-            }
+            // createdAt: {
+            //     $gte: data.fromDate,
+            //     $lte: data.toDate
+            // }
         }).exec(function (err, data) {
             if (err || _.isEmpty(data)) {
                 callback(err, [])

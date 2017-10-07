@@ -2749,40 +2749,22 @@ firstapp
         // ***FOR DATEPICKER****
 
         $scope.excelGenerateData = function (data) {
-            console.log("data------", data);
             var getByDate = {};
             getByDate.fromDate = moment(data.fromDate).format();
             getByDate.toDate = moment(data.toDate).format();
             if (data.type == 'Cad') {
-                console.log("---getByDate----", getByDate);
-                NavigationService.apiCallWithData("VendorBill/exceltotalCadRequest", getByDate, function (data) {
-                    console.log("data---------------", data);
-                });
+                console.log("getByDate", getByDate);
+                NavigationService.apiCallWithData("VendorBill/exceltotalCadRequest", getByDate, function (data) {});
             } else if (data.type == 'DroneSales') {
-                console.log("---getByDate----", getByDate);
-                NavigationService.apiCallWithData("VendorBill/droneSales", getByDate, function (data) {
-                    console.log("data---------------", data);
-                });
+                NavigationService.apiCallWithData("VendorBill/droneSales", getByDate, function (data) {});
             } else if (data.type == 'DfmSales') {
-                console.log("---getByDate----", getByDate);
-                NavigationService.apiCallWithData("VendorBill/dfmSales", getByDate, function (data) {
-                    console.log("data---------------", data);
-                });
+                NavigationService.apiCallWithData("VendorBill/dfmSales", getByDate, function (data) {});
             } else if (data.type == 'DfmSub') {
-                console.log("---getByDate----", getByDate);
-                NavigationService.apiCallWithData("VendorBill/allDfmSub", getByDate, function (data) {
-                    console.log("data---------------", data);
-                });
+                NavigationService.apiCallWithData("VendorBill/allDfmSub", getByDate, function (data) {});
             } else if (data.type == 'CadRev') {
-                console.log("---getByDate----", getByDate);
-                NavigationService.apiCallWithData("VendorBill/cadRevenue", getByDate, function (data) {
-                    console.log("data---------------", data);
-                });
+                NavigationService.apiCallWithData("VendorBill/cadRevenue", getByDate, function (data) {});
             } else if (data.type == 'VendorBill') {
-                console.log("---getByDate----", getByDate);
-                NavigationService.apiCallWithData("VendorBill/vendorBill", getByDate, function (data) {
-                    console.log("data---------------", data);
-                });
+                NavigationService.apiCallWithData("VendorBill/vendorBill", getByDate, function (data) {});
             }
         }
     })
