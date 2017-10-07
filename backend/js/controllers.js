@@ -5540,6 +5540,7 @@ firstapp
         });
 
         $scope.loginUser = function (info) {
+            console.log(info);
             NavigationService.apiCallWithData("User/login", info, function (data) {
                 if (data.value == true) {
                     NavigationService.parseAccessToken(data.data._id, function () {
