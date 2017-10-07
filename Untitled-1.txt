@@ -1277,7 +1277,10 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
             }
             var map = L.mapbox.map('map', 'mapbox.streets', {
                     infoControl: false,
-                    attributionControl: false
+                    attributionControl: false,
+                    zoom: 4,
+                    minZoom: 16,
+                    maxZoom: 22,
                 })
                 .fitBounds(imageBounds)
             var attribution = L.control.attribution();
@@ -1287,18 +1290,26 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
             // See full documentation for the ImageOverlay type:
             // http://leafletjs.com/reference.html#imageoverlay
             console.log("gccygeruygreufheurhfuerhuerhfurhrieowuepoupwoidpiwodwoeudiewudieuifueiuferfureruhsss", $scope.slider.value);
-            // var overlay = L.imageOverlay(imageUrl, imageBounds)
-            //     .addTo(map);
-            // overlay.setOpacity($scope.slider.value);
+            var overlay = L.imageOverlay(imageUrl, imageBounds)
+                .addTo(map);
+            overlay.setOpacity($scope.slider.value);
             // omnivore.kml('http://localhost:1337/newM_mosaic.kml').addTo(map);
-            var TopoLayer = L.tileLayer('http://localhost:1337/google_tiles/{z}/{x}/{myY}.png', {
-                maxZoom: 22,
-                minZoom: 16,
-                myY: function (data) {
-                    return (Math.pow(2, data.z) - data.y - 1);
-                }
-            })
-            map.addLayer(TopoLayer);
+            //     L.TileLayer.Kitten = L.TileLayer.extend({
+            //         getTileUrl: function (coords) {
+            //             var y = (Math.pow(2, coords.z) - coords.y - 1)
+            //             console.log("z---", coords.z);
+            //             return "http://localhost:1337/google_tiles/" + coords.z + "/" + coords.x + "/" + y + ".png";
+            //         },
+            //         getAttribution: function () {
+            //             return "<a href='http://placekitten.com/attribution.html'>PlaceKitten</a>"
+            //         }
+            //     });
+
+            // L.tileLayer.kitten = function () {
+            //     return new L.TileLayer.Kitten(); 
+            // }
+
+            // L.tileLayer.kitten().addTo(map);
             $rootScope.$on('greeting', function (event, arg) {
                 overlay.setOpacity(arg.value);
             })
@@ -1568,3 +1579,23 @@ firstapp.directive('commonView', function () {
 //         }
 //     }
 // });
+
+
+  L.TileLayer.Kitten = L.TileLayer.extend({
+                getTileUrl: function (coords) {
+                    console.log("z---", coords.z);
+                    var y = (Math.pow(2, coords.z) - coords.y - 1)
+                    return "http://localhost:1337/google_tiles/" + coords.z + "/" + coords.x + "/" + y + ".png";
+                },
+                getAttribution: function () {
+                    return "<a href='http://placekitten.com/attribution.html'>PlaceKitten</a>"
+                },
+                maxZoom: 22,
+                maxNativeZoom: 22
+            });
+
+            L.tileLayer.kitten = function () {
+                return new L.TileLayer.Kitten();
+            }
+
+            L.tileLayer.kitten().addTo(map);

@@ -1276,8 +1276,7 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
                 ];
             }
             var map = L.mapbox.map('map', 'mapbox.streets', {
-                    infoControl: false,
-                    attributionControl: false
+                    zoom: 20
                 })
                 .fitBounds(imageBounds)
             var attribution = L.control.attribution();
@@ -1291,13 +1290,11 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
             //     .addTo(map);
             // overlay.setOpacity($scope.slider.value);
             // omnivore.kml('http://localhost:1337/newM_mosaic.kml').addTo(map);
-            var TopoLayer = L.tileLayer('http://localhost:1337/google_tiles/{z}/{x}/{myY}.png', {
+
+            var TopoLayer = L.tileLayer('file:///C:/Users/dell/Documents/pix4d/newM/3_dsm_ortho/2_mosaic/google_tiles/{z}/{x}/{y}.png', {
                 maxZoom: 22,
-                minZoom: 16,
-                myY: function (data) {
-                    return (Math.pow(2, data.z) - data.y - 1);
-                }
-            })
+                minZoom: 16
+            });
             map.addLayer(TopoLayer);
             $rootScope.$on('greeting', function (event, arg) {
                 overlay.setOpacity(arg.value);
