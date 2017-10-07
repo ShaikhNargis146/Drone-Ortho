@@ -520,7 +520,7 @@ var model = {
             vendor: data.vendorId
         }).lean().select('amount _id status').exec(function (err, data) {
             if (err || _.isEmpty(data)) {
-                callback(err, [])
+                callback(err, "noData")
             } else {
                 var count1 = 0;
                 var count2 = 0;
@@ -558,7 +558,7 @@ var model = {
             vendor: data.vendorId
         }).lean().select('_id vendorPaymentStatus').exec(function (err, data) {
             if (err || _.isEmpty(data)) {
-                callback(err, [])
+                callback(err, "noData")
             } else {
                 var count1 = 0;
                 var count2 = 0;
@@ -700,13 +700,12 @@ var model = {
             user: data.userId
         }).lean().select('totalAmount _id dfmSubscription products cadLineWork').exec(function (err, data) {
             if (err || _.isEmpty(data)) {
-                callback(err, [])
+                callback(err, "noData")
             } else {
                 var finalResult = {
                     totalProductSum: 0,
                     totalCadSum: 0,
-                    totalDfmSum: 0,
-                    totalSum: 0
+                    totalDfmSum: 0
                 };
                 _.map(data, function (n) {
                     if (!_.isEmpty(n.dfmSubscription)) {
@@ -716,7 +715,6 @@ var model = {
                     } else if (!_.isEmpty(n.cadLineWork)) {
                         finalResult.totalCadSum = finalResult.totalCadSum + n.totalAmount;
                     }
-                    finalResult.totalSum = finalResult.totalSum + n.totalAmount;
                 });
                 callback(null, finalResult);
             }

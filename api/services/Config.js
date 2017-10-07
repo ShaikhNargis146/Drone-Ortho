@@ -528,7 +528,7 @@ var models = {
     },
 
     generateExcel: function (name, found, res) {
-        // name = _.kebabCase(name);
+        name = _.kebabCase(name);
         var excelData = [];
         _.each(found, function (singleData) {
             var singleExcel = {};
@@ -551,9 +551,15 @@ var models = {
                     if (err) {
                         res.callback(err, null);
                     } else {
-                        res.set('Content-Type', "application/octet-stream");
-                        res.set('Content-Disposition', "attachment;filename=" + path);
-                        res.send(excel);
+                        // console.log("excel-------", excel);
+                        // console.log("res", res);
+                        // res.set('Content-Type', "application/octet-stream");
+                        // res.set('Content-Disposition', "attachment;filename=" + path);
+                        // res.send(excel);
+                        res({
+                            excel: excel,
+                            path: path
+                        })
                         fs.unlink(finalPath);
                     }
                 });

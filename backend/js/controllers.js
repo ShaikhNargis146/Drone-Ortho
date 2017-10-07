@@ -224,18 +224,18 @@ firstapp
         //
 
         $scope.pieDataset = [{
-                label: "Total Missions",
-                data: 20,
+                label: "Total CAD Amount",
+                // data: 20,
                 color: '#48b5d5',
             },
             {
-                label: "Total CAD Requested",
-                data: 30,
+                label: "Total DFM Amount",
+                // data: 30,
                 color: '#82ddcb'
             },
             {
-                label: "Total Amount Paid",
-                data: 90,
+                label: "Total Drones Amount",
+                // data: 90,
                 color: '#979fd2'
             },
 
@@ -510,17 +510,17 @@ firstapp
 
         $scope.pieDatasetOrder = [{
                 label: "CAD",
-                data: 120,
+                // data: 120,
                 color: '#48b5d5',
             },
             {
                 label: "DFM",
-                data: 30,
+                // data: 30,
                 color: '#82ddcb'
             },
             {
                 label: "DRONE",
-                data: 90,
+                // data: 90,
                 color: '#979fd2'
             },
 
@@ -555,17 +555,17 @@ firstapp
 
         $scope.pieDatasetRevenue = [{
                 label: "CAD",
-                data: 200,
+                // data: 200,
                 color: '#48b5d5',
             },
             {
                 label: "DFM",
-                data: 120,
+                // data: 120,
                 color: '#82ddcb'
             },
             {
                 label: "DRONE",
-                data: 50,
+                // data: 50,
                 color: '#979fd2'
             },
 
@@ -600,21 +600,25 @@ firstapp
         //
 
         $scope.pieDatasetCad = [{
-                label: "Total CAD Files",
-                data: 120,
+                label: "Cancel CAD Files",
+                // data: 120,
                 color: '#48b5d5',
             },
             {
                 label: "Completed CAD Files",
-                data: 30,
+                // data: 30,
                 color: '#82ddcb'
             },
             {
-                label: "Incomplete CAD Files",
-                data: 90,
+                label: "Processing CAD Files",
+                // data: 90,
                 color: '#979fd2'
             },
-
+            {
+                label: "QC CAD Files",
+                // data: 90,
+                color: '#979fd2'
+            },
         ];
         $scope.pieOptionsCad = {
             series: {
@@ -643,18 +647,13 @@ firstapp
         //
 
         $scope.pieDatasetMonth = [{
-                label: "Total Earning",
-                data: 20,
-                color: '#48b5d5',
-            },
-            {
-                label: "Paid",
-                data: 120,
+                label: "Outstanding Amount",
+                // data: 120,
                 color: '#82ddcb'
             },
             {
-                label: "Balance",
-                data: 50,
+                label: "Paid Amount",
+                // data: 50,
                 color: '#979fd2'
             },
 
@@ -743,19 +742,18 @@ firstapp
 
             NavigationService.apiCallWithoutData("User/getTotalProductOrdersData", function (data) {
                 if (data.value === true) {
-                    $scope.totalCadCount = data.data.totalCadCount;
-                    $scope.totalCadSum = data.data.totalCadSum;
-                    $scope.totalDfmCount = data.data.totalDfmCount;
-                    $scope.totalDfmSum = data.data.totalDfmSum;
-                    $scope.totalProductCount = data.data.totalProductCount;
-                    $scope.totalProductSum = data.data.totalProductSum;
+                    $scope.pieDatasetOrder[0].data = data.data.totalCadCount;
+                    $scope.pieDatasetRevenue[0].data = data.data.totalCadSum;
+                    $scope.pieDatasetOrder[1].data = data.data.totalDfmCount;
+                    $scope.pieDatasetRevenue[1].data = data.data.totalDfmSum;
+                    $scope.pieDatasetOrder[2].data = data.data.totalProductCount;
+                    $scope.pieDatasetRevenue[2].data = data.data.totalProductSum;
                 }
             });
 
             //-------------------dashboard for admin api call End---------------------------//
 
         } else if ($scope.accessLevel == "User") {
-
 
             var dataToSend = {}
             dataToSend.userId = userId;
@@ -790,6 +788,17 @@ firstapp
                 }
             });
 
+            NavigationService.apiCallWithData("User/getStatsForPie", dataToSend, function (data) {
+                if (data.value === true && data.data != 'noData') {
+                    $scope.pieDataset[0].data = data.data.totalCadSum;
+                    $scope.pieDataset[1].data = data.data.totalDfmSum;
+                    $scope.pieDataset[2].data = data.data.totalProductSum;
+                } else {
+                    $scope.pieDataset[0].data = 20;
+                    $scope.pieDataset[1].data = 30;
+                    $scope.pieDataset[2].data = 90;
+                }
+            });
 
         } else if ($scope.accessLevel == "Vendor") {
 
@@ -821,6 +830,29 @@ firstapp
                 }
             });
 
+            NavigationService.apiCallWithData("User/getCurrentMonthCadStats", dataToSend, function (data) {
+                if (data.value === true && data.data != 'noData') {
+                    $scope.pieDatasetCad[0].data = data.data.totalCancelledCount;
+                    $scope.pieDatasetCad[1].data = data.data.totalCompletedCount;
+                    $scope.pieDatasetCad[2].data = data.data.totalProcessingCount;
+                    $scope.pieDatasetCad[3].data = data.data.totalQcCount;
+                } else {
+                    $scope.pieDatasetCad[0].data = 30;
+                    $scope.pieDatasetCad[1].data = 2;
+                    $scope.pieDatasetCad[2].data = 4;
+                    $scope.pieDatasetCad[3].data = 5;
+                }
+            });
+
+            NavigationService.apiCallWithData("User/getCurrentMonthCadEarningStats", dataToSend, function (data) {
+                if (data.value === true && data.data != 'noData') {
+                    $scope.pieDatasetMonth[0].data = data.data.totalOutstandingCount;
+                    $scope.pieDatasetMonth[1].data = data.data.totalPaidCount;
+                } else {
+                    $scope.pieDatasetMonth[0].data = 30;
+                    $scope.pieDatasetMonth[1].data = 20;
+                }
+            });
         }
 
     })
@@ -2717,10 +2749,41 @@ firstapp
         // ***FOR DATEPICKER****
 
         $scope.excelGenerateData = function (data) {
-            console.log("-------", data);
-            var fromData = moment(data.fromDate).format();
-            console.log("---fromData----", fromData);
-
+            console.log("data------", data);
+            var getByDate = {};
+            getByDate.fromDate = moment(data.fromDate).format();
+            getByDate.toDate = moment(data.toDate).format();
+            if (data.type == 'Cad') {
+                console.log("---getByDate----", getByDate);
+                NavigationService.apiCallWithData("VendorBill/exceltotalCadRequest", getByDate, function (data) {
+                    console.log("data---------------", data);
+                });
+            } else if (data.type == 'DroneSales') {
+                console.log("---getByDate----", getByDate);
+                NavigationService.apiCallWithData("VendorBill/droneSales", getByDate, function (data) {
+                    console.log("data---------------", data);
+                });
+            } else if (data.type == 'DfmSales') {
+                console.log("---getByDate----", getByDate);
+                NavigationService.apiCallWithData("VendorBill/dfmSales", getByDate, function (data) {
+                    console.log("data---------------", data);
+                });
+            } else if (data.type == 'DfmSub') {
+                console.log("---getByDate----", getByDate);
+                NavigationService.apiCallWithData("VendorBill/allDfmSub", getByDate, function (data) {
+                    console.log("data---------------", data);
+                });
+            } else if (data.type == 'CadRev') {
+                console.log("---getByDate----", getByDate);
+                NavigationService.apiCallWithData("VendorBill/cadRevenue", getByDate, function (data) {
+                    console.log("data---------------", data);
+                });
+            } else if (data.type == 'VendorBill') {
+                console.log("---getByDate----", getByDate);
+                NavigationService.apiCallWithData("VendorBill/vendorBill", getByDate, function (data) {
+                    console.log("data---------------", data);
+                });
+            }
         }
     })
 
