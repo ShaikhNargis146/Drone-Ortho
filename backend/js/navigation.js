@@ -225,7 +225,7 @@ var navigationservice = angular.module('navigationservice', [])
 
             },
             apiCallWithData: function (url, formData, callback) {
-                $http.get(adminurl + url, formData).then(function (data) {
+                $http.post(adminurl + url, formData).then(function (data) {
                     data = data.data;
                     callback(data);
 
