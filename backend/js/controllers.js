@@ -15,6 +15,7 @@ firstapp
         $scope.navigation = NavigationService.getnav();
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
+            var userId = $.jStorage.get("user")._id;
         }
 
         // Standard Chart Example
@@ -224,18 +225,18 @@ firstapp
         //
 
         $scope.pieDataset = [{
-                label: "Total Missions",
-                data: 20,
+                label: "Total CAD Amount",
+                // data: 20,
                 color: '#48b5d5',
             },
             {
-                label: "Total CAD Requested",
-                data: 30,
+                label: "Total DFM Amount",
+                // data: 30,
                 color: '#82ddcb'
             },
             {
-                label: "Total Amount Paid",
-                data: 90,
+                label: "Total Drones Amount",
+                // data: 90,
                 color: '#979fd2'
             },
 
@@ -510,17 +511,17 @@ firstapp
 
         $scope.pieDatasetOrder = [{
                 label: "CAD",
-                data: 120,
+                // data: 120,
                 color: '#48b5d5',
             },
             {
                 label: "DFM",
-                data: 30,
+                // data: 30,
                 color: '#82ddcb'
             },
             {
                 label: "DRONE",
-                data: 90,
+                // data: 90,
                 color: '#979fd2'
             },
 
@@ -555,17 +556,17 @@ firstapp
 
         $scope.pieDatasetRevenue = [{
                 label: "CAD",
-                data: 200,
+                // data: 200,
                 color: '#48b5d5',
             },
             {
                 label: "DFM",
-                data: 120,
+                // data: 120,
                 color: '#82ddcb'
             },
             {
                 label: "DRONE",
-                data: 50,
+                // data: 50,
                 color: '#979fd2'
             },
 
@@ -600,21 +601,25 @@ firstapp
         //
 
         $scope.pieDatasetCad = [{
-                label: "Total CAD Files",
-                data: 120,
+                label: "Cancel CAD Files",
+                // data: 120,
                 color: '#48b5d5',
             },
             {
                 label: "Completed CAD Files",
-                data: 30,
+                // data: 30,
                 color: '#82ddcb'
             },
             {
-                label: "Incomplete CAD Files",
-                data: 90,
+                label: "Processing CAD Files",
+                // data: 90,
                 color: '#979fd2'
             },
-
+            {
+                label: "QC CAD Files",
+                // data: 90,
+                color: '#979fd2'
+            },
         ];
         $scope.pieOptionsCad = {
             series: {
@@ -643,18 +648,13 @@ firstapp
         //
 
         $scope.pieDatasetMonth = [{
-                label: "Total Earning",
-                data: 20,
-                color: '#48b5d5',
-            },
-            {
-                label: "Paid",
-                data: 120,
+                label: "Outstanding Amount",
+                // data: 120,
                 color: '#82ddcb'
             },
             {
-                label: "Balance",
-                data: 50,
+                label: "Paid Amount",
+                // data: 50,
                 color: '#979fd2'
             },
 
@@ -683,6 +683,178 @@ firstapp
         };
         // *************************************************end of chart for vendor**********************************************************************************************************
 
+
+        if ($scope.accessLevel == "Admin") {
+
+            //-------------------dashboard for admin api call---------------------------//
+
+
+            NavigationService.apiCallWithoutData("User/getTotalUsers", function (data) {
+                if (data.value === true) {
+                    $scope.totalUsers = data.data;
+                }
+            });
+
+            NavigationService.apiCallWithoutData("User/getTotalDronesSold", function (data) {
+                if (data.value === true) {
+                    $scope.totalDronesSold = data.data;
+                }
+            });
+
+            NavigationService.apiCallWithoutData("User/getTotalCadRequest", function (data) {
+                if (data.value === true) {
+                    $scope.totalCad = data.data;
+                }
+            });
+
+            NavigationService.apiCallWithoutData("User/getTotalMissions", function (data) {
+                if (data.value === true) {
+                    $scope.totalMission = data.data;
+                }
+            });
+
+            NavigationService.apiCallWithoutData("User/getLastTenCad", function (data) {
+                if (data.value === true) {
+                    $scope.totalTenCad = data.data;
+                }
+            });
+
+
+            $scope.getAllData = function (data) {
+                var sendData = {};
+                sendData.timeData = data;
+                NavigationService.apiCallWithData("User/getCadOrderDetails", sendData, function (data) {
+                    if (data.value === true && data.data != 'noData') {
+                        $scope.totalCadSum = data.data.totalCadSum;
+                        $scope.totalDfmSum = data.data.totalDfmSum;
+                        $scope.totalProductSum = data.data.totalProductSum;
+                        $scope.totalSum = data.data.totalSum;
+                    } else {
+                        $scope.totalCadSum = 0;
+                        $scope.totalDfmSum = 0;
+                        $scope.totalProductSum = 0;
+                        $scope.totalSum = 0;
+                    }
+                });
+            };
+
+            $scope.getAllData('Today');
+
+
+            NavigationService.apiCallWithoutData("User/getTotalProductOrdersData", function (data) {
+                if (data.value === true) {
+                    $scope.pieDatasetOrder[0].data = data.data.totalCadCount;
+                    $scope.pieDatasetRevenue[0].data = data.data.totalCadSum;
+                    $scope.pieDatasetOrder[1].data = data.data.totalDfmCount;
+                    $scope.pieDatasetRevenue[1].data = data.data.totalDfmSum;
+                    $scope.pieDatasetOrder[2].data = data.data.totalProductCount;
+                    $scope.pieDatasetRevenue[2].data = data.data.totalProductSum;
+                }
+            });
+
+            //-------------------dashboard for admin api call End---------------------------//
+
+        } else if ($scope.accessLevel == "User") {
+
+            var dataToSend = {}
+            dataToSend.userId = userId;
+            NavigationService.apiCallWithData("User/getAllMission", dataToSend, function (data) {
+                if (data.value === true) {
+                    $scope.totalMissionsForUser = data.data;
+                }
+            });
+
+            NavigationService.apiCallWithData("User/getTotalCadFile", dataToSend, function (data) {
+                if (data.value === true) {
+                    $scope.totalCadForUser = data.data;
+                }
+            });
+
+            var sendId = {};
+            sendId._id = userId;
+            NavigationService.apiCallWithData("User/getOne", sendId, function (data) {
+                if (data.value === true) {
+                    $scope.dfmDateAndStatusOfUser = data.data;
+                }
+            });
+
+            NavigationService.apiCallWithData("User/getOrdersDetails", dataToSend, function (data) {
+                if (data.value === true) {
+                    $scope.last1Month = data.data.last1Month;
+                    $scope.last1MonthData = data.data.last1MonthData;
+                    $scope.last2Month = data.data.last2Month;
+                    $scope.last2MonthData = data.data.last2MonthData;
+                    $scope.lastMonth = data.data.lastMonth;
+                    $scope.lastMonthData = data.data.lastMonthData;
+                }
+            });
+
+            NavigationService.apiCallWithData("User/getStatsForPie", dataToSend, function (data) {
+                if (data.value === true && data.data != 'noData') {
+                    $scope.pieDataset[0].data = data.data.totalCadSum;
+                    $scope.pieDataset[1].data = data.data.totalDfmSum;
+                    $scope.pieDataset[2].data = data.data.totalProductSum;
+                } else {
+                    $scope.pieDataset[0].data = 20;
+                    $scope.pieDataset[1].data = 30;
+                    $scope.pieDataset[2].data = 90;
+                }
+            });
+
+        } else if ($scope.accessLevel == "Vendor") {
+
+            var dataToSend = {}
+            dataToSend.vendorId = userId;
+            NavigationService.apiCallWithData("User/getTotalCadForVendor", dataToSend, function (data) {
+                if (data.value === true) {
+                    $scope.totalCadForVendor = data.data;
+                }
+            });
+
+            NavigationService.apiCallWithData("User/getTotalCompletedCadForVendor", dataToSend, function (data) {
+                if (data.value === true && data.data != 'No Data Found') {
+                    $scope.totalCadCompletedForVendor = data.data;
+                } else {
+                    $scope.totalCadCompletedForVendor = 0;
+                }
+            });
+
+            NavigationService.apiCallWithData("User/getTotalIncompletedCadForVendor", dataToSend, function (data) {
+                if (data.value === true) {
+                    $scope.totalCadIncompletedForVendor = data.data;
+                }
+            });
+
+            NavigationService.apiCallWithData("User/getTotalEarningData", dataToSend, function (data) {
+                if (data.value === true) {
+                    $scope.totalEarningForVendor = data.data.totalAmount;
+                }
+            });
+
+            NavigationService.apiCallWithData("User/getCurrentMonthCadStats", dataToSend, function (data) {
+                if (data.value === true && data.data != 'noData') {
+                    $scope.pieDatasetCad[0].data = data.data.totalCancelledCount;
+                    $scope.pieDatasetCad[1].data = data.data.totalCompletedCount;
+                    $scope.pieDatasetCad[2].data = data.data.totalProcessingCount;
+                    $scope.pieDatasetCad[3].data = data.data.totalQcCount;
+                } else {
+                    $scope.pieDatasetCad[0].data = 30;
+                    $scope.pieDatasetCad[1].data = 2;
+                    $scope.pieDatasetCad[2].data = 4;
+                    $scope.pieDatasetCad[3].data = 5;
+                }
+            });
+
+            NavigationService.apiCallWithData("User/getCurrentMonthCadEarningStats", dataToSend, function (data) {
+                if (data.value === true && data.data != 'noData') {
+                    $scope.pieDatasetMonth[0].data = data.data.totalOutstandingCount;
+                    $scope.pieDatasetMonth[1].data = data.data.totalPaidCount;
+                } else {
+                    $scope.pieDatasetMonth[0].data = 30;
+                    $scope.pieDatasetMonth[1].data = 20;
+                }
+            });
+        }
 
     })
 
@@ -2554,6 +2726,7 @@ firstapp
         });
 
     })
+
     .controller('ReportsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("reports");
@@ -2577,6 +2750,26 @@ firstapp
             $scope.popup2.opened = true;
         };
         // ***FOR DATEPICKER****
+
+        $scope.excelGenerateData = function (data) {
+            var getByDate = {};
+            getByDate.fromDate = moment(data.fromDate).format();
+            getByDate.toDate = moment(data.toDate).format();
+            if (data.type == 'Cad') {
+                console.log("getByDate", getByDate);
+                NavigationService.apiCallWithData("VendorBill/exceltotalCadRequest", getByDate, function (data) {});
+            } else if (data.type == 'DroneSales') {
+                NavigationService.apiCallWithData("VendorBill/droneSales", getByDate, function (data) {});
+            } else if (data.type == 'DfmSales') {
+                NavigationService.apiCallWithData("VendorBill/dfmSales", getByDate, function (data) {});
+            } else if (data.type == 'DfmSub') {
+                NavigationService.apiCallWithData("VendorBill/allDfmSub", getByDate, function (data) {});
+            } else if (data.type == 'CadRev') {
+                NavigationService.apiCallWithData("VendorBill/cadRevenue", getByDate, function (data) {});
+            } else if (data.type == 'VendorBill') {
+                NavigationService.apiCallWithData("VendorBill/vendorBill", getByDate, function (data) {});
+            }
+        }
     })
 
     .controller('VendorsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
@@ -5350,6 +5543,7 @@ firstapp
         });
 
         $scope.loginUser = function (info) {
+            console.log(info);
             NavigationService.apiCallWithData("User/login", info, function (data) {
                 if (data.value == true) {
                     NavigationService.parseAccessToken(data.data._id, function () {

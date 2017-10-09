@@ -74,10 +74,8 @@ require('mongoose-middleware').initialize(mongoose);
 global["Schema"] = mongoose.Schema;
 global["Grid"] = require('gridfs-stream');
 // global["gfs"] = Grid(mongoose.connection, mongoose);
-global["gfs"] = Grid(mongoose.connections[0].db, mongoose);
-global["http"] = require('http');
-gfs.mongo = mongoose.mongo;
 
+global["http"] = require('http');
 //Image Library
 global["stream"] = require('stream');
 global["Jimp"] = require("jimp");

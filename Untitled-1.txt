@@ -37,7 +37,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             controller: 'DashboardCtrl',
         })
 
-    .state('ticket-history', {
+        .state('ticket-history', {
             url: "/ticket-history/:ticketId",
             templateUrl: "views/template.html",
             controller: 'TicketHistoryCtrl',
@@ -53,7 +53,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             controller: 'ProductDetailCtrl',
         })
 
-    .state('missions', {
+        .state('missions', {
             url: "/missions",
             templateUrl: "views/template.html",
             controller: 'MissionsCtrl',
@@ -155,8 +155,8 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             controller: 'ReportsCtrl',
         })
 
-    // ,************ common for vendor and admin **********
-    .state('vendors', {
+        // ,************ common for vendor and admin **********
+        .state('vendors', {
             url: "/vendors",
             templateUrl: "views/template.html",
             controller: 'VendorsCtrl',
@@ -178,13 +178,13 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             controller: 'EcomDetailsCtrl',
         })
 
-    .state('edit-vendor', {
-        url: "/edit-vendor/:vendorId",
-        templateUrl: "views/template.html",
-        controller: 'EditVendorCtrl',
-    })
+        .state('edit-vendor', {
+            url: "/edit-vendor/:vendorId",
+            templateUrl: "views/template.html",
+            controller: 'EditVendorCtrl',
+        })
 
-    .state('admin-profile', {
+        .state('admin-profile', {
             url: "/admin-profile",
             templateUrl: "views/template.html",
             controller: 'AdminProfileCtrl',
@@ -420,7 +420,6 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
             callback: "&ngCallback"
         },
         link: function ($scope, element, attrs) {
-           
             $scope.showImage = function () {};
             $scope.check = true;
             if (!$scope.type) {
@@ -458,7 +457,6 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                             // Perform operation on file here.
                             console.log('Processing file ' + image);
                             if (image && image.file) {
-                                  $scope.fileprogressbar = 0;
                                 $scope.uploadStatus = "uploading";
 
                                 var Template = this;
@@ -469,14 +467,7 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                                     headers: {
                                         'Content-Type': undefined
                                     },
-                                     transformRequest: angular.identity,
-                                    uploadEventHandlers: {
-                                        progress: function (e) {
-                                            console.log(e.loaded * 100 / e.total);
-                                            $scope.fileprogressbar = parseInt((e.loaded / e.total) * 100); // percentage of progress
-                                        }
-                                    }
-                                   
+                                    transformRequest: angular.identity
                                 }).then(function (data) {
                                     data = data.data;
                                     $scope.uploadStatus = "uploaded";
@@ -575,9 +566,7 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                     });
                 });
             }
-
             $scope.uploadNow = function (image) {
- $scope.fileprogressbar = 0;
                 $scope.uploadStatus = "uploading";
                 var Template = this;
                 image.hide = true;
@@ -585,15 +574,9 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                 formData.append('file', image.file, image.file.name);
                 $http.post(missionFileUrl, formData, {
                     headers: {
-                        'Content-Type': undefined,
+                        'Content-Type': undefined
                     },
-                    transformRequest: angular.identity,
-                     uploadEventHandlers: {
-                                        progress: function (e) {
-                                            console.log(e.loaded * 100 / e.total);
-                                            $scope.fileprogressbar = parseInt((e.loaded / e.total) * 100); // percentage of progress
-                                        }
-                                    }
+                    transformRequest: angular.identity
                 }).then(function (data) {
                     data = data.data;
                     $(".loading-img").css("display", "none");
@@ -1294,7 +1277,10 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
             }
             var map = L.mapbox.map('map', 'mapbox.streets', {
                     infoControl: false,
-                    attributionControl: false
+                    attributionControl: false,
+                    zoom: 4,
+                    minZoom: 16,
+                    maxZoom: 22,
                 })
                 .fitBounds(imageBounds)
             var attribution = L.control.attribution();
@@ -1304,18 +1290,26 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
             // See full documentation for the ImageOverlay type:
             // http://leafletjs.com/reference.html#imageoverlay
             console.log("gccygeruygreufheurhfuerhuerhfurhrieowuepoupwoidpiwodwoeudiewudieuifueiuferfureruhsss", $scope.slider.value);
-            // var overlay = L.imageOverlay(imageUrl, imageBounds)
-            //     .addTo(map);
-            // overlay.setOpacity($scope.slider.value);
+            var overlay = L.imageOverlay(imageUrl, imageBounds)
+                .addTo(map);
+            overlay.setOpacity($scope.slider.value);
             // omnivore.kml('http://localhost:1337/newM_mosaic.kml').addTo(map);
-            var TopoLayer = L.tileLayer('http://localhost:1337/google_tiles/{z}/{x}/{myY}.png', {
-                maxZoom: 22,
-                minZoom: 16,
-                myY: function (data) {
-                    return (Math.pow(2, data.z) - data.y - 1);
-                }
-            })
-            map.addLayer(TopoLayer);
+            //     L.TileLayer.Kitten = L.TileLayer.extend({
+            //         getTileUrl: function (coords) {
+            //             var y = (Math.pow(2, coords.z) - coords.y - 1)
+            //             console.log("z---", coords.z);
+            //             return "http://localhost:1337/google_tiles/" + coords.z + "/" + coords.x + "/" + y + ".png";
+            //         },
+            //         getAttribution: function () {
+            //             return "<a href='http://placekitten.com/attribution.html'>PlaceKitten</a>"
+            //         }
+            //     });
+
+            // L.tileLayer.kitten = function () {
+            //     return new L.TileLayer.Kitten(); 
+            // }
+
+            // L.tileLayer.kitten().addTo(map);
             $rootScope.$on('greeting', function (event, arg) {
                 overlay.setOpacity(arg.value);
             })
@@ -1563,7 +1557,7 @@ firstapp.directive('commonView', function () {
             console.log($scope.model);
             $scope.dataSize = function (data) {
                 $scope.selectedSize = data
-                    // alert("hello");
+                // alert("hello");
                 console.log("print size", $scope.selectedSize);
             };
 
@@ -1585,3 +1579,23 @@ firstapp.directive('commonView', function () {
 //         }
 //     }
 // });
+
+
+  L.TileLayer.Kitten = L.TileLayer.extend({
+                getTileUrl: function (coords) {
+                    console.log("z---", coords.z);
+                    var y = (Math.pow(2, coords.z) - coords.y - 1)
+                    return "http://localhost:1337/google_tiles/" + coords.z + "/" + coords.x + "/" + y + ".png";
+                },
+                getAttribution: function () {
+                    return "<a href='http://placekitten.com/attribution.html'>PlaceKitten</a>"
+                },
+                maxZoom: 22,
+                maxNativeZoom: 22
+            });
+
+            L.tileLayer.kitten = function () {
+                return new L.TileLayer.Kitten();
+            }
+
+            L.tileLayer.kitten().addTo(map);

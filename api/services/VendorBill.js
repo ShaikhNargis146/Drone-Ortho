@@ -70,5 +70,218 @@ var model = {
                     }
                 });
     },
+
+    //----------------report api-------------//
+
+    //############## excel download##########//
+
+    exceltotalCadRequest: function (data, callback) {
+        CadLineWork.find({
+            // createdAt: {
+            //     $gte: data.fromDate,
+            //     $lte: data.toDate
+            // }
+        }).exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        })
+    },
+
+    generateExcelCad: function (match, callback) {
+        async.concatSeries(match, function (mainData, callback) {
+                var obj = {};
+                obj["CAD ID"] = mainData.cadId;
+                obj["STATUS"] = mainData.status;
+                obj["NAME"] = mainData.name;
+                obj["CONTOURS"] = mainData.contours;
+                obj["ACREAGE"] = mainData.acreage;
+                obj["AMOUNT"] = mainData.amount;
+                callback(null, obj);
+            },
+            function (err, singleData) {
+                callback(null, singleData);
+            });
+
+    },
+
+    cadRevenue: function (data, callback) {
+        ProductOrders.find({
+            createdAt: {
+                $gte: data.fromDate,
+                $lte: data.toDate
+            },
+            "cadLineWork": {
+                $exists: true,
+                $ne: []
+            },
+            status: 'Paid'
+        }).exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, []);
+            } else {
+                callback(null, data);
+            }
+        })
+    },
+
+    generateExcelCadRevenue: function (match, callback) {
+        async.concatSeries(match, function (mainData, callback) {
+                var obj = {};
+                obj["CAD ID"] = mainData.cadId;
+                obj["STATUS"] = mainData.status;
+                obj["NAME"] = mainData.name;
+                obj["CONTOURS"] = mainData.contours;
+                obj["ACREAGE"] = mainData.acreage;
+                obj["AMOUNT"] = mainData.amount;
+                callback(null, obj);
+            },
+            function (err, singleData) {
+                callback(null, singleData);
+            });
+
+    },
+
+    droneSales: function (data, callback) {
+        ProductOrders.find({
+            createdAt: {
+                $gte: data.fromDate,
+                $lte: data.toDate
+            },
+            "products": {
+                $exists: true,
+                $ne: []
+            }
+        }).exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, []);
+            } else {
+                callback(null, data);
+            }
+        })
+    },
+
+    generateExcelDroneSales: function (match, callback) {
+        async.concatSeries(match, function (mainData, callback) {
+                var obj = {};
+                obj["CAD ID"] = mainData.cadId;
+                obj["STATUS"] = mainData.status;
+                obj["NAME"] = mainData.name;
+                obj["CONTOURS"] = mainData.contours;
+                obj["ACREAGE"] = mainData.acreage;
+                obj["AMOUNT"] = mainData.amount;
+                callback(null, obj);
+            },
+            function (err, singleData) {
+                callback(null, singleData);
+            });
+
+    },
+
+    dfmSales: function (data, callback) {
+        ProductOrders.find({
+            createdAt: {
+                $gte: data.fromDate,
+                $lte: data.toDate
+            },
+            "dfmSubscription": {
+                $exists: true,
+                $ne: []
+            }
+        }).exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, []);
+            } else {
+                callback(null, data);
+            }
+        })
+    },
+
+    generateExcelDfmSales: function (match, callback) {
+        async.concatSeries(match, function (mainData, callback) {
+                var obj = {};
+                obj["CAD ID"] = mainData.cadId;
+                obj["STATUS"] = mainData.status;
+                obj["NAME"] = mainData.name;
+                obj["CONTOURS"] = mainData.contours;
+                obj["ACREAGE"] = mainData.acreage;
+                obj["AMOUNT"] = mainData.amount;
+                callback(null, obj);
+            },
+            function (err, singleData) {
+                callback(null, singleData);
+            });
+
+    },
+
+    allDfmSub: function (data, callback) {
+        DFMSubscription.find({
+            createdAt: {
+                $gte: data.fromDate,
+                $lte: data.toDate
+            }
+        }).exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        })
+    },
+
+    generateExcelDfm: function (match, callback) {
+        async.concatSeries(match, function (mainData, callback) {
+                var obj = {};
+                obj["CAD ID"] = mainData.cadId;
+                obj["STATUS"] = mainData.status;
+                obj["NAME"] = mainData.name;
+                obj["CONTOURS"] = mainData.contours;
+                obj["ACREAGE"] = mainData.acreage;
+                obj["AMOUNT"] = mainData.amount;
+                callback(null, obj);
+            },
+            function (err, singleData) {
+                callback(null, singleData);
+            });
+
+    },
+
+    vendorBill: function (data, callback) {
+        VendorBill.find({
+            createdAt: {
+                $gte: data.fromDate,
+                $lte: data.toDate
+            }
+        }, function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        })
+    },
+
+    generateExcelVendorBill: function (match, callback) {
+        async.concatSeries(match, function (mainData, callback) {
+                var obj = {};
+                obj["CAD ID"] = mainData.cadId;
+                obj["STATUS"] = mainData.status;
+                obj["NAME"] = mainData.name;
+                obj["CONTOURS"] = mainData.contours;
+                obj["ACREAGE"] = mainData.acreage;
+                obj["AMOUNT"] = mainData.amount;
+                callback(null, obj);
+            },
+            function (err, singleData) {
+                callback(null, singleData);
+            });
+
+    },
+
+    //############## excel download End##########//
+
+    //----------------report api end-------------//
 };
 module.exports = _.assign(module.exports, exports, model);
