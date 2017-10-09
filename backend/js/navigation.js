@@ -224,6 +224,7 @@ var navigationservice = angular.module('navigationservice', [])
                 });
 
             },
+
             apiCallWithData: function (url, formData, callback) {
                 $http.post(adminurl + url, formData).then(function (data) {
                     data = data.data;
@@ -231,12 +232,31 @@ var navigationservice = angular.module('navigationservice', [])
 
                 });
             },
+
             apiCallWithoutData: function (url, callback) {
                 $http.post(adminurl + url).then(function (data) {
                     data = data.data;
                     callback(data);
 
                 });
+            },
+
+            generateExcelWithData: function (url, data, callback) {
+                $http.post(adminurl + url, data, {
+                    responseType: 'arraybuffer'
+                }).then(function (response) {
+                    var header = response.headers('Content-Disposition')
+                    var fileName = "CADREPORT" + "-" + moment().format("MMM-DD-YYYY-hh-mm-ss-a") + ".xlsx";
+                    var blob = new Blob([response.data], {
+                        type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation;charset=UTF-8'
+                    });
+                    var objectUrl = (window.URL || window.webkitURL).createObjectURL(blob);
+                    var link = angular.element('<a/>');
+                    link.attr({
+                        href: objectUrl,
+                        download: fileName
+                    })[0].click();
+                })
             },
 
         };

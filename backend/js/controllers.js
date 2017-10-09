@@ -13,7 +13,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Dashboard");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-          TemplateService.mainClass = [];
+        TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
             var userId = $.jStorage.get("user")._id;
@@ -195,10 +195,10 @@ firstapp
 
         $scope.onEventExampleHover = function (event, pos, item) {
             // console.log('Hover! ' + event.timeStamp + ' ' + pos.pageX + ' ' + pos.pageY);
-             if(item != null){
-                hoverShow(item.dataIndex, item.series.label, pos.pageX, pos.pageY);      
-             }
-            
+            if (item != null) {
+                hoverShow(item.dataIndex, item.series.label, pos.pageX, pos.pageY);
+            }
+
 
         };
 
@@ -439,8 +439,8 @@ firstapp
 
         $scope.onEventExampleHover1 = function (event, pos, item) {
             // console.log('Hover! ' + event.timeStamp + ' ' + pos.pageX + ' ' + pos.pageY);
-            if(item != null){
-            hoverShow1(item.dataIndex, item.series.label, pos.pageX, pos.pageY);
+            if (item != null) {
+                hoverShow1(item.dataIndex, item.series.label, pos.pageX, pos.pageY);
             }
 
         };
@@ -865,7 +865,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("ProductDetail");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-          TemplateService.mainClass = [];
+        TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
@@ -885,7 +885,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("TicketHistory");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-          TemplateService.mainClass = [];
+        TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
@@ -904,7 +904,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Support");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-          TemplateService.mainClass = [];
+        TemplateService.mainClass = [];
 
 
         if ($.jStorage.get("user")) {
@@ -1087,7 +1087,8 @@ firstapp
             $scope.changePage = function (page) {
                 var goTo = "missions";
                 $scope.currentPage = page;
-                if ($scope.search.keyword) {TemplateService.mainClass = ['page-sidebar-closed' , 'active'];
+                if ($scope.search.keyword) {
+                    TemplateService.mainClass = ['page-sidebar-closed', 'active'];
                     goTo = "missions";
                 }
                 $state.go(goTo, {
@@ -1115,7 +1116,8 @@ firstapp
                         });
                 } else {
                     $scope.totalItems = undefined;
-                    if (keywordChange) {}TemplateService.mainClass = ['page-sidebar-closed' , 'active'];
+                    if (keywordChange) {}
+                    TemplateService.mainClass = ['page-sidebar-closed', 'active'];
                     NavigationService.searchCall("Mission/getMission", {
                             page: $scope.currentPage,
                             keyword: $scope.search.keyword
@@ -1213,7 +1215,7 @@ firstapp
     })
 
     .controller('MissionsDetailsCtrl', function ($scope, $rootScope, TemplateService, NavigationService, $uibModal, $timeout, $state, toastr, $stateParams) {
-        TemplateService.mainClass = ['page-sidebar-closed' , 'active'];
+        TemplateService.mainClass = ['page-sidebar-closed', 'active'];
         $scope.demo6 = {
             valueA: 5000,
             valueB: 3000
@@ -1385,7 +1387,7 @@ firstapp
                 templateUrl: 'views/modal/map.html',
                 scope: $scope,
                 size: 'lg',
-                windowClass:'modalwidth'
+                windowClass: 'modalwidth'
 
             });
         };
@@ -1408,7 +1410,7 @@ firstapp
         //     slider.addEventListener('input', function (e) {
         //         // Adjust the layers opacity. layer here is arbitrary - this could
         //         // be another layer name found in your style or a custom layer
-                TemplateService.title = $scope.menutitle;//         // added on the fly using `addSource`.
+        TemplateService.title = $scope.menutitle; //         // added on the fly using `addSource`.
         //         map.setPaintProperty('chicago', 'raster-opacity', parseInt(e.target.value, 10) / 100);
 
         //         // Value indicator
@@ -1424,7 +1426,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("MailDetail");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-          TemplateService.mainClass = [];
+        TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
@@ -1436,7 +1438,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("MailCompose");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-          TemplateService.mainClass = [];
+        TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
@@ -1470,7 +1472,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("IssueTracker");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-          TemplateService.mainClass = [];
+        TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
@@ -1482,7 +1484,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("InvoiceView");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-          TemplateService.mainClass = [];
+        TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
@@ -1495,7 +1497,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Invoice");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-          TemplateService.mainClass = [];
+        TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
             var userId = $.jStorage.get("user")._id;
@@ -1588,7 +1590,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("ForgotPassword");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-          TemplateService.mainClass = [];
+        TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
@@ -1601,7 +1603,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("CreateMission");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-          TemplateService.mainClass = [];
+        TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
             var userId = $.jStorage.get("user")._id;
@@ -1624,7 +1626,7 @@ firstapp
 
     .controller('CadfileDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams, $uibModal) {
         //Used to name the .html file
-  TemplateService.mainClass = [];
+        TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
             $scope.profileDetails = $.jStorage.get("user");
@@ -2131,7 +2133,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("CadFileRequest");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-          TemplateService.mainClass = [];
+        TemplateService.mainClass = [];
 
 
         if ($.jStorage.get("user")) {
@@ -2383,7 +2385,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("AccandSub");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-          TemplateService.mainClass = [];
+        TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
@@ -2461,7 +2463,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("ProductsPlans");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-          TemplateService.mainClass = [];
+        TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
@@ -2554,7 +2556,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Users");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-          TemplateService.mainClass = [];
+        TemplateService.mainClass = [];
         $scope.template = TemplateService.changecontent("users");
         $scope.menutitle = NavigationService.makeactive("Users");
         TemplateService.title = $scope.menutitle;
@@ -2637,7 +2639,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Ecommerce");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-          TemplateService.mainClass = [];
+        TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
@@ -2721,7 +2723,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("EditProduct");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-          TemplateService.mainClass = [];
+        TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
@@ -2750,7 +2752,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Reports");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-          TemplateService.mainClass = [];
+        TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
@@ -2774,18 +2776,17 @@ firstapp
             getByDate.fromDate = moment(data.fromDate).format();
             getByDate.toDate = moment(data.toDate).format();
             if (data.type == 'Cad') {
-                console.log("getByDate", getByDate);
-                NavigationService.apiCallWithData("VendorBill/exceltotalCadRequest", getByDate, function (data) {});
+                NavigationService.generateExcelWithData("VendorBill/exceltotalCadRequest", getByDate, function (data) {});
             } else if (data.type == 'DroneSales') {
-                NavigationService.apiCallWithData("VendorBill/droneSales", getByDate, function (data) {});
+                NavigationService.generateExcelWithData("VendorBill/droneSales", getByDate, function (data) {});
             } else if (data.type == 'DfmSales') {
-                NavigationService.apiCallWithData("VendorBill/dfmSales", getByDate, function (data) {});
+                NavigationService.generateExcelWithData("VendorBill/dfmSales", getByDate, function (data) {});
             } else if (data.type == 'DfmSub') {
-                NavigationService.apiCallWithData("VendorBill/allDfmSub", getByDate, function (data) {});
+                NavigationService.generateExcelWithData("VendorBill/allDfmSub", getByDate, function (data) {});
             } else if (data.type == 'CadRev') {
-                NavigationService.apiCallWithData("VendorBill/cadRevenue", getByDate, function (data) {});
+                NavigationService.generateExcelWithData("VendorBill/cadRevenue", getByDate, function (data) {});
             } else if (data.type == 'VendorBill') {
-                NavigationService.apiCallWithData("VendorBill/vendorBill", getByDate, function (data) {});
+                NavigationService.generateExcelWithData("VendorBill/vendorBill", getByDate, function (data) {});
             }
         }
     })
@@ -2796,7 +2797,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Vendors");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-          TemplateService.mainClass = [];
+        TemplateService.mainClass = [];
         // $scope.accessLevel = "Admin";
         // $scope.accessLevel = "Vendor";
         if ($.jStorage.get("user")) {
@@ -2887,7 +2888,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("CreateVendor");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-          TemplateService.mainClass = [];
+        TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
@@ -2898,7 +2899,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("AddProduct");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-          TemplateService.mainClass = [];
+        TemplateService.mainClass = [];
         /**
          * summernoteText - used for Summernote plugin
          */
@@ -2925,7 +2926,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("EcomDetails");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-          TemplateService.mainClass = [];
+        TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
@@ -2940,7 +2941,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("EditVendor");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-          TemplateService.mainClass = [];
+        TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
@@ -2960,7 +2961,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("AdminProfile");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-          TemplateService.mainClass = [];
+        TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
@@ -2972,7 +2973,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("SupportDetails");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-          TemplateService.mainClass = [];
+        TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
@@ -3002,7 +3003,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("UsersDetails");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-          TemplateService.mainClass = [];
+        TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
             $scope.formdata1 = {};
@@ -3042,7 +3043,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Billing");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-          TemplateService.mainClass = [];
+        TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }

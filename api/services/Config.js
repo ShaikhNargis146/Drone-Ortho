@@ -561,7 +561,7 @@ var models = {
                             path: path,
                             finalPath: finalPath
                         })
-                        // fs.unlink(finalPath);    
+                        fs.unlink(finalPath);
                     }
                 });
             }

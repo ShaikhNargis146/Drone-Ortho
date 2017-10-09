@@ -71,16 +71,30 @@ var model = {
                 });
     },
 
+    testapi: function (data, callback) {
+        ProductOrders.find({
+            "dfmSubscription": {
+                $exists: true
+            }
+        }).deepPopulate("products user cadLineWork dfmSubscription").exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, []);
+            } else {
+                callback(null, data);
+            }
+        })
+    },
+
     //----------------report api-------------//
 
     //############## excel download##########//
 
     exceltotalCadRequest: function (data, callback) {
         CadLineWork.find({
-            // createdAt: {
-            //     $gte: data.fromDate,
-            //     $lte: data.toDate
-            // }
+            createdAt: {
+                $gte: data.fromDate,
+                $lte: data.toDate
+            }
         }).exec(function (err, data) {
             if (err || _.isEmpty(data)) {
                 callback(err, [])
@@ -114,8 +128,7 @@ var model = {
                 $lte: data.toDate
             },
             "cadLineWork": {
-                $exists: true,
-                $ne: []
+                $exists: true
             },
             status: 'Paid'
         }).exec(function (err, data) {
@@ -154,7 +167,7 @@ var model = {
                 $exists: true,
                 $ne: []
             }
-        }).exec(function (err, data) {
+        }).deepPopulate("products user cadLineWork dfmSubscription").exec(function (err, data) {
             if (err || _.isEmpty(data)) {
                 callback(err, []);
             } else {
@@ -166,12 +179,13 @@ var model = {
     generateExcelDroneSales: function (match, callback) {
         async.concatSeries(match, function (mainData, callback) {
                 var obj = {};
-                obj["CAD ID"] = mainData.cadId;
+                obj["INVOICE NUMBER"] = mainData.invoiceNo;
                 obj["STATUS"] = mainData.status;
-                obj["NAME"] = mainData.name;
-                obj["CONTOURS"] = mainData.contours;
-                obj["ACREAGE"] = mainData.acreage;
-                obj["AMOUNT"] = mainData.amount;
+                obj["USER NAME"] = mainData.user.name;
+                obj["TAX AMOUNT"] = mainData.taxAmount;
+                obj["SHIPPING AMOUNT"] = mainData.shippingAmount;
+                obj["DISCOUNT AMOUNT"] = mainData.discountAmount;
+                obj["TOTAL AMOUNT"] = mainData.totalAmount;
                 callback(null, obj);
             },
             function (err, singleData) {
@@ -187,10 +201,9 @@ var model = {
                 $lte: data.toDate
             },
             "dfmSubscription": {
-                $exists: true,
-                $ne: []
+                $exists: true
             }
-        }).exec(function (err, data) {
+        }).deepPopulate("products user cadLineWork dfmSubscription").exec(function (err, data) {
             if (err || _.isEmpty(data)) {
                 callback(err, []);
             } else {
@@ -202,12 +215,14 @@ var model = {
     generateExcelDfmSales: function (match, callback) {
         async.concatSeries(match, function (mainData, callback) {
                 var obj = {};
-                obj["CAD ID"] = mainData.cadId;
+                obj["INVOICE NUMBER"] = mainData.invoiceNo;
                 obj["STATUS"] = mainData.status;
-                obj["NAME"] = mainData.name;
-                obj["CONTOURS"] = mainData.contours;
-                obj["ACREAGE"] = mainData.acreage;
-                obj["AMOUNT"] = mainData.amount;
+                obj["USER NAME"] = mainData.user.name;
+                obj["DFM NAME"] = mainData.dfmSubscription.name;
+                obj["TAX AMOUNT"] = mainData.taxAmount;
+                obj["SHIPPING AMOUNT"] = mainData.shippingAmount;
+                obj["DISCOUNT AMOUNT"] = mainData.discountAmount;
+                obj["TOTAL AMOUNT"] = mainData.totalAmount;
                 callback(null, obj);
             },
             function (err, singleData) {
@@ -222,7 +237,7 @@ var model = {
                 $gte: data.fromDate,
                 $lte: data.toDate
             }
-        }).exec(function (err, data) {
+        }).deepPopulate("user discountCoupon").exec(function (err, data) {
             if (err || _.isEmpty(data)) {
                 callback(err, [])
             } else {
@@ -234,11 +249,13 @@ var model = {
     generateExcelDfm: function (match, callback) {
         async.concatSeries(match, function (mainData, callback) {
                 var obj = {};
-                obj["CAD ID"] = mainData.cadId;
+                obj["USER NAME"] = mainData.user.name;
+                obj["EXPIRY DATE"] = mainData.expiryDate;
+                obj["DISCOUNT AMOUNT"] = mainData.DiscountAmount;
+                obj["MOSAIC"] = mainData.Mosaic;
+                obj["UPLOAD SIZE"] = mainData.UploadSize;
+                obj["MISSIONS"] = mainData.missions;
                 obj["STATUS"] = mainData.status;
-                obj["NAME"] = mainData.name;
-                obj["CONTOURS"] = mainData.contours;
-                obj["ACREAGE"] = mainData.acreage;
                 obj["AMOUNT"] = mainData.amount;
                 callback(null, obj);
             },
@@ -254,7 +271,7 @@ var model = {
                 $gte: data.fromDate,
                 $lte: data.toDate
             }
-        }, function (err, data) {
+        }).deepPopulate("cad").exec(function (err, data) {
             if (err || _.isEmpty(data)) {
                 callback(err, [])
             } else {
@@ -266,18 +283,14 @@ var model = {
     generateExcelVendorBill: function (match, callback) {
         async.concatSeries(match, function (mainData, callback) {
                 var obj = {};
-                obj["CAD ID"] = mainData.cadId;
-                obj["STATUS"] = mainData.status;
-                obj["NAME"] = mainData.name;
-                obj["CONTOURS"] = mainData.contours;
-                obj["ACREAGE"] = mainData.acreage;
-                obj["AMOUNT"] = mainData.amount;
+                obj["PAYMENT MODE"] = mainData.paymentMode;
+                obj["PAID AMOUNT"] = mainData.paidAmount;
+                obj["ADDITIONAL INFO"] = mainData.additionalInfo;
                 callback(null, obj);
             },
             function (err, singleData) {
                 callback(null, singleData);
             });
-
     },
 
     //############## excel download End##########//

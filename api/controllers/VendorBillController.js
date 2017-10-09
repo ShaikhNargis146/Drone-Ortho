@@ -14,6 +14,19 @@ var controller = {
         }
     },
 
+    testapi: function (req, res) {
+        if (req.body) {
+            VendorBill.testapi(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            });
+        }
+    },
+
     //-----report api----//
 
     exceltotalCadRequest: function (req, res) {
