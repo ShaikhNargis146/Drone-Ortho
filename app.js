@@ -29,6 +29,9 @@ mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/' + database, {
     useMongoClient: true
 }, function (err) {
+    global["Grid"] = require('gridfs-stream');
+    global["gfs"] = Grid(mongoose.connection.db, mongoose);
+    gfs.mongo = mongoose.mongo;
     if (err) {
         console.log(err);
     }

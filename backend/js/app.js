@@ -37,7 +37,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             controller: 'DashboardCtrl',
         })
 
-    .state('ticket-history', {
+        .state('ticket-history', {
             url: "/ticket-history/:ticketId",
             templateUrl: "views/template.html",
             controller: 'TicketHistoryCtrl',
@@ -53,7 +53,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             controller: 'ProductDetailCtrl',
         })
 
-    .state('missions', {
+        .state('missions', {
             url: "/missions",
             templateUrl: "views/template.html",
             controller: 'MissionsCtrl',
@@ -155,8 +155,8 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             controller: 'ReportsCtrl',
         })
 
-    // ,************ common for vendor and admin **********
-    .state('vendors', {
+        // ,************ common for vendor and admin **********
+        .state('vendors', {
             url: "/vendors",
             templateUrl: "views/template.html",
             controller: 'VendorsCtrl',
@@ -178,13 +178,13 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             controller: 'EcomDetailsCtrl',
         })
 
-    .state('edit-vendor', {
-        url: "/edit-vendor/:vendorId",
-        templateUrl: "views/template.html",
-        controller: 'EditVendorCtrl',
-    })
+        .state('edit-vendor', {
+            url: "/edit-vendor/:vendorId",
+            templateUrl: "views/template.html",
+            controller: 'EditVendorCtrl',
+        })
 
-    .state('admin-profile', {
+        .state('admin-profile', {
             url: "/admin-profile",
             templateUrl: "views/template.html",
             controller: 'AdminProfileCtrl',
@@ -420,7 +420,7 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
             callback: "&ngCallback"
         },
         link: function ($scope, element, attrs) {
-           
+
             $scope.showImage = function () {};
             $scope.check = true;
             if (!$scope.type) {
@@ -458,7 +458,7 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                             // Perform operation on file here.
                             console.log('Processing file ' + image);
                             if (image && image.file) {
-                                  $scope.fileprogressbar = 0;
+                                $scope.fileprogressbar = 0;
                                 $scope.uploadStatus = "uploading";
 
                                 var Template = this;
@@ -469,14 +469,14 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                                     headers: {
                                         'Content-Type': undefined
                                     },
-                                     transformRequest: angular.identity,
+                                    transformRequest: angular.identity,
                                     uploadEventHandlers: {
                                         progress: function (e) {
                                             console.log(e.loaded * 100 / e.total);
                                             $scope.fileprogressbar = parseInt((e.loaded / e.total) * 100); // percentage of progress
                                         }
                                     }
-                                   
+
                                 }).then(function (data) {
                                     data = data.data;
                                     $scope.uploadStatus = "uploaded";
@@ -577,7 +577,7 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
             }
 
             $scope.uploadNow = function (image) {
- $scope.fileprogressbar = 0;
+                $scope.fileprogressbar = 0;
                 $scope.uploadStatus = "uploading";
                 var Template = this;
                 image.hide = true;
@@ -588,12 +588,12 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                         'Content-Type': undefined,
                     },
                     transformRequest: angular.identity,
-                     uploadEventHandlers: {
-                                        progress: function (e) {
-                                            console.log(e.loaded * 100 / e.total);
-                                            $scope.fileprogressbar = parseInt((e.loaded / e.total) * 100); // percentage of progress
-                                        }
-                                    }
+                    uploadEventHandlers: {
+                        progress: function (e) {
+                            console.log(e.loaded * 100 / e.total);
+                            $scope.fileprogressbar = parseInt((e.loaded / e.total) * 100); // percentage of progress
+                        }
+                    }
                 }).then(function (data) {
                     data = data.data;
                     $(".loading-img").css("display", "none");
@@ -1303,7 +1303,7 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
             attribution.addTo(map);
             // See full documentation for the ImageOverlay type:
             // http://leafletjs.com/reference.html#imageoverlay
-            console.log("gccygeruygreufheurhfuerhuerhfurhrieowuepoupwoidpiwodwoeudiewudieuifueiuferfureruhsss", $scope.slider.value);
+            // console.log("gccygeruygreufheurhfuerhuerhfurhrieowuepoupwoidpiwodwoeudiewudieuifueiuferfureruhsss", $scope.slider.value);
             // var overlay = L.imageOverlay(imageUrl, imageBounds)
             //     .addTo(map);
             // overlay.setOpacity($scope.slider.value);
@@ -1563,7 +1563,7 @@ firstapp.directive('commonView', function () {
             console.log($scope.model);
             $scope.dataSize = function (data) {
                 $scope.selectedSize = data
-                    // alert("hello");
+                // alert("hello");
                 console.log("print size", $scope.selectedSize);
             };
 

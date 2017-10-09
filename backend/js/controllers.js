@@ -2090,7 +2090,7 @@ firstapp
         // download ortho
 
         $scope.downloadOrtho = function (data) {
-            window.open(adminurl + 'upload/readFileFromFolder?name=' + data, '_self');
+            window.open('http://35.201.210.67/api/getOrtho/' + data, '_self');
         }
 
 

@@ -72,8 +72,6 @@ global["validators"] = require('mongoose-validators');
 global["monguurl"] = require('monguurl');
 require('mongoose-middleware').initialize(mongoose);
 global["Schema"] = mongoose.Schema;
-global["Grid"] = require('gridfs-stream');
-// global["gfs"] = Grid(mongoose.connection, mongoose);
 
 global["http"] = require('http');
 //Image Library

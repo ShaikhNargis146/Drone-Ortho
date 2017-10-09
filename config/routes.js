@@ -109,6 +109,12 @@ module.exports.routes = {
         action: "getProcessingLog"
     },
 
+    'GET /api/getOrtho/:filename': {
+        controller: "WebController",
+        action: "getOrtho"
+    },
+
+
     /***************************************************************************
      *                                                                          *
      * Custom routes here...                                                    *
