@@ -1,5 +1,7 @@
-<div ng-controller="AccessController"></div>
-<div ng-include="template.header" class="template header" ng-controller="headerctrl"></div>
-<div ng-include="template.menu" class="template menu"></div>
-<div ng-include="template.content" class="template main-content"></div>
-<div ng-include="template.footer" class="template footer"></div>
+<div class="body {{template.mainClass[0]}}">
+    <div ng-controller="AccessController"></div>
+    <div ng-include="template.header" class="template header" ng-controller="headerctrl"></div>
+    <div ng-include="template.menu" class="template menu"></div>
+    <div ng-include="template.content" class="template main-content"></div>
+    <div ng-include="template.footer" class="template footer"></div>
+</div>

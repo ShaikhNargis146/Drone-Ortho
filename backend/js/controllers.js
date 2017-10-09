@@ -193,9 +193,10 @@ firstapp
 
         $scope.onEventExampleHover = function (event, pos, item) {
             // console.log('Hover! ' + event.timeStamp + ' ' + pos.pageX + ' ' + pos.pageY);
-            // if(item.dataIndex=!null){
-            hoverShow(item.dataIndex, item.series.label, pos.pageX, pos.pageY);
-            // }
+             if(item != null){
+                hoverShow(item.dataIndex, item.series.label, pos.pageX, pos.pageY);      
+             }
+            
 
         };
 
@@ -436,9 +437,9 @@ firstapp
 
         $scope.onEventExampleHover1 = function (event, pos, item) {
             // console.log('Hover! ' + event.timeStamp + ' ' + pos.pageX + ' ' + pos.pageY);
-            // if(item.dataIndex=!null){
+            if(item != null){
             hoverShow1(item.dataIndex, item.series.label, pos.pageX, pos.pageY);
-            // }
+            }
 
         };
 
@@ -884,7 +885,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("Missions");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-
+        TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
@@ -910,7 +911,7 @@ firstapp
             $scope.changePage = function (page) {
                 var goTo = "missions";
                 $scope.currentPage = page;
-                if ($scope.search.keyword) {
+                if ($scope.search.keyword) {TemplateService.mainClass = ['page-sidebar-closed' , 'active'];
                     goTo = "missions";
                 }
                 $state.go(goTo, {
@@ -938,7 +939,7 @@ firstapp
                         });
                 } else {
                     $scope.totalItems = undefined;
-                    if (keywordChange) {}
+                    if (keywordChange) {}TemplateService.mainClass = ['page-sidebar-closed' , 'active'];
                     NavigationService.searchCall("Mission/getMission", {
                             page: $scope.currentPage,
                             keyword: $scope.search.keyword
@@ -1036,7 +1037,7 @@ firstapp
     })
 
     .controller('MissionsDetailsCtrl', function ($scope, $rootScope, TemplateService, NavigationService, $uibModal, $timeout, $state, toastr, $stateParams) {
-
+        TemplateService.mainClass = ['page-sidebar-closed' , 'active'];
         $scope.demo6 = {
             valueA: 5000,
             valueB: 3000
@@ -1208,6 +1209,8 @@ firstapp
                 templateUrl: 'views/modal/map.html',
                 scope: $scope,
                 size: 'lg',
+                windowClass:'modalwidth'
+
             });
         };
 
@@ -1229,7 +1232,7 @@ firstapp
         //     slider.addEventListener('input', function (e) {
         //         // Adjust the layers opacity. layer here is arbitrary - this could
         //         // be another layer name found in your style or a custom layer
-        //         // added on the fly using `addSource`.
+                TemplateService.title = $scope.menutitle;//         // added on the fly using `addSource`.
         //         map.setPaintProperty('chicago', 'raster-opacity', parseInt(e.target.value, 10) / 100);
 
         //         // Value indicator

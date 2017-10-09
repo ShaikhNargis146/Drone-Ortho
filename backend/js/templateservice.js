@@ -5,7 +5,8 @@ templateservicemod.service('TemplateService', function () {
   this.metadesc = "Home";
   this.pageMax = 10;
   this.adminurl = adminurl;
-  this.accessTokenUrl = adminurl;
+  this.accessTokenUrl = adminurl; 
+  this.mainClass = "";
   var d = new Date();
   this.year = d.getFullYear();
   this.profile = $.jStorage.get("profile");

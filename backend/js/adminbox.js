@@ -21,7 +21,7 @@
     // left  sidebar close function
     $(document).on("click", ".library-menu", function(e) {
         $(this).toggleClass("active");
-        $('body').toggleClass('page-sidebar-closed');
+        $('.body').toggleClass('page-sidebar-closed');
         e.preventDefault();
     });
 
