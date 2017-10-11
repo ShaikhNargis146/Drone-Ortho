@@ -199,7 +199,6 @@ var model = {
     //for user
 
     getProductData: function (data, callback) {
-        console.log("inside get getProductData api", data)
         if (data.count) {
             var maxCount = data.count;
         } else {
@@ -234,7 +233,6 @@ var model = {
             .page(options,
                 function (err, found) {
                     if (err) {
-                        console.log(err);
                         callback(err, null);
                     } else if (found) {
                         callback(null, found);

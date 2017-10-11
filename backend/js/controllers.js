@@ -1939,6 +1939,18 @@ firstapp
             }
         ];
 
+        $scope.downloadOrthoForAdmin = function (data) {
+            if (data.length == 1 && !_.isEmpty(data)) {
+
+            } else if (!_.isEmpty(data)) {
+                window.open(adminurl + 'CadLineWork/generateZipForAdmin?id=' + data, '_self');
+                window.close();
+            }
+            // window.open(adminurl + 'downloadWithName/' + data, '_self');
+            // window.open(adminurl + 'upload/readFileFromFolder?name=' + data[0], '_self');
+
+        }
+
         $scope.calculateAmount = function (data) {
             if (data.contoursDensity || data.density) {
                 var priceList;
@@ -2083,9 +2095,6 @@ firstapp
             });
         }
 
-        // $scope.downloadOrtho = function (data) {
-        //     window.open('http://35.201.210.67/api/getOrtho/' + data + ".tif", '_self');
-        // }
 
         // download ortho
 
@@ -2711,8 +2720,8 @@ firstapp
 
         //pagination end ecommerce
 
-        $scope.downloadInvoice = function (data) {
-            window.open(adminurl + 'upload/readFileFromFolder?name=' + data, '_self');
+        $scope.downloadInvoiceEcommerce = function (data) {
+            window.open(adminurl + 'downloadWithName/' + data, '_self');
         }
 
     })

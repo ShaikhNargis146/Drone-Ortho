@@ -8,6 +8,7 @@ var path = require('path');
 var decode = require("decode-tiff");
 var PNG = require('pngjs');
 var sharp = require('sharp');
+var JSZip = require("jszip");
 var controller = {
     getCadByUSer: function (req, res) {
         if (req.body) {
@@ -194,7 +195,58 @@ var controller = {
                     console.log("waterfall completed successfully", data);
                 }
             });
-    }
+    },
+
+
+    //************zip for adminCaDfileDownload***********//
+
+    generateZipForAdmin: function (req, res) {
+        var JSZip = require("jszip");
+        var type = req.query;
+        var zip = new JSZip();
+        var folder = "./.tmp/";
+        var path = moment().format("MMM-DD-YYYY-hh-mm-ss-a") + ".zip";
+        var finalPath = folder + path;
+        var files = req.query.id.split(',');
+        async.eachSeries(files, function (image, callback) {
+            request(global["env"].realHost + '/api/upload/readFile?file=' + image).pipe(fs.createWriteStream(image)).on('finish', function (images) {
+                // JSZip generates a readable stream with a "end" event,
+                // but is piped here in a writable stream which emits a "finish" event.
+                fs.readFile(image, function (err, imagesData) {
+                    if (err) {
+                        res.callback(err, null);
+                    } else {
+                        //Remove image
+                        fs.unlink(image);
+                        // zip.file("file", content); ... and other manipulations
+                        zip.file(image, imagesData);
+                        callback();
+                    }
+                });
+            });
+        }, function () {
+            //Generate Zip file
+            zip.generateNodeStream({
+                    type: 'nodebuffer',
+                    streamFiles: true
+                })
+                .pipe(fs.createWriteStream(finalPath))
+                .on('finish', function (zipData) {
+                    // JSZip generates a readable stream with a "end" event,
+                    // but is piped here in a writable stream which emits a "finish" event.
+                    fs.readFile(finalPath, function (err, zip) {
+                        if (err) {
+                            res.callback(err, null);
+                        } else {
+                            res.set('Content-Type', "application/octet-stream");
+                            res.set('Content-Disposition', "attachment;filename=" + path);
+                            res.send(zip);
+                            fs.unlink(finalPath);
+                        }
+                    });
+                });
+        });
+    },
 
 };
 module.exports = _.assign(module.exports, controller);

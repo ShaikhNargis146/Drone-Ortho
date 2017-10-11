@@ -86,8 +86,7 @@
 				<div class="col-lg-12">
 					<h2> Cad Details</h2>
 					<ol class="breadcrumb">
-						<li> <a href="#/dashboard1">Home</a> </li>
-						<li> <a> Cad Details </a> </li>
+						<li> <a ui-sref="dashboard">Home</a> </li>
 						<li class="active"> <strong>Cad Details</strong> </li>
 					</ol>
 				</div>
@@ -166,8 +165,9 @@
 									</tr>
 
 								</table>
-								<!--ng-href="../importFormat/{{form.model}}.xlsx"  download-->
-								<a class="btn green btn-outline" ng-click="downloadOrtho(cadLineDetails.cadFileFromVendor)">Download CAD File</a>
+								<!--ng-href="http://localhost:1337/api/downloadWithName/59dc5e20e4076d12c0f51630.jpg?name=Abc.jpg"
+								    download-->
+								<a class="btn green btn-outline" ng-click="downloadOrthoForAdmin(cadLineDetails.cadFileFromVendor)">Download CAD File</a>
 								<button type="button" class="btn green btn-outline " ng-click="uploadOpen();">
 									Upload Final CAD File</button>
 

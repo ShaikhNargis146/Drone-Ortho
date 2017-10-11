@@ -114,6 +114,12 @@ module.exports.routes = {
         action: "getOrtho"
     },
 
+    "GET /api/downloadWithName/:filename": {
+        controller: "WebController",
+        action: "downloadWithName"
+    },
+
+
 
     /***************************************************************************
      *                                                                          *
