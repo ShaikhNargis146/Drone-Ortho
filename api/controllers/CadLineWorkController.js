@@ -177,10 +177,10 @@ var controller = {
                     console.log("fileName[0]----", cadData.orthoFile.file);
                     var firstName = cadData.orthoFile.file.split(".");
                     var extension = cadData.orthoFile.file.split(".").pop();
-                    console.log("fileName[0] ", './tmp/public/' + firstName[0] + '.png', path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile.file)
+                    console.log("fileName[0] ", 'C:/Users/unifli/Documents/googleTile-Mosaic/' + firstName[0] + '.jpg', path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile.file)
                     sharp(path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile.file)
-                        .png()
-                        .toFile('./.tmp/public/' + firstName[0] + '.png', function (err, info) {
+                        .jpeg()
+                        .toFile('C:/Users/unifli/Documents/googleTile-Mosaic/' + firstName[0] + '.jpg', function (err, info) {
                             console.log("done");
                             callback(null, "done");
                         });
