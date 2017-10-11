@@ -1262,15 +1262,14 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
             var imageUrl;
             if ($scope.missionDetails && $scope.missionDetails.missionId) {
                 // console.log("$scope.missionDetails.name", $scope.missionDetails.name);
-                // imageUrl = 'http://35.201.210.67:80/' + $scope.missionDetails.missionId + '.png';
-                imageUrl = 'http://localhost:1337/' + $scope.missionDetails.name + '.webp';
-            } else if ($scope.cadLineDetails && $scope.cadLineDetails.orthoFile) {
-                imageUrl = 'http://35.201.210.67:80/' + $scope.cadLineDetails.orthoFile.file.split(".")[0] + '.png';
-                // imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.orthoFile[0].file.split(".")[0] + '.png';
+                imageUrl = 'http://35.194.248.13:81/' + $scope.missionDetails.missionId + 'google_tiles/{z}/{x}/{myY}.png';
+                // imageUrl = 'http://35.194.248.13:80/' + $scope.missionDetails.name + '.webp';
+            } else if ($scope.cadLineDetails && $scope.cadLineDetails.orthoFile.file) {
+                // imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.orthoFile.file.split(".")[0] + '.jpg';
+                imageUrl = 'http://35.194.248.13:81/' + $scope.cadLineDetails.orthoFile.file.split(".")[0] + '.jpg';
             } else if ($scope.cadLineDetails && $scope.cadLineDetails.mission) {
-                imageUrl = 'http://35.201.210.67:80/' + $scope.cadLineDetails.mission.missionId + '.png';
-                // imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.mission.name + '.png';
-
+                imageUrl = 'http://35.194.248.13:81/' + $scope.cadLineDetails.mission.missionId + 'google_tiles/{z}/{x}/{myY}.png';
+                // imageUrl = 'http://35.194.248.13:80/google_tiles/{z}/{x}/{myY}.png';
             }
 
             // This is the trickiest part - you'll need accurate coordinates for the
@@ -1304,25 +1303,29 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
             // See full documentation for the ImageOverlay type:
             // http://leafletjs.com/reference.html#imageoverlay
             // console.log("gccygeruygreufheurhfuerhuerhfurhrieowuepoupwoidpiwodwoeudiewudieuifueiuferfureruhsss", $scope.slider.value);
-            // var overlay = L.imageOverlay(imageUrl, imageBounds)
-            //     .addTo(map);
+            if ($scope.cadLineDetails && !_.isEmpty($scope.cadLineDetails.geoLocation)) {
+                var overlay = L.imageOverlay(imageUrl, imageBounds)
+                    .addTo(map);
+            }
             // overlay.setOpacity($scope.slider.value);
             // omnivore.kml('http://localhost:1337/newM_mosaic.kml').addTo(map);
-            var TopoLayer = L.tileLayer('http://localhost:1337/google_tiles/{z}/{x}/{myY}.png', {
-                maxZoom: 22,
-                minZoom: 16,
-                myY: function (data) {
-                    return (Math.pow(2, data.z) - data.y - 1);
-                }
-            })
-            map.addLayer(TopoLayer);
-            $rootScope.$on('greeting', function (event, arg) {
-                overlay.setOpacity(arg.value);
-            })
+            if ($scope.missionDetails && $scope.missionDetails.missionId || $scope.cadLineDetails.mission) {
+                var TopoLayer = L.tileLayer(imageUrl, {
+                    maxZoom: 22,
+                    minZoom: 16,
+                    myY: function (data) {
+                        return (Math.pow(2, data.z) - data.y - 1);
+                    }
+                })
+                map.addLayer(TopoLayer);
+            }
+            // $rootScope.$on('greeting', function (event, arg) {
+            //     overlay.setOpacity(arg.value);
+            // })
             var polygon;
             if ($scope.cadLineDetails && !_.isEmpty($scope.cadLineDetails.points)) {
                 polygon = L.polygon(latlngs, {
-                    color: 'red'
+                    color: 'white'
                 }).addTo(map);
                 map.fitBounds(polygon.getBounds());
             }
@@ -1334,7 +1337,20 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
                     featureGroup: featureGroup
                 },
                 draw: {
-                    polygon: true,
+                    polygon: {
+                        showArea: true,
+                        allowIntersection: true,
+                        shapeOptions: {
+                            stroke: true,
+                            metric: false,
+                            color: '#fff',
+                            weight: 4,
+                            opacity: 1,
+                            fill: true,
+                            fillColor: null, //same as color by default
+                            fillOpacity: 0.3
+                        }
+                    },
                     polyline: false,
                     rectangle: false,
                     circle: false,
@@ -1352,6 +1368,7 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
                     });
                 });
             }
+            var acres;
 
             function showPolygonArea(e) {
                 featureGroup.clearLayers();
@@ -1374,16 +1391,19 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
                     pointsList
                 ]);
 
-                var area = turf.area(polygon);
-
+                area = turf.area(polygon);
                 console.log("area--", area);
                 acres = area * 0.000247105381;
-                console.log("acres--", acres);
+                console.log("acres--", Number(acres).toFixed(2));
                 if ($scope.cadLineDetails) {
-                    $scope.cadLineDetails.acreage = acres;
+                    $scope.cadLineDetails.acreage = Number(acres).toFixed(2);
                     $scope.cadLineDetails.points = e.layer._latlngs;
+                    // $("#myModal").modal();
+                    $('#myModal').on('show.bs.modal', function () {
+                        console.log("inside modal")
+                        $("#acreage").val(Number(acres).toFixed(2));
+                    }).modal('show');
                 }
-                $("#myModal").modal();
                 // var mapmodal = $uibModal.open({
                 //     animation: $scope.animationsEnabled,
                 //     templateUrl: '/backend/views/modal/cadline-name.html',
@@ -1425,29 +1445,19 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
             //     e.layer.openPopup();
             //     alert("hello")
             // }
-            var calcButton;
-            if ($scope.missionDetails && $scope.missionDetails.missionId) {
-                calcButton = document.getElementById('missionName');
-            } else if ($scope.cadLineDetails) {
-                calcButton = document.getElementById('contours');
-            }
-            calcButton.onclick = function () {
-                var data = drawControl.getAll();
-
-                var polyCoord = turf.coordAll(data);
-
-                if (data.features.length > 0) {
-                    var area = turf.area(data);
-                    // restrict to area to 2 decimal points
-                    var rounded_area = Math.round(area * 100) / 100;
-                    $scope.cadLineDetails.acreage = rounded_area
-                    var answer = document.getElementById('calculated-area');
-                    answer.innerHTML = '<p><strong>' + rounded_area + '</strong></p><p>square meters</p>' + 'All co-ordinates' + polyCoord.length;
-                    console.log("polyCoord", polyCoord);
-                } else {
-                    alert("Use the draw tools to draw a polygon!");
-                }
-            };
+            // var calcButton;
+            // if ($scope.missionDetails && $scope.missionDetails.missionId) {
+            //     calcButton = document.getElementById('missionName');
+            // } else if ($scope.cadLineDetails) {
+            //     calcButton = document.getElementById('contours');
+            // }
+            // calcButton.onclick = function () {
+            //     if (acres > 0) {
+            //         $scope.cadLineDetails.acreage = acres
+            //     } else {
+            //         alert("Use the draw tools to draw a polygon!");
+            //     }
+            // };
 
             map.on('load', function () {
                 // ALL YOUR APPLICATION CODE

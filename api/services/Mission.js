@@ -157,8 +157,37 @@ var model = {
                     callback(null, data1);
                 })
             },
-            function (missionID, callback) { //create mission
-                data.missionId = missionID;
+            function (missionID, callback) { // generate mission id
+                User.findOne({
+                    _id: data.user
+                }).exec(function (err, found) {
+                    if (err || _.isEmpty(found)) {
+                        callback(err, null);
+                    } else {
+                        var foundObj = found.toObject();
+                        var missionIdWithSub = {}
+                        missionIdWithSub.missionId = missionID
+                        if (!_.isEmpty(foundObj.currentSubscription)) {
+                            DFMSubscription.findOne({
+                                _id: foundObj.currentSubscription
+                            }).exec(function (err, subFound) {
+                                if (err || _.isEmpty(subFound)) {
+                                    callback(err, null);
+                                } else {
+                                    missionIdWithSub.plan = subFound.name
+                                    callback(null, missionIdWithSub);
+                                }
+                            });
+                        } else {
+                            callback(null, missionIdWithSub);
+                        }
+                    }
+
+                });
+            },
+            function (missionIdWithSub, callback) { //create mission
+                console.log("missionIdWithSub.missionId", missionIdWithSub);
+                data.missionId = missionIdWithSub.missionId;
                 Mission.saveData(data, function (err, created) {
                     if (err) {
                         callback(err, null);
@@ -174,7 +203,6 @@ var model = {
                             folder = path.join(dir, created._id.toString());
                             fs.mkdirSync(folder)
                         }
-                        var missionName = missionID;
                         async.waterfall([
                             function concatFiles(callback) {
                                 async.concatLimit(created.files, 20, function (image, callback) {
@@ -186,7 +214,7 @@ var model = {
                                 callback(err, null);
                             } else {
                                 callback(null, data);
-                                model.pix4dCommandExecution(folder, missionName, callback);
+                                model.pix4dCommandExecution(folder, missionIdWithSub, callback);
                             }
                         });
                     } else {
@@ -235,12 +263,23 @@ var model = {
             });
     },
 
-    pix4dCommandExecution: function (imgPath, name) {
+    pix4dCommandExecution: function (imgPath, missionIdWithSub) {
+        var name = missionIdWithSub.missionId;
+        var templatePath = 'C:/Users/unifli/Documents/';
+        if (missionIdWithSub.plan) {
+            if (_.isEqual(missionIdWithSub.plan, "TRIAL")) {
+                templatePath = templatePath + 'FREE.tmpl';
+            } else if (_.isEqual(missionIdWithSub.plan, "STANDARD")) {
+                templatePath = templatePath + 'STANDARD.tmpl';
+            } else if (_.isEqual(missionIdWithSub.plan, "PREMIUM")) {
+                templatePath = templatePath + 'PRO.tmpl';
+            }
+
+        }
         var pix4dPath = 'C:/Users/unifli/Documents/pix4d/' + name + '.p4d';
         // var pix4dPath = 'C:/Users/dell/Documents/pix4d/' + name + '.p4d'; ////for local 
         console.log("inside pix4dCommandExecution", name, imgPath, pix4dPath);
-
-        exec('cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -n --image-dir ' + imgPath + ' ' + pix4dPath, {
+        exec('cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -n --image-dir ' + imgPath + ' --template ' + templatePath + ' ' + pix4dPath, {
             maxBuffer: 1024 * 5000
         }, function (error, stdout, stderr) {
             if (error) {

@@ -1,5 +1,6 @@
 module.exports = _.cloneDeep(require("sails-wohlig-controller"));
 var fs = require('fs');
+var fse = require('fs-extra')
 var geotiff = require('geotiff');
 var epsg = require('epsg-to-proj');
 var extents = require('geotiff-extents');
@@ -195,7 +196,7 @@ cron.schedule('1 * * * *', function () {
             async.eachSeries(found, function (value, callback1) {
                     console.log("value", value.missionId);
                     dirName1 = 'C:/Users/unifli/Documents/pix4d/' + value.missionId + '/3_dsm_ortho/2_mosaic'
-                    // dirName1 = 'C:/Users/dell/Documents/pix4d/' + value.missionId + '/3_dsm_ortho/2_mosaic'   //for local                 
+                    // dirName1 = 'C:/Users/dell/Documents/pix4d/' + value.missionId + '/3_dsm_ortho/2_mosaic' //for local                 
                     if (fs.existsSync(dirName1)) {
                         fs.readdir(dirName1, function (err, items) {
                             if (err) {
@@ -272,15 +273,15 @@ cron.schedule('1 * * * *', function () {
                                                     }
                                                 },
                                                 function (msg, callback) {
+                                                    console.log("C:/Users/unifli/Documents/googleTile-Mosaic");
                                                     console.log("fileName[0]----", fileName[0].split('_'));
-                                                    var firstName = fileName[0].split('_');
-                                                    console.log("fileName[0] ", './tmp/public/' + firstName[0] + '.png', dirName1 + '/' + val)
-                                                    sharp(dirName1 + '/' + val)
-                                                        .png()
-                                                        .toFile('./.tmp/public/' + firstName[0] + '.png', function (err, info) {
-                                                            console.log("done");
-                                                            callback(null, "done");
-                                                        });
+                                                    var oldPath = dirName1 + '/google_tiles'
+                                                    var newPath = 'C:/Users/unifli/Documents/googleTile-Mosaic/' + value.missionId + 'google_tiles'
+
+                                                    fse.copy(oldPath, newPath, err => {
+                                                        if (err) console.error(err)
+                                                        console.log('success!')
+                                                    })
                                                 }
                                             ],
                                             function (err, data) {
