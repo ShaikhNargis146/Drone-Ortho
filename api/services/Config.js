@@ -256,19 +256,7 @@ var models = {
         }
         var imageStream = fs.createReadStream(filename);
         var writestream = fs.createWriteStream(newPath);
-        writestream.on('finish', function () {
-            console.log("Successful Write to " + newPath);
-            callback(null, {
-                name: newFilename
-            });
-            fs.unlink(filename);
-        });
-        writestream.on('error', function (err) {
-            res.json({
-                value: false,
-                error: err
-            });
-        });
+
         if (extension == "png" || extension == "jpg" || extension == "gif") {
             Jimp.read(filename, function (err, image) {
                 if (err) {
@@ -294,6 +282,19 @@ var models = {
         } else {
             imageStream.pipe(writestream);
         }
+        writestream.on('finish', function () {
+            console.log("Successful Write to " + newPath);
+            callback(null, {
+                name: newFilename
+            });
+            fs.unlink(filename);
+        });
+        writestream.on('error', function (err) {
+            res.json({
+                value: false,
+                error: err
+            });
+        });
     },
 
     readUploaded: function (filename, width, height, style, res) {
