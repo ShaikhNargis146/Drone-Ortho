@@ -263,6 +263,12 @@ var models = {
             console.log("Successful Write to " + newPath);
             fs.unlink(filename);
         });
+        writestream.on('error', function (err) {
+            res.json({
+                value: false,
+                error: err
+            });
+        });
         if (extension == "png" || extension == "jpg" || extension == "gif") {
             Jimp.read(filename, function (err, image) {
                 if (err) {
