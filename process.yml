@@ -1,5 +1,5 @@
 apps:
   - script: "app.js"
     name: "Unifli - 80"
-    watch: true
+    watch: false
     args: "--prod"

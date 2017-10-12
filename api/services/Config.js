@@ -248,12 +248,12 @@ var models = {
         var newFilename = id + "." + extension;
         var newPath;
         dir = path.join(process.cwd(), "pix4dUpload");
-        // if (!fs.existsSync(dir)) {
-        //     fs.mkdirSync(dir);
-        //     newPath = path.join(dir, newFilename);
-        // } else {
-        newPath = path.join(dir, newFilename);
-        // }
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir);
+            newPath = path.join(dir, newFilename);
+        } else {
+            newPath = path.join(dir, newFilename);
+        }
         var imageStream = fs.createReadStream(filename);
         var writestream = fs.createWriteStream(newPath);
         writestream.on('finish', function () {
