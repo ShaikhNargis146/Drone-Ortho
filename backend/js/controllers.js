@@ -1233,7 +1233,7 @@ firstapp
             if (data.value === true) {
 
                 $scope.missionDetails = data.data;
-                missionIdForDownload = $scope.missionDetails.id;
+                missionIdForDownload = $scope.missionDetails.missionId;
                 $scope.template = TemplateService.changecontent("mission-details");
                 $scope.menutitle = NavigationService.makeactive("MissionDetails");
                 TemplateService.title = $scope.menutitle;
