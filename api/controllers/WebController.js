@@ -131,6 +131,10 @@ module.exports = {
         res.set('Content-Type', "application/octet-stream");
         files = fs.readFileSync(sails.config.appPath + "/pix4dUpload/" + req.param("filename"));
         res.send(files);
-    }
+    },
 
+    downloadWithName: function (req, res) {
+        // Config.readUploaded(req.param("filename"), null, null, null, res);
+        Config.downloadWithName(req.param("filename"), req.query.name, res);
+    }
 };

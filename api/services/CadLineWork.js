@@ -365,8 +365,9 @@ var model = {
                         callback("Invalid data", null);
                     }
                 });
-    }
+    },
 
     //******************** END *********************//
+
 };
 module.exports = _.assign(module.exports, exports, model);

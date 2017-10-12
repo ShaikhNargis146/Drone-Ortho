@@ -43,6 +43,7 @@
     "install": "^0.8.1",
     "jimp": "^0.2.27",
     "json2xls": "^0.1.2",
+    "jszip": "^3.1.4",
     "lackey-mongoose-ref-validator": "0.0.3",
     "leaflet-draw": "^0.4.10",
     "lodash": "^4.14.2",
