@@ -48,6 +48,7 @@
     aria-valuemin="0" aria-valuemax="100" ng-style="{'width':fileprogressbar+'%'}">
     {{fileprogressbar}}%
   </div>
+  <div class="clearfix"> </div>
   <br ng-show="isMultiple">
   <button ng-show="isMultiple" class="btn btn-danger btn-outline btn-small create-btn" ng-click="clearOld()">CLEAR FILES</button>
   <span class="label label-success" ng-if="uploadStatus == 'uploaded'" ng-show="!isMultiple">Document Uploaded - {{image.file.name}}</span>
