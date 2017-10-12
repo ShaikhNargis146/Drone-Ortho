@@ -257,45 +257,41 @@ var models = {
         var imageStream = fs.createReadStream(filename);
         var writestream = fs.createWriteStream(newPath);
 
-        // if (extension == "png" || extension == "jpg" || extension == "gif") {
-        //     Jimp.read(filename, function (err, image) {
-        //         if (err) {
-        //             callback(err, null);
-        //         } else {
-        //             if (image.bitmap.width > MaxImageSize || image.bitmap.height > MaxImageSize) {
-        //                 image.scaleToFit(MaxImageSize, MaxImageSize).getBuffer(Jimp.AUTO, function (err, imageBuf) {
-        //                     var bufferStream = new stream.PassThrough();
-        //                     bufferStream.end(imageBuf);
-        //                     bufferStream.pipe(writestream);
-        //                 });
-        //             } else {
-        //                 image.getBuffer(Jimp.AUTO, function (err, imageBuf) {
-        //                     var bufferStream = new stream.PassThrough();
-        //                     bufferStream.end(imageBuf);
-        //                     bufferStream.pipe(writestream);
-        //                 });
-        //             }
+        if (extension == "png" || extension == "jpg" || extension == "gif") {
+            Jimp.read(filename, function (err, image) {
+                if (err) {
+                    callback(err, null);
+                } else {
+                    if (image.bitmap.width > MaxImageSize || image.bitmap.height > MaxImageSize) {
+                        image.scaleToFit(MaxImageSize, MaxImageSize).getBuffer(Jimp.AUTO, function (err, imageBuf) {
+                            var bufferStream = new stream.PassThrough();
+                            bufferStream.end(imageBuf);
+                            bufferStream.pipe(writestream);
+                        });
+                    } else {
+                        image.getBuffer(Jimp.AUTO, function (err, imageBuf) {
+                            var bufferStream = new stream.PassThrough();
+                            bufferStream.end(imageBuf);
+                            bufferStream.pipe(writestream);
+                        });
+                    }
 
-        //         }
+                }
 
-        //     });
-        // } else {
-        //     imageStream.pipe(writestream);
-        // }
-        // writestream.on('finish', function () {
-        //     console.log("Successful Write to " + newPath);
-        //     callback(null, {
-        //         name: newFilename
-        //     });
-        //     fs.unlink(filename);
-        // });
-        // writestream.on('error', function (err) {
-        //     res.json({
-        //         value: false,
-        //         error: err
-        //     });
-        // });
-        console.log('m not doing anything');
+            });
+        } else {
+            imageStream.pipe(writestream);
+        }
+        writestream.on('finish', function () {
+            console.log("Successful Write to " + newPath);
+            callback(null, {
+                name: newFilename
+            });
+            fs.unlink(filename);
+        });
+        writestream.on('error', function (err) {
+            callback(err, null);
+        });
     },
 
     readUploaded: function (filename, width, height, style, res) {
