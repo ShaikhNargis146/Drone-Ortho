@@ -1651,31 +1651,31 @@ firstapp
             // console.log("afterChange $scope.slider.value", $scope.slider);
         }
         // $scope.downloadInputImage = function (missionId) {
-        //         window.open('http://35.201.210.67/api/getInputImage/' + missionIdForDownload + ".tif", '_self');
+        //         window.open('http://cloud.unifli.aero/api/getInputImage/' + missionIdForDownload + ".tif", '_self');
         //     }, //pending
 
         $scope.downloadOrthoM = function () {
-                window.open('http://35.201.210.67/api/getOrthoM/' + missionIdForDownload + ".tif", '_self');
+                window.open('http://cloud.unifli.aero/api/getOrthoM/' + missionIdForDownload + ".tif", '_self');
             },
 
             $scope.downloadDsm = function () {
-                window.open('http://35.201.210.67/api/getDsm/' + missionIdForDownload + ".tif", '_self');
+                window.open('http://cloud.unifli.aero/api/getDsm/' + missionIdForDownload + ".tif", '_self');
             },
 
             $scope.downloadMeshFbx = function () {
-                window.open('http://35.201.210.67/api/getMeshFbx/' + missionIdForDownload + ".fbx", '_self');
+                window.open('http://cloud.unifli.aero/api/getMeshFbx/' + missionIdForDownload + ".fbx", '_self');
             },
 
             $scope.downloadPointCloud = function () {
-                window.open('http://35.201.210.67/api/getPointCloud/' + missionIdForDownload + ".las", '_self');
+                window.open('http://cloud.unifli.aero/api/getPointCloud/' + missionIdForDownload + ".las", '_self');
             },
 
             $scope.downloadQualityReports = function () {
-                window.open('http://35.201.210.67/api/getProcessingLog/' + missionIdForDownload + ".pdf", '_self');
+                window.open('http://cloud.unifli.aero/api/getProcessingLog/' + missionIdForDownload + ".pdf", '_self');
             }
 
         $scope.downloadProcessingLog = function () {
-            window.open('http://35.201.210.67/api/getProcessingLog/' + missionIdForDownload + ".txt", '_self');
+            window.open('http://cloud.unifli.aero/api/getProcessingLog/' + missionIdForDownload + ".txt", '_self');
         }
         $scope.mapOpen = function () {
             $uibModal.open({
@@ -2396,7 +2396,7 @@ firstapp
         // download ortho
 
         $scope.downloadOrtho = function (data) {
-            window.open('http://35.201.210.67/api/getOrtho/' + data, '_self');
+            window.open('http://cloud.unifli.aero/api/getOrtho/' + data, '_self');
         }
 
 
