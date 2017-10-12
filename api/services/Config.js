@@ -257,10 +257,10 @@ var models = {
         var imageStream = fs.createReadStream(filename);
         var writestream = fs.createWriteStream(newPath);
         writestream.on('finish', function () {
+            console.log("Successful Write to " + newPath);
             callback(null, {
                 name: newFilename
             });
-            console.log("Successful Write to " + newPath);
             fs.unlink(filename);
         });
         writestream.on('error', function (err) {
