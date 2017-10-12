@@ -254,17 +254,16 @@ var models = {
         } else {
             newPath = path.join(dir, newFilename);
         }
-        fs.rename(filename, newPath, function (err) {
-            if (err) {
-                console.log("error---", err);
-                callback(err, null);
-            } else {
-                console.log("folder----->>>>>", newPath);
-                callback(null, {
-                    name: newFilename
-                });
-            }
+        var imageStream = fs.createReadStream(filename);
+        var writeStream = fs.createWriteStream(newPath);
+        writeStream.on('finish', function () {
+            callback(null, {
+                name: newFilename
+            });
+            console.log("Successful Write to " + newPath);
+            fs.unlink(filename);
         });
+        imageStream.pipe(writeStream);
     },
 
     readUploaded: function (filename, width, height, style, res) {
