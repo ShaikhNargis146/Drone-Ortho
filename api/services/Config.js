@@ -248,22 +248,46 @@ var models = {
         var newFilename = id + "." + extension;
         var newPath;
         dir = path.join(process.cwd(), "pix4dUpload");
-        if (!fs.existsSync(dir)) {
-            fs.mkdirSync(dir);
-            newPath = path.join(dir, newFilename);
-        } else {
-            newPath = path.join(dir, newFilename);
-        }
+        // if (!fs.existsSync(dir)) {
+        //     fs.mkdirSync(dir);
+        //     newPath = path.join(dir, newFilename);
+        // } else {
+        newPath = path.join(dir, newFilename);
+        // }
         var imageStream = fs.createReadStream(filename);
-        var writeStream = fs.createWriteStream(newPath);
-        writeStream.on('finish', function () {
+        var writestream = fs.createWriteStream(newPath);
+        writestream.on('finish', function () {
             callback(null, {
                 name: newFilename
             });
             console.log("Successful Write to " + newPath);
             fs.unlink(filename);
         });
-        imageStream.pipe(writeStream);
+        if (extension == "png" || extension == "jpg" || extension == "gif") {
+            Jimp.read(filename, function (err, image) {
+                if (err) {
+                    callback(err, null);
+                } else {
+                    if (image.bitmap.width > MaxImageSize || image.bitmap.height > MaxImageSize) {
+                        image.scaleToFit(MaxImageSize, MaxImageSize).getBuffer(Jimp.AUTO, function (err, imageBuf) {
+                            var bufferStream = new stream.PassThrough();
+                            bufferStream.end(imageBuf);
+                            bufferStream.pipe(writestream);
+                        });
+                    } else {
+                        image.getBuffer(Jimp.AUTO, function (err, imageBuf) {
+                            var bufferStream = new stream.PassThrough();
+                            bufferStream.end(imageBuf);
+                            bufferStream.pipe(writestream);
+                        });
+                    }
+
+                }
+
+            });
+        } else {
+            imageStream.pipe(writestream);
+        }
     },
 
     readUploaded: function (filename, width, height, style, res) {
