@@ -3,11 +3,11 @@
     overflow: auto;
     height: 100px;
   }
-  
+
   .img-responsive {
     width: 200px;
   }
-  
+
   img.uploadingImage {
     max-width: 75px;
     max-height: 75px;
@@ -43,7 +43,8 @@
     <!-- <a class="btn btn-primary btn-outline btn-small create-btn" ng-if="!isMultiple">Choose File</a> -->
     <!-- <a class="btn btn-primary btn-outline btn-small create-btn" ng-if="isMultiple">Choose Files</a> -->
   </div>
-    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{fileprogressbar}}%"
+  <div class="clearfix"> </div>
+  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{fileprogressbar}}%"
     aria-valuemin="0" aria-valuemax="100" ng-style="{'width':fileprogressbar+'%'}">
     {{fileprogressbar}}%
   </div>

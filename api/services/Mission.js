@@ -273,8 +273,11 @@ var model = {
                 templatePath = templatePath + 'STANDARD.tmpl';
             } else if (_.isEqual(missionIdWithSub.plan, "PREMIUM")) {
                 templatePath = templatePath + 'PRO.tmpl';
+            } else {
+                templatePath = templatePath + 'FREE.tmpl';
             }
-
+        } else {
+            templatePath = templatePath + 'FREE.tmpl';
         }
         var pix4dPath = 'C:/Users/unifli/Documents/pix4d/' + name + '.p4d';
         // var pix4dPath = 'C:/Users/dell/Documents/pix4d/' + name + '.p4d'; ////for local 
