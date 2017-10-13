@@ -64,7 +64,7 @@ module.exports = {
     getOrthoM: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
         var name = req.param("filename").split('.')[0]
-        var filePath = "C:/Users/dell/Documents/pix4d/" + name + "/3_dsm_ortho/2_mosaic/" + name + "_transparent_mosaic_group1.tif";
+        var filePath = "C:/Users/unifli/Documents/pix4d/" + name + "/3_dsm_ortho/2_mosaic/" + name + "_transparent_mosaic_group1.tif";
         files = fs.readFileSync(filePath);
         res.send(files);
     },
@@ -76,7 +76,7 @@ module.exports = {
     getDsm: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
         var name = req.param("filename").split('.')[0]
-        var filePath = "C:/Users/dell/Documents/pix4d/" + name + "/3_dsm_ortho/1 _dsm/" + name + "_transparent_mosaic_group1.tif";
+        var filePath = "C:/Users/unifli/Documents/pix4d/" + name + "/3_dsm_ortho/1 _dsm/" + name + "_transparent_mosaic_group1.tif";
         files = fs.readFileSync(filePath);
         res.send(files);
     },
@@ -87,7 +87,7 @@ module.exports = {
     getMeshFbx: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
         var name = req.param("filename").split('.')[0]
-        var filePath = "C:/Users/dell/Documents/pix4d/" + name + "/2_densification/3d_mesh/" + name + "_simplified_3d_mesh.fbx";
+        var filePath = "C:/Users/unifli/Documents/pix4d/" + name + "/2_densification/3d_mesh/" + name + "_simplified_3d_mesh.fbx";
         files = fs.readFileSync(filePath);
         res.send(files);
     },
@@ -98,7 +98,7 @@ module.exports = {
     getPointCloud: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
         var name = req.param("filename").split('.')[0]
-        var filePath = "C:/Users/dell/Documents/pix4d/" + name + "/2_densification/point_cloud/" + name + "_group1_densified_point_cloud.las";
+        var filePath = "C:/Users/unifli/Documents/pix4d/" + name + "/2_densification/point_cloud/" + name + "_group1_densified_point_cloud.las";
         files = fs.readFileSync(filePath);
         res.send(files);
     },
@@ -109,7 +109,7 @@ module.exports = {
     getQualityReports: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
         var name = req.param("filename").split('.')[0]
-        var filePath = "C:/Users/dell/Documents/pix4d/" + name + "/1_initial/report/" + name + "_report.pdf";
+        var filePath = "C:/Users/unifli/Documents/pix4d/" + name + "/1_initial/report/" + name + "_report.pdf";
         files = fs.readFileSync(filePath);
         res.send(files);
     },
@@ -122,7 +122,7 @@ module.exports = {
     getProcessingLog: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
         var name = req.param("filename").split('.')[0]
-        var filePath = "C:/Users/dell/Documents/pix4d/" + name + "/" + name + ".txt";
+        var filePath = "C:/Users/unifli/Documents/pix4d/" + name + "/" + name + ".txt";
         files = fs.readFileSync(filePath);
         res.send(files);
     },
