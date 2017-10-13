@@ -1266,9 +1266,9 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
                 // imageUrl = 'http://35.194.248.13:80/' + $scope.missionDetails.name + '.webp';
             } else if ($scope.cadLineDetails && $scope.cadLineDetails.orthoFile.file) {
                 // imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.orthoFile.file.split(".")[0] + '.jpg';
-                imageUrl = 'http://files.unifli.aero' + $scope.cadLineDetails.orthoFile.file.split(".")[0] + '.jpg';
+                imageUrl = 'http://files.unifli.aero/' + $scope.cadLineDetails.orthoFile.file.split(".")[0] + '.jpg';
             } else if ($scope.cadLineDetails && $scope.cadLineDetails.mission) {
-                imageUrl = 'http://files.unifli.aero' + $scope.cadLineDetails.mission.missionId + 'google_tiles/{z}/{x}/{myY}.png';
+                imageUrl = 'http://files.unifli.aero/' + $scope.cadLineDetails.mission.missionId + 'google_tiles/{z}/{x}/{myY}.png';
                 // imageUrl = 'http://35.194.248.13:80/google_tiles/{z}/{x}/{myY}.png';
             }
 
