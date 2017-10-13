@@ -76,7 +76,7 @@ module.exports = {
     getDsm: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
         var name = req.param("filename").split('.')[0]
-        var filePath = "C:/Users/unifli/Documents/pix4d/" + name + "/3_dsm_ortho/1 _dsm/" + name + "_transparent_mosaic_group1.tif";
+        var filePath = "C:/Users/unifli/Documents/pix4d/" + name + "/3_dsm_ortho/1 _dsm/" + name + "_dsm.tif";
         files = fs.readFileSync(filePath);
         res.send(files);
     },
@@ -122,7 +122,7 @@ module.exports = {
     getProcessingLog: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
         var name = req.param("filename").split('.')[0]
-        var filePath = "C:/Users/unifli/Documents/pix4d/" + name + "/" + name + ".txt";
+        var filePath = "C:/Users/unifli/Documents/pix4d/" + name + "/" + name + ".log";
         files = fs.readFileSync(filePath);
         res.send(files);
     },

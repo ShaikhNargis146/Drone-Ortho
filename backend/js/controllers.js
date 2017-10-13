@@ -1671,11 +1671,11 @@ firstapp
             },
 
             $scope.downloadQualityReports = function () {
-                window.open('http://cloud.unifli.aero/api/getProcessingLog/' + missionIdForDownload + ".pdf", '_self');
+                window.open('http://cloud.unifli.aero/api/getQualityReports/' + missionIdForDownload + ".pdf", '_self');
             }
 
         $scope.downloadProcessingLog = function () {
-            window.open('http://cloud.unifli.aero/api/getProcessingLog/' + missionIdForDownload + ".txt", '_self');
+            window.open('http://cloud.unifli.aero/api/getProcessingLog/' + missionIdForDownload + ".log", '_self');
         }
         $scope.mapOpen = function () {
             $uibModal.open({
