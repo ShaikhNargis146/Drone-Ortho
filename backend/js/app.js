@@ -1303,13 +1303,13 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
             // See full documentation for the ImageOverlay type:
             // http://leafletjs.com/reference.html#imageoverlay
             // console.log("gccygeruygreufheurhfuerhuerhfurhrieowuepoupwoidpiwodwoeudiewudieuifueiuferfureruhsss", $scope.slider.value);
-            if ($scope.cadLineDetails && !_.isEmpty($scope.cadLineDetails.geoLocation)) {
+            if ($scope.cadLineDetails && !_.isEmpty($scope.cadLineDetails.geoLocation) && !$scope.cadLineDetails.mission) {
                 var overlay = L.imageOverlay(imageUrl, imageBounds)
                     .addTo(map);
             }
             // overlay.setOpacity($scope.slider.value);
             // omnivore.kml('http://localhost:1337/newM_mosaic.kml').addTo(map);
-            if ($scope.missionDetails && $scope.missionDetails.missionId || $scope.cadLineDetails.mission) {
+            if (($scope.missionDetails && $scope.missionDetails.missionId) || $scope.cadLineDetails.mission) {
                 var TopoLayer = L.tileLayer(imageUrl, {
                     maxZoom: 22,
                     minZoom: 16,
