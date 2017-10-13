@@ -57,18 +57,6 @@ module.exports.routes = {
         action: "download"
     },
 
-    'GET /backend/*': {
-        controller: "WebController",
-        action: "backend",
-        skipAssets: true
-    },
-
-    'GET /backend': {
-        controller: "WebController",
-        action: "backend",
-        skipAssets: true
-    },
-
     'GET /pdf/:filename': {
         controller: "WebController",
         action: "getPdf"

@@ -2,7 +2,14 @@ var path = require('path');
 
 module.exports = {
     index: function (req, res) {
-        res.metaView();
+        var env = require("../../config/env/" + sails.config.environment + ".js");
+        res.view("backend", {
+            jsFiles: jsFilesBackend,
+            title: "Backend",
+            description: "Backend",
+            keywords: "Backend",
+            adminurl: env.realHost + "/api/",
+        });
     },
     download: function (req, res) {
         Config.readUploaded(req.param("filename"), null, null, null, res);
