@@ -1868,7 +1868,13 @@ firstapp
         //pagination end user
 
         $scope.downloadInvoice = function (data) {
-            window.open(adminurl + 'upload/readFileFromFolder?name=' + data, '_self');
+            // window.open(adminurl + 'upload/readFileFromFolder?name=' + data, '_self');
+            console.log("data", data);
+            if (data) {
+                window.open(adminurl + '../pdf/' + data, '_self');
+            } else {
+                toastr.error("No PDF Found");
+            }
         }
 
         $scope.getInvoice = function () {
@@ -2235,16 +2241,11 @@ firstapp
             }
         ];
 
-        $scope.downloadOrthoForAdmin = function (data) {
-            if (data.length == 1 && !_.isEmpty(data)) {
-
-            } else if (!_.isEmpty(data)) {
-                window.open(adminurl + 'CadLineWork/generateZipForAdmin?id=' + data, '_self');
-                window.close();
-            }
+        $scope.downloadOrthoForAdmin = function (data) { //admin cad download uploaded by vendor
+            window.open(adminurl + 'CadLineWork/generateZipForAdmin?id=' + data, '_self');
+            window.close();
             // window.open(adminurl + 'downloadWithName/' + data, '_self');
             // window.open(adminurl + 'upload/readFileFromFolder?name=' + data[0], '_self');
-
         }
 
         $scope.calculateAmount = function (data) {
@@ -5895,6 +5896,7 @@ firstapp
         }
         $scope.logout = function (info) {
             $.jStorage.flush();
+            $state.go("login");
         }
     })
 

@@ -80,10 +80,10 @@
                         <a ui-sref="cadfile-details ({cadId:cadfile._id})">{{cadfile.status}}</a>
                       </td>
                       <td>
-                        <a ui-sref="cadfile-details ({cadId:cadfile._id})"></a>{{cadfile.createdAt| date:'yyyy-MM-dd'}}
+                        <a ui-sref="cadfile-details ({cadId:cadfile._id})">{{cadfile.createdAt| date}}</a>
                       </td>
                       <td>
-                        <a ui-sref="cadfile-details ({cadId:cadfile._id})"></a>
+                        <a ui-sref="cadfile-details ({cadId:cadfile._id})">{{cadfile.completionDate| date}}</a>
                       </td>
 
 

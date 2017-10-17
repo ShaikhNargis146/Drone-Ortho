@@ -134,7 +134,6 @@ module.exports = {
     },
 
     downloadWithName: function (req, res) {
-        // Config.readUploaded(req.param("filename"), null, null, null, res);
         Config.downloadWithName(req.param("filename"), req.query.name, res);
-    }
+    },
 };
