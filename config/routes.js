@@ -101,6 +101,11 @@ module.exports.routes = {
         action: "getProcessingLog"
     },
 
+    'GET /api/getMeshObj/:filename': {
+        controller: "WebController",
+        action: "getMeshObj"
+    },
+
     'GET /api/getOrtho/:filename': {
         controller: "WebController",
         action: "getOrtho"

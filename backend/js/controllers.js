@@ -1666,6 +1666,10 @@ firstapp
                 window.open('http://cloud.unifli.aero/api/getMeshFbx/' + missionIdForDownload + ".fbx", '_self');
             },
 
+            $scope.downloadMeshObj = function () {
+                window.open('http://cloud.unifli.aero/api/getMeshObj/' + missionIdForDownload + ".Obj", '_self');
+            },
+
             $scope.downloadPointCloud = function () {
                 window.open('http://cloud.unifli.aero/api/getPointCloud/' + missionIdForDownload + ".las", '_self');
             },
@@ -2385,6 +2389,7 @@ firstapp
 
         $scope.uploadCadForVendor = function (data) {
             data._id = $stateParams.cadId;
+            data.completionDate = new Date();
             NavigationService.apiCallWithData("CadLineWork/save", data, function (data) {
                 if (data.value == true) {
                     toastr.success("File uploaded successfully");
