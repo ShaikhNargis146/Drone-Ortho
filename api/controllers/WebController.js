@@ -2,7 +2,14 @@ var path = require('path');
 
 module.exports = {
     index: function (req, res) {
-        res.metaView();
+        var env = require("../../config/env/" + sails.config.environment + ".js");
+        res.view("backend", {
+            jsFiles: jsFilesBackend,
+            title: "Backend",
+            description: "Backend",
+            keywords: "Backend",
+            adminurl: env.realHost + "/api/",
+        });
     },
     download: function (req, res) {
         Config.readUploaded(req.param("filename"), null, null, null, res);
@@ -76,7 +83,7 @@ module.exports = {
     getDsm: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
         var name = req.param("filename").split('.')[0]
-        var filePath = "C:/Users/unifli/Documents/pix4d/" + name + "/3_dsm_ortho/1 _dsm/" + name + "_dsm.tif";
+        var filePath = "C:/Users/unifli/Documents/pix4d/" + name + "/3_dsm_ortho/1_dsm/" + name + "_dsm.tif";
         files = fs.readFileSync(filePath);
         res.send(files);
     },
