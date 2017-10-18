@@ -5902,7 +5902,6 @@ firstapp
         }
         $scope.logout = function (info) {
             $.jStorage.flush();
-            $state.reload();
             $state.go("login");
         }
     })
