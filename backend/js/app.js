@@ -1581,6 +1581,19 @@ firstapp.directive('commonView', function () {
     }
 
 });
+firstapp.directive('disallowSpaces', function () {
+    return {
+        restrict: 'A',
+
+        link: function ($scope, $element) {
+            $element.bind('keydown', function (e) {
+                if (e.which === 32) {
+                    e.preventDefault();
+                }
+            });
+        }
+    }
+});
 /**
  * ionRangeSlider - Directive for Ion Range Slider
  */

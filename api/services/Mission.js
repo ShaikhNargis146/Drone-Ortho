@@ -32,7 +32,7 @@ var schema = new Schema({
     },
     status: {
         type: String,
-        default: 'Proceesing'
+        default: 'Processing'
     },
     date: Date,
     geoLocation: {

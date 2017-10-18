@@ -1928,6 +1928,7 @@ firstapp
                 }
             });
         }
+
     })
 
     .controller('CadfileDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams, $uibModal) {
@@ -5901,6 +5902,7 @@ firstapp
         }
         $scope.logout = function (info) {
             $.jStorage.flush();
+            $state.reload();
             $state.go("login");
         }
     })
