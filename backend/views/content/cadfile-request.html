@@ -259,7 +259,7 @@
                     <tr>
                       <th>Cad ID</th>
                       <th>Acreage</th>
-                      <th>Contours</th>
+                      <th>Description</th>
 
                       <th>Status</th>
                       <th>Date of Request</th>
@@ -273,8 +273,9 @@
                       <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.cadId}}</a></td>
                       <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.acreage}}</a></td>
                       <td>
-                        <a ui-sref="cadfile-details ({cadId:cadfile._id})" ng-if="cadData.contours==true">Yes</a>
-                        <a ui-sref="cadfile-details ({cadId:cadfile._id})" ng-if="cadData.contours==false">No</a>
+                        <a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.instruction}}</a>
+                        <!--<a ui-sref="cadfile-details ({cadId:cadfile._id})" ng-if="cadData.contours==true">Yes</a>
+                        <a ui-sref="cadfile-details ({cadId:cadfile._id})" ng-if="cadData.contours==false">No</a>-->
                       </td>
 
                       <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.status}}</a></td>

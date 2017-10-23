@@ -809,6 +809,7 @@ var model = {
 
         });
     },
+
     doLogin: function (data, callback) {
         User.findOne({
             name: data.name,
@@ -895,6 +896,7 @@ var model = {
             }
         });
     },
+
     registerUser: function (data, callback) {
         var user = this(data);
         user.accessToken = [uid(16)];
@@ -914,6 +916,7 @@ var model = {
             }
         });
     },
+
     profile: function (data, callback, getGoogle) {
         var str = "firstName email photo mobile accessLevel";
         if (getGoogle) {
@@ -931,6 +934,7 @@ var model = {
             }
         });
     },
+
     updateAccessToken: function (id, accessToken) {
         User.findOne({
             "_id": id
@@ -939,6 +943,7 @@ var model = {
             data.save(function () {});
         });
     },
+
     getcart: function (data, callback) {
         this.findOne({
             "_id": data._id
@@ -949,6 +954,84 @@ var model = {
                 callback(null, deleted);
             }
         }).populate('cartProducts');
+    },
+
+    //Create userID and vendorId
+
+    invoiceNumberGenerate: function (data, callback) {
+        ProductOrders.find({}).sort({
+            createdAt: -1
+        }).limit(1).deepPopulate('products user cadLineWork dfmSubscription').exec(function (err, found) {
+            if (err) {
+                callback(err, null);
+            } else {
+                if (_.isEmpty(found)) {
+                    var year = new Date().getFullYear().toString().substr(-2);
+                    var month = new Date().getMonth() + 1;
+                    var m = month.toString().length;
+                    if (m == 1) {
+                        month = "0" + month
+                        var invoiceNumber = "INV" + year + month + "-" + "1";
+                    } else if (m == 2) {
+                        var invoiceNumber = "INV" + year + month + "-" + "1";
+                    }
+                    callback(null, invoiceNumber);
+                } else {
+                    if (!found[0].invoiceNo) {
+                        var year = new Date().getFullYear().toString().substr(-2);
+                        var month = new Date().getMonth() + 1;
+                        var m = month.toString().length;
+                        if (m == 1) {
+                            month = "0" + month
+                            var invoiceNumber = "INV" + year + month + "-" + "1";
+                        } else if (m == 2) {
+                            var invoiceNumber = "INV" + year + month + "-" + "1";
+                        }
+                        callback(null, invoiceNumber);
+                    } else {
+                        var invoiceData = found[0].invoiceNo.split("-");
+                        var num = parseInt(invoiceData[1]);
+                        var nextNum = num + 1;
+                        var year = new Date().getFullYear().toString().substr(-2);
+                        var month = new Date().getMonth() + 1;
+                        var m = month.toString().length;
+                        if (m == 1) {
+                            month = "0" + month
+                            var invoiceNumber = "INV" + year + month + "-" + nextNum;
+                        } else if (m == 2) {
+                            var invoiceNumber = "INV" + year + month + "-" + nextNum;
+                        }
+                        callback(null, invoiceNumber);
+                    }
+                }
+            }
+        });
+    },
+
+    createInvoice: function (data, callback) {
+        async.waterfall([
+            function (callback) { // generate invoice id
+                ProductOrders.invoiceNumberGenerate(data, function (err, data1) {
+                    callback(null, data1);
+                })
+            },
+            function (invoiceID, callback) { //save invoice
+                data.invoiceNo = invoiceID;
+                ProductOrders.saveData(data, function (err, data2) {
+                    if (err || _.isEmpty(data2)) {
+                        callback(err, [])
+                    } else {
+                        callback(null, data2)
+                    }
+                })
+            }
+        ], function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        });
     },
 
 };
