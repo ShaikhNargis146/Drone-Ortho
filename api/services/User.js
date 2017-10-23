@@ -725,7 +725,6 @@ var model = {
     //--------------dashboard api for User End-------------//
 
     getByDfm: function (data, callback) {
-        console.log("inside getbyDfm", data)
         User.findOne({
             _id: data.user
         }).deepPopulate("currentSubscription currentSubscription.plan").exec(function (err, found) {
@@ -734,7 +733,6 @@ var model = {
             } else if (_.isEmpty(found)) {
                 callback(null, "noDataound");
             } else {
-                console.log("inside getby dfm")
                 callback(null, found);
             }
 
@@ -810,6 +808,7 @@ var model = {
 
         });
     },
+
     doLogin: function (data, callback) {
         User.findOne({
             name: data.name,
@@ -896,6 +895,7 @@ var model = {
             }
         });
     },
+
     registerUser: function (data, callback) {
         var user = this(data);
         user.accessToken = [uid(16)];
@@ -915,6 +915,7 @@ var model = {
             }
         });
     },
+
     profile: function (data, callback, getGoogle) {
         var str = "firstName email photo mobile accessLevel";
         if (getGoogle) {
@@ -932,6 +933,7 @@ var model = {
             }
         });
     },
+
     updateAccessToken: function (id, accessToken) {
         User.findOne({
             "_id": id
@@ -940,6 +942,7 @@ var model = {
             data.save(function () {});
         });
     },
+
     getcart: function (data, callback) {
         this.findOne({
             "_id": data._id
@@ -951,6 +954,7 @@ var model = {
             }
         }).populate('cartProducts');
     },
+
 
     //vendorId Generate start
     vendorIdGenerate: function (data, callback) {
@@ -974,6 +978,7 @@ var model = {
                         var nextNum = num + 1;
                         var vendorIdNumber = "VB" + "-" + nextNum;
                         callback(null, vendorIdNumber);
+
                     }
                 }
             }
@@ -1009,7 +1014,6 @@ var model = {
         });
     },
     //end userId
-
 
 };
 module.exports = _.assign(module.exports, exports, model);

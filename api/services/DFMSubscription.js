@@ -28,8 +28,8 @@ var schema = new Schema({
     },
     status: {
         type: String,
-        default: "Processing",
-        enum: ['Processing', 'Qc', 'Completed', 'cancelled']
+        default: "Inactive",
+        enum: ['Active', 'Inactive'] // enum: ['Processing', 'Qc', 'Completed', 'cancelled']
     },
     autoRenewal: Boolean,
     emailReminder: Boolean,

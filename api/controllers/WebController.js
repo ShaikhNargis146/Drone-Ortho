@@ -61,12 +61,21 @@ module.exports = {
         res.send(files);
     },
 
-    // getInputImage: function (req, res) {
+    // getAutocad: function (req, res) {
     //     res.set('Content-Type', "application/octet-stream");
-    //     var filePath = path.join("C:\Users", "unifli\Documents\pix4d");
-    //     files = fs.readFileSync(path.join(filePath, req.param("filename")));
+    //     var name = req.param("filename").split('.')[0]
+    //     var filePath = "C:/Users/unifli/Documents/pix4d/" + name + "/3_dsm_ortho/1_dsm/" + name + "_dsm.tfw";
+    //     files = fs.readFileSync(filePath);
     //     res.send(files);
     // },
+
+    getTfw: function (req, res) {
+        res.set('Content-Type', "application/octet-stream");
+        var name = req.param("filename").split('.')[0]
+        var filePath = "C:/Users/unifli/Documents/pix4d/" + name + "/3_dsm_ortho/1_dsm/" + name + "_dsm.tfw";
+        files = fs.readFileSync(filePath);
+        res.send(files);
+    },
 
     getOrthoM: function (req, res) {
         res.set('Content-Type', "application/octet-stream");

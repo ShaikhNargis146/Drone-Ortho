@@ -1263,7 +1263,7 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
             if ($scope.missionDetails && $scope.missionDetails.missionId) {
                 // console.log("$scope.missionDetails.name", $scope.missionDetails.name);
                 imageUrl = 'http://files.unifli.aero/' + $scope.missionDetails.missionId + 'google_tiles/{z}/{x}/{myY}.png';
-                // imageUrl = 'http://35.194.248.13:80/' + $scope.missionDetails.name + '.webp';
+                // imageUrl = 'http://localhost:1337/google_tiles/{z}/{x}/{myY}.png';
             } else if ($scope.cadLineDetails && $scope.cadLineDetails.orthoFile.file) {
                 // imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.orthoFile.file.split(".")[0] + '.jpg';
                 imageUrl = 'http://files.unifli.aero/' + $scope.cadLineDetails.orthoFile.file.split(".")[0] + '.jpg';
@@ -1293,7 +1293,9 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
             }
             var map = L.mapbox.map('map', 'mapbox.streets', {
                     infoControl: false,
-                    attributionControl: false
+                    attributionControl: false,
+                    maxZoom: 22,
+                    minZoom: 16
                 })
                 .fitBounds(imageBounds)
             var attribution = L.control.attribution();
@@ -1392,8 +1394,8 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
                 ]);
 
                 area = turf.area(polygon);
-                console.log("area--", area);
-                acres = area * 0.000247105381;
+                console.log("area--", area, LGeo.area(e.layer) * 0.0002471054);
+                acres = LGeo.area(e.layer) * 0.0002471054;
                 console.log("acres--", Number(acres).toFixed(2));
                 if ($scope.cadLineDetails) {
                     $scope.cadLineDetails.acreage = Number(acres).toFixed(2);
