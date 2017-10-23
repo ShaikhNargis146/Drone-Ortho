@@ -1222,17 +1222,16 @@ firstapp
         $scope.profileDetails = $.jStorage.get("user");
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
-            var missionID = {};
-            missionID.filename = $.jStorage.get("user").missionId;
         }
         var missionIdForDownload = {};
         $scope.cadLineDetails = {}
         var mission = {};
+        var missionID = {};
         mission._id = $stateParams.missionId;
         NavigationService.apiCall("Mission/getOne", mission, function (data) {
             if (data.value === true) {
-
                 $scope.missionDetails = data.data;
+                missionID.filename = $scope.missionDetails.missionId;
                 missionIdForDownload = $scope.missionDetails.missionId;
                 $scope.template = TemplateService.changecontent("mission-details");
                 $scope.menutitle = NavigationService.makeactive("MissionDetails");
