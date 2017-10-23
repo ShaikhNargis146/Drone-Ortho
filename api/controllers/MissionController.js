@@ -198,8 +198,6 @@ var controller = {
             // but is piped here in a writable stream which emits a "finish" event.
             console.log("files", image);
             fs.readFile(image, function (err, imagesData) {
-                console.log("err", err);
-                console.log("imageData", imagesData);
                 if (err) {
                     res.callback(err, null);
                 } else {
