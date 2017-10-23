@@ -1650,11 +1650,17 @@ firstapp
             // console.log("afterChange $scope.slider.value", $scope.slider.value);
             // console.log("afterChange $scope.slider.value", $scope.slider);
         }
-        // $scope.downloadInputImage = function (missionId) {
-        //         window.open('http://cloud.unifli.aero/api/getInputImage/' + missionIdForDownload + ".tif", '_self');
-        //     }, //pending
 
-        $scope.downloadOrthoM = function () {
+
+        $scope.downloadAutocadDXF = function (missionId) {
+                window.open('http://cloud.unifli.aero/api/getAutocad/' + missionIdForDownload + ".tif", '_self');
+            },
+
+            $scope.downloadTFW = function (missionId) {
+                window.open('http://cloud.unifli.aero/api/getTfw/' + missionIdForDownload + ".tfw", '_self');
+            },
+
+            $scope.downloadOrthoM = function () {
                 window.open('http://cloud.unifli.aero/api/getOrthoM/' + missionIdForDownload + ".tif", '_self');
             },
 
@@ -1873,7 +1879,7 @@ firstapp
 
         $scope.downloadInvoice = function (data) {
             // window.open(adminurl + 'upload/readFileFromFolder?name=' + data, '_self');
-            console.log("data", data);
+            // console.log("data", data);
             if (data) {
                 window.open(adminurl + '../pdf/' + data, '_self');
             } else {
@@ -1917,6 +1923,7 @@ firstapp
         $scope.profile = $.jStorage.get("user");
         $scope.date = new Date();
         $scope.mission = {};
+        $scope.mission.selected = true
         $scope.saveMission = function (missiondata) {
             missiondata.user = userId;
             NavigationService.apiCall("Mission/createMission", missiondata, function (data) {
@@ -2247,8 +2254,12 @@ firstapp
         ];
 
         $scope.downloadOrthoForAdmin = function (data) { //admin cad download uploaded by vendor
-            window.open(adminurl + 'CadLineWork/generateZipForAdmin?id=' + data, '_self');
-            window.close();
+            if (!_.isEmpty(data)) {
+                window.open(adminurl + 'CadLineWork/generateZipForAdmin?id=' + data, '_self');
+                window.close();
+            } else {
+                toastr.error("No Files For download");
+            }
             // window.open(adminurl + 'downloadWithName/' + data, '_self');
             // window.open(adminurl + 'upload/readFileFromFolder?name=' + data[0], '_self');
         }
@@ -3034,9 +3045,14 @@ firstapp
         //pagination end ecommerce
 
         $scope.downloadInvoiceEcommerce = function (data) {
-            window.open(adminurl + 'downloadWithName/' + data, '_self');
+            // window.open(adminurl + 'downloadWithName/' + data, '_self');
+            // console.log("data-------", data);
+            if (data) {
+                window.open(adminurl + '../pdf/' + data, '_self');
+            } else {
+                toastr.error("No PDF Found");
+            }
         }
-
     })
 
     .controller('EditProductCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state, toastr) {

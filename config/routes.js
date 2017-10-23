@@ -62,10 +62,15 @@ module.exports.routes = {
         action: "getPdf"
     },
 
-    // 'GET /api/getInputImage/:filename': {
-    //     controller: "WebController",
-    //     action: "getInputImage"
-    // },
+    'GET /api/getAutocad/:filename': {
+        controller: "WebController",
+        action: "getAutocad"
+    },
+
+    'GET /api/getTfw/:filename': {
+        controller: "WebController",
+        action: "getTfw"
+    },
 
     'GET /api/getOrthoM/:filename': {
         controller: "WebController",
