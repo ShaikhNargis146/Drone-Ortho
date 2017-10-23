@@ -876,8 +876,6 @@ firstapp
         NavigationService.apiCallWithData("Products/getProduct", $scope._id, function (data) {
             $scope.productInfo = data.data;
         });
-
-
     })
     .controller('TicketHistoryCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
@@ -2702,12 +2700,12 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
-        // $scope.formdata = {};
-        // $scope.formdata.data = $.jStorage.get("user");
-        // $scope.formdata1 = {};
-        // $scope.formdata2 = {};
-        // $scope.formdata1.user = $.jStorage.get("user")._id;
-        // $scope.formdata2._id = $.jStorage.get("user")._id;
+        $scope.formdata = {};
+        $scope.formdata.data = $.jStorage.get("user");
+        $scope.formdata1 = {};
+        $scope.formdata2 = {};
+        $scope.formdata1.user = $.jStorage.get("user")._id;
+        $scope.formdata2._id = $.jStorage.get("user")._id;
 
         $scope.updateUser = function (data) {
             NavigationService.apiCallWithData("User/Updateuser", data, function (data2) {
@@ -2742,13 +2740,15 @@ firstapp
                         });
                     }
                 });
+                
             } else {
                 toastr.error('Check Entered Password');
             }
         }
 
         NavigationService.apiCallWithData("User/getByDfm", $scope.formdata1, function (dfm) {
-            $scope.dfmData = dfm.data
+            $scope.dfmData = dfm.data;
+            console.log("Dfm Data",$scope.dfmData)
         });
 
     })
@@ -2775,7 +2775,7 @@ firstapp
         $scope.template = TemplateService.changecontent("products-plans");
         $scope.menutitle = NavigationService.makeactive("ProductsPlans");
         TemplateService.title = $scope.menutitle;
-        $scope.navigation = NavigationService.getnav();
+        $scope.navigation = NavigationService.getnav();ac
         TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
@@ -5890,6 +5890,8 @@ firstapp
                     NavigationService.parseAccessToken(data.data._id, function () {
                         NavigationService.profile(function () {
                             $scope.template.profile = data.data;
+                            // $scope.name1 = data.data.name;
+                            // console.log(" $scope.template.profile", $scope.name1)
                             $state.go("dashboard");
                         }, function () {
                             $state.go("login");
@@ -5899,6 +5901,9 @@ firstapp
                     toastr.error('Incorrect credentials');
                 }
             });
+        }
+          if ($.jStorage.get("user")) {
+            $scope.name1 = $.jStorage.get("user").name;
         }
         $scope.logout = function (info) {
             $.jStorage.flush();

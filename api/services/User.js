@@ -117,7 +117,8 @@ var schema = new Schema({
             socialProvider: String
         }]
     },
-    status: String
+    vendorId: String,
+    userId: String
 });
 
 
@@ -950,6 +951,65 @@ var model = {
             }
         }).populate('cartProducts');
     },
+
+    //vendorId Generate start
+    vendorIdGenerate: function (data, callback) {
+        User.find({}).sort({
+            createdAt: -1
+        }).limit(1).exec(function (err, found) {
+            if (err) {
+                callback(err, null);
+            } else {
+                if (_.isEmpty(found)) {
+                    var vendorIdNumber = "VB" + "-" + "100";
+
+                    callback(null, vendorIdNumber);
+                } else {
+                    if (!found[0].vendorId) {
+                        var vendorIdNumber = "VB" + "-" + "100";
+                        callback(null, vendorIdNumber);
+                    } else {
+                        var vendorIdData = found[0].vendorId.split("-");
+                        var num = parseInt(vendorIdData[1]);
+                        var nextNum = num + 1;
+                        var vendorIdNumber = "VB" + "-" + nextNum;
+                        callback(null, vendorIdNumber);
+                    }
+                }
+            }
+        });
+    },
+    //end vendorId
+
+    //userId Generate start
+    UserIdGenerate: function (data, callback) {
+        User.find({}).sort({
+            createdAt: -1
+        }).limit(1).exec(function (err, found) {
+            console.log("found", found)
+            if (err) {
+                callback(err, null);
+            } else {
+                if (_.isEmpty(found)) {
+                    var userIdNumber = "UN" + "-" + "2001";
+                    callback(null, userIdNumber);
+                } else {
+                    if (!found[0].userId) {
+                        var userIdNumber = "UN" + "-" + "2001";
+                        callback(null, userIdNumber);
+                    } else {
+                        var userIdData = found[0].userId.split("-");
+                        var num = parseInt(userIdData[1]);
+                        var nextNum = num + 1;
+                        var userIdNumber = "UN" + "-" + nextNum;
+                        callback(null, userIdNumber);
+                    }
+                }
+            }
+        });
+    },
+    //end userId
+
 
 };
 module.exports = _.assign(module.exports, exports, model);

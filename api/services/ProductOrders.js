@@ -69,6 +69,7 @@ var schema = new Schema({
     pdf: String,
     invoiceNo: String,
     trackingCode: String,
+    paymentId: String,
     oraganization: String,
     apartment: String
 });
@@ -294,6 +295,63 @@ var model = {
         });
     },
 
+
+    //Payment Id Generate start
+    paymentIdGenerate: function (data, callback) {
+        ProductOrders.find({}).sort({
+            createdAt: -1
+        }).limit(1).exec(function (err, found) {
+            if (err) {
+                callback(err, null);
+            } else {
+                if (_.isEmpty(found)) {
+                    var year = new Date().getFullYear().toString().substr(-2);
+                    var month = new Date().getMonth() + 1;
+                    var m = month.toString().length;
+                    if (m == 1) {
+                        month = "0" + month
+                        var paymentNumber = "P" + year + month + "-" + "1";
+                    } else if (m == 2) {
+                        var paymentNumber = "P" + year + month + "-" + "1";
+                    }
+                    console.log("paymentNumber", paymentNumber)
+
+                    callback(null, paymentNumber);
+                } else {
+                    if (!found[0].paymentId) {
+                        var year = new Date().getFullYear().toString().substr(-2);
+                        var month = new Date().getMonth() + 1;
+                        var m = month.toString().length;
+                        if (m == 1) {
+                            month = "0" + month
+                            var paymentNumber = "P" + year + month + "-" + "1";
+                        } else if (m == 2) {
+                            var paymentNumber = "P" + year + month + "-" + "1";
+                        }
+                        console.log("paymentNumber", paymentNumber)
+
+                        callback(null, paymentNumber);
+                    } else {
+                        var paymentData = found[0].paymentId.split("-");
+                        var num = parseInt(paymentData[1]);
+                        var nextNum = num + 1;
+                        var year = new Date().getFullYear().toString().substr(-2);
+                        var month = new Date().getMonth() + 1;
+                        var m = month.toString().length;
+                        if (m == 1) {
+                            month = "0" + month
+                            var paymentNumber = "P" + year + month + "-" + nextNum;
+                        } else if (m == 2) {
+                            var paymentNumber = "P" + year + month + "-" + nextNum;
+                        }
+                        console.log("paymentNumber", paymentNumber)
+                        callback(null, paymentNumber);
+                    }
+                }
+            }
+        });
+    },
+    //end
     createInvoice: function (data, callback) {
         async.waterfall([
             function (callback) { // generate invoice id

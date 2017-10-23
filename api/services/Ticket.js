@@ -137,5 +137,39 @@ var model = {
         })
     },
 
+    //ticketId Generate start
+    ticketIdGenerate: function (data, callback) {
+        Ticket.find({}).sort({
+            createdAt: -1
+        }).limit(1).exec(function (err, found) {
+            if (err) {
+                callback(err, null);
+            } else {
+                if (_.isEmpty(found)) {
+                    var ticketIdNumber = "T" + "-" + "100";
+                    console.log("ticketIdNumber", ticketIdNumber)
+                    callback(null, ticketIdNumber);
+                } else {
+                    if (!found[0].ticketId) {
+                        var ticketIdNumber = "T" + "-" + "100";
+                        console.log("ticketIdNumber", ticketIdNumber)
+
+                        callback(null, ticketIdNumber);
+                    } else {
+                        var ticketIdData = found[0].ticketId.split("-");
+                        var num = parseInt(ticketIdData[1]);
+                        var nextNum = num + 1;
+                        var ticketIdNumber = "T" + "-" + nextNum;
+                        console.log("ticketIdNumber", ticketIdNumber)
+
+                        callback(null, ticketIdNumber);
+                    }
+                }
+            }
+        });
+    },
+    //end ticketId
+
+
 };
 module.exports = _.assign(module.exports, exports, model);
