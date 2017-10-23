@@ -1034,6 +1034,16 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.formSubmitted = true;
         };
 
+        $scope.userID._id = $stateParams.userId;
+        console.log("userId", $scope.userID._id)
+        NavigationService.apiCallWithData("User/getOne", userID, function (data1) {
+            if (data1.value == true) {
+                $scope.user = data;
+                console.log("jstorage data is", $scope.user)
+                $.jStorage.set("user", data.data);
+            }
+        });
+
 
         $scope.dt = new Date();
         $scope.dt.setDate($scope.dt.getDate() + 30);
@@ -1089,7 +1099,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             }]
 
         } else {
-            var dfmData = [];
+            dfmData = [];
         }
 
 
