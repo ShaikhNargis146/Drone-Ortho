@@ -237,7 +237,7 @@ var controller = {
 cron.schedule('1 * * * *', function () {
     Mission.find({
         status: {
-            $ne: 'ready'
+            $nin: ['ready', 'failed']
         }
     }, function (err, found) {
         if (err) {
@@ -351,8 +351,23 @@ cron.schedule('1 * * * *', function () {
                             }
                         });
                     } else {
-                        console.log("file doesn't exist");
-                        callback1();
+                        var localDate = moment(value.createdAt).add(12, 'hours');
+                        var currentDate = moment(new Date())
+                        console.log("file doesn't exist", localDate, currentDate, moment(currentDate).isSameOrAfter(localDate));
+                        if (moment(currentDate).isSameOrAfter(localDate)) {
+                            value.status = "failed";
+                            value.save(function (err, data) {
+                                if (err) {
+                                    console.log("error occured");
+                                    callback1();
+                                } else {
+                                    console.log("value updated");
+                                    callback1();
+                                }
+                            });
+                        } else {
+                            callback1();
+                        }
                     }
                     // write their api to update status if changed
                 },
