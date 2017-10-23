@@ -1222,7 +1222,8 @@ firstapp
         $scope.profileDetails = $.jStorage.get("user");
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
-            var missionID = $.jStorage.get("user").missionId;
+            var missionID = {};
+            missionID.filename = $.jStorage.get("user").missionId;
         }
         var missionIdForDownload = {};
         $scope.cadLineDetails = {}
@@ -1652,6 +1653,7 @@ firstapp
 
 
         $scope.downloadThree = function () {
+                console.log("--missionID--", missionID);
                 window.open(adminurl + 'Mission/generateZipForMissionFiles' + missionID, '_self');
                 window.close();
             },
