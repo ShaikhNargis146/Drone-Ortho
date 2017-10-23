@@ -41,7 +41,7 @@ var schema = new Schema({
         file: String,
         status: {
             type: String,
-            default: 'Proceesing'
+            default: 'Processing'
         }
     },
     cadFileFromVendor: [String],
@@ -368,6 +368,86 @@ var model = {
     },
 
     //******************** END *********************//
+
+    // getGraphDataForAdmin: function (data, callback) {
+    //     var addData = [];
+    //     var currentDate = new Date();
+    //     var lastMonthDaysCount = moment(currentDate).subtract(1, 'months').daysInMonth();
+    //     var prevMonth = moment(currentDate).subtract(1, 'months').month();
+    //     var currentYear = moment(currentDate).year();
+    //     // var toDate = moment().year(currentYear).month(prevMonth).date(i).format();
+    //     // var fromDate = moment(toDate).subtract(1, 'days').format();
+    //     CadLineWork.find({}).exec(function (err, data) {
+    //         if (err) {
+    //             callback(err, null)
+    //         } else {
+    //             _.forEach(data, function (o) {
+    //                 // console.log("o+++++++++++++++", o);
+    //                 if (o.createdAt == '2017-09-15T12:33:56.000Z') {
+    //                     console.log("o----------");
+    //                 }
+    //             })
+    //             var sendData = {};
+    //             sendData.internalCadCount = 0;
+    //             sendData.externalCadCount = 0;
+    //             _.forEach(data, function (value) {
+    //                 if (value.cadId && value.cadId.charAt(3) == 'E') {
+    //                     sendData.externalCadCount++;
+    //                 } else if (value.cadId && value.cadId.charAt(3) == 'I') {
+    //                     sendData.internalCadCount++
+    //                 }
+    //             });
+    //             console.log("data----", sendData);
+    //             addData.push(sendData);
+    //             callback(null, addData)
+    //         }
+    //     })
+    // }
+
+
+    getGraphDataForAdmin: function (data, callback) {
+        var addData = [];
+        var currentDate = new Date();
+        var lastMonthDaysCount = moment(currentDate).subtract(1, 'months').daysInMonth();
+        var prevMonth = moment(currentDate).subtract(1, 'months').month();
+        var currentYear = moment(currentDate).year();
+        // var toDate = moment().year(currentYear).month(prevMonth).date(i).format();
+        // var fromDate = moment(toDate).subtract(1, 'days').format();
+        CadLineWork.aggregate([{
+            $group: {
+                _id: "$createdAt",
+                cadId: {
+                    $push: "$cadId"
+                }
+            }
+        }], function (err, found) {
+            if (err) {
+                callback(err, null);
+            } else {
+                if (_.isEmpty(found)) {
+                    callback(err, null);
+                } else {
+                    for (var i = 1; i <= lastMonthDaysCount; i++) {
+                        var toDate = moment().year(currentYear).month(prevMonth).date(i).format();
+                        // var fromDate = moment(toDate).subtract(1, 'days').format();
+                        // console.log("todate", toDate);
+                        // console.log("fromdate", fromDate);
+                        _.forEach(found, function (o) {
+                            // console.log("-----------------", o);
+                            if (o._id == toDate) {
+                                console.log("-----------------", o);
+                            }
+                            // _.forEach(o.cadId, function (x) {
+                            //     console.log("###########", x);
+                            // })
+                        })
+                    }
+
+                    callback(null, found);
+                }
+            }
+        });
+    }
 
 };
 module.exports = _.assign(module.exports, exports, model);

@@ -134,6 +134,14 @@ module.exports = {
         res.send(files);
     },
 
+    getMeshObj: function (req, res) {
+        res.set('Content-Type', "application/octet-stream");
+        var name = req.param("filename").split('.')[0]
+        var filePath = "C:/Users/unifli/Documents/pix4d/" + name + "/2_densification/3d_mesh/" + name + "_simplified_3d_mesh.Obj";
+        files = fs.readFileSync(filePath);
+        res.send(files);
+    },
+
     getOrtho: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
         files = fs.readFileSync(sails.config.appPath + "/pix4dUpload/" + req.param("filename"));
@@ -141,7 +149,6 @@ module.exports = {
     },
 
     downloadWithName: function (req, res) {
-        // Config.readUploaded(req.param("filename"), null, null, null, res);
         Config.downloadWithName(req.param("filename"), req.query.name, res);
-    }
+    },
 };

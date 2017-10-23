@@ -23,7 +23,7 @@ var schema = new Schema({
         file: String,
         status: {
             type: String,
-            default: 'Proceesing'
+            default: 'Processing'
         }
     }],
     fileUploadStatus: {
@@ -32,7 +32,7 @@ var schema = new Schema({
     },
     status: {
         type: String,
-        default: 'Proceesing'
+        default: 'Processing'
     },
     date: Date,
     geoLocation: {

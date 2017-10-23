@@ -1,4 +1,4 @@
-<div class="page-container "   ng-if="accessLevel=='User'">
+<div class="page-container " ng-if="accessLevel=='User'">
   <!-- Start page content wrapper -->
   <div class="page-content-wrapper animated fadeInRight  ">
     <div class="page-content">
@@ -51,36 +51,38 @@
                       <!--//for Product-->
                       <tbody ng-repeat="product in productData">
                         <tr ng-repeat="abc in product.products" ng-if="abc._id">
-                        <!--<tr ng-repeat="abc in product.products">-->
-                          
-                          <td><a ui-sref="popup">{{abc.name}}</a></td>
-                          <td>{{abc.createdAt |  date:
-'dd-MM-yyyy'}}</td>
-                          <td></td>
+                          <!--<tr ng-repeat="abc in product.products">-->
+
+                          <td>{{abc.name}}</td>
+                          <td>{{abc.createdAt | date}}
+                          </td>
+                          <td>{{abc.price}}</td>
                           <td>{{abc.status}}</td>
                           <td></td>
                           <td></td>
-                          <td><button type="button" ng-click="getInvoice()" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;
+                          <td>
+                            <!--<button type="button" ng-click="getInvoice()" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;-->
                             <button type="button" class="btn green btn-outline btn-xs" ng-click="downloadInvoice(product.pdf)">Download</button>
                           </td>
                         </tr>
                       </tbody>
                       <!--//for Product end-->
                       <!--//for cad-->
-                     
+
                       <tbody>
                         <tr ng-repeat="cad in productData" ng-if="cad.cadLineWork._id">
-                        <!--<tr ng-repeat="cad in productData">-->
-                          
-                          <td><a ui-sref="popup">{{cad.cadLineWork._id}}</a></td>
-                          <td>{{cad.cadLineWork.createdAt}}</td>
+                          <!--<tr ng-repeat="cad in productData">-->
+
+                          <td>{{cad.cadLineWork.name}}</td>
+                          <td>{{cad.cadLineWork.createdAt | date}}</td>
                           <td>{{cad.cadLineWork.amount}}</td>
                           <td>{{cad.cadLineWork.DiscountAmount}}</td>
                           <td>{{cad.cadLineWork.status}}</td>
                           <td></td>
-             
-                          <td><button type="button" ng-click="getInvoice()" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;
-                            <button type="button" class="btn green btn-outline btn-xs" ng-click="downloadInvoice(cad.pdf)" >Download</button>
+
+                          <td>
+                            <!--<button type="button" ng-click="getInvoice()" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;-->
+                            <button type="button" class="btn green btn-outline btn-xs" ng-click="downloadInvoice(cad.pdf)">Download</button>
                           </td>
                         </tr>
                       </tbody>
@@ -88,17 +90,18 @@
                       <!--//for dfm-->
                       <tbody>
                         <tr ng-repeat="dfm in productData" ng-if="dfm.dfmSubscription._id">
-                        <!--<tr ng-repeat="dfm in productData" >-->
-                          
-                          <td>{{dfm.dfmSubscription.name}}</a></td>
-                          <td>{{dfm.dfmSubscription.updatedAt |  date:
-'dd-MM-yyyy'}}</td>
+                          <!--<tr ng-repeat="dfm in productData" >-->
+
+                          <td>{{dfm.dfmSubscription.name}}
+                          </td>
+                          <td>{{dfm.dfmSubscription.createdAt | date}}</td>
                           <td>{{dfm.dfmSubscription.amount}}</td>
                           <td>{{dfm.dfmSubscription.DiscountAmount}}</td>
                           <td>{{cad.dfmSubscription.status}}</td>
                           <td></td>
-                          <td><button type="button" ng-click="getInvoice()" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;
-                            <button type="button" class="btn green btn-outline btn-xs"  ng-click="downloadInvoice(dfm.pdf)">Download</button>
+                          <td>
+                            <!--<button type="button" ng-click="getInvoice()" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;-->
+                            <button type="button" class="btn green btn-outline btn-xs" ng-click="downloadInvoice(dfm.pdf)">Download</button>
                           </td>
                         </tr>
                       </tbody>

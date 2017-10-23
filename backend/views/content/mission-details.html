@@ -67,19 +67,24 @@
 									<div class="form-check">
 										<label class="control-label">DOWNLOADS:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 										<button class="btn aqua btn-circle btn-outline btn-sm" type="button" tooltip-placement="Bottom" popover-placement="bottom"
-										    title="" uib-tooltip="Input Images (.ZIP)" ng-click="downloadInputImage()"><i class=" fa fa-photo "></i> </button>
+										    title="" uib-tooltip="Input Images (.ZIP)" ng-click="downloadInputImage()" ng-disabled="missionDetails.status !='ready'"><i class=" fa fa-photo "></i> </button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
-										    " popover-placement="bottom " title=" " uib-tooltip="Orthomoiac (.TIFF) " ng-click="downloadOrthoM()"><i class="fa fa-globe "></i> </button>
+										    " popover-placement="bottom " title=" " uib-tooltip="Orthomoiac (.TIFF) " ng-click="downloadOrthoM()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-globe "></i> </button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
-										    " popover-placement="bottom " title=" " uib-tooltip="DSM (.TIFF) " ng-click="downloadDsm()"><i class="fa fa-delicious "></i> </button>
+										    " popover-placement="bottom " title=" " uib-tooltip="DSM (.TIFF) " ng-click="downloadDsm()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-delicious "></i> </button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
-										    " popover-placement="bottom " title=" " uib-tooltip="Mesh (.FBX) " ng-click="downloadMeshFbx()"><i class="fa fa-diamond "></i> </button>
+										    " popover-placement="bottom " title=" " uib-tooltip="Mesh (.FBX) " ng-click="downloadMeshFbx()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-diamond "></i> </button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
-										    " popover-placement="bottom " title=" " uib-tooltip="Point Cloud (.LAS) " ng-click="downloadPointCloud()"><i class="fa fa-mixcloud "></i> </button>
+										    " popover-placement="bottom " title=" " uib-tooltip="Point Cloud (.LAS) " ng-click="downloadPointCloud()"
+										    ng-disabled="missionDetails.status !='ready'"><i class="fa fa-mixcloud "></i> </button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
-										    " popover-placement="bottom " title=" " uib-tooltip="Quality Reports (.PDF) " ng-click="downloadQualityReports()"><i class="fa fa-book "></i> </button>
+										    " popover-placement="bottom " title=" " uib-tooltip="Quality Reports (.PDF) " ng-click="downloadQualityReports()"
+										    ng-disabled="missionDetails.status !='ready'"><i class="fa fa-book "></i> </button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
-										    " popover-placement="bottom " title=" " uib-tooltip="Processing Log (.LOG) " ng-click="downloadProcessingLog()"><i class="fa fa-desktop "></i> </button>
+										    " popover-placement="bottom " title=" " uib-tooltip="Processing Log (.LOG) " ng-click="downloadProcessingLog()"
+										    ng-disabled="missionDetails.status !='ready'"><i class="fa fa-desktop "></i> </button>
+										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
+										    " popover-placement="bottom " title=" " uib-tooltip="Mesh (.Obj)" ng-click="downloadMeshObj()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-desktop "></i> </button>
 									</div>
 								</div>
 
@@ -302,22 +307,24 @@ $("#showCheckoutCadR").change(function(event){
 									<div class="form-check">
 										<label class="control-label">DOWNLOADS:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 										<button class="btn aqua btn-circle btn-outline btn-sm" type="button" tooltip-placement="Bottom" popover-placement="bottom"
-										    title="" uib-tooltip="Input Images (.ZIP)" ng-click="downloadInputImage()" ng-disabled="missionDetails.status !='Ready'"><i class=" fa fa-photo "></i> </button>
+										    title="" uib-tooltip="Input Images (.ZIP)" ng-click="downloadInputImage()" ng-disabled="missionDetails.status !='ready'"><i class=" fa fa-photo "></i> </button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
-										    " popover-placement="bottom " title=" " uib-tooltip="Orthomoiac (.TIFF) " ng-click="downloadOrthoM()" ng-disabled="missionDetails.status !='Ready'"><i class="fa fa-globe "></i> </button>
+										    " popover-placement="bottom " title=" " uib-tooltip="Orthomoiac (.TIFF) " ng-click="downloadOrthoM()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-globe "></i> </button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
-										    " popover-placement="bottom " title=" " uib-tooltip="DSM (.TIFF) " ng-click="downloadDsm()" ng-disabled="missionDetails.status !='Ready'"><i class="fa fa-delicious "></i> </button>
+										    " popover-placement="bottom " title=" " uib-tooltip="DSM (.TIFF) " ng-click="downloadDsm()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-delicious "></i> </button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
-										    " popover-placement="bottom " title=" " uib-tooltip="Mesh (.FBX) " ng-click="downloadMeshFbx()" ng-disabled="missionDetails.status !='Ready'"><i class="fa fa-diamond "></i> </button>
+										    " popover-placement="bottom " title=" " uib-tooltip="Mesh (.FBX) " ng-click="downloadMeshFbx()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-diamond "></i> </button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
 										    " popover-placement="bottom " title=" " uib-tooltip="Point Cloud (.LAS) " ng-click="downloadPointCloud()"
-										    ng-disabled="missionDetails.status !='Ready'"><i class="fa fa-mixcloud "></i> </button>
+										    ng-disabled="missionDetails.status !='ready'"><i class="fa fa-mixcloud "></i> </button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
 										    " popover-placement="bottom " title=" " uib-tooltip="Quality Reports (.PDF) " ng-click="downloadQualityReports()"
-										    ng-disabled="missionDetails.status !='Ready'"><i class="fa fa-book "></i> </button>
+										    ng-disabled="missionDetails.status !='ready'"><i class="fa fa-book "></i> </button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
 										    " popover-placement="bottom " title=" " uib-tooltip="Processing Log (.LOG) " ng-click="downloadProcessingLog()"
-										    ng-disabled="missionDetails.status !='Ready'"><i class="fa fa-desktop "></i> </button>
+										    ng-disabled="missionDetails.status !='ready'"><i class="fa fa-desktop "></i> </button>
+										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
+										    " popover-placement="bottom " title=" " uib-tooltip="Mesh (.Obj)" ng-click="downloadMeshObj()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-desktop "></i> </button>
 									</div>
 								</div>
 

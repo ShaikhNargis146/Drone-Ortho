@@ -594,17 +594,21 @@ var models = {
         });
     },
 
-    downloadWithName: function (url, dest, cb) {
-        var file = fs.createWriteStream(dest);
-        var request = http.get(url, function (response) {
-            response.pipe(file);
-            file.on('finish', function () {
-                file.close(cb); // close() is async, call cb after close completes.
-            });
-        }).on('error', function (err) { // Handle errors
-            fs.unlink(dest); // Delete the file async. (But we don't check the result)
-            if (cb) cb(err.message);
+    downloadWithName: function (filename, name, res) {
+        res.set('Content-Disposition', "filename=" + name);
+        var readstream = gfs.createReadStream({
+            filename: filename
         });
+        readstream.on('error', function (err) {
+            res.json({
+                value: false,
+                error: err
+            });
+        });
+        var onlyName = filename.split(".")[0];
+        var extension = filename.split(".").pop();
+        readstream.pipe(res);
+        //error handling, e.g. file does not exist
     },
 };
 module.exports = _.assign(module.exports, models);
