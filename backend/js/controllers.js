@@ -1300,11 +1300,12 @@ firstapp
         var missionIdForDownload = {};
         $scope.cadLineDetails = {}
         var mission = {};
+        var missionID = {};
         mission._id = $stateParams.missionId;
         NavigationService.apiCall("Mission/getOne", mission, function (data) {
             if (data.value === true) {
-
                 $scope.missionDetails = data.data;
+                missionID.filename = $scope.missionDetails.missionId;
                 missionIdForDownload = $scope.missionDetails.missionId;
                 $scope.template = TemplateService.changecontent("mission-details");
                 $scope.menutitle = NavigationService.makeactive("MissionDetails");
@@ -1724,7 +1725,14 @@ firstapp
         }
 
 
-        $scope.downloadAutocadDXF = function (missionId) {
+        $scope.downloadThree = function () {
+                console.log("--missionID--", missionID);
+                window.open(adminurl + 'Mission/generateZipForMissionFiles?filename=' + missionID.filename, '_self');
+                window.close();
+            },
+
+
+            $scope.downloadAutocadDXF = function (missionId) {
                 window.open('http://cloud.unifli.aero/api/getAutocad/' + missionIdForDownload + ".tif", '_self');
             },
 

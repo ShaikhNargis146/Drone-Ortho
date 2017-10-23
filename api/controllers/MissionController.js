@@ -196,7 +196,10 @@ var controller = {
             // request(global["env"].realHost + '/api/upload/readFile?file=' + image).pipe(fs.createWriteStream(image)).on('finish', function (images) {
             // JSZip generates a readable stream with a "end" event,
             // but is piped here in a writable stream which emits a "finish" event.
+            console.log("files", image);
             fs.readFile(image, function (err, imagesData) {
+                console.log("err", err);
+                console.log("imageData", imageData);
                 if (err) {
                     res.callback(err, null);
                 } else {
