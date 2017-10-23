@@ -199,7 +199,7 @@ var controller = {
             console.log("files", image);
             fs.readFile(image, function (err, imagesData) {
                 console.log("err", err);
-                console.log("imageData", imageData);
+                console.log("imageData", imagesData);
                 if (err) {
                     res.callback(err, null);
                 } else {
