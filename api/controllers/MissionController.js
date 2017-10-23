@@ -181,7 +181,6 @@ var controller = {
     //generate zip for 3 files in mission details
 
     generateZipForMissionFiles: function (req, res) {
-        console.log("--------------------", req.body);
         var JSZip = require("jszip");
         var type = req.query;
         var zip = new JSZip();

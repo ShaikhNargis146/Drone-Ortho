@@ -1654,7 +1654,7 @@ firstapp
 
         $scope.downloadThree = function () {
                 console.log("--missionID--", missionID);
-                window.open(adminurl + 'Mission/generateZipForMissionFiles' + missionID, '_self');
+                window.open(adminurl + 'Mission/generateZipForMissionFiles?filename=' + missionID.filename, '_self');
                 window.close();
             },
 
