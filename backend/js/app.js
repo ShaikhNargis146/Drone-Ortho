@@ -1293,7 +1293,9 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
             }
             var map = L.mapbox.map('map', 'mapbox.streets', {
                     infoControl: false,
-                    attributionControl: false
+                    attributionControl: false,
+                    maxZoom: 22,
+                    minZoom: 16
                 })
                 .fitBounds(imageBounds)
             var attribution = L.control.attribution();
@@ -1311,8 +1313,8 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
             // omnivore.kml('http://localhost:1337/newM_mosaic.kml').addTo(map);
             if (($scope.missionDetails && $scope.missionDetails.missionId) || $scope.cadLineDetails.mission) {
                 var TopoLayer = L.tileLayer(imageUrl, {
-                    maxZoom: 25,
-                    minZoom: 14,
+                    maxZoom: 22,
+                    minZoom: 16,
                     myY: function (data) {
                         return (Math.pow(2, data.z) - data.y - 1);
                     }
