@@ -1222,6 +1222,7 @@ firstapp
         $scope.profileDetails = $.jStorage.get("user");
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
+            var missionID = $.jStorage.get("user").missionId;
         }
         var missionIdForDownload = {};
         $scope.cadLineDetails = {}
@@ -1650,7 +1651,13 @@ firstapp
         }
 
 
-        $scope.downloadAutocadDXF = function (missionId) {
+        $scope.downloadThree = function () {
+                window.open(adminurl + 'Mission/generateZipForMissionFiles' + missionID, '_self');
+                window.close();
+            },
+
+
+            $scope.downloadAutocadDXF = function (missionId) {
                 window.open('http://cloud.unifli.aero/api/getAutocad/' + missionIdForDownload + ".tif", '_self');
             },
 
@@ -2751,7 +2758,7 @@ firstapp
                         });
                     }
                 });
-                
+
             } else {
                 toastr.error('Check Entered Password');
             }
@@ -2759,7 +2766,7 @@ firstapp
 
         NavigationService.apiCallWithData("User/getByDfm", $scope.formdata1, function (dfm) {
             $scope.dfmData = dfm.data;
-            console.log("Dfm Data",$scope.dfmData)
+            console.log("Dfm Data", $scope.dfmData)
         });
 
     })
@@ -2786,7 +2793,8 @@ firstapp
         $scope.template = TemplateService.changecontent("products-plans");
         $scope.menutitle = NavigationService.makeactive("ProductsPlans");
         TemplateService.title = $scope.menutitle;
-        $scope.navigation = NavigationService.getnav();ac
+        $scope.navigation = NavigationService.getnav();
+        ac
         TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
@@ -2874,7 +2882,7 @@ firstapp
 
     })
 
-    .controller('UsersCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state, toastr,$uibModal) {
+    .controller('UsersCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state, toastr, $uibModal) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("users");
         $scope.menutitle = NavigationService.makeactive("Users");
@@ -2955,7 +2963,7 @@ firstapp
         $scope.getAllItems();
 
         //pagination end admin
-          $scope.userOpen = function () {
+        $scope.userOpen = function () {
             $uibModal.open({
                 animation: true,
                 templateUrl: 'views/modal/create-user.html',
@@ -5927,7 +5935,7 @@ firstapp
                 }
             });
         }
-          if ($.jStorage.get("user")) {
+        if ($.jStorage.get("user")) {
             $scope.name1 = $.jStorage.get("user").name;
         }
         $scope.logout = function (info) {
