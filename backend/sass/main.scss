@@ -4243,7 +4243,11 @@ WIDGETS
             z-index: -99;
         }
     }
-    
+    .modal-x{
+        .form-group{
+margin-bottom: 5px !important;
+        }
+    }
     .loading-img,
     .loading-img-modal {
         display: none;
@@ -4347,10 +4351,11 @@ WIDGETS
     #imgblock {
         border: 1px solid grey;
         margin-bottom: 5px;
+       
     }
     
     .progress-bar {
-        background: #ccc;
+        background: #d9534f;
         margin-bottom: 10px;
     }
     

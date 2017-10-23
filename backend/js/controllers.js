@@ -2863,7 +2863,7 @@ firstapp
 
     })
 
-    .controller('UsersCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state, toastr) {
+    .controller('UsersCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state, toastr,$uibModal) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("users");
         $scope.menutitle = NavigationService.makeactive("Users");
@@ -2944,6 +2944,15 @@ firstapp
         $scope.getAllItems();
 
         //pagination end admin
+          $scope.userOpen = function () {
+            $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/create-user.html',
+                scope: $scope,
+                size: 'lg'
+
+            });
+        };
     })
 
     .controller('EcommerceCtrl', function ($scope, TemplateService, $stateParams, NavigationService, $timeout, $state, toastr) {
