@@ -1923,6 +1923,7 @@ firstapp
         $scope.profile = $.jStorage.get("user");
         $scope.date = new Date();
         $scope.mission = {};
+        $scope.mission.selected = true
         $scope.saveMission = function (missiondata) {
             missiondata.user = userId;
             NavigationService.apiCall("Mission/createMission", missiondata, function (data) {
