@@ -319,19 +319,22 @@ cron.schedule('1 * * * *', function () {
                                                 },
                                                 function (geoLocation, callback) {
                                                     console.log("geoLocation inside f3 ", geoLocation);
-                                                    value.status = "ready";
-                                                    value.geoLocation = geoLocation;
-                                                    value.save(function (err, data) {
-                                                        if (err) {
-                                                            console.log("error occured");
-                                                            callback(null, err);
-                                                        } else {
+                                                    if (geoLocation != "error") {
+                                                        value.status = "ready";
+                                                        value.geoLocation = geoLocation;
+                                                        value.save(function (err, data) {
+                                                            if (err) {
+                                                                console.log("error occured");
+                                                                callback(null, err);
+                                                            } else {
 
-                                                            console.log("value.geoLocation", data.geoLocation);
-                                                            callback(null, "done");
-                                                        }
-                                                    });
-
+                                                                console.log("value.geoLocation", data.geoLocation);
+                                                                callback(null, "done");
+                                                            }
+                                                        });
+                                                    } else {
+                                                        callback(null, "error");
+                                                    }
                                                 },
                                                 function (msg, callback) {
                                                     console.log("C:/Users/unifli/Documents/googleTile-Mosaic");
