@@ -12,69 +12,193 @@
         <!-- BEGIN TOP NAVIGATION MENU -->
         <div class="top-menu">
             <ul class="nav navbar-nav pull-right">
-                <!-- <li class="dropdown">
-                        <a href="javascript;" data-toggle="dropdown" class="dropdown-toggle count-info"> <i class="fa fa-envelope"></i> <span class="badge badge-info">6</span> </a>
-                        <ul class="dropdown-menu dropdown-messages menuBig">
+
+                <!-- START USER LOGIN DROPDOWN -->
+                <div>
+                    <li class="dropdown dropdown-user" ng-if="acessLevel=='User'">
+                        <a data-close-others="true" data-hover="dropdown" data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">  <span class="username username-hide-on-mobile"></span>        {{name1}}                <i class="fa fa-angle-down"></i> </a>
+                        <ul class="dropdown-menu dropdown-menu-default user-profile">
                             <li>
-                                <div class="dropdown-messages-box">
-                                    <a class="pull-left" href="#/profile"> <img src="images/teem/placeholders.jpg" class="img-circle" alt="image"> </a>
-                                    <div class="media-body"> <small class="pull-right">46h ago</small> <strong>Mike Loreipsum</strong> started following <strong>Olivia Wenscombe</strong>.
-                                        <br>
-                                        <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small> </div>
-                                </div>
+                                <a ui-sref="acc-and-sub"> <i class="icon-user"></i> My Profile </a>
                             </li>
-                            <li class="divider"></li>
-                            <li>
-                                <div class="dropdown-messages-box">
-                                    <a class="pull-left" href="#/profile"> <img src="images/teem/placeholders.jpg" class="img-circle" alt="image"> </a>
-                                    <div class="media-body "> <small class="pull-right text-navy">5h ago</small> <strong>Alex Smith </strong> started following <strong>Olivia Wenscombe</strong>.
-                                        <br>
-                                        <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small> </div>
-                                </div>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <div class="dropdown-messages-box">
-                                    <a class="pull-left" href="#/profile"> <img src="images/teem/placeholders.jpg" class="img-circle" alt="image"> </a>
-                                    <div class="media-body "> <small class="pull-right">23h ago</small> <strong>Olivia Wenscombe</strong> love <strong>Sophie </strong>. <br>
-                                        <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small> </div>
-                                </div>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <div class="text-center link-block">
-                                    <a href="#/mailbox"> <i class="fa fa-envelope"></i> <strong>Read All Messages</strong> </a>
-                                </div>
+
+                            <li ng-click="logout()">
+                                <a>   <i class="icon-key"></i> Log Out </a>
                             </li>
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a href="javascript;" data-toggle="dropdown" class="dropdown-toggle count-info"> <i class="fa fa-bell"></i> <span class="badge badge-primary">8</span> </a>
-                        <ul class="dropdown-menu dropdown-alerts menuBig">
-                            <li>
-                                <a href="#/mailbox">
-                                    <div> <i class="fa fa-envelope fa-fw"></i> You have 16 messages <span class="pull-right text-muted small">4 minutes ago</span>                                      </div>
-                                </a>
+                    <div>
+                        <div>
+                            <li class="dropdown dropdown-user" ng-if="acessLevel=='Admin'">
+                                <a data-close-others="true" data-hover="dropdown" data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">  <span class="username username-hide-on-mobile"></span>        {{name1}}                <i class="fa fa-angle-down"></i> </a>
+                                <ul class="dropdown-menu dropdown-menu-default">
+                                    <li ng-click="logout()">
+                                        <a>   <i class="icon-key"></i> Log Out </a>
+                                    </li>
+                                </ul>
                             </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="#/profile">
-                                    <div> <i class="fa fa-twitter fa-fw"></i> 3 New Followers <span class="pull-right text-muted small">12 minutes ago</span>                                       </div>
-                                </a>
+                            <div>
+                                <!-- END USER LOGIN DROPDOWN -->
+            </ul>
+            </div>
+            <!-- END TOP NAVIGATION MENU -->
+            </div>
+            <!-- END HEADER INNER -->
+            </div>
+            <div class="clearfix"> </div>
+            <!--<*********************************************HEADER FOR USER END***************************************>-->
+            <!--<*********************************************HEADER FOR ADMIN START***************************************>-->
+            <div class="page-header navbar navbar-fixed-top" style="display:none">
+                <!-- BEGIN HEADER INNER -->
+                <div class="page-header-inner ">
+                    <!-- BEGIN LOGO -->
+                    <div class="page-logo">
+                        <a href="#/dashboard"> <img class="logo-default" alt="logo" src="img/productDetail/Unifli-Logo.png"> </a>
+                    </div>
+                    <!-- END LOGO -->
+                    <div class="library-menu"> <span class="one">-</span> <span class="two">-</span> <span class="three">-</span> </div>
+                    <!-- BEGIN TOP NAVIGATION MENU -->
+                    <div class="top-menu">
+                        <ul class="nav navbar-nav pull-right">
+                            <li class="dropdown">
+                                <a href="javascript;" data-toggle="dropdown" class="dropdown-toggle count-info"> <i class="fa fa-envelope"></i> <span class="badge badge-info">6</span> </a>
+                                <ul class="dropdown-menu dropdown-messages menuBig">
+                                    <li>
+                                        <div class="dropdown-messages-box">
+                                            <a class="pull-left" href="#/profile"> <img src="img/teem/placeholders.jpg" class="img-circle" alt="image"> </a>
+                                            <div class="media-body"> <small class="pull-right">46h ago</small> <strong>Mike Loreipsum</strong> started
+                                                following
+                                                <strong>Olivia Wenscombe</strong>.
+                                                <br>
+                                                <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small> </div>
+                                        </div>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <div class="dropdown-messages-box">
+                                            <a class="pull-left" href="#/profile"> <img src="img/teem/placeholders.jpg" class="img-circle" alt="image"> </a>
+                                            <div class="media-body "> <small class="pull-right text-navy">5h ago</small> <strong>Alex Smith </strong>                                                started following
+                                                <strong>Olivia Wenscombe</strong>.
+                                                <br>
+                                                <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small> </div>
+                                        </div>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <div class="dropdown-messages-box">
+                                            <a class="pull-left" href="#/profile"> <img src="img/teem/placeholders.jpg" class="img-circle" alt="image"> </a>
+                                            <div class="media-body "> <small class="pull-right">23h ago</small> <strong>Olivia Wenscombe</strong> love
+                                                <strong>Sophie </strong>.
+                                                <br>
+                                                <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small> </div>
+                                        </div>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <div class="text-center link-block">
+                                            <a href="#/mailbox"> <i class="fa fa-envelope"></i> <strong>Read All Messages</strong> </a>
+                                        </div>
+                                    </li>
+                                </ul>
                             </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="grid_options.html">
-                                    <div> <i class="fa fa-upload fa-fw"></i> Server Rebooted <span class="pull-right text-muted small">4 minutes ago</span>                                     </div>
-                                </a>
+                            <li class="dropdown">
+                                <a href="javascript;" data-toggle="dropdown" class="dropdown-toggle count-info"> <i class="fa fa-bell"></i> <span class="badge badge-primary">8</span> </a>
+                                <ul class="dropdown-menu dropdown-alerts menuBig">
+                                    <li>
+                                        <a href="#/mailbox">
+                                            <div> <i class="fa fa-envelope fa-fw"></i> You have 16 messages <span class="pull-right text-muted small">4 minutes ago</span>                                                </div>
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#/profile">
+                                            <div> <i class="fa fa-twitter fa-fw"></i> 3 New Followers <span class="pull-right text-muted small">12 minutes ago</span>                                                </div>
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="grid_options.html">
+                                            <div> <i class="fa fa-upload fa-fw"></i> Server Rebooted <span class="pull-right text-muted small">4 minutes ago</span>                                                </div>
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <div class="text-center link-block">
+                                            <a href="#/mailbox"> <strong>See All Alerts</strong> <i class="fa fa-angle-right"></i> </a>
+                                        </div>
+                                    </li>
+                                </ul>
                             </li>
-                            <li class="divider"></li>
-                            <li>
-                                <div class="text-center link-block">
-                                    <a href="#/mailbox"> <strong>See All Alerts</strong> <i class="fa fa-angle-right"></i> </a>
-                                </div>
+                            <!-- START USER LOGIN DROPDOWN -->
+                            <li class="dropdown dropdown-user">
+                                <a data-close-others="true" data-hover="dropdown" data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">
+                                    <!--<img src="img/teem/placeholders.jpg" class="img-circle" alt="">--><span class="username username-hide-on-mobile"> Susan Wenscombe</span> <i class="fa fa-angle-down"></i>                                    </a>
+                                <ul class="dropdown-menu dropdown-menu-default">
+                                    <li>
+                                        <a href="#/admin_profile"> <i class="icon-user"></i> My Profile </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#/login"> <i class="icon-key"></i> Log Out </a>
+                                    </li>
+                                </ul>
                             </li>
+                            <!-- END USER LOGIN DROPDOWN -->
                         </ul>
+<<<<<<< HEAD
+                    </div>
+                    <!-- END TOP NAVIGATION MENU -->
+                </div>
+                <!-- END HEADER INNER -->
+            </div>
+            <div class="clearfix"> </div>
+            <!--<*********************************************HEADER FOR ADMIN START***************************************>-->
+            <!-- start theme config -->
+            <div class="theme-config">
+                <div class="theme-config-box">
+                    <div class="spin-icon"> <i class="fa fa-cogs fa-spin"></i> </div>
+                    <div class="skin-setttings">
+                        <div class="title">Configuration</div>
+                        <div class="setings-item"> <span> Collapse menu </span>
+                            <div class="switch">
+                                <div class="onoffswitch">
+                                    <input name="collapsemenu" class="onoffswitch-checkbox" id="collapsemenu" type="checkbox">
+                                    <label class="onoffswitch-label" for="collapsemenu">
+            <span class="onoffswitch-inner"></span>
+            <span class="onoffswitch-switch"></span>
+            </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="setings-item"> <span> Header Static </span>
+                            <div class="switch">
+                                <div class="onoffswitch">
+                                    <input name="headerfixed" class="onoffswitch-checkbox" id="headerfixed" type="checkbox">
+                                    <label class="onoffswitch-label" for="headerfixed">
+            <span class="onoffswitch-inner"></span>
+            <span class="onoffswitch-switch"></span>
+            </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="setings-item"> <span> Fixed footer </span>
+                            <div class="switch">
+                                <div class="onoffswitch">
+                                    <input name="fixedfooter" class="onoffswitch-checkbox" id="fixedfooter" type="checkbox">
+                                    <label class="onoffswitch-label" for="fixedfooter">
+            <span class="onoffswitch-inner"></span>
+            <span class="onoffswitch-switch"></span>
+            </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!--   <div class="setings-item viewAllThemes"> <span class="skin-name"> <a href="#"> View All Themes </a> </span> </div>
+ <div class="setings-item gohome "> <span class="skin-name"> <a href="http://adminbag-v1.3.bittyfox.com/"> Go to Lending Page </a> </span> </div>-->
+                    </div>
+                </div>
+            </div>
+=======
                     </li>-->
                 <!-- START USER LOGIN DROPDOWN -->
                 <li class="dropdown dropdown-user">
@@ -217,66 +341,67 @@
 <div class="clearfix"> </div>
 <!--<*********************************************HEADER FOR ADMIN START***************************************>-->
 <!-- start theme config -->
+>>>>>>> 87b253b4fc28cddaa939512661cd15200cba1351
 
-<!-- end theme config -->
+            <!-- end theme config -->
 
-<script>
-    $(document).ready(function () {
-        $('.theme-config-box .spin-icon').on('click', function (e) {
-            $('.theme-config-box').toggleClass('open');
-        });
-        // Enable/disable collapse menu
-        $('#collapsemenu').on('click', function () {
-            if ($('#collapsemenu').is(':checked')) {
-                $("body").addClass('page-sidebar-closed');
-                if (localStorageSupport) {
-                    localStorage.setItem("collapse_menu", 'on');
-                }
-            } else {
-                $("body").removeClass('page-sidebar-closed');
-                if (localStorageSupport) {
-                    localStorage.setItem("collapse_menu", 'off');
-                }
-            }
-        });
-        $('#fixedfooter').on('click', function () {
-            if ($('#fixedfooter').is(':checked')) {
-                $("body").addClass('page-footer-fixed');
-                $(".page-content-wrapper").removeClass("animated fadeInRight");
-                if (localStorageSupport) {
-                    localStorage.setItem("fixedfooter", 'on');
-                }
-            } else {
-                $("body").removeClass('page-footer-fixed');
-                $(".page-content-wrapper").addClass("animated fadeInRight");
-                if (localStorageSupport) {
-                    localStorage.setItem("fixedfooter", 'off');
-                }
-            }
-        });
-        $('.viewAllThemes').on('click', function () {
-            $(".request-form").addClass("open");
-        });
-        $('.closeForm').on('click', function () {
-            $(".request-form").removeClass("open");
-        });
-        // Enable/disable  fixed header
-        $('#headerfixed').on('click', function () {
-            if ($('#headerfixed').is(':checked')) {
-                $("body").removeClass('page-header-fixed');
-                $(".page-header").removeClass('navbar-fixed-top');
-                $(".page-sidebar-menu").removeClass('page-header-fixed');
-                if (localStorageSupport) {
-                    localStorage.setItem("headerfixed", 'off');
-                }
-            } else {
-                $("body").addClass('page-header-fixed');
-                $(".page-header").addClass('navbar-fixed-top');
-                $(".page-sidebar-menu").addClass('page-header-fixed');
-                if (localStorageSupport) {
-                    localStorage.setItem("headerfixed", 'on');
-                }
-            }
-        });
-    });
-</script>
+            <script>
+                $(document).ready(function () {
+                    $('.theme-config-box .spin-icon').on('click', function (e) {
+                        $('.theme-config-box').toggleClass('open');
+                    });
+                    // Enable/disable collapse menu
+                    $('#collapsemenu').on('click', function () {
+                        if ($('#collapsemenu').is(':checked')) {
+                            $("body").addClass('page-sidebar-closed');
+                            if (localStorageSupport) {
+                                localStorage.setItem("collapse_menu", 'on');
+                            }
+                        } else {
+                            $("body").removeClass('page-sidebar-closed');
+                            if (localStorageSupport) {
+                                localStorage.setItem("collapse_menu", 'off');
+                            }
+                        }
+                    });
+                    $('#fixedfooter').on('click', function () {
+                        if ($('#fixedfooter').is(':checked')) {
+                            $("body").addClass('page-footer-fixed');
+                            $(".page-content-wrapper").removeClass("animated fadeInRight");
+                            if (localStorageSupport) {
+                                localStorage.setItem("fixedfooter", 'on');
+                            }
+                        } else {
+                            $("body").removeClass('page-footer-fixed');
+                            $(".page-content-wrapper").addClass("animated fadeInRight");
+                            if (localStorageSupport) {
+                                localStorage.setItem("fixedfooter", 'off');
+                            }
+                        }
+                    });
+                    $('.viewAllThemes').on('click', function () {
+                        $(".request-form").addClass("open");
+                    });
+                    $('.closeForm').on('click', function () {
+                        $(".request-form").removeClass("open");
+                    });
+                    // Enable/disable  fixed header
+                    $('#headerfixed').on('click', function () {
+                        if ($('#headerfixed').is(':checked')) {
+                            $("body").removeClass('page-header-fixed');
+                            $(".page-header").removeClass('navbar-fixed-top');
+                            $(".page-sidebar-menu").removeClass('page-header-fixed');
+                            if (localStorageSupport) {
+                                localStorage.setItem("headerfixed", 'off');
+                            }
+                        } else {
+                            $("body").addClass('page-header-fixed');
+                            $(".page-header").addClass('navbar-fixed-top');
+                            $(".page-sidebar-menu").addClass('page-header-fixed');
+                            if (localStorageSupport) {
+                                localStorage.setItem("headerfixed", 'on');
+                            }
+                        }
+                    });
+                });
+            </script>

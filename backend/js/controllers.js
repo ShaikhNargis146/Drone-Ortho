@@ -1868,7 +1868,7 @@ var dfmData = [];
             }
             data1.status = "active"
             data1.user = $.jStorage.get("user")._id;
-            NavigationService.apiCallWithData("Ticket/save", data1, function (data2) {
+            NavigationService.apiCallWithData("Ticket/createTicketForUser", data1, function (data2) {
                 if (data2.value == true) {
                     $scope.data = data2.data;
                     $state.go('support')
