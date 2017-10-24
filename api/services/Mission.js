@@ -283,7 +283,7 @@ var model = {
         // var pix4dPath = 'C:/Users/dell/Documents/pix4d/' + name + '.p4d'; ////for local 
         console.log("inside pix4dCommandExecution", name, imgPath, pix4dPath);
         exec('cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -n --image-dir ' + imgPath + ' --template ' + templatePath + ' ' + pix4dPath, {
-            maxBuffer: 1024 * 5000
+            maxBuffer: 1024 * 500000
         }, function (error, stdout, stderr) {
             if (error) {
                 console.log("\n error inside pix4dCommandExecution", error);
@@ -314,7 +314,7 @@ var model = {
                         function initialProcessing(callback) {
                             console.log("inside initialProcessing--");
                             exec('cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -i ' + pix4dPath, {
-                                maxBuffer: 1024 * 5000
+                                maxBuffer: 1024 * 500000
                             }, function (error, stdout, stderr) {
                                 if (error) {
                                     console.log("error inside initialProcessing--", error);
@@ -331,7 +331,7 @@ var model = {
                         function pointCloud(returnVal, callback) {
                             console.log("inside pointCloud---", returnVal);
                             exec('cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -d ' + pix4dPath, {
-                                maxBuffer: 1024 * 5000
+                                maxBuffer: 1024 * 500000
                             }, function (error, stdout, stderr) {
                                 if (error) {
                                     console.log("error inside pointCloud---", error);
@@ -348,7 +348,7 @@ var model = {
                         function orthomosaic(returnVal, callback) {
                             console.log("inside orthomosaic---", returnVal);
                             exec('cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -o ' + pix4dPath, {
-                                maxBuffer: 1024 * 5000
+                                maxBuffer: 1024 * 500000
                             }, function (error, stdout, stderr) {
                                 if (error) {
                                     console.log("error inside orthomosaic---", error);
