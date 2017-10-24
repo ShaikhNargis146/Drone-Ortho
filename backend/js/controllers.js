@@ -1841,7 +1841,7 @@ firstapp
             }
             data1.status = "active"
             data1.user = $.jStorage.get("user")._id;
-            NavigationService.apiCallWithData("Ticket/save", data1, function (data2) {
+            NavigationService.apiCallWithData("Ticket/createTicketForUser", data1, function (data2) {
                 if (data2.value == true) {
                     $scope.data = data2.data;
                     $state.go('support')
@@ -2855,16 +2855,16 @@ firstapp
         NavigationService.apiCallWithData("User/getByDfm", $scope.formdata1, function (dfm) {
             $scope.dfmData = dfm.data;
             NavigationService.apiCallWithData("Mission/totalMission", $scope.formdata1, function (mission) {
-            $scope.totalMission = mission.data;
-            $scope.dfmData.currentSubscription.missions=$scope.totalMission+"/"+$scope.dfmData.currentSubscription.missions
-          NavigationService.apiCallWithData("Mission/totalMissionCount", $scope.formdata1, function (mission1) {
-              $scope.dfmData.currentSubscription.UploadPhoto=mission1.data+"/"+$scope.dfmData.currentSubscription.UploadPhoto;
-          console.log("totalMissionCount",mission1)
-            });
-            
+                $scope.totalMission = mission.data;
+                $scope.dfmData.currentSubscription.missions = $scope.totalMission + "/" + $scope.dfmData.currentSubscription.missions
+                NavigationService.apiCallWithData("Mission/totalMissionCount", $scope.formdata1, function (mission1) {
+                    $scope.dfmData.currentSubscription.UploadPhoto = mission1.data + "/" + $scope.dfmData.currentSubscription.UploadPhoto;
+                    console.log("totalMissionCount", mission1)
+                });
+
             });
         });
-          
+
 
 
 
@@ -6051,7 +6051,7 @@ firstapp
         }
         if ($.jStorage.get("user")) {
             $scope.name1 = $.jStorage.get("user").name;
-               $scope.acessLevel = $.jStorage.get("user").accessLevel;
+            $scope.acessLevel = $.jStorage.get("user").accessLevel;
         }
         $scope.logout = function (info) {
             $.jStorage.flush();

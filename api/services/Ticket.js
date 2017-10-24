@@ -38,6 +38,32 @@ module.exports = mongoose.model('Ticket', schema);
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "user", "user"));
 var model = {
 
+    createTicketForUser: function (data, callback) {
+        async.waterfall([
+            function (callback) { // generate ticket Id
+                Ticket.ticketIdGenerate(data, function (err, data1) {
+                    callback(null, data1);
+                })
+            },
+            function (ticketID, callback) { //save invoice
+                data.ticketId = ticketID;
+                Ticket.saveData(data, function (err, data2) {
+                    if (err || _.isEmpty(data2)) {
+                        callback(err, [])
+                    } else {
+                        callback(null, data2)
+                    }
+                })
+            }
+        ], function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        });
+    },
+
     getTicket: function (data, callback) {
         if (data.count) {
             var maxCount = data.count;
@@ -146,21 +172,23 @@ var model = {
                 callback(err, null);
             } else {
                 if (_.isEmpty(found)) {
-                    var ticketIdNumber = "T" + "-" + "100";
+                    var ticketIdNumber = "T" + "100";
                     console.log("ticketIdNumber", ticketIdNumber)
                     callback(null, ticketIdNumber);
                 } else {
                     if (!found[0].ticketId) {
-                        var ticketIdNumber = "T" + "-" + "100";
+                        var ticketIdNumber = "T" + "100";
                         console.log("ticketIdNumber", ticketIdNumber)
 
                         callback(null, ticketIdNumber);
                     } else {
-                        var ticketIdData = found[0].ticketId.split("-");
-                        var num = parseInt(ticketIdData[1]);
-                        var nextNum = num + 1;
-                        var ticketIdNumber = "T" + "-" + nextNum;
-                        console.log("ticketIdNumber", ticketIdNumber)
+                        console.log("found", found);
+                        var sub = found[0].ticketId
+                        var ticketData = sub.substring(1, 10000);
+                        console.log("ticketData", ticketData);
+                        var nextNum = parseInt(ticketData) + 1
+                        ticketIdNumber = "T" + nextNum;
+                        console.log("final userIdNumber", ticketIdNumber);
 
                         callback(null, ticketIdNumber);
                     }
