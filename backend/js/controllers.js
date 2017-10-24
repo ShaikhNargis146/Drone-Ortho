@@ -859,7 +859,7 @@ firstapp
 
     })
 
-    .controller('ProductDetailCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state, toastr) {
+    .controller('ProductDetailCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state, toastr, $uibModal) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("product-detail");
         $scope.menutitle = NavigationService.makeactive("ProductDetail");
@@ -945,11 +945,18 @@ firstapp
                         NavigationService.apiCallWithData("User/save", formdata, function (dfmData) {});
                     }
                 });
+                $uibModal.open({
+                    animation: true,
+                    templateUrl: 'views/modal/freetrial.html',
+                    scope: $scope,
+                    size: 'sm',
 
+                });
             } else {
                 $state.go("member")
             }
         }
+
     })
     .controller('TicketHistoryCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
@@ -2838,11 +2845,22 @@ firstapp
                 toastr.error('Check Entered Password');
             }
         }
-
+        $scope.dfmData = {};
         NavigationService.apiCallWithData("User/getByDfm", $scope.formdata1, function (dfm) {
             $scope.dfmData = dfm.data;
-            console.log("Dfm Data", $scope.dfmData)
+            NavigationService.apiCallWithData("Mission/totalMission", $scope.formdata1, function (mission) {
+            $scope.totalMission = mission.data;
+            $scope.dfmData.currentSubscription.missions=$scope.totalMission+"/"+$scope.dfmData.currentSubscription.missions
+          NavigationService.apiCallWithData("Mission/totalMissionCount", $scope.formdata1, function (mission1) {
+              $scope.dfmData.currentSubscription.UploadPhoto=mission1.data+"/"+$scope.dfmData.currentSubscription.UploadPhoto;
+          console.log("totalMissionCount",mission1)
+            });
+            
+            });
         });
+          
+
+
 
     })
     .controller('500Ctrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
@@ -3047,6 +3065,19 @@ firstapp
 
             });
         };
+        $scope.saveUser = function (data) {
+            console.log("data-------", data);
+            if (data.accessLevel == 'User') {
+                NavigationService.apiCallWithData("User/createUser", data, function (data) {
+                    $scope.product = data;
+                });
+            } else {
+                NavigationService.apiCallWithData("User/createVendor", data, function (data) {
+                    $scope.product = data;
+                });
+            }
+        }
+
     })
 
     .controller('EcommerceCtrl', function ($scope, TemplateService, $stateParams, NavigationService, $timeout, $state, toastr) {
@@ -6012,6 +6043,7 @@ firstapp
         }
         if ($.jStorage.get("user")) {
             $scope.name1 = $.jStorage.get("user").name;
+               $scope.acessLevel = $.jStorage.get("user").accessLevel;
         }
         $scope.logout = function (info) {
             $.jStorage.flush();

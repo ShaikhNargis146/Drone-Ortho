@@ -442,6 +442,31 @@ var controller = {
             });
         }
     },
+    createVendor: function (req, res) {
+        if (req.body) {
+            User.createVendor(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            });
+        }
+    },
+    createUser: function (req, res) {
+        if (req.body) {
+            User.createUser(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            });
+        }
+    },
+
     UserIdGenerate: function (req, res) {
         if (req.body) {
             User.UserIdGenerate(req.body, res.callback);

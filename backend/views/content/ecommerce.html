@@ -57,7 +57,7 @@
 
                                     <tbody>
                                         <tr ng-repeat="orderData in allOrderData track by $index">
-                                            <td>{{orderData.user}}</td>
+                                            <td>{{orderData.user.dataId}}</td>
                                             <td>transactionId</td>
                                             <td>transactionDate</td>
                                             <td>{{orderData.cadLineWork.name || orderData.dfmSubscription.name }}</td>
