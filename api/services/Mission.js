@@ -159,11 +159,13 @@ var model = {
                 console.log("total count found", found.length)
                 var countFiles = 0;
                 _.forEach(found, function (x) {
-                    _.forEach(x.files, function (y) {
-                        console.log("total mission count is", y);
-                        countFiles++;
-                        console.log("total mission count is", countFiles);
-                    })
+                    countFiles = countFiles + x.files.length
+                    console.log("total mission count is", x.files.length, countFiles);
+                    // _.forEach(x.files, function (y) {
+                    //     console.log("total mission count is", y);
+                    //     countFiles++;
+                    //     console.log("total mission count is", countFiles);
+                    // })
                 })
                 callback(null, countFiles);
             } else {
