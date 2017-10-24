@@ -207,13 +207,14 @@ var controller = {
             // but is piped here in a writable stream which emits a "finish" event.
             console.log("image", image);
             fs.readFile(image, function (err, imagesData) {
+                console.log("imagesData", imagesData);
                 if (err) {
                     res.callback(err, null);
                 } else {
                     //Remove image
                     fs.unlink(image);
                     // zip.file("file", content); ... and other manipulations
-                    zip.file(image, imagesData);
+                    zip.file("Files", imagesData);
                     callback();
                 }
             });
