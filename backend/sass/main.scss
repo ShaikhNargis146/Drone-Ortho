@@ -4244,6 +4244,7 @@ WIDGETS
         }
     }
 
+    .cad-request-form,
     .modal-x {
         .form-group {
             margin-bottom: 5px !important;
@@ -4324,6 +4325,10 @@ WIDGETS
         &:visited {
             outline: none !important;
         }
+    }
+
+    .m110 {
+        margin-left: 110px
     }
 
     .rzslider .rz-pointer:after {
