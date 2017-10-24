@@ -62,10 +62,15 @@ module.exports.routes = {
         action: "getPdf"
     },
 
-    // 'GET /api/getAutocad/:filename': {
-    //     controller: "WebController",
-    //     action: "getAutocad"
-    // },
+    'GET /api/getAutocad/:filename': {
+        controller: "WebController",
+        action: "getAutocad"
+    },
+
+    'GET /api/getContourLines/:filename': {
+        controller: "WebController",
+        action: "getContourLines"
+    },
 
     'GET /api/getTfw/:filename': {
         controller: "WebController",
