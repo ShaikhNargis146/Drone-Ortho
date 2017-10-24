@@ -247,6 +247,18 @@ var controller = {
 			});
 		}
 	},
+	paymentIdGenerate: function (req, res) {
+		if (req.body) {
+			ProductOrders.paymentIdGenerate(req.body, res.callback);
+		} else {
+			res.json({
+				value: false,
+				data: {
+					message: "Invalid Request"
+				}
+			});
+		}
+	},
 
 };
 

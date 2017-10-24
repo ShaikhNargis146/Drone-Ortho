@@ -430,6 +430,30 @@ var controller = {
 
     //--------------dashboard for User End-------------//
 
+    vendorIdGenerate: function (req, res) {
+        if (req.body) {
+            User.vendorIdGenerate(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            });
+        }
+    },
+    UserIdGenerate: function (req, res) {
+        if (req.body) {
+            User.UserIdGenerate(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            });
+        }
+    },
 
 
 

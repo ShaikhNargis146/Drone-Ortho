@@ -117,7 +117,8 @@ var schema = new Schema({
             socialProvider: String
         }]
     },
-    status: String
+    vendorId: String,
+    userId: String
 });
 
 
@@ -724,7 +725,6 @@ var model = {
     //--------------dashboard api for User End-------------//
 
     getByDfm: function (data, callback) {
-        console.log("inside getbyDfm", data)
         User.findOne({
             _id: data.user
         }).deepPopulate("currentSubscription currentSubscription.plan").exec(function (err, found) {
@@ -733,7 +733,6 @@ var model = {
             } else if (_.isEmpty(found)) {
                 callback(null, "noDataound");
             } else {
-                console.log("inside getby dfm")
                 callback(null, found);
             }
 
@@ -956,83 +955,65 @@ var model = {
         }).populate('cartProducts');
     },
 
-    //Create userID and vendorId
 
-    invoiceNumberGenerate: function (data, callback) {
-        ProductOrders.find({}).sort({
+    //vendorId Generate start
+    vendorIdGenerate: function (data, callback) {
+        User.find({}).sort({
             createdAt: -1
-        }).limit(1).deepPopulate('products user cadLineWork dfmSubscription').exec(function (err, found) {
+        }).limit(1).exec(function (err, found) {
             if (err) {
                 callback(err, null);
             } else {
                 if (_.isEmpty(found)) {
-                    var year = new Date().getFullYear().toString().substr(-2);
-                    var month = new Date().getMonth() + 1;
-                    var m = month.toString().length;
-                    if (m == 1) {
-                        month = "0" + month
-                        var invoiceNumber = "INV" + year + month + "-" + "1";
-                    } else if (m == 2) {
-                        var invoiceNumber = "INV" + year + month + "-" + "1";
-                    }
-                    callback(null, invoiceNumber);
+                    var vendorIdNumber = "VB" + "-" + "100";
+
+                    callback(null, vendorIdNumber);
                 } else {
-                    if (!found[0].invoiceNo) {
-                        var year = new Date().getFullYear().toString().substr(-2);
-                        var month = new Date().getMonth() + 1;
-                        var m = month.toString().length;
-                        if (m == 1) {
-                            month = "0" + month
-                            var invoiceNumber = "INV" + year + month + "-" + "1";
-                        } else if (m == 2) {
-                            var invoiceNumber = "INV" + year + month + "-" + "1";
-                        }
-                        callback(null, invoiceNumber);
+                    if (!found[0].vendorId) {
+                        var vendorIdNumber = "VB" + "-" + "100";
+                        callback(null, vendorIdNumber);
                     } else {
-                        var invoiceData = found[0].invoiceNo.split("-");
-                        var num = parseInt(invoiceData[1]);
+                        var vendorIdData = found[0].vendorId.split("-");
+                        var num = parseInt(vendorIdData[1]);
                         var nextNum = num + 1;
-                        var year = new Date().getFullYear().toString().substr(-2);
-                        var month = new Date().getMonth() + 1;
-                        var m = month.toString().length;
-                        if (m == 1) {
-                            month = "0" + month
-                            var invoiceNumber = "INV" + year + month + "-" + nextNum;
-                        } else if (m == 2) {
-                            var invoiceNumber = "INV" + year + month + "-" + nextNum;
-                        }
-                        callback(null, invoiceNumber);
+                        var vendorIdNumber = "VB" + "-" + nextNum;
+                        callback(null, vendorIdNumber);
+
                     }
                 }
             }
         });
     },
+    //end vendorId
 
-    createInvoice: function (data, callback) {
-        async.waterfall([
-            function (callback) { // generate invoice id
-                ProductOrders.invoiceNumberGenerate(data, function (err, data1) {
-                    callback(null, data1);
-                })
-            },
-            function (invoiceID, callback) { //save invoice
-                data.invoiceNo = invoiceID;
-                ProductOrders.saveData(data, function (err, data2) {
-                    if (err || _.isEmpty(data2)) {
-                        callback(err, [])
-                    } else {
-                        callback(null, data2)
-                    }
-                })
-            }
-        ], function (err, data) {
-            if (err || _.isEmpty(data)) {
-                callback(err, [])
+    //userId Generate start
+    UserIdGenerate: function (data, callback) {
+        User.find({}).sort({
+            createdAt: -1
+        }).limit(1).exec(function (err, found) {
+            console.log("found", found)
+            if (err) {
+                callback(err, null);
             } else {
-                callback(null, data)
+                if (_.isEmpty(found)) {
+                    var userIdNumber = "UN" + "-" + "2001";
+                    callback(null, userIdNumber);
+                } else {
+                    if (!found[0].userId) {
+                        var userIdNumber = "UN" + "-" + "2001";
+                        callback(null, userIdNumber);
+                    } else {
+                        var userIdData = found[0].userId.split("-");
+                        var num = parseInt(userIdData[1]);
+                        var nextNum = num + 1;
+                        var userIdNumber = "UN" + "-" + nextNum;
+                        callback(null, userIdNumber);
+                    }
+                }
             }
         });
     },
+    //end userId
 
 };
 module.exports = _.assign(module.exports, exports, model);

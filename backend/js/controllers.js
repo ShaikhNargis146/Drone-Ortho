@@ -877,7 +877,79 @@ firstapp
             $scope.productInfo = data.data;
         });
 
+        $scope.userId = $.jStorage.get("user")._id;
+        console.log("inside product Details", $scope.userId);
+        $scope.dt = new Date();
+        $scope.dt.setDate($scope.dt.getDate() + 30);
+        if ($.jStorage.get("user")) {
+            $scope.dfmData = [{
+                name: "TRIAL",
+                invitations: "0",
+                missions: "20",
+                UploadPhoto: "500",
+                UploadSize: "4.9GB",
+                Mosaic: " 5",
+                exportKMZ: " 15",
+                exportOrthophoto: "USAGE LIMIT",
+                exportDEM: "USAGE LIMIT",
+                exportPointCloud: "false",
+                status: "Active",
+                amount: "0",
+                expiryDate: $scope.dt,
+            }, {
+                id: 1,
+                user: $.jStorage.get("user")._id,
+                name: "STANDARD",
+                invitations: "15",
+                missions: "50",
+                UploadPhoto: " 500",
+                UploadSize: "5GB ",
+                Mosaic: " 10",
+                exportKMZ: "15",
+                exportOrthophoto: "USAGE LIMIT",
+                exportDEM: "USAGE LIMIT",
+                exportPointCloud: "USAGE LIMIT",
+                status: "Active",
+                amount: "149",
+                expiryDate: $scope.dt,
+            }, {
 
+                id: 2,
+                user: $.jStorage.get("user")._id,
+                name: "PREMIUM",
+                invitations: "25",
+                missions: "100",
+                UploadPhoto: "500",
+                UploadSize: " 10GB",
+                Mosaic: " 15",
+                exportKMZ: " 25",
+                exportOrthophoto: "USAGE LIMIT",
+                exportDEM: "USAGE LIMIT",
+                exportPointCloud: "USAGE LIMIT",
+                status: "Active",
+                amount: "199",
+                expiryDate: $scope.dt,
+            }]
+        } else {
+            var dfmData = [];
+        }
+
+        $scope.saveFreeTrial = function () {
+            if ($.jStorage.get("user")) {
+                NavigationService.apiCallWithData("DFMSubscription/save", $scope.dfmData[0], function (dfm) {
+                    $scope.dfmId = dfm.data._id;
+                    if (dfm.data._id) {
+                        var formdata = {};
+                        formdata._id = $.jStorage.get("user")._id;
+                        formdata.currentSubscription = $scope.dfmId;
+                        NavigationService.apiCallWithData("User/save", formdata, function (dfmData) {});
+                    }
+                });
+
+            } else {
+                $state.go("member")
+            }
+        }
     })
     .controller('TicketHistoryCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
@@ -1228,11 +1300,12 @@ firstapp
         var missionIdForDownload = {};
         $scope.cadLineDetails = {}
         var mission = {};
+        var missionID = {};
         mission._id = $stateParams.missionId;
         NavigationService.apiCall("Mission/getOne", mission, function (data) {
             if (data.value === true) {
-
                 $scope.missionDetails = data.data;
+                missionID.filename = $scope.missionDetails.missionId;
                 missionIdForDownload = $scope.missionDetails.missionId;
                 $scope.template = TemplateService.changecontent("mission-details");
                 $scope.menutitle = NavigationService.makeactive("MissionDetails");
@@ -1652,7 +1725,14 @@ firstapp
         }
 
 
-        $scope.downloadAutocadDXF = function (missionId) {
+        $scope.downloadThree = function () {
+                console.log("--missionID--", missionID);
+                window.open(adminurl + 'Mission/generateZipForMissionFiles?filename=' + missionID.filename, '_self');
+                window.close();
+            },
+
+
+            $scope.downloadAutocadDXF = function (missionId) {
                 window.open('http://cloud.unifli.aero/api/getAutocad/' + missionIdForDownload + ".tif", '_self');
             },
 
@@ -2713,12 +2793,12 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
-        // $scope.formdata = {};
-        // $scope.formdata.data = $.jStorage.get("user");
-        // $scope.formdata1 = {};
-        // $scope.formdata2 = {};
-        // $scope.formdata1.user = $.jStorage.get("user")._id;
-        // $scope.formdata2._id = $.jStorage.get("user")._id;
+        $scope.formdata = {};
+        $scope.formdata.data = $.jStorage.get("user");
+        $scope.formdata1 = {};
+        $scope.formdata2 = {};
+        $scope.formdata1.user = $.jStorage.get("user")._id;
+        $scope.formdata2._id = $.jStorage.get("user")._id;
 
         $scope.updateUser = function (data) {
             NavigationService.apiCallWithData("User/Updateuser", data, function (data2) {
@@ -2753,13 +2833,15 @@ firstapp
                         });
                     }
                 });
+
             } else {
                 toastr.error('Check Entered Password');
             }
         }
 
         NavigationService.apiCallWithData("User/getByDfm", $scope.formdata1, function (dfm) {
-            $scope.dfmData = dfm.data
+            $scope.dfmData = dfm.data;
+            console.log("Dfm Data", $scope.dfmData)
         });
 
     })
@@ -2787,6 +2869,7 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("ProductsPlans");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        ac
         TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
@@ -2874,7 +2957,7 @@ firstapp
 
     })
 
-    .controller('UsersCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state, toastr) {
+    .controller('UsersCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state, toastr, $uibModal) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("users");
         $scope.menutitle = NavigationService.makeactive("Users");
@@ -2955,6 +3038,15 @@ firstapp
         $scope.getAllItems();
 
         //pagination end admin
+        $scope.userOpen = function () {
+            $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/create-user.html',
+                scope: $scope,
+                size: 'lg'
+
+            });
+        };
     })
 
     .controller('EcommerceCtrl', function ($scope, TemplateService, $stateParams, NavigationService, $timeout, $state, toastr) {
@@ -5906,6 +5998,8 @@ firstapp
                     NavigationService.parseAccessToken(data.data._id, function () {
                         NavigationService.profile(function () {
                             $scope.template.profile = data.data;
+                            // $scope.name1 = data.data.name;
+                            // console.log(" $scope.template.profile", $scope.name1)
                             $state.go("dashboard");
                         }, function () {
                             $state.go("login");
@@ -5915,6 +6009,9 @@ firstapp
                     toastr.error('Incorrect credentials');
                 }
             });
+        }
+        if ($.jStorage.get("user")) {
+            $scope.name1 = $.jStorage.get("user").name;
         }
         $scope.logout = function (info) {
             $.jStorage.flush();
