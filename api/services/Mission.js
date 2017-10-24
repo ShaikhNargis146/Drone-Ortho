@@ -293,68 +293,16 @@ var model = {
                     console.log("found------>>>>>>>>>>>", stdout.indexOf("from the user database"));
 
                     async.waterfall([
-                        // function runningAllProcessing(callback) {
-                        //     console.log("inside runningAllProcessing 'cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -r " + pix4dPath);
-                        //     exec('cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -r ' + pix4dPath, {
-                        //         maxBuffer: 1024 * 5000
-                        //     }, function (error, stdout, stderr) {
-                        //         if (error) {
-                        //             console.log("error inside runningAllProcessing--", error);
-                        //             callback(error, null)
-                        //         } else if (stdout) {
-                        //             console.log("and its working----stdout");
-                        //             callback(null, "done");
-                        //         } else {
-                        //             console.log("stderr", stderr);
-                        //             callback(error, null);
-                        //         }
-                        //     });
-                        // },
-
-                        function initialProcessing(callback) {
-                            console.log("inside initialProcessing--");
-                            exec('cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -i ' + pix4dPath, {
+                        function runningAllProcessing(callback) {
+                            console.log("inside runningAllProcessing 'cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -r " + pix4dPath);
+                            exec('cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -r ' + pix4dPath, {
                                 maxBuffer: 1024 * 500000
                             }, function (error, stdout, stderr) {
                                 if (error) {
-                                    console.log("error inside initialProcessing--", error);
+                                    console.log("error inside runningAllProcessing--", error);
                                     callback(error, null)
                                 } else if (stdout) {
-                                    console.log("initialProcessing---stdout");
-                                    callback(null, "done");
-                                } else {
-                                    console.log("stderr", stderr);
-                                    callback(error, null);
-                                }
-                            });
-                        },
-                        function pointCloud(returnVal, callback) {
-                            console.log("inside pointCloud---", returnVal);
-                            exec('cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -d ' + pix4dPath, {
-                                maxBuffer: 1024 * 500000
-                            }, function (error, stdout, stderr) {
-                                if (error) {
-                                    console.log("error inside pointCloud---", error);
-                                    callback(error, null)
-                                } else if (stdout) {
-                                    console.log("pointCloud----stdout");
-                                    callback(null, "done");
-                                } else {
-                                    console.log("stderr", stderr);
-                                    callback(error, null);
-                                }
-                            });
-                        },
-                        function orthomosaic(returnVal, callback) {
-                            console.log("inside orthomosaic---", returnVal);
-                            exec('cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -o ' + pix4dPath, {
-                                maxBuffer: 1024 * 500000
-                            }, function (error, stdout, stderr) {
-                                if (error) {
-                                    console.log("error inside orthomosaic---", error);
-                                    callback(error, null)
-                                } else if (stdout) {
-                                    console.log("orthomosaic-----stdout");
+                                    console.log("and its working----stdout");
                                     callback(null, "done");
                                 } else {
                                     console.log("stderr", stderr);
@@ -362,6 +310,58 @@ var model = {
                                 }
                             });
                         }
+
+                        // function initialProcessing(callback) {
+                        //     console.log("inside initialProcessing--");
+                        //     exec('cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -i ' + pix4dPath, {
+                        //         maxBuffer: 1024 * 500000
+                        //     }, function (error, stdout, stderr) {
+                        //         if (error) {
+                        //             console.log("error inside initialProcessing--", error);
+                        //             callback(error, null)
+                        //         } else if (stdout) {
+                        //             console.log("initialProcessing---stdout");
+                        //             callback(null, "done");
+                        //         } else {
+                        //             console.log("stderr", stderr);
+                        //             callback(error, null);
+                        //         }
+                        //     });
+                        // },
+                        // function pointCloud(returnVal, callback) {
+                        //     console.log("inside pointCloud---", returnVal);
+                        //     exec('cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -d ' + pix4dPath, {
+                        //         maxBuffer: 1024 * 500000
+                        //     }, function (error, stdout, stderr) {
+                        //         if (error) {
+                        //             console.log("error inside pointCloud---", error);
+                        //             callback(error, null)
+                        //         } else if (stdout) {
+                        //             console.log("pointCloud----stdout");
+                        //             callback(null, "done");
+                        //         } else {
+                        //             console.log("stderr", stderr);
+                        //             callback(error, null);
+                        //         }
+                        //     });
+                        // },
+                        // function orthomosaic(returnVal, callback) {
+                        //     console.log("inside orthomosaic---", returnVal);
+                        //     exec('cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -o ' + pix4dPath, {
+                        //         maxBuffer: 1024 * 500000
+                        //     }, function (error, stdout, stderr) {
+                        //         if (error) {
+                        //             console.log("error inside orthomosaic---", error);
+                        //             callback(error, null)
+                        //         } else if (stdout) {
+                        //             console.log("orthomosaic-----stdout");
+                        //             callback(null, "done");
+                        //         } else {
+                        //             console.log("stderr", stderr);
+                        //             callback(error, null);
+                        //         }
+                        //     });
+                        // }
 
                     ], function asyncComplete(err, data) {
                         if (err) {
