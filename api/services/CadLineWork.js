@@ -506,6 +506,18 @@ var model = {
                 callback(null, data)
             }
         });
+    },
+
+    missionIsPresent: function (data, callback) {
+        CadLineWork.findOne({
+            mission: data.missionId
+        }).exec(function (err, data) {
+            if (_.isEmpty(data) || err) {
+                callback(err, "NoData");
+            } else {
+                callback(null, data)
+            }
+        })
     }
 };
 module.exports = _.assign(module.exports, exports, model);
