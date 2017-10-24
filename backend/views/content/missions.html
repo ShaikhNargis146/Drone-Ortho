@@ -60,7 +60,7 @@
 
                       <tbody>
                         <tr ng-repeat="mission in missionInfo">
-                          <td ng-click="map=1"  ng-class="map==1 ? 'remove' : 'add'"><a ui-sref="mission-details({'missionId' : mission._id})">{{mission.missionId}}</a></td>
+                          <td ng-click="map=1" ng-class="map==1 ? 'remove' : 'add'"><a ui-sref="mission-details({'missionId' : mission._id})">{{mission.missionId}}</a></td>
                           <td><a ui-sref="mission-details({'missionId' : mission._id})">{{mission.name}}</a></td>
                           <td>
                             <a ui-sref="mission-details({'missionId' : mission._id})">{{mission.createdAt | date}}</a>
@@ -157,7 +157,7 @@
                         <tr ng-repeat="missionData in allMissionData track by $index">
 
                           <td><a ui-sref="mission-details({'missionId' : missionData._id})">{{missionData.missionId}}</a></td>
-                          <td><a ui-sref="mission-details({'missionId' : missionData._id})">{{missionData.user._id}}</a></td>
+                          <td><a ui-sref="mission-details({'missionId' : missionData._id})">{{missionData.user.dataId}}</a></td>
                           <td><a ui-sref="mission-details({'missionId' : missionData._id})">{{missionData.name}}</a></td>
                           <td><a ui-sref="mission-details({'missionId' : missionData._id})">{{missionData.createdAt | date}}</a></td>
                           <td><a ui-sref="mission-details({'missionId' : missionData._id})">{{missionData.status}}</a></td>

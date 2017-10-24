@@ -127,7 +127,7 @@ var models = {
                 console.log("errr", err);
                 callback(err);
             } else {
-                var path = "pdf/";
+                var path = "C:/Users/unifli/Documents/googleTile-Mosaic/";
                 var newFilename = page.invoiceNo + ".pdf";
                 var writestream = fs.createWriteStream(path + newFilename);
                 writestream.on('finish', function (err, res) {
@@ -609,6 +609,93 @@ var models = {
         var extension = filename.split(".").pop();
         readstream.pipe(res);
         //error handling, e.g. file does not exist
+    },
+
+    //email
+
+    email: function (data, callback) {
+        var emailMessage = {};
+        emailMessage.from_email = "info@gsourcedata.com";
+        emailMessage.from_name = "GSource Technologies";
+        emailMessage.to = [{}];
+
+        console.log("*************************** Inside email function of Config model ************************** & data is :", data);
+        Password.find().exec(function (err, emailKey) {
+
+            console.log("************ inside emila function ****************", emailKey);
+            if (err) {
+                console.log(err);
+                callback(err, null);
+            } else if (emailKey && emailKey.length > 0) {
+                if (data.filename && data.filename != "") {
+                    var mandrill = require('mandrill-api/mandrill');
+                    var mandrillClient = new mandrill.Mandrill(emailKey[0].name);
+
+                    console.log("**************filename *********************", data.filename);
+                    var merge_vars = [];
+                    mandrillClient.templates.render({
+                        "template_name": data.filename,
+                        "template_content": [],
+                        "merge_vars": data.merge_vars ? data.merge_vars : []
+                    }, function (result) {
+                        // console.log(result);
+                        if (result.html && result.html != "") {
+                            emailMessage.html = result.html;
+                            emailMessage.subject = data.subject;
+                            emailMessage.to[0].email = data.email;
+                            emailMessage.to[0].name = data.name;
+                            emailMessage.to[0].type = "to";
+                            if (data.filename == 'Invoice Alert' ||
+                                data.filename == 'Order Upload' || data.filename == 'Documents missing on your Order') {
+                                emailMessage.to.push({
+                                    email: "info@gsourcedata.com",
+                                    type: "cc"
+                                });
+                            }
+                            emailMessage.tags = data.tags;
+
+                            if (data.attachments) {
+                                emailMessage.attachments = [];
+                                console.log("Email attachment found");
+                                for (var idx = 0; idx < data.attachments.length; idx++) {
+                                    emailMessage.attachments.push(data.attachments[idx]);
+                                }
+                            }
+
+                            // console.log("Actual email message sent to mandrill: ", emailMessage);
+                            mandrillClient.messages.send({
+                                "message": emailMessage
+                            }, function (result) {
+                                console.log(result);
+                                delete emailMessage.attachments;
+                                callback(null, result);
+                            });
+                        } else {
+                            callback({
+                                message: "Error while sending mail."
+                            }, null);
+                        }
+                        /*
+                        {
+                            "html": "<p><div>content to inject merge1 content</div></p>"
+                        }
+                        */
+                    }, function (e) {
+                        // Mandrill returns the error as an object with name and message keys
+                        console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
+                        // A mandrill error occurred: Invalid_Key - Invalid API key
+                    });
+                } else {
+                    callback({
+                        message: "Please provide params"
+                    }, null);
+                }
+            } else {
+                callback({
+                    message: "No api keys found"
+                }, null);
+            }
+        });
     },
 };
 module.exports = _.assign(module.exports, models);

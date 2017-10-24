@@ -859,7 +859,7 @@ firstapp
 
     })
 
-    .controller('ProductDetailCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state, toastr) {
+    .controller('ProductDetailCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state, toastr, $uibModal) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("product-detail");
         $scope.menutitle = NavigationService.makeactive("ProductDetail");
@@ -945,11 +945,18 @@ var dfmData = [];
                         NavigationService.apiCallWithData("User/save", formdata, function (dfmData) {});
                     }
                 });
+                $uibModal.open({
+                    animation: true,
+                    templateUrl: 'views/modal/freetrial.html',
+                    scope: $scope,
+                    size: 'sm',
 
+                });
             } else {
                 $state.go("member")
             }
         }
+
     })
     .controller('TicketHistoryCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
@@ -1726,14 +1733,16 @@ var dfmData = [];
 
 
         $scope.downloadThree = function () {
-                console.log("--missionID--", missionID);
                 window.open(adminurl + 'Mission/generateZipForMissionFiles?filename=' + missionID.filename, '_self');
                 window.close();
             },
 
-
             $scope.downloadAutocadDXF = function (missionId) {
-                window.open('http://cloud.unifli.aero/api/getAutocad/' + missionIdForDownload + ".tif", '_self');
+                window.open('http://cloud.unifli.aero/api/getAutocad/' + missionIdForDownload + ".dxf", '_self');
+            },
+
+            $scope.downloadContoursLines = function (missionId) {
+                window.open('http://cloud.unifli.aero/api/getContourLines/' + missionIdForDownload + ".shp", '_self');
             },
 
             $scope.downloadTFW = function (missionId) {
@@ -1961,7 +1970,7 @@ var dfmData = [];
             // window.open(adminurl + 'upload/readFileFromFolder?name=' + data, '_self');
             // console.log("data", data);
             if (data) {
-                window.open(adminurl + '../pdf/' + data, '_self');
+                window.open('http://files.unifli.aero/' + data, '_self');
             } else {
                 toastr.error("No PDF Found");
             }
@@ -2439,11 +2448,17 @@ var dfmData = [];
         }
 
         $scope.vendorPay = function (data) {
+            var data1 = {};
             data.cad = $stateParams.cadId;
             NavigationService.apiCallWithData("VendorBill/save", data, function (data) {
                 if (data.value == true) {
+                    data1._id = $stateParams.cadId;
+                    data1.vendorPaymentStatus = 'Paid';
+                    NavigationService.apiCallWithData("CadLineWork/save", data1, function (data1) {
+                        if (data1.value == true) {}
+                    });
                     toastr.success("Payment in progress");
-                    $state.go("cadfile-details");
+                    $state.go("cadfile-request");
                 }
             });
         }
@@ -2471,7 +2486,8 @@ var dfmData = [];
 
         $scope.vendorPriceSet = function (data) {
             data._id = $stateParams.cadId;
-            NavigationService.apiCallWithData("CadLineWork/save", data, function (data) {
+            data.vendorPaymentStatus = 'Unpaid';
+            NavigationService.apiCallWithData("CadLineWork/saveVendorDetails", data, function (data) {
                 if (data.value == true) {
                     toastr.success("Amount set");
                     $state.reload();
@@ -2747,8 +2763,8 @@ var dfmData = [];
                     NavigationService.searchCall("CadLineWork/getCadForVendor", {
                             page: $scope.currentPage,
                             keyword: $scope.search.keyword,
-                            count: $scope.maxCount,
-                            vendorId: userId //replace it with jstorage ID
+                            count: $scope.maxCount
+                            // vendorId: userId //replace it with jstorage ID
                         }, ++i,
                         function (data, ini) {
                             if (ini == i) {
@@ -2762,8 +2778,8 @@ var dfmData = [];
                     if (keywordChange) {}
                     NavigationService.searchCall("CadLineWork/getCadForVendor", {
                             page: $scope.currentPage,
-                            keyword: $scope.search.keyword,
-                            vendorId: userId //replace it with jstorage ID
+                            keyword: $scope.search.keyword
+                            // vendorId: userId //replace it with jstorage ID
                         }, ++i,
                         function (data, ini) {
                             if (ini == i) {
@@ -2838,11 +2854,22 @@ var dfmData = [];
                 toastr.error('Check Entered Password');
             }
         }
-
+        $scope.dfmData = {};
         NavigationService.apiCallWithData("User/getByDfm", $scope.formdata1, function (dfm) {
             $scope.dfmData = dfm.data;
-            console.log("Dfm Data", $scope.dfmData)
+            NavigationService.apiCallWithData("Mission/totalMission", $scope.formdata1, function (mission) {
+                $scope.totalMission = mission.data;
+                $scope.dfmData.currentSubscription.missions = $scope.totalMission + "/" + $scope.dfmData.currentSubscription.missions
+                NavigationService.apiCallWithData("Mission/totalMissionCount", $scope.formdata1, function (mission1) {
+                    $scope.dfmData.currentSubscription.UploadPhoto = mission1.data + "/" + $scope.dfmData.currentSubscription.UploadPhoto;
+                    console.log("totalMissionCount", mission1)
+                });
+
+            });
         });
+
+
+
 
     })
     .controller('500Ctrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
@@ -3047,6 +3074,19 @@ var dfmData = [];
 
             });
         };
+        $scope.saveUser = function (data) {
+            console.log("data-------", data);
+            if (data.accessLevel == 'User') {
+                NavigationService.apiCallWithData("User/createUser", data, function (data) {
+                    $scope.product = data;
+                });
+            } else {
+                NavigationService.apiCallWithData("User/createVendor", data, function (data) {
+                    $scope.product = data;
+                });
+            }
+        }
+
     })
 
     .controller('EcommerceCtrl', function ($scope, TemplateService, $stateParams, NavigationService, $timeout, $state, toastr) {
@@ -3196,7 +3236,9 @@ var dfmData = [];
             var getByDate = {};
             getByDate.fromDate = moment(data.fromDate).format();
             getByDate.toDate = moment(data.toDate).format();
-            if (data.type == 'Cad') {
+            if (data.type == 'Mission') {
+                NavigationService.generateExcelWithData("VendorBill/exceltotalMission", getByDate, function (data) {});
+            } else if (data.type == 'Cad') {
                 NavigationService.generateExcelWithData("VendorBill/exceltotalCadRequest", getByDate, function (data) {});
             } else if (data.type == 'DroneSales') {
                 NavigationService.generateExcelWithData("VendorBill/droneSales", getByDate, function (data) {});
@@ -6012,6 +6054,7 @@ var dfmData = [];
         }
         if ($.jStorage.get("user")) {
             $scope.name1 = $.jStorage.get("user").name;
+            $scope.acessLevel = $.jStorage.get("user").accessLevel;
         }
         $scope.logout = function (info) {
             $.jStorage.flush();

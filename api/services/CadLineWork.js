@@ -67,8 +67,8 @@ var schema = new Schema({
     requestType: {
         type: String,
         enum: ['Internal', 'External']
-    }
-
+    },
+    vendorBillingId: String
 });
 
 schema.plugin(deepPopulate, {
@@ -264,7 +264,6 @@ var model = {
         });
     },
 
-
     getSingleCadData: function (data, callback) {
         this.findOne({
             _id: data._id
@@ -348,9 +347,7 @@ var model = {
             start: (page - 1) * maxRow,
             count: maxRow
         };
-        this.find({
-                vendor: data.vendorId
-            })
+        this.find({})
             .deepPopulate("user mission vendor")
             .order(options)
             .keyword(options)
@@ -447,7 +444,68 @@ var model = {
                 }
             }
         });
-    }
+    },
 
+    //generate vendor billing id
+
+    vendorBillIdGenerate: function (data, callback) {
+        var findQuery = {};
+        var vendorBillId;
+        findQuery = {
+            vendorBillingId: {
+                $regex: '^VB.*',
+                $options: 'm'
+            }
+        };
+        CadLineWork.findOne(findQuery).sort({
+            createdAt: -1
+        }).exec(function (err, found) {
+            if (err) {
+                callback(err, null);
+            } else {
+                if (_.isEmpty(found)) {
+                    vendorBillId = "VB" + "100";
+                    callback(null, vendorBillId);
+                } else {
+                    if (!found.vendorBillingId) {
+                        vendorBillId = "VB" + "100";
+                        callback(null, vendorBillId);
+                    } else {
+                        var sub = found.vendorBillingId
+                        var vendorIdData = sub.substring(2, 10000);
+                        var nextNum = parseInt(vendorIdData) + 1
+                        vendorBillId = "VB" + nextNum;
+                        callback(null, vendorBillId);
+                    }
+                }
+            }
+        });
+    },
+
+    saveVendorDetails: function (data, callback) {
+        async.waterfall([
+            function (callback) { // generate vendor id
+                CadLineWork.vendorBillIdGenerate(data, function (err, data1) {
+                    callback(null, data1);
+                })
+            },
+            function (billID, callback) { //save vendor
+                data.vendorBillingId = billID;
+                CadLineWork.saveData(data, function (err, data2) {
+                    if (err || _.isEmpty(data2)) {
+                        callback(err, [])
+                    } else {
+                        callback(null, data2)
+                    }
+                })
+            }
+        ], function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        });
+    }
 };
 module.exports = _.assign(module.exports, exports, model);

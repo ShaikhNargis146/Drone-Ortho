@@ -149,6 +149,30 @@ var model = {
             }
         });
     },
+    totalMissionCount: function (data, callback) {
+        Mission.find({
+            user: data.user,
+        }).exec(function (err, found) {
+            if (err) {
+                callback(err, null);
+            } else if (found) {
+                console.log("total count found", found.length)
+                var countFiles = 0;
+                _.forEach(found, function (x) {
+                    countFiles = countFiles + x.files.length
+                    console.log("total mission count is", x.files.length, countFiles);
+                    // _.forEach(x.files, function (y) {
+                    //     console.log("total mission count is", y);
+                    //     countFiles++;
+                    //     console.log("total mission count is", countFiles);
+                    // })
+                })
+                callback(null, countFiles);
+            } else {
+                callback("Invalid data", null);
+            }
+        });
+    },
 
     createMission: function (data, callback) {
         async.waterfall([

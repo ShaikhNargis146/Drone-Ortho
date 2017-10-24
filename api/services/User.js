@@ -117,8 +117,7 @@ var schema = new Schema({
             socialProvider: String
         }]
     },
-    vendorId: String,
-    userId: String
+    dataId: String
 });
 
 
@@ -172,7 +171,7 @@ var model = {
             count: maxRow
         };
         User.find({})
-            .deepPopulate("serviceId user DFMSubscription")
+            .deepPopulate("serviceId user DFMSubscription currentSubscription")
             .order(options)
             .keyword(options)
             .page(options,
@@ -955,28 +954,78 @@ var model = {
         }).populate('cartProducts');
     },
 
+    //Generate Vendor
+    createVendor: function (data, callback) {
+
+        async.waterfall([
+            function (callback) { // generate VendorID 
+                User.vendorIdGenerate(data, function (err, data1) {
+                    callback(null, data1);
+                });
+            },
+            function (VendorID, callback) { //save VendorID
+
+                data.dataId = VendorID;
+                data.accessToken = [uid(16)];
+                data.password = md5(data.password);
+                if (data.drone) {
+                    data.lisence = "NDB";
+                } else {
+                    data.lisence = "UDB";
+                }
+                User.saveData(data, function (err, created) {
+                    if (err) {
+                        callback(err, null);
+                    } else if (created) {
+                        callback(null, created);
+                    } else {
+                        callback(null, {});
+                    }
+                });
+            }
+        ], function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        });
+    },
 
     //vendorId Generate start
     vendorIdGenerate: function (data, callback) {
-        User.find({}).sort({
+        var findQuery = {};
+        findQuery = {
+            dataId: {
+                $regex: '^V.*',
+                $options: 'm'
+            }
+        };
+        var vendorIdNumber;
+        User.findOne(findQuery).sort({
             createdAt: -1
-        }).limit(1).exec(function (err, found) {
+        }).exec(function (err, found) {
             if (err) {
                 callback(err, null);
             } else {
                 if (_.isEmpty(found)) {
-                    var vendorIdNumber = "VB" + "-" + "100";
-
+                    console.log("found", found);
+                    vendorIdNumber = "V" + "100";
+                    console.log("is empty vendorIdNumber", vendorIdNumber);
                     callback(null, vendorIdNumber);
                 } else {
-                    if (!found[0].vendorId) {
-                        var vendorIdNumber = "VB" + "-" + "100";
+                    if (!found.dataId) {
+                        vendorIdNumber = "V" + "100";
+                        console.log("dataId null vendorIdNumber", vendorIdNumber);
                         callback(null, vendorIdNumber);
                     } else {
-                        var vendorIdData = found[0].vendorId.split("-");
-                        var num = parseInt(vendorIdData[1]);
-                        var nextNum = num + 1;
-                        var vendorIdNumber = "VB" + "-" + nextNum;
+                        console.log("found", found);
+                        var sub = found.dataId
+                        var vendorIdData = sub.substring(2, 10000);
+                        console.log("vendorIdData", vendorIdData);
+                        var nextNum = parseInt(vendorIdData) + 1
+                        vendorIdNumber = "VB" + nextNum;
+                        console.log("final vendorIdNumber", vendorIdNumber);
                         callback(null, vendorIdNumber);
 
                     }
@@ -986,27 +1035,76 @@ var model = {
     },
     //end vendorId
 
+    createUser: function (data, callback) {
+
+        async.waterfall([
+            function (callback) { // generate VendorID 
+                User.UserIdGenerate(data, function (err, data1) {
+                    callback(null, data1);
+                })
+            },
+            function (UserID, callback) { //save VendorID
+
+                data.dataId = UserID;
+                data.accessToken = [uid(16)];
+                // data.password = md5(data.password);
+                if (data.drone) {
+                    data.lisence = "NDB";
+                } else {
+                    data.lisence = "UDB";
+                }
+                User.saveData(data, function (err, created) {
+                    if (err) {
+                        callback(err, null);
+                    } else if (created) {
+                        callback(null, created);
+                    } else {
+                        callback(null, {});
+                    }
+                });
+            }
+        ], function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        });
+    },
     //userId Generate start
     UserIdGenerate: function (data, callback) {
-        User.find({}).sort({
+        var findQuery = {};
+        var userIdNumber;
+        findQuery = {
+            dataId: {
+                $regex: '^UN.*',
+                $options: 'm'
+            }
+        };
+        User.findOne(findQuery).sort({
             createdAt: -1
-        }).limit(1).exec(function (err, found) {
-            console.log("found", found)
+        }).exec(function (err, found) {
+
             if (err) {
                 callback(err, null);
             } else {
                 if (_.isEmpty(found)) {
-                    var userIdNumber = "UN" + "-" + "2001";
+                    userIdNumber = "UN" + "2001";
+                    console.log("is empty userIdNumber", userIdNumber);
                     callback(null, userIdNumber);
                 } else {
-                    if (!found[0].userId) {
-                        var userIdNumber = "UN" + "-" + "2001";
+                    if (!found.dataId) {
+                        userIdNumber = "UN" + "2001";
+                        console.log(" found null dataId userIdNumber", userIdNumber);
                         callback(null, userIdNumber);
                     } else {
-                        var userIdData = found[0].userId.split("-");
-                        var num = parseInt(userIdData[1]);
-                        var nextNum = num + 1;
-                        var userIdNumber = "UN" + "-" + nextNum;
+                        console.log("found", found);
+                        var sub = found.dataId
+                        var userIdData = sub.substring(2, 10000);
+                        console.log("userIdData", userIdData);
+                        var nextNum = parseInt(userIdData) + 1
+                        userIdNumber = "UN" + nextNum;
+                        console.log("final userIdNumber", userIdNumber);
                         callback(null, userIdNumber);
                     }
                 }

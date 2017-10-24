@@ -10,7 +10,7 @@
                         <li class="active"> <strong>Users</strong> </li>
                     </ol>
                 </div>
-                    <div class="col-lg-6">
+                <div class="col-lg-6">
                     <button class="btn green btn-outline  pull-right" ng-click="userOpen();">CREATE USER</button>
                 </div>
             </div>
@@ -44,27 +44,21 @@
                                             <th>Email</th>
                                             <th>DFM Status</th>
                                             <th>DFM Plan</th>
-                                            <th>User Type</th>
                                             <th>License Type</th>
-                                            <th>Status</th>
+                                            <th>User Type</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="user in userInfo  track by $index">
-                                            <td><a ui-sref="user-details ({userId:user._id})">{{$index+1}}</a></td>
+                                            <td><a ui-sref="user-details ({userId:user._id})">{{user.dataId}}</a></td>
                                             <td><a ui-sref="user-details ({userId:user._id})">{{user.name}}</a></td>
                                             <td><a ui-sref="user-details ({userId:user._id})">{{user.email}}</a></td>
-                                            <td><a ui-sref="user-details ({userId:user._id})">{{user.accessLevel}}</a></td>
+                                            <td><a ui-sref="user-details ({userId:user._id})">{{user.currentSubscription.status}}</a></td>
                                             <td>
-                                                <a ui-sref="user-details ({userId:user._id})"></a>
-                                            </td>
-                                            <td>
-                                                <a ui-sref="user-details ({userId:user._id})"></a>
+                                                <a ui-sref="user-details ({userId:user._id})">{{user.currentSubscription.name}}</a>
                                             </td>
                                             <td><a ui-sref="user-details ({userId:user._id})">{{user.lisence}}</a></td>
-                                            <td>
-                                                <a ui-sref="user-details ({userId:user._id})"></a>
-                                            </td>
+                                            <td><a ui-sref="user-details ({userId:user._id})">{{user.accessLevel}}</a></td>
                                         </tr>
                                     </tbody>
                                 </table>

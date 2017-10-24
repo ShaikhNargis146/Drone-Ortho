@@ -128,7 +128,7 @@
                       <td><a ui-sref="support-details({'ticketId' : ticket._id})">{{ticket._id}}</a></td>
                       <td><a ui-sref="support-details({'ticketId' : ticket._id})">{{ticket.createdAt | date}}</a></td>
                       <td><a ui-sref="support-details({'ticketId' : ticket._id})">{{ticket.subject}}</a></td>
-                      <td><a ui-sref="support-details({'ticketId' : ticket._id})">{{ticket.description}}</a></td>
+                      <td><a ui-sref="support-details({'ticketId' : ticket._id})">{{ticket.user.dataId}}</a></td>
                       <td><a ui-sref="support-details({'ticketId' : ticket._id})">{{ticket.status}}</a></td>
                       <td><a ui-sref="support-details({'ticketId' : ticket._id})">{{ticket.replyDate | date}}</a></td>
                     </tr>
