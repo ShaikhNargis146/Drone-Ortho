@@ -140,7 +140,8 @@
 					<div class="form-group">
 						<label class="control-label col-sm-4" for="pwd">Acreage</label>
 						<div class="col-sm-6">
-							<input type="text" ng-model="cadLineDetails.acreage" class="form-control" id="acreage" placeholder="Enter Acreage" name="pwd">
+							<input type="text" ng-model="cadLineDetails.acreage" class="form-control" id="acreage" placeholder="Enter Acreage" disabled
+							    name="pwd">
 						</div>
 					</div>
 
@@ -315,7 +316,8 @@ $("#showCheckoutCadR").change(function(event){
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
 										    " popover-placement="bottom " title=" " uib-tooltip="DSM (.TIFF) " ng-click="downloadDsm()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-delicious "></i> </button>-->
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
-										    " popover-placement="bottom " title=" " uib-tooltip="ORTHOMOSAIC,DSM & TFW" ng-click="downloadThree()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-delicious "></i> </button>
+										    " popover-placement="bottom " title=" " uib-tooltip="ZIP OF ORTHOMOSAIC,DSM & TFW" ng-click="downloadThree()"
+										    ng-disabled="missionDetails.status !='ready'"><i class="fa fa-delicious "></i> </button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
 										    " popover-placement="bottom " title=" " uib-tooltip="Mesh (.Obj)" ng-click="downloadMeshObj()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-desktop "></i> </button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom

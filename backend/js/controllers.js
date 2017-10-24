@@ -1733,7 +1733,6 @@ firstapp
 
 
         $scope.downloadThree = function () {
-                console.log("--missionID--", missionID);
                 window.open(adminurl + 'Mission/generateZipForMissionFiles?filename=' + missionID.filename, '_self');
                 window.close();
             },
@@ -1968,7 +1967,7 @@ firstapp
             // window.open(adminurl + 'upload/readFileFromFolder?name=' + data, '_self');
             // console.log("data", data);
             if (data) {
-                window.open(adminurl + '../pdf/' + data, '_self');
+                window.open('http://files.unifli.aero/' + data, '_self');
             } else {
                 toastr.error("No PDF Found");
             }
@@ -2446,11 +2445,17 @@ firstapp
         }
 
         $scope.vendorPay = function (data) {
+            var data1 = {};
             data.cad = $stateParams.cadId;
             NavigationService.apiCallWithData("VendorBill/save", data, function (data) {
                 if (data.value == true) {
+                    data1._id = $stateParams.cadId;
+                    data1.vendorPaymentStatus = 'Paid';
+                    NavigationService.apiCallWithData("CadLineWork/save", data1, function (data1) {
+                        if (data1.value == true) {}
+                    });
                     toastr.success("Payment in progress");
-                    $state.go("cadfile-details");
+                    $state.go("cadfile-request");
                 }
             });
         }
@@ -2478,7 +2483,8 @@ firstapp
 
         $scope.vendorPriceSet = function (data) {
             data._id = $stateParams.cadId;
-            NavigationService.apiCallWithData("CadLineWork/save", data, function (data) {
+            data.vendorPaymentStatus = 'Unpaid';
+            NavigationService.apiCallWithData("CadLineWork/saveVendorDetails", data, function (data) {
                 if (data.value == true) {
                     toastr.success("Amount set");
                     $state.reload();
@@ -2754,8 +2760,8 @@ firstapp
                     NavigationService.searchCall("CadLineWork/getCadForVendor", {
                             page: $scope.currentPage,
                             keyword: $scope.search.keyword,
-                            count: $scope.maxCount,
-                            vendorId: userId //replace it with jstorage ID
+                            count: $scope.maxCount
+                            // vendorId: userId //replace it with jstorage ID
                         }, ++i,
                         function (data, ini) {
                             if (ini == i) {
@@ -2769,8 +2775,8 @@ firstapp
                     if (keywordChange) {}
                     NavigationService.searchCall("CadLineWork/getCadForVendor", {
                             page: $scope.currentPage,
-                            keyword: $scope.search.keyword,
-                            vendorId: userId //replace it with jstorage ID
+                            keyword: $scope.search.keyword
+                            // vendorId: userId //replace it with jstorage ID
                         }, ++i,
                         function (data, ini) {
                             if (ini == i) {
@@ -3227,7 +3233,9 @@ firstapp
             var getByDate = {};
             getByDate.fromDate = moment(data.fromDate).format();
             getByDate.toDate = moment(data.toDate).format();
-            if (data.type == 'Cad') {
+            if (data.type == 'Mission') {
+                NavigationService.generateExcelWithData("VendorBill/exceltotalMission", getByDate, function (data) {});
+            } else if (data.type == 'Cad') {
                 NavigationService.generateExcelWithData("VendorBill/exceltotalCadRequest", getByDate, function (data) {});
             } else if (data.type == 'DroneSales') {
                 NavigationService.generateExcelWithData("VendorBill/droneSales", getByDate, function (data) {});

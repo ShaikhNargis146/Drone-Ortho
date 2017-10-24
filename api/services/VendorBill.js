@@ -89,6 +89,38 @@ var model = {
 
     //############## excel download##########//
 
+    exceltotalMission: function (data, callback) {
+        Mission.find({
+            createdAt: {
+                $gte: data.fromDate,
+                $lte: data.toDate
+            }
+        }).deepPopulate("user DFMSubscription").exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        })
+    },
+
+    generateExcelMission: function (match, callback) {
+        async.concatSeries(match, function (mainData, callback) {
+                var obj = {};
+                obj["MISSION ID"] = mainData.missionId;
+                obj["STATUS"] = mainData.status;
+                obj["NAME"] = mainData.name;
+                // obj["USER"] = mainData.user.name;
+                // obj["DFM SUBSCRIPTION"] = mainData.DFMSubscription.name;
+                obj["DATE"] = mainData.date;
+                callback(null, obj);
+            },
+            function (err, singleData) {
+                callback(null, singleData);
+            });
+
+    },
+
     exceltotalCadRequest: function (data, callback) {
         CadLineWork.find({
             createdAt: {

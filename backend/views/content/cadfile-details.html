@@ -146,22 +146,24 @@
 											Vendor Billing ID
 										</td>
 										<td>:</td>
-										<td ng-if="cadLineDetails.vendor">{{cadLineDetails.vendor.name}}</td>
-										<td ng-if="!cadLineDetails.vendor">
+										<td ng-if="cadLineDetails.vendor">{{cadLineDetails.vendorBillingId}}</td>
+										<!--<td ng-if="cadLineDetails.vendor">{{cadLineDetails.vendor.name}}</td>-->
+										<!--<td ng-if="!cadLineDetails.vendor">
 											<select class="cad-dropdown" ng-repeat="vedors in allVendorsForRequest" ng-model="formData.vendor">
                                             <option value="{{vedors._id}}">{{vedors.name}}</option>
                                         </select>
-										</td>
+										</td>-->
 									</tr>
 									<tr>
 										<td>Vendor Payment Status </td>
 										<td>:</td>
-										<td>
+										<td ng-if="cadLineDetails.vendorPaymentStatus=='Unpaid'">
 											<button type="submit" data-toggle="modal" data-target=".modal-n" class="btn green btn-outline btn-xs" ng-if="cadLineDetails.vendor"
 											    ng-disabled="!cadLineDetails.vendorCharges">Pay Now</button>
-											<button type="submit" data-toggle="modal" data-target="" class="btn green btn-outline btn-xs" ng-click="cadVendorUpdate(formData)"
-											    ng-if="!cadLineDetails.vendor"> Sent Request</button>
+											<!--<button type="submit" data-toggle="modal" data-target="" class="btn green btn-outline btn-xs" ng-click="cadVendorUpdate(formData)"
+											    ng-if="!cadLineDetails.vendor"> Sent Request</button>-->
 										</td>
+										<td ng-if="cadLineDetails.vendorPaymentStatus=='Paid'">Paid</td>
 									</tr>
 
 								</table>
@@ -388,7 +390,8 @@
 					<div class="form-group">
 						<label class="control-label col-sm-4" for="pwd">Acreage</label>
 						<div class="col-sm-6">
-							<input type="text" ng-model="cadLineDetails.acreage" class="form-control" id="acreage" placeholder="Enter Acreage" name="pwd">
+							<input type="text" ng-model="cadLineDetails.acreage" class="form-control" id="acreage" placeholder="Enter Acreage" disabled
+							    name="pwd">
 						</div>
 					</div>
 					<div class="form-group">

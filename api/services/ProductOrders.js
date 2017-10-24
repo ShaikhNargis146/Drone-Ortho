@@ -182,7 +182,7 @@ var model = {
             start: (page - 1) * maxRow,
             count: maxRow
         };
-        ProductOrders.find({})
+        ProductOrders.find({}).deepPopulate('user')
             .order(options)
             .keyword(options)
             .page(options,
@@ -352,6 +352,7 @@ var model = {
         });
     },
     //end
+
     createInvoice: function (data, callback) {
         async.waterfall([
             function (callback) { // generate invoice id
