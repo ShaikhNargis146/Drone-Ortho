@@ -73,7 +73,8 @@
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
 										    " popover-placement="bottom " title=" " uib-tooltip="DSM (.TIFF) " ng-click="downloadDsm()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-delicious "></i> </button>-->
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
-										    " popover-placement="bottom " title=" " uib-tooltip="ORTHOMOSAIC,DSM & TFW" ng-click="downloadThree()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-delicious "></i> </button>
+										    " popover-placement="bottom " title=" " uib-tooltip="ZIP OF ORTHOMOSAIC,DSM & TFW" ng-click="downloadThree()"
+										    ng-disabled="missionDetails.status !='ready'"><i class="fa fa-delicious "></i> </button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
 										    " popover-placement="bottom " title=" " uib-tooltip="Mesh (.Obj)" ng-click="downloadMeshObj()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-desktop "></i> </button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
@@ -81,6 +82,11 @@
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
 										    " popover-placement="bottom " title=" " uib-tooltip="Point Cloud (.LAS) " ng-click="downloadPointCloud()"
 										    ng-disabled="missionDetails.status !='ready'"><i class="fa fa-mixcloud "></i> </button>
+										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
+										    " popover-placement="bottom " title=" " uib-tooltip="Contour Lines(.SHP)" ng-click="downloadContoursLines()"
+										    ng-disabled="missionDetails.status !='ready'"><i class="fa fa-book "></i> </button>
+										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
+										    " popover-placement="bottom " title=" " uib-tooltip="AutoCAD(.DXF)" ng-click="downloadAutocadDXF()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-book "></i> </button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
 										    " popover-placement="bottom " title=" " uib-tooltip="Quality Reports (.PDF) " ng-click="downloadQualityReports()"
 										    ng-disabled="missionDetails.status !='ready'"><i class="fa fa-book "></i> </button>
@@ -325,6 +331,11 @@ $("#showCheckoutCadR").change(function(event){
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
 										    " popover-placement="bottom " title=" " uib-tooltip="Point Cloud (.LAS) " ng-click="downloadPointCloud()"
 										    ng-disabled="missionDetails.status !='ready'"><i class="fa fa-mixcloud "></i> </button>
+										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
+										    " popover-placement="bottom " title=" " uib-tooltip="Contour Lines(.SHP)" ng-click="downloadContoursLines()"
+										    ng-disabled="missionDetails.status !='ready'"><i class="fa fa-book "></i> </button>
+										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
+										    " popover-placement="bottom " title=" " uib-tooltip="AutoCAD(.DXF)" ng-click="downloadAutocadDXF()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-book "></i> </button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
 										    " popover-placement="bottom " title=" " uib-tooltip="Quality Reports (.PDF) " ng-click="downloadQualityReports()"
 										    ng-disabled="missionDetails.status !='ready'"><i class="fa fa-book "></i> </button>
