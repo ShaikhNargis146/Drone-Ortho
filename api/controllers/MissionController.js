@@ -214,7 +214,7 @@ var controller = {
                     //Remove image
                     fs.unlink(image);
                     // zip.file("file", content); ... and other manipulations
-                    zip.file("Files", imagesData);
+                    zip.file(image, imagesData);
                     callback();
                 }
             });
