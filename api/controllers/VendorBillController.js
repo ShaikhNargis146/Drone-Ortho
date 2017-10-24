@@ -29,6 +29,19 @@ var controller = {
 
     //-----report api----//
 
+    exceltotalMission: function (req, res) {
+        VendorBill.exceltotalMission(req.body, function (err, data) {
+            VendorBill.generateExcelMission(data, function (err, singleData) {
+                Config.generateExcel("MissionExcel", singleData, function (excels) {
+                    // console.log("excel", excels, "err", err);
+                    res.set('Content-Type', "application/octet-stream");
+                    res.set('Content-Disposition', "attachment;filename=" + excels.path);
+                    res.send(excels.excel);
+                });
+            });
+        });
+    },
+
     exceltotalCadRequest: function (req, res) {
         // if (req.body) {
         VendorBill.exceltotalCadRequest(req.body, function (err, data) {

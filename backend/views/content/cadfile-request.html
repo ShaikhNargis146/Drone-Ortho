@@ -362,7 +362,7 @@
 
                       <td><a ui-sref="cadfile-details({'cadId' : cadVendorData._id})">{{cadVendorData.status}}</a></td>
                       <td><a ui-sref="cadfile-details({'cadId' : cadVendorData._id})">{{cadVendorData.createdAt | date}}</a></td>
-                      <td><a ui-sref="cadfile-details({'cadId' : cadVendorData._id})">YES </a></td>
+                      <td><a ui-sref="cadfile-details({'cadId' : cadVendorData._id})">{{cadfile.completionDate| date}} </a></td>
                     </tr>
                   </tbody>
                 </table>
