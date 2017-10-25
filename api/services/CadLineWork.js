@@ -52,7 +52,8 @@ var schema = new Schema({
     mission: {
         type: Schema.Types.ObjectId,
         ref: 'Mission',
-        index: true
+        index: true,
+        key: "cadline"
     },
     completionDate: Date,
     vendor: {
