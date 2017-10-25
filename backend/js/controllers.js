@@ -958,6 +958,7 @@ firstapp
         }
 
     })
+
     .controller('TicketHistoryCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("ticket-history");
@@ -1189,19 +1190,7 @@ firstapp
                         }, ++i,
                         function (data, ini) {
                             if (ini == i) {
-                                $scope.cadwithmission
                                 $scope.allMissionData = data.data.results;
-                                _.forEach($scope.allMissionData, function (x) {
-                                    var missionid = {};
-                                    missionid.missionId = x._id
-                                    NavigationService.apiCallWithData("CadLineWork/missionIsPresent", missionid, function (data) {
-                                        if (data.data == 'NoData') {
-                                            $scope.isMissionPresent.push("No");
-                                        } else {
-                                            $scope.isMissionPresent.push("yes");
-                                        }
-                                    });
-                                });
                                 $scope.totalItems = data.data.total;
                                 $scope.maxRow = data.data.options.count;
                             }
@@ -1217,17 +1206,6 @@ firstapp
                         function (data, ini) {
                             if (ini == i) {
                                 $scope.allMissionData = data.data.results;
-                                _.forEach($scope.allMissionData, function (x) {
-                                    var missionid = {};
-                                    missionid.missionId = x._id
-                                    NavigationService.apiCallWithData("CadLineWork/missionIsPresent", missionid, function (data) {
-                                        if (data.data == 'NoData') {
-                                            $scope.isMissionPresent.push("No");
-                                        } else {
-                                            $scope.isMissionPresent.push("yes");
-                                        }
-                                    });
-                                });
                                 $scope.totalItems = data.data.total;
                                 $scope.maxRow = data.data.options.count;
                             }
@@ -2897,6 +2875,7 @@ firstapp
 
 
     })
+
     .controller('500Ctrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("500");
@@ -2904,6 +2883,7 @@ firstapp
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
     })
+
     .controller('404Ctrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("404");
@@ -3370,6 +3350,7 @@ firstapp
         }
 
     })
+
     .controller('CreateVendorCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("create-vendor");
@@ -3381,6 +3362,7 @@ firstapp
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
     })
+
     .controller('AddProductCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("add-product");
@@ -3408,6 +3390,7 @@ firstapp
 
 
     })
+
     .controller('EcomDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("ecom-details");
@@ -3419,8 +3402,6 @@ firstapp
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
     })
-
-
 
     .controller('EditVendorCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
 
@@ -3443,6 +3424,7 @@ firstapp
         }
 
     })
+
     .controller('AdminProfileCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("admin-profile");
@@ -3485,6 +3467,7 @@ firstapp
         }
 
     })
+
     .controller('UserDetailsCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("user-details");

@@ -57,7 +57,7 @@ var controller = {
 			var month = date.getMonth() + 1;
 			var m = month.toString().length;
 			if (m == 1) {
-				month = "0" + month
+				month = "0" + month;
 			}
 		}
 		var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
@@ -67,7 +67,7 @@ var controller = {
 		var creditCard = new ApiContracts.CreditCardType();
 
 		creditCard.setCardNumber(req.body.cardNumber);
-		creditCard.setExpirationDate(month + year);
+		creditCard.setExpirationDate(1119);
 		creditCard.setCardCode(req.body.cardCode);
 
 

@@ -107,7 +107,7 @@
 									</div>
 								</td>
 							</tr>
-							<tr>
+							<tr ng-hide="dfmData.accessLevel=='Vendor'">
 								<td>Access Level</td>
 								<td>:</td>
 								<td>
@@ -116,7 +116,6 @@
 										    class="fa fa-pencil">
 											<option role="menuitem" value="User" ><a href="javascript:void(0)">User</a></option>
 											<option role="menuitem" value="Admin"><a href="javascript:void(0)">Admin</a></option>
-											<option role="menuitem" value="Vendor"><a href="javascript:void(0)">Vendor</a></option>
 										</select>
 									</div>
 								</td>
@@ -133,7 +132,7 @@
 							<tr>
 								<td>Active Coupon Code or Discount:</td>
 								<td>:</td>
-								<td></td>
+								<td> </td>
 							</tr>
 							<tr>
 								<td>Name on Card</td>
