@@ -205,9 +205,7 @@ var controller = {
             // request(global["env"].realHost + '/api/upload/readFile?file=' + image).pipe(fs.createWriteStream(image)).on('finish', function (images) {
             // JSZip generates a readable stream with a "end" event,
             // but is piped here in a writable stream which emits a "finish" event.
-            console.log("image", image);
             fs.readFile(image, function (err, imagesData) {
-                // console.log("imagesData", imagesData);
                 if (err) {
                     res.callback(err, null);
                 } else {
@@ -215,8 +213,6 @@ var controller = {
                     // fs.unlink(image);
                     // zip.file("file", content); ... and other manipulations
                     var n = image.split("/");
-                    console.log("n----", n);
-                    console.log("n[n.length - 1]n----", n[n.length - 1]);
                     zip.file(n[n.length - 1], imagesData);
                     callback();
                 }
