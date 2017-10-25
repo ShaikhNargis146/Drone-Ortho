@@ -881,7 +881,7 @@ firstapp
         console.log("inside product Details", $scope.userId);
         $scope.dt = new Date();
         $scope.dt.setDate($scope.dt.getDate() + 30);
-         if ($.jStorage.get("user")) {
+        if ($.jStorage.get("user")) {
             $scope.dfmData = [{
                 name: "TRIAL",
                 invitations: "0",
@@ -958,6 +958,7 @@ firstapp
         }
 
     })
+
     .controller('TicketHistoryCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("ticket-history");
@@ -1189,19 +1190,7 @@ firstapp
                         }, ++i,
                         function (data, ini) {
                             if (ini == i) {
-                                $scope.cadwithmission
                                 $scope.allMissionData = data.data.results;
-                                _.forEach($scope.allMissionData, function (x) {
-                                    var missionid = {};
-                                    missionid.missionId = x._id
-                                    NavigationService.apiCallWithData("CadLineWork/missionIsPresent", missionid, function (data) {
-                                        if (data.data == 'NoData') {
-                                            $scope.isMissionPresent.push("No");
-                                        } else {
-                                            $scope.isMissionPresent.push("yes");
-                                        }
-                                    });
-                                });
                                 $scope.totalItems = data.data.total;
                                 $scope.maxRow = data.data.options.count;
                             }
@@ -1217,17 +1206,6 @@ firstapp
                         function (data, ini) {
                             if (ini == i) {
                                 $scope.allMissionData = data.data.results;
-                                _.forEach($scope.allMissionData, function (x) {
-                                    var missionid = {};
-                                    missionid.missionId = x._id
-                                    NavigationService.apiCallWithData("CadLineWork/missionIsPresent", missionid, function (data) {
-                                        if (data.data == 'NoData') {
-                                            $scope.isMissionPresent.push("No");
-                                        } else {
-                                            $scope.isMissionPresent.push("yes");
-                                        }
-                                    });
-                                });
                                 $scope.totalItems = data.data.total;
                                 $scope.maxRow = data.data.options.count;
                             }
@@ -1652,7 +1630,7 @@ firstapp
                 _.forEach(priceList, function (val) {
                     var checkRange = _.inRange(data.acreage, val.from, val.to);
                     if (checkRange == true) {
-                        if (data.contoursDensity) {
+                        if (data.contoursDensity && _.isEqual(data.contours, 'true')) {
                             $scope.cadLineDetails.amount = val.contoursDensity[data.contoursDensity]
                         } else {
                             $scope.cadLineDetails.amount = val.density[data.draftingDensity]
@@ -2075,146 +2053,146 @@ firstapp
                 "from": 0,
                 "to": 1,
                 "density": {
-                    "low": 30,
-                    "medium": 40,
-                    "high": 50
+                    "low": 77.63,
+                    "medium": 95.88,
+                    "high": 112.13
                 },
                 "contoursDensity": {
-                    "low": 45,
-                    "medium": 55,
-                    "high": 65
+                    "low": 103.50,
+                    "medium": 120.75,
+                    "high": 138
                 }
             },
             {
                 "from": 1.1,
                 "to": 2,
                 "density": {
-                    "low": 40,
-                    "medium": 50,
-                    "high": 60
+                    "low": 80.50,
+                    "medium": 100.63,
+                    "high": 120.75
                 },
                 "contoursDensity": {
-                    "low": 60,
-                    "medium": 70,
-                    "high": 80
+                    "low": 120.75,
+                    "medium": 140.88,
+                    "high": 161.00
                 }
             },
             {
                 "from": 2,
                 "to": 3.5,
                 "density": {
-                    "low": 50,
-                    "medium": 60,
-                    "high": 70
+                    "low": 100.63,
+                    "medium": 120.75,
+                    "high": 140.88
                 },
                 "contoursDensity": {
-                    "low": 70,
-                    "medium": 80,
-                    "high": 90
+                    "low": 140.88,
+                    "medium": 161.00,
+                    "high": 181.13
                 }
             }, {
                 "from": 3.6,
                 "to": 5,
                 "density": {
-                    "low": 80,
-                    "medium": 90,
-                    "high": 100
+                    "low": 187.20,
+                    "medium": 210.60,
+                    "high": 234.00
                 },
                 "contoursDensity": {
-                    "low": 110,
-                    "medium": 120,
-                    "high": 130
+                    "low": 257.40,
+                    "medium": 280.80,
+                    "high": 304.20
                 }
             }, {
                 "from": 5.1,
                 "to": 8,
                 "density": {
-                    "low": 120,
-                    "medium": 130,
-                    "high": 140
+                    "low": 288.00,
+                    "medium": 312.00,
+                    "high": 333.00
                 },
                 "contoursDensity": {
-                    "low": 165,
-                    "medium": 175,
-                    "high": 185
+                    "low": 396.00,
+                    "medium": 420.00,
+                    "high": 444.00
                 }
             }, {
                 "from": 8.1,
                 "to": 12,
                 "density": {
-                    "low": 150,
-                    "medium": 160,
-                    "high": 170
+                    "low": 360.00,
+                    "medium": 384.00,
+                    "high": 408.00
                 },
                 "contoursDensity": {
-                    "low": 210,
-                    "medium": 220,
-                    "high": 280
+                    "low": 504.00,
+                    "medium": 528.00,
+                    "high": 672.00
                 }
             }, {
                 "from": 12.1,
                 "to": 17,
                 "density": {
-                    "low": 200,
-                    "medium": 210,
-                    "high": 220
+                    "low": 520.00,
+                    "medium": 546.00,
+                    "high": 572.00
                 },
                 "contoursDensity": {
-                    "low": 275,
-                    "medium": 285,
-                    "high": 295
+                    "low": 715.00,
+                    "medium": 741.00,
+                    "high": 767.00
                 }
             }, {
                 "from": 17.1,
                 "to": 22,
                 "density": {
-                    "low": 230,
-                    "medium": 240,
-                    "high": 250
+                    "low": 598.00,
+                    "medium": 624.00,
+                    "high": 650.00
                 },
                 "contoursDensity": {
-                    "low": 320,
-                    "medium": 330,
-                    "high": 340
+                    "low": 832.00,
+                    "medium": 858.00,
+                    "high": 884.00
                 }
             }, {
                 "from": 22.1,
                 "to": 27,
                 "density": {
-                    "low": 240,
-                    "medium": 250,
-                    "high": 260
+                    "low": 624.00,
+                    "medium": 650.00,
+                    "high": 676.00
                 },
                 "contoursDensity": {
-                    "low": 330,
-                    "medium": 340,
-                    "high": 350
+                    "low": 858.00,
+                    "medium": 884.00,
+                    "high": 910.00
                 }
             }, {
                 "from": 27.1,
                 "to": 32,
                 "density": {
-                    "low": 240,
-                    "medium": 250,
-                    "high": 260
+                    "low": 655.20,
+                    "medium": 682.50,
+                    "high": 709.80
                 },
                 "contoursDensity": {
-                    "low": 330,
-                    "medium": 340,
-                    "high": 350
+                    "low": 900.90,
+                    "medium": 920.20,
+                    "high": 955.50
                 }
             }, {
                 "from": 32.1,
                 "to": 40,
                 "density": {
-                    "low": 250,
-                    "medium": 260,
-                    "high": 270
+                    "low": 682.50,
+                    "medium": 709.80,
+                    "high": 737.10
                 },
                 "contoursDensity": {
-                    "low": 340,
-                    "medium": 350,
-                    "high": 360
+                    "low": 928.20,
+                    "medium": 955.50,
+                    "high": 982.80
                 }
             }
         ];
@@ -2250,118 +2228,118 @@ firstapp
                 "from": 2,
                 "to": 3.5,
                 "density": {
-                    "low": 50,
-                    "medium": 60,
-                    "high": 70
+                    "low": 87.50,
+                    "medium": 105.00,
+                    "high": 122.50
                 },
                 "contoursDensity": {
-                    "low": 70,
-                    "medium": 80,
-                    "high": 90
+                    "low": 122.50,
+                    "medium": 140.00,
+                    "high": 157.50
                 }
             }, {
                 "from": 3.6,
                 "to": 5,
                 "density": {
-                    "low": 80,
-                    "medium": 90,
-                    "high": 100
+                    "low": 156.00,
+                    "medium": 175.50,
+                    "high": 195.00
                 },
                 "contoursDensity": {
-                    "low": 110,
-                    "medium": 120,
-                    "high": 130
+                    "low": 214.50,
+                    "medium": 234.00,
+                    "high": 253.50
                 }
             }, {
                 "from": 5.1,
                 "to": 8,
                 "density": {
-                    "low": 120,
-                    "medium": 130,
-                    "high": 140
+                    "low": 240.00,
+                    "medium": 260.00,
+                    "high": 280.00
                 },
                 "contoursDensity": {
-                    "low": 165,
-                    "medium": 175,
-                    "high": 185
+                    "low": 330.00,
+                    "medium": 350.00,
+                    "high": 370.00
                 }
             }, {
                 "from": 8.1,
                 "to": 12,
                 "density": {
-                    "low": 150,
-                    "medium": 160,
-                    "high": 170
+                    "low": 300.00,
+                    "medium": 320.00,
+                    "high": 340.00
                 },
                 "contoursDensity": {
-                    "low": 210,
-                    "medium": 220,
-                    "high": 280
+                    "low": 420.00,
+                    "medium": 440.00,
+                    "high": 560.00
                 }
             }, {
                 "from": 12.1,
                 "to": 17,
                 "density": {
-                    "low": 200,
-                    "medium": 210,
-                    "high": 220
+                    "low": 400.00,
+                    "medium": 420.00,
+                    "high": 440.00
                 },
                 "contoursDensity": {
-                    "low": 275,
-                    "medium": 285,
-                    "high": 295
+                    "low": 550.00,
+                    "medium": 570.00,
+                    "high": 590.00
                 }
             }, {
                 "from": 17.1,
                 "to": 22,
                 "density": {
-                    "low": 230,
-                    "medium": 240,
-                    "high": 250
+                    "low": 460.00,
+                    "medium": 480.00,
+                    "high": 500.00
                 },
                 "contoursDensity": {
-                    "low": 320,
-                    "medium": 330,
-                    "high": 340
+                    "low": 640.00,
+                    "medium": 660.00,
+                    "high": 680.00
                 }
             }, {
                 "from": 22.1,
                 "to": 27,
                 "density": {
-                    "low": 240,
-                    "medium": 250,
-                    "high": 260
+                    "low": 480.00,
+                    "medium": 500.00,
+                    "high": 520.00
                 },
                 "contoursDensity": {
-                    "low": 330,
-                    "medium": 340,
-                    "high": 350
+                    "low": 660.00,
+                    "medium": 680.00,
+                    "high": 700.00
                 }
             }, {
                 "from": 27.1,
                 "to": 32,
                 "density": {
-                    "low": 240,
-                    "medium": 250,
-                    "high": 260
+                    "low": 504.00,
+                    "medium": 525.00,
+                    "high": 546.00
                 },
                 "contoursDensity": {
-                    "low": 330,
-                    "medium": 340,
-                    "high": 350
+                    "low": 693.00,
+                    "medium": 714.00,
+                    "high": 735.00
                 }
             }, {
                 "from": 32.1,
                 "to": 40,
                 "density": {
-                    "low": 250,
-                    "medium": 260,
-                    "high": 270
+                    "low": 525.00,
+                    "medium": 546.00,
+                    "high": 567.00
                 },
                 "contoursDensity": {
-                    "low": 340,
-                    "medium": 350,
-                    "high": 360
+                    "low": 714.00,
+                    "medium": 735.00,
+                    "high": 756.00
                 }
             }
         ];
@@ -2389,7 +2367,8 @@ firstapp
                 _.forEach(priceList, function (val) {
                     var checkRange = _.inRange(data.acreage, val.from, val.to);
                     if (checkRange == true) {
-                        if (data.contoursDensity) {
+                        console.log("data.contoursDensity", data.contours);
+                        if (data.contoursDensity && _.isEqual(data.contours, 'true')) {
                             $scope.cadLineDetails.amount = val.contoursDensity[data.contoursDensity]
                         } else {
                             $scope.cadLineDetails.amount = val.density[data.draftingDensity]
@@ -2896,6 +2875,7 @@ firstapp
 
 
     })
+
     .controller('500Ctrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("500");
@@ -2903,6 +2883,7 @@ firstapp
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
     })
+
     .controller('404Ctrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("404");
@@ -3369,6 +3350,7 @@ firstapp
         }
 
     })
+
     .controller('CreateVendorCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("create-vendor");
@@ -3380,6 +3362,7 @@ firstapp
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
     })
+
     .controller('AddProductCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("add-product");
@@ -3407,6 +3390,7 @@ firstapp
 
 
     })
+
     .controller('EcomDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("ecom-details");
@@ -3418,8 +3402,6 @@ firstapp
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
     })
-
-
 
     .controller('EditVendorCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
 
@@ -3442,6 +3424,7 @@ firstapp
         }
 
     })
+
     .controller('AdminProfileCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("admin-profile");
@@ -3484,6 +3467,7 @@ firstapp
         }
 
     })
+
     .controller('UserDetailsCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("user-details");

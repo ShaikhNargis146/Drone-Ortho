@@ -54,6 +54,11 @@ var schema = new Schema({
         status: {
             type: String
         }
+    }],
+    cadline: [{
+        type: Schema.Types.ObjectId,
+        ref: 'CadLineWork',
+        index: true
     }]
 });
 

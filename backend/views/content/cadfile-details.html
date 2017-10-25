@@ -367,7 +367,7 @@
 					<div class="form-group">
 						<label class="control-label col-sm-4" for="pwd">Contour Density</label>
 						<div class="col-sm-6">
-							<select class="form-control" ng-model="cadLineDetails.contoursDensity">
+							<select class="form-control" ng-model="cadLineDetails.contoursDensity" ng-disabled="cadLineDetails.contours=='false'">
 								<option value="">SELECT</option>
 								<option value="high">High</option>
 								<option value="medium">Medium</option>

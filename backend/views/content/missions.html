@@ -161,7 +161,8 @@
                           <td><a ui-sref="mission-details({'missionId' : missionData._id})">{{missionData.name}}</a></td>
                           <td><a ui-sref="mission-details({'missionId' : missionData._id})">{{missionData.createdAt | date}}</a></td>
                           <td><a ui-sref="mission-details({'missionId' : missionData._id})">{{missionData.status}}</a></td>
-                          <td><a ui-sref="mission-details({'missionId' : missionData._id})">{{isMissionPresent[$index]}} </a></td>
+                          <td ng-if="missionData.cadline[0]"><a ui-sref="mission-details({'missionId' : missionData._id})">YES</a></td>
+                          <td ng-if="!missionData.cadline[0]"><a ui-sref="mission-details({'missionId' : missionData._id})">NO</a></td>
                         </tr>
 
                       </tbody>
