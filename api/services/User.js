@@ -1047,7 +1047,7 @@ var model = {
 
                 data.dataId = UserID;
                 data.accessToken = [uid(16)];
-                // data.password = md5(data.password);
+                data.password = md5(data.password);
                 if (data.drone) {
                     data.lisence = "NDB";
                 } else {
