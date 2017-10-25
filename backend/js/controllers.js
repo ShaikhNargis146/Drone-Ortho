@@ -881,58 +881,58 @@ firstapp
         console.log("inside product Details", $scope.userId);
         $scope.dt = new Date();
         $scope.dt.setDate($scope.dt.getDate() + 30);
-      if ($.jStorage.get("user")) {
-$scope.dfmData = [{
-name: "TRIAL",
-invitations: "0",
-missions: "3",
-UploadPhoto: "200",
-UploadSize: "1GB",
-Mosaic: "12",
-exportKMZ: " 15",
-exportOrthophoto: "USAGE LIMIT",
-exportDEM: "USAGE LIMIT",
-exportPointCloud: "false",
-status: "Active",
-amount: "0",
-expiryDate: $scope.dt,
-}, {
-id: 1,
-user: $.jStorage.get("user")._id,
-name: "STANDARD",
-invitations: "15",
-missions: "Unlimited",
-UploadPhoto: " 500",
-UploadSize: "2.5GB ",
-Mosaic: "2",
-exportKMZ: "15",
-exportOrthophoto: "USAGE LIMIT",
-exportDEM: "USAGE LIMIT",
-exportPointCloud: "USAGE LIMIT",
-status: "Active",
-amount: "149",
-expiryDate: $scope.dt,
-}, {
+         if ($.jStorage.get("user")) {
+            $scope.dfmData = [{
+                name: "TRIAL",
+                invitations: "0",
+                missions: "3",
+                UploadPhoto: "200",
+                UploadSize: "1GB",
+                Mosaic: "12cm",
+                exportKMZ: " 15",
+                exportOrthophoto: "USAGE LIMIT",
+                exportDEM: "USAGE LIMIT",
+                exportPointCloud: "false",
+                status: "Active",
+                amount: "0",
+                expiryDate: $scope.dt,
+            }, {
+                id: 1,
+                user: $.jStorage.get("user")._id,
+                name: "STANDARD",
+                invitations: "15",
+                missions: "Unlimited",
+                UploadPhoto: " 500",
+                UploadSize: "2.5GB ",
+                Mosaic: "2cm",
+                exportKMZ: "15",
+                exportOrthophoto: "USAGE LIMIT",
+                exportDEM: "USAGE LIMIT",
+                exportPointCloud: "USAGE LIMIT",
+                status: "Active",
+                amount: "$149",
+                expiryDate: $scope.dt,
+            }, {
 
-id: 2,
-user: $.jStorage.get("user")._id,
-name: "PREMIUM",
-invitations: "25",
-missions: "Unlimited",
-UploadPhoto: "1000",
-UploadSize: " 5GB",
-Mosaic: "2",
-exportKMZ: " 25",
-exportOrthophoto: "USAGE LIMIT",
-exportDEM: "USAGE LIMIT",
-exportPointCloud: "USAGE LIMIT",
-status: "Active",
-amount: "299",
-expiryDate: $scope.dt,
-}]
-} else {
-var dfmData = [];
-}
+                id: 2,
+                user: $.jStorage.get("user")._id,
+                name: "PREMIUM",
+                invitations: "25",
+                missions: "Unlimited",
+                UploadPhoto: "1000",
+                UploadSize: " 5GB",
+                Mosaic: "2cm",
+                exportKMZ: " 25",
+                exportOrthophoto: "USAGE LIMIT",
+                exportDEM: "USAGE LIMIT",
+                exportPointCloud: "USAGE LIMIT",
+                status: "Active",
+                amount: "$299",
+                expiryDate: $scope.dt,
+            }]
+        } else {
+            var dfmData = [];
+        }
 
         $scope.saveFreeTrial = function () {
             if ($.jStorage.get("user")) {
