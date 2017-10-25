@@ -214,7 +214,10 @@ var controller = {
                     //Remove image
                     // fs.unlink(image);
                     // zip.file("file", content); ... and other manipulations
-                    zip.file(image, imagesData);
+                    var n = image.split("/");
+                    console.log("n----", n);
+                    console.log("n[n.length - 1]n----", n[n.length - 1]);
+                    zip.file(n[n.length - 1], imagesData);
                     callback();
                 }
             });
