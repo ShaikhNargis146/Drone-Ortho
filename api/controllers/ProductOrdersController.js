@@ -67,7 +67,7 @@ var controller = {
 		var creditCard = new ApiContracts.CreditCardType();
 
 		creditCard.setCardNumber(req.body.cardNumber);
-		creditCard.setExpirationDate(month + year);
+		creditCard.setExpirationDate(1119);
 		creditCard.setCardCode(req.body.cardCode);
 
 
