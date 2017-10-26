@@ -34,7 +34,7 @@ var controller = {
 
     getCords: function (req, res) {
         console.log("path.join(process.cwd(), path.join('pix4dUpload', 'vashi_transparent_mosaic_group1.tif'))", path.join('./pix4dUpload', 'vashi_transparent_mosaic_group1.tif'));
-        var ds = gdal.open('http://files.unifli.aero/geoTiff.tif');
+        var ds = gdal.open(path.join('./pix4dUpload', 'geoTiff.tif'));
         // raster dimensions
         var size = ds.rasterSize;
         console.log('Size is ' + size.x + ', ' + size.y);
