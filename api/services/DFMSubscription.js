@@ -8,7 +8,7 @@ var schema = new Schema({
     transactionDate: Date,
     name: String,
     amount: {
-        type: Number,
+        type: String,
         default: 0
     },
     transactionId: String,
