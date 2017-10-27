@@ -2812,6 +2812,7 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
+        $scope.userId = $.jStorage.get("user")._id;
         $scope.formdata = {};
         $scope.formdata.data = $.jStorage.get("user");
         $scope.formdata1 = {};
@@ -2860,12 +2861,30 @@ firstapp
         $scope.dfmData = {};
         NavigationService.apiCallWithData("User/getByDfm", $scope.formdata1, function (dfm) {
             $scope.dfmData = dfm.data;
-            NavigationService.apiCallWithData("Mission/totalMission", $scope.formdata1, function (mission) {
-                $scope.totalMission = mission.data;
+            NavigationService.apiCallWithData("Mission/totalMission", $scope.formdata1, function (mission) {$scope.totalMission = mission.data;
+                  console.log("$scope.totalMission",$scope.totalMission);
+                  if($scope.totalMission==undefined){
+                      $scope.dfmData.currentSubscription.missions="Not Available"
+                  }else{
                 $scope.dfmData.currentSubscription.missions = $scope.totalMission + "/" + $scope.dfmData.currentSubscription.missions
+                   }
+
                 NavigationService.apiCallWithData("Mission/totalMissionCount", $scope.formdata1, function (mission1) {
-                    $scope.dfmData.currentSubscription.UploadPhoto = mission1.data + "/" + $scope.dfmData.currentSubscription.UploadPhoto;
-                    console.log("totalMissionCount", mission1)
+                    console.log("mission1",mission1);
+                    if (mission1.value==false) {
+                    console.log("inside if",mission1);
+                        
+                        $scope.dfmData.currentSubscription.UploadPhoto = "Not Available";
+                        $scope.foldersize = "Not Available";
+                    }
+                    else {
+                    console.log("inside else",mission1);
+                        
+                        $scope.foldersize = mission1.data.folderSize;
+                        $scope.dfmData.currentSubscription.UploadPhoto = mission1.data.fileSize + "/" + $scope.dfmData.currentSubscription.UploadPhoto;
+                    }
+
+
                 });
 
             });
