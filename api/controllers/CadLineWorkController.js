@@ -250,9 +250,23 @@ var controller = {
 
     //graph api
 
-    getGraphDataForAdmin: function (req, res) {
+    getInternalGraphDataForAdmin: function (req, res) {
         if (req.body) {
-            CadLineWork.getGraphDataForAdmin(req.body, res.callback);
+            CadLineWork.getInternalGraphDataForAdmin(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            });
+        }
+
+    },
+
+    getExternalGraphDataForAdmin: function (req, res) {
+        if (req.body) {
+            CadLineWork.getExternalGraphDataForAdmin(req.body, res.callback);
         } else {
             res.json({
                 value: false,

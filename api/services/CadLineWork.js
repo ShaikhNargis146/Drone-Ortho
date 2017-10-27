@@ -380,10 +380,16 @@ var model = {
     //             callback(err, null)
     //         } else {
     //             _.forEach(data, function (o) {
-    //                 // console.log("o+++++++++++++++", o);
-    //                 if (o.createdAt == '2017-09-15T12:33:56.000Z') {
-    //                     console.log("o----------");
-    //                 }
+    //                 // console.log("o+++++++++++++++", o.createdAt);
+    //                 // if (o.createdAt == '2017-09-04T12:45:38.000Z') {
+    //                 //     console.log("o----------");
+    //                 // } else {
+    //                 //     console.log("%%%%%%%%");
+    //                 // }
+    //                 // var isT = _.isEqual(o.createdAt, '2017-09-04T12:45:38.000Z');
+    //                 // console.log("isT", isT);
+    //                 var dat = new Date('2017-09-04T12:45:38.000Z');
+    //                 console.log(o.createdAt.getTime() === dat.getTime());
     //             })
     //             var sendData = {};
     //             sendData.internalCadCount = 0;
@@ -397,55 +403,248 @@ var model = {
     //             });
     //             console.log("data----", sendData);
     //             addData.push(sendData);
-    //             callback(null, addData)
+    //             callback(null, data)
     //         }
     //     })
-    // }
+    // },
 
 
-    getGraphDataForAdmin: function (data, callback) {
+    // getGraphDataForAdmin: function (data, callback) {
+    //     var addData = [];
+    //     var currentDate = new Date();
+    //     var lastMonthDaysCount = moment(currentDate).subtract(1, 'months').daysInMonth();
+    //     var prevMonth = moment(currentDate).subtract(1, 'months').month();
+    //     var currentYear = moment(currentDate).year();
+    //     // var toDate = moment().year(currentYear).month(prevMonth).date(i).format();
+    //     // var fromDate = moment(toDate).subtract(1, 'days').format();
+    //     var arrAllDate = [];
+    //     CadLineWork.aggregate([{
+    //         $group: {
+    //             _id: "$createdAt",
+    //             cadId: {
+    //                 $push: "$cadId"
+    //             }
+    //         }
+    //     }], function (err, found) {
+    //         if (err) {
+    //             callback(err, null);
+    //         } else {
+    //             if (_.isEmpty(found)) {
+    //                 callback(err, null);
+    //             } else {
+    //                 for (var i = 1; i <= lastMonthDaysCount; i++) {
+    //                     var toDate = moment().year(currentYear).month(prevMonth).date(i).format();
+    //                     // var fromDate = moment(toDate).subtract(1, 'days').format();
+    //                     console.log("toDate", toDate);
+
+    //                 }
+    //                 callback(null, found);
+    //             }
+    //         }
+    //     });
+    // },
+
+    getInternalGraphDataForAdmin: function (data, callback) {
         var addData = [];
         var currentDate = new Date();
         var lastMonthDaysCount = moment(currentDate).subtract(1, 'months').daysInMonth();
         var prevMonth = moment(currentDate).subtract(1, 'months').month();
         var currentYear = moment(currentDate).year();
-        // var toDate = moment().year(currentYear).month(prevMonth).date(i).format();
-        // var fromDate = moment(toDate).subtract(1, 'days').format();
-        CadLineWork.aggregate([{
-            $group: {
-                _id: "$createdAt",
-                cadId: {
-                    $push: "$cadId"
-                }
+        var preMonthStart = moment(currentDate).subtract(1, 'months').startOf('months').format();
+        var preMonthEnd = moment(currentDate).subtract(1, 'months').endOf('months').format();
+        CadLineWork.find({
+            createdAt: {
+                $gte: preMonthStart,
+                $lte: preMonthEnd
+            },
+            "mission": {
+                $exists: true
             }
-        }], function (err, found) {
+        }).lean().exec(function (err, data) {
             if (err) {
-                callback(err, null);
+                callback(err, null)
             } else {
-                if (_.isEmpty(found)) {
-                    callback(err, null);
-                } else {
-                    for (var i = 1; i <= lastMonthDaysCount; i++) {
-                        var toDate = moment().year(currentYear).month(prevMonth).date(i).format();
-                        // var fromDate = moment(toDate).subtract(1, 'days').format();
-                        // console.log("todate", toDate);
-                        // console.log("fromdate", fromDate);
-                        _.forEach(found, function (o) {
-                            // console.log("-----------------", o);
-                            if (o._id == toDate) {
-                                console.log("-----------------", o);
-                            }
-                            // _.forEach(o.cadId, function (x) {
-                            //     console.log("###########", x);
-                            // })
-                        })
-                    }
-
-                    callback(null, found);
+                var test = [];
+                i = 1
+                for (var i = 1; i <= lastMonthDaysCount; i++) {
+                    var createdDt = new Date('2017-11-01T11:53:01.412Z').setDate(i)
+                    createdDt = new Date(createdDt).setMonth(prevMonth)
+                    test[i - 1] = _.countBy(data, function (o) {
+                        return moment((o.createdAt)).isSame(createdDt, 'day');
+                    });
+                    test[i - 1].createdAt = moment(createdDt).format('YYYY,M,D');
                 }
+                var finalArr = [];
+                var i = 0;
+                _.forEach(test, function (x) {
+                    if (x.true) {
+                        finalArr.push(x.createdAt);
+                        finalArr.push(x.true);
+                    } else {
+                        finalArr.push(x.createdAt);
+                        finalArr.push(0);
+                    }
+                })
+                var finalSend = {};
+                finalSend = _.chunk(finalArr, 2);
+                console.log("finalArr------", finalSend);
+                callback(null, finalSend)
             }
-        });
+        })
     },
+
+    getExternalGraphDataForAdmin: function (data, callback) {
+        var addData = [];
+        var currentDate = new Date();
+        var lastMonthDaysCount = moment(currentDate).subtract(1, 'months').daysInMonth();
+        var prevMonth = moment(currentDate).subtract(1, 'months').month();
+        var currentYear = moment(currentDate).year();
+        var preMonthStart = moment(currentDate).subtract(1, 'months').startOf('months').format();
+        var preMonthEnd = moment(currentDate).subtract(1, 'months').endOf('months').format();
+        CadLineWork.find({
+            createdAt: {
+                $gte: preMonthStart,
+                $lte: preMonthEnd
+            },
+            "mission": {
+                $exists: false
+            }
+        }).lean().exec(function (err, data) {
+            if (err) {
+                callback(err, null)
+            } else {
+                var test = [];
+                i = 1
+                for (var i = 1; i <= lastMonthDaysCount; i++) {
+                    var createdDt = new Date('2017-11-01T11:53:01.412Z').setDate(i)
+                    createdDt = new Date(createdDt).setMonth(prevMonth)
+                    test[i - 1] = _.countBy(data, function (o) {
+                        return moment((o.createdAt)).isSame(createdDt, 'day');
+                    });
+                    test[i - 1].createdAt = moment(createdDt).format('YYYY,M,D');
+                }
+                var finalArr = [];
+                var i = 0;
+                _.forEach(test, function (x) {
+                    if (x.true) {
+                        finalArr.push(x.createdAt);
+                        finalArr.push(x.true);
+                    } else {
+                        finalArr.push(x.createdAt);
+                        finalArr.push(0);
+                    }
+                })
+                var finalSend = {};
+                finalSend = _.chunk(finalArr, 2);
+                console.log("finalArr------", finalSend);
+                callback(null, finalSend)
+            }
+        })
+    },
+
+    //graph api for user
+
+    getInternalGraphDataForUser: function (data, callback) {
+        var addData = [];
+        var currentDate = new Date();
+        var lastMonthDaysCount = moment(currentDate).subtract(1, 'months').daysInMonth();
+        var prevMonth = moment(currentDate).subtract(1, 'months').month();
+        var currentYear = moment(currentDate).year();
+        var preMonthStart = moment(currentDate).subtract(1, 'months').startOf('months').format();
+        var preMonthEnd = moment(currentDate).subtract(1, 'months').endOf('months').format();
+        CadLineWork.find({
+            user: data.userId,
+            createdAt: {
+                $gte: preMonthStart,
+                $lte: preMonthEnd
+            },
+            "mission": {
+                $exists: true
+            }
+        }).lean().exec(function (err, data) {
+            if (err) {
+                callback(err, null)
+            } else {
+                var test = [];
+                i = 1
+                for (var i = 1; i <= lastMonthDaysCount; i++) {
+                    var createdDt = new Date('2017-11-01T11:53:01.412Z').setDate(i)
+                    createdDt = new Date(createdDt).setMonth(prevMonth)
+                    test[i - 1] = _.countBy(data, function (o) {
+                        return moment((o.createdAt)).isSame(createdDt, 'day');
+                    });
+                    test[i - 1].createdAt = moment(createdDt).format('YYYY,M,D');
+                }
+                var finalArr = [];
+                var i = 0;
+                _.forEach(test, function (x) {
+                    if (x.true) {
+                        finalArr.push(x.createdAt);
+                        finalArr.push(x.true);
+                    } else {
+                        finalArr.push(x.createdAt);
+                        finalArr.push(0);
+                    }
+                })
+                var finalSend = {};
+                finalSend = _.chunk(finalArr, 2);
+                console.log("finalArr------", finalSend);
+                callback(null, finalSend)
+            }
+        })
+    },
+
+    getExternalGraphDataForUser: function (data, callback) {
+        var addData = [];
+        var currentDate = new Date();
+        var lastMonthDaysCount = moment(currentDate).subtract(1, 'months').daysInMonth();
+        var prevMonth = moment(currentDate).subtract(1, 'months').month();
+        var currentYear = moment(currentDate).year();
+        var preMonthStart = moment(currentDate).subtract(1, 'months').startOf('months').format();
+        var preMonthEnd = moment(currentDate).subtract(1, 'months').endOf('months').format();
+        CadLineWork.find({
+            user: data.userId,
+            createdAt: {
+                $gte: preMonthStart,
+                $lte: preMonthEnd
+            },
+            "mission": {
+                $exists: false
+            }
+        }).lean().exec(function (err, data) {
+            if (err) {
+                callback(err, null)
+            } else {
+                var test = [];
+                i = 1
+                for (var i = 1; i <= lastMonthDaysCount; i++) {
+                    var createdDt = new Date('2017-11-01T11:53:01.412Z').setDate(i)
+                    createdDt = new Date(createdDt).setMonth(prevMonth)
+                    test[i - 1] = _.countBy(data, function (o) {
+                        return moment((o.createdAt)).isSame(createdDt, 'day');
+                    });
+                    test[i - 1].createdAt = moment(createdDt).format('YYYY,M,D');
+                }
+                var finalArr = [];
+                var i = 0;
+                _.forEach(test, function (x) {
+                    if (x.true) {
+                        finalArr.push(x.createdAt);
+                        finalArr.push(x.true);
+                    } else {
+                        finalArr.push(x.createdAt);
+                        finalArr.push(0);
+                    }
+                })
+                var finalSend = {};
+                finalSend = _.chunk(finalArr, 2);
+                console.log("finalArr------", finalSend);
+                callback(null, finalSend)
+            }
+        })
+    },
+
+    //graph api end
 
     //generate vendor billing id
 

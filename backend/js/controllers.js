@@ -24,6 +24,19 @@ firstapp
         //   *********************************************************************************************************88
 
         // ********************************************************************************************************************88
+
+        NavigationService.apiCallWithoutData("CadLineWork/getInternalGraphDataForAdmin", function (data) {
+            if (data.value === true) {
+                $scope.InternalData = data.data;
+                console.log("$scope.InternalData-", $scope.InternalData[0]);
+            }
+        });
+
+        NavigationService.apiCallWithoutData("CadLineWork/getExternalGraphDataForAdmin", function (data) {
+            if (data.value === true) {}
+        });
+
+
         $scope.data1 = [
             [gd(2012, 1, 1), 7],
             [gd(2012, 1, 2), 6],
@@ -270,6 +283,20 @@ firstapp
         //
         // Standard Chart Example
         //
+
+        var dataToSend = {}
+        dataToSend.userId = userId;
+        NavigationService.apiCallWithData("CadLineWork/getInternalGraphDataForUser", dataToSend, function (data) {
+            if (data.value === true) {}
+        });
+
+        var dataToSend = {}
+        dataToSend.userId = userId;
+        NavigationService.apiCallWithData("CadLineWork/getExternalGraphDataForUser", dataToSend, function (data) {
+            if (data.value === true) {}
+        });
+
+
         $scope.data3 = [
             [gd(2012, 1, 1), 7],
             [gd(2012, 1, 2), 6],
@@ -303,6 +330,7 @@ firstapp
             [gd(2012, 1, 30), 8],
             [gd(2012, 1, 31), 25]
         ];
+
         $scope.data4 = [
             [gd(2012, 1, 1), 21],
             [gd(2012, 1, 2), 13],
@@ -336,6 +364,7 @@ firstapp
             [gd(2012, 1, 30), 55],
             [gd(2012, 1, 31), 99]
         ];
+
         $scope.datasetadmin = [{
                 label: "Internal CAD",
                 grow: {
