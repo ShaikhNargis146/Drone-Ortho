@@ -20,6 +20,7 @@
     "gdal": "^0.9.6",
     "geotiff": "^0.4.1",
     "geotiff-extents": "^1.0.0",
+    "get-folder-size": "^1.0.0",
     "gridfs-stream": "^1.1.1",
     "grunt": "0.4.5",
     "grunt-concat-css": "^0.3.1",
