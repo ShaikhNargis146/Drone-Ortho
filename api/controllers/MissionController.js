@@ -10,11 +10,10 @@ var decode = require("decode-tiff");
 var PNG = require('pngjs');
 var sharp = require('sharp');
 var getSize = require('get-folder-size');
-
 var cron = require('node-cron');
 var gdal = require("gdal");
 var util = require('util');
-
+var dms = require("dms-conversion");
 var controller = {
 
 
@@ -36,7 +35,7 @@ var controller = {
 
     getCords: function (req, res) {
         console.log("path.join(process.cwd(), path.join('pix4dUpload', 'vashi_transparent_mosaic_group1.tif'))", path.join('./pix4dUpload', 'vashi_transparent_mosaic_group1.tif'));
-        var ds = gdal.open(path.join('./pix4dUpload', 'geoTiff.tif'));
+        var ds = gdal.open(path.join('./pix4dUpload', 'vashi_transparent_mosaic_group1.tif'));
         // raster dimensions
         var size = ds.rasterSize;
         console.log('Size is ' + size.x + ', ' + size.y);
@@ -77,6 +76,7 @@ var controller = {
 
         console.log('Corner Coordinates:');
         var corner_names = Object.keys(corners);
+        var cornList = []
         corner_names.forEach(function (corner_name) {
             // convert pixel x,y to the coordinate system of the raster
             // then transform it to WGS84
@@ -86,6 +86,9 @@ var controller = {
                 y: geotransform[3] + corner.x * geotransform[4] + corner.y * geotransform[5]
             };
             var pt_wgs84 = coord_transform.transformPoint(pt_orig);
+            pt_wgs84[corner_name]
+            cornList.push(pt_wgs84);
+            // console.log(pt_wgs84)
             var description = util.format('%s (%d, %d) (%s, %s)',
                 corner_name,
                 Math.floor(pt_orig.x * 100) / 100,
@@ -95,6 +98,7 @@ var controller = {
             );
             console.log(description);
         });
+        console.log(cornList)
         console.log("srs: " + (ds.srs ? ds.srs.toWKT() : 'null'));
         // var width, height, data = decode(fs.readFileSync(path.join(process.cwd(), path.join('pix4dUpload', 'vashi_transparent_mosaic_group1.tif'))));
         // var png = new PNG({
@@ -341,6 +345,17 @@ cron.schedule('1 * * * *', function () {
                                         console.log("status-----", extension, fileName[0]);
                                         async.waterfall([
                                                 function (callback) {
+                                                    var ds = gdal.open(path.join(dirName1, val));
+                                                    // raster dimensions
+                                                    var size = ds.rasterSize;
+                                                    console.log('Size is ' + size.x + ', ' + size.y);
+
+                                                    // geotransform
+                                                    var geotransform = ds.geoTransform;
+                                                    console.log('Origin = (' + geotransform[0] + ', ' + geotransform[3] + ')');
+                                                    console.log('Pixel Size = (' + geotransform[1] + ', ' + geotransform[5] + ')');
+                                                    console.log('GeoTransform =');
+                                                    console.log(geotransform);
                                                     fs.readFile(dirName1 + '/' + val, function (err, data) {
                                                         if (err) {
                                                             console.log("err", err);

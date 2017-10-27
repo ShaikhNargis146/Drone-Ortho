@@ -456,7 +456,7 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                         countForm.user = $scope.$parent.profile._id
                         $http.post(adminurl + "Mission/totalMissionCount", countForm).then(function (data) {
                             data = data.data;
-                            if ($scope.$parent.profile.currentSubscription.UploadPhoto <= data.data) {
+                            if ($scope.$parent.profile.currentSubscription.UploadPhoto <= data.data.fileSize) {
                                 console.log("data-----count---...", $scope.$parent.profile.currentSubscription.UploadPhoto, data.data)
                                 $("#myAlertModal").modal();
                             } else {
@@ -1130,7 +1130,7 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
             } else if ($scope.cadLineDetails) {
                 locations = $scope.cadLineDetails.geoLocation;
             } else {
-                locations = {   
+                locations = {
                     upperLeft: [32.77840210218494, -117.23545173119574],
                     lowerLeft: [32.77740264966007, -117.23544909909386],
                     upperRight: [32.77840829977591, -117.23213078512207],
@@ -1278,11 +1278,11 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
                 imageUrl = 'http://files.unifli.aero/' + $scope.missionDetails.missionId + 'google_tiles/{z}/{x}/{myY}.png';
                 // imageUrl = 'http://localhost:1337/demo.jpg';
             } else if ($scope.cadLineDetails && $scope.cadLineDetails.orthoFile.file) {
-                                // imageUrl = 'http://localhost:1337/demo.jpg';
+                // imageUrl = 'http://localhost:1337/demo.jpg';
                 // imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.orthoFile.file.split(".")[0] + '.jpg';
                 imageUrl = 'http://files.unifli.aero/' + $scope.cadLineDetails.orthoFile.file.split(".")[0] + '.jpg';
             } else if ($scope.cadLineDetails && $scope.cadLineDetails.mission) {
-                                // imageUrl = 'http://localhost:1337/demo.jpg';
+                // imageUrl = 'http://localhost:1337/demo.jpg';
 
                 imageUrl = 'http://files.unifli.aero/' + $scope.cadLineDetails.mission.missionId + 'google_tiles/{z}/{x}/{myY}.png';
                 // imageUrl = 'http://35.194.248.13:80/google_tiles/{z}/{x}/{myY}.png';
