@@ -35,71 +35,80 @@ var controller = {
 
     getCords: function (req, res) {
         console.log("path.join(process.cwd(), path.join('pix4dUpload', 'vashi_transparent_mosaic_group1.tif'))", path.join('./pix4dUpload', 'vashi_transparent_mosaic_group1.tif'));
-        var ds = gdal.open(path.join('./pix4dUpload', 'vashi_transparent_mosaic_group1.tif'));
-        // raster dimensions
-        var size = ds.rasterSize;
-        console.log('Size is ' + size.x + ', ' + size.y);
+        var ds;
+        try {
+            ds = gdal.open(path.join('./pix4dUpload', 'vashi_transparent_mosaic_group1.tif'));
 
-        // geotransform
-        var geotransform = ds.geoTransform;
-        console.log('Origin = (' + geotransform[0] + ', ' + geotransform[3] + ')');
-        console.log('Pixel Size = (' + geotransform[1] + ', ' + geotransform[5] + ')');
-        console.log('GeoTransform =');
-        console.log(geotransform);
+            // raster dimensions
+            var size = ds.rasterSize;
+            console.log('Size is ' + size.x + ', ' + size.y);
 
-        // corners
-        var corners = {
-            'Upper Left  ': {
-                x: 0,
-                y: 0
-            },
-            'Upper Right ': {
-                x: size.x,
-                y: 0
-            },
-            'Bottom Right': {
-                x: size.x,
-                y: size.y
-            },
-            'Bottom Left ': {
-                x: 0,
-                y: size.y
-            },
-            'Center      ': {
-                x: size.x / 2,
-                y: size.y / 2
-            }
-        };
+            // geotransform
+            var geotransform = ds.geoTransform;
+            console.log('Origin = (' + geotransform[0] + ', ' + geotransform[3] + ')');
+            console.log('Pixel Size = (' + geotransform[1] + ', ' + geotransform[5] + ')');
+            console.log('GeoTransform =');
+            console.log(geotransform);
 
-        var wgs84 = gdal.SpatialReference.fromEPSG(4326);
-        var coord_transform = new gdal.CoordinateTransformation(ds.srs, wgs84);
-
-        console.log('Corner Coordinates:');
-        var corner_names = Object.keys(corners);
-        var cornList = []
-        corner_names.forEach(function (corner_name) {
-            // convert pixel x,y to the coordinate system of the raster
-            // then transform it to WGS84
-            var corner = corners[corner_name];
-            var pt_orig = {
-                x: geotransform[0] + corner.x * geotransform[1] + corner.y * geotransform[2],
-                y: geotransform[3] + corner.x * geotransform[4] + corner.y * geotransform[5]
+            // corners
+            var corners = {
+                'upperLeft': {
+                    x: 0,
+                    y: 0
+                },
+                'upperRight': {
+                    x: size.x,
+                    y: 0
+                },
+                'lowerRight': {
+                    x: size.x,
+                    y: size.y
+                },
+                'lowerLeft': {
+                    x: 0,
+                    y: size.y
+                },
+                'center': {
+                    x: size.x / 2,
+                    y: size.y / 2
+                }
             };
-            var pt_wgs84 = coord_transform.transformPoint(pt_orig);
-            pt_wgs84[corner_name]
-            cornList.push(pt_wgs84);
-            // console.log(pt_wgs84)
-            var description = util.format('%s (%d, %d) (%s, %s)',
-                corner_name,
-                Math.floor(pt_orig.x * 100) / 100,
-                Math.floor(pt_orig.y * 100) / 100,
-                gdal.decToDMS(pt_wgs84.x, 'Long'),
-                gdal.decToDMS(pt_wgs84.y, 'Lat')
-            );
-            console.log(description);
-        });
-        console.log(cornList)
-        console.log("srs: " + (ds.srs ? ds.srs.toWKT() : 'null'));
+
+            var wgs84 = gdal.SpatialReference.fromEPSG(4326);
+            var coord_transform = new gdal.CoordinateTransformation(ds.srs, wgs84);
+
+            console.log('Corner Coordinates:');
+            var corner_names = Object.keys(corners);
+            var cornList = {}
+
+            corner_names.forEach(function (corner_name) {
+                // convert pixel x,y to the coordinate system of the raster
+                // then transform it to WGS84
+                var corner = corners[corner_name];
+                var pt_orig = {
+                    x: geotransform[0] + corner.x * geotransform[1] + corner.y * geotransform[2],
+                    y: geotransform[3] + corner.x * geotransform[4] + corner.y * geotransform[5]
+                };
+                var pt_wgs84 = coord_transform.transformPoint(pt_orig);
+                var cord = []
+                cord.push(pt_wgs84.x)
+                cord.push(pt_wgs84.y)
+                cornList[corner_name.trim()] = cord
+                console.log(cornList)
+                var description = util.format('%s (%d, %d) (%s, %s)',
+                    corner_name,
+                    Math.floor(pt_orig.x * 100) / 100,
+                    Math.floor(pt_orig.y * 100) / 100,
+                    gdal.decToDMS(pt_wgs84.x, 'Long'),
+                    gdal.decToDMS(pt_wgs84.y, 'Lat')
+                );
+                console.log(description);
+            });
+            console.log(cornList)
+            console.log("srs: " + (ds.srs ? ds.srs.toWKT() : 'null'));
+        } catch (err) {
+            console.log("errrrrrrrr", err);
+        }
         // var width, height, data = decode(fs.readFileSync(path.join(process.cwd(), path.join('pix4dUpload', 'vashi_transparent_mosaic_group1.tif'))));
         // var png = new PNG({
         //     width,
@@ -345,57 +354,107 @@ cron.schedule('1 * * * *', function () {
                                         console.log("status-----", extension, fileName[0]);
                                         async.waterfall([
                                                 function (callback) {
-                                                    var ds = gdal.open(path.join(dirName1, val));
-                                                    // raster dimensions
-                                                    var size = ds.rasterSize;
-                                                    console.log('Size is ' + size.x + ', ' + size.y);
+                                                    try {
+                                                        var ds = gdal.open(path.join(dirName1, val));
+                                                        // raster dimensions
+                                                        var size = ds.rasterSize;
+                                                        console.log('Size is ' + size.x + ', ' + size.y);
 
-                                                    // geotransform
-                                                    var geotransform = ds.geoTransform;
-                                                    console.log('Origin = (' + geotransform[0] + ', ' + geotransform[3] + ')');
-                                                    console.log('Pixel Size = (' + geotransform[1] + ', ' + geotransform[5] + ')');
-                                                    console.log('GeoTransform =');
-                                                    console.log(geotransform);
-                                                    fs.readFile(dirName1 + '/' + val, function (err, data) {
-                                                        if (err) {
-                                                            console.log("err", err);
-                                                            callback(null, "err");
-                                                        } else {
-                                                            console.log("data f1 ", data);
-                                                            callback(null, data);
-                                                        }
-                                                    });
-                                                },
-                                                function (data, callback) {
-                                                    console.log("data inside f2 ", data);
-                                                    if (data != "err") {
-                                                        dataArray = data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength);
-                                                        var tiff = geotiff.parse(dataArray);
-                                                        var im = geotiff.parse(dataArray).getImage()
-                                                        var fd = im.getFileDirectory()
-                                                        var gk = im.getGeoKeys()
-                                                        var geoLoc;
-                                                        try {
-                                                            var geoLoc = extents({
-                                                                tiePoint: fd.ModelTiepoint,
-                                                                pixelScale: fd.ModelPixelScale,
-                                                                width: fd.ImageWidth,
-                                                                height: fd.ImageLength,
-                                                                proj: require('proj4'),
-                                                                from: epsg[gk.ProjectedCSTypeGeoKey || gk.GeographicTypeGeoKey],
-                                                                to: epsg[4326]
-                                                            });
-                                                            console.log("geoLocation ", geoLoc);
-                                                            callback(null, geoLoc);
-                                                        } catch (err) {
-                                                            console.log("errrrrrrrr", err);
-                                                            callback(null, "error");
-                                                        }
-                                                    } else {
-                                                        console.log("errrrrrrrr in else");
+                                                        // geotransform
+                                                        var geotransform = ds.geoTransform;
+                                                        console.log('GeoTransform =');
+                                                        console.log(geotransform);
+
+                                                        // corners
+                                                        var corners = {
+                                                            'upperLeft': {
+                                                                x: 0,
+                                                                y: 0
+                                                            },
+                                                            'upperRight': {
+                                                                x: size.x,
+                                                                y: 0
+                                                            },
+                                                            'lowerRight': {
+                                                                x: size.x,
+                                                                y: size.y
+                                                            },
+                                                            'lowerLeft': {
+                                                                x: 0,
+                                                                y: size.y
+                                                            },
+                                                            'center': {
+                                                                x: size.x / 2,
+                                                                y: size.y / 2
+                                                            }
+                                                        };
+
+                                                        var wgs84 = gdal.SpatialReference.fromEPSG(4326);
+                                                        var coord_transform = new gdal.CoordinateTransformation(ds.srs, wgs84);
+
+                                                        console.log('Corner Coordinates:');
+                                                        var corner_names = Object.keys(corners);
+                                                        var cornList = {}
+                                                        var cord = []
+                                                        corner_names.forEach(function (corner_name) {
+                                                            // convert pixel x,y to the coordinate system of the raster
+                                                            // then transform it to WGS84
+                                                            var corner = corners[corner_name];
+                                                            var pt_orig = {
+                                                                x: geotransform[0] + corner.x * geotransform[1] + corner.y * geotransform[2],
+                                                                y: geotransform[3] + corner.x * geotransform[4] + corner.y * geotransform[5]
+                                                            };
+                                                            var pt_wgs84 = coord_transform.transformPoint(pt_orig);
+                                                            cord.push(pt_wgs84.x)
+                                                            cord.push(pt_wgs84.y)
+                                                            cornList[corner_name.trim()] = cord
+                                                        });
+                                                        console.log(cornList)
+                                                        callback(null, cornList);
+                                                    } catch (err) {
+                                                        console.log("errrrrrrrr", err);
                                                         callback(null, "error");
                                                     }
+                                                    // fs.readFile(dirName1 + '/' + val, function (err, data) {
+                                                    //     if (err) {
+                                                    //         console.log("err", err);
+                                                    //         callback(null, "err");
+                                                    //     } else {
+                                                    //         console.log("data f1 ", data);
+                                                    //         callback(null, data);
+                                                    //     }
+                                                    // });
                                                 },
+                                                // function (data, callback) {
+                                                //     console.log("data inside f2 ", data);
+                                                //     if (data != "err") {
+                                                //         dataArray = data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength);
+                                                //         var tiff = geotiff.parse(dataArray);
+                                                //         var im = geotiff.parse(dataArray).getImage()
+                                                //         var fd = im.getFileDirectory()
+                                                //         var gk = im.getGeoKeys()
+                                                //         var geoLoc;
+                                                //         try {
+                                                //             var geoLoc = extents({
+                                                //                 tiePoint: fd.ModelTiepoint,
+                                                //                 pixelScale: fd.ModelPixelScale,
+                                                //                 width: fd.ImageWidth,
+                                                //                 height: fd.ImageLength,
+                                                //                 proj: require('proj4'),
+                                                //                 from: epsg[gk.ProjectedCSTypeGeoKey || gk.GeographicTypeGeoKey],
+                                                //                 to: epsg[4326]
+                                                //             });
+                                                //             console.log("geoLocation ", geoLoc);
+                                                //             callback(null, geoLoc);
+                                                //         } catch (err) {
+                                                //             console.log("errrrrrrrr", err);
+                                                //             callback(null, "error");
+                                                //         }
+                                                //     } else {
+                                                //         console.log("errrrrrrrr in else");
+                                                //         callback(null, "error");
+                                                //     }
+                                                // },
                                                 function (geoLocation, callback) {
                                                     console.log("geoLocation inside f3 ", geoLocation);
                                                     if (geoLocation != "error") {
