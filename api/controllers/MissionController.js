@@ -9,6 +9,8 @@ var path = require('path');
 var decode = require("decode-tiff");
 var PNG = require('pngjs');
 var sharp = require('sharp');
+var getSize = require('get-folder-size');
+
 var cron = require('node-cron');
 var gdal = require("gdal");
 var util = require('util');
