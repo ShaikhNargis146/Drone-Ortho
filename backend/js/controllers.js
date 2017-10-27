@@ -2799,6 +2799,7 @@ firstapp
 
     })
 
+ 
  .controller('AccandSubCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $uibModal) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("acc-and-sub");
@@ -2861,7 +2862,7 @@ firstapp
             NavigationService.apiCallWithData("Mission/totalMission", $scope.formdata1, function (mission) {$scope.totalMission = mission.data;
                   console.log("$scope.totalMission",$scope.totalMission);
                   if($scope.totalMission==undefined){
-                      $scope.dfmData.currentSubscription.missions="Not Available"
+                      $scope.dfmData.currentSubscription.missions="0"+ "/" + $scope.dfmData.currentSubscription.missions
                   }else{
                 $scope.dfmData.currentSubscription.missions = $scope.totalMission + "/" + $scope.dfmData.currentSubscription.missions
                    }
@@ -2871,8 +2872,8 @@ firstapp
                     if (mission1.value==false) {
                     console.log("inside if",mission1);
                         
-                        $scope.dfmData.currentSubscription.UploadPhoto = "Not Available";
-                        $scope.foldersize = "Not Available";
+                        $scope.dfmData.currentSubscription.UploadPhoto = "0";
+                        $scope.foldersize = "0";
                     }
                     else {
                     console.log("inside else",mission1);
@@ -2884,7 +2885,6 @@ firstapp
             });
         });
   })
-
 
     .controller('500Ctrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
