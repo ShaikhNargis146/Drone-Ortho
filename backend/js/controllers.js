@@ -104,6 +104,7 @@ firstapp
             [gd(2012, 1, 30), 555],
             [gd(2012, 1, 31), 993]
         ];
+
         $scope.dataset = [{
                 label: "Number of orders",
                 grow: {
@@ -118,8 +119,7 @@ firstapp
                     lineWidth: 0
                 }
 
-            },
-            {
+            }, {
                 label: "Payments",
                 grow: {
                     stepMode: "linear"
@@ -133,12 +133,10 @@ firstapp
                     fill: true,
                     fillColor: {
                         colors: [{
-                                opacity: 0.2
-                            },
-                            {
-                                opacity: 0.2
-                            }
-                        ]
+                            opacity: 0.2
+                        }, {
+                            opacity: 0.2
+                        }]
                     }
                 }
             }
@@ -168,23 +166,21 @@ firstapp
                 color: "#d5d5d5"
             },
             yaxes: [{
-                    position: "left",
-                    max: 1070,
-                    color: "#d5d5d5",
-                    axisLabelUseCanvas: true,
-                    axisLabelFontSizePixels: 12,
-                    axisLabelFontFamily: 'Arial',
-                    axisLabelPadding: 3
-                },
-                {
-                    position: "right",
-                    color: "#d5d5d5",
-                    axisLabelUseCanvas: true,
-                    axisLabelFontSizePixels: 12,
-                    axisLabelFontFamily: ' Arial',
-                    axisLabelPadding: 67
-                }
-            ],
+                position: "left",
+                max: 1070,
+                color: "#d5d5d5",
+                axisLabelUseCanvas: true,
+                axisLabelFontSizePixels: 12,
+                axisLabelFontFamily: 'Arial',
+                axisLabelPadding: 3
+            }, {
+                position: "right",
+                color: "#d5d5d5",
+                axisLabelUseCanvas: true,
+                axisLabelFontSizePixels: 12,
+                axisLabelFontFamily: ' Arial',
+                axisLabelPadding: 67
+            }],
             legend: {
                 noColumns: 1,
                 labelBoxBorderColor: "#d5d5d5",
@@ -242,13 +238,11 @@ firstapp
                 label: "Total CAD Amount",
                 // data: 20,
                 color: '#48b5d5',
-            },
-            {
+            }, {
                 label: "Total DFM Amount",
                 // data: 30,
                 color: '#82ddcb'
-            },
-            {
+            }, {
                 label: "Total Drones Amount",
                 // data: 90,
                 color: '#979fd2'
@@ -406,7 +400,6 @@ firstapp
 
         ];
 
-
         $scope.optionsadmin = {
             grid: {
                 hoverable: true,
@@ -429,23 +422,21 @@ firstapp
                 color: "#d5d5d5"
             },
             yaxes: [{
-                    position: "left",
-                    max: 1070,
-                    color: "#d5d5d5",
-                    axisLabelUseCanvas: true,
-                    axisLabelFontSizePixels: 12,
-                    axisLabelFontFamily: 'Arial',
-                    axisLabelPadding: 3
-                },
-                {
-                    position: "right",
-                    color: "#d5d5d5",
-                    axisLabelUseCanvas: true,
-                    axisLabelFontSizePixels: 12,
-                    axisLabelFontFamily: ' Arial',
-                    axisLabelPadding: 67
-                }
-            ],
+                position: "left",
+                max: 1070,
+                color: "#d5d5d5",
+                axisLabelUseCanvas: true,
+                axisLabelFontSizePixels: 12,
+                axisLabelFontFamily: 'Arial',
+                axisLabelPadding: 3
+            }, {
+                position: "right",
+                color: "#d5d5d5",
+                axisLabelUseCanvas: true,
+                axisLabelFontSizePixels: 12,
+                axisLabelFontFamily: ' Arial',
+                axisLabelPadding: 67
+            }],
             legend: {
                 noColumns: 1,
                 labelBoxBorderColor: "#d5d5d5",
@@ -500,13 +491,11 @@ firstapp
                 label: "CAD",
                 data: 200,
                 color: '#48b5d5',
-            },
-            {
+            }, {
                 label: "DFM",
                 data: 120,
                 color: '#82ddcb'
-            },
-            {
+            }, {
                 label: "DRONE",
                 data: 50,
                 color: '#979fd2'
@@ -543,13 +532,11 @@ firstapp
                 label: "CAD",
                 // data: 120,
                 color: '#48b5d5',
-            },
-            {
+            }, {
                 label: "DFM",
                 // data: 30,
                 color: '#82ddcb'
-            },
-            {
+            }, {
                 label: "DRONE",
                 // data: 90,
                 color: '#979fd2'
@@ -588,13 +575,11 @@ firstapp
                 label: "CAD",
                 // data: 200,
                 color: '#48b5d5',
-            },
-            {
+            }, {
                 label: "DFM",
                 // data: 120,
                 color: '#82ddcb'
-            },
-            {
+            }, {
                 label: "DRONE",
                 // data: 50,
                 color: '#979fd2'
@@ -631,26 +616,22 @@ firstapp
         //
 
         $scope.pieDatasetCad = [{
-                label: "Cancel CAD Files",
-                // data: 120,
-                color: '#48b5d5',
-            },
-            {
-                label: "Completed CAD Files",
-                // data: 30,
-                color: '#82ddcb'
-            },
-            {
-                label: "Processing CAD Files",
-                // data: 90,
-                color: '#979fd2'
-            },
-            {
-                label: "QC CAD Files",
-                // data: 90,
-                color: '#979fd2'
-            },
-        ];
+            label: "Cancel CAD Files",
+            // data: 120,
+            color: '#48b5d5',
+        }, {
+            label: "Completed CAD Files",
+            // data: 30,
+            color: '#82ddcb'
+        }, {
+            label: "Processing CAD Files",
+            // data: 90,
+            color: '#979fd2'
+        }, {
+            label: "QC CAD Files",
+            // data: 90,
+            color: '#979fd2'
+        }, ];
         $scope.pieOptionsCad = {
             series: {
                 pie: {
@@ -681,8 +662,7 @@ firstapp
                 label: "Outstanding Amount",
                 // data: 120,
                 color: '#82ddcb'
-            },
-            {
+            }, {
                 label: "Paid Amount",
                 // data: 50,
                 color: '#979fd2'
@@ -1353,299 +1333,293 @@ firstapp
             }
         });
         $scope.priceListForNDB = [{
-                "from": 0,
-                "to": 1,
-                "density": {
-                    "low": 77.63,
-                    "medium": 95.88,
-                    "high": 112.13
-                },
-                "contoursDensity": {
-                    "low": 103.50,
-                    "medium": 120.75,
-                    "high": 138
-                }
+            "from": 0,
+            "to": 1,
+            "density": {
+                "low": 77.63,
+                "medium": 95.88,
+                "high": 112.13
             },
-            {
-                "from": 1.1,
-                "to": 2,
-                "density": {
-                    "low": 80.50,
-                    "medium": 100.63,
-                    "high": 120.75
-                },
-                "contoursDensity": {
-                    "low": 120.75,
-                    "medium": 140.88,
-                    "high": 161.00
-                }
-            },
-            {
-                "from": 2,
-                "to": 3.5,
-                "density": {
-                    "low": 100.63,
-                    "medium": 120.75,
-                    "high": 140.88
-                },
-                "contoursDensity": {
-                    "low": 140.88,
-                    "medium": 161.00,
-                    "high": 181.13
-                }
-            }, {
-                "from": 3.6,
-                "to": 5,
-                "density": {
-                    "low": 187.20,
-                    "medium": 210.60,
-                    "high": 234.00
-                },
-                "contoursDensity": {
-                    "low": 257.40,
-                    "medium": 280.80,
-                    "high": 304.20
-                }
-            }, {
-                "from": 5.1,
-                "to": 8,
-                "density": {
-                    "low": 288.00,
-                    "medium": 312.00,
-                    "high": 333.00
-                },
-                "contoursDensity": {
-                    "low": 396.00,
-                    "medium": 420.00,
-                    "high": 444.00
-                }
-            }, {
-                "from": 8.1,
-                "to": 12,
-                "density": {
-                    "low": 360.00,
-                    "medium": 384.00,
-                    "high": 408.00
-                },
-                "contoursDensity": {
-                    "low": 504.00,
-                    "medium": 528.00,
-                    "high": 672.00
-                }
-            }, {
-                "from": 12.1,
-                "to": 17,
-                "density": {
-                    "low": 520.00,
-                    "medium": 546.00,
-                    "high": 572.00
-                },
-                "contoursDensity": {
-                    "low": 715.00,
-                    "medium": 741.00,
-                    "high": 767.00
-                }
-            }, {
-                "from": 17.1,
-                "to": 22,
-                "density": {
-                    "low": 598.00,
-                    "medium": 624.00,
-                    "high": 650.00
-                },
-                "contoursDensity": {
-                    "low": 832.00,
-                    "medium": 858.00,
-                    "high": 884.00
-                }
-            }, {
-                "from": 22.1,
-                "to": 27,
-                "density": {
-                    "low": 624.00,
-                    "medium": 650.00,
-                    "high": 676.00
-                },
-                "contoursDensity": {
-                    "low": 858.00,
-                    "medium": 884.00,
-                    "high": 910.00
-                }
-            }, {
-                "from": 27.1,
-                "to": 32,
-                "density": {
-                    "low": 655.20,
-                    "medium": 682.50,
-                    "high": 709.80
-                },
-                "contoursDensity": {
-                    "low": 900.90,
-                    "medium": 920.20,
-                    "high": 955.50
-                }
-            }, {
-                "from": 32.1,
-                "to": 40,
-                "density": {
-                    "low": 682.50,
-                    "medium": 709.80,
-                    "high": 737.10
-                },
-                "contoursDensity": {
-                    "low": 928.20,
-                    "medium": 955.50,
-                    "high": 982.80
-                }
+            "contoursDensity": {
+                "low": 103.50,
+                "medium": 120.75,
+                "high": 138
             }
-        ];
+        }, {
+            "from": 1.1,
+            "to": 2,
+            "density": {
+                "low": 80.50,
+                "medium": 100.63,
+                "high": 120.75
+            },
+            "contoursDensity": {
+                "low": 120.75,
+                "medium": 140.88,
+                "high": 161.00
+            }
+        }, {
+            "from": 2,
+            "to": 3.5,
+            "density": {
+                "low": 100.63,
+                "medium": 120.75,
+                "high": 140.88
+            },
+            "contoursDensity": {
+                "low": 140.88,
+                "medium": 161.00,
+                "high": 181.13
+            }
+        }, {
+            "from": 3.6,
+            "to": 5,
+            "density": {
+                "low": 187.20,
+                "medium": 210.60,
+                "high": 234.00
+            },
+            "contoursDensity": {
+                "low": 257.40,
+                "medium": 280.80,
+                "high": 304.20
+            }
+        }, {
+            "from": 5.1,
+            "to": 8,
+            "density": {
+                "low": 288.00,
+                "medium": 312.00,
+                "high": 333.00
+            },
+            "contoursDensity": {
+                "low": 396.00,
+                "medium": 420.00,
+                "high": 444.00
+            }
+        }, {
+            "from": 8.1,
+            "to": 12,
+            "density": {
+                "low": 360.00,
+                "medium": 384.00,
+                "high": 408.00
+            },
+            "contoursDensity": {
+                "low": 504.00,
+                "medium": 528.00,
+                "high": 672.00
+            }
+        }, {
+            "from": 12.1,
+            "to": 17,
+            "density": {
+                "low": 520.00,
+                "medium": 546.00,
+                "high": 572.00
+            },
+            "contoursDensity": {
+                "low": 715.00,
+                "medium": 741.00,
+                "high": 767.00
+            }
+        }, {
+            "from": 17.1,
+            "to": 22,
+            "density": {
+                "low": 598.00,
+                "medium": 624.00,
+                "high": 650.00
+            },
+            "contoursDensity": {
+                "low": 832.00,
+                "medium": 858.00,
+                "high": 884.00
+            }
+        }, {
+            "from": 22.1,
+            "to": 27,
+            "density": {
+                "low": 624.00,
+                "medium": 650.00,
+                "high": 676.00
+            },
+            "contoursDensity": {
+                "low": 858.00,
+                "medium": 884.00,
+                "high": 910.00
+            }
+        }, {
+            "from": 27.1,
+            "to": 32,
+            "density": {
+                "low": 655.20,
+                "medium": 682.50,
+                "high": 709.80
+            },
+            "contoursDensity": {
+                "low": 900.90,
+                "medium": 920.20,
+                "high": 955.50
+            }
+        }, {
+            "from": 32.1,
+            "to": 40,
+            "density": {
+                "low": 682.50,
+                "medium": 709.80,
+                "high": 737.10
+            },
+            "contoursDensity": {
+                "low": 928.20,
+                "medium": 955.50,
+                "high": 982.80
+            }
+        }];
         $scope.priceListForUDB = [{
-                "from": 0,
-                "to": 1,
-                "density": {
-                    "low": 67.50,
-                    "medium": 82.50,
-                    "high": 97.50
-                },
-                "contoursDensity": {
-                    "low": 90.00,
-                    "medium": 105.00,
-                    "high": 120.00
-                }
+            "from": 0,
+            "to": 1,
+            "density": {
+                "low": 67.50,
+                "medium": 82.50,
+                "high": 97.50
             },
-            {
-                "from": 1.1,
-                "to": 2,
-                "density": {
-                    "low": 70.00,
-                    "medium": 87.50,
-                    "high": 105.00
-                },
-                "contoursDensity": {
-                    "low": 105.00,
-                    "medium": 122.50,
-                    "high": 140.00
-                }
-            },
-            {
-                "from": 2,
-                "to": 3.5,
-                "density": {
-                    "low": 87.50,
-                    "medium": 105.00,
-                    "high": 122.50
-                },
-                "contoursDensity": {
-                    "low": 122.50,
-                    "medium": 140.00,
-                    "high": 157.50
-                }
-            }, {
-                "from": 3.6,
-                "to": 5,
-                "density": {
-                    "low": 156.00,
-                    "medium": 175.50,
-                    "high": 195.00
-                },
-                "contoursDensity": {
-                    "low": 214.50,
-                    "medium": 234.00,
-                    "high": 253.50
-                }
-            }, {
-                "from": 5.1,
-                "to": 8,
-                "density": {
-                    "low": 240.00,
-                    "medium": 260.00,
-                    "high": 280.00
-                },
-                "contoursDensity": {
-                    "low": 330.00,
-                    "medium": 350.00,
-                    "high": 370.00
-                }
-            }, {
-                "from": 8.1,
-                "to": 12,
-                "density": {
-                    "low": 300.00,
-                    "medium": 320.00,
-                    "high": 340.00
-                },
-                "contoursDensity": {
-                    "low": 420.00,
-                    "medium": 440.00,
-                    "high": 560.00
-                }
-            }, {
-                "from": 12.1,
-                "to": 17,
-                "density": {
-                    "low": 400.00,
-                    "medium": 420.00,
-                    "high": 440.00
-                },
-                "contoursDensity": {
-                    "low": 550.00,
-                    "medium": 570.00,
-                    "high": 590.00
-                }
-            }, {
-                "from": 17.1,
-                "to": 22,
-                "density": {
-                    "low": 460.00,
-                    "medium": 480.00,
-                    "high": 500.00
-                },
-                "contoursDensity": {
-                    "low": 640.00,
-                    "medium": 660.00,
-                    "high": 680.00
-                }
-            }, {
-                "from": 22.1,
-                "to": 27,
-                "density": {
-                    "low": 480.00,
-                    "medium": 500.00,
-                    "high": 520.00
-                },
-                "contoursDensity": {
-                    "low": 660.00,
-                    "medium": 680.00,
-                    "high": 700.00
-                }
-            }, {
-                "from": 27.1,
-                "to": 32,
-                "density": {
-                    "low": 504.00,
-                    "medium": 525.00,
-                    "high": 546.00
-                },
-                "contoursDensity": {
-                    "low": 693.00,
-                    "medium": 714.00,
-                    "high": 735.00
-                }
-            }, {
-                "from": 32.1,
-                "to": 40,
-                "density": {
-                    "low": 525.00,
-                    "medium": 546.00,
-                    "high": 567.00
-                },
-                "contoursDensity": {
-                    "low": 714.00,
-                    "medium": 735.00,
-                    "high": 756.00
-                }
+            "contoursDensity": {
+                "low": 90.00,
+                "medium": 105.00,
+                "high": 120.00
             }
-        ];
+        }, {
+            "from": 1.1,
+            "to": 2,
+            "density": {
+                "low": 70.00,
+                "medium": 87.50,
+                "high": 105.00
+            },
+            "contoursDensity": {
+                "low": 105.00,
+                "medium": 122.50,
+                "high": 140.00
+            }
+        }, {
+            "from": 2,
+            "to": 3.5,
+            "density": {
+                "low": 87.50,
+                "medium": 105.00,
+                "high": 122.50
+            },
+            "contoursDensity": {
+                "low": 122.50,
+                "medium": 140.00,
+                "high": 157.50
+            }
+        }, {
+            "from": 3.6,
+            "to": 5,
+            "density": {
+                "low": 156.00,
+                "medium": 175.50,
+                "high": 195.00
+            },
+            "contoursDensity": {
+                "low": 214.50,
+                "medium": 234.00,
+                "high": 253.50
+            }
+        }, {
+            "from": 5.1,
+            "to": 8,
+            "density": {
+                "low": 240.00,
+                "medium": 260.00,
+                "high": 280.00
+            },
+            "contoursDensity": {
+                "low": 330.00,
+                "medium": 350.00,
+                "high": 370.00
+            }
+        }, {
+            "from": 8.1,
+            "to": 12,
+            "density": {
+                "low": 300.00,
+                "medium": 320.00,
+                "high": 340.00
+            },
+            "contoursDensity": {
+                "low": 420.00,
+                "medium": 440.00,
+                "high": 560.00
+            }
+        }, {
+            "from": 12.1,
+            "to": 17,
+            "density": {
+                "low": 400.00,
+                "medium": 420.00,
+                "high": 440.00
+            },
+            "contoursDensity": {
+                "low": 550.00,
+                "medium": 570.00,
+                "high": 590.00
+            }
+        }, {
+            "from": 17.1,
+            "to": 22,
+            "density": {
+                "low": 460.00,
+                "medium": 480.00,
+                "high": 500.00
+            },
+            "contoursDensity": {
+                "low": 640.00,
+                "medium": 660.00,
+                "high": 680.00
+            }
+        }, {
+            "from": 22.1,
+            "to": 27,
+            "density": {
+                "low": 480.00,
+                "medium": 500.00,
+                "high": 520.00
+            },
+            "contoursDensity": {
+                "low": 660.00,
+                "medium": 680.00,
+                "high": 700.00
+            }
+        }, {
+            "from": 27.1,
+            "to": 32,
+            "density": {
+                "low": 504.00,
+                "medium": 525.00,
+                "high": 546.00
+            },
+            "contoursDensity": {
+                "low": 693.00,
+                "medium": 714.00,
+                "high": 735.00
+            }
+        }, {
+            "from": 32.1,
+            "to": 40,
+            "density": {
+                "low": 525.00,
+                "medium": 546.00,
+                "high": 567.00
+            },
+            "contoursDensity": {
+                "low": 714.00,
+                "medium": 735.00,
+                "high": 756.00
+            }
+        }];
         $scope.calculateAmount = function (data) {
             console.log("inside calculateAmount", data)
             if (data.contoursDensity || data.draftingDensity) {
@@ -2079,299 +2053,293 @@ firstapp
         });
 
         $scope.priceListForNDB = [{
-                "from": 0,
-                "to": 1,
-                "density": {
-                    "low": 77.63,
-                    "medium": 95.88,
-                    "high": 112.13
-                },
-                "contoursDensity": {
-                    "low": 103.50,
-                    "medium": 120.75,
-                    "high": 138
-                }
+            "from": 0,
+            "to": 1,
+            "density": {
+                "low": 77.63,
+                "medium": 95.88,
+                "high": 112.13
             },
-            {
-                "from": 1.1,
-                "to": 2,
-                "density": {
-                    "low": 80.50,
-                    "medium": 100.63,
-                    "high": 120.75
-                },
-                "contoursDensity": {
-                    "low": 120.75,
-                    "medium": 140.88,
-                    "high": 161.00
-                }
-            },
-            {
-                "from": 2,
-                "to": 3.5,
-                "density": {
-                    "low": 100.63,
-                    "medium": 120.75,
-                    "high": 140.88
-                },
-                "contoursDensity": {
-                    "low": 140.88,
-                    "medium": 161.00,
-                    "high": 181.13
-                }
-            }, {
-                "from": 3.6,
-                "to": 5,
-                "density": {
-                    "low": 187.20,
-                    "medium": 210.60,
-                    "high": 234.00
-                },
-                "contoursDensity": {
-                    "low": 257.40,
-                    "medium": 280.80,
-                    "high": 304.20
-                }
-            }, {
-                "from": 5.1,
-                "to": 8,
-                "density": {
-                    "low": 288.00,
-                    "medium": 312.00,
-                    "high": 333.00
-                },
-                "contoursDensity": {
-                    "low": 396.00,
-                    "medium": 420.00,
-                    "high": 444.00
-                }
-            }, {
-                "from": 8.1,
-                "to": 12,
-                "density": {
-                    "low": 360.00,
-                    "medium": 384.00,
-                    "high": 408.00
-                },
-                "contoursDensity": {
-                    "low": 504.00,
-                    "medium": 528.00,
-                    "high": 672.00
-                }
-            }, {
-                "from": 12.1,
-                "to": 17,
-                "density": {
-                    "low": 520.00,
-                    "medium": 546.00,
-                    "high": 572.00
-                },
-                "contoursDensity": {
-                    "low": 715.00,
-                    "medium": 741.00,
-                    "high": 767.00
-                }
-            }, {
-                "from": 17.1,
-                "to": 22,
-                "density": {
-                    "low": 598.00,
-                    "medium": 624.00,
-                    "high": 650.00
-                },
-                "contoursDensity": {
-                    "low": 832.00,
-                    "medium": 858.00,
-                    "high": 884.00
-                }
-            }, {
-                "from": 22.1,
-                "to": 27,
-                "density": {
-                    "low": 624.00,
-                    "medium": 650.00,
-                    "high": 676.00
-                },
-                "contoursDensity": {
-                    "low": 858.00,
-                    "medium": 884.00,
-                    "high": 910.00
-                }
-            }, {
-                "from": 27.1,
-                "to": 32,
-                "density": {
-                    "low": 655.20,
-                    "medium": 682.50,
-                    "high": 709.80
-                },
-                "contoursDensity": {
-                    "low": 900.90,
-                    "medium": 920.20,
-                    "high": 955.50
-                }
-            }, {
-                "from": 32.1,
-                "to": 40,
-                "density": {
-                    "low": 682.50,
-                    "medium": 709.80,
-                    "high": 737.10
-                },
-                "contoursDensity": {
-                    "low": 928.20,
-                    "medium": 955.50,
-                    "high": 982.80
-                }
+            "contoursDensity": {
+                "low": 103.50,
+                "medium": 120.75,
+                "high": 138
             }
-        ];
+        }, {
+            "from": 1.1,
+            "to": 2,
+            "density": {
+                "low": 80.50,
+                "medium": 100.63,
+                "high": 120.75
+            },
+            "contoursDensity": {
+                "low": 120.75,
+                "medium": 140.88,
+                "high": 161.00
+            }
+        }, {
+            "from": 2,
+            "to": 3.5,
+            "density": {
+                "low": 100.63,
+                "medium": 120.75,
+                "high": 140.88
+            },
+            "contoursDensity": {
+                "low": 140.88,
+                "medium": 161.00,
+                "high": 181.13
+            }
+        }, {
+            "from": 3.6,
+            "to": 5,
+            "density": {
+                "low": 187.20,
+                "medium": 210.60,
+                "high": 234.00
+            },
+            "contoursDensity": {
+                "low": 257.40,
+                "medium": 280.80,
+                "high": 304.20
+            }
+        }, {
+            "from": 5.1,
+            "to": 8,
+            "density": {
+                "low": 288.00,
+                "medium": 312.00,
+                "high": 333.00
+            },
+            "contoursDensity": {
+                "low": 396.00,
+                "medium": 420.00,
+                "high": 444.00
+            }
+        }, {
+            "from": 8.1,
+            "to": 12,
+            "density": {
+                "low": 360.00,
+                "medium": 384.00,
+                "high": 408.00
+            },
+            "contoursDensity": {
+                "low": 504.00,
+                "medium": 528.00,
+                "high": 672.00
+            }
+        }, {
+            "from": 12.1,
+            "to": 17,
+            "density": {
+                "low": 520.00,
+                "medium": 546.00,
+                "high": 572.00
+            },
+            "contoursDensity": {
+                "low": 715.00,
+                "medium": 741.00,
+                "high": 767.00
+            }
+        }, {
+            "from": 17.1,
+            "to": 22,
+            "density": {
+                "low": 598.00,
+                "medium": 624.00,
+                "high": 650.00
+            },
+            "contoursDensity": {
+                "low": 832.00,
+                "medium": 858.00,
+                "high": 884.00
+            }
+        }, {
+            "from": 22.1,
+            "to": 27,
+            "density": {
+                "low": 624.00,
+                "medium": 650.00,
+                "high": 676.00
+            },
+            "contoursDensity": {
+                "low": 858.00,
+                "medium": 884.00,
+                "high": 910.00
+            }
+        }, {
+            "from": 27.1,
+            "to": 32,
+            "density": {
+                "low": 655.20,
+                "medium": 682.50,
+                "high": 709.80
+            },
+            "contoursDensity": {
+                "low": 900.90,
+                "medium": 920.20,
+                "high": 955.50
+            }
+        }, {
+            "from": 32.1,
+            "to": 40,
+            "density": {
+                "low": 682.50,
+                "medium": 709.80,
+                "high": 737.10
+            },
+            "contoursDensity": {
+                "low": 928.20,
+                "medium": 955.50,
+                "high": 982.80
+            }
+        }];
         $scope.priceListForUDB = [{
-                "from": 0,
-                "to": 1,
-                "density": {
-                    "low": 67.50,
-                    "medium": 82.50,
-                    "high": 97.50
-                },
-                "contoursDensity": {
-                    "low": 90.00,
-                    "medium": 105.00,
-                    "high": 120.00
-                }
+            "from": 0,
+            "to": 1,
+            "density": {
+                "low": 67.50,
+                "medium": 82.50,
+                "high": 97.50
             },
-            {
-                "from": 1.1,
-                "to": 2,
-                "density": {
-                    "low": 70.00,
-                    "medium": 87.50,
-                    "high": 105.00
-                },
-                "contoursDensity": {
-                    "low": 105.00,
-                    "medium": 122.50,
-                    "high": 140.00
-                }
-            },
-            {
-                "from": 2,
-                "to": 3.5,
-                "density": {
-                    "low": 87.50,
-                    "medium": 105.00,
-                    "high": 122.50
-                },
-                "contoursDensity": {
-                    "low": 122.50,
-                    "medium": 140.00,
-                    "high": 157.50
-                }
-            }, {
-                "from": 3.6,
-                "to": 5,
-                "density": {
-                    "low": 156.00,
-                    "medium": 175.50,
-                    "high": 195.00
-                },
-                "contoursDensity": {
-                    "low": 214.50,
-                    "medium": 234.00,
-                    "high": 253.50
-                }
-            }, {
-                "from": 5.1,
-                "to": 8,
-                "density": {
-                    "low": 240.00,
-                    "medium": 260.00,
-                    "high": 280.00
-                },
-                "contoursDensity": {
-                    "low": 330.00,
-                    "medium": 350.00,
-                    "high": 370.00
-                }
-            }, {
-                "from": 8.1,
-                "to": 12,
-                "density": {
-                    "low": 300.00,
-                    "medium": 320.00,
-                    "high": 340.00
-                },
-                "contoursDensity": {
-                    "low": 420.00,
-                    "medium": 440.00,
-                    "high": 560.00
-                }
-            }, {
-                "from": 12.1,
-                "to": 17,
-                "density": {
-                    "low": 400.00,
-                    "medium": 420.00,
-                    "high": 440.00
-                },
-                "contoursDensity": {
-                    "low": 550.00,
-                    "medium": 570.00,
-                    "high": 590.00
-                }
-            }, {
-                "from": 17.1,
-                "to": 22,
-                "density": {
-                    "low": 460.00,
-                    "medium": 480.00,
-                    "high": 500.00
-                },
-                "contoursDensity": {
-                    "low": 640.00,
-                    "medium": 660.00,
-                    "high": 680.00
-                }
-            }, {
-                "from": 22.1,
-                "to": 27,
-                "density": {
-                    "low": 480.00,
-                    "medium": 500.00,
-                    "high": 520.00
-                },
-                "contoursDensity": {
-                    "low": 660.00,
-                    "medium": 680.00,
-                    "high": 700.00
-                }
-            }, {
-                "from": 27.1,
-                "to": 32,
-                "density": {
-                    "low": 504.00,
-                    "medium": 525.00,
-                    "high": 546.00
-                },
-                "contoursDensity": {
-                    "low": 693.00,
-                    "medium": 714.00,
-                    "high": 735.00
-                }
-            }, {
-                "from": 32.1,
-                "to": 40,
-                "density": {
-                    "low": 525.00,
-                    "medium": 546.00,
-                    "high": 567.00
-                },
-                "contoursDensity": {
-                    "low": 714.00,
-                    "medium": 735.00,
-                    "high": 756.00
-                }
+            "contoursDensity": {
+                "low": 90.00,
+                "medium": 105.00,
+                "high": 120.00
             }
-        ];
+        }, {
+            "from": 1.1,
+            "to": 2,
+            "density": {
+                "low": 70.00,
+                "medium": 87.50,
+                "high": 105.00
+            },
+            "contoursDensity": {
+                "low": 105.00,
+                "medium": 122.50,
+                "high": 140.00
+            }
+        }, {
+            "from": 2,
+            "to": 3.5,
+            "density": {
+                "low": 87.50,
+                "medium": 105.00,
+                "high": 122.50
+            },
+            "contoursDensity": {
+                "low": 122.50,
+                "medium": 140.00,
+                "high": 157.50
+            }
+        }, {
+            "from": 3.6,
+            "to": 5,
+            "density": {
+                "low": 156.00,
+                "medium": 175.50,
+                "high": 195.00
+            },
+            "contoursDensity": {
+                "low": 214.50,
+                "medium": 234.00,
+                "high": 253.50
+            }
+        }, {
+            "from": 5.1,
+            "to": 8,
+            "density": {
+                "low": 240.00,
+                "medium": 260.00,
+                "high": 280.00
+            },
+            "contoursDensity": {
+                "low": 330.00,
+                "medium": 350.00,
+                "high": 370.00
+            }
+        }, {
+            "from": 8.1,
+            "to": 12,
+            "density": {
+                "low": 300.00,
+                "medium": 320.00,
+                "high": 340.00
+            },
+            "contoursDensity": {
+                "low": 420.00,
+                "medium": 440.00,
+                "high": 560.00
+            }
+        }, {
+            "from": 12.1,
+            "to": 17,
+            "density": {
+                "low": 400.00,
+                "medium": 420.00,
+                "high": 440.00
+            },
+            "contoursDensity": {
+                "low": 550.00,
+                "medium": 570.00,
+                "high": 590.00
+            }
+        }, {
+            "from": 17.1,
+            "to": 22,
+            "density": {
+                "low": 460.00,
+                "medium": 480.00,
+                "high": 500.00
+            },
+            "contoursDensity": {
+                "low": 640.00,
+                "medium": 660.00,
+                "high": 680.00
+            }
+        }, {
+            "from": 22.1,
+            "to": 27,
+            "density": {
+                "low": 480.00,
+                "medium": 500.00,
+                "high": 520.00
+            },
+            "contoursDensity": {
+                "low": 660.00,
+                "medium": 680.00,
+                "high": 700.00
+            }
+        }, {
+            "from": 27.1,
+            "to": 32,
+            "density": {
+                "low": 504.00,
+                "medium": 525.00,
+                "high": 546.00
+            },
+            "contoursDensity": {
+                "low": 693.00,
+                "medium": 714.00,
+                "high": 735.00
+            }
+        }, {
+            "from": 32.1,
+            "to": 40,
+            "density": {
+                "low": 525.00,
+                "medium": 546.00,
+                "high": 567.00
+            },
+            "contoursDensity": {
+                "low": 714.00,
+                "medium": 735.00,
+                "high": 756.00
+            }
+        }];
 
         $scope.downloadOrthoForAdmin = function (data) { //admin cad download uploaded by vendor
             if (!_.isEmpty(data)) {
@@ -5451,12 +5419,13 @@ firstapp
     //         };
     //     })
 
-    .controller('LoginCtrl', function ($scope, TemplateService, NavigationService, $timeout, $stateParams, $state, toastr) {
+    .controller('LoginCtrl', function ($scope, TemplateService, NavigationService, $timeout, $stateParams, $state, toastr, $uibModal) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("login");
         $scope.menutitle = NavigationService.makeactive("Login");
         TemplateService.title = $scope.menutitle;
         $scope.currentHost = window.location.origin;
+        console.log("******************inside login")
         // if ($stateParams.id) {
         //     if ($stateParams.id === "AccessNotAvailable") {
         //         toastr.error("You do not have access for the Backend.");
@@ -6096,6 +6065,22 @@ firstapp
         $scope.logout = function (info) {
             $.jStorage.flush();
             $state.go("login");
+        }
+        $scope.forgotPassword = function () {
+            $scope.forgotPwd = true;
+            $scope.otpPwd = false
+            $scope.resetPwd = false;
+            $scope.forgotPasswordModal = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/forgetpassword.html',
+                scope: $scope,
+                // windowClass: 'loginModalSize',
+                // windowClass: 'modal-content-radi0'
+            });
+            // $scope.loginModal.close({
+            // $value: $scope.loginModal
+            // });
+            // $rootScope.loginModal.close();
         }
     })
 
