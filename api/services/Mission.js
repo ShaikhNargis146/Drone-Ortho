@@ -260,8 +260,15 @@ var model = {
 
 
     totalMissionCount: function (data, callback) {
+        var currentSubscriptionDate = data.currentSubscriptionDate
+        var ltDate = new Date();
+        console.log(currentSubscriptionDate)
         Mission.find({
             user: data.user,
+            createdAt: {
+                $gte: currentSubscriptionDate,
+                $lte: ltDate
+            }
         }).exec(function (err, found) {
             if (err) {
                 callback(err, null);
@@ -290,17 +297,11 @@ var model = {
                             totalSizeLenght++;
                             if (totalSizeLenght == foundLength) {
                                 console.log("exe 3:");
-                                if (a < 1000)
-                                    var toShow = a + " Bytes";
-                                else if (a < 1000000)
-                                    var toShow = (a / 1000).toFixed(1) + " KB";
-                                else if (a < 1000000000)
-                                    var toShow = (a / 1000000).toFixed(1) + " MB";
-                                else
-                                    var toShow = (a / 1000000000).toFixed(1) + " GB";
+                                var toShow = (a / 1000000000).toFixed(5) + " GB";
                                 data = {
                                     folderSize: toShow,
-                                    fileSize: countFiles
+                                    fileSize: countFiles,
+                                    missionCount: found.length
                                 };
                                 callback(null, data);
                             }

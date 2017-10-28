@@ -454,10 +454,17 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                     if (newVal.length > 0) {
                         var countForm = {}
                         countForm.user = $scope.$parent.profile._id
+                        countForm.currentSubscriptionDate = $scope.$parent.profile.currentSubscription.createdAt;
                         $http.post(adminurl + "Mission/totalMissionCount", countForm).then(function (data) {
-                            data = data.data;
-                            if ($scope.$parent.profile.currentSubscription.UploadPhoto <= data.data.fileSize) {
-                                console.log("data-----count---...", $scope.$parent.profile.currentSubscription.UploadPhoto, data.data)
+                            var missionData = data.data.data;
+                            var currentSub = $scope.$parent.profile.currentSubscription;
+                            var sizeLimit = currentSub.UploadSize.trim()
+                            sizeLimit = sizeLimit.substring(0, sizeLimit.length - 2)
+                            var usedSize = missionData.folderSize;
+                            usedSize = usedSize.split(' ')[0];
+                            console.log("sizeLimit", Number(currentSub.UploadPhoto) < Number(missionData.fileSize), Number(sizeLimit) < Number(usedSize), Number(currentSub.missions) <= Number(missionData.missionCount));
+                            if (Number(currentSub.UploadPhoto) <= Number(missionData.fileSize) || Number(sizeLimit) <= Number(usedSize) || Number(currentSub.missions) <= Number(missionData.missionCount)) {
+                                console.log("data-----count---...", currentSub.UploadPhoto, missionData)
                                 $("#myAlertModal").modal();
                             } else {
                                 $(".loading-img").css("display", "block");
