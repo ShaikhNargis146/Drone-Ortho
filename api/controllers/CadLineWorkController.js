@@ -278,6 +278,64 @@ var controller = {
 
     },
 
+    getGraphDataForAdmin: function (req, res) {
+        if (req.body) {
+            CadLineWork.getGraphDataForAdmin(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            });
+        }
+
+    },
+
+    //graph api for Users
+
+    getAllOrdersGraphDataForUser: function (req, res) {
+        if (req.body) {
+            CadLineWork.getAllOrdersGraphDataForUser(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            });
+        }
+
+    },
+
+    getTotalAmtGraphDataForUser: function (req, res) {
+        if (req.body) {
+            CadLineWork.getTotalAmtGraphDataForUser(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            });
+        }
+
+    },
+
+    getGraphDataForUser: function (req, res) {
+        if (req.body) {
+            CadLineWork.getGraphDataForUser(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            });
+        }
+
+    },
+
     //vendor billId
 
     saveVendorDetails: function (req, res) {

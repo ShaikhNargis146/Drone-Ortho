@@ -278,7 +278,7 @@ var controller = {
         // var files = req.query.id.split(',');
         var name = req.param("filename");
         var files = [];
-        files = ["C:/Users/unifli/Documents/pix4d/" + name + "/3_dsm_ortho/2_mosaic/" + name + "_transparent_mosaic_group1.tif", "C:/Users/unifli/Documents/pix4d/" + name + "/3_dsm_ortho/1_dsm/" + name + "_dsm.tif", "C:/Users/unifli/Documents/pix4d/" + name + "/3_dsm_ortho/1_dsm/" + name + "_dsm.tfw"]
+        files = ["C:/Users/unifli/Documents/pix4d/" + name + "/3_dsm_ortho/2_mosaic/" + name + "_transparent_mosaic_group1.tif", "C:/Users/unifli/Documents/pix4d/" + name + "/3_dsm_ortho/1_dsm/" + name + "_dsm.tfw"]
         async.eachSeries(files, function (image, callback) {
             // request(global["env"].realHost + '/api/upload/readFile?file=' + image).pipe(fs.createWriteStream(image)).on('finish', function (images) {
             // JSZip generates a readable stream with a "end" event,
@@ -318,6 +318,67 @@ var controller = {
                     });
                 });
         });
+    },
+
+    //for pointCloud
+
+    generateZipForPointCloudFiles: function (req, res) {
+        var JSZip = require("jszip");
+        var type = req.query;
+        var zip = new JSZip();
+        var folder = "./.tmp/";
+        var path = moment().format("MMM-DD-YYYY-hh-mm-ss-a") + ".zip";
+        var finalPath = folder + path;
+        // var files = req.query.id.split(',');
+        var name = req.param("filename");
+        var dirName = "C:/Users/unifli/Documents/pix4d/" + name + "/2_densification/point_cloud/";
+        if (fs.existsSync(dirName)) {
+            fs.readdir(dirName, function (err, found) {
+                console.log("found------", found);
+                var finalpath1 = "C:/Users/unifli/Documents/pix4d/" + name + "/2_densification/point_cloud/";
+                async.eachSeries(found, function (image, callback) {
+                    // request(global["env"].realHost + '/api/upload/readFile?file=' + image).pipe(fs.createWriteStream(image)).on('finish', function (images) {
+                    // JSZip generates a readable stream with a "end" event,
+                    // but is piped here in a writable stream which emits a "finish" event.
+                    console.log("image--", image);
+                    fs.readFile(finalpath1 + image, function (err, imagesData) {
+                        if (err) {
+                            res.callback(err, null);
+                        } else {
+                            //Remove image
+                            // fs.unlink(image);
+                            // zip.file("file", content); ... and other manipulations
+                            console.log("imagesData---", imagesData);
+                            var n = image.split("/");
+                            zip.file(n[n.length - 1], imagesData);
+                            callback();
+                        }
+                    });
+                    // });
+                }, function () {
+                    //Generate Zip file
+                    zip.generateNodeStream({
+                            type: 'nodebuffer',
+                            streamFiles: true
+                        })
+                        .pipe(fs.createWriteStream(finalPath))
+                        .on('finish', function (zipData) {
+                            // JSZip generates a readable stream with a "end" event,
+                            // but is piped here in a writable stream which emits a "finish" event.
+                            fs.readFile(finalPath, function (err, zip) {
+                                if (err) {
+                                    res.callback(err, null);
+                                } else {
+                                    res.set('Content-Type', "application/octet-stream");
+                                    res.set('Content-Disposition', "attachment;filename=" + path);
+                                    res.send(zip);
+                                    fs.unlink(finalPath);
+                                }
+                            });
+                        });
+                });
+            })
+        }
     },
 };
 
