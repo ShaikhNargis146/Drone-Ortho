@@ -158,146 +158,161 @@ var model = {
 
 
 
-    totalMissionCount: function (data, callback) {
-
-        async.waterfall([
-            function (callback1) { // generate VendorID 
-                console.log("exe 1:");
-                Mission.find({
-                    user: data.user,
-                }).exec(function (err, found) {
-                    if (err) {
-                        console.log("error")
-                        callback1(err, []);
-                    } else if (_.isEmpty(found)) {
-                        console.log("error")
-                        callback1({
-                            message: "Mission Not Found!!!"
-                        });
-                    } else {
-                        console.log("total count found", found.length)
-                        var countFiles = 0;
-                        _.forEach(found, function (x) {
-                            countFiles = countFiles + x.files.length
-                            console.log("total mission count is", x.files.length, countFiles);
-                        })
-                        callback1(null, countFiles, found);
-                    }
-                });
-            },
-            function (totalCount, foundData, callback2) {
-                console.log("exe 2:");
-                console.log("**********", totalCount);
-                console.log("*****foundData*****", foundData);
-                var foundLength = 0;
-                var totalSizeLenght = 0;
-                var size = 0;
-
-                _.forEach(foundData, function (x) {
-                    foundLength++;
-                })
-                console.log("total found Lenght", foundLength);
-
-                _.each(foundData, function (x) {
-                    var getSize = require('get-folder-size');
-                    getSize('pix4dUpload/' + x._id, function (err, bytes) {
-
-                        if (err) {
-                            console.log("%%%%%%err", err);
-                            throw err;
-                        }
-                        console.log(bytes + ' bytes');
-                        size = size + bytes;
-                        console.log(size + ' size');
-                        totalSizeLenght++;
-                        console.log("total found totalSizeLenght", totalSizeLenght);
-
-                        if (totalSizeLenght == foundLength) {
-                            console.log("total found totalSizeLenght in length*************", totalSizeLenght);
-                            callback2(null, totalCount, size);
-                        }
-                    });
-                });
-
-            },
-            function (totalCount1, size1, callback3) {
-
-                console.log("exe 3:");
-                console.log("****totalCoun11111111111t******", totalCount1);
-                console.log("*****size11111*****", size1);
-                if (size1 < 1000)
-                    var toShow = size1 + " Bytes";
-                else if (size1 < 1000000)
-                    var toShow = (size1 / 1000).toFixed(1) + " KB";
-                else if (size1 < 1000000000)
-                    var toShow = (size1 / 1000000).toFixed(1) + " MB";
-                else
-                    var size1 = (size1 / 1000000000).toFixed(1) + " GB";
-                data = {
-                    folderSize: toShow,
-                    fileSize: totalCount1
-                };
-                console.log("final callback3 data is***********", data);
-                callback3(null, data);
-
-
-            }
-        ], function (err, data) {
-            console.log("exe final:");
-
-            if (err || _.isEmpty(data)) {
-                console.log("exe final is empty:");
-                callback(err, [])
-            } else {
-                console.log("exe final callback:");
-                callback(null, data)
-            }
-        });
-    },
-
-
-
-
-
     // totalMissionCount: function (data, callback) {
-    //     Mission.find({
-    //         user: data.user,
-    //     }).exec(function (err, found) {
-    //         if (err) {
-    //             callback(err, null);
-    //         } else if (found) {
-    //             console.log("total count found", found.length)
-    //             var countFiles = 0;
+
+    //     async.waterfall([
+    //         function (callback1) { // generate VendorID 
+    //             console.log("exe 1:");
+    //             Mission.find({
+    //                 user: data.user,
+    //             }).exec(function (err, found) {
+    //                 if (err) {
+    //                     console.log("error")
+    //                     callback1(err, []);
+    // } else if (_.isEmpty(found)) {
+    //     console.log("error")
+    //     callback1({
+    //         message: "Mission Not Found!!!"
+    //     });
+    // } else {
+    //                     console.log("total count found", found.length)
+    //                     var countFiles = 0;
+    //                     _.forEach(found, function (x) {
+    //                         countFiles = countFiles + x.files.length
+    //                         console.log("total mission count is", x.files.length, countFiles);
+    //                     })
+    //                     callback1(null, countFiles, found);
+    //                 }
+    //             });
+    //         },
+    //         function (totalCount, foundData, callback2) {
+    //             console.log("exe 2:");
+    //             console.log("**********", totalCount);
+    //             console.log("*****foundData*****", foundData);
+    //             var foundLength = 0;
+    //             var totalSizeLenght = 0;
     //             var size = 0;
-    //             _.forEach(found, function (x) {
-    //                 countFiles = countFiles + x.files.length
-    //                 console.log("total mission count is", x.files.length, countFiles);
+
+    //             _.forEach(foundData, function (x) {
+    //                 foundLength++;
     //             })
+    //             console.log("total found Lenght", foundLength);
+
+    //             _.each(foundData, function (x) {
+    //                 var getSize = require('get-folder-size');
+    //                 getSize('pix4dUpload/' + x._id, function (err, bytes) {
+
+    //                     if (err) {
+    //                         console.log("%%%%%%err", err);
+    //                         throw err;
+    //                     }
+    //                     console.log(bytes + ' bytes');
+    //                     size = size + bytes;
+    //                     console.log(size + ' size');
+    //                     totalSizeLenght++;
+    //                     console.log("total found totalSizeLenght", totalSizeLenght);
+
+    //                     if (totalSizeLenght == foundLength) {
+    //                         console.log("total found totalSizeLenght in length*************", totalSizeLenght);
+    //                         callback2(null, totalCount, size);
+    //                     }
+    //                 });
+    //             });
+
+    //         },
+    //         function (totalCount1, size1, callback3) {
+
+    //             console.log("exe 3:");
+    //             console.log("****totalCoun11111111111t******", totalCount1);
+    //             console.log("*****size11111*****", size1);
+    //             if (size1 < 1000)
+    //                 var toShow = size1 + " Bytes";
+    //             else if (size1 < 1000000)
+    //                 var toShow = (size1 / 1000).toFixed(1) + " KB";
+    //             else if (size1 < 1000000000)
+    //                 var toShow = (size1 / 1000000).toFixed(1) + " MB";
+    //             else
+    //                 var size1 = (size1 / 1000000000).toFixed(1) + " GB";
+    //             data = {
+    //                 folderSize: toShow,
+    //                 fileSize: totalCount1
+    //             };
+    //             console.log("final callback3 data is***********", data);
+    //             callback3(null, data);
 
 
-    // _.forEach(found, function (x) {
-    //     var getSize = require('get-folder-size');
-
-    //     getSize('pix4dUpload/' + x._id, function (err, bytes) {
-    //         if (err) {
-    //             throw err;
     //         }
-    //         console.log(bytes + ' bytes');
-    //         size = size + bytes;
-    //         console.log(size + ' size');
+    //     ], function (err, data) {
+    //         console.log("exe final:");
 
-    //     })
-
-    // });
-    //             console.log("final total size is", size)
-
-
-    //             callback(null, countFiles);
+    //         if (err || _.isEmpty(data)) {
+    //             console.log("exe final is empty:");
+    //             callback(err, [])
     //         } else {
-    //             callback("Invalid data", null);
+    //             console.log("exe final callback:");
+    //             callback(null, data)
     //         }
     //     });
     // },
+
+
+
+
+
+    totalMissionCount: function (data, callback) {
+        Mission.find({
+            user: data.user,
+        }).exec(function (err, found) {
+            if (err) {
+                callback(err, null);
+            } else if (_.isEmpty(found)) {
+                console.log("error")
+                callback({
+                    message: "Mission Not Found!!!"
+                });
+            } else if (found) {
+                var countFiles = 0;
+                var a = 0;
+                var foundLength = found.length;
+                var totalSizeLenght = 0;
+                _.forEach(found, function (x) {
+                    countFiles = countFiles + x.files.length
+                    var getSize = require('get-folder-size');
+                    var path = 'pix4dUpload/' + x._id;
+                    if (!fs.existsSync(path)) {
+                        totalSizeLenght++;
+                    } else {
+                        getSize(path, function (err, bytes) {
+                            if (err) {
+                                throw err;
+                            }
+                            a = a + bytes;
+                            totalSizeLenght++;
+                            if (totalSizeLenght == foundLength) {
+                                console.log("exe 3:");
+                                if (a < 1000)
+                                    var toShow = a + " Bytes";
+                                else if (a < 1000000)
+                                    var toShow = (a / 1000).toFixed(1) + " KB";
+                                else if (a < 1000000000)
+                                    var toShow = (a / 1000000).toFixed(1) + " MB";
+                                else
+                                    var toShow = (a / 1000000000).toFixed(1) + " GB";
+                                data = {
+                                    folderSize: toShow,
+                                    fileSize: countFiles
+                                };
+                                callback(null, data);
+                            }
+                        });
+                    }
+
+                })
+            } else {
+                callback("Invalid data", null);
+            }
+        });
+    },
 
     createMission: function (data, callback) {
         async.waterfall([
