@@ -2757,13 +2757,11 @@ firstapp
                     console.log("mission1", mission1);
                     if (mission1.value == false) {
                         console.log("inside if", mission1);
-
                         $scope.dfmData.currentSubscription.UploadPhoto = "0";
                         $scope.foldersize = "0";
                     } else {
                         console.log("inside else", mission1);
                         $scope.foldersize = mission1.data.folderSize + "/" + $scope.dfmData.currentSubscription.UploadSize;
-
                         $scope.dfmData.currentSubscription.UploadPhoto = mission1.data.fileSize + "/" + $scope.dfmData.currentSubscription.UploadPhoto;
                     }
                 });
