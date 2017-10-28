@@ -488,7 +488,7 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                                                 transformRequest: angular.identity,
                                                 uploadEventHandlers: {
                                                     progress: function (e) {
-                                                        console.log(e.loaded * 100 / e.total);
+                                                        // console.log(e.loaded * 100 / e.total);
                                                         $scope.fileprogressbar = parseInt((e.loaded / e.total) * 100); // percentage of progress
                                                     }
                                                 }
