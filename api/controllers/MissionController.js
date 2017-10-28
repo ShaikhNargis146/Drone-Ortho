@@ -331,7 +331,7 @@ var controller = {
         var finalPath = folder + path;
         // var files = req.query.id.split(',');
         var name = req.param("filename");
-        var dirName = "C:/Users/unifli/Documents/pix4d/" + name + "/2_densification/point_cloud/" + name + "_group1_densified_point_cloud.las";
+        var dirName = "C:/Users/unifli/Documents/pix4d/" + name + "/2_densification/point_cloud/";
         if (fs.existsSync(dirName)) {
             fs.readdir(dirName, function (err, found) {
                 async.eachSeries(found, function (image, callback) {
