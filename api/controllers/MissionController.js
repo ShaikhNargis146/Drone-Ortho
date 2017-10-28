@@ -334,10 +334,12 @@ var controller = {
         var dirName = "C:/Users/unifli/Documents/pix4d/" + name + "/2_densification/point_cloud/";
         if (fs.existsSync(dirName)) {
             fs.readdir(dirName, function (err, found) {
+                console.log("found------", found);
                 async.eachSeries(found, function (image, callback) {
                     // request(global["env"].realHost + '/api/upload/readFile?file=' + image).pipe(fs.createWriteStream(image)).on('finish', function (images) {
                     // JSZip generates a readable stream with a "end" event,
                     // but is piped here in a writable stream which emits a "finish" event.
+                    console.log("image--", image);
                     fs.readFile(image, function (err, imagesData) {
                         if (err) {
                             res.callback(err, null);
@@ -345,6 +347,7 @@ var controller = {
                             //Remove image
                             // fs.unlink(image);
                             // zip.file("file", content); ... and other manipulations
+                            console.log("imagesData---", imagesData);
                             var n = image.split("/");
                             zip.file(n[n.length - 1], imagesData);
                             callback();
