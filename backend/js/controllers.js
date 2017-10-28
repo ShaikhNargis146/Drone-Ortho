@@ -1654,7 +1654,9 @@ firstapp
             },
 
             $scope.downloadPointCloud = function () {
-                window.open('http://cloud.unifli.aero/api/getPointCloud/' + missionIdForDownload + ".las", '_self');
+                // window.open('http://cloud.unifli.aero/api/getPointCloud/' + missionIdForDownload + ".las", '_self');
+                window.open(adminurl + 'Mission/generateZipForPointCloudFiles?filename=' + missionID.filename, '_self');
+                window.close();
             },
 
             $scope.downloadQualityReports = function () {
@@ -2682,8 +2684,8 @@ firstapp
 
     })
 
- 
- .controller('AccandSubCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $uibModal) {
+
+    .controller('AccandSubCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $uibModal) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("acc-and-sub");
         $scope.menutitle = NavigationService.makeactive("AccandSub");
@@ -2742,32 +2744,33 @@ firstapp
         $scope.dfmData = {};
         NavigationService.apiCallWithData("User/getByDfm", $scope.formdata1, function (dfm) {
             $scope.dfmData = dfm.data;
-            NavigationService.apiCallWithData("Mission/totalMission", $scope.formdata1, function (mission) {$scope.totalMission = mission.data;
-                  console.log("$scope.totalMission",$scope.totalMission);
-                  if($scope.totalMission==undefined){
-                      $scope.dfmData.currentSubscription.missions="0"+ "/" + $scope.dfmData.currentSubscription.missions
-                  }else{
-                $scope.dfmData.currentSubscription.missions = $scope.totalMission + "/" + $scope.dfmData.currentSubscription.missions
-                   }
+            NavigationService.apiCallWithData("Mission/totalMission", $scope.formdata1, function (mission) {
+                $scope.totalMission = mission.data;
+                console.log("$scope.totalMission", $scope.totalMission);
+                if ($scope.totalMission == undefined) {
+                    $scope.dfmData.currentSubscription.missions = "0" + "/" + $scope.dfmData.currentSubscription.missions
+                } else {
+                    $scope.dfmData.currentSubscription.missions = $scope.totalMission + "/" + $scope.dfmData.currentSubscription.missions
+                }
 
                 NavigationService.apiCallWithData("Mission/totalMissionCount", $scope.formdata1, function (mission1) {
-                    console.log("mission1",mission1);
-                    if (mission1.value==false) {
-                    console.log("inside if",mission1);
-                        
+                    console.log("mission1", mission1);
+                    if (mission1.value == false) {
+                        console.log("inside if", mission1);
+
                         $scope.dfmData.currentSubscription.UploadPhoto = "0";
                         $scope.foldersize = "0";
-                    }
-                    else {
-                    console.log("inside else",mission1);
-                        
+                    } else {
+                        console.log("inside else", mission1);
+
                         $scope.foldersize = mission1.data.folderSize;
                         $scope.dfmData.currentSubscription.UploadPhoto = mission1.data.fileSize + "/" + $scope.dfmData.currentSubscription.UploadPhoto;
-                    } });
+                    }
+                });
 
             });
         });
-  })
+    })
 
     .controller('500Ctrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         //Used to name the .html file
