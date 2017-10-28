@@ -395,7 +395,7 @@ cron.schedule('1 * * * *', function () {
                                                         console.log('Corner Coordinates:');
                                                         var corner_names = Object.keys(corners);
                                                         var cornList = {}
-                                                        var cord = []
+
                                                         corner_names.forEach(function (corner_name) {
                                                             // convert pixel x,y to the coordinate system of the raster
                                                             // then transform it to WGS84
@@ -405,9 +405,10 @@ cron.schedule('1 * * * *', function () {
                                                                 y: geotransform[3] + corner.x * geotransform[4] + corner.y * geotransform[5]
                                                             };
                                                             var pt_wgs84 = coord_transform.transformPoint(pt_orig);
-                                                            cord.push(pt_wgs84.x)
-                                                            cord.push(pt_wgs84.y)
-                                                            cornList[corner_name.trim()] = cord
+                                                            var cord = [];
+                                                            cord.push(pt_wgs84.x);
+                                                            cord.push(pt_wgs84.y);
+                                                            cornList[corner_name] = cord;
                                                         });
                                                         console.log(cornList)
                                                         callback(null, cornList);
