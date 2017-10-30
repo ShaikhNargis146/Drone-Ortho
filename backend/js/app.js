@@ -608,12 +608,12 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                         'Content-Type': undefined,
                     },
                     transformRequest: angular.identity,
-                    uploadEventHandlers: {
-                        progress: function (e) {
-                            console.log(e.loaded * 100 / e.total);
-                            $scope.fileprogressbar = parseInt((e.loaded / e.total) * 100); // percentage of progress
-                        }
-                    }
+                    // uploadEventHandlers: {
+                    //     progress: function (e) {
+                    //         console.log(e.loaded * 100 / e.total);
+                    //         $scope.fileprogressbar = parseInt((e.loaded / e.total) * 100); // percentage of progress
+                    //     }
+                    // }
                 }).then(function (data) {
                     data = data.data;
                     $(".loading-img").css("display", "none");
