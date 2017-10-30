@@ -349,8 +349,7 @@ var controller = {
                             // fs.unlink(image);
                             // zip.file("file", content); ... and other manipulations
                             console.log("imagesData---", imagesData);
-                            var n = image.split("/");
-                            zip.file(n[n.length - 1], imagesData);
+                            zip.file(image, imagesData);
                             callback();
                         }
                     });
