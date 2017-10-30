@@ -607,13 +607,13 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                     headers: {
                         'Content-Type': undefined,
                     },
-                    transformRequest: angular.identity,
-                    uploadEventHandlers: {
-                        progress: function (e) {
-                            console.log(e.loaded * 100 / e.total);
-                            $scope.fileprogressbar = parseInt((e.loaded / e.total) * 100); // percentage of progress
-                        }
-                    }
+                    // transformRequest: angular.identity,
+                    // uploadEventHandlers: {
+                    //     progress: function (e) {
+                    //         console.log(e.loaded * 100 / e.total);
+                    //         $scope.fileprogressbar = parseInt((e.loaded / e.total) * 100); // percentage of progress
+                    //     }
+                    // }
                 }).then(function (data) {
                     data = data.data;
                     $(".loading-img").css("display", "none");
@@ -644,8 +644,8 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
 
                     }
                     $timeout(function () {
-                        $scope.callback();
-                    }, 15000);
+                        // $scope.callback();
+                    }, 15000000);
                 });
             };
         },
