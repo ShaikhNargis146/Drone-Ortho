@@ -13,7 +13,6 @@ var schema = new Schema({
     },
     email: {
         type: String,
-        validate: validators.isEmail(),
         unique: true
     },
     company: {
