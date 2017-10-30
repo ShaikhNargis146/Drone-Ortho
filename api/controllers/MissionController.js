@@ -381,7 +381,7 @@ var controller = {
     },
 };
 
-cron.schedule('1 * * * *', function () {
+cron.schedule('1 * * * * *', function () {
     Mission.find({
         status: {
             $nin: ['ready', 'failed']
@@ -410,7 +410,7 @@ cron.schedule('1 * * * *', function () {
                                     var extension = val.split(".").pop();
                                     extension = extension.toLowerCase();
                                     console.log("dirName1 + '/' + val", dirName1 + '/' + val);
-                                    if (extension == 'tif') {
+                                    if (extension == 'tfw') {
                                         console.log("status-----", extension, fileName[0]);
                                         async.waterfall([
                                                 function (callback) {
