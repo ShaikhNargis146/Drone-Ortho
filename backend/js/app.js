@@ -607,7 +607,7 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                     headers: {
                         'Content-Type': undefined,
                     },
-                    transformRequest: angular.identity,
+                    // transformRequest: angular.identity,
                     // uploadEventHandlers: {
                     //     progress: function (e) {
                     //         console.log(e.loaded * 100 / e.total);
@@ -644,8 +644,8 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
 
                     }
                     $timeout(function () {
-                        $scope.callback();
-                    }, 15000);
+                        // $scope.callback();
+                    }, 15000000);
                 });
             };
         },
