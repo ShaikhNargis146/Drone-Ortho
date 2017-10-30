@@ -607,13 +607,13 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                     headers: {
                         'Content-Type': undefined,
                     },
-                    // transformRequest: angular.identity,
-                    // uploadEventHandlers: {
-                    //     progress: function (e) {
-                    //         console.log(e.loaded * 100 / e.total);
-                    //         $scope.fileprogressbar = parseInt((e.loaded / e.total) * 100); // percentage of progress
-                    //     }
-                    // }
+                    transformRequest: angular.identity,
+                    uploadEventHandlers: {
+                        progress: function (e) {
+                            console.log(e.loaded * 100 / e.total);
+                            $scope.fileprogressbar = parseInt((e.loaded / e.total) * 100); // percentage of progress
+                        }
+                    }
                 }).then(function (data) {
                     data = data.data;
                     $(".loading-img").css("display", "none");
@@ -644,8 +644,8 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
 
                     }
                     $timeout(function () {
-                        // $scope.callback();
-                    }, 15000000);
+                        $scope.callback();
+                    }, 15000);
                 });
             };
         },
@@ -1280,18 +1280,23 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
             //     }]
             // };
             var imageUrl;
+            var zoomLevel = [];
             if ($scope.missionDetails && $scope.missionDetails.missionId) {
                 // console.log("$scope.missionDetails.name", $scope.missionDetails.name);
                 imageUrl = 'http://files.unifli.aero/' + $scope.missionDetails.missionId + 'google_tiles/{z}/{x}/{myY}.png';
-                // imageUrl = 'http://localhost:1337/demo.jpg';
+                zoomLevel.push($scope.missionDetails.zoomLevel[0]);
+                zoomLevel.push($scope.missionDetails.zoomLevel[$scope.missionDetails.zoomLevel.length - 1])
+                imageUrl = 'http://localhost:1337/google_tiles/{z}/{x}/{myY}.png';
             } else if ($scope.cadLineDetails && $scope.cadLineDetails.orthoFile.file) {
-                // imageUrl = 'http://localhost:1337/demo.jpg';
+                imageUrl = 'http://localhost:1337/demo.jpg';
                 // imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.orthoFile.file.split(".")[0] + '.jpg';
-                imageUrl = 'http://files.unifli.aero/' + $scope.cadLineDetails.orthoFile.file.split(".")[0] + '.jpg';
+                // imageUrl = 'http://files.unifli.aero/' + $scope.cadLineDetails.orthoFile.file.split(".")[0] + '.jpg';
+                zoomLevel = [16, 21];
             } else if ($scope.cadLineDetails && $scope.cadLineDetails.mission) {
-                // imageUrl = 'http://localhost:1337/demo.jpg';
-
-                imageUrl = 'http://files.unifli.aero/' + $scope.cadLineDetails.mission.missionId + 'google_tiles/{z}/{x}/{myY}.png';
+                imageUrl = 'http://localhost:1337/google_tiles/{z}/{x}/{myY}.png';
+                // imageUrl = 'http://files.unifli.aero/' + $scope.cadLineDetails.mission.missionId + 'google_tiles/{z}/{x}/{myY}.png';
+                zoomLevel.push($scope.cadLineDetails.mission.zoomLevel[0]);
+                zoomLevel.push($scope.cadLineDetails.mission.zoomLevel[$scope.cadLineDetails.mission.zoomLevel.length - 1])
                 // imageUrl = 'http://35.194.248.13:80/google_tiles/{z}/{x}/{myY}.png';
             }
 
@@ -1317,8 +1322,8 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
             var map = L.mapbox.map('map', 'mapbox.streets', {
                     infoControl: false,
                     attributionControl: false,
-                    maxZoom: 22,
-                    minZoom: 16
+                    maxZoom: zoomLevel[1],
+                    minZoom: zoomLevel[0]
                 })
                 .fitBounds(imageBounds)
             var attribution = L.control.attribution();
@@ -1336,8 +1341,8 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
             // omnivore.kml('http://localhost:1337/newM_mosaic.kml').addTo(map);
             if (($scope.missionDetails && $scope.missionDetails.missionId) || $scope.cadLineDetails.mission) {
                 var TopoLayer = L.tileLayer(imageUrl, {
-                    maxZoom: 22,
-                    minZoom: 16,
+                    maxZoom: zoomLevel[1],
+                    minZoom: zoomLevel[0],
                     myY: function (data) {
                         return (Math.pow(2, data.z) - data.y - 1);
                     }

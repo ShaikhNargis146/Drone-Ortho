@@ -42,7 +42,7 @@ var schema = new Schema({
         lowerRight: [],
         center: []
     },
-
+    zoomLevel: [String],
     others: [{
         serviceId: {
             type: Schema.Types.ObjectId,
