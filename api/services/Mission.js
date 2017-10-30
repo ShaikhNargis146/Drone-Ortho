@@ -276,7 +276,7 @@ var model = {
                             } else {
                                 console.log("---1---");
                                 callback(null, asyncData);
-                                Mission.sendMissionRequestMail(data, callback);
+                                Mission.sendMissionRequestMail(data, callback); //sending mail
                                 model.pix4dCommandExecution(folder, missionIdWithSub, callback);
                             }
                         });
