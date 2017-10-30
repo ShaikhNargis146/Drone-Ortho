@@ -23,9 +23,9 @@ cron.schedule('1 * * * * *', function () {
             callback(err, null);
         } else {
             async.eachSeries(found, function (value, callback1) {
-                    var localDate = moment(value.createdAt);
+                    var localDate = moment(value.expiryDate);
                     var currentDate = moment(new Date())
-                    console.log("file doesn't exist", localDate, currentDate, moment(currentDate).isSameOrAfter(localDate));
+                    console.log("localDate currentDate", localDate, currentDate, moment(currentDate).isSameOrAfter(localDate));
                     if (moment(currentDate).isSameOrAfter(localDate)) {
                         value.status = "Inactive";
                         value.save(function (err, data) {
