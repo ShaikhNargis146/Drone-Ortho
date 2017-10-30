@@ -616,8 +616,8 @@ var models = {
 
     email: function (data, callback) {
         var emailMessage = {};
-        emailMessage.from_email = "info@gsourcedata.com";
-        emailMessage.from_name = "GSource Technologies";
+        emailMessage.from_email = "info@unifli.aero";
+        emailMessage.from_name = "unifli";
         emailMessage.to = [{}];
 
         console.log("*************************** Inside email function of Config model ************************** & data is :", data);
@@ -646,13 +646,13 @@ var models = {
                             emailMessage.to[0].email = data.email;
                             emailMessage.to[0].name = data.name;
                             emailMessage.to[0].type = "to";
-                            if (data.filename == 'Invoice Alert' ||
-                                data.filename == 'Order Upload' || data.filename == 'Documents missing on your Order') {
-                                emailMessage.to.push({
-                                    email: "info@gsourcedata.com",
-                                    type: "cc"
-                                });
-                            }
+                            // if (data.filename == 'Invoice Alert' ||
+                            //     data.filename == 'Order Upload' || data.filename == 'Documents missing on your Order') {
+                            //     emailMessage.to.push({
+                            //         email: "info@gsourcedata.com",
+                            //         type: "cc"
+                            //     });
+                            // }
                             emailMessage.tags = data.tags;
 
                             if (data.attachments) {
