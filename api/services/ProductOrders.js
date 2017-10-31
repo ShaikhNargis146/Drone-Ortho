@@ -116,7 +116,7 @@ var model = {
                 function (complete, callback) {
                     Config.generatePdf(complete, function (err, data) {
                         if (err) {
-                            // console.log(err);
+                            console.log("err in generate pdf-------------", err);
                             callback(err, null);
                         } else {
                             if (_.isEmpty(data)) {

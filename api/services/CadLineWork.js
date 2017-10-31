@@ -169,6 +169,7 @@ var model = {
                     if (err || _.isEmpty(found)) {
                         callback(err, []);
                     } else {
+                        CadLineWork.sendCadRequestMail(data, callback);
                         callback(null, found);
                     }
                 });
@@ -444,6 +445,116 @@ var model = {
     //     });
     // },
 
+    getGraphDataForAdmin: function (data, callback) {
+        async.waterfall([
+            function (callback) { // Internal Cad
+                var addData = [];
+                var currentDate = new Date();
+                var lastMonthDaysCount = moment(currentDate).subtract(1, 'months').daysInMonth();
+                var prevMonth = moment(currentDate).subtract(1, 'months').month();
+                var currentYear = moment(currentDate).year();
+                var preMonthStart = moment(currentDate).subtract(1, 'months').startOf('months').format();
+                var preMonthEnd = moment(currentDate).subtract(1, 'months').endOf('months').format();
+                CadLineWork.find({
+                    createdAt: {
+                        $gte: preMonthStart,
+                        $lte: preMonthEnd
+                    },
+                    "mission": {
+                        $exists: true
+                    }
+                }).lean().exec(function (err, data) {
+                    if (err) {
+                        callback(err, null)
+                    } else {
+                        var test = [];
+                        i = 1
+                        for (var i = 1; i <= lastMonthDaysCount; i++) {
+                            var createdDt = new Date().setDate(i)
+                            createdDt = new Date(createdDt).setMonth(prevMonth)
+                            test[i - 1] = _.countBy(data, function (o) {
+                                return moment((o.createdAt)).isSame(createdDt, 'day');
+                            });
+                            test[i - 1].createdAt = moment(createdDt).format('YYYY,M,D');
+                        }
+                        var finalArr = [];
+                        var i = 0;
+                        _.forEach(test, function (x) {
+                            if (x.true) {
+                                finalArr.push(x.createdAt);
+                                finalArr.push(x.true);
+                            } else {
+                                finalArr.push(x.createdAt);
+                                finalArr.push(0);
+                            }
+                        })
+                        var finalSend = {};
+                        finalSend = _.chunk(finalArr, 2);
+                        // console.log("finalArr------", finalSend);
+                        callback(null, finalSend)
+                    }
+                })
+            },
+            function (internalData, callback) { //External Cad
+                var addData = [];
+                var currentDate = new Date();
+                var lastMonthDaysCount = moment(currentDate).subtract(1, 'months').daysInMonth();
+                var prevMonth = moment(currentDate).subtract(1, 'months').month();
+                var currentYear = moment(currentDate).year();
+                var preMonthStart = moment(currentDate).subtract(1, 'months').startOf('months').format();
+                var preMonthEnd = moment(currentDate).subtract(1, 'months').endOf('months').format();
+                CadLineWork.find({
+                    createdAt: {
+                        $gte: preMonthStart,
+                        $lte: preMonthEnd
+                    },
+                    "mission": {
+                        $exists: false
+                    }
+                }).lean().exec(function (err, data) {
+                    if (err) {
+                        callback(err, null)
+                    } else {
+                        var test = [];
+                        i = 1
+                        for (var i = 1; i <= lastMonthDaysCount; i++) {
+                            var createdDt = new Date().setDate(i)
+                            createdDt = new Date(createdDt).setMonth(prevMonth)
+                            test[i - 1] = _.countBy(data, function (o) {
+                                return moment((o.createdAt)).isSame(createdDt, 'day');
+                            });
+                            test[i - 1].createdAt = moment(createdDt).format('YYYY,M,D');
+                        }
+                        var finalArr = [];
+                        var i = 0;
+                        _.forEach(test, function (x) {
+                            if (x.true) {
+                                finalArr.push(x.createdAt);
+                                finalArr.push(x.true);
+                            } else {
+                                finalArr.push(x.createdAt);
+                                finalArr.push(0);
+                            }
+                        })
+                        var finalSend = {};
+                        finalSend = _.chunk(finalArr, 2);
+                        // console.log("finalArr------", finalSend);
+                        var allData = {};
+                        allData.InternalData = internalData;
+                        allData.ExternalData = finalSend;
+                        callback(null, allData)
+                    }
+                })
+            }
+        ], function (err, data) { // Final Callback
+            if (err || _.isEmpty(data)) {
+                callback(null, "Error")
+            } else {
+                callback(null, data)
+            }
+        });
+    },
+
     getInternalGraphDataForAdmin: function (data, callback) {
         var addData = [];
         var currentDate = new Date();
@@ -467,7 +578,7 @@ var model = {
                 var test = [];
                 i = 1
                 for (var i = 1; i <= lastMonthDaysCount; i++) {
-                    var createdDt = new Date('2017-11-01T11:53:01.412Z').setDate(i)
+                    var createdDt = new Date().setDate(i)
                     createdDt = new Date(createdDt).setMonth(prevMonth)
                     test[i - 1] = _.countBy(data, function (o) {
                         return moment((o.createdAt)).isSame(createdDt, 'day');
@@ -487,7 +598,7 @@ var model = {
                 })
                 var finalSend = {};
                 finalSend = _.chunk(finalArr, 2);
-                console.log("finalArr------", finalSend);
+                // console.log("finalArr------", finalSend);
                 callback(null, finalSend)
             }
         })
@@ -516,7 +627,7 @@ var model = {
                 var test = [];
                 i = 1
                 for (var i = 1; i <= lastMonthDaysCount; i++) {
-                    var createdDt = new Date('2017-11-01T11:53:01.412Z').setDate(i)
+                    var createdDt = new Date().setDate(i)
                     createdDt = new Date(createdDt).setMonth(prevMonth)
                     test[i - 1] = _.countBy(data, function (o) {
                         return moment((o.createdAt)).isSame(createdDt, 'day');
@@ -536,7 +647,7 @@ var model = {
                 })
                 var finalSend = {};
                 finalSend = _.chunk(finalArr, 2);
-                console.log("finalArr------", finalSend);
+                // console.log("finalArr------", finalSend);
                 callback(null, finalSend)
             }
         })
@@ -544,7 +655,113 @@ var model = {
 
     //graph api for user
 
-    getInternalGraphDataForUser: function (data, callback) {
+    getGraphDataForUser: function (data, callback) {
+        async.waterfall([
+            function (callback) { // Internal Cad
+                var addData = [];
+                var currentDate = new Date();
+                var lastMonthDaysCount = moment(currentDate).subtract(1, 'months').daysInMonth();
+                var prevMonth = moment(currentDate).subtract(1, 'months').month();
+                var currentYear = moment(currentDate).year();
+                var preMonthStart = moment(currentDate).subtract(1, 'months').startOf('months').format();
+                var preMonthEnd = moment(currentDate).subtract(1, 'months').endOf('months').format();
+                ProductOrders.find({
+                    user: data.userId,
+                    createdAt: {
+                        $gte: preMonthStart,
+                        $lte: preMonthEnd
+                    }
+                }).lean().exec(function (err, data) {
+                    if (err) {
+                        callback(err, null)
+                    } else {
+                        var test = [];
+                        i = 1
+                        for (var i = 1; i <= lastMonthDaysCount; i++) {
+                            var createdDt = new Date('2017-11-01T11:53:01.412Z').setDate(i)
+                            createdDt = new Date(createdDt).setMonth(prevMonth)
+                            test[i - 1] = _.countBy(data, function (o) {
+                                return moment((o.createdAt)).isSame(createdDt, 'day');
+                            });
+                            test[i - 1].createdAt = moment(createdDt).format('YYYY,M,D');
+                        }
+                        var finalArr = [];
+                        var i = 0;
+                        _.forEach(test, function (x) {
+                            if (x.true) {
+                                finalArr.push(x.createdAt);
+                                finalArr.push(x.true);
+                            } else {
+                                finalArr.push(x.createdAt);
+                                finalArr.push(0);
+                            }
+                        })
+                        var finalSend = {};
+                        finalSend = _.chunk(finalArr, 2);
+                        // console.log("finalArr------", finalSend);
+                        callback(null, finalSend)
+                    }
+                })
+            },
+            function (orderData, callback) { //External Cad
+                var addData = [];
+                var currentDate = new Date();
+                var lastMonthDaysCount = moment(currentDate).subtract(1, 'months').daysInMonth();
+                var prevMonth = moment(currentDate).subtract(1, 'months').month();
+                var currentYear = moment(currentDate).year();
+                var preMonthStart = moment(currentDate).subtract(1, 'months').startOf('months').format();
+                var preMonthEnd = moment(currentDate).subtract(1, 'months').endOf('months').format();
+                ProductOrders.find({
+                    user: data.userId,
+                    createdAt: {
+                        $gte: preMonthStart,
+                        $lte: preMonthEnd
+                    }
+                }).lean().exec(function (err, data) {
+                    if (err) {
+                        callback(err, null)
+                    } else {
+                        var test = [];
+                        i = 1
+                        for (var i = 1; i <= lastMonthDaysCount; i++) {
+                            var createdDt = new Date().setDate(i)
+                            createdDt = new Date(createdDt).setMonth(prevMonth)
+                            test[i - 1] = _.countBy(data, function (o) {
+                                return moment((o.createdAt)).isSame(createdDt, 'day');
+                            });
+                            test[i - 1].createdAt = moment(createdDt).format('YYYY,M,D');
+                        }
+                        var finalArr = [];
+                        var i = 0;
+                        _.forEach(test, function (x) {
+                            if (x.true) {
+                                finalArr.push(x.createdAt);
+                                finalArr.push(x.true);
+                            } else {
+                                finalArr.push(x.createdAt);
+                                finalArr.push(0);
+                            }
+                        })
+                        var finalSend = {};
+                        finalSend = _.chunk(finalArr, 2);
+                        // console.log("finalArr------", finalSend);
+                        var allData = {};
+                        allData.OrderData = orderData;
+                        allData.Payment = finalSend;
+                        callback(null, allData)
+                    }
+                })
+            }
+        ], function (err, data) { // Final Callback
+            if (err || _.isEmpty(data)) {
+                callback(null, "Error")
+            } else {
+                callback(null, data)
+            }
+        });
+    },
+
+    getAllOrdersGraphDataForUser: function (data, callback) {
         var addData = [];
         var currentDate = new Date();
         var lastMonthDaysCount = moment(currentDate).subtract(1, 'months').daysInMonth();
@@ -552,14 +769,11 @@ var model = {
         var currentYear = moment(currentDate).year();
         var preMonthStart = moment(currentDate).subtract(1, 'months').startOf('months').format();
         var preMonthEnd = moment(currentDate).subtract(1, 'months').endOf('months').format();
-        CadLineWork.find({
+        ProductOrders.find({
             user: data.userId,
             createdAt: {
                 $gte: preMonthStart,
                 $lte: preMonthEnd
-            },
-            "mission": {
-                $exists: true
             }
         }).lean().exec(function (err, data) {
             if (err) {
@@ -588,13 +802,13 @@ var model = {
                 })
                 var finalSend = {};
                 finalSend = _.chunk(finalArr, 2);
-                console.log("finalArr------", finalSend);
+                // console.log("finalArr------", finalSend);
                 callback(null, finalSend)
             }
         })
     },
 
-    getExternalGraphDataForUser: function (data, callback) {
+    getTotalAmtGraphDataForUser: function (data, callback) {
         var addData = [];
         var currentDate = new Date();
         var lastMonthDaysCount = moment(currentDate).subtract(1, 'months').daysInMonth();
@@ -602,14 +816,11 @@ var model = {
         var currentYear = moment(currentDate).year();
         var preMonthStart = moment(currentDate).subtract(1, 'months').startOf('months').format();
         var preMonthEnd = moment(currentDate).subtract(1, 'months').endOf('months').format();
-        CadLineWork.find({
+        ProductOrders.find({
             user: data.userId,
             createdAt: {
                 $gte: preMonthStart,
                 $lte: preMonthEnd
-            },
-            "mission": {
-                $exists: false
             }
         }).lean().exec(function (err, data) {
             if (err) {
@@ -618,13 +829,15 @@ var model = {
                 var test = [];
                 i = 1
                 for (var i = 1; i <= lastMonthDaysCount; i++) {
-                    var createdDt = new Date('2017-11-01T11:53:01.412Z').setDate(i)
+                    var createdDt = new Date().setDate(i)
                     createdDt = new Date(createdDt).setMonth(prevMonth)
                     test[i - 1] = _.countBy(data, function (o) {
-                        return moment((o.createdAt)).isSame(createdDt, 'day');
+                        return o.totalAmount
+                        // return moment((o.createdAt)).isSame(createdDt, 'day');
                     });
                     test[i - 1].createdAt = moment(createdDt).format('YYYY,M,D');
                 }
+                console.log("------", test);
                 var finalArr = [];
                 var i = 0;
                 _.forEach(test, function (x) {
@@ -638,7 +851,7 @@ var model = {
                 })
                 var finalSend = {};
                 finalSend = _.chunk(finalArr, 2);
-                console.log("finalArr------", finalSend);
+                // console.log("finalArr------", finalSend);
                 callback(null, finalSend)
             }
         })
@@ -718,6 +931,49 @@ var model = {
                 callback(null, data)
             }
         })
+    },
+
+    //emailers
+
+    sendCadRequestMail: function (data, callback) {
+        console.log("data------------insideSendmailFunc", data);
+        CadLineWork.findOne({
+            user: data.user
+        }).deepPopulate('user').exec(function (err, data1) {
+            console.log("data1", data1, err);
+            if (err) {
+                callback(err, null);
+            } else if (data1) {
+                console.log("data", data1);
+                var emailData = {}
+                emailData.email = data1.user.email;
+                // emailData.mobile = data1.mobile;
+                emailData.filename = "New CAD Request (Admin)";
+                emailData.name = data1.user.name;
+                emailData.userId = data1.user.dataId;
+                emailData.cadId = data1.cadId;
+                emailData.acreage = data1.acreage;
+                emailData.requestedDate = data1.createdAt;
+                emailData.subject = "Cad Request";
+                console.log("email data : ", emailData);
+
+                Config.email(emailData, function (err, emailRespo) {
+                    console.log("emailRespo", emailRespo);
+                    if (err) {
+                        console.log(err);
+                        //callback(err, null);
+                    } else if (emailRespo) {
+                        //callback(null, "Contact us form saved successfully!!!");
+                    } else {
+                        // callback("Invalid data", null);
+                    }
+                });
+            } else {
+                //callback("Invalid data", null);
+            }
+        });
     }
+
+
 };
 module.exports = _.assign(module.exports, exports, model);
