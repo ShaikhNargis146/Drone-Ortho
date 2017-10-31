@@ -1859,11 +1859,11 @@ firstapp
         $scope.downloadInvoice = function (data) {
             // window.open(adminurl + 'upload/readFileFromFolder?name=' + data, '_self');
             // console.log("data", data);
-            if (data) {
-                window.open('http://files.unifli.aero/' + data, '_self');
-            } else {
-                toastr.error("No PDF Found");
-            }
+            // if (data) {
+            window.open('http://files.unifli.aero/' + data, '_self');
+            // } else {
+            //     toastr.error("No PDF Found");
+            // }
         }
 
         $scope.getInvoice = function () {
