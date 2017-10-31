@@ -381,7 +381,7 @@ var controller = {
     },
 };
 
-cron.schedule('1 * * * * *', function () {
+cron.schedule('1 * * * *', function () {
     Mission.find({
         status: {
             $nin: ['ready', 'failed']
@@ -410,74 +410,72 @@ cron.schedule('1 * * * * *', function () {
                                     var extension = val.split(".").pop();
                                     extension = extension.toLowerCase();
                                     console.log("dirName1 + '/' + val", dirName1 + '/' + val);
-                                    if (extension == 'tfw') {
+                                    if (extension == 'tif') {
                                         console.log("status-----", extension, fileName[0]);
                                         async.waterfall([
                                                 function (callback) {
-                                                    // try {
-                                                    //     var ds = gdal.open(path.join(dirName1, val));
-                                                    //     // raster dimensions
-                                                    //     var size = ds.rasterSize;
-                                                    //     console.log('Size is ' + size.x + ', ' + size.y);
+                                                    try {
+                                                        var ds = gdal.open(path.join(dirName1, val));
+                                                        // raster dimensions
+                                                        var size = ds.rasterSize;
+                                                        console.log('Size is ' + size.x + ', ' + size.y);
 
-                                                    //     // geotransform
-                                                    //     var geotransform = ds.geoTransform;
-                                                    //     console.log('GeoTransform =');
-                                                    //     console.log(geotransform);
+                                                        // geotransform
+                                                        var geotransform = ds.geoTransform;
+                                                        console.log('GeoTransform =');
+                                                        console.log(geotransform);
 
-                                                    //     // corners
-                                                    //     var corners = {
-                                                    //         'upperLeft': {
-                                                    //             x: 0,
-                                                    //             y: 0
-                                                    //         },
-                                                    //         'upperRight': {
-                                                    //             x: size.x,
-                                                    //             y: 0
-                                                    //         },
-                                                    //         'lowerRight': {
-                                                    //             x: size.x,
-                                                    //             y: size.y
-                                                    //         },
-                                                    //         'lowerLeft': {
-                                                    //             x: 0,
-                                                    //             y: size.y
-                                                    //         },
-                                                    //         'center': {
-                                                    //             x: size.x / 2,
-                                                    //             y: size.y / 2
-                                                    //         }
-                                                    //     };
+                                                        // corners
+                                                        var corners = {
+                                                            'upperLeft': {
+                                                                x: 0,
+                                                                y: 0
+                                                            },
+                                                            'upperRight': {
+                                                                x: size.x,
+                                                                y: 0
+                                                            },
+                                                            'lowerRight': {
+                                                                x: size.x,
+                                                                y: size.y
+                                                            },
+                                                            'lowerLeft': {
+                                                                x: 0,
+                                                                y: size.y
+                                                            },
+                                                            'center': {
+                                                                x: size.x / 2,
+                                                                y: size.y / 2
+                                                            }
+                                                        };
 
-                                                    //     var wgs84 = gdal.SpatialReference.fromEPSG(4326);
-                                                    //     var coord_transform = new gdal.CoordinateTransformation(ds.srs, wgs84);
+                                                        var wgs84 = gdal.SpatialReference.fromEPSG(4326);
+                                                        var coord_transform = new gdal.CoordinateTransformation(ds.srs, wgs84);
 
-                                                    //     console.log('Corner Coordinates:');
-                                                    //     var corner_names = Object.keys(corners);
-                                                    //     var cornList = {}
+                                                        console.log('Corner Coordinates:');
+                                                        var corner_names = Object.keys(corners);
+                                                        var cornList = {}
 
-                                                    //     corner_names.forEach(function (corner_name) {
-                                                    //         // convert pixel x,y to the coordinate system of the raster
-                                                    //         // then transform it to WGS84
-                                                    //         var corner = corners[corner_name];
-                                                    //         var pt_orig = {
-                                                    //             x: geotransform[0] + corner.x * geotransform[1] + corner.y * geotransform[2],
-                                                    //             y: geotransform[3] + corner.x * geotransform[4] + corner.y * geotransform[5]
-                                                    //         };
-                                                    //         var pt_wgs84 = coord_transform.transformPoint(pt_orig);
-                                                    //         var cord = [];
-                                                    //         cord.push(pt_wgs84.x);
-                                                    //         cord.push(pt_wgs84.y);
-                                                    //         cornList[corner_name] = cord;
-                                                    //     });
-                                                    //     console.log(cornList)
-                                                    //     callback(null, cornList);
-                                                    // } catch (err) {
-                                                    //     console.log("errrrrrrrr", err);
-                                                    //     callback(null, "error");
-                                                    // }
-                                                    callback(null, "cornList");
-
+                                                        corner_names.forEach(function (corner_name) {
+                                                            // convert pixel x,y to the coordinate system of the raster
+                                                            // then transform it to WGS84
+                                                            var corner = corners[corner_name];
+                                                            var pt_orig = {
+                                                                x: geotransform[0] + corner.x * geotransform[1] + corner.y * geotransform[2],
+                                                                y: geotransform[3] + corner.x * geotransform[4] + corner.y * geotransform[5]
+                                                            };
+                                                            var pt_wgs84 = coord_transform.transformPoint(pt_orig);
+                                                            var cord = [];
+                                                            cord.push(pt_wgs84.x);
+                                                            cord.push(pt_wgs84.y);
+                                                            cornList[corner_name] = cord;
+                                                        });
+                                                        console.log(cornList)
+                                                        callback(null, cornList);
+                                                    } catch (err) {
+                                                        console.log("errrrrrrrr", err);
+                                                        callback(null, "error");
+                                                    }
                                                     // fs.readFile(dirName1 + '/' + val, function (err, data) {
                                                     //     if (err) {
                                                     //         console.log("err", err);
@@ -519,10 +517,10 @@ cron.schedule('1 * * * * *', function () {
                                                 //     }
                                                 // },
                                                 function (geoLocation, callback) {
-                                                    // console.log("geoLocation inside f3 ", geoLocation);
+                                                    console.log("geoLocation inside f3 ", geoLocation);
                                                     if (geoLocation != "error") {
                                                         value.status = "ready";
-                                                        // value.geoLocation = geoLocation;
+                                                        value.geoLocation = geoLocation;
                                                         var tilePath = dirName1 + '/google_tiles'
                                                         fs.readdirSync(tilePath).filter(function (file) {
                                                             if (fs.statSync(tilePath + '/' + file).isDirectory()) {
