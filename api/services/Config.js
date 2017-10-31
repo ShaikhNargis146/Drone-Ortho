@@ -127,8 +127,8 @@ var models = {
                 console.log("errr", err);
                 callback(err);
             } else {
-                var path = "C:/Users/unifli/Documents/googleTile-Mosaic/";
-                // var path = "pdf/";
+                // var path = "C:/Users/unifli/Documents/googleTile-Mosaic/";
+                var path = "pdf/";
                 var newFilename = page.invoiceNo + ".pdf";
                 var writestream = fs.createWriteStream(path + newFilename);
                 writestream.on('finish', function (err, res) {
@@ -136,6 +136,7 @@ var models = {
                         console.log("Something Fishy", err);
                     } else {
                         red("Finish is working");
+                        console.log("Success", res);
                         callback(null, {
                             id: page._id,
                             name: newFilename,
