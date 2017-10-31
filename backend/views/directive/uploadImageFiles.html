@@ -1,7 +1,11 @@
 <style>
   #imgblock {
-    overflow: auto;
-    height: 100px;
+    overflow: hidden;
+    height: 127px;
+  }
+
+  .mar-top{
+    margin-top: 20px;
   }
 
   #imgblock::-webkit-scrollbar-track {
@@ -40,6 +44,13 @@
       <img alt="" ng-src="{{sImage.file|uploadpathlocal}}" class="img-responsive uploadingImage img-thumbnail" style="width: 75px;
     height: 75px;" />
     </div>
+    <div class="right-side">
+      <ul ng-change="changePage(currentPage); " uib-pagination total-items="totalItems
+      " items-per-page="maxRow " ng-model="currentPage " max-size="template.pageMax "
+          class="pagination-sm
+      " boundary-links="true " force-ellipses="true ">
+      </ul>
+  </div>
   </div>
   <div class="btn-upload btn btn-primary btn-outline btn-small create-btn">
     <input id="inputImage" ng-show="!isMultiple && type=='image'" type="file" accept="image/*,application/pdf" image="image"
