@@ -170,9 +170,12 @@ var model = {
                 callback(err, null);
             } else if (_.isEmpty(found)) {
                 console.log("error")
-                callback(null, {
-                    message: "Mission Not Found!!!"
-                });
+                data = {
+                    folderSize: 0+" GB",
+                    fileSize: 0,
+                    missionCount: 0
+                };
+                callback(null, data);
             } else if (found) {
                 var countFiles = 0;
                 var a = 0;
