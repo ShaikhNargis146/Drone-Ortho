@@ -121,7 +121,7 @@ var models = {
         obj.invoiceNo = page.invoiceNo;
         var i = 0;
 
-        var file = "invoice";
+        var file = "cad_invoice";
         sails.hooks.views.render(file, obj, function (err, html) {
             if (err) {
                 console.log("errr", err);
