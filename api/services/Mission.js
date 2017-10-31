@@ -170,7 +170,7 @@ var model = {
                 callback(err, null);
             } else if (_.isEmpty(found)) {
                 console.log("error")
-                callback({
+                callback(null, {
                     message: "Mission Not Found!!!"
                 });
             } else if (found) {

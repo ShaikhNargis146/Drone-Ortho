@@ -15,7 +15,7 @@ var controller = {
         }
     }
 };
-cron.schedule('1 * * * * *', function () {
+cron.schedule('1 * * * *', function () {
     DFMSubscription.find({
         status: 'Active'
     }, function (err, found) {
@@ -43,7 +43,7 @@ cron.schedule('1 * * * * *', function () {
                 },
                 function (err, results) {
                     if (err) {
-                        console.log(err);
+                        console.log("err", err);
                     } else {
                         console.log("results", results);
                         // callback();
