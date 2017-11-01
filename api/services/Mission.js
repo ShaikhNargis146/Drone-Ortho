@@ -42,7 +42,7 @@ var schema = new Schema({
         lowerRight: [],
         center: []
     },
-
+    zoomLevel: [String],
     others: [{
         serviceId: {
             type: Schema.Types.ObjectId,
@@ -170,9 +170,12 @@ var model = {
                 callback(err, null);
             } else if (_.isEmpty(found)) {
                 console.log("error")
-                callback({
-                    message: "Mission Not Found!!!"
-                });
+                data = {
+                    folderSize: 0+" GB",
+                    fileSize: 0,
+                    missionCount: 0
+                };
+                callback(null, data);
             } else if (found) {
                 var countFiles = 0;
                 var a = 0;
@@ -276,7 +279,7 @@ var model = {
                             } else {
                                 console.log("---1---");
                                 callback(null, asyncData);
-                                Mission.sendMissionRequestMail(data, callback);
+                                Mission.sendMissionRequestMail(data, callback); //sending mail
                                 model.pix4dCommandExecution(folder, missionIdWithSub, callback);
                             }
                         });

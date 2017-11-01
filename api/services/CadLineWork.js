@@ -169,6 +169,7 @@ var model = {
                     if (err || _.isEmpty(found)) {
                         callback(err, []);
                     } else {
+                        CadLineWork.sendCadRequestMail(data, callback);
                         callback(null, found);
                     }
                 });
@@ -930,6 +931,49 @@ var model = {
                 callback(null, data)
             }
         })
+    },
+
+    //emailers
+
+    sendCadRequestMail: function (data, callback) {
+        console.log("data------------insideSendmailFunc", data);
+        CadLineWork.findOne({
+            user: data.user
+        }).deepPopulate('user').exec(function (err, data1) {
+            console.log("data1", data1, err);
+            if (err) {
+                callback(err, null);
+            } else if (data1) {
+                console.log("data", data1);
+                var emailData = {}
+                emailData.email = data1.user.email;
+                // emailData.mobile = data1.mobile;
+                emailData.filename = "New CAD Request (Admin)";
+                emailData.name = data1.user.name;
+                emailData.userId = data1.user.dataId;
+                emailData.cadId = data1.cadId;
+                emailData.acreage = data1.acreage;
+                emailData.requestedDate = data1.createdAt;
+                emailData.subject = "Cad Request";
+                console.log("email data : ", emailData);
+
+                Config.email(emailData, function (err, emailRespo) {
+                    console.log("emailRespo", emailRespo);
+                    if (err) {
+                        console.log(err);
+                        //callback(err, null);
+                    } else if (emailRespo) {
+                        //callback(null, "Contact us form saved successfully!!!");
+                    } else {
+                        // callback("Invalid data", null);
+                    }
+                });
+            } else {
+                //callback("Invalid data", null);
+            }
+        });
     }
+
+
 };
 module.exports = _.assign(module.exports, exports, model);
