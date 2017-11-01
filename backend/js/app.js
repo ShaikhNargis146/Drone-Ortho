@@ -31,6 +31,12 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             templateUrl: "views/login.html",
             controller: 'headerctrl'
         })
+        .state('login1', {
+            url: "/login1/:userId",
+            templateUrl: "views/template.html",
+            controller: 'login1ctrl',
+        })
+
         .state('dashboard', {
             url: "/dashboard",
             templateUrl: "views/template.html",

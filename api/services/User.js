@@ -12,7 +12,8 @@ var schema = new Schema({
     email: {
         type: String,
         validate: validators.isEmail(),
-        excel: "User Email"
+        excel: "User Email",
+        unique: true
     },
     organization: {
         type: String,
@@ -142,6 +143,44 @@ module.exports = mongoose.model('User', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "cartProducts currentSubscription", "cartProducts currentSubscription"));
 var model = {
+    sendOtp: function (data, callback) {
+        console.log("inside send otp", data)
+        var emailOtp = (Math.random() + "").substring(2, 6);
+        var foundData = {};
+        User.findOneAndUpdate({
+            email: data.email
+        }, {
+            otp: emailOtp
+        }, {
+            new: true
+        }).exec(function (err, found) {
+            if (err) {
+                callback(err, null);
+            } else if (_.isEmpty(found)) {
+                callback(null, "noDataound");
+            } else {
+                callback(null, found);
+            }
+
+        });
+    },
+    verifyOTPForResetPass: function (data, callback) {
+        User.findOne({
+            otp: data.otp,
+        }).exec(function (error, found) {
+            if (error || found == undefined) {
+                callback(error, null);
+            } else {
+                if (_.isEmpty(found)) {
+                    callback(null, {
+                        message: "No data found"
+                    });
+                } else {
+                    callback(null, found);
+                }
+            }
+        })
+    },
 
     //----------------------Start----------------------//
     getUser: function (data, callback) {
