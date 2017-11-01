@@ -1297,9 +1297,9 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
             var zoomLevel = [];
             if ($scope.missionDetails && $scope.missionDetails.missionId) {
                 // console.log("$scope.missionDetails.name", $scope.missionDetails.name);
-                imageUrl = 'http://files.unifli.aero/{z}/{x}/{-y}.png';
+                imageUrl = 'http://files.unifli.aero/' + $scope.missionDetails.missionId + 'google_tiles/{z}/{x}/{myY}.png';
                 zoomLevel.push($scope.missionDetails.zoomLevel[0]);
-                zoomLevel.push($scope.missionDetails.zoomLevel[$scope.missionDetails.zoomLevel.length - 1])
+                zoomLevel.push($scope.missionDetails.zoomLevel[$scope.missionDetails.zoomLevel.length - 1]);
                 // imageUrl = 'http://localhost:1337/google_tiles/{z}/{x}/{myY}.png';
             } else if ($scope.cadLineDetails && $scope.cadLineDetails.orthoFile.file) {
                 // imageUrl = 'http://localhost:1337/demo.jpg';
