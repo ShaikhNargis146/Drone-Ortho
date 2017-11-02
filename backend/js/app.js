@@ -538,6 +538,7 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                                                     // All processing will now stop.
                                                     console.log('A file failed to process');
                                                 } else {
+                                                    $scope.imgGrp();
                                                     console.log('All files have been processed successfully');
                                                     if ($scope.$parent.mission) {
                                                         console.log($scope.$parent.mission, $scope.$parent.profile);
@@ -649,13 +650,65 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                         var fileList = {};
                         fileList.file = data.data[0];
                         $scope.model = fileList;
-
                     }
                     $timeout(function () {
                         $scope.callback();
                     }, 15000);
                 });
+
             };
+
+            $scope.imgGrp = function () {
+                $scope.length_img = $scope.model.length;
+                $scope.display_img = $scope.length_img;
+                $scope.display_img = $scope.display_img / 11;
+                $scope.display_img = Math.ceil($scope.display_img);
+                console.log("qwerty", $scope.display_img);
+                $scope.getNumber = function (num) {
+                    return new Array(num);
+                }
+                if ($scope.length_img > 0) {
+                    $scope.see = $scope.model.slice(0, 11);
+                    $scope.pageNumber=1;
+                }
+            }
+            $scope.changePage = function (pageNo) {
+                $scope.pageNumber=pageNo;
+                if(pageNo==1){
+                    console.log("sweety",pageNo); 
+                    $scope.see = $scope.model.slice(0, 11);
+                }else{
+                console.log("sweety",pageNo);
+                $scope.answer = (pageNo - 1) * 11;
+                $scope.multiplication = (11 * pageNo);
+                $scope.see = $scope.model.slice($scope.answer, $scope.multiplication);}
+            }
+            $scope.changePagefirst = function () {
+                $scope.see = $scope.model.slice(0, 11);
+            }
+            $scope.changePagelast = function () {
+                $scope.answer = ($scope.display_img - 1) * 11;
+                $scope.multiplication = (11 * $scope.display_img);
+                $scope.see = $scope.model.slice($scope.answer, $scope.multiplication);
+            }
+            $scope.changePagePre = function () {
+                if($scope.pageNumber==0){
+                    $scope.pageNumber=$scope.display_img;
+                }
+                $scope.answer = (($scope.pageNumber-2) * 11);
+                $scope.multiplication = (11 * ($scope.pageNumber-1));
+                $scope.see = $scope.model.slice($scope.answer, $scope.multiplication);
+                $scope.pageNumber=$scope.pageNumber-1;
+            }
+            $scope.changePageNext = function () {
+                if($scope.pageNumber>$scope.display_img){
+                    $scope.pageNumber=1;
+                }
+                $scope.answer = ($scope.pageNumber * 11);
+                $scope.multiplication = (11 * ($scope.pageNumber+1));
+                $scope.see = $scope.model.slice($scope.answer, $scope.multiplication);
+                $scope.pageNumber=$scope.pageNumber+1;
+            }
         },
         controller: function ($scope) {
             // here you can access the controller scope by using $parent

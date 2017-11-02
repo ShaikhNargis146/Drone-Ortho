@@ -1887,9 +1887,8 @@ firstapp
         }
     })
 
-    .controller('CreatemissionCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
+    .controller('CreatemissionCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr,$stateParams) {
         //Used to name the .html file
-
         $scope.template = TemplateService.changecontent("create-mission");
         $scope.menutitle = NavigationService.makeactive("CreateMission");
         TemplateService.title = $scope.menutitle;
@@ -1915,6 +1914,59 @@ firstapp
             });
         }
 
+            //pagination start
+
+        // var i = 0;
+        // if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
+        //     $scope.currentPage = $stateParams.page;
+        // } else {
+        //     $scope.currentPage = 1;
+        // }
+
+        // $scope.search = {
+        //     keyword: ""
+        // };
+        // if ($stateParams.keyword) {
+        //     $scope.search.keyword = $stateParams.keyword;
+        // }
+        // $scope.changePage = function (page) {
+        //     console.log("heello",page);
+        //     var goTo = "missions";
+        //     $scope.currentPage = page;
+        //     if ($scope.search.keyword) {
+        //         TemplateService.mainClass = ['page-sidebar-closed', 'active'];
+        //         goTo = "missions";
+        //     }
+        //     $state.go(goTo, {
+        //         page: page
+        //     });
+        //     $scope.getAllItems();
+        // };
+
+        // $scope.getAllItems = function (keywordChange, count) {
+                // $scope.maxCount = keywordChange;
+                // $scope.totalItems = undefined;
+                // if (keywordChange) {}
+                // NavigationService.searchCall("Mission/getMission", {
+                //         page: $scope.currentPage,
+                //         keyword: $scope.search.keyword,
+                //         count: $scope.maxCount
+                //     }, ++i,
+                //     function (data, ini) {
+                //         if (ini == i) {
+                //             $scope.allMissionData = data.data.results;
+                //             $scope.totalItems = data.data.total;
+                //             $scope.maxRow = data.data.options.count;
+                //         }
+                //     });
+             
+                // $scope.totalItems = data.data.total;
+
+        // };
+        //  JsonService.refreshView = $scope.getAllItems;
+        // $scope.getAllItems();
+
+        //pagination end 
     })
 
     .controller('CadfileDetailsCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams, $uibModal) {

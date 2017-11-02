@@ -4387,3 +4387,40 @@ WIDGETS
         margin-top: 0px !important;
         left: -80px !important;
     }
+    .directive_pagination{
+        display: table;
+        width: 100%;
+        ul{
+            display: table-cell;
+            vertical-align: bottom;
+            align-items: right;
+        }
+        li{
+            display: inline-block;
+            border: solid 1px #666;
+            border-right: 0;
+            color: #666;
+            padding: 1px 10px;
+            cursor: pointer;
+            &:active,&:focus{
+                background:  #48aba4;
+            }
+        }
+        // li:focus{
+        //     background-color: #48aba4;
+        // }
+        // li:active{
+        //     background-color: #48aba4;
+        // }
+        // li:hover{
+        //     background-color: #48aba4;
+        // }
+    }
+    .img-box{
+        float:left;
+        margin-left: 10px;
+        margin-right: 5px;
+    }
+    .selected{
+        background-color: #48aba4;
+    }
