@@ -12,8 +12,7 @@ var schema = new Schema({
         default: ""
     },
     email: {
-        type: String,
-        unique: true
+        type: String
     },
     company: {
         type: String,
@@ -38,7 +37,7 @@ var model = {
 
     sendEnquiry: function (data, callback) {
         console.log("data", data);
-        ContactUs.save(data).exec(function (err, data1) {
+        ContactUs.saveData(data, function (err, data1) {
             console.log("data1", data1, err);
             if (err) {
                 callback(err, null);

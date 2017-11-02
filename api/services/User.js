@@ -156,14 +156,40 @@ var model = {
         }).exec(function (err, found) {
             if (err) {
                 callback(err, null);
-            } else if (_.isEmpty(found)) {
-                callback(null, "noDataound");
             } else {
-                callback(null, found);
+                if (found) {
+                    var emailData = {}
+                    emailData.email = found.email;
+                    // emailData.mobile = data1.mobile;
+                    emailData.filename = "Forgot Password";
+                    emailData.email = data.email;
+                    emailData.otp = found.otp;
+                    emailData.subject = "NEW OTP";
+                    console.log("email data : ", emailData);
+                    console.log("emaildata", emailData);
+                    Config.email(emailData, function (err, emailRespo) {
+                        if (err) {
+                            console.log(err);
+                            callback(null, err);
+                        } else if (emailRespo) {
+                            // foundData.otp = emailOtp;
+                            // foundData.id = found._id;
+                            callback(null, found);
+                        } else {
+                            callback(null, "Invalid data");
+                        }
+                    });
+                    //callback(null, found);
+                } else {
+                    callback({
+                        message: "Incorrect Credentials!"
+                    }, null);
+                }
             }
 
         });
     },
+
     verifyOTPForResetPass: function (data, callback) {
         User.findOne({
             otp: data.otp,
@@ -1006,7 +1032,7 @@ var model = {
 
                 data.dataId = VendorID;
                 data.accessToken = [uid(16)];
-                data.password = md5(data.password);
+                // data.password = md5(data.password);
                 if (data.drone) {
                     data.lisence = "NDB";
                 } else {
@@ -1049,12 +1075,12 @@ var model = {
             } else {
                 if (_.isEmpty(found)) {
                     console.log("found", found);
-                    vendorIdNumber = "V" + "100";
+                    vendorIdNumber = "VB" + "100";
                     console.log("is empty vendorIdNumber", vendorIdNumber);
                     callback(null, vendorIdNumber);
                 } else {
                     if (!found.dataId) {
-                        vendorIdNumber = "V" + "100";
+                        vendorIdNumber = "VB" + "100";
                         console.log("dataId null vendorIdNumber", vendorIdNumber);
                         callback(null, vendorIdNumber);
                     } else {

@@ -2324,6 +2324,7 @@ firstapp
         }
 
         NavigationService.apiCallWithoutData("User/getVendor", function (data) {
+            console.log("after calling api data is", data)
             if (data.value == true) {
                 $scope.allVendorsForRequest = data.data.results;
             }
@@ -2981,15 +2982,42 @@ firstapp
             });
         };
         $scope.saveUser = function (data) {
-            console.log("data-------", data);
-            if (data.accessLevel == 'User') {
-                NavigationService.apiCallWithData("User/createUser", data, function (data) {
-                    $scope.product = data;
-                });
+            if (data.password == data.confirmPassword) {
+
+                console.log("data-------", data);
+                if (data.accessLevel == 'User') {
+                    data.status='Active';
+                    NavigationService.apiCallWithData("User/createUser", data, function (data) {
+                        if (data.value == true) {
+                            $scope.product = data;
+                            $state.reload();
+                        } else {
+                            $scope.showerr = "";
+                            $scope.showerr = true;
+                            // toastr.warning('Error submitting the form', 'Please try again');
+
+                        }
+                    });
+                } else {
+                    data.status='Active';
+                     NavigationService.apiCallWithData("User/createVendor", data, function (data) {
+                        if (data.value == true) {
+                            $scope.product = data;
+                            $state.reload();
+
+
+                        } else {
+                            $scope.showerr = "";
+                            $scope.showerr = true;
+                            // toastr.warning('Error submitting the form', 'Please try again');
+
+                        }
+                    });
+                }
+
             } else {
-                NavigationService.apiCallWithData("User/createVendor", data, function (data) {
-                    $scope.product = data;
-                });
+                toastr.warning('Check your Password');
+
             }
         }
 
@@ -3258,10 +3286,45 @@ firstapp
         $scope.menutitle = NavigationService.makeactive("CreateVendor");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        console.log("this is create vendor ctrl");
         TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
+        $scope.saveVendor = function (data) {
+            console.log("saveVendor", data)
+            if (data.password == data.confirmPassword) {
+                console.log("data-------", data);
+                data.accessLevel = 'Vendor';
+                    data.status='Active';               
+                console.log("data acesslevel", data);
+                NavigationService.apiCallWithData("User/createVendor", data, function (data) {
+                    if (data.value == true) {
+                        $scope.product = data;
+                        $state.go('vendors');
+
+
+                    } else {
+                        $scope.showerr = "";
+                        $scope.showerr = true;
+                        // toastr.warning('Error submitting the form', 'Please try again');
+
+                    }
+                });
+
+
+            } else {
+                toastr.warning('Check your Password');
+                        $state.go('vendors');
+
+            }
+        }
+        $scope.close=function(){
+            console.log("inside close function")
+                        $state.go('vendors');
+
+        }
+
     })
 
     .controller('AddProductCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
@@ -3315,6 +3378,13 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
+        $scope.vendor = {};
+        $scope.vendor._id = $stateParams.vendorId;
+        console.log("$scope.formData._id", $scope.vendor._id);
+        NavigationService.apiCallWithData("User/getOne", $scope.vendor, function (data) {
+            console.log("after callinf api for find one vendor", data);
+            $scope.formData = data.data;
+        })
         $scope.updateVendor = function (formData) {
             formData._id = $stateParams.vendorId;
             NavigationService.apiCallWithData("User/save", formData, function (data) {
@@ -5939,7 +6009,7 @@ firstapp
 
     .controller('login1ctrl', function ($scope, NavigationService, TemplateService, $uibModal, $stateParams, $state, toastr) {
         $scope.template = TemplateService;
-   $scope.template = TemplateService;
+        $scope.template = TemplateService;
         // var temp = $location.search();
         // console.log("inside else*****", temp);
         $scope.userID = {
@@ -5967,7 +6037,7 @@ firstapp
 
     .controller('headerctrl', function ($scope, $location, NavigationService, TemplateService, $uibModal, $stateParams, $state, toastr) {
         $scope.template = TemplateService;
-        
+
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             $(window).scrollTop(0);
         });
@@ -6020,7 +6090,7 @@ firstapp
 
             NavigationService.apiCallWithData("User/sendOtp", $scope.data, function (data) {
                 console.log("after sendotp excution", data)
-                if (data.data != "noDataound") {
+                if (data.value == true) {
                     console.log("data.data._id****", data.data._id);
                     $scope.id = "59eee664317a857ff90bc862";
                     console.log("data.data._id", $scope.id);
