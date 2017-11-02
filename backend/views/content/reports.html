@@ -19,10 +19,10 @@
                         <div class="ibox float-e-margins">
                             <div class="ibox-content collapse in" id="demo6">
                                 <div class="demo-container">
-                                    <form>
+                                    <form name="form1">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Select Report for</label>
-                                            <select class="form-control" ng-model="formData.type">
+                                            <select class="form-control" ng-model="formData.type" required>
 									<!--<option value="">SELECT</option>-->
                                     <option value="Mission">Total Mission</option>
 									<option value="Cad">Total CAD Request</option>
@@ -61,7 +61,7 @@
                                             </div>
                                         </div>
                                         <div class="text-center">
-                                            <button type="submit" class="btn green m-t-xs bottom15-xs" ng-click="excelGenerateData(formData)">Generate Excel Report</button>
+                                            <button type="submit" class="btn green m-t-xs bottom15-xs" ng-click="excelGenerateData(formData)" ng-disabled="form1.$invalid">Generate Excel Report</button>
                                         </div>
                                     </form>
                                 </div>

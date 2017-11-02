@@ -31,6 +31,12 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             templateUrl: "views/login.html",
             controller: 'headerctrl'
         })
+        .state('login1', {
+            url: "/login1/:userId",
+            templateUrl: "views/template.html",
+            controller: 'login1ctrl',
+        })
+
         .state('dashboard', {
             url: "/dashboard",
             templateUrl: "views/template.html",
@@ -1346,7 +1352,7 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
                 // console.log("$scope.missionDetails.name", $scope.missionDetails.name);
                 imageUrl = 'http://files.unifli.aero/' + $scope.missionDetails.missionId + 'google_tiles/{z}/{x}/{myY}.png';
                 zoomLevel.push($scope.missionDetails.zoomLevel[0]);
-                zoomLevel.push($scope.missionDetails.zoomLevel[$scope.missionDetails.zoomLevel.length - 1])
+                zoomLevel.push($scope.missionDetails.zoomLevel[$scope.missionDetails.zoomLevel.length - 1]);
                 // imageUrl = 'http://localhost:1337/google_tiles/{z}/{x}/{myY}.png';
             } else if ($scope.cadLineDetails && $scope.cadLineDetails.orthoFile.file) {
                 // imageUrl = 'http://localhost:1337/demo.jpg';

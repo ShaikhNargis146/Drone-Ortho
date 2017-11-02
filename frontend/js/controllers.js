@@ -1,7 +1,7 @@
 var initMap = function () {};
 var codeAddress = function () {};
 //var deleteMarkers=function(){};
-angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ui.bootstrap', , 'ngSanitize', 'angular-flexslider', 'ksSwiper', 'toastr', 'ngMap'])
+angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ui.bootstrap', 'angular-flexslider', 'ksSwiper', 'toastr', 'ngMap'])
 
     .controller('HomeCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         $scope.template = TemplateService.changecontent("home"); //Use same name of .html file

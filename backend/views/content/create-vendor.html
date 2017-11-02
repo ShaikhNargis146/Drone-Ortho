@@ -24,56 +24,113 @@
                                 <div class="widgets-container">
                                     <h5>Create Vendor form </h5>
                                     <hr>
-                                    <form method="get" class="form-horizontal">
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label">Vendor Name</label>
-                                            <div class="col-sm-6">
-                                                <input class="form-control" type="text">
+                                    <form name="member" class="form-horizontal ">
+
+                                        <div class="form-group ">
+                                            <label class="control-label col-sm-4 " for="name">User Name</label>
+                                            <div class="col-sm-6 ">
+                                                <input type="text" placeholder="Name of User " value="" class="form-control" name="name1" ng-model="formData.name" required>
+                                                <span class="errormsg" ng-show="member.name1.$touched && member.name1.$invalid">The name is required.</span>
+
                                             </div>
                                         </div>
-                                        <hr>
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label">User Name</label>
-                                            <div class="col-sm-6">
-                                                <input class="form-control" name="" type="text">
+                                        <div class="form-group ">
+                                            <label class="control-label col-sm-4 " for="pwd">Password</label>
+                                            <div class="col-sm-6 ">
+                                                <input type="password" placeholder="Enter your Password" class="form-control" name="pass" ng-model="formData.password" required>
+                                                <span class="errormsg" ng-show="member.pass.$touched && member.pass.$invalid">The password is required.</span>
+
                                             </div>
                                         </div>
-                                        <hr>
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label">Email ID</label>
-                                            <div class="col-sm-6">
-                                                <input class="form-control" name="" type="email">
+                                        <div class="form-group ">
+                                            <label class="control-label col-sm-4 " for="cpwd">confirm Password</label>
+                                            <div class="col-sm-6 ">
+                                                <input type="password" placeholder="confirm Password" class="form-control ng-pristine ng-empty ng-invalid ng-invalid-required ng-touched"
+                                                    name="confpass" ng-model="formData.confirmPassword" required>
+                                                <span class="errormsg" ng-show="formData.password!=formData.confirmPassword && member.confpass.$touched ">Passwords did not match.</span>
+
                                             </div>
                                         </div>
-                                        <hr>
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label">Address</label>
-                                            <div class="col-sm-6">
-                                                <input class="form-control" name="" type="text">
+                                        <div class="form-group ">
+                                            <label class="control-label col-sm-4 " for="email">Email</label>
+                                            <div class="col-sm-6 ">
+                                                <input type="email" placeholder="Enter your Email Address" class="form-control" name="email1" required ng-model="formData.email">
+                                                <span class="errormsg" ng-show="member.email1.$touched && member.email1.$invalid">The email is required.</span>
+                                                <span class="errormsg" ng-show="showerr==true">email already exist<span>
+                </div>
+            </div>
+            <div class="form-group ">
+                <label class="control-label col-sm-4 " for="organization">Organization</label>
+                <div class="col-sm-6 ">
+                    <input type="text" placeholder="organization" value="" class="form-control" name="Organization" ng-model="formData.organization"
+                        required>
+                       <span class="errormsg" ng-show="member.Organization.$touched && member.Organization.$invalid">The Organization is required.</span>
+
                                             </div>
                                         </div>
-                                        <hr>
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label">Contact Number</label>
-                                            <div class="col-sm-6">
-                                                <input class="form-control" name="" type="text">
+                                        <div class="form-group ">
+                                            <label class="control-label col-sm-4 " for="phone">phone</label>
+                                            <div class="col-sm-6 ">
+                                                <input type="text" placeholder="phone" value="" class="form-control" name="phone" ng-model="formData.phone">
                                             </div>
                                         </div>
-                                        <hr>
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label">Password</label>
-                                            <div class="col-sm-6">
-                                                <input class="form-control" name="" type="password">
+
+                                        <div class="form-group ">
+                                            <label class="control-label col-sm-4 " for="mobile">mobile</label>
+                                            <div class="col-sm-6 ">
+                                                <input type="text" only-digits="" ng-model="formData.mobile" name="mobile1" placeholder="Mobile" value="" class="form-control ng-empty ng-invalid ng-invalid-required ng-valid-minlength ng-touched"
+                                                    required maxlength="10" phone-input="">
+                                                <span class="errormsg" ng-show="member.mobile1.$touched && member.mobile1.$invalid">The mobile is required.</span>
+
                                             </div>
                                         </div>
-                                        <hr>
-                                        <div class="form-group">
-                                            <div class="col-sm-6 col-sm-offset-6">
-                                                <button class="btn btn-white" type="submit">Cancel</button>
-                                                <button class="btn green" type="submit">Save</button>
+                                        <div class="form-group ">
+                                            <label class="control-label col-sm-4 " for="Address">Address</label>
+                                            <div class="col-sm-6 ">
+                                                <input type="text" placeholder="Address" value="" class="form-control" name="Address" ng-model="formData.address" required>
+                                                <span class="errormsg" ng-show="member.Address.$touched && member.Address.$invalid">The address is required.</span>
+
                                             </div>
                                         </div>
+                                        <div class="form-group ">
+                                            <label class="control-label col-sm-4 " for="locationCity">City</label>
+                                            <div class="col-sm-6 ">
+                                                <input type="text" placeholder="City" name="city" class="form-control ng-pristine ng-valid ng-empty ng-touched" ng-model="formData.city"
+                                                    required>
+                                                <span class="errormsg" ng-show="member.city.$touched && member.city.$invalid">The city is required.</span>
+
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            <label class="control-label col-sm-4 " for="State">State</label>
+                                            <div class="col-sm-6 ">
+                                                <input type="text" placeholder="State" value="" class="form-control" name="State1" required ng-model="formData.state">
+                                                <span class="errormsg" ng-show="member.State1.$touched && member.State1.$invalid">The state is required.</span>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            <label class="control-label col-sm-4 " for="zip">zip</label>
+                                            <div class="col-sm-6 ">
+                                                <input type="text" only-digits="" ng-model="formData.zip" name="zip" placeholder="Zip" class="form-control ng-pristine ng-valid ng-empty ng-touched"
+                                                    required>
+                                                <span class="errormsg" ng-show="member.zip.$touched && member.zip.$invalid">The zip is required.</span>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group text-center">
+                                            <button type="button " class="btn green btn-outline " ng-disabled="member.$invalid" ng-click="saveVendor(formData);">Submit</button>
+                                        </div>
+
+
+
                                     </form>
+
+                                </div>
+                                <div class="modal-footer ">
+                                    <button type="button " class="btn green btn-outline " ng-click="close()">Close</button>
+
                                 </div>
                             </div>
                         </div>
