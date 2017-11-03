@@ -101,6 +101,7 @@ var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "products user
 var model = {
 
     invoiceGenerate: function (data, callback) {
+        console.log(data);
         async.waterfall([
                 function (callback) {
                     ProductOrders.findOne({
