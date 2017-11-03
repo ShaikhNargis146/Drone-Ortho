@@ -4403,7 +4403,7 @@ WIDGETS
             color: #666;
             padding: 1px 10px;
             cursor: pointer;
-            &:active{
+            &:active, &.active{
                 background:  #48aba4;
             }
             &:focus{

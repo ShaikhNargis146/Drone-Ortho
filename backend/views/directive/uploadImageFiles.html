@@ -52,9 +52,9 @@
       </ul> -->
       <ul>
         <li ng-click="changePagefirst()">First</li>
-        <li ng-click="changePagePre()">Previous</li>
-        <li ng-repeat="i in getNumber(display_img) track by $index" ng-click="changePage($index+1)">{{$index+1}}</li>
-        <li ng-click="changePageNext()">Next</li>
+        <li ng-disabled="pageNumber==1" ng-click="changePagePre()">Previous</li>
+        <li ng-repeat="i in getNumber(display_img) track by $index" ng-class="{'active': pageNumber == $index+1}" ng-click="changePage($index+1)">{{$index+1}}</li>
+        <li ng-disabled="pageNumber==display_img" ng-click="changePageNext()">Next</li>
         <li ng-click="changePagelast()">Last</li>
       </ul>
     </div>

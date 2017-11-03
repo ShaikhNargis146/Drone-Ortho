@@ -693,11 +693,13 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
             }
             $scope.changePagefirst = function () {
                 $scope.see = $scope.model.slice(0, 11);
+                $scope.pageNumber=1;
             }
             $scope.changePagelast = function () {
                 $scope.answer = ($scope.display_img - 1) * 11;
                 $scope.multiplication = (11 * $scope.display_img);
                 $scope.see = $scope.model.slice($scope.answer, $scope.multiplication);
+                $scope.pageNumber=$scope.display_img;
             }
             $scope.changePagePre = function () {
                 if($scope.pageNumber==1){
@@ -709,8 +711,8 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                 $scope.pageNumber=$scope.pageNumber-1;
             }
             $scope.changePageNext = function () {
-                if($scope.pageNumber=$scope.display_img){
-                    $scope.pageNumber=0;
+                if($scope.pageNumber==$scope.display_img){
+                    $scope.pageNumber = 0;
                 }
                 $scope.answer = ($scope.pageNumber * 11);
                 $scope.multiplication = (11 * ($scope.pageNumber+1));
