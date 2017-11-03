@@ -38,7 +38,7 @@
     <img ng-src="{{model.file|uploadpathlocal}}" class="img-responsive uploadingImage img-thumbnail" ng-if="type=='image'" />
     <iframe src="{{model.file|uploadpathlocal}}" style="width:400px; height:400px;" frameborder="0" ng-if="type=='pdf'"></iframe>
   </div>
-  <!-- <div class="clearfix" ng-if="model && isMultiple" id="imgblock" ng-hide="noShow">
+  <div class="clearfix" ng-if="model && isMultiple" id="imgblock" ng-hide="noShow">
     <div class="img-box" ng-repeat="sImage in see track by $index">
       <!-- <i class="fa fa-times" ng-click="removeImage($index)"></i> -->
       <img alt="" ng-src="{{sImage.file|uploadpathlocal}}" class="img-responsive uploadingImage img-thumbnail" style="width: 75px;
@@ -58,7 +58,7 @@
         <li ng-click="changePagelast()">Last</li>
       </ul>
     </div>
-  </div> -->
+  </div>
   <div class="btn-upload btn btn-primary btn-outline btn-small create-btn">
     <input id="inputImage" ng-show="!isMultiple && type=='image'" type="file" accept="image/*,application/pdf" image="image"
       title="Choose Files" class="btn-primary">
