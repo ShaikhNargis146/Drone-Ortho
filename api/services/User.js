@@ -12,7 +12,8 @@ var schema = new Schema({
     email: {
         type: String,
         validate: validators.isEmail(),
-        excel: "User Email"
+        excel: "User Email",
+        unique: true
     },
     organization: {
         type: String,
@@ -142,6 +143,76 @@ module.exports = mongoose.model('User', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "cartProducts currentSubscription", "cartProducts currentSubscription"));
 var model = {
+    
+    sendOtp: function (data, callback) {
+        console.log("inside send otp", data)
+        var emailOtp = (Math.random() + "").substring(2, 6);
+        var foundData = {};
+        User.findOneAndUpdate({
+            email: data.email
+        }, {
+            otp: emailOtp
+        }, {
+            new: true
+        }).exec(function (err, found) {
+            if (err) {
+                callback(err, null);
+            } else {
+                if (found) {
+                    var emailData = {}
+                    emailData.email = found.email;
+                    // emailData.mobile = data1.mobile;
+                    emailData.filename = "Forgot Password";
+                    emailData.otp = found.otp;
+                    emailData.subject = "NEW OTP";
+                    emailData.merge_vars = [{
+                        "name": "EMAIL",
+                        "content": found.email
+                    }, {
+                        "name": "OTP",
+                        "content": found.otp
+                    }];
+
+                    Config.email(emailData, function (err, emailRespo) {
+                        if (err) {
+                            console.log(err);
+                            callback(null, err);
+                        } else if (emailRespo) {
+                            // foundData.otp = emailOtp;
+                            // foundData.id = found._id;
+                            callback(null, found);
+                        } else {
+                            callback(null, "Invalid data");
+                        }
+                    });
+                    //callback(null, found);
+                } else {
+                    callback({
+                        message: "Incorrect Credentials!"
+                    }, null);
+                }
+            }
+
+        });
+    },
+
+    verifyOTPForResetPass: function (data, callback) {
+        User.findOne({
+            otp: data.otp,
+        }).exec(function (error, found) {
+            if (error || found == undefined) {
+                callback(error, null);
+            } else {
+                if (_.isEmpty(found)) {
+                    callback(null, {
+                        message: "No data found"
+                    });
+                } else {
+                    callback(null, found);
+                }
+            }
+        })
+    },
 
     //----------------------Start----------------------//
     getUser: function (data, callback) {
@@ -967,7 +1038,7 @@ var model = {
 
                 data.dataId = VendorID;
                 data.accessToken = [uid(16)];
-                data.password = md5(data.password);
+                // data.password = md5(data.password);
                 if (data.drone) {
                     data.lisence = "NDB";
                 } else {
@@ -1010,12 +1081,12 @@ var model = {
             } else {
                 if (_.isEmpty(found)) {
                     console.log("found", found);
-                    vendorIdNumber = "V" + "100";
+                    vendorIdNumber = "VB" + "100";
                     console.log("is empty vendorIdNumber", vendorIdNumber);
                     callback(null, vendorIdNumber);
                 } else {
                     if (!found.dataId) {
-                        vendorIdNumber = "V" + "100";
+                        vendorIdNumber = "VB" + "100";
                         console.log("dataId null vendorIdNumber", vendorIdNumber);
                         callback(null, vendorIdNumber);
                     } else {

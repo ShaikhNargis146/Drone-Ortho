@@ -39,6 +39,25 @@ var controller = {
             res.callback("Please provide Valid AccessToken", null);
         }
     },
+    sendOtp: function (req, res) {
+        console.log("inside user controller", req.body)
+        if (req.body) {
+            console.log("inside user controllerif")
+
+            User.sendOtp(req.body, res.callback);
+        } else {
+            console.log("inside user controller else")
+
+            res.callback("", null);
+        }
+    },
+    verifyOTPForResetPass: function (req, res) {
+        if (req.body) {
+            User.verifyOTPForResetPass(req.body, res.callback);
+        } else {
+            res.callback("", null);
+        }
+    },
     login: function (req, res) {
         if (req.body && req.body.name && req.body.name !== '' && req.body.password && req.body.password !== '') {
             User.doLogin(req.body, res.callback);

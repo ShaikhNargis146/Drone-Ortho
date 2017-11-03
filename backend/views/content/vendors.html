@@ -53,7 +53,6 @@
                                                 <tr>
                                                     <th>Vendor ID</th>
                                                     <th>Vendor Name</th>
-                                                    <th>UserName</th>
                                                     <th>Email Id</th>
                                                     <th>Contact Number</th>
                                                     <th>Created Date</th>
@@ -63,12 +62,12 @@
 
                                             <tbody>
                                                 <tr ng-repeat="vendorData in allVendors track by $index">
-                                                    <td>{{vendorData._id}}</td>
+                                                    <td>{{vendorData.dataId}}</td>
                                                     <td>{{vendorData.name}}</td>
-                                                    <td>{{vendorData.userName}}</td>
                                                     <td>{{vendorData.email}}</td>
                                                     <td>{{vendorData.mobile}}</td>
-                                                    <td>{{vendorData.createdAt}}</td>
+                                                    <td>{{vendorData.createdAt | date: 'dd-MM-yyyy'}}
+                                                    </td>
 
                                                     <td><a ui-sref="edit-vendor({'vendorId' : vendorData._id})" class="btn blue btn-outline btn-xs"><i class="fa fa-pencil"></i> Edit</a>                                                        &nbsp;&nbsp;&nbsp;
                                                         <button type="submit" class="btn red btn-outline btn-xs" ng-click="removeVendor(vendorData._id)"><i class="fa fa-trash"></i> Delete</button></td>
