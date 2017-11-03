@@ -143,6 +143,7 @@ module.exports = mongoose.model('User', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "cartProducts currentSubscription", "cartProducts currentSubscription"));
 var model = {
+    
     sendOtp: function (data, callback) {
         console.log("inside send otp", data)
         var emailOtp = (Math.random() + "").substring(2, 6);
@@ -162,11 +163,16 @@ var model = {
                     emailData.email = found.email;
                     // emailData.mobile = data1.mobile;
                     emailData.filename = "Forgot Password";
-                    emailData.email = data.email;
                     emailData.otp = found.otp;
                     emailData.subject = "NEW OTP";
-                    console.log("email data : ", emailData);
-                    console.log("emaildata", emailData);
+                    emailData.merge_vars = [{
+                        "name": "EMAIL",
+                        "content": found.email
+                    }, {
+                        "name": "OTP",
+                        "content": found.otp
+                    }];
+
                     Config.email(emailData, function (err, emailRespo) {
                         if (err) {
                             console.log(err);
