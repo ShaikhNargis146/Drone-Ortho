@@ -1735,7 +1735,7 @@ firstapp
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
         $scope.submitTicket = function (data1) {
-
+console.log("inside submitTicket",data1);
             $scope.data = {
                 status: "active",
             }
@@ -1894,7 +1894,7 @@ firstapp
         }
     })
 
-    .controller('CreatemissionCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr,$stateParams) {
+    .controller('CreatemissionCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("create-mission");
         $scope.menutitle = NavigationService.makeactive("CreateMission");
@@ -1910,6 +1910,7 @@ firstapp
         $scope.mission = {};
         $scope.mission.selected = true
         $scope.saveMission = function (missiondata) {
+            console.log("inisde mission ctrl",missiondata);
             missiondata.user = userId;
             NavigationService.apiCall("Mission/createMission", missiondata, function (data) {
                 $("#modal-4").modal();
@@ -1921,7 +1922,7 @@ firstapp
             });
         }
 
-            //pagination start
+        //pagination start
 
         // var i = 0;
         // if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
@@ -1951,23 +1952,23 @@ firstapp
         // };
 
         // $scope.getAllItems = function (keywordChange, count) {
-                // $scope.maxCount = keywordChange;
-                // $scope.totalItems = undefined;
-                // if (keywordChange) {}
-                // NavigationService.searchCall("Mission/getMission", {
-                //         page: $scope.currentPage,
-                //         keyword: $scope.search.keyword,
-                //         count: $scope.maxCount
-                //     }, ++i,
-                //     function (data, ini) {
-                //         if (ini == i) {
-                //             $scope.allMissionData = data.data.results;
-                //             $scope.totalItems = data.data.total;
-                //             $scope.maxRow = data.data.options.count;
-                //         }
-                //     });
-             
-                // $scope.totalItems = data.data.total;
+        // $scope.maxCount = keywordChange;
+        // $scope.totalItems = undefined;
+        // if (keywordChange) {}
+        // NavigationService.searchCall("Mission/getMission", {
+        //         page: $scope.currentPage,
+        //         keyword: $scope.search.keyword,
+        //         count: $scope.maxCount
+        //     }, ++i,
+        //     function (data, ini) {
+        //         if (ini == i) {
+        //             $scope.allMissionData = data.data.results;
+        //             $scope.totalItems = data.data.total;
+        //             $scope.maxRow = data.data.options.count;
+        //         }
+        //     });
+
+        // $scope.totalItems = data.data.total;
 
         // };
         //  JsonService.refreshView = $scope.getAllItems;
@@ -3038,7 +3039,7 @@ firstapp
 
                 console.log("data-------", data);
                 if (data.accessLevel == 'User') {
-                    data.status='Active';
+                    data.status = 'Active';
                     NavigationService.apiCallWithData("User/createUser", data, function (data) {
                         if (data.value == true) {
                             $scope.product = data;
@@ -3051,8 +3052,8 @@ firstapp
                         }
                     });
                 } else {
-                    data.status='Active';
-                     NavigationService.apiCallWithData("User/createVendor", data, function (data) {
+                    data.status = 'Active';
+                    NavigationService.apiCallWithData("User/createVendor", data, function (data) {
                         if (data.value == true) {
                             $scope.product = data;
                             $state.reload();
@@ -3348,7 +3349,7 @@ firstapp
             if (data.password == data.confirmPassword) {
                 console.log("data-------", data);
                 data.accessLevel = 'Vendor';
-                    data.status='Active';               
+                data.status = 'Active';
                 console.log("data acesslevel", data);
                 NavigationService.apiCallWithData("User/createVendor", data, function (data) {
                     if (data.value == true) {
@@ -3367,13 +3368,13 @@ firstapp
 
             } else {
                 toastr.warning('Check your Password');
-                        $state.go('vendors');
+                $state.go('vendors');
 
             }
         }
-        $scope.close=function(){
+        $scope.close = function () {
             console.log("inside close function")
-                        $state.go('vendors');
+            $state.go('vendors');
 
         }
 
@@ -6096,7 +6097,11 @@ firstapp
 
         $scope.loginUser = function (info) {
             console.log(info);
-            NavigationService.apiCallWithData("User/login", info, function (data) {
+            information = {};
+            information.name = info.name1;
+            information.password = info.password1;
+            console.log("information for sending is", information);
+            NavigationService.apiCallWithData("User/login", information, function (data) {
                 if (data.value == true) {
                     NavigationService.parseAccessToken(data.data._id, function () {
                         NavigationService.profile(function () {
@@ -6134,6 +6139,7 @@ firstapp
 
         }
         $scope.verifyAndSendEmail = function (formdata) {
+
             console.log("dataForsendOtp", formdata);
             $scope.data = {
                 email: formdata
@@ -6144,7 +6150,7 @@ firstapp
                 console.log("after sendotp excution", data)
                 if (data.value == true) {
                     console.log("data.data._id****", data.data._id);
-                    $scope.id = "59eee664317a857ff90bc862";
+                    $scope.id = data.data._id;
                     console.log("data.data._id", $scope.id);
 
                     $scope.forgotPwd = false;
@@ -6158,6 +6164,27 @@ firstapp
                 }
             });
         };
+        $scope.resendOtp = function () {
+            console.log(" $scope.data", $scope.data);
+            NavigationService.apiCallWithData("User/sendOtp", $scope.data, function (data) {
+                console.log("after sendotp excution", data)
+                if (data.value == true) {
+                    console.log("data.data._id****", data.data._id);
+                    $scope.id = data.data._id;
+                    console.log("data.data._id", $scope.id);
+
+                    $scope.forgotPwd = false;
+                    $scope.otpPwd = true
+                    $scope.resetPwd = false;
+                    $scope.displayThanksBox = false;
+
+                } else {
+                    toastr.error('Incorrect email!');
+
+                }
+            });
+        }
+
         $scope.checkOTP = function (data1) {
 
             console.log("inside check otp", data1);
@@ -6184,9 +6211,9 @@ firstapp
                     _id: $scope.id,
                     password: formdata.password
                 }
-                NavigationService.apiCallWithData("User/Updatepassword", $scope.data, function (data) {
-                    console.log("doneFormDatadata", data);
-                    if (data.value) {
+                NavigationService.apiCallWithData("User/Updatepassword", $scope.data, function (data1) {
+                    console.log("doneFormDatadata", data1);
+                    if (data1.value) {
                         $scope.forgotPwd = false;
                         $scope.otpPwd = false;
                         $scope.resetPwd = false;
