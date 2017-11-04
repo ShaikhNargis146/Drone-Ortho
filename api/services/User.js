@@ -141,9 +141,9 @@ schema.plugin(URLSlugs('name', {
 
 module.exports = mongoose.model('User', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "cartProducts currentSubscription", "cartProducts currentSubscription"));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema));
 var model = {
-    
+
     sendOtp: function (data, callback) {
         console.log("inside send otp", data)
         var emailOtp = (Math.random() + "").substring(2, 6);
@@ -1118,7 +1118,7 @@ var model = {
                 data.dataId = UserID;
                 data.accessToken = [uid(16)];
                 data.password = md5(data.password);
-                data.status='Active';
+                data.status = 'Active';
                 if (data.drone) {
                     data.lisence = "NDB";
                 } else {
@@ -1138,14 +1138,14 @@ var model = {
                         }, {
                             "name": "USER_ID",
                             "content": created.dataId
-                        },{
+                        }, {
                             "name": "PHONE",
                             "content": created.phone
-                        },{
+                        }, {
                             "name": "ADDRESS",
                             "content": created.address
                         }];
-        
+
                         Config.email(emailData, function (err, emailRespo) {
                             console.log("emailRespo", emailRespo);
                             if (err) {
@@ -1157,7 +1157,7 @@ var model = {
                                 // callback("Invalid data", null);
                             }
                         });
-                        User.sendDfmTrailAndMembershipMail(created,callback);
+                        User.sendDfmTrailAndMembershipMail(created, callback);
                         callback(null, created);
                     } else {
                         callback(null, {});
@@ -1225,51 +1225,51 @@ var model = {
                 callback(err, null);
             } else if (data1) {
                 async.waterfall([
-                    function (callback) {
-                        var emailData = {}
-                        emailData.email = data1.email;
-                        emailData.filename = "Membership";
-                        emailData.subject = "MEMBERSHIP";
-                        emailData.merge_vars = [{
-                            "name": "USER_ID",
-                            "content": data1.dataId
-                        }];
-                        Config.email(emailData, function (err, emailRespo) {
-                            if (err) {
-                                console.log(err);
-                                callback(err, null);
-                            } else if (emailRespo) {
-                                callback(null, "Contact us form saved successfully!!!");
-                            } else {
-                                callback("Invalid data", null);
-                            }
-                        }); 
-                    },
-                    function (first, callback) {
-                        var emailData = {}
-                        emailData.email = data1.email;
-                        emailData.filename = "DFM Free Trial";
-                        emailData.subject = "DFM FREE TRIAL";
-                        Config.email(emailData, function (err, emailRespo) {
-                            if (err) {
-                                console.log(err);
-                                callback(err, null);
-                            } else if (emailRespo) {
-                                callback(null, "Contact us form saved successfully!!!");
-                            } else {
-                                callback("Invalid data", null);
-                            }
-                        }); 
-                    }
-                ],
-                function (err, data) {
-                    if (err) {
-                        console.log("error occured")
-                        // callback(null, err);
-                    } else {
-                        console.log("waterfall completed successfully", data);
-                    }
-                });
+                        function (callback) {
+                            var emailData = {}
+                            emailData.email = data1.email;
+                            emailData.filename = "Membership";
+                            emailData.subject = "MEMBERSHIP";
+                            emailData.merge_vars = [{
+                                "name": "USER_ID",
+                                "content": data1.dataId
+                            }];
+                            Config.email(emailData, function (err, emailRespo) {
+                                if (err) {
+                                    console.log(err);
+                                    callback(err, null);
+                                } else if (emailRespo) {
+                                    callback(null, "Contact us form saved successfully!!!");
+                                } else {
+                                    callback("Invalid data", null);
+                                }
+                            });
+                        },
+                        function (first, callback) {
+                            var emailData = {}
+                            emailData.email = data1.email;
+                            emailData.filename = "DFM Free Trial";
+                            emailData.subject = "DFM FREE TRIAL";
+                            Config.email(emailData, function (err, emailRespo) {
+                                if (err) {
+                                    console.log(err);
+                                    callback(err, null);
+                                } else if (emailRespo) {
+                                    callback(null, "Contact us form saved successfully!!!");
+                                } else {
+                                    callback("Invalid data", null);
+                                }
+                            });
+                        }
+                    ],
+                    function (err, data) {
+                        if (err) {
+                            console.log("error occured")
+                            // callback(null, err);
+                        } else {
+                            console.log("waterfall completed successfully", data);
+                        }
+                    });
             } else {
                 callback("Invalid data", null);
             }
