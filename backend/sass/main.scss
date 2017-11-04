@@ -567,11 +567,11 @@ Font css
 space class
 
 -------------------------------------------------*/
-.closes{
 
-color:white !important;
+    .closes {
+        color: white !important;
+    }
 
-}
     .space-5 {
         margin: 5px 0;
     }
@@ -4386,4 +4386,40 @@ WIDGETS
     .user-profile {
         margin-top: 0px !important;
         left: -80px !important;
+    }
+
+    .directive_pagination{
+        display: table;
+        width: 100%;
+        ul{
+            display: table-cell;
+            vertical-align: bottom;
+            align-items: right;
+        }
+        li{
+            display: inline-block;
+            border: solid 1px #666;
+            border-right: 0;
+            color: #666;
+            padding: 1px 10px;
+            cursor: pointer;
+            &:active, &.active{
+                background:  #48aba4;
+            }
+            &:focus{
+                background:  #48aba4;
+            }
+            &:visited{
+                background:  #48aba4;
+            }
+        }
+    }
+    .img-box{
+        float:left;
+        margin-left: 10px;
+        margin-right: 5px;
+    }
+
+    .errormsg {
+        color: $brand-danger!important;
     }

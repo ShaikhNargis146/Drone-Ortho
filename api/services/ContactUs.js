@@ -12,8 +12,7 @@ var schema = new Schema({
         default: ""
     },
     email: {
-        type: String,
-        unique: true
+        type: String
     },
     company: {
         type: String,
@@ -38,7 +37,7 @@ var model = {
 
     sendEnquiry: function (data, callback) {
         console.log("data", data);
-        ContactUs.save(data).exec(function (err, data1) {
+        ContactUs.saveData(data, function (err, data1) {
             console.log("data1", data1, err);
             if (err) {
                 callback(err, null);
@@ -50,7 +49,25 @@ var model = {
                 emailData.filename = "UNIFLI Inquiry";
                 emailData.name = data1.name;
                 emailData.subject = "Inquiry Details";
-                console.log("email data : ", emailData);
+                emailData.merge_vars = [{
+                    "name": "NAME",
+                    "content": data1.name
+                }, {
+                    "name": "EMAIL",
+                    "content": data1.email
+                },{
+                    "name": "PHONE",
+                    "content": data1.phone
+                },{
+                    "name": "COMPANY",
+                    "content": data1.company
+                },{
+                    "name": "DESIGNATION",
+                    "content": data1.designation
+                },{
+                    "name": "DESCRIPTION",
+                    "content": data1.description
+                }];
 
                 Config.email(emailData, function (err, emailRespo) {
                     console.log("emailRespo", emailRespo);
