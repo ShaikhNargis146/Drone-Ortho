@@ -103,6 +103,35 @@ var model = {
             }
         });
     },
+
+
+    sendMissionCompletedMail: function (data, callback) {
+        User.findOne({
+            _id: data.user
+        }).exec(function (err, data1) {
+            if (err) {
+                callback(err, null);
+            } else if (data1) {
+                var emailData = {}
+                emailData.email = data1.email;
+                emailData.filename = "DFM Renewal";
+                emailData.subject = "DFM EXPIRE";
+                Config.email(emailData, function (err, emailRespo) {
+                    console.log("emailRespo", emailRespo);
+                    if (err) {
+                        console.log(err);
+                        //callback(err, null);
+                    } else if (emailRespo) {
+                        //callback(null, "Contact us form saved successfully!!!");
+                    } else {
+                        // callback("Invalid data", null);
+                    }
+                });
+            } else {
+                callback("Invalid data", null);
+            }
+        });
+    }
 };
 
 module.exports = _.assign(module.exports, exports, model);

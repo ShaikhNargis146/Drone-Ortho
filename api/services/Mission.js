@@ -171,7 +171,7 @@ var model = {
             } else if (_.isEmpty(found)) {
                 console.log("error")
                 data = {
-                    folderSize: 0+" GB",
+                    folderSize: 0 + " GB",
                     fileSize: 0,
                     missionCount: 0
                 };
@@ -215,6 +215,9 @@ var model = {
     },
 
     createMission: function (data, callback) {
+        console.log("data", data);
+        var sendAllData = {};
+        sendAllData.missionName = data.name;
         async.waterfall([
             function (callback) { // generate mission id
                 Mission.missionIdGenerate(data, function (err, data1) {
@@ -222,12 +225,15 @@ var model = {
                 })
             },
             function (missionID, callback) { // generate mission id
+                sendAllData.missionId = missionID;
                 User.findOne({
                     _id: data.user
                 }).exec(function (err, found) {
                     if (err || _.isEmpty(found)) {
                         callback(err, null);
                     } else {
+                        sendAllData.userName = found.name;
+                        sendAllData.userId = found.dataId;
                         var foundObj = found.toObject();
                         var missionIdWithSub = {}
                         missionIdWithSub.missionId = missionID
@@ -279,7 +285,7 @@ var model = {
                             } else {
                                 console.log("---1---");
                                 callback(null, asyncData);
-                                Mission.sendMissionRequestMail(data, callback); //sending mail
+                                Mission.sendMissionRequestMail(sendAllData, callback); //sending mail
                                 model.pix4dCommandExecution(folder, missionIdWithSub, callback);
                             }
                         });
@@ -568,61 +574,8 @@ var model = {
     //email function
 
     sendMissionRequestMail: function (data, callback) {
-        Mission.findOne({
-            user: data.user
-        }).deepPopulate('user').select('missionId name createdAt user').exec(function (err, data1) {
-            console.log("data1", data1, err);
-            if (err) {
-                callback(err, null);
-            } else if (data1) {
-                // console.log("adminEmail", global["env"].adminEmail);
-                var emailData = {}
-                emailData.email = global["env"].adminEmail;
-                emailData.filename = "New Mission Request (Admin)";
-                emailData.name = data1.name;
-                emailData.subject = "NEW MISSION REQUEST";
-                console.log("email data : ", emailData);
-                emailData.merge_vars = [{
-                    "name": "USER_NAME",
-                    "content": data1.user.name
-                }, {
-                    "name": "USER_ID",
-                    "content": data1.user.dataId
-                },{
-                    "name": "MISSION_ID",
-                    "content": data1.missionId
-                },{
-                    "name": "MISSION_NAME",
-                    "content": data1.name
-                },{
-                    "name": "DATE_OF_CREATION",
-                    "content": data1.createdAt
-                }];
-
-                Config.email(emailData, function (err, emailRespo) {
-                    console.log("emailRespo", emailRespo);
-                    if (err) {
-                        console.log(err);
-                        //callback(err, null);
-                    } else if (emailRespo) {
-                        //callback(null, "Contact us form saved successfully!!!");
-                    } else {
-                        // callback("Invalid data", null);
-                    }
-                });
-            } else {
-                callback("Invalid data", null);
-            }
-        });
-    },
-
-    sendMissionStartMail: function (data, callback) {
-        Mission.findOne({
-            user: data.user
-        }).deepPopulate('user').select('user').exec(function (err, data1) {
-            if (err) {
-                callback(err, null);
-            } else if (data1) {
+        async.parallel({
+            forUser: function (callback) {
                 var emailData = {}
                 emailData.email = data1.user.email;
                 emailData.filename = "Mission Started";
@@ -631,28 +584,70 @@ var model = {
                     console.log("emailRespo", emailRespo);
                     if (err) {
                         console.log(err);
-                        //callback(err, null);
+                        callback(err, null);
                     } else if (emailRespo) {
-                        //callback(null, "Contact us form saved successfully!!!");
+                        callback(null, "Contact us form saved successfully!!!");
                     } else {
-                        // callback("Invalid data", null);
+                        callback("Invalid data", null);
                     }
                 });
+            },
+            forAdmin: function (callback) {
+                var creationDate=new Date();
+                var emailData = {}
+                emailData.email = global["env"].adminEmail;
+                emailData.filename = "New Mission Request (Admin)";
+                emailData.name = data1.name;
+                emailData.subject = "NEW MISSION REQUEST";
+                emailData.merge_vars = [{
+                    "name": "USER_NAME",
+                    "content": data.userName
+                }, {
+                    "name": "USER_ID",
+                    "content": data.userId
+                }, {
+                    "name": "MISSION_ID",
+                    "content": data.missionId
+                }, {
+                    "name": "MISSION_NAME",
+                    "content": data.missionName
+                }, {
+                    "name": "DATE_OF_CREATION",
+                    "content":creationDate
+                }];
+        
+                Config.email(emailData, function (err, emailRespo) {
+                    console.log("emailRespo", emailRespo);
+                    if (err) {
+                        console.log(err);
+                        callback(err, null);
+                    } else if (emailRespo) {
+                        callback(null, "Contact us form saved successfully!!!");
+                    } else {
+                        callback("Invalid data", null);
+                    }
+                });
+            } 
+        },
+        function (err, result) {
+            if (err || _.isEmpty(result)) {
+                // callback(err, []);
             } else {
-                callback("Invalid data", null);
+                // callback(null, result);
             }
         });
+      
     },
 
     sendMissionCompletedMail: function (data, callback) {
-        Mission.findOne({
-            user: data.user
-        }).deepPopulate('user').select('user').exec(function (err, data1) {
+        User.findOne({
+            _id: data.user
+        }).exec(function (err, data1) {
             if (err) {
                 callback(err, null);
             } else if (data1) {
                 var emailData = {}
-                emailData.email = data1.user.email;
+                emailData.email = data1.email;
                 emailData.filename = "Mission Completed";
                 emailData.subject = "MISSION COMPLETED";
                 Config.email(emailData, function (err, emailRespo) {
@@ -673,85 +668,6 @@ var model = {
     }
 
 };
-
-// cron.schedule('1 * * * * *', function () {
-//     Mission.find({
-//         status: {
-//             $ne: 'ready'
-//         }
-//     }, function (err, found) {
-//         if (err) {
-//             callback(err, null);
-//         } else {
-//             console.log(found.length);
-//             var dsmList;
-//             var mosaicList;
-//             async.eachSeries(found, function (value, callback1) {
-//                     console.log("value", value.name);
-//                     dirName1 = 'C:/Users/dell/Documents/pix4d/' + value.name + '/3_dsm_ortho/2_mosaic';
-//                     fs.readdir(dirName1, function (err, items) {
-//                         console.log("inside dsm", items);
-//                         _.forEach(items, function (val) {
-//                             var extension = val.split(".").pop();
-//                             extension = extension.toLowerCase();
-//                             if (extension == 'tif') {
-//                                 console.log("status-----", extension);
-//                                 fs.readFile(dirName1 + '/' + val, function (err, data) {
-//                                     if (err) {
-//                                         console.log("err", err);
-//                                         // throw err;
-//                                     } else {
-//                                         console.log("data", data);
-//                                         dataArray = data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength);
-
-//                                         var im = geotiff.parse(dataArray).getImage()
-//                                         var fd = im.getFileDirectory()
-//                                         var gk = im.getGeoKeys()
-//                                         //   value.status = "checked";
-//                                         value.geoLocation = extents({
-//                                             tiePoint: fd.ModelTiepoint,
-//                                             pixelScale: fd.ModelPixelScale,
-//                                             width: fd.ImageWidth,
-//                                             height: fd.ImageLength,
-//                                             proj: require('proj4'),
-//                                             from: epsg[gk.ProjectedCSTypeGeoKey || gk.GeographicTypeGeoKey],
-//                                             to: epsg[4326]
-//                                         });
-//                                         value.save(function (err, data) {
-//                                             if (err) {
-//                                                 console.log("error occured");
-//                                             } else {
-//                                                 console.log(extents({
-//                                                     tiePoint: fd.ModelTiepoint,
-//                                                     pixelScale: fd.ModelPixelScale,
-//                                                     width: fd.ImageWidth,
-//                                                     height: fd.ImageLength,
-//                                                     proj: require('proj4'),
-//                                                     from: epsg[gk.ProjectedCSTypeGeoKey || gk.GeographicTypeGeoKey],
-//                                                     to: epsg[4326]
-//                                                 }));
-//                                                 callback1();
-//                                             }
-//                                         });
-
-//                                     }
-//                                 });
-//                             }
-//                         });
-//                     });
-//                     // write their api to update status if changed
-//                 },
-//                 function (err, results) {
-//                     if (err) {
-//                         console.log(err);
-//                     } else {
-//                         console.log("results", results);
-//                         // callback();
-//                     }
-//                 });
-//         }
-//     });
-// });
 
 module.exports = _.assign(module.exports, exports, model);
 ``

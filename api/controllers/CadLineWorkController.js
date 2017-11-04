@@ -7,7 +7,7 @@ var ConvertTiff = require('tiff-to-png');
 var path = require('path');
 var decode = require("decode-tiff");
 var PNG = require('pngjs');
-var sharp = require('sharp');
+// var sharp = require('sharp');
 var JSZip = require("jszip");
 var controller = {
     getCadByUSer: function (req, res) {
@@ -442,9 +442,9 @@ var controller = {
         }
     },
 
-    sendCadRequestMail: function (req, res) {
+    sendCadCompletedMail: function (req, res) {
         if (req.body) {
-            CadLineWork.sendCadRequestMail(req.body, res.callback);
+            CadLineWork.sendCadCompletedMail(req.body, res.callback);
         } else {
             res.json({
                 value: false,

@@ -8,10 +8,10 @@ var ConvertTiff = require('tiff-to-png');
 var path = require('path');
 var decode = require("decode-tiff");
 var PNG = require('pngjs');
-var sharp = require('sharp');
+// var sharp = require('sharp');
 var getSize = require('get-folder-size');
 var cron = require('node-cron');
-var gdal = require("gdal");
+// var gdal = require("gdal");
 var util = require('util');
 var dms = require("dms-conversion");
 var controller = {
@@ -391,11 +391,13 @@ cron.schedule('1 * * * *', function () {
             callback(err, null);
         } else {
             console.log(found.length);
+            var emailData={};
             var dsmList;
             var mosaicList;
             var geoLocation;
             async.eachSeries(found, function (value, callback1) {
-                    console.log("value", value.missionId);
+                    console.log("value", value);
+                    emailData.user=value.user;
                     dirName1 = 'C:/Users/unifli/Documents/pix4d/' + value.missionId + '/3_dsm_ortho/2_mosaic'
                     // dirName1 = 'C:/Users/dell/Documents/pix4d/' + value.missionId + '/3_dsm_ortho/2_mosaic' //for local                 
                     if (fs.existsSync(dirName1)) {
@@ -559,6 +561,7 @@ cron.schedule('1 * * * *', function () {
                                                     callback(null, err);
                                                 } else {
                                                     console.log("waterfall completed successfully", data);
+                                                    Mission.sendMissionCompletedMail(emailData,callback);
                                                     callback1();
                                                 }
                                             });

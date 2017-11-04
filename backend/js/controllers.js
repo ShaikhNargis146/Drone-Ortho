@@ -2411,8 +2411,13 @@ console.log("inside submitTicket",data1);
 
         $scope.uploadCadForAdmin = function (data) {
             data._id = $stateParams.cadId;
+            data.completionDate = new Date();
             NavigationService.apiCallWithData("CadLineWork/save", data, function (data) {
                 if (data.value == true) {
+                    var sendDataForMail={};
+                    sendDataForMail._id=$stateParams.cadId;
+                    NavigationService.apiCallWithData("CadLineWork/sendCadCompletedMail", sendDataForMail, function (data) {
+                    });
                     toastr.success("File uploaded successfully");
                     $state.reload();
                 }
@@ -2443,7 +2448,6 @@ console.log("inside submitTicket",data1);
 
         $scope.uploadCadForVendor = function (data) {
             data._id = $stateParams.cadId;
-            data.completionDate = new Date();
             NavigationService.apiCallWithData("CadLineWork/save", data, function (data) {
                 if (data.value == true) {
                     toastr.success("File uploaded successfully");
