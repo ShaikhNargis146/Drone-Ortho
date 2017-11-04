@@ -4403,19 +4403,16 @@ WIDGETS
             color: #666;
             padding: 1px 10px;
             cursor: pointer;
-            &:active,&:focus{
+            &:active, &.active{
+                background:  #48aba4;
+            }
+            &:focus{
+                background:  #48aba4;
+            }
+            &:visited{
                 background:  #48aba4;
             }
         }
-        // li:focus{
-        //     background-color: #48aba4;
-        // }
-        // li:active{
-        //     background-color: #48aba4;
-        // }
-        // li:hover{
-        //     background-color: #48aba4;
-        // }
     }
     .img-box{
         float:left;

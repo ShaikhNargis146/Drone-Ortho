@@ -38,7 +38,7 @@
     <img ng-src="{{model.file|uploadpathlocal}}" class="img-responsive uploadingImage img-thumbnail" ng-if="type=='image'" />
     <iframe src="{{model.file|uploadpathlocal}}" style="width:400px; height:400px;" frameborder="0" ng-if="type=='pdf'"></iframe>
   </div>
-  <!-- <div class="clearfix" ng-if="model && isMultiple" id="imgblock" ng-hide="noShow">
+  <div class="clearfix" ng-if="model && isMultiple" id="imgblock" ng-hide="noShow">
     <div class="img-box" ng-repeat="sImage in see track by $index">
       <!-- <i class="fa fa-times" ng-click="removeImage($index)"></i> -->
       <img alt="" ng-src="{{sImage.file|uploadpathlocal}}" class="img-responsive uploadingImage img-thumbnail" style="width: 75px;
@@ -52,13 +52,13 @@
       </ul> -->
       <ul>
         <li ng-click="changePagefirst()">First</li>
-        <li ng-click="changePagePre()">Previous</li>
-        <li ng-repeat="i in getNumber(display_img) track by $index" ng-click="changePage($index+1)">{{$index+1}}</li>
-        <li ng-click="changePageNext()">Next</li>
+        <li ng-disabled="pageNumber==1" ng-click="changePagePre()">Previous</li>
+        <li ng-repeat="i in getNumber(display_img) track by $index" ng-class="{'active': pageNumber == $index+1}" ng-click="changePage($index+1)">{{$index+1}}</li>
+        <li ng-disabled="pageNumber==display_img" ng-click="changePageNext()">Next</li>
         <li ng-click="changePagelast()">Last</li>
       </ul>
     </div>
-  </div> -->
+  </div>
   <div class="btn-upload btn btn-primary btn-outline btn-small create-btn">
     <input id="inputImage" ng-show="!isMultiple && type=='image'" type="file" accept="image/*,application/pdf" image="image"
       title="Choose Files" class="btn-primary">
