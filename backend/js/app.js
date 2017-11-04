@@ -460,120 +460,129 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                     if (newVal.length > 0) {
                         var countForm = {}
                         countForm.user = $scope.$parent.profile._id
-                        countForm.currentSubscriptionDate = $scope.$parent.profile.currentSubscription.createdAt;
-                        if (_.isEqual($scope.$parent.profile.currentSubscription.status, 'Active')) {
-                            $http.post(adminurl + "Mission/totalMissionCount", countForm).then(function (data) {
-                                if (data.data.value == true) {
-                                    var missionData = data.data.data;
-                                    var currentSub = $scope.$parent.profile.currentSubscription;
-                                    var sizeLimit = currentSub.UploadSize.trim()
-                                    sizeLimit = sizeLimit.substring(0, sizeLimit.length - 2)
-                                    var usedSize = missionData.folderSize;
-                                    usedSize = usedSize.split(' ')[0];
-                                    console.log("sizeLimit", Number(currentSub.UploadPhoto) < Number(missionData.fileSize), Number(sizeLimit) < Number(usedSize), Number(currentSub.missions) <= Number(missionData.missionCount));
-                                    if (Number(currentSub.UploadPhoto) <= Number(missionData.fileSize) || Number(sizeLimit) <= Number(usedSize) || Number(currentSub.missions) <= Number(missionData.missionCount)) {
-                                        console.log("data-----count---...", currentSub.UploadPhoto, missionData)
-                                        $("#myAlertModal").modal();
-                                    } else {
-                                        $(".loading-img").css("display", "block");
-                                        $(".loading-img-modal").css("display", "block");
-                                        $timeout(function () {
-                                            async.eachLimit(newVal, 1, function (image, callback) {
-                                                // Perform operation on file here.
-                                                console.log('Processing file ' + image);
-                                                if (image && image.file) {
-                                                    $scope.fileprogressbar = 0;
-                                                    $scope.uploadStatus = "uploading";
+                        // console.log("$scope.$parent.profile", $scope.$parent.profile)
+                        var currentSubscriptionForm = {}
+                        currentSubscriptionForm._id = $scope.$parent.profile.currentSubscription
+                        $http.post(adminurl + "DFMSubscription/getOne", currentSubscriptionForm).then(function (currentSubscription) {
+                            currentSubscription = currentSubscription.data.data;
+                            // console.log("currentSubscription", currentSubscription);
+                            countForm.currentSubscriptionDate = currentSubscription.createdAt;
+                            if (_.isEqual(currentSubscription.status, 'Active')) {
+                                $http.post(adminurl + "Mission/totalMissionCount", countForm).then(function (data) {
+                                    if (data.data.value == true) {
+                                        var missionData = data.data.data;
+                                        var currentSub = currentSubscription;
+                                        var sizeLimit = currentSub.UploadSize.trim()
+                                        sizeLimit = sizeLimit.substring(0, sizeLimit.length - 2)
+                                        var usedSize = missionData.folderSize;
+                                        usedSize = usedSize.split(' ')[0];
+                                        console.log("sizeLimit", Number(currentSub.UploadPhoto) < Number(missionData.fileSize), Number(sizeLimit) < Number(usedSize), Number(currentSub.missions) <= Number(missionData.missionCount));
+                                        if (Number(currentSub.UploadPhoto) <= Number(missionData.fileSize) || Number(sizeLimit) <= Number(usedSize) || Number(currentSub.missions) <= Number(missionData.missionCount)) {
+                                            console.log("data-----count---...", currentSub.UploadPhoto, missionData)
+                                            $("#myAlertModal").modal();
+                                        } else {
+                                            $(".loading-img").css("display", "block");
+                                            $(".loading-img-modal").css("display", "block");
+                                            $timeout(function () {
+                                                async.eachLimit(newVal, 1, function (image, callback) {
+                                                    // Perform operation on file here.
+                                                    console.log('Processing file ' + image);
+                                                    if (image && image.file) {
+                                                        $scope.fileprogressbar = 0;
+                                                        $scope.uploadStatus = "uploading";
 
-                                                    var Template = this;
-                                                    image.hide = true;
-                                                    var formData = new FormData();
-                                                    formData.append('file', image.file, image.file.name);
-                                                    $http.post(missionFileUrl, formData, {
-                                                        headers: {
-                                                            'Content-Type': undefined
-                                                        },
-                                                        transformRequest: angular.identity,
-                                                        uploadEventHandlers: {
-                                                            progress: function (e) {
-                                                                // console.log(e.loaded * 100 / e.total);
-                                                                $scope.fileprogressbar = parseInt((e.loaded / e.total) * 100); // percentage of progress
+                                                        var Template = this;
+                                                        image.hide = true;
+                                                        var formData = new FormData();
+                                                        formData.append('file', image.file, image.file.name);
+                                                        $http.post(missionFileUrl, formData, {
+                                                            headers: {
+                                                                'Content-Type': undefined
+                                                            },
+                                                            transformRequest: angular.identity,
+                                                            uploadEventHandlers: {
+                                                                progress: function (e) {
+                                                                    // console.log(e.loaded * 100 / e.total);
+                                                                    $scope.fileprogressbar = parseInt((e.loaded / e.total) * 100); // percentage of progress
+                                                                }
                                                             }
-                                                        }
 
-                                                    }).then(function (data) {
-                                                        data = data.data;
-                                                        $scope.uploadStatus = "uploaded";
-                                                        $(".loading-img").css("display", "none");
-                                                        $(".loading-img-modal").css("display", "none");
+                                                        }).then(function (data) {
+                                                            data = data.data;
+                                                            $scope.uploadStatus = "uploaded";
+                                                            $(".loading-img").css("display", "none");
+                                                            $(".loading-img-modal").css("display", "none");
 
-                                                        if ($scope.isMultiple) {
-                                                            if ($scope.inObject) {
-                                                                $scope.model.push({
-                                                                    "image": data.data[0]
-                                                                });
-                                                                callback(null, "next");
+                                                            if ($scope.isMultiple) {
+                                                                if ($scope.inObject) {
+                                                                    $scope.model.push({
+                                                                        "image": data.data[0]
+                                                                    });
+                                                                    callback(null, "next");
+                                                                } else {
+                                                                    if (!$scope.model) {
+                                                                        $scope.clearOld();
+                                                                    }
+                                                                    var fileList = {};
+                                                                    fileList.file = data.data[0];
+                                                                    $scope.model.push(fileList);
+                                                                    callback(null, "next");
+                                                                    $scope.imgGrp();
+                                                                }
                                                             } else {
-                                                                if (!$scope.model) {
-                                                                    $scope.clearOld();
+                                                                if (_.endsWith(data.data[0], ".pdf")) {
+                                                                    $scope.type = "pdf";
+                                                                } else {
+                                                                    $scope.type = "image";
                                                                 }
                                                                 var fileList = {};
                                                                 fileList.file = data.data[0];
-                                                                $scope.model.push(fileList);
+                                                                $scope.model = fileList;
                                                                 callback(null, "next");
-                                                                $scope.imgGrp();                                                                
                                                             }
-                                                        } else {
-                                                            if (_.endsWith(data.data[0], ".pdf")) {
-                                                                $scope.type = "pdf";
+                                                        });
+                                                    } else {
+                                                        callback(null, "next");
+                                                    }
+                                                }, function (err) {
+                                                    // if any of the file processing produced an error, err would equal that error
+                                                    if (err) {
+                                                        // One of the iterations produced an error.
+                                                        // All processing will now stop.
+                                                        console.log('A file failed to process');
+                                                    } else {
+
+                                                        console.log('All files have been processed successfully');
+                                                        if ($scope.$parent.mission) {
+                                                            console.log($scope.$parent.mission, $scope.$parent.profile);
+                                                            if ($scope.$parent.mission.selected == true && $scope.$parent.mission.name) {
+                                                                $scope.$parent.mission.user = $scope.$parent.profile._id;
+                                                                $http.post(adminurl + "Mission/createMission", $scope.$parent.mission).then(function (data) {
+                                                                    data = data.data;
+                                                                    console.log("missionCreated", $state.$current.name)
+                                                                    $state.go("missions")
+                                                                });
                                                             } else {
-                                                                $scope.type = "image";
+                                                                $("#noNameAlertModal").modal();
                                                             }
-                                                            var fileList = {};
-                                                            fileList.file = data.data[0];
-                                                            $scope.model = fileList;
-                                                            callback(null, "next");
-                                                        }
-                                                    });
-                                                } else {
-                                                    callback(null, "next");
-                                                }
-                                            }, function (err) {
-                                                // if any of the file processing produced an error, err would equal that error
-                                                if (err) {
-                                                    // One of the iterations produced an error.
-                                                    // All processing will now stop.
-                                                    console.log('A file failed to process');
-                                                } else {
-                                                    
-                                                    console.log('All files have been processed successfully');
-                                                    if ($scope.$parent.mission) {
-                                                        console.log($scope.$parent.mission, $scope.$parent.profile);
-                                                        if ($scope.$parent.mission.selected == true) {
-                                                            $scope.$parent.mission.user = $scope.$parent.profile._id;
-                                                            $http.post(adminurl + "Mission/createMission", $scope.$parent.mission).then(function (data) {
-                                                                data = data.data;
-                                                                console.log("missionCreated", $state.$current.name)
-                                                                $state.go("missions")
-                                                            });
                                                         }
                                                     }
-                                                }
-                                            });
-                                            // _.each(newVal, function (newV, key) {
-                                            //     if (newV && newV.file) {
-                                            //         $scope.uploadNow(newV);
-                                            //     }
-                                            // });
-                                        }, 15000);
+                                                });
+                                                // _.each(newVal, function (newV, key) {
+                                                //     if (newV && newV.file) {
+                                                //         $scope.uploadNow(newV);
+                                                //     }
+                                                // });
+                                            }, 15000);
+                                        }
+                                    } else {
+                                        $("#myAlertModal").modal();
                                     }
-                                } else {
-                                    $("#myAlertModal").modal();
-                                }
-                            });
-                        } else {
-                            $("#myAlertModal").modal();
-                        }
+                                });
+                            } else {
+                                $("#myAlertModal").modal();
+                            }
+                        });
                     }
 
 
@@ -676,48 +685,49 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                 }
                 if ($scope.length_img > 0) {
                     $scope.see = $scope.model.slice(0, 11);
-                    $scope.pageNumber=1;
-                    
+                    $scope.pageNumber = 1;
+
                 }
             }
             $scope.changePage = function (pageNo) {
-                $scope.pageNumber=pageNo;
-                if(pageNo==1){
-                    console.log("1st page",pageNo); 
+                $scope.pageNumber = pageNo;
+                if (pageNo == 1) {
+                    console.log("1st page", pageNo);
                     $scope.see = $scope.model.slice(0, 11);
-                }else{
-                console.log("pageNo",pageNo);
-                $scope.answer = (pageNo - 1) * 11;
-                $scope.multiplication = (11 * pageNo);
-                $scope.see = $scope.model.slice($scope.answer, $scope.multiplication);}
+                } else {
+                    console.log("pageNo", pageNo);
+                    $scope.answer = (pageNo - 1) * 11;
+                    $scope.multiplication = (11 * pageNo);
+                    $scope.see = $scope.model.slice($scope.answer, $scope.multiplication);
+                }
             }
             $scope.changePagefirst = function () {
                 $scope.see = $scope.model.slice(0, 11);
-                $scope.pageNumber=1;
+                $scope.pageNumber = 1;
             }
             $scope.changePagelast = function () {
                 $scope.answer = ($scope.display_img - 1) * 11;
                 $scope.multiplication = (11 * $scope.display_img);
                 $scope.see = $scope.model.slice($scope.answer, $scope.multiplication);
-                $scope.pageNumber=$scope.display_img;
+                $scope.pageNumber = $scope.display_img;
             }
             $scope.changePagePre = function () {
-                if($scope.pageNumber==1){
-                    $scope.pageNumber=$scope.display_img+1;
+                if ($scope.pageNumber == 1) {
+                    $scope.pageNumber = $scope.display_img + 1;
                 }
-                $scope.answer = (($scope.pageNumber-2) * 11);
-                $scope.multiplication = (11 * ($scope.pageNumber-1));
+                $scope.answer = (($scope.pageNumber - 2) * 11);
+                $scope.multiplication = (11 * ($scope.pageNumber - 1));
                 $scope.see = $scope.model.slice($scope.answer, $scope.multiplication);
-                $scope.pageNumber=$scope.pageNumber-1;
+                $scope.pageNumber = $scope.pageNumber - 1;
             }
             $scope.changePageNext = function () {
-                if($scope.pageNumber==$scope.display_img){
+                if ($scope.pageNumber == $scope.display_img) {
                     $scope.pageNumber = 0;
                 }
                 $scope.answer = ($scope.pageNumber * 11);
-                $scope.multiplication = (11 * ($scope.pageNumber+1));
+                $scope.multiplication = (11 * ($scope.pageNumber + 1));
                 $scope.see = $scope.model.slice($scope.answer, $scope.multiplication);
-                $scope.pageNumber=$scope.pageNumber+1;
+                $scope.pageNumber = $scope.pageNumber + 1;
             }
         },
         controller: function ($scope) {

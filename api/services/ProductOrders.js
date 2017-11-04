@@ -107,7 +107,7 @@ var model = {
                 function (callback) {
                     ProductOrders.findOne({
                         invoiceNo: data.invoiceNo
-                    }).deepPopulate('user cadLineWork dfmSubscription').exec(function (err, data) {
+                    }).deepPopulate('user cadLineWork dfmSubscription products').exec(function (err, data) {
                         if (err || _.isEmpty(data)) {
                             callback(err, [])
                         } else {
@@ -406,11 +406,11 @@ var model = {
                             console.log("emailRespo", emailRespo);
                             if (err) {
                                 console.log(err);
-                                //callback(err, null);
+                                callback(err, null);
                             } else if (emailRespo) {
-                                //callback(null, "Contact us form saved successfully!!!");
+                                callback(null, "Contact us form saved successfully!!!");
                             } else {
-                                // callback("Invalid data", null);
+                                callback("Invalid data", null);
                             }
                         });
                     },
@@ -427,7 +427,10 @@ var model = {
                         }, {
                             "name": "CAD_ID",
                             "content": data.cadLineWork.cadId
-                        }, {
+                        },  {
+                            "name": "AMOUNT",
+                            "content": data.totalAmount
+                        },{
                             "name": "ACREAGE",
                             "content": data.cadLineWork.acreage
                         }, {
@@ -439,11 +442,11 @@ var model = {
                             console.log("emailRespo", emailRespo);
                             if (err) {
                                 console.log(err);
-                                //callback(err, null);
+                                callback(err, null);
                             } else if (emailRespo) {
-                                //callback(null, "Contact us form saved successfully!!!");
+                                callback(null, "Contact us form saved successfully!!!");
                             } else {
-                                // callback("Invalid data", null);
+                                callback("Invalid data", null);
                             }
                         });
                     }
@@ -457,160 +460,120 @@ var model = {
                 });
 
         } else if (data.dfmSubscription) {
-
             async.parallel({
                     forUser: function (callback) {
-                        emailData.filename = "New CAD Request (Admin)";
-                        emailData.subject = "CAD REQUEST";
-                        console.log("email data : ", emailData);
-                        emailData.merge_vars = [{
-                            "name": "USER_NAME",
-                            "content": data1.user.name
-                        }, {
-                            "name": "USER_ID",
-                            "content": data1.user.dataId
-                        }, {
-                            "name": "CAD_ID",
-                            "content": data1.cadId
-                        }, {
-                            "name": "ACREAGE",
-                            "content": data1.acreage
-                        }, {
-                            "name": "REQUESTED_DATE",
-                            "content": data1.createdAt
-                        }];
-
+                        emailData.filename = "DFM Purchase";
+                        emailData.subject = "DFM PURCHASE";
+                        emailData.email = data.user.email;                        
                         Config.email(emailData, function (err, emailRespo) {
-                            console.log("emailRespo", emailRespo);
                             if (err) {
                                 console.log(err);
-                                //callback(err, null);
+                                callback(err, null);
                             } else if (emailRespo) {
-                                //callback(null, "Contact us form saved successfully!!!");
+                                callback(null, "Contact us form saved successfully!!!");
                             } else {
-                                // callback("Invalid data", null);
+                                callback("Invalid data", null);
                             }
                         });
                     },
                     forAdmin: function (callback) {
-                        emailData.email = global["env"].adminEmail;
-
-                        emailData.filename = "New CAD Request (Admin)";
-                        emailData.subject = "CAD REQUEST";
-                        console.log("email data : ", emailData);
+                        emailData.filename = "New DFM Purchase (Admin)";
+                        emailData.subject = "DFM REQUEST";
+                        emailData.email = global["env"].adminEmail;                        
                         emailData.merge_vars = [{
                             "name": "USER_NAME",
-                            "content": data1.user.name
+                            "content": data.user.name
                         }, {
                             "name": "USER_ID",
-                            "content": data1.user.dataId
+                            "content": data.user.dataId
                         }, {
-                            "name": "CAD_ID",
-                            "content": data1.cadId
+                            "name": "NAME_OF_PACKAGE",
+                            "content": data.dfmSubscription.name
                         }, {
-                            "name": "ACREAGE",
-                            "content": data1.acreage
+                            "name": "PRICE",
+                            "content": data.dfmSubscription.amount
                         }, {
-                            "name": "REQUESTED_DATE",
-                            "content": data1.createdAt
+                            "name": "ACTIVATION_DATE",
+                            "content": data.dfmSubscription.createdAt
+                        },{
+                            "name": "EXPIRATION_DATE",
+                            "content": data.dfmSubscription.expiryDate
                         }];
 
                         Config.email(emailData, function (err, emailRespo) {
                             console.log("emailRespo", emailRespo);
                             if (err) {
                                 console.log(err);
-                                //callback(err, null);
+                                callback(err, null);
                             } else if (emailRespo) {
-                                //callback(null, "Contact us form saved successfully!!!");
+                                callback(null, "Contact us form saved successfully!!!");
                             } else {
-                                // callback("Invalid data", null);
+                                callback("Invalid data", null);
                             }
                         });
                     }
                 },
                 function (err, result) {
                     if (err || _.isEmpty(result)) {
-                        callback(err, []);
+                        // callback(err, []);
                     } else {
-                        callback(null, result);
+                        // callback(null, result);
                     }
                 });
         } else {
             async.parallel({
                     forUser: function (callback) {
-                        emailData.filename = "New CAD Request (Admin)";
-                        emailData.subject = "CAD REQUEST";
-                        console.log("email data : ", emailData);
-                        emailData.merge_vars = [{
-                            "name": "USER_NAME",
-                            "content": data1.user.name
-                        }, {
-                            "name": "USER_ID",
-                            "content": data1.user.dataId
-                        }, {
-                            "name": "CAD_ID",
-                            "content": data1.cadId
-                        }, {
-                            "name": "ACREAGE",
-                            "content": data1.acreage
-                        }, {
-                            "name": "REQUESTED_DATE",
-                            "content": data1.createdAt
-                        }];
-
+                        emailData.filename = "Drone Purchase";
+                        emailData.subject = "DRONE PURCHASE";
+                        emailData.email = data.user.email;                        
                         Config.email(emailData, function (err, emailRespo) {
                             console.log("emailRespo", emailRespo);
                             if (err) {
                                 console.log(err);
-                                //callback(err, null);
+                                callback(err, null);
                             } else if (emailRespo) {
-                                //callback(null, "Contact us form saved successfully!!!");
+                                callback(null, "Contact us form saved successfully!!!");
                             } else {
-                                // callback("Invalid data", null);
+                                callback("Invalid data", null);
                             }
                         });
                     },
                     forAdmin: function (callback) {
                         emailData.email = global["env"].adminEmail;
-
-                        emailData.filename = "New CAD Request (Admin)";
-                        emailData.subject = "CAD REQUEST";
-                        console.log("email data : ", emailData);
+                        emailData.filename = "New Drone Purchase (Admin)";
+                        emailData.subject = "DRONE PURCHASE";
                         emailData.merge_vars = [{
                             "name": "USER_NAME",
-                            "content": data1.user.name
+                            "content": data.user.name
                         }, {
                             "name": "USER_ID",
-                            "content": data1.user.dataId
+                            "content": data.user.dataId
                         }, {
-                            "name": "CAD_ID",
-                            "content": data1.cadId
+                            "name": "NAME_DRONE",
+                            "content": data.products.name
                         }, {
-                            "name": "ACREAGE",
-                            "content": data1.acreage
-                        }, {
-                            "name": "REQUESTED_DATE",
-                            "content": data1.createdAt
+                            "name": "PRICE",
+                            "content": data.products.price
                         }];
 
                         Config.email(emailData, function (err, emailRespo) {
                             console.log("emailRespo", emailRespo);
                             if (err) {
                                 console.log(err);
-                                //callback(err, null);
+                                callback(err, null);
                             } else if (emailRespo) {
-                                //callback(null, "Contact us form saved successfully!!!");
+                                callback(null, "Contact us form saved successfully!!!");
                             } else {
-                                // callback("Invalid data", null);
+                                callback("Invalid data", null);
                             }
                         });
                     }
                 },
                 function (err, result) {
                     if (err || _.isEmpty(result)) {
-                        callback(err, []);
+                        // callback(err, []);
                     } else {
-                        callback(null, result);
+                        // callback(null, result);
                     }
                 });
         }

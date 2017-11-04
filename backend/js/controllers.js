@@ -2413,8 +2413,13 @@ firstapp
 
         $scope.uploadCadForAdmin = function (data) {
             data._id = $stateParams.cadId;
+            data.completionDate = new Date();
             NavigationService.apiCallWithData("CadLineWork/save", data, function (data) {
                 if (data.value == true) {
+                    var sendDataForMail={};
+                    sendDataForMail._id=$stateParams.cadId;
+                    NavigationService.apiCallWithData("CadLineWork/sendCadCompletedMail", sendDataForMail, function (data) {
+                    });
                     toastr.success("File uploaded successfully");
                     $state.reload();
                 }
@@ -2458,7 +2463,6 @@ firstapp
 
         $scope.uploadCadForVendor = function (data) {
             data._id = $stateParams.cadId;
-            data.completionDate = new Date();
             NavigationService.apiCallWithData("CadLineWork/save", data, function (data) {
                 if (data.value == true) {
                     toastr.success("File uploaded successfully");
@@ -3202,11 +3206,12 @@ firstapp
         $scope.downloadInvoiceEcommerce = function (data) {
             // window.open(adminurl + 'downloadWithName/' + data, '_self');
             // console.log("data-------", data);
-            if (data) {
-                window.open(adminurl + '../pdf/' + data, '_self');
-            } else {
-                toastr.error("No PDF Found");
-            }
+            window.open('http://files.unifli.aero/' + data, '_self');
+            // if (data) {
+            //     window.open(adminurl + '../pdf/' + data, '_self');
+            // } else {
+            //     toastr.error("No PDF Found");
+            // }
         }
     })
 
