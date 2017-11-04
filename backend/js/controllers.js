@@ -3161,11 +3161,12 @@ console.log("inside submitTicket",data1);
         $scope.downloadInvoiceEcommerce = function (data) {
             // window.open(adminurl + 'downloadWithName/' + data, '_self');
             // console.log("data-------", data);
-            if (data) {
-                window.open(adminurl + '../pdf/' + data, '_self');
-            } else {
-                toastr.error("No PDF Found");
-            }
+            window.open('http://files.unifli.aero/' + data, '_self');
+            // if (data) {
+            //     window.open(adminurl + '../pdf/' + data, '_self');
+            // } else {
+            //     toastr.error("No PDF Found");
+            // }
         }
     })
 
