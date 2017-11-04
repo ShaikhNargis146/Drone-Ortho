@@ -4294,12 +4294,9 @@ WIDGETS
 
     .leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-polygon {
         background-position: -31px -3px;
-    }
-
-    .leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-polygon {
-        background-position: -45px -3px;
-    }
-
+    } // .leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-polygon {
+    //     background-position: -45px -3px;
+    // }
     .leaflet-draw-toolbar .leaflet-draw-draw-circlemarker {
         background-position: -257px -2px;
         .leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-edit.leaflet-disabled {
@@ -4313,18 +4310,14 @@ WIDGETS
 
     .leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-edit.leaflet-disabled {
         background-position: -197px -1px;
-    }
-
-    .leaflet-draw-toolbar .leaflet-draw-edit-edit.leaflet-disabled {
-        background-position: -226px -2px;
-    }
-
-    .leaflet-draw-toolbar .leaflet-draw-edit-remove.leaflet-disabled {
-        background-position: -257px -2px;
-    }
-
+    } // .leaflet-draw-toolbar .leaflet-draw-edit-edit.leaflet-disabled {
+    //     background-position: -226px -2px;
+    // }
+    // .leaflet-draw-toolbar .leaflet-draw-edit-remove.leaflet-disabled {
+    //     background-position: -257px -2px;
+    // }
     .leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-remove.leaflet-disabled {
-        background-position: -228px -2px;
+        background-position: -240px -2px;
     }
 
     .rzslider .rz-pointer {
