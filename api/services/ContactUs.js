@@ -49,7 +49,25 @@ var model = {
                 emailData.filename = "UNIFLI Inquiry";
                 emailData.name = data1.name;
                 emailData.subject = "Inquiry Details";
-                console.log("email data : ", emailData);
+                emailData.merge_vars = [{
+                    "name": "NAME",
+                    "content": data1.name
+                }, {
+                    "name": "EMAIL",
+                    "content": data1.email
+                },{
+                    "name": "PHONE",
+                    "content": data1.phone
+                },{
+                    "name": "COMPANY",
+                    "content": data1.company
+                },{
+                    "name": "DESIGNATION",
+                    "content": data1.designation
+                },{
+                    "name": "DESCRIPTION",
+                    "content": data1.description
+                }];
 
                 Config.email(emailData, function (err, emailRespo) {
                     console.log("emailRespo", emailRespo);

@@ -56,11 +56,10 @@ var controller = {
 		invoiceUserId.invoiceNo = req.query.invoiceNumber;
 		console.log("check invoice id");
 		console.log(invoiceUserId);
-		// ProductOrders.invoiceGenerate(invoiceUserId,function(err,data){
-		// 	console.log(data);
-			res.redirect("http://localhost:8081/thankyou");
-		// })
-		
+		ProductOrders.invoiceGenerate(invoiceUserId,function(err,data){
+			console.log(data);
+		})
+		res.redirect("http://localhost:8081/thankyou");
 	},
 
 	paymentCancel: function (req, res) {

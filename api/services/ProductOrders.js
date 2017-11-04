@@ -102,14 +102,16 @@ var model = {
 
     invoiceGenerate: function (data, callback) {
         console.log(data);
+        var emailData;
         async.waterfall([
                 function (callback) {
                     ProductOrders.findOne({
                         invoiceNo: data.invoiceNo
-                    }).exec(function (err, data) {
+                    }).deepPopulate('user cadLineWork dfmSubscription').exec(function (err, data) {
                         if (err || _.isEmpty(data)) {
                             callback(err, [])
                         } else {
+                            emailData=data;
                             callback(null, data);
                         }
                     })
@@ -143,10 +145,11 @@ var model = {
                             callback(null, "noDataound");
                         } else {
                             callback(null, found);
+                            this.sendMailOnPurchase(emailData)
                         }
 
                     });
-                },
+                }
             ],
             function (err, result) {
                 if (err || _.isEmpty(result)) {
@@ -199,7 +202,6 @@ var model = {
     },
 
     //for user
-
     getProductData: function (data, callback) {
         if (data.count) {
             var maxCount = data.count;
@@ -245,7 +247,6 @@ var model = {
     },
 
     //for user end
-
     invoiceNumberGenerate: function (data, callback) {
         ProductOrders.find({}).sort({
             createdAt: -1
@@ -295,7 +296,6 @@ var model = {
             }
         });
     },
-
 
     //Payment Id Generate start
     paymentIdGenerate: function (data, callback) {
@@ -380,6 +380,242 @@ var model = {
         });
     },
 
+    sendMailOnPurchase:function(data,callback){
+        console.log("data-------------",data);
+        // var emailData = {}
+        // if(data.cadLineWork){
+        //     async.parallel({
+        //        forUser: function (callback) {
+        //             emailData.filename = "CAD Purchase";
+        //             emailData.subject = "CAD REQUEST";
+        //             emailData.email = global["env"].adminEmail;
+        //             console.log("email data : ", emailData);
+        //             emailData.merge_vars = [{
+        //                 "name": "CAD_ID",
+        //                 "content": data.cadId
+        //             },{
+        //                 "name": "AMOUNT",
+        //                 "content": data.cadId
+        //             },{
+        //                 "name": "ACREAGE",
+        //                 "content": data.acreage
+        //             },{
+        //                 "name": "REQUESTED_DATE",
+        //                 "content": data.createdAt
+        //             }];
+            
+        //             Config.email(emailData, function (err, emailRespo) {
+        //                 console.log("emailRespo", emailRespo);
+        //                 if (err) {
+        //                     console.log(err);
+        //                     //callback(err, null);
+        //                 } else if (emailRespo) {
+        //                     //callback(null, "Contact us form saved successfully!!!");
+        //                 } else {
+        //                     // callback("Invalid data", null);
+        //                 }
+        //             });
+        //         },
+        //       forAdmin:  function (callback) {
+        //             emailData.filename = "New CAD Request (Admin)";
+        //             emailData.subject = "CAD REQUEST";
+        //             emailData.email = global["env"].adminEmail;                    
+        //             emailData.merge_vars = [{
+        //                 "name": "USER_NAME",
+        //                 "content": data1.user.name
+        //             }, {
+        //                 "name": "USER_ID",
+        //                 "content": data1.user.dataId
+        //             },{
+        //                 "name": "CAD_ID",
+        //                 "content": data1.cadId
+        //             },{
+        //                 "name": "ACREAGE",
+        //                 "content": data1.acreage
+        //             },{
+        //                 "name": "REQUESTED_DATE",
+        //                 "content": data1.createdAt
+        //             }];
+            
+        //             Config.email(emailData, function (err, emailRespo) {
+        //                 console.log("emailRespo", emailRespo);
+        //                 if (err) {
+        //                     console.log(err);
+        //                     //callback(err, null);
+        //                 } else if (emailRespo) {
+        //                     //callback(null, "Contact us form saved successfully!!!");
+        //                 } else {
+        //                     // callback("Invalid data", null);
+        //                 }
+        //             });
+        //         }
+        //     },
+        //     function (err, result) {
+        //         if (err || _.isEmpty(result)) {
+        //             callback(err, []);
+        //         } else {
+        //             callback(null, result);
+        //         }
+        //     });
+
+        // }else if(data.dfmSubscription){
+        //     async.parallel({
+        //         forUser: function (callback) {
+        //              emailData.filename = "New CAD Request (Admin)";
+        //              emailData.subject = "CAD REQUEST";
+        //              console.log("email data : ", emailData);
+        //              emailData.merge_vars = [{
+        //                  "name": "USER_NAME",
+        //                  "content": data1.user.name
+        //              }, {
+        //                  "name": "USER_ID",
+        //                  "content": data1.user.dataId
+        //              },{
+        //                  "name": "CAD_ID",
+        //                  "content": data1.cadId
+        //              },{
+        //                  "name": "ACREAGE",
+        //                  "content": data1.acreage
+        //              },{
+        //                  "name": "REQUESTED_DATE",
+        //                  "content": data1.createdAt
+        //              }];
+             
+        //              Config.email(emailData, function (err, emailRespo) {
+        //                  console.log("emailRespo", emailRespo);
+        //                  if (err) {
+        //                      console.log(err);
+        //                      //callback(err, null);
+        //                  } else if (emailRespo) {
+        //                      //callback(null, "Contact us form saved successfully!!!");
+        //                  } else {
+        //                      // callback("Invalid data", null);
+        //                  }
+        //              });
+        //          },
+        //        forAdmin:  function (callback) {
+        //              emailData.email = global["env"].adminEmail;
+                     
+        //              emailData.filename = "New CAD Request (Admin)";
+        //              emailData.subject = "CAD REQUEST";
+        //              console.log("email data : ", emailData);
+        //              emailData.merge_vars = [{
+        //                  "name": "USER_NAME",
+        //                  "content": data1.user.name
+        //              }, {
+        //                  "name": "USER_ID",
+        //                  "content": data1.user.dataId
+        //              },{
+        //                  "name": "CAD_ID",
+        //                  "content": data1.cadId
+        //              },{
+        //                  "name": "ACREAGE",
+        //                  "content": data1.acreage
+        //              },{
+        //                  "name": "REQUESTED_DATE",
+        //                  "content": data1.createdAt
+        //              }];
+             
+        //              Config.email(emailData, function (err, emailRespo) {
+        //                  console.log("emailRespo", emailRespo);
+        //                  if (err) {
+        //                      console.log(err);
+        //                      //callback(err, null);
+        //                  } else if (emailRespo) {
+        //                      //callback(null, "Contact us form saved successfully!!!");
+        //                  } else {
+        //                      // callback("Invalid data", null);
+        //                  }
+        //              });
+        //          }
+        //      },
+        //      function (err, result) {
+        //          if (err || _.isEmpty(result)) {
+        //              callback(err, []);
+        //          } else {
+        //              callback(null, result);
+        //          }
+        //      });
+        // }else{
+        //     async.parallel({
+        //         forUser: function (callback) {
+        //              emailData.filename = "New CAD Request (Admin)";
+        //              emailData.subject = "CAD REQUEST";
+        //              console.log("email data : ", emailData);
+        //              emailData.merge_vars = [{
+        //                  "name": "USER_NAME",
+        //                  "content": data1.user.name
+        //              }, {
+        //                  "name": "USER_ID",
+        //                  "content": data1.user.dataId
+        //              },{
+        //                  "name": "CAD_ID",
+        //                  "content": data1.cadId
+        //              },{
+        //                  "name": "ACREAGE",
+        //                  "content": data1.acreage
+        //              },{
+        //                  "name": "REQUESTED_DATE",
+        //                  "content": data1.createdAt
+        //              }];
+             
+        //              Config.email(emailData, function (err, emailRespo) {
+        //                  console.log("emailRespo", emailRespo);
+        //                  if (err) {
+        //                      console.log(err);
+        //                      //callback(err, null);
+        //                  } else if (emailRespo) {
+        //                      //callback(null, "Contact us form saved successfully!!!");
+        //                  } else {
+        //                      // callback("Invalid data", null);
+        //                  }
+        //              });
+        //          },
+        //        forAdmin:  function (callback) {
+        //              emailData.email = global["env"].adminEmail;
+                     
+        //              emailData.filename = "New CAD Request (Admin)";
+        //              emailData.subject = "CAD REQUEST";
+        //              console.log("email data : ", emailData);
+        //              emailData.merge_vars = [{
+        //                  "name": "USER_NAME",
+        //                  "content": data1.user.name
+        //              }, {
+        //                  "name": "USER_ID",
+        //                  "content": data1.user.dataId
+        //              },{
+        //                  "name": "CAD_ID",
+        //                  "content": data1.cadId
+        //              },{
+        //                  "name": "ACREAGE",
+        //                  "content": data1.acreage
+        //              },{
+        //                  "name": "REQUESTED_DATE",
+        //                  "content": data1.createdAt
+        //              }];
+             
+        //              Config.email(emailData, function (err, emailRespo) {
+        //                  console.log("emailRespo", emailRespo);
+        //                  if (err) {
+        //                      console.log(err);
+        //                      //callback(err, null);
+        //                  } else if (emailRespo) {
+        //                      //callback(null, "Contact us form saved successfully!!!");
+        //                  } else {
+        //                      // callback("Invalid data", null);
+        //                  }
+        //              });
+        //          }
+        //      },
+        //      function (err, result) {
+        //          if (err || _.isEmpty(result)) {
+        //              callback(err, []);
+        //          } else {
+        //              callback(null, result);
+        //          }
+        //      });
+        // }
+    }
 
 };
 module.exports = _.assign(module.exports, exports, model);

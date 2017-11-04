@@ -568,22 +568,36 @@ var model = {
     //email function
 
     sendMissionRequestMail: function (data, callback) {
-        console.log("data------------insideSendmailFunc", data);
-        User.findOne({
-            _id: data.user
-        }).exec(function (err, data1) {
+        Mission.findOne({
+            user: data.user
+        }).deepPopulate('user').select('missionId name createdAt user').exec(function (err, data1) {
             console.log("data1", data1, err);
             if (err) {
                 callback(err, null);
             } else if (data1) {
-                console.log("data", data1);
+                // console.log("adminEmail", global["env"].adminEmail);
                 var emailData = {}
-                emailData.email = data1.email;
-                // emailData.mobile = data1.mobile;
+                emailData.email = global["env"].adminEmail;
                 emailData.filename = "New Mission Request (Admin)";
                 emailData.name = data1.name;
-                emailData.subject = "Request Mission";
+                emailData.subject = "NEW MISSION REQUEST";
                 console.log("email data : ", emailData);
+                emailData.merge_vars = [{
+                    "name": "USER_NAME",
+                    "content": data1.user.name
+                }, {
+                    "name": "USER_ID",
+                    "content": data1.user.dataId
+                },{
+                    "name": "MISSION_ID",
+                    "content": data1.missionId
+                },{
+                    "name": "MISSION_NAME",
+                    "content": data1.name
+                },{
+                    "name": "DATE_OF_CREATION",
+                    "content": data1.createdAt
+                }];
 
                 Config.email(emailData, function (err, emailRespo) {
                     console.log("emailRespo", emailRespo);
@@ -596,9 +610,64 @@ var model = {
                         // callback("Invalid data", null);
                     }
                 });
-
             } else {
-                //callback("Invalid data", null);
+                callback("Invalid data", null);
+            }
+        });
+    },
+
+    sendMissionStartMail: function (data, callback) {
+        Mission.findOne({
+            user: data.user
+        }).deepPopulate('user').select('user').exec(function (err, data1) {
+            if (err) {
+                callback(err, null);
+            } else if (data1) {
+                var emailData = {}
+                emailData.email = data1.user.email;
+                emailData.filename = "Mission Started";
+                emailData.subject = "MISSION STARTED";
+                Config.email(emailData, function (err, emailRespo) {
+                    console.log("emailRespo", emailRespo);
+                    if (err) {
+                        console.log(err);
+                        //callback(err, null);
+                    } else if (emailRespo) {
+                        //callback(null, "Contact us form saved successfully!!!");
+                    } else {
+                        // callback("Invalid data", null);
+                    }
+                });
+            } else {
+                callback("Invalid data", null);
+            }
+        });
+    },
+
+    sendMissionCompletedMail: function (data, callback) {
+        Mission.findOne({
+            user: data.user
+        }).deepPopulate('user').select('user').exec(function (err, data1) {
+            if (err) {
+                callback(err, null);
+            } else if (data1) {
+                var emailData = {}
+                emailData.email = data1.user.email;
+                emailData.filename = "Mission Completed";
+                emailData.subject = "MISSION COMPLETED";
+                Config.email(emailData, function (err, emailRespo) {
+                    console.log("emailRespo", emailRespo);
+                    if (err) {
+                        console.log(err);
+                        //callback(err, null);
+                    } else if (emailRespo) {
+                        //callback(null, "Contact us form saved successfully!!!");
+                    } else {
+                        // callback("Invalid data", null);
+                    }
+                });
+            } else {
+                callback("Invalid data", null);
             }
         });
     }
