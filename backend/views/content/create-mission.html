@@ -1,44 +1,45 @@
 <div class="page-container " ng-if="accessLevel=='User'">
     <!-- Start page content wrapper -->
     <div class="page-content-wrapper animated fadeInRight  ">
-        <div class="page-content">
-            <div class="row wrapper border-bottom page-heading">
-                <div class="col-lg-12">
-                    <h2>Create Mission</h2>
-                    <ol class="breadcrumb">
-                        <li> <a href="#/dashboard1">Home</a> </li>
-                        <li> <a>Create Mission</a> </li>
-                        <li class="active"> <strong>Create Mission</strong> </li>
-                    </ol>
+        <form name="missionForm">
+            <div class="page-content">
+                <div class="row wrapper border-bottom page-heading">
+                    <div class="col-lg-12">
+                        <h2>Create Mission</h2>
+                        <ol class="breadcrumb">
+                            <li> <a href="#/dashboard1">Home</a> </li>
+                            <li> <a>Create Mission</a> </li>
+                            <li class="active"> <strong>Create Mission</strong> </li>
+                        </ol>
+                    </div>
+                    <div class="col-lg-12"> </div>
                 </div>
-                <div class="col-lg-12"> </div>
-            </div>
-            <div class="wrapper-content ">
-                <div class="row col-md-12">
-                    <!--<div class="row col-md-5"></div>-->
-                    <div class="row col-md-3">
-                        <div class="form-group" id="data_4">
-                            <label class="font-noraml">Mission Name</label>
-                            <div class="input-group ">
-                                <!--<input type="text" class="form-control" ng-model="mission.name" disallow-spaces>-->
-                                <input type="text" class="form-control" ng-model="mission.name" view="sampleDate" auto-close="true" required>
-                                <span class="input-group-addon"><i class="fa fa-cube"></i></span>
+                <div class="wrapper-content ">
+                    <div class="row col-md-12">
+                        <!--<div class="row col-md-5"></div>-->
+                        <div class="row col-md-3">
+                            <div class="form-group" id="data_4">
+                                <label class="font-noraml">Mission Name</label>
+                                <div class="input-group ">
+                                    <!--<input type="text" class="form-control" ng-model="mission.name" disallow-spaces>-->
+                                    <input type="text" class="form-control" ng-model="mission.name" view="sampleDate" auto-close="true" required>
+                                    <span class="input-group-addon"><i class="fa fa-cube"></i></span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row col-md-12">
-                    <!--<div class="row col-md-5"></div>-->
-                    <div class="row col-md-3">
-                        <div class="form-group" id="data_4">
-                            <label class="font-noraml">Select date</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" value="{{date | date:'yyyy-MM-dd'}}" required>
+                    <div class="row col-md-12">
+                        <!--<div class="row col-md-5"></div>-->
+                        <div class="row col-md-3">
+                            <div class="form-group" id="data_4">
+                                <label class="font-noraml">Select date</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" value="{{date | date:'yyyy-MM-dd'}}" required>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- <div class="row col-md-12">
+                    <!-- <div class="row col-md-12">
 		  <div class="row col-md-5"></div>
 		  <div class="row col-md-3">
 			<div class="form-group" id="data_4">
@@ -51,20 +52,20 @@
 			</div>
 		  </div>
 		 </div>-->
-                <div class="col-md-12">
-                    <label class="font-noraml">Upload File</label>
-                    <tr>
-                        <!--<td><input class="form-control" type="file" name="" id="">
+                    <div class="col-md-12">
+                        <label class="font-noraml">Upload File</label>
+                        <tr>
+                            <!--<td><input class="form-control" type="file" name="" id="">
                                 </td>-->
-                        <td>
-                            <upload-image-files ng-model="mission.files" multiple="true" ng-disabled="type.disabled"></upload-image-files>
-                        </td>
-                        <!--<td><button type="button" ui-sref="" class="btn grseen btn-outline btn-md">Upload</button></td>-->
-                    </tr>
+                            <td>
+                                <upload-image-files ng-model="mission.files" multiple="true" ng-disabled="type.disabled" required></upload-image-files>
+                            </td>
+                            <!--<td><button type="button" ui-sref="" class="btn grseen btn-outline btn-md">Upload</button></td>-->
+                        </tr>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-12" style="margin-bottom: 40px">
-                <!--<h3>Upload queue</h3>
+                <div class="col-md-12" style="margin-bottom: 40px">
+                    <!--<h3>Upload queue</h3>
                 <p>Queue length: {{ uploader.queue.length }}</p>
                 <table class="table">
                     <thead>
@@ -104,33 +105,33 @@
                         </tr>
                     </tbody>
                 </table>-->
-                <div>
-                    <!--<div>
+                    <div>
+                        <!--<div>
                         Queue progress:
                         <hr>
                         <div class="progress" style="">
                             <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                         </div>
                     </div>-->
-                    <div class="form-group">
-                        <div class="form-check">
-                            <div class="i-checks">
-                                <div>
-                                    <input type="checkbox" ng-model="mission.selected"> Start processing automatically after
-                                    all images are uploaded </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <div class="i-checks">
+                                    <div>
+                                        <input type="checkbox" ng-model="mission.selected"> Start processing automatically
+                                        after all images are uploaded </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <button type="button" class="btn green btn-sm" ng-click="saveMission(mission)"><span class="glyphicon glyphicon-upload"   ></span> Start Processing...</button>
-                    <!--  <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+                        <button type="button" class="btn green btn-sm" ng-disabled="missionForm.$invalid" ng-click="saveMission(mission)"><span class="glyphicon glyphicon-upload"   ></span> Start Processing...</button>
+                        <!--  <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
                             <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
                         </button>
                                                     <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
                             <span class="glyphicon glyphicon-trash"></span> Remove all
                         </button>-->
+                    </div>
                 </div>
-            </div>
-            <!-- <div class="row col-md-12">
+                <!-- <div class="row col-md-12">
 		 </br>
 		 </br>
 		  <div class="row col-md-3"></div>
@@ -140,7 +141,8 @@
 			</div>
 		  </div>
 		 </div>-->
-        </div>
+            </div>
+        </form>
     </div>
     <div class="loading-img">
         <img src="img/loading.gif" class="img-responsive">
