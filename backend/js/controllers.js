@@ -1553,10 +1553,12 @@ firstapp
                     formdata.cadLineWork = data.data._id;
                     formdata.user = $scope.profileDetails._id;
                     formdata.totalAmount = $scope.cadLineDetails.amount;
-                    NavigationService.apiCall("ProductOrders/save", formdata, function (data) {
+                    NavigationService.apiCall("ProductOrders/createInvoice", formdata, function (data) {
                         if (data.value === true) {
                             $scope.productOrder = data.data;
-                            $state.go("cadfile-request")
+                           var invoiceNumber = data.data.invoiceNo;
+
+                            window.location.href = adminurl + "ProductOrders/acceptPaymentPage?amount=" + $scope.cadLineDetails.amount+ "&invoiceNumber=" + invoiceNumber;
                         } else {
                             //  toastr.warning('Error submitting the form', 'Please try again');
                         }
@@ -1735,7 +1737,7 @@ firstapp
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
         $scope.submitTicket = function (data1) {
-console.log("inside submitTicket",data1);
+            console.log("inside submitTicket", data1);
             $scope.data = {
                 status: "active",
             }
@@ -1913,7 +1915,7 @@ console.log("inside submitTicket",data1);
         $scope.mission = {};
         $scope.mission.selected = true
         $scope.saveMission = function (missiondata) {
-            console.log("inisde mission ctrl",missiondata);
+            console.log("inisde mission ctrl", missiondata);
             missiondata.user = userId;
             NavigationService.apiCall("Mission/createMission", missiondata, function (data) {
                 $("#modal-4").modal();
@@ -2434,14 +2436,27 @@ console.log("inside submitTicket",data1);
         NavigationService.apiCallWithData("CadLineWork/getSingleCadData", cad, function (data) {
             if (data.value == true) {
                 $scope.cadForVendorData = data.data;
+                console.log("$scope.cadForVendorData.vendorCharges", $scope.cadForVendorData.vendorCharges)
+                if ($scope.cadForVendorData.vendorCharges == undefined) {
+                    console.log("inside if")
+
+                    $scope.hidebutton = false;
+
+                } else {
+                    console.log("inside else")
+                    $scope.hidebutton = true;
+                }
             }
         });
 
 
         $scope.vendorPriceSet = function (data) {
+            $scope.hidebutton = true;
+            console.log("inside vendorPriceSet", data)
             data._id = $stateParams.cadId;
             data.vendorPaymentStatus = 'Unpaid';
             NavigationService.apiCallWithData("CadLineWork/saveVendorDetails", data, function (data) {
+                console.log("after vendorPriceSet api", data);
                 if (data.value == true) {
                     toastr.success("Amount set");
                     $state.reload();
@@ -3046,18 +3061,48 @@ console.log("inside submitTicket",data1);
 
                 console.log("data-------", data);
                 if (data.accessLevel == 'User') {
-                    data.status = 'Active';
-                    NavigationService.apiCallWithData("User/createUser", data, function (data) {
-                        if (data.value == true) {
-                            $scope.product = data;
-                            $state.reload();
+                    $scope.dmfData = {
+                        name: "TRIAL",
+                        invitations: "0",
+                        missions: "3",
+                        UploadPhoto: "200",
+                        UploadSize: "1GB",
+                        Mosaic: "12cm",
+                        exportKMZ: "15",
+                        exportOrthophoto: "USAGE LIMIT",
+                        exportDEM: "USAGE LIMIT",
+                        exportPointCloud: "false",
+                        status: "Active",
+                        amount: "0",
+                        expiryDate: $scope.dt,
+                    }
+                    console.log("inside test unction dfm data is", $scope.dmfData);
+                    NavigationService.apiCallWithData("DFMSubscription/save", $scope.dmfData, function (dfm) {
+                        console.log("after dfm data is called", dfm);
+                        $scope.dfmId = dfm.data._id;
+                        if (dfm.value == true) {
+                            data.status = 'Active';
+                            data.currentSubscription = $scope.dfmId;
+                            console.log("dota going to be save is or user", data);
+                            NavigationService.apiCallWithData("User/createUser", data, function (data) {
+                                if (data.value == true) {
+                                    $scope.product = data;
+                                    $state.reload();
+                                } else {
+                                    $scope.showerr = "";
+                                    $scope.showerr = true;
+                                    // toastr.warning('Error submitting the form', 'Please try again');
+
+                                }
+                            });
                         } else {
-                            $scope.showerr = "";
-                            $scope.showerr = true;
-                            // toastr.warning('Error submitting the form', 'Please try again');
+                            toastr.warning('try agin');
 
                         }
-                    });
+
+
+                    })
+
                 } else {
                     data.status = 'Active';
                     NavigationService.apiCallWithData("User/createVendor", data, function (data) {

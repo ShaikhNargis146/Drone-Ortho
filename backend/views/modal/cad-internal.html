@@ -8,11 +8,11 @@
         <h4 class="modal-title" style="color:#fff">Internal CAD Request</h4>
     </div>
     <div class="modal-body">
-        <form class="form-horizontal">
+        <form class="form-horizontal" name="cad1">
             <div class="form-group">
                 <label class="control-label col-sm-4" for="pwd">Select Mission</label>
                 <div class="col-sm-6">
-                    <select class="form-control" ng-model="formData.missionId">
+                    <select class="form-control" ng-model="formData.missionId" required>
 								<option value="">SELECT</option>
 								<option  ng-repeat="mission in misssonInfo" value="{{mission._id}}">{{mission.name}}</option>
                     </select>
@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-4 col-sm-4">
-                    <a class="btn green btn-outline pull-right" ui-sref="mission-details({'missionId':formData.missionId})">SUBMIT</a>
+                    <a class="btn green btn-outline pull-right" ng-disabled="cad1.$invalid" ui-sref="mission-details({'missionId':formData.missionId})">SUBMIT</a>
                 </div>
             </div>
         </form>
