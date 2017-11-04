@@ -56,23 +56,57 @@ var controller = {
 		invoiceUserId.invoiceNo = req.query.invoiceNumber;
 		console.log("check invoice id");
 		console.log(invoiceUserId);
-		ProductOrders.invoiceGenerate(invoiceUserId,function(err,data){
+		ProductOrders.invoiceGenerate(invoiceUserId, function (err, data) {
 			console.log(data);
 		})
-		res.redirect("http://localhost:8081/thankyou");
+		res.redirect("http://unifli.aero/thankyou");
+		ProductOrders.findOne({
+			invoiceNo: req.query.invoiceNumber
+		}).lean().exec(function (err, found) {
+			if (err || _.isEmpty(found)) {} else {
+				if (found.dfmSubscription) {
+					console.log("user", found.user);
+					User.findOneAndUpdate({
+						_id: found.user
+					}, {
+						currentSubscription: found.dfmSubscription
+					}).exec(function (err, found) {
+						if (err) {
+							console.log("err1")
+						} else if (_.isEmpty(found)) {
+							console.log("err2")
+						} else {
+							console.log("err3")
+						}
+
+					})
+					found.status = "Paid";
+					ProductOrders.saveData(found, function (err, data) {
+						if (err) {
+							console.log("error occured while updating payment status");
+						} else {
+							console.log("saved successfully");
+						}
+
+					})
+				}
+
+			}
+
+		});
 	},
 
 	paymentCancel: function (req, res) {
-		res.redirect("http://localhost:8081/sorry");
+		res.redirect("http://unifli.aero/sorry");
 	},
 
-	acceptPaymentPage: function(req, res) {
+	acceptPaymentPage: function (req, res) {
 		console.log(req.query);
-		if(req.query.amount && req.query.invoiceNumber){
+		if (req.query.amount && req.query.invoiceNumber) {
 			var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
 			merchantAuthenticationType.setName(constants.apiLoginKey);
 			merchantAuthenticationType.setTransactionKey(constants.transactionKey);
-		
+
 			var transactionRequestType = new ApiContracts.TransactionRequestType();
 			transactionRequestType.setTransactionType(ApiContracts.TransactionTypeEnum.AUTHCAPTURETRANSACTION);
 			transactionRequestType.setAmount(req.query.amount);
@@ -80,64 +114,62 @@ var controller = {
 			var transactionOrderType = new ApiContracts.OrderType();
 			transactionOrderType.setInvoiceNumber(req.query.invoiceNumber);
 			transactionRequestType.setOrder(transactionOrderType);
-			
-			
+
+
 			var setting1 = new ApiContracts.SettingType();
 			setting1.setSettingName('hostedPaymentButtonOptions');
 			setting1.setSettingValue('{\"text\": \"Pay\"}');
-		
+
 			var setting2 = new ApiContracts.SettingType();
 			setting2.setSettingName('hostedPaymentOrderOptions');
 			setting2.setSettingValue('{\"show\": true}');
-	
+
 			var setting3 = new ApiContracts.SettingType();
 			setting3.setSettingName('hostedPaymentBillingAddressOptions');
 			setting3.setSettingValue('{\"show\": false}');
-	
+
 			var setting4 = new ApiContracts.SettingType();
 			setting4.setSettingName('hostedPaymentReturnOptions');
 			var settingValue = {
-				'showReceipt':false,
-				'url':'http://localhost:1337/api/ProductOrders/paymentReturn?invoiceNumber='+req.query.invoiceNumber,
-				'urlText':'Continue',
-				'cancelUrl':'http://localhost:1337/api/ProductOrders/paymentCancel',
-				'cancelUrlText':'Cancel'
+				'showReceipt': false,
+				'url': 'http://cloud.unifli.aero/api/ProductOrders/paymentReturn?invoiceNumber=' + req.query.invoiceNumber,
+				'urlText': 'Continue',
+				'cancelUrl': 'http://cloud.unifli.aero/api/ProductOrders/paymentCancel',
+				'cancelUrlText': 'Cancel'
 			};
 			setting4.setSettingValue(JSON.stringify(settingValue));
-		
+
 			var settingList = [];
 			settingList.push(setting1);
 			settingList.push(setting2);
 			settingList.push(setting3);
 			settingList.push(setting4);
-			
-		
+
+
 			var alist = new ApiContracts.ArrayOfSetting();
 			alist.setSetting(settingList);
-		
+
 			var getRequest = new ApiContracts.GetHostedPaymentPageRequest();
 			getRequest.setMerchantAuthentication(merchantAuthenticationType);
 			getRequest.setTransactionRequest(transactionRequestType);
 			getRequest.setHostedPaymentSettings(alist);
-		
+
 			//console.log(JSON.stringify(getRequest.getJSON(), null, 2));
-				
+
 			var ctrl = new ApiControllers.GetHostedPaymentPageController(getRequest.getJSON());
-			ctrl.setEnvironment(SDKConstants.endpoint.production);		
-		
-			ctrl.execute(function(){
-		
+			ctrl.setEnvironment(SDKConstants.endpoint.production);
+
+			ctrl.execute(function () {
+
 				var apiResponse = ctrl.getResponse();
-		
+
 				var response = new ApiContracts.GetHostedPaymentPageResponse(apiResponse);
-		
+
 				//pretty print response
 				//console.log(JSON.stringify(response, null, 2));
-		
-				if(response != null) 
-				{
-					if(response.getMessages().getResultCode() == ApiContracts.MessageTypeEnum.OK)
-					{
+
+				if (response != null) {
+					if (response.getMessages().getResultCode() == ApiContracts.MessageTypeEnum.OK) {
 						console.log('Hosted payment page token :');
 						console.log('Error message: ' + response.getMessages().getMessage()[0].getText());
 						var formData = {
@@ -147,29 +179,25 @@ var controller = {
 						// 	value: true,
 						// 	data: response,
 						// });
-						res.view("pay_form",formData);
-	
-					}
-					else
-					{
+						res.view("pay_form", formData);
+
+					} else {
 						res.redirect("http://localhost:8081/sorry");
-						
+
 						console.log('Error Code: ' + response.getMessages().getMessage()[0].getCode());
 						console.log('Error message: ' + response.getMessages().getMessage()[0].getText());
 					}
-				}
-				else
-				{
+				} else {
 					res.redirect("http://localhost:8081/sorry")
-					
+
 				}
-		
-				
+
+
 			});
-		}else{
-			res.redirect("http://localhost:8081/sorry");
+		} else {
+			res.redirect("http://unifli.aero/sorry");
 		}
-		
+
 	},
 
 	chargeCreditCard: function (req, res) {
