@@ -935,58 +935,9 @@ var model = {
 
     //emailers
 
-    sendCadRequestMail: function (data, callback) {
-        console.log("data------------insideSendmailFunc", data);
-        CadLineWork.findOne({
-            user: data.user
-        }).deepPopulate('user').select('user dataId cadId acreage createdAt').exec(function (err, data1) {
-            console.log("data1", data1, err);
-            if (err) {
-                callback(err, null);
-            } else if (data1) {
-                console.log("data", data1);
-                var emailData = {}
-                emailData.email = global["env"].adminEmail;
-                emailData.filename = "New CAD Request (Admin)";
-                emailData.subject = "CAD REQUEST";
-                console.log("email data : ", emailData);
-                emailData.merge_vars = [{
-                    "name": "USER_NAME",
-                    "content": data1.user.name
-                }, {
-                    "name": "USER_ID",
-                    "content": data1.user.dataId
-                },{
-                    "name": "CAD_ID",
-                    "content": data1.cadId
-                },{
-                    "name": "ACREAGE",
-                    "content": data1.acreage
-                },{
-                    "name": "REQUESTED_DATE",
-                    "content": data1.createdAt
-                }];
-
-                Config.email(emailData, function (err, emailRespo) {
-                    console.log("emailRespo", emailRespo);
-                    if (err) {
-                        console.log(err);
-                        //callback(err, null);
-                    } else if (emailRespo) {
-                        //callback(null, "Contact us form saved successfully!!!");
-                    } else {
-                        // callback("Invalid data", null);
-                    }
-                });
-            } else {
-                //callback("Invalid data", null);
-            }
-        });
-    },
-
     sendCadCompletedMail: function (data, callback) {
         CadLineWork.findOne({
-            user: data.user
+            _id: data._id
         }).deepPopulate('user').select('user').exec(function (err, data1) {
             if (err) {
                 callback(err, null);
