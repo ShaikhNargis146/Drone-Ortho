@@ -146,7 +146,7 @@ var models = {
                 });
 
                 var options = {
-                    "phantomPath": "node_modules/phantomjs/bin/phantomjs",
+                    "phantomPath": "C:/Windows/System32/phantomjs",
                     "format": "A4",
                     // Export options 
                     "directory": "/tmp",
@@ -174,9 +174,9 @@ var models = {
                 //     "phantomPath": "node_modules/phantomjs/bin/phantomjs",
                 //     "format": "A4"
                 // };
-
                 pdf.create(html, options).toStream(function (err, stream) {
                     if (err) {
+                        console.log("err", err)
                         callback(err);
                     } else {
                         green("IN PDF CREATE");
