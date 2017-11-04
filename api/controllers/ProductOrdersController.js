@@ -59,11 +59,17 @@ var controller = {
 		ProductOrders.invoiceGenerate(invoiceUserId, function (err, data) {
 			console.log(data);
 		})
-		res.redirect("http://unifli.aero/thankyou");
+
 		ProductOrders.findOne({
 			invoiceNo: req.query.invoiceNumber
 		}).lean().exec(function (err, found) {
 			if (err || _.isEmpty(found)) {} else {
+				if (found.cadLineWork) {
+					res.redirect("http://cloud.unifli.aero/#!/cadfile-request");
+				} else {
+					res.redirect("http://unifli.aero/thankyou");
+				}
+
 				if (found.dfmSubscription) {
 					console.log("user", found.user);
 					User.findOneAndUpdate({
@@ -90,6 +96,7 @@ var controller = {
 
 					})
 				}
+
 
 			}
 

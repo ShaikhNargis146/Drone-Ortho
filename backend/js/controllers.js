@@ -1556,9 +1556,9 @@ firstapp
                     NavigationService.apiCall("ProductOrders/createInvoice", formdata, function (data) {
                         if (data.value === true) {
                             $scope.productOrder = data.data;
-                           var invoiceNumber = data.data.invoiceNo;
+                            var invoiceNumber = data.data.invoiceNo;
 
-                            window.location.href = adminurl + "ProductOrders/acceptPaymentPage?amount=" + $scope.cadLineDetails.amount+ "&invoiceNumber=" + invoiceNumber;
+                            window.location.href = adminurl + "ProductOrders/acceptPaymentPage?amount=" + $scope.cadLineDetails.amount + "&invoiceNumber=" + invoiceNumber;
                         } else {
                             //  toastr.warning('Error submitting the form', 'Please try again');
                         }
@@ -1567,36 +1567,36 @@ firstapp
                     //  toastr.warning('Error submitting the form', 'Please try again');
                 }
             });
-            cardDetails = $uibModal.open({
-                animation: true,
-                templateUrl: 'views/modal/card-detail.html',
-                scope: $scope,
-                size: 'sm',
+            // cardDetails = $uibModal.open({
+            //     animation: true,
+            //     templateUrl: 'views/modal/card-detail.html',
+            //     scope: $scope,
+            //     size: 'sm',
 
-            });
+            // });
         };
-        $scope.cadpayment = function (data) {
-            var formdata = {};
-            formdata = data;
-            formdata.expirationDate = "0819"
-            formdata.amount = $scope.productOrder.totalAmount;
-            formdata.productOrder = $scope.productOrder._id;
-            NavigationService.apiCall("ProductOrders/chargeCreditCard", formdata, function (data) {
-                if (data.data.resultCode === "Ok") {
-                    cardDetails.close();
-                    $scope.productOrder.status = "Paid";
-                    NavigationService.apiCall("ProductOrders/save", $scope.productOrder, function (data) {
-                        if (data.value === true) {
-                            $state.go("cadfile-request");
-                        } else {
-                            //  toastr.warning('Error submitting the form', 'Please try again');
-                        }
-                    });
-                } else {
-                    //  toastr.warning('Error submitting the form', 'Please try again');
-                }
-            });
-        }
+        // $scope.cadpayment = function (data) {
+        //     var formdata = {};
+        //     formdata = data;
+        //     formdata.expirationDate = "0819"
+        //     formdata.amount = $scope.productOrder.totalAmount;
+        //     formdata.productOrder = $scope.productOrder._id;
+        //     NavigationService.apiCall("ProductOrders/chargeCreditCard", formdata, function (data) {
+        //         if (data.data.resultCode === "Ok") {
+        //             cardDetails.close();
+        //             $scope.productOrder.status = "Paid";
+        //             NavigationService.apiCall("ProductOrders/save", $scope.productOrder, function (data) {
+        //                 if (data.value === true) {
+        //                     $state.go("cadfile-request");
+        //                 } else {
+        //                     //  toastr.warning('Error submitting the form', 'Please try again');
+        //                 }
+        //             });
+        //         } else {
+        //             //  toastr.warning('Error submitting the form', 'Please try again');
+        //         }
+        //     });
+        // }
         //slider 
         // var slider = document.getElementById('slider');
         // var sliderValue = document.getElementById('slider-value');
@@ -1838,7 +1838,7 @@ firstapp
                     function (data, ini) {
                         if (ini == i) {
                             $scope.productData = data.data.results;
-                            console.log("$scope.productData",$scope.productData);
+                            console.log("$scope.productData", $scope.productData);
                             $scope.totalItems = data.data.total;
                             $scope.maxRow = data.data.options.count;
                         }
@@ -1854,7 +1854,7 @@ firstapp
                     function (data, ini) {
                         if (ini == i) {
                             $scope.productData = data.data.results;
-                            console.log("$scope.productData",$scope.productData);                            
+                            console.log("$scope.productData", $scope.productData);
                             $scope.totalItems = data.data.total;
                             $scope.maxRow = data.data.options.count;
                         }
@@ -1871,7 +1871,7 @@ firstapp
             // window.open(adminurl + 'upload/readFileFromFolder?name=' + data, '_self');
             // console.log("data", data);
             // if (data) {
-                console.log("data",data);
+            console.log("data", data);
             window.open('http://files.unifli.aero/' + data, '_self');
             // } else {
             //     toastr.error("No PDF Found");
@@ -2335,9 +2335,12 @@ firstapp
                     formdata.cadLineWork = data.data._id;
                     formdata.user = $scope.profileDetails._id;
                     formdata.totalAmount = $scope.cadLineDetails.amount;
-                    NavigationService.apiCall("ProductOrders/save", formdata, function (data) {
+                    NavigationService.apiCall("ProductOrders/createInvoice", formdata, function (data) {
                         if (data.value === true) {
                             $scope.productOrder = data.data;
+                            var invoiceNumber = data.data.invoiceNo;
+
+                            window.location.href = adminurl + "ProductOrders/acceptPaymentPage?amount=" + $scope.cadLineDetails.amount + "&invoiceNumber=" + invoiceNumber;
 
                         } else {
                             //  toastr.warning('Error submitting the form', 'Please try again');
@@ -2347,13 +2350,13 @@ firstapp
                     //  toastr.warning('Error submitting the form', 'Please try again');
                 }
             });
-            var cardDetails = $uibModal.open({
-                animation: true,
-                templateUrl: 'views/modal/card-detail.html',
-                scope: $scope,
-                size: 'sm',
+            // var cardDetails = $uibModal.open({
+            //     animation: true,
+            //     templateUrl: 'views/modal/card-detail.html',
+            //     scope: $scope,
+            //     size: 'sm',
 
-            });
+            // });
         };
 
         $scope.cadpayment = function (data) {
@@ -2419,10 +2422,9 @@ firstapp
             data.completionDate = new Date();
             NavigationService.apiCallWithData("CadLineWork/save", data, function (data) {
                 if (data.value == true) {
-                    var sendDataForMail={};
-                    sendDataForMail._id=$stateParams.cadId;
-                    NavigationService.apiCallWithData("CadLineWork/sendCadCompletedMail", sendDataForMail, function (data) {
-                    });
+                    var sendDataForMail = {};
+                    sendDataForMail._id = $stateParams.cadId;
+                    NavigationService.apiCallWithData("CadLineWork/sendCadCompletedMail", sendDataForMail, function (data) {});
                     toastr.success("File uploaded successfully");
                     $state.reload();
                 }
@@ -3209,7 +3211,7 @@ firstapp
         $scope.downloadInvoiceEcommerce = function (data) {
             // window.open(adminurl + 'downloadWithName/' + data, '_self');
             // console.log("data-------", data);
-            console.log("data",data);
+            console.log("data", data);
             window.open('http://files.unifli.aero/' + data, '_self');
             // if (data) {
             //     window.open(adminurl + '../pdf/' + data, '_self');
