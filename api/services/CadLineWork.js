@@ -169,7 +169,6 @@ var model = {
                     if (err || _.isEmpty(found)) {
                         callback(err, []);
                     } else {
-                        CadLineWork.sendCadRequestMail(data, callback);
                         callback(null, found);
                     }
                 });

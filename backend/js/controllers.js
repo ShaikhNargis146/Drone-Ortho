@@ -1836,6 +1836,7 @@ console.log("inside submitTicket",data1);
                     function (data, ini) {
                         if (ini == i) {
                             $scope.productData = data.data.results;
+                            console.log("$scope.productData",$scope.productData);
                             $scope.totalItems = data.data.total;
                             $scope.maxRow = data.data.options.count;
                         }
@@ -1851,6 +1852,7 @@ console.log("inside submitTicket",data1);
                     function (data, ini) {
                         if (ini == i) {
                             $scope.productData = data.data.results;
+                            console.log("$scope.productData",$scope.productData);                            
                             $scope.totalItems = data.data.total;
                             $scope.maxRow = data.data.options.count;
                         }
@@ -1867,6 +1869,7 @@ console.log("inside submitTicket",data1);
             // window.open(adminurl + 'upload/readFileFromFolder?name=' + data, '_self');
             // console.log("data", data);
             // if (data) {
+                console.log("data",data);
             window.open('http://files.unifli.aero/' + data, '_self');
             // } else {
             //     toastr.error("No PDF Found");
@@ -3161,6 +3164,7 @@ console.log("inside submitTicket",data1);
         $scope.downloadInvoiceEcommerce = function (data) {
             // window.open(adminurl + 'downloadWithName/' + data, '_self');
             // console.log("data-------", data);
+            console.log("data",data);
             window.open('http://files.unifli.aero/' + data, '_self');
             // if (data) {
             //     window.open(adminurl + '../pdf/' + data, '_self');
