@@ -1,13 +1,16 @@
-<div class="modal-content">
-    <div class="modal-header " style="background-color:#36918b ">
-        <h4 class="modal-title " style="color:#fff ">Upload-File</h4>
+<form name="cad">
+    <div class="modal-content">
+        <div class="modal-header " style="background-color:#36918b ">
+            <h4 class="modal-title " style="color:#fff ">Upload-File</h4>
+        </div>
+
+        <div class="modal-body ">
+            <upload-image ng-model="fileData1.cadFileFromVendor" class="upload-image" multiple="true" no-view name="up" required>
+            </upload-image>
+            <button class="btn green btn-outline" ng-disabled="cad.$invalid" ng-click="uploadCadForVendor(fileData1)">Submit</button>
+        </div>
+        <div class="modal-footer ">
+            <button type="button " class="btn btn-default " ng-click="$dismiss()">Close</button>
+        </div>
     </div>
-    <div class="modal-body ">
-        <upload-image ng-model="fileData1.cadFileFromVendor" class="upload-image" multiple="true" no-view>
-        </upload-image>
-        <button class="btn green btn-outline" ng-click="uploadCadForVendor(fileData1)">Submit</button>
-    </div>
-    <div class="modal-footer ">
-        <button type="button " class="btn btn-default " ng-click="$dismiss()">Close</button>
-    </div>
-</div>
+</form>

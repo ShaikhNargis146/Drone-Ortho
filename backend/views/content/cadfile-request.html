@@ -149,71 +149,71 @@
       </div>
     </div>
   </div>-->
-  <form name="cadfile">
-    <div class="modal fade modal-x modal-z" tabindex="-1" role="dialog">
-      <div class="modal-dialog ">
-        <div class="modal-content">
-          <div class="modal-header" style="background-color:#36918b">
-            <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color:#fff">×</span></button>-->
-            <h4 class="modal-title" style="color:#fff">External CAD Request</h4>
-          </div>
-          <div class="modal-body">
-            <form class="form-horizontal">
-              <div class="form-group" style="padding-bottom:20px font-size:12px">
-                <p class="col-md-12" for="email"><strong>If you have an Orthomosaic created elsewhere and not with us, and you wish to request a CAD file of it, you will have to first upload it here for us to process your request.</strong></p>
+
+  <div class="modal fade modal-x modal-z" tabindex="-1" role="dialog">
+    <div class="modal-dialog ">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color:#36918b">
+          <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color:#fff">×</span></button>-->
+          <h4 class="modal-title" style="color:#fff">External CAD Request</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" name="cadfile">
+            <div class="form-group" style="padding-bottom:20px font-size:12px">
+              <p class="col-md-12" for="email"><strong>If you have an Orthomosaic created elsewhere and not with us, and you wish to request a CAD file of it, you will have to first upload it here for us to process your request.</strong></p>
+
+            </div>
+
+
+
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="email">Name</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" placeholder="Enter Name" ng-model=data.cadLineName required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="pwd">Date</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" value="{{date | date:'yyyy-MM-dd'}}" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="pwd">Upload Orthomosaic</label>
+              <div class="col-sm-6">
+                <!--<upload-image multiple="true" required ng-model="data.orthoFile"></upload-image>-->
+                <upload-image-files ng-model="data.orthoFile" no-view multiple ng-disabled="type.disabled" required></upload-image-files>
 
               </div>
+            </div>
 
-
-
-              <div class="form-group">
-                <label class="control-label col-sm-4" for="email">Name</label>
-                <div class="col-sm-6">
-                  <input type="text" class="form-control" placeholder="Enter Name" ng-model=data.cadLineName required>
-                </div>
+            <div class="form-group">
+              <div class="col-sm-offset-3 col-sm-4">
+                <button type="button" class="btn green btn-outline pull-right" data-dismiss="modal" ng-disabled="cadfile.$invalid" ng-click="saveExtcadfile(data)">SUBMIT</button>
               </div>
-              <div class="form-group">
-                <label class="control-label col-sm-4" for="pwd">Date</label>
-                <div class="col-sm-6">
-                  <input type="text" class="form-control" value="{{date | date:'yyyy-MM-dd'}}" required>
-                </div>
-              </div>
+            </div>
 
-              <div class="form-group">
-                <label class="control-label col-sm-4" for="pwd">Upload Orthomosaic</label>
-                <div class="col-sm-6">
-                  <!--<upload-image multiple="true" required ng-model="data.orthoFile"></upload-image>-->
-                  <upload-image-files ng-model="data.orthoFile" no-view multiple ng-disabled="type.disabled" required></upload-image-files>
+            <div class="form-group" style="padding-bottom:20px font-size:12px">
+              <p class="col-md-12" for="email"><strong>Once the Orthomosaic is laid over the map, we will email you the link to process your CAD Request.</strong></p>
 
-                </div>
-              </div>
+            </div>
 
-              <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-4">
-                  <button type="button" class="btn green btn-outline pull-right" data-dismiss="modal" ng-disabled="cadfile.$invalid" ng-click="saveExtcadfile(data)">SUBMIT</button>
-                </div>
-              </div>
+          </form>
 
-              <div class="form-group" style="padding-bottom:20px font-size:12px">
-                <p class="col-md-12" for="email"><strong>Once the Orthomosaic is laid over the map, we will email you the link to process your CAD Request.</strong></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn green btn-outline" data-dismiss="modal">Close</button>
 
-              </div>
-
-            </form>
-
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn green btn-outline" data-dismiss="modal">Close</button>
-
-          </div>
-          <div class="loading-img-modal">
-            <img src="img/loading.gif" class="img-responsive">
-          </div>
+        </div>
+        <div class="loading-img-modal">
+          <img src="img/loading.gif" class="img-responsive">
         </div>
       </div>
     </div>
+  </div>
 </div>
-</form>
+
 <!--*************************************** END OF USER VIEW **********************************************-->
 <!--*************************************** START OF ADMIN VIEW **********************************************-->
 <div class="page-container" ng-if="accessLevel=='Admin'">
