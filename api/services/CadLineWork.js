@@ -127,7 +127,7 @@ var model = {
             .keyword(options)
             .page(options,
                 function (err, found) {
-                    console.log("inside paggingtion cadline file", found)
+                    // console.log("inside paggingtion cadline file", found)
 
                     if (err) {
                         console.log(err);
@@ -837,7 +837,7 @@ var model = {
                     });
                     test[i - 1].createdAt = moment(createdDt).format('YYYY,M,D');
                 }
-                console.log("------", test);
+                // console.log("------", test);
                 var finalArr = [];
                 var i = 0;
                 _.forEach(test, function (x) {
@@ -947,7 +947,7 @@ var model = {
                 emailData.filename = "CAD Complete";
                 emailData.subject = "CAD COMPLETED";
                 Config.email(emailData, function (err, emailRespo) {
-                    console.log("emailRespo", emailRespo);
+                    // console.log("emailRespo", emailRespo);
                     if (err) {
                         console.log(err);
                         //callback(err, null);

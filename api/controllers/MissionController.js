@@ -228,7 +228,7 @@ var controller = {
                 console.log("err", err);
                 // throw err;
             } else {
-                console.log("data", data);
+                console.log("data");
                 dataArray = data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength);
 
                 var im = geotiff.parse(dataArray).getImage()
@@ -334,13 +334,13 @@ var controller = {
         var dirName = "C:/Users/unifli/Documents/pix4d/" + name + "/2_densification/point_cloud/";
         if (fs.existsSync(dirName)) {
             fs.readdir(dirName, function (err, found) {
-                console.log("found------", found);
+                console.log("found------");
                 var finalpath1 = "C:/Users/unifli/Documents/pix4d/" + name + "/2_densification/point_cloud/";
                 async.eachSeries(found, function (image, callback) {
                     // request(global["env"].realHost + '/api/upload/readFile?file=' + image).pipe(fs.createWriteStream(image)).on('finish', function (images) {
                     // JSZip generates a readable stream with a "end" event,
                     // but is piped here in a writable stream which emits a "finish" event.
-                    console.log("image--", image);
+                    console.log("image--");
                     fs.readFile(finalpath1 + image, function (err, imagesData) {
                         if (err) {
                             res.callback(err, null);
@@ -348,7 +348,7 @@ var controller = {
                             //Remove image
                             // fs.unlink(image);
                             // zip.file("file", content); ... and other manipulations
-                            console.log("imagesData---", imagesData);
+                            console.log("imagesData---");
                             zip.file(image, imagesData);
                             callback();
                         }
@@ -396,7 +396,7 @@ cron.schedule('1 * * * *', function () {
             var mosaicList;
             var geoLocation;
             async.eachSeries(found, function (value, callback1) {
-                    console.log("value", value);
+                    // console.log("value", value);
                     emailData.user=value.user;
                     dirName1 = 'C:/Users/unifli/Documents/pix4d/' + value.missionId + '/3_dsm_ortho/2_mosaic'
                     // dirName1 = 'C:/Users/dell/Documents/pix4d/' + value.missionId + '/3_dsm_ortho/2_mosaic' //for local                 
@@ -406,7 +406,7 @@ cron.schedule('1 * * * *', function () {
                                 console.log("err-----1  ", err);
                                 callback1();
                             } else {
-                                console.log("inside dsm", items);
+                                // console.log("inside dsm", items);
                                 _.forEach(items, function (val) {
                                     var fileName = val.split(".");
                                     var extension = val.split(".").pop();
@@ -594,7 +594,7 @@ cron.schedule('1 * * * *', function () {
                     if (err) {
                         console.log(err);
                     } else {
-                        console.log("results", results);
+                        // console.log("results", results);
                         // callback();
                     }
                 });
