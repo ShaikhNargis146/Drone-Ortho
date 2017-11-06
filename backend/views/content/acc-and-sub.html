@@ -108,7 +108,7 @@
 													<form>
 														<div class="form-group">
 															<label for="exampleInputEmail1">License Type</label>
-															<input class="form-control m-t-xxs" id="exampleInputEmail1" ng-model="dfmData.lisence" type="text" disabled>
+															<input class="form-control m-t-xxs" id="exampleInputEmail1" ng-model="dfmData.user.lisence" type="text" disabled>
 														</div>
 														<div class="form-group">
 															<label for="exampleInputEmail1">Active Coupon Code</label>
@@ -116,19 +116,18 @@
 														</div>
 														<div class="form-group">
 															<label for="exampleInputEmail1">Current Plan</label>
-															<input class="form-control m-t-xxs" id="exampleInputEmail1" ng-model="dfmData.currentSubscription.name" type="text" disabled>															</div>
+															<input class="form-control m-t-xxs" id="exampleInputEmail1" ng-model="dfmData.name" type="text" disabled>															</div>
 														<div class="form-group">
 															<label for="exampleInputEmail1">DFM Status</label>
-															<input class="form-control m-t-xxs" id="exampleInputEmail1" ng-model="dfmData.currentSubscription.status" type="text" disabled>
+															<input class="form-control m-t-xxs" id="exampleInputEmail1" ng-model="dfmData.status" type="text" disabled>
 														</div>
 														<div class="form-group">
 															<label for="exampleInputEmail1"> Total Missions</label>
-															<input class="form-control m-t-xxs" id="exampleInputEmail1" type="text" ng-model="dfmData.currentSubscription.missions" disabled>
+															<input class="form-control m-t-xxs" id="exampleInputEmail1" type="text" ng-model="dfmData.missions" disabled>
 														</div>
 														<div class="form-group">
 															<label for="exampleInputEmail1"> Total Photos</label>
-															<input class="form-control m-t-xxs" id="exampleInputEmail1" type="text" ng-model="dfmData.currentSubscription.UploadPhoto"
-															    disabled>
+															<input class="form-control m-t-xxs" id="exampleInputEmail1" type="text" ng-model="dfmData.UploadPhoto" disabled>
 														</div>
 														<div class="form-group">
 															<label for="exampleInputEmail1"> Total Size Uploads</label>
@@ -136,19 +135,18 @@
 														</div>
 														<div class="form-group">
 															<label for="exampleInputPassword1">Mosaic (resolution cm/px)</label>
-															<input class="password form-control m-t-xxs" ng-model="dfmData.currentSubscription.Mosaic " id="exampleInputPassword1 " type="text "
-															    disabled>
+															<input class="password form-control m-t-xxs" ng-model="dfmData.Mosaic " id="exampleInputPassword1 " type="text " disabled>
 														</div>
 
 														<div class="form-group ">
 															<label for="exampleInputPassword1 ">Activation date</label>
 															<input name="password " class="password form-control m-t-xxs " id="exampleInputPassword1 " type="text
-" ng-model="dfmData.currentSubscription.updatedAt | date:
+" ng-model="dfmData.updatedAt | date:
 'dd-MM-yyyy'  " disabled>
 														</div>
 														<div class="form-group ">
 															<label for="exampleInputPassword1 ">Expiration date</label>
-															<input name="password " class="password form-control m-t-xxs " ng-model="dfmData.currentSubscription.expiryDate| date:
+															<input name="password " class="password form-control m-t-xxs " ng-model="dfmData.expiryDate| date:
 'dd-MM-yyyy' " id="exampleInputPassword1 " type="text " disabled>
 														</div>
 														<div class="form-group ">

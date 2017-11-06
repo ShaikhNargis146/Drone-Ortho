@@ -794,21 +794,6 @@ var model = {
 
     //--------------dashboard api for User End-------------//
 
-    getByDfm: function (data, callback) {
-        User.findOne({
-            _id: data.user
-        }).deepPopulate("currentSubscription currentSubscription.plan").exec(function (err, found) {
-            if (err) {
-                callback(err, null);
-            } else if (_.isEmpty(found)) {
-                callback(null, "noDataound");
-            } else {
-                callback(null, found);
-            }
-
-        });
-    },
-
     addCardDetails: function (data, callback) {
         User.update({
             _id: mongoose.Types.ObjectId(data._id)

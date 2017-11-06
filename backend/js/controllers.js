@@ -2826,33 +2826,41 @@ firstapp
                 toastr.error('Check Entered Password');
             }
         }
-        $scope.dfmData = {};
-        NavigationService.apiCallWithData("User/getByDfm", $scope.formdata1, function (dfm) {
+
+        $scope.dfmDeatils = {}
+        $scope.dfmDeatils._id = $.jStorage.get("user").currentSubscription;
+        NavigationService.apiCallWithData("DFMSubscription/getOne", $scope.dfmDeatils, function (dfm) {
             $scope.dfmData = dfm.data;
-            NavigationService.apiCallWithData("Mission/totalMission", $scope.formdata1, function (mission) {
-                $scope.totalMission = mission.data;
-                console.log("$scope.totalMission", $scope.totalMission);
-                if ($scope.totalMission == undefined) {
-                    $scope.dfmData.currentSubscription.missions = "0" + "/" + $scope.dfmData.currentSubscription.missions
-                } else {
-                    $scope.dfmData.currentSubscription.missions = $scope.totalMission + "/" + $scope.dfmData.currentSubscription.missions
-                }
-                $scope.formdata1.currentSubscriptionDate = dfm.data.currentSubscription.createdAt;
+            if (dfm.value == true) {
+                NavigationService.apiCallWithData("Mission/totalMission", $scope.formdata1, function (mission) {
+                    if (mission.value == true) {
+                        $scope.totalMission = mission.data;
+                        $scope.dfmData.missions = $scope.totalMission + "/" + $scope.dfmData.missions
+                    } else {
+                        $scope.dfmData.missions = "0" + "/" + $scope.dfmData.missions
+                    }
+                })
+                $scope.formdata1.currentSubscriptionDate = dfm.data.createdAt;
                 NavigationService.apiCallWithData("Mission/totalMissionCount", $scope.formdata1, function (mission1) {
-                    console.log("mission1", mission1);
                     if (mission1.value == false) {
-                        console.log("inside if", mission1);
-                        $scope.dfmData.currentSubscription.UploadPhoto = "0";
+                        $scope.dfmData.UploadPhoto = "0";
                         $scope.foldersize = "0";
                     } else {
-                        console.log("inside else", mission1);
-                        $scope.foldersize = mission1.data.folderSize + "/" + $scope.dfmData.currentSubscription.UploadSize;
-                        $scope.dfmData.currentSubscription.UploadPhoto = mission1.data.fileSize + "/" + $scope.dfmData.currentSubscription.UploadPhoto;
+                        $scope.foldersize = mission1.data.folderSize + "/" + $scope.dfmData.UploadSize;
+                        $scope.dfmData.UploadPhoto = mission1.data.fileSize + "/" + $scope.dfmData.UploadPhoto;
                     }
-                });
 
-            });
-        });
+                })
+            } else {
+
+
+
+            }
+
+        })
+
+
+
     })
 
     .controller('500Ctrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
