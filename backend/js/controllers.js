@@ -420,17 +420,14 @@ firstapp
             });
             NavigationService.apiCallWithoutData("CadLineWork/getGraphDataForAdmin", function (data) {
                 if (data.value === true) {
-
                     $scope.data4 = data.data.InternalData;
                     $scope.data3 = data.data.ExternalData;
-
                     var i = 0
                     _.forEach($scope.data4, function (x) {
                         $scope.data4[i][0] = new Date($scope.data4[i][0]).getTime();
                         $scope.data4[i][1] = $scope.data4[i][1] * 100
                         i++;
                     });
-
                     var i = 0
                     _.forEach($scope.data3, function (x) {
                         $scope.data3[i][0] = new Date($scope.data3[i][0]).getTime();
@@ -478,6 +475,11 @@ firstapp
                         }
 
                     ];
+                    $scope.template = TemplateService.changecontent("dashboard");
+                    $scope.menutitle = NavigationService.makeactive("Dashboard");
+                } else {
+                    $scope.template = TemplateService.changecontent("dashboard");
+                    $scope.menutitle = NavigationService.makeactive("Dashboard");
                 }
             });
 
@@ -524,8 +526,7 @@ firstapp
                     position: "nw"
                 }
             };
-            $scope.template = TemplateService.changecontent("dashboard");
-            $scope.menutitle = NavigationService.makeactive("Dashboard");
+
             //-------------------dashboard for admin api call End---------------------------//
 
         } else if ($scope.accessLevel == "User") {
@@ -632,6 +633,11 @@ firstapp
                         }
 
                     ];
+                    $scope.template = TemplateService.changecontent("dashboard");
+                    $scope.menutitle = NavigationService.makeactive("Dashboard");
+                } else {
+                    $scope.template = TemplateService.changecontent("dashboard");
+                    $scope.menutitle = NavigationService.makeactive("Dashboard");
                 }
             });
 
@@ -678,8 +684,7 @@ firstapp
                     position: "nw"
                 }
             };
-            $scope.template = TemplateService.changecontent("dashboard");
-            $scope.menutitle = NavigationService.makeactive("Dashboard");
+
         } else if ($scope.accessLevel == "Vendor") {
 
             var dataToSend = {}
@@ -2833,17 +2838,17 @@ firstapp
 
                 })
             } else {
-               $scope.dfmData={}; 
-               $scope.dfmData.user={};
-            $scope.dfmData.user.lisence= "Not Available";
-            $scope.dfmData.name="Not Available";
-            $scope.dfmData.status="Not Available"
-            $scope.dfmData.missions="0";
-            $scope.dfmData.UploadPhoto="0";
-            $scope.foldersize="0";
-            $scope.dfmData.Mosaic="0";
-            $scope.dfmData.updatedAt="Not Available";
-            $scope.dfmData.expiryDate="Not Available";
+                $scope.dfmData = {};
+                $scope.dfmData.user = {};
+                $scope.dfmData.user.lisence = "Not Available";
+                $scope.dfmData.name = "Not Available";
+                $scope.dfmData.status = "Not Available"
+                $scope.dfmData.missions = "0";
+                $scope.dfmData.UploadPhoto = "0";
+                $scope.foldersize = "0";
+                $scope.dfmData.Mosaic = "0";
+                $scope.dfmData.updatedAt = "Not Available";
+                $scope.dfmData.expiryDate = "Not Available";
 
             }
 
