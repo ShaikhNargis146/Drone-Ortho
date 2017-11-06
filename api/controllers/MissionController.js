@@ -323,6 +323,7 @@ var controller = {
     //for pointCloud
 
     generateZipForPointCloudFiles: function (req, res) {
+        console.log(req.param("filename"));
         var JSZip = require("jszip");
         var type = req.query;
         var zip = new JSZip();
@@ -334,47 +335,10 @@ var controller = {
         var dirName = "C:/Users/unifli/Documents/pix4d/" + name + "/2_densification/point_cloud/";
         if (fs.existsSync(dirName)) {
             fs.readdir(dirName, function (err, found) {
-                console.log("found------");
-                var finalpath1 = "C:/Users/unifli/Documents/pix4d/" + name + "/2_densification/point_cloud/";
-                async.eachSeries(found, function (image, callback) {
-                    // request(global["env"].realHost + '/api/upload/readFile?file=' + image).pipe(fs.createWriteStream(image)).on('finish', function (images) {
-                    // JSZip generates a readable stream with a "end" event,
-                    // but is piped here in a writable stream which emits a "finish" event.
-                    console.log("image--");
-                    fs.readFile(finalpath1 + image, function (err, imagesData) {
-                        if (err) {
-                            res.callback(err, null);
-                        } else {
-                            //Remove image
-                            // fs.unlink(image);
-                            // zip.file("file", content); ... and other manipulations
-                            console.log("imagesData---");
-                            zip.file(image, imagesData);
-                            callback();
-                        }
-                    });
-                    // });
-                }, function () {
-                    //Generate Zip file
-                    zip.generateNodeStream({
-                            type: 'nodebuffer',
-                            streamFiles: true
-                        })
-                        .pipe(fs.createWriteStream(finalPath))
-                        .on('finish', function (zipData) {
-                            // JSZip generates a readable stream with a "end" event,
-                            // but is piped here in a writable stream which emits a "finish" event.
-                            fs.readFile(finalPath, function (err, zip) {
-                                if (err) {
-                                    res.callback(err, null);
-                                } else {
-                                    res.set('Content-Type', "application/octet-stream");
-                                    res.set('Content-Disposition', "attachment;filename=" + path);
-                                    res.send(zip);
-                                    fs.unlink(finalPath);
-                                }
-                            });
-                        });
+                console.log("found------", found);
+                res.json({
+                    value: true,
+                    data: found
                 });
             })
         }
@@ -391,13 +355,13 @@ cron.schedule('1 * * * *', function () {
             callback(err, null);
         } else {
             console.log(found.length);
-            var emailData={};
+            var emailData = {};
             var dsmList;
             var mosaicList;
             var geoLocation;
             async.eachSeries(found, function (value, callback1) {
                     // console.log("value", value);
-                    emailData.user=value.user;
+                    emailData.user = value.user;
                     dirName1 = 'C:/Users/unifli/Documents/pix4d/' + value.missionId + '/3_dsm_ortho/2_mosaic'
                     // dirName1 = 'C:/Users/dell/Documents/pix4d/' + value.missionId + '/3_dsm_ortho/2_mosaic' //for local                 
                     if (fs.existsSync(dirName1)) {
@@ -561,7 +525,7 @@ cron.schedule('1 * * * *', function () {
                                                     callback(null, err);
                                                 } else {
                                                     console.log("waterfall completed successfully", data);
-                                                    Mission.sendMissionCompletedMail(emailData,callback);
+                                                    Mission.sendMissionCompletedMail(emailData, callback);
                                                     callback1();
                                                 }
                                             });

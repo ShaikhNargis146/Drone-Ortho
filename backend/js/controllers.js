@@ -601,7 +601,7 @@ firstapp
                             grow: {
                                 stepMode: "linear"
                             },
-                            data: $scope.data2,
+                            data: $scope.data1,
                             color: "#41d0c8",
                             bars: {
                                 show: true,
@@ -615,7 +615,7 @@ firstapp
                             grow: {
                                 stepMode: "linear"
                             },
-                            data: $scope.data1,
+                            data: $scope.data2,
                             yaxis: 2,
                             color: "#2a2a2a",
                             lines: {
@@ -1180,7 +1180,7 @@ firstapp
 
     })
 
-    .controller('MissionsDetailsCtrl', function ($scope, $rootScope, TemplateService, NavigationService, $uibModal, $timeout, $state, toastr, $stateParams) {
+    .controller('MissionsDetailsCtrl', function ($scope, $rootScope, TemplateService, $http, NavigationService, $uibModal, $timeout, $state, toastr, $stateParams) {
         TemplateService.mainClass = ['page-sidebar-closed', 'active'];
         $scope.demo6 = {
             valueA: 5000,
@@ -1648,9 +1648,21 @@ firstapp
                 window.open('http://cloud.unifli.aero/api/getMeshObj/' + missionIdForDownload + ".Obj", '_self');
             },
 
-            $scope.downloadPointCloud = function () {
+            $scope.listPointCloud = function () {
+                $http.post(adminurl + "Mission/generateZipForPointCloudFiles?filename=" + missionID.filename).then(function (data) {
+                    console.log("data---->>>", data.data.data);
+                    if (data.data.value == true) {
+                        $scope.fileList = data.data.data
+                        $("#myAlertModal").modal();
+                    }
+                });
                 // window.open('http://cloud.unifli.aero/api/getPointCloud/' + missionIdForDownload + ".las", '_self');
-                window.open(adminurl + 'Mission/generateZipForPointCloudFiles?filename=' + missionID.filename, '_self');
+                // window.open(adminurl + 'Mission/generateZipForPointCloudFiles?filename=' + missionID.filename, '_self');
+                // window.close();
+            },
+            $scope.downloadPointCloud = function (file) {
+                // window.open('http://cloud.unifli.aero/api/getPointCloud/' + missionIdForDownload + ".las", '_self');
+                window.open(adminurl + 'getPointCloud/' + missionIdForDownload + '/' + file, '_self');
                 window.close();
             },
 
