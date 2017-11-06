@@ -2852,8 +2852,17 @@ firstapp
 
                 })
             } else {
-
-
+               $scope.dfmData={}; 
+               $scope.dfmData.user={};
+            $scope.dfmData.user.lisence= "Not Available";
+            $scope.dfmData.name="Not Available";
+            $scope.dfmData.status="Not Available"
+            $scope.dfmData.missions="0";
+            $scope.dfmData.UploadPhoto="0";
+            $scope.foldersize="0";
+            $scope.dfmData.Mosaic="0";
+            $scope.dfmData.updatedAt="Not Available";
+            $scope.dfmData.expiryDate="Not Available";
 
             }
 
