@@ -6206,7 +6206,7 @@ console.log("hdbxjwhe",password);
         $scope.loginUser = function (info) {
             console.log(info);
             information = {};
-            information.name = info.name1;
+            information.email = info.email1;
             information.password = info.password1;
             console.log("information for sending is", information);
             NavigationService.apiCallWithData("User/login", information, function (data) {
