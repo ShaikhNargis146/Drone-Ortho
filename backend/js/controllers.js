@@ -932,6 +932,7 @@ firstapp
                     NavigationService.searchCall("Ticket/getTicket", {
                             page: $scope.currentPage,
                             keyword: $scope.search.keyword,
+                            count: $scope.maxCount,
                             user: formdata.user
                         }, ++i,
                         function (data, ini) {
@@ -999,7 +1000,8 @@ firstapp
                     if (keywordChange) {}
                     NavigationService.searchCall("Ticket/getAllTickets", {
                             page: $scope.currentPage,
-                            keyword: $scope.search.keyword
+                            keyword: $scope.search.keyword,
+                            count: $scope.maxCount
                         }, ++i,
                         function (data, ini) {
                             if (ini == i) {
@@ -1086,7 +1088,8 @@ firstapp
                     TemplateService.mainClass = ['page-sidebar-closed', 'active'];
                     NavigationService.searchCall("Mission/getMission", {
                             page: $scope.currentPage,
-                            keyword: $scope.search.keyword
+                            keyword: $scope.search.keyword,
+                            count: $scope.maxCount
                         }, ++i,
                         function (data, ini) {
                             if (ini == i) {
@@ -1161,7 +1164,8 @@ firstapp
                     NavigationService.searchCall("Mission/getMissionUser", {
                             page: $scope.currentPage,
                             keyword: $scope.search.keyword,
-                            user: formdata.user
+                            user: formdata.user,
+                            count: $scope.maxCount
                         }, ++i,
                         function (data, ini) {
                             if (ini == i) {
@@ -1847,7 +1851,8 @@ firstapp
                 NavigationService.searchCall("ProductOrders/getProductData", {
                         page: $scope.currentPage,
                         keyword: $scope.search.keyword,
-                        user: userId
+                        user: userId,
+                        count: $scope.maxCount
                     }, ++i,
                     function (data, ini) {
                         if (ini == i) {
@@ -2610,6 +2615,7 @@ firstapp
                     NavigationService.searchCall("CadLineWork/getCadByUSer", {
                             page: $scope.currentPage,
                             keyword: $scope.search.keyword,
+                            count: $scope.maxCount,
                             user: userId
                         }, ++i,
                         function (data, ini) {
@@ -2679,7 +2685,8 @@ firstapp
                     if (keywordChange) {}
                     NavigationService.searchCall("CadLineWork/getCad", {
                             page: $scope.currentPage,
-                            keyword: $scope.search.keyword
+                            keyword: $scope.search.keyword,
+                            count: $scope.maxCount
                         }, ++i,
                         function (data, ini) {
                             if (ini == i) {
@@ -2746,7 +2753,8 @@ firstapp
                     if (keywordChange) {}
                     NavigationService.searchCall("CadLineWork/getCadForVendor", {
                             page: $scope.currentPage,
-                            keyword: $scope.search.keyword
+                            keyword: $scope.search.keyword,
+                            count: $scope.maxCount
                             // vendorId: userId //replace it with jstorage ID
                         }, ++i,
                         function (data, ini) {
@@ -2950,7 +2958,8 @@ firstapp
                 if (keywordChange) {}
                 NavigationService.searchCall("Products/getAllProducts", {
                         page: $scope.currentPage,
-                        keyword: $scope.search.keyword
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
                     }, ++i,
                     function (data, ini) {
                         if (ini == i) {
@@ -3048,7 +3057,8 @@ firstapp
                 if (keywordChange) {}
                 NavigationService.searchCall("User/getUser", {
                         page: $scope.currentPage,
-                        keyword: $scope.search.keyword
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
                     }, ++i,
                     function (data, ini) {
                         if (ini == i) {
@@ -3206,7 +3216,8 @@ firstapp
                 if (keywordChange) {}
                 NavigationService.searchCall("ProductOrders/getProductOrders", {
                         page: $scope.currentPage,
-                        keyword: $scope.search.keyword
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
                     }, ++i,
                     function (data, ini) {
                         if (ini == i) {
@@ -3373,7 +3384,8 @@ firstapp
                 if (keywordChange) {}
                 NavigationService.searchCall("User/getVendor", {
                         page: $scope.currentPage,
-                        keyword: $scope.search.keyword
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
                     }, ++i,
                     function (data, ini) {
                         if (ini == i) {
@@ -3661,7 +3673,8 @@ firstapp
                 if (keywordChange) {}
                 NavigationService.searchCall("VendorBill/getBill", {
                         page: $scope.currentPage,
-                        keyword: $scope.search.keyword
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
                     }, ++i,
                     function (data, ini) {
                         if (ini == i) {
