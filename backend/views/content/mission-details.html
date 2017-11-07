@@ -377,9 +377,16 @@ $("#showCheckoutCadR").change(function(event){
 			<div class="modal-header" style="background-color:#36918b; color:#fff">Point Cloud
 			</div>
 			<div class="modal-body">
-				<span ng-repeat="file in fileList">
+				<table class="table table-bordered">
+					<tr ng-repeat="file in fileList">
+						<td>#{{$index+1}}.</td>
+						<td><a type="button" ng-click="downloadPointCloud(file)" ng-disabled="missionDetails.status !='ready'">{{file}}</a></td>
+						<td><i class="fa fa-download padLeft5" aria-hidden="true"></i></td>
+					</tr>
+				</table>
+				<!--<span ng-repeat="file in fileList">
 				#{{$index+1}}.<a type="button" ng-click="downloadPointCloud(file)" ng-disabled="missionDetails.status !='ready'">{{file}}<i class="fa fa-download padLeft5" aria-hidden="true"></i></a></br>
-				</span>
+				</span>-->
 
 
 				<div class="text-right">

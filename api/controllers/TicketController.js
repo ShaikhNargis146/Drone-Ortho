@@ -2,12 +2,9 @@ module.exports = _.cloneDeep(require("sails-wohlig-controller"));
 var controller = {
 
     getTicket: function (req, res) {
-        console.log("***");
         if (req.body) {
-            console.log("**$$$$*");
             Ticket.getTicket(req.body, res.callback);
         } else {
-            console.log("*%%%%%**");
             res.callback("Please provide Valid AccessToken", null);
         }
     },

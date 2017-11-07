@@ -145,7 +145,7 @@ var exports = _.cloneDeep(require("sails-wohlig-service")(schema));
 var model = {
 
     sendOtp: function (data, callback) {
-        console.log("inside send otp", data)
+        // console.log("inside send otp", data)
         var emailOtp = (Math.random() + "").substring(2, 6);
         var foundData = {};
         User.findOneAndUpdate({
@@ -1065,23 +1065,23 @@ var model = {
                 callback(err, null);
             } else {
                 if (_.isEmpty(found)) {
-                    console.log("found", found);
+                    // console.log("found", found);
                     vendorIdNumber = "VB" + "100";
-                    console.log("is empty vendorIdNumber", vendorIdNumber);
+                    // console.log("is empty vendorIdNumber", vendorIdNumber);
                     callback(null, vendorIdNumber);
                 } else {
                     if (!found.dataId) {
                         vendorIdNumber = "VB" + "100";
-                        console.log("dataId null vendorIdNumber", vendorIdNumber);
+                        // console.log("dataId null vendorIdNumber", vendorIdNumber);
                         callback(null, vendorIdNumber);
                     } else {
-                        console.log("found", found);
+                        // console.log("found", found);
                         var sub = found.dataId
                         var vendorIdData = sub.substring(2, 10000);
-                        console.log("vendorIdData", vendorIdData);
+                        // console.log("vendorIdData", vendorIdData);
                         var nextNum = parseInt(vendorIdData) + 1
                         vendorIdNumber = "VB" + nextNum;
-                        console.log("final vendorIdNumber", vendorIdNumber);
+                        // console.log("final vendorIdNumber", vendorIdNumber);
                         callback(null, vendorIdNumber);
 
                     }
@@ -1132,7 +1132,7 @@ var model = {
                         }];
 
                         Config.email(emailData, function (err, emailRespo) {
-                            console.log("emailRespo", emailRespo);
+                            // console.log("emailRespo", emailRespo);
                             if (err) {
                                 console.log(err);
                                 //callback(err, null);
@@ -1177,21 +1177,21 @@ var model = {
             } else {
                 if (_.isEmpty(found)) {
                     userIdNumber = "UN" + "2001";
-                    console.log("is empty userIdNumber", userIdNumber);
+                    // console.log("is empty userIdNumber", userIdNumber);
                     callback(null, userIdNumber);
                 } else {
                     if (!found.dataId) {
                         userIdNumber = "UN" + "2001";
-                        console.log(" found null dataId userIdNumber", userIdNumber);
+                        // console.log(" found null dataId userIdNumber", userIdNumber);
                         callback(null, userIdNumber);
                     } else {
-                        console.log("found", found);
+                        // console.log("found", found);
                         var sub = found.dataId
                         var userIdData = sub.substring(2, 10000);
-                        console.log("userIdData", userIdData);
+                        // console.log("userIdData", userIdData);
                         var nextNum = parseInt(userIdData) + 1
                         userIdNumber = "UN" + nextNum;
-                        console.log("final userIdNumber", userIdNumber);
+                        // console.log("final userIdNumber", userIdNumber);
                         callback(null, userIdNumber);
                     }
                 }

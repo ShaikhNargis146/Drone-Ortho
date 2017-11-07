@@ -45,7 +45,7 @@ module.exports = {
         req.file("file").upload({
             maxBytes: 100000000000 // 10000 MB Storage 1 MB = 10^10
         }, function (err, uploadedFile) {
-            console.log("uploaded file", uploadedFile);
+            // console.log("uploaded file", uploadedFile);
             if (uploadedFile && uploadedFile.length > 0) {
                 async.eachLimit(uploadedFile, 2, function (n, callback) {
                     Config.moveFile(n.fd, function (err, value) {
@@ -53,7 +53,7 @@ module.exports = {
                             console.log("err", err);
                             callback(err);
                         } else {
-                            console.log("value.name", value.name);
+                            // console.log("value.name", value.name);
                             fileNames.push(value.name);
                             callback(null);
                         }

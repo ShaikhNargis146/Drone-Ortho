@@ -465,10 +465,13 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                         currentSubscriptionForm._id = $scope.$parent.profile.currentSubscription
                         $http.post(adminurl + "DFMSubscription/getOne", currentSubscriptionForm).then(function (currentSubscription) {
                             currentSubscription = currentSubscription.data.data;
-                            // console.log("currentSubscription", currentSubscription);
+                            console.log("currentSubscription", currentSubscription);
                             countForm.currentSubscriptionDate = currentSubscription.createdAt;
                             if (_.isEqual(currentSubscription.status, 'Active')) {
+                                console.log("111111")
                                 $http.post(adminurl + "Mission/totalMissionCount", countForm).then(function (data) {
+                                    console.log("2222", data)
+
                                     if (data.data.value == true) {
                                         var missionData = data.data.data;
                                         var currentSub = currentSubscription;

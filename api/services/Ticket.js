@@ -173,22 +173,22 @@ var model = {
             } else {
                 if (_.isEmpty(found)) {
                     var ticketIdNumber = "T" + "100";
-                    console.log("ticketIdNumber", ticketIdNumber)
+                    // console.log("ticketIdNumber", ticketIdNumber)
                     callback(null, ticketIdNumber);
                 } else {
                     if (!found[0].ticketId) {
                         var ticketIdNumber = "T" + "100";
-                        console.log("ticketIdNumber", ticketIdNumber)
+                        // console.log("ticketIdNumber", ticketIdNumber)
 
                         callback(null, ticketIdNumber);
                     } else {
-                        console.log("found", found);
+                        // console.log("found", found);
                         var sub = found[0].ticketId
                         var ticketData = sub.substring(1, 10000);
-                        console.log("ticketData", ticketData);
+                        // console.log("ticketData", ticketData);
                         var nextNum = parseInt(ticketData) + 1
                         ticketIdNumber = "T" + nextNum;
-                        console.log("final userIdNumber", ticketIdNumber);
+                        // console.log("final userIdNumber", ticketIdNumber);
 
                         callback(null, ticketIdNumber);
                     }

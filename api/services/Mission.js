@@ -158,7 +158,7 @@ var model = {
     totalMissionCount: function (data, callback) {
         var currentSubscriptionDate = data.currentSubscriptionDate
         var ltDate = new Date();
-        console.log(currentSubscriptionDate)
+        // console.log(currentSubscriptionDate)
         Mission.find({
             user: data.user,
             createdAt: {
@@ -195,7 +195,7 @@ var model = {
                             a = a + bytes;
                             totalSizeLenght++;
                             if (totalSizeLenght == foundLength) {
-                                console.log("exe 3:");
+                                // console.log("exe 3:");
                                 var toShow = (a / 1000000000).toFixed(5) + " GB";
                                 data = {
                                     folderSize: toShow,
@@ -215,7 +215,7 @@ var model = {
     },
 
     createMission: function (data, callback) {
-        console.log("data", data);
+        // console.log("data", data);
         var sendAllData = {};
         sendAllData.missionName = data.name;
         async.waterfall([
@@ -256,7 +256,7 @@ var model = {
                 });
             },
             function (missionIdWithSub, callback) { //create mission
-                console.log("missionIdWithSub.missionId", missionIdWithSub);
+                // console.log("missionIdWithSub.missionId", missionIdWithSub);
                 data.missionId = missionIdWithSub.missionId;
                 Mission.saveData(data, function (err, created) {
                     if (err) {
@@ -283,7 +283,7 @@ var model = {
                             if (err) {
                                 callback(err, null);
                             } else {
-                                console.log("---1---");
+                                // console.log("---1---");
                                 callback(null, asyncData);
                                 Mission.sendMissionRequestMail(sendAllData, callback); //sending mail
                                 model.pix4dCommandExecution(folder, missionIdWithSub, callback);
@@ -353,7 +353,7 @@ var model = {
         }
         var pix4dPath = 'C:/Users/unifli/Documents/pix4d/' + name + '.p4d';
         // var pix4dPath = 'C:/Users/dell/Documents/pix4d/' + name + '.p4d'; ////for local 
-        console.log("inside pix4dCommandExecution", name, imgPath, pix4dPath);
+        // console.log("inside pix4dCommandExecution", name, imgPath, pix4dPath);
         exec('cd C:/Program Files/Pix4Dmapper && pix4dmapper -c -n --image-dir ' + imgPath + ' --template ' + templatePath + ' ' + pix4dPath, {
             maxBuffer: 1024 * 500000
         }, function (error, stdout, stderr) {
@@ -581,7 +581,7 @@ var model = {
                 emailData.filename = "Mission Started";
                 emailData.subject = "MISSION STARTED";
                 Config.email(emailData, function (err, emailRespo) {
-                    console.log("emailRespo", emailRespo);
+                    // console.log("emailRespo", emailRespo);
                     if (err) {
                         console.log(err);
                         callback(err, null);
@@ -617,7 +617,7 @@ var model = {
                 }];
         
                 Config.email(emailData, function (err, emailRespo) {
-                    console.log("emailRespo", emailRespo);
+                    // console.log("emailRespo", emailRespo);
                     if (err) {
                         console.log(err);
                         callback(err, null);
@@ -651,7 +651,7 @@ var model = {
                 emailData.filename = "Mission Completed";
                 emailData.subject = "MISSION COMPLETED";
                 Config.email(emailData, function (err, emailRespo) {
-                    console.log("emailRespo", emailRespo);
+                    // console.log("emailRespo", emailRespo);
                     if (err) {
                         console.log(err);
                         //callback(err, null);

@@ -118,7 +118,7 @@ var model = {
                 emailData.filename = "DFM Renewal";
                 emailData.subject = "DFM EXPIRE";
                 Config.email(emailData, function (err, emailRespo) {
-                    console.log("emailRespo", emailRespo);
+                    // console.log("emailRespo", emailRespo);
                     if (err) {
                         console.log(err);
                         //callback(err, null);

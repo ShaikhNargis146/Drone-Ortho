@@ -9,12 +9,9 @@ var controller = {
         }
     },
     addCardDetails: function (req, res) {
-        console.log("***");
         if (req.body) {
-            console.log("**$$$$*");
             User.addCardDetails(req.body, res.callback);
         } else {
-            console.log("*%%%%%**");
             res.callback("Please provide Valid AccessToken", null);
         }
     },
@@ -34,14 +31,11 @@ var controller = {
         }
     },
     sendOtp: function (req, res) {
-        console.log("inside user controller", req.body)
         if (req.body) {
-            console.log("inside user controllerif")
-
+            // console.log("inside user controllerif")
             User.sendOtp(req.body, res.callback);
         } else {
-            console.log("inside user controller else")
-
+            // console.log("inside user controller else")
             res.callback("", null);
         }
     },

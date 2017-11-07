@@ -27,7 +27,7 @@ var controller = {
         if (req.body) {
             CadLineWork.createCad(req.body, function (err, cadData) {
                 res.callback(null, cadData);
-                console.log('m in external cad', cadData);
+                // console.log('m in external cad', cadData);
                 if (!cadData.mission) {
                     controller.generatePng(cadData, res.callback);
                 }
@@ -112,7 +112,7 @@ var controller = {
 
     },
     generatePng: function (req, res) {
-        console.log("cadData", req);
+        // console.log("cadData", req);
         var cadData = req;
         async.waterfall([
                 function (callback) {
@@ -120,12 +120,12 @@ var controller = {
                         var ds = gdal.open(path.join(path.join(process.cwd(), "pix4dUpload"), cadData.orthoFile.file));
                         // raster dimensions
                         var size = ds.rasterSize;
-                        console.log('Size is ' + size.x + ', ' + size.y);
+                        // console.log('Size is ' + size.x + ', ' + size.y);
 
                         // geotransform
                         var geotransform = ds.geoTransform;
-                        console.log('GeoTransform =');
-                        console.log(geotransform);
+                        // console.log('GeoTransform =');
+                        // console.log(geotransform);
 
                         // corners
                         var corners = {
@@ -154,7 +154,7 @@ var controller = {
                         var wgs84 = gdal.SpatialReference.fromEPSG(4326);
                         var coord_transform = new gdal.CoordinateTransformation(ds.srs, wgs84);
 
-                        console.log('Corner Coordinates:');
+                        // console.log('Corner Coordinates:');
                         var corner_names = Object.keys(corners);
                         var cornList = {}
 
@@ -172,7 +172,7 @@ var controller = {
                             cord.push(pt_wgs84.y);
                             cornList[corner_name] = cord;
                         });
-                        console.log(cornList)
+                        // console.log(cornList)
                         callback(null, cornList);
                     } catch (err) {
                         console.log("errrrrrrrr", err);
@@ -220,7 +220,7 @@ var controller = {
                 //     }
                 // },
                 function (geoLocation, callback) {
-                    console.log("geoLocation inside f3 ", geoLocation);
+                    // console.log("geoLocation inside f3 ", geoLocation);
                     if (geoLocation != "error") {
                         cadData.status = "initialized";
                         cadData.geoLocation = geoLocation;
@@ -229,7 +229,7 @@ var controller = {
                                 console.log("error occured");
                                 callback(null, err);
                             } else {
-                                console.log("value.geoLocation", data.geoLocation);
+                                // console.log("value.geoLocation", data.geoLocation);
                                 callback(null, "done");
                             }
                         });
@@ -238,14 +238,14 @@ var controller = {
                     }
                 },
                 function (msg, callback) {
-                    console.log("fileName[0]----", cadData.orthoFile.file);
+                    // console.log("fileName[0]----", cadData.orthoFile.file);
                     var firstName = cadData.orthoFile.file.split(".");
                     var extension = cadData.orthoFile.file.split(".").pop();
-                    console.log("fileName[0] ", 'C:/Users/unifli/Documents/googleTile-Mosaic/' + firstName[0] + '.jpg', path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile.file)
+                    // console.log("fileName[0] ", 'C:/Users/unifli/Documents/googleTile-Mosaic/' + firstName[0] + '.jpg', path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile.file)
                     sharp(path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile.file)
                         .jpeg()
                         .toFile('C:/Users/unifli/Documents/googleTile-Mosaic/' + firstName[0] + '.jpg', function (err, info) {
-                            console.log("done");
+                            // console.log("done");
                             callback(null, "done");
                         });
                 }

@@ -101,7 +101,7 @@ var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "products user
 var model = {
 
     invoiceGenerate: function (data, callback) {
-        console.log(data);
+        // console.log(data);
         var emailData;
         async.waterfall([
                 function (callback) {
@@ -439,7 +439,7 @@ var model = {
                         }];
 
                         Config.email(emailData, function (err, emailRespo) {
-                            console.log("emailRespo", emailRespo);
+                            // console.log("emailRespo", emailRespo);
                             if (err) {
                                 console.log(err);
                                 callback(err, null);
@@ -501,7 +501,7 @@ var model = {
                         }];
 
                         Config.email(emailData, function (err, emailRespo) {
-                            console.log("emailRespo", emailRespo);
+                            // console.log("emailRespo", emailRespo);
                             if (err) {
                                 console.log(err);
                                 callback(err, null);
@@ -527,7 +527,7 @@ var model = {
                         emailData.subject = "DRONE PURCHASE";
                         emailData.email = data.user.email;                        
                         Config.email(emailData, function (err, emailRespo) {
-                            console.log("emailRespo", emailRespo);
+                            // console.log("emailRespo", emailRespo);
                             if (err) {
                                 console.log(err);
                                 callback(err, null);
@@ -557,7 +557,7 @@ var model = {
                         }];
 
                         Config.email(emailData, function (err, emailRespo) {
-                            console.log("emailRespo", emailRespo);
+                            // console.log("emailRespo", emailRespo);
                             if (err) {
                                 console.log(err);
                                 callback(err, null);

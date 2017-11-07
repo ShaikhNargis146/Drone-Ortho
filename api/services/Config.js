@@ -136,7 +136,7 @@ var models = {
                         console.log("Something Fishy", err);
                     } else {
                         red("Finish is working");
-                        console.log("Success", res);
+                        // console.log("Success", res);
                         callback(null, {
                             id: page._id,
                             name: newFilename,
@@ -180,7 +180,7 @@ var models = {
                         callback(err);
                     } else {
                         green("IN PDF CREATE");
-                        console.log("In Config To generate PDF");
+                        // console.log("In Config To generate PDF");
                         i++;
                         stream.pipe(writestream);
                     }
@@ -262,7 +262,7 @@ var models = {
                 console.log("error---", err);
                 callback(err, null);
             } else {
-                console.log("folder----->>>>>", newPath);
+                // console.log("folder----->>>>>", newPath);
                 callback(null, {
                     name: newFilename
                 });
@@ -460,7 +460,7 @@ var models = {
         }
         var onlyName = filename.split(".")[0];
         var extension = filename.split(".").pop();
-        console.log("onlyName", onlyName)
+        // console.log("onlyName", onlyName)
         if ((extension == "jpg" || extension == "png" || extension == "gif") && ((width && width > 0) || (height && height > 0))) {
             //attempt to get same size image and serve
             var newName = onlyName;
@@ -480,7 +480,7 @@ var models = {
                 newName += "-" + 0;
             }
             newNameExtire = newName + "." + extension;
-            console.log("newNameExtire", newNameExtire);
+            // console.log("newNameExtire", newNameExtire);
             fs.existsAsync(path.join(path.join(process.cwd(), "pix4dUpload"), newNameExtire)).then(function (exists) {
                 if (exists) {
                     read2(newNameExtire);
@@ -621,10 +621,10 @@ var models = {
         emailMessage.from_name = "unifli";
         emailMessage.to = [{}];
 
-        console.log("*************************** Inside email function of Config model ************************** & data is :", data);
+        // console.log("*************************** Inside email function of Config model ************************** & data is :", data);
         Password.find().exec(function (err, emailKey) {
 
-            console.log("************ inside emila function ****************", emailKey);
+            // console.log("************ inside emila function ****************", emailKey);
             if (err) {
                 console.log(err);
                 callback(err, null);
@@ -633,7 +633,7 @@ var models = {
                     var mandrill = require('mandrill-api/mandrill');
                     var mandrillClient = new mandrill.Mandrill(emailKey[0].name);
 
-                    console.log("**************filename *********************", data.filename);
+                    // console.log("**************filename *********************", data.filename);
                     var merge_vars = [];
                     mandrillClient.templates.render({
                         "template_name": data.filename,
@@ -658,7 +658,7 @@ var models = {
 
                             if (data.attachments) {
                                 emailMessage.attachments = [];
-                                console.log("Email attachment found");
+                                // console.log("Email attachment found");
                                 for (var idx = 0; idx < data.attachments.length; idx++) {
                                     emailMessage.attachments.push(data.attachments[idx]);
                                 }
@@ -668,7 +668,7 @@ var models = {
                             mandrillClient.messages.send({
                                 "message": emailMessage
                             }, function (result) {
-                                console.log(result);
+                                // console.log(result);
                                 delete emailMessage.attachments;
                                 callback(null, result);
                             });

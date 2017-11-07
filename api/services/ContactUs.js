@@ -36,9 +36,9 @@ var exports = _.cloneDeep(require("sails-wohlig-service")(schema));
 var model = {
 
     sendEnquiry: function (data, callback) {
-        console.log("data", data);
+        // console.log("data", data);
         ContactUs.saveData(data, function (err, data1) {
-            console.log("data1", data1, err);
+            // console.log("data1", data1, err);
             if (err) {
                 callback(err, null);
             } else if (data1) {
@@ -67,7 +67,7 @@ var model = {
                 }];
 
                 Config.email(emailData, function (err, emailRespo) {
-                    console.log("emailRespo", emailRespo);
+                    // console.log("emailRespo", emailRespo);
                     if (err) {
                         console.log(err);
                         callback(err, null);

@@ -28,13 +28,13 @@ var model = {
                 var missionArr = data3.others;
                 var returnVal = _.map(data2, function (n) {
                     if (!_.isEmpty(missionArr)) {
-                        console.log("n._id", n._id);
+                        // console.log("n._id", n._id);
                         var missionObj = _.filter(missionArr, function (m) {
-                            console.log("m", _.isEqual(m.serviceId, n._id))
+                            // console.log("m", _.isEqual(m.serviceId, n._id))
                             return _.isEqual(m.serviceId, n._id)
                         });
                         if (!_.isEmpty(missionObj)) {
-                            console.log("missionObj----", missionObj[0].status);
+                            // console.log("missionObj----", missionObj[0].status);
                             n.status = missionObj[0].status;
                         }
                     }

@@ -34,14 +34,14 @@ var controller = {
     },
 
     getCords: function (req, res) {
-        console.log("path.join(process.cwd(), path.join('pix4dUpload', 'vashi_transparent_mosaic_group1.tif'))", path.join('./pix4dUpload', 'vashi_transparent_mosaic_group1.tif'));
+        // console.log("path.join(process.cwd(), path.join('pix4dUpload', 'vashi_transparent_mosaic_group1.tif'))", path.join('./pix4dUpload', 'vashi_transparent_mosaic_group1.tif'));
         var ds;
         try {
             ds = gdal.open(path.join('./pix4dUpload', 'vashi_transparent_mosaic_group1.tif'));
 
             // raster dimensions
             var size = ds.rasterSize;
-            console.log('Size is ' + size.x + ', ' + size.y);
+            // console.log('Size is ' + size.x + ', ' + size.y);
 
             // geotransform
             var geotransform = ds.geoTransform;
@@ -335,7 +335,7 @@ var controller = {
         var dirName = "C:/Users/unifli/Documents/pix4d/" + name + "/2_densification/point_cloud/";
         if (fs.existsSync(dirName)) {
             fs.readdir(dirName, function (err, found) {
-                console.log("found------", found);
+                // console.log("found------", found);
                 res.json({
                     value: true,
                     data: found
@@ -354,7 +354,7 @@ cron.schedule('1 * * * *', function () {
         if (err) {
             callback(err, null);
         } else {
-            console.log(found.length);
+            // console.log(found.length);
             var emailData = {};
             var dsmList;
             var mosaicList;
@@ -375,21 +375,21 @@ cron.schedule('1 * * * *', function () {
                                     var fileName = val.split(".");
                                     var extension = val.split(".").pop();
                                     extension = extension.toLowerCase();
-                                    console.log("dirName1 + '/' + val", dirName1 + '/' + val);
+                                    // console.log("dirName1 + '/' + val", dirName1 + '/' + val);
                                     if (extension == 'tif') {
-                                        console.log("status-----", extension, fileName[0]);
+                                        // console.log("status-----", extension, fileName[0]);
                                         async.waterfall([
                                                 function (callback) {
                                                     try {
                                                         var ds = gdal.open(path.join(dirName1, val));
                                                         // raster dimensions
                                                         var size = ds.rasterSize;
-                                                        console.log('Size is ' + size.x + ', ' + size.y);
+                                                        // console.log('Size is ' + size.x + ', ' + size.y);
 
                                                         // geotransform
                                                         var geotransform = ds.geoTransform;
-                                                        console.log('GeoTransform =');
-                                                        console.log(geotransform);
+                                                        // console.log('GeoTransform =');
+                                                        // console.log(geotransform);
 
                                                         // corners
                                                         var corners = {
@@ -418,7 +418,7 @@ cron.schedule('1 * * * *', function () {
                                                         var wgs84 = gdal.SpatialReference.fromEPSG(4326);
                                                         var coord_transform = new gdal.CoordinateTransformation(ds.srs, wgs84);
 
-                                                        console.log('Corner Coordinates:');
+                                                        // console.log('Corner Coordinates:');
                                                         var corner_names = Object.keys(corners);
                                                         var cornList = {}
 
@@ -436,10 +436,10 @@ cron.schedule('1 * * * *', function () {
                                                             cord.push(pt_wgs84.y);
                                                             cornList[corner_name] = cord;
                                                         });
-                                                        console.log(cornList)
+                                                        // console.log(cornList)
                                                         callback(null, cornList);
                                                     } catch (err) {
-                                                        console.log("errrrrrrrr", err);
+                                                        // console.log("errrrrrrrr", err);
                                                         callback(null, "error");
                                                     }
                                                     // fs.readFile(dirName1 + '/' + val, function (err, data) {
@@ -483,14 +483,14 @@ cron.schedule('1 * * * *', function () {
                                                 //     }
                                                 // },
                                                 function (geoLocation, callback) {
-                                                    console.log("geoLocation inside f3 ", geoLocation);
+                                                    // console.log("geoLocation inside f3 ", geoLocation);
                                                     if (geoLocation != "error") {
                                                         value.status = "ready";
                                                         value.geoLocation = geoLocation;
                                                         var tilePath = dirName1 + '/google_tiles'
                                                         fs.readdirSync(tilePath).filter(function (file) {
                                                             if (fs.statSync(tilePath + '/' + file).isDirectory()) {
-                                                                console.log(file);
+                                                                // console.log(file);
                                                                 value.zoomLevel.push(file)
                                                             }
                                                         });
@@ -499,8 +499,7 @@ cron.schedule('1 * * * *', function () {
                                                                 console.log("error occured");
                                                                 callback(null, err);
                                                             } else {
-
-                                                                console.log("value.geoLocation", data.geoLocation);
+                                                                // console.log("value.geoLocation", data.geoLocation);
                                                                 callback(null, "done");
                                                             }
                                                         });
@@ -509,14 +508,14 @@ cron.schedule('1 * * * *', function () {
                                                     }
                                                 },
                                                 function (msg, callback) {
-                                                    console.log("C:/Users/unifli/Documents/googleTile-Mosaic");
-                                                    console.log("fileName[0]----", fileName[0].split('_'));
+                                                    // console.log("C:/Users/unifli/Documents/googleTile-Mosaic");
+                                                    // console.log("fileName[0]----", fileName[0].split('_'));
                                                     var oldPath = dirName1 + '/google_tiles'
                                                     var newPath = 'C:/Users/unifli/Documents/googleTile-Mosaic/' + value.missionId + 'google_tiles'
 
                                                     fse.copy(oldPath, newPath, err => {
                                                         if (err) console.error(err)
-                                                        console.log('success!')
+                                                        // console.log('success!')
                                                     })
                                                 }
                                             ],
@@ -536,7 +535,7 @@ cron.schedule('1 * * * *', function () {
                     } else {
                         var localDate = moment(value.createdAt).add(12, 'hours');
                         var currentDate = moment(new Date())
-                        console.log("file doesn't exist", localDate, currentDate, moment(currentDate).isSameOrAfter(localDate));
+                        // console.log("file doesn't exist", localDate, currentDate, moment(currentDate).isSameOrAfter(localDate));
                         if (moment(currentDate).isSameOrAfter(localDate)) {
                             value.status = "failed";
                             value.save(function (err, data) {
@@ -544,7 +543,7 @@ cron.schedule('1 * * * *', function () {
                                     console.log("error occured");
                                     callback1();
                                 } else {
-                                    console.log("value updated");
+                                    // console.log("value updated");
                                     callback1();
                                 }
                             });
