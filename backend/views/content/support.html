@@ -53,12 +53,11 @@
                       <tbody>
                         <tr ng-repeat="ticket in ticketInfo">
                           <td><a ui-sref="ticket-history({'ticketId' : ticket._id})">{{ticket.ticketId}}</a></td>
-                          <td><a ui-sref="ticket-history({'ticketId' : ticket._id})">{{ticket.createdAt | date:
-'dd-MM-yyyy'}}</a></td>
+                          <td><a ui-sref="ticket-history({'ticketId' : ticket._id})">{{ticket.createdAt | date}}</a></td>
                           <td><a ui-sref="ticket-history({'ticketId' : ticket._id})">{{ticket.subject}}</a></td>
                           <td><a ui-sref="ticket-history({'ticketId' : ticket._id})">{{ticket.description}}</a></td>
                           <td><a ui-sref="ticket-history({'ticketId' : ticket._id})">{{ticket.status}}</a></td>
-                          <td><a ui-sref="ticket-history({'ticketId' : ticket._id})"></a></td>
+                          <td><a ui-sref="ticket-history({'ticketId' : ticket._id})"></a>{{ticket.replyDate | date}}</td>
                         </tr>
                       </tbody>
                     </table>
