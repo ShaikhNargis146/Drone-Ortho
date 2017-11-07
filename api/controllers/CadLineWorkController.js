@@ -442,9 +442,9 @@ var controller = {
         }
     },
 
-    sendCadRequestMail: function (req, res) {
+    sendCadCompletedMail: function (req, res) {
         if (req.body) {
-            CadLineWork.sendCadRequestMail(req.body, res.callback);
+            CadLineWork.sendCadCompletedMail(req.body, res.callback);
         } else {
             res.json({
                 value: false,

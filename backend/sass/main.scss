@@ -4294,12 +4294,9 @@ WIDGETS
 
     .leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-polygon {
         background-position: -31px -3px;
-    }
-
-    .leaflet-draw-toolbar .leaflet-draw-draw-polygon {
-        background-position: -46px -2px;
-    }
-
+    } // .leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-polygon {
+    //     background-position: -45px -3px;
+    // }
     .leaflet-draw-toolbar .leaflet-draw-draw-circlemarker {
         background-position: -257px -2px;
         .leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-edit.leaflet-disabled {
@@ -4307,16 +4304,20 @@ WIDGETS
         }
     }
 
-    .leaflet-draw-toolbar .leaflet-draw-edit-edit.leaflet-disabled {
-        background-position: -226px -2px;
+    .leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-circlemarker {
+        background-position: -228px -1px;
     }
 
-    .leaflet-draw-toolbar .leaflet-draw-edit-remove.leaflet-disabled {
-        background-position: -257px -2px;
-    }
-
+    .leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-edit.leaflet-disabled {
+        background-position: -211px -1px;
+    } // .leaflet-draw-toolbar .leaflet-draw-edit-edit.leaflet-disabled {
+    //     background-position: -226px -2px;
+    // }
+    // .leaflet-draw-toolbar .leaflet-draw-edit-remove.leaflet-disabled {
+    //     background-position: -257px -2px;
+    // }
     .leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-remove.leaflet-disabled {
-        background-position: -242px -2px;
+        background-position: -240px -2px;
     }
 
     .rzslider .rz-pointer {
@@ -4388,38 +4389,44 @@ WIDGETS
         left: -80px !important;
     }
 
-    .directive_pagination{
+    .directive_pagination {
         display: table;
         width: 100%;
-        ul{
+        ul {
             display: table-cell;
             vertical-align: bottom;
             align-items: right;
         }
-        li{
+        li {
             display: inline-block;
             border: solid 1px #666;
             border-right: 0;
             color: #666;
             padding: 1px 10px;
             cursor: pointer;
-            &:active, &.active{
-                background:  #48aba4;
+            &:active,
+            &.active {
+                background: #48aba4;
             }
-            &:focus{
-                background:  #48aba4;
+            &:focus {
+                background: #48aba4;
             }
-            &:visited{
-                background:  #48aba4;
+            &:visited {
+                background: #48aba4;
             }
         }
     }
-    .img-box{
-        float:left;
+
+    .img-box {
+        float: left;
         margin-left: 10px;
         margin-right: 5px;
     }
 
     .errormsg {
         color: $brand-danger!important;
+    }
+
+    .padLeft5 {
+        padding-left: 5px;
     }

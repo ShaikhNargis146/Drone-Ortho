@@ -102,14 +102,16 @@ var model = {
 
     invoiceGenerate: function (data, callback) {
         console.log(data);
+        var emailData;
         async.waterfall([
                 function (callback) {
                     ProductOrders.findOne({
                         invoiceNo: data.invoiceNo
-                    }).exec(function (err, data) {
+                    }).deepPopulate('user cadLineWork dfmSubscription products').exec(function (err, data) {
                         if (err || _.isEmpty(data)) {
                             callback(err, [])
                         } else {
+                            emailData = data;
                             callback(null, data);
                         }
                     })
@@ -143,10 +145,11 @@ var model = {
                             callback(null, "noDataound");
                         } else {
                             callback(null, found);
+                            ProductOrders.sendMailOnPurchase(emailData, callback);
                         }
 
                     });
-                },
+                }
             ],
             function (err, result) {
                 if (err || _.isEmpty(result)) {
@@ -199,7 +202,6 @@ var model = {
     },
 
     //for user
-
     getProductData: function (data, callback) {
         if (data.count) {
             var maxCount = data.count;
@@ -245,7 +247,6 @@ var model = {
     },
 
     //for user end
-
     invoiceNumberGenerate: function (data, callback) {
         ProductOrders.find({}).sort({
             createdAt: -1
@@ -295,7 +296,6 @@ var model = {
             }
         });
     },
-
 
     //Payment Id Generate start
     paymentIdGenerate: function (data, callback) {
@@ -380,6 +380,204 @@ var model = {
         });
     },
 
+    sendMailOnPurchase: function (data, callback) {
+        var emailData = {};
+        if (data.cadLineWork) {
+            async.parallel({
+                    forUser: function (callback) {
+                        emailData.filename = "CAD Purchase";
+                        emailData.subject = "NEW CAD PURCHASE";
+                        emailData.email = data.user.email;
+                        emailData.merge_vars = [{
+                            "name": "CAD_ID",
+                            "content": data.cadLineWork.cadId
+                        }, {
+                            "name": "AMOUNT",
+                            "content": data.totalAmount
+                        }, {
+                            "name": "ACREAGE",
+                            "content": data.cadLineWork.acreage
+                        }, {
+                            "name": "REQUESTED_DATE",
+                            "content": data.createdAt
+                        }];
+
+                        Config.email(emailData, function (err, emailRespo) {
+                            console.log("emailRespo", emailRespo);
+                            if (err) {
+                                console.log(err);
+                                callback(err, null);
+                            } else if (emailRespo) {
+                                callback(null, "Contact us form saved successfully!!!");
+                            } else {
+                                callback("Invalid data", null);
+                            }
+                        });
+                    },
+                    forAdmin: function (callback) {
+                        emailData.filename = "New CAD Request (Admin)";
+                        emailData.subject = "CAD REQUEST";
+                        emailData.email = global["env"].adminEmail;
+                        emailData.merge_vars = [{
+                            "name": "USER_NAME",
+                            "content": data.user.name
+                        }, {
+                            "name": "USER_ID",
+                            "content": data.user.dataId
+                        }, {
+                            "name": "CAD_ID",
+                            "content": data.cadLineWork.cadId
+                        },  {
+                            "name": "AMOUNT",
+                            "content": data.totalAmount
+                        },{
+                            "name": "ACREAGE",
+                            "content": data.cadLineWork.acreage
+                        }, {
+                            "name": "REQUESTED_DATE",
+                            "content": data.createdAt
+                        }];
+
+                        Config.email(emailData, function (err, emailRespo) {
+                            console.log("emailRespo", emailRespo);
+                            if (err) {
+                                console.log(err);
+                                callback(err, null);
+                            } else if (emailRespo) {
+                                callback(null, "Contact us form saved successfully!!!");
+                            } else {
+                                callback("Invalid data", null);
+                            }
+                        });
+                    }
+                },
+                function (err, result) {
+                    if (err || _.isEmpty(result)) {
+                        // callback(err, []);
+                    } else {
+                        // callback(null, result);
+                    }
+                });
+
+        } else if (data.dfmSubscription) {
+            async.parallel({
+                    forUser: function (callback) {
+                        emailData.filename = "DFM Purchase";
+                        emailData.subject = "DFM PURCHASE";
+                        emailData.email = data.user.email;                        
+                        Config.email(emailData, function (err, emailRespo) {
+                            if (err) {
+                                console.log(err);
+                                callback(err, null);
+                            } else if (emailRespo) {
+                                callback(null, "Contact us form saved successfully!!!");
+                            } else {
+                                callback("Invalid data", null);
+                            }
+                        });
+                    },
+                    forAdmin: function (callback) {
+                        emailData.filename = "New DFM Purchase (Admin)";
+                        emailData.subject = "DFM REQUEST";
+                        emailData.email = global["env"].adminEmail;                        
+                        emailData.merge_vars = [{
+                            "name": "USER_NAME",
+                            "content": data.user.name
+                        }, {
+                            "name": "USER_ID",
+                            "content": data.user.dataId
+                        }, {
+                            "name": "NAME_OF_PACKAGE",
+                            "content": data.dfmSubscription.name
+                        }, {
+                            "name": "PRICE",
+                            "content": data.dfmSubscription.amount
+                        }, {
+                            "name": "ACTIVATION_DATE",
+                            "content": data.dfmSubscription.createdAt
+                        },{
+                            "name": "EXPIRATION_DATE",
+                            "content": data.dfmSubscription.expiryDate
+                        }];
+
+                        Config.email(emailData, function (err, emailRespo) {
+                            console.log("emailRespo", emailRespo);
+                            if (err) {
+                                console.log(err);
+                                callback(err, null);
+                            } else if (emailRespo) {
+                                callback(null, "Contact us form saved successfully!!!");
+                            } else {
+                                callback("Invalid data", null);
+                            }
+                        });
+                    }
+                },
+                function (err, result) {
+                    if (err || _.isEmpty(result)) {
+                        // callback(err, []);
+                    } else {
+                        // callback(null, result);
+                    }
+                });
+        } else {
+            async.parallel({
+                    forUser: function (callback) {
+                        emailData.filename = "Drone Purchase";
+                        emailData.subject = "DRONE PURCHASE";
+                        emailData.email = data.user.email;                        
+                        Config.email(emailData, function (err, emailRespo) {
+                            console.log("emailRespo", emailRespo);
+                            if (err) {
+                                console.log(err);
+                                callback(err, null);
+                            } else if (emailRespo) {
+                                callback(null, "Contact us form saved successfully!!!");
+                            } else {
+                                callback("Invalid data", null);
+                            }
+                        });
+                    },
+                    forAdmin: function (callback) {
+                        emailData.email = global["env"].adminEmail;
+                        emailData.filename = "New Drone Purchase (Admin)";
+                        emailData.subject = "DRONE PURCHASE";
+                        emailData.merge_vars = [{
+                            "name": "USER_NAME",
+                            "content": data.user.name
+                        }, {
+                            "name": "USER_ID",
+                            "content": data.user.dataId
+                        }, {
+                            "name": "NAME_DRONE",
+                            "content": data.products.name
+                        }, {
+                            "name": "PRICE",
+                            "content": data.products.price
+                        }];
+
+                        Config.email(emailData, function (err, emailRespo) {
+                            console.log("emailRespo", emailRespo);
+                            if (err) {
+                                console.log(err);
+                                callback(err, null);
+                            } else if (emailRespo) {
+                                callback(null, "Contact us form saved successfully!!!");
+                            } else {
+                                callback("Invalid data", null);
+                            }
+                        });
+                    }
+                },
+                function (err, result) {
+                    if (err || _.isEmpty(result)) {
+                        // callback(err, []);
+                    } else {
+                        // callback(null, result);
+                    }
+                });
+        }
+    }
 
 };
 module.exports = _.assign(module.exports, exports, model);

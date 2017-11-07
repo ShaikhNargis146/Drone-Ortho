@@ -42,14 +42,29 @@ var model = {
             if (err) {
                 callback(err, null);
             } else if (data1) {
-                console.log("data", data1);
                 var emailData = {}
-                emailData.email = data1.email;
-                // emailData.mobile = data1.mobile;
-                emailData.filename = "UNIFLI Inquiry";
-                emailData.name = data1.name;
-                emailData.subject = "Inquiry Details";
-                console.log("email data : ", emailData);
+                emailData.email = global["env"].adminEmail;
+                emailData.filename = "New Inquiry (Admin)";
+                emailData.subject = "INQUIEY DETAILS";
+                emailData.merge_vars = [{
+                    "name": "NAME",
+                    "content": data1.name
+                }, {
+                    "name": "EMAIL",
+                    "content": data1.email
+                },{
+                    "name": "PHONE",
+                    "content": data1.phone
+                },{
+                    "name": "COMPANY",
+                    "content": data1.company
+                },{
+                    "name": "DESIGNATION",
+                    "content": data1.designation
+                },{
+                    "name": "DESCRIPTION",
+                    "content": data1.description
+                }];
 
                 Config.email(emailData, function (err, emailRespo) {
                     console.log("emailRespo", emailRespo);

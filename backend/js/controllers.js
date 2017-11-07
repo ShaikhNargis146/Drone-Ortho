@@ -9,8 +9,7 @@ firstapp
     .controller('DashboardCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
         $scope.toolsvalue = 0;
-        $scope.template = TemplateService.changecontent("dashboard");
-        $scope.menutitle = NavigationService.makeactive("Dashboard");
+
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         TemplateService.mainClass = [];
@@ -21,123 +20,6 @@ firstapp
             userId = $.jStorage.get("user")._id;
         }
 
-
-
-
-
-
-        // Standard Chart Example
-        //
-        //   *********************************************************************************************************88
-
-        // ********************************************************************************************************************8
-
-        if ($scope.accessLevel == "User") {
-            var dataToSend = {}
-            dataToSend.userId = userId;
-            NavigationService.apiCallWithData("CadLineWork/getGraphDataForUser", dataToSend, function (data) {
-                if (data.value === true) {
-                    $scope.data2 = data.data.OrderData;
-                    $scope.data1 = data.data.Payment;
-
-                    var i = 0
-                    _.forEach($scope.data2, function (x) {
-                        $scope.data2[i][0] = new Date($scope.data2[i][0]).getTime();
-                        // $scope.data2[i][1] = $scope.data2[i][1] * 100
-                        i++;
-                    });
-
-                    var i = 0
-                    _.forEach($scope.data1, function (x) {
-                        $scope.data1[i][0] = new Date($scope.data1[i][0]).getTime();
-                        // $scope.data1[i][1] = $scope.data1[i][1] * 100
-                        i++;
-                    });
-
-                    $scope.dataset = [{
-                            label: "Number of orders",
-                            grow: {
-                                stepMode: "linear"
-                            },
-                            data: $scope.data2,
-                            color: "#41d0c8",
-                            bars: {
-                                show: true,
-                                align: "center",
-                                barWidth: 24 * 60 * 60 * 600,
-                                lineWidth: 0
-                            }
-
-                        }, {
-                            label: "Payments",
-                            grow: {
-                                stepMode: "linear"
-                            },
-                            data: $scope.data1,
-                            yaxis: 2,
-                            color: "#2a2a2a",
-                            lines: {
-                                lineWidth: 1,
-                                show: true,
-                                fill: true,
-                                fillColor: {
-                                    colors: [{
-                                        opacity: 0.2
-                                    }, {
-                                        opacity: 0.2
-                                    }]
-                                }
-                            }
-                        }
-
-                    ];
-                }
-            });
-
-            $scope.options = {
-                grid: {
-                    hoverable: true,
-                    clickable: true,
-                    tickColor: "#d5d5d5",
-                    borderWidth: 0,
-                    color: '#d5d5d5'
-                },
-                colors: ["#29aba4", "#464f88"],
-                tooltip: true,
-                xaxis: {
-                    mode: "time",
-                    tickSize: [3, "day"],
-                    tickLength: 0,
-                    axisLabel: "Date",
-                    axisLabelUseCanvas: true,
-                    axisLabelFontSizePixels: 12,
-                    axisLabelFontFamily: 'Arial',
-                    axisLabelPadding: 10,
-                    color: "#d5d5d5"
-                },
-                yaxes: [{
-                    position: "left",
-                    max: 1070,
-                    color: "#d5d5d5",
-                    axisLabelUseCanvas: true,
-                    axisLabelFontSizePixels: 12,
-                    axisLabelFontFamily: 'Arial',
-                    axisLabelPadding: 3
-                }, {
-                    position: "right",
-                    color: "#d5d5d5",
-                    axisLabelUseCanvas: true,
-                    axisLabelFontSizePixels: 12,
-                    axisLabelFontFamily: ' Arial',
-                    axisLabelPadding: 67
-                }],
-                legend: {
-                    noColumns: 1,
-                    labelBoxBorderColor: "#d5d5d5",
-                    position: "nw"
-                }
-            };
-        }
 
         // ***************for tooltip***********************
         $scope.onEventExampleClicked = function (event, pos, item) {
@@ -218,124 +100,9 @@ firstapp
                 hoverable: true
             }
         };
-        // *************************************************end of chart for user**********************************************************************************************************
 
-        // *************************************************start of chart for Admin**********************************************************************************************************
-        //
         // Standard Chart Example
         //
-
-        if ($scope.accessLevel == "Admin") {
-
-            NavigationService.apiCallWithoutData("CadLineWork/getGraphDataForAdmin", function (data) {
-                if (data.value === true) {
-
-                    $scope.data4 = data.data.InternalData;
-                    $scope.data3 = data.data.ExternalData;
-
-                    var i = 0
-                    _.forEach($scope.data4, function (x) {
-                        $scope.data4[i][0] = new Date($scope.data4[i][0]).getTime();
-                        $scope.data4[i][1] = $scope.data4[i][1] * 100
-                        i++;
-                    });
-
-                    var i = 0
-                    _.forEach($scope.data3, function (x) {
-                        $scope.data3[i][0] = new Date($scope.data3[i][0]).getTime();
-                        // $scope.data3[i][1] = $scope.data3[i][1] * 100
-                        i++;
-                    });
-
-                    $scope.datasetadmin = [{
-                            label: "Exterrnal CAD",
-                            grow: {
-                                stepMode: "linear"
-                            },
-                            data: $scope.data4,
-                            color: "#41d0c8",
-                            bars: {
-                                show: true,
-                                align: "center",
-                                barWidth: 24 * 60 * 60 * 600,
-                                lineWidth: 0
-                            }
-
-                        },
-                        {
-                            label: " Internal CAD",
-                            grow: {
-                                stepMode: "linear"
-                            },
-                            data: $scope.data3,
-                            yaxis: 2,
-                            color: "#2a2a2a",
-                            lines: {
-                                lineWidth: 1,
-                                show: true,
-                                fill: true,
-                                fillColor: {
-                                    colors: [{
-                                            opacity: 0.2
-                                        },
-                                        {
-                                            opacity: 0.2
-                                        }
-                                    ]
-                                }
-                            }
-                        }
-
-                    ];
-                }
-            });
-
-            $scope.optionsadmin = {
-                grid: {
-                    hoverable: true,
-                    clickable: true,
-                    tickColor: "#d5d5d5",
-                    borderWidth: 0,
-                    color: '#d5d5d5'
-                },
-                colors: ["#29aba4", "#464f88"],
-                tooltip: true,
-                xaxis: {
-                    mode: "time",
-                    tickSize: [3, "day"],
-                    tickLength: 0,
-                    axisLabel: "Date",
-                    axisLabelUseCanvas: true,
-                    axisLabelFontSizePixels: 12,
-                    axisLabelFontFamily: 'Arial',
-                    axisLabelPadding: 10,
-                    color: "#d5d5d5"
-                },
-                yaxes: [{
-                    position: "left",
-                    max: 1070,
-                    color: "#d5d5d5",
-                    axisLabelUseCanvas: true,
-                    axisLabelFontSizePixels: 12,
-                    axisLabelFontFamily: 'Arial',
-                    axisLabelPadding: 3
-                }, {
-                    position: "right",
-                    color: "#d5d5d5",
-                    axisLabelUseCanvas: true,
-                    axisLabelFontSizePixels: 12,
-                    axisLabelFontFamily: ' Arial',
-                    axisLabelPadding: 67
-                }],
-                legend: {
-                    noColumns: 1,
-                    labelBoxBorderColor: "#d5d5d5",
-                    position: "nw"
-                }
-            };
-
-        }
-
 
         // ***************for tooltip***********************
         $scope.onEventExampleClicked1 = function (event, pos, item) {
@@ -651,6 +418,114 @@ firstapp
                     $scope.pieDatasetRevenue[2].data = data.data.totalProductSum;
                 }
             });
+            NavigationService.apiCallWithoutData("CadLineWork/getGraphDataForAdmin", function (data) {
+                if (data.value === true) {
+                    $scope.data4 = data.data.InternalData;
+                    $scope.data3 = data.data.ExternalData;
+                    var i = 0
+                    _.forEach($scope.data4, function (x) {
+                        $scope.data4[i][0] = new Date($scope.data4[i][0]).getTime();
+                        $scope.data4[i][1] = $scope.data4[i][1] * 100
+                        i++;
+                    });
+                    var i = 0
+                    _.forEach($scope.data3, function (x) {
+                        $scope.data3[i][0] = new Date($scope.data3[i][0]).getTime();
+                        // $scope.data3[i][1] = $scope.data3[i][1] * 100
+                        i++;
+                    });
+
+                    $scope.datasetadmin = [{
+                            label: "Exterrnal CAD",
+                            grow: {
+                                stepMode: "linear"
+                            },
+                            data: $scope.data4,
+                            color: "#41d0c8",
+                            bars: {
+                                show: true,
+                                align: "center",
+                                barWidth: 24 * 60 * 60 * 600,
+                                lineWidth: 0
+                            }
+
+                        },
+                        {
+                            label: " Internal CAD",
+                            grow: {
+                                stepMode: "linear"
+                            },
+                            data: $scope.data3,
+                            yaxis: 2,
+                            color: "#2a2a2a",
+                            lines: {
+                                lineWidth: 1,
+                                show: true,
+                                fill: true,
+                                fillColor: {
+                                    colors: [{
+                                            opacity: 0.2
+                                        },
+                                        {
+                                            opacity: 0.2
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+
+                    ];
+                    $scope.template = TemplateService.changecontent("dashboard");
+                    $scope.menutitle = NavigationService.makeactive("Dashboard");
+                } else {
+                    $scope.template = TemplateService.changecontent("dashboard");
+                    $scope.menutitle = NavigationService.makeactive("Dashboard");
+                }
+            });
+
+            $scope.optionsadmin = {
+                grid: {
+                    hoverable: true,
+                    clickable: true,
+                    tickColor: "#d5d5d5",
+                    borderWidth: 0,
+                    color: '#d5d5d5'
+                },
+                colors: ["#29aba4", "#464f88"],
+                tooltip: true,
+                xaxis: {
+                    mode: "time",
+                    tickSize: [3, "day"],
+                    tickLength: 0,
+                    axisLabel: "Date",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: 'Arial',
+                    axisLabelPadding: 10,
+                    color: "#d5d5d5"
+                },
+                yaxes: [{
+                    position: "left",
+                    max: 1070,
+                    color: "#d5d5d5",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: 'Arial',
+                    axisLabelPadding: 3
+                }, {
+                    position: "right",
+                    color: "#d5d5d5",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: ' Arial',
+                    axisLabelPadding: 67
+                }],
+                legend: {
+                    noColumns: 1,
+                    labelBoxBorderColor: "#d5d5d5",
+                    position: "nw"
+                }
+            };
 
             //-------------------dashboard for admin api call End---------------------------//
 
@@ -700,6 +575,115 @@ firstapp
                     $scope.pieDataset[2].data = 90;
                 }
             });
+            var dataToSend1 = {}
+            dataToSend1.userId = userId;
+            NavigationService.apiCallWithData("CadLineWork/getGraphDataForUser", dataToSend1, function (data) {
+                if (data.value === true) {
+                    $scope.data2 = data.data.OrderData;
+                    $scope.data1 = data.data.Payment;
+
+                    var i = 0
+                    _.forEach($scope.data2, function (x) {
+                        $scope.data2[i][0] = new Date($scope.data2[i][0]).getTime();
+                        // $scope.data2[i][1] = $scope.data2[i][1] * 100
+                        i++;
+                    });
+
+                    var i = 0
+                    _.forEach($scope.data1, function (x) {
+                        $scope.data1[i][0] = new Date($scope.data1[i][0]).getTime();
+                        // $scope.data1[i][1] = $scope.data1[i][1] * 100
+                        i++;
+                    });
+
+                    $scope.dataset = [{
+                            label: "Number of orders",
+                            grow: {
+                                stepMode: "linear"
+                            },
+                            data: $scope.data1,
+                            color: "#41d0c8",
+                            bars: {
+                                show: true,
+                                align: "center",
+                                barWidth: 24 * 60 * 60 * 600,
+                                lineWidth: 0
+                            }
+
+                        }, {
+                            label: "Payments",
+                            grow: {
+                                stepMode: "linear"
+                            },
+                            data: $scope.data2,
+                            yaxis: 2,
+                            color: "#2a2a2a",
+                            lines: {
+                                lineWidth: 1,
+                                show: true,
+                                fill: true,
+                                fillColor: {
+                                    colors: [{
+                                        opacity: 0.2
+                                    }, {
+                                        opacity: 0.2
+                                    }]
+                                }
+                            }
+                        }
+
+                    ];
+                    $scope.template = TemplateService.changecontent("dashboard");
+                    $scope.menutitle = NavigationService.makeactive("Dashboard");
+                } else {
+                    $scope.template = TemplateService.changecontent("dashboard");
+                    $scope.menutitle = NavigationService.makeactive("Dashboard");
+                }
+            });
+
+            $scope.options = {
+                grid: {
+                    hoverable: true,
+                    clickable: true,
+                    tickColor: "#d5d5d5",
+                    borderWidth: 0,
+                    color: '#d5d5d5'
+                },
+                colors: ["#29aba4", "#464f88"],
+                tooltip: true,
+                xaxis: {
+                    mode: "time",
+                    tickSize: [3, "day"],
+                    tickLength: 0,
+                    axisLabel: "Date",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: 'Arial',
+                    axisLabelPadding: 10,
+                    color: "#d5d5d5"
+                },
+                yaxes: [{
+                    position: "left",
+                    max: 1070,
+                    color: "#d5d5d5",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: 'Arial',
+                    axisLabelPadding: 3
+                }, {
+                    position: "right",
+                    color: "#d5d5d5",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: ' Arial',
+                    axisLabelPadding: 67
+                }],
+                legend: {
+                    noColumns: 1,
+                    labelBoxBorderColor: "#d5d5d5",
+                    position: "nw"
+                }
+            };
 
         } else if ($scope.accessLevel == "Vendor") {
 
@@ -754,6 +738,8 @@ firstapp
                     $scope.pieDatasetMonth[1].data = 20;
                 }
             });
+            $scope.template = TemplateService.changecontent("dashboard");
+            $scope.menutitle = NavigationService.makeactive("Dashboard");
         }
 
     })
@@ -1194,7 +1180,7 @@ firstapp
 
     })
 
-    .controller('MissionsDetailsCtrl', function ($scope, $rootScope, TemplateService, NavigationService, $uibModal, $timeout, $state, toastr, $stateParams) {
+    .controller('MissionsDetailsCtrl', function ($scope, $rootScope, TemplateService, $http, NavigationService, $uibModal, $timeout, $state, toastr, $stateParams) {
         TemplateService.mainClass = ['page-sidebar-closed', 'active'];
         $scope.demo6 = {
             valueA: 5000,
@@ -1553,39 +1539,12 @@ firstapp
                     formdata.cadLineWork = data.data._id;
                     formdata.user = $scope.profileDetails._id;
                     formdata.totalAmount = $scope.cadLineDetails.amount;
-                    NavigationService.apiCall("ProductOrders/save", formdata, function (data) {
+                    NavigationService.apiCall("ProductOrders/createInvoice", formdata, function (data) {
                         if (data.value === true) {
                             $scope.productOrder = data.data;
-                            $state.go("cadfile-request")
-                        } else {
-                            //  toastr.warning('Error submitting the form', 'Please try again');
-                        }
-                    });
-                } else {
-                    //  toastr.warning('Error submitting the form', 'Please try again');
-                }
-            });
-            cardDetails = $uibModal.open({
-                animation: true,
-                templateUrl: 'views/modal/card-detail.html',
-                scope: $scope,
-                size: 'sm',
+                            var invoiceNumber = data.data.invoiceNo;
 
-            });
-        };
-        $scope.cadpayment = function (data) {
-            var formdata = {};
-            formdata = data;
-            formdata.expirationDate = "0819"
-            formdata.amount = $scope.productOrder.totalAmount;
-            formdata.productOrder = $scope.productOrder._id;
-            NavigationService.apiCall("ProductOrders/chargeCreditCard", formdata, function (data) {
-                if (data.data.resultCode === "Ok") {
-                    cardDetails.close();
-                    $scope.productOrder.status = "Paid";
-                    NavigationService.apiCall("ProductOrders/save", $scope.productOrder, function (data) {
-                        if (data.value === true) {
-                            $state.go("cadfile-request");
+                            window.location.href = adminurl + "ProductOrders/acceptPaymentPage?amount=" + $scope.cadLineDetails.amount + "&invoiceNumber=" + invoiceNumber;
                         } else {
                             //  toastr.warning('Error submitting the form', 'Please try again');
                         }
@@ -1594,7 +1553,36 @@ firstapp
                     //  toastr.warning('Error submitting the form', 'Please try again');
                 }
             });
-        }
+            // cardDetails = $uibModal.open({
+            //     animation: true,
+            //     templateUrl: 'views/modal/card-detail.html',
+            //     scope: $scope,
+            //     size: 'sm',
+
+            // });
+        };
+        // $scope.cadpayment = function (data) {
+        //     var formdata = {};
+        //     formdata = data;
+        //     formdata.expirationDate = "0819"
+        //     formdata.amount = $scope.productOrder.totalAmount;
+        //     formdata.productOrder = $scope.productOrder._id;
+        //     NavigationService.apiCall("ProductOrders/chargeCreditCard", formdata, function (data) {
+        //         if (data.data.resultCode === "Ok") {
+        //             cardDetails.close();
+        //             $scope.productOrder.status = "Paid";
+        //             NavigationService.apiCall("ProductOrders/save", $scope.productOrder, function (data) {
+        //                 if (data.value === true) {
+        //                     $state.go("cadfile-request");
+        //                 } else {
+        //                     //  toastr.warning('Error submitting the form', 'Please try again');
+        //                 }
+        //             });
+        //         } else {
+        //             //  toastr.warning('Error submitting the form', 'Please try again');
+        //         }
+        //     });
+        // }
         //slider 
         // var slider = document.getElementById('slider');
         // var sliderValue = document.getElementById('slider-value');
@@ -1660,9 +1648,21 @@ firstapp
                 window.open('http://cloud.unifli.aero/api/getMeshObj/' + missionIdForDownload + ".Obj", '_self');
             },
 
-            $scope.downloadPointCloud = function () {
+            $scope.listPointCloud = function () {
+                $http.post(adminurl + "Mission/generateZipForPointCloudFiles?filename=" + missionID.filename).then(function (data) {
+                    console.log("data---->>>", data.data.data);
+                    if (data.data.value == true) {
+                        $scope.fileList = data.data.data
+                        $("#myAlertModal").modal();
+                    }
+                });
                 // window.open('http://cloud.unifli.aero/api/getPointCloud/' + missionIdForDownload + ".las", '_self');
-                window.open(adminurl + 'Mission/generateZipForPointCloudFiles?filename=' + missionID.filename, '_self');
+                // window.open(adminurl + 'Mission/generateZipForPointCloudFiles?filename=' + missionID.filename, '_self');
+                // window.close();
+            },
+            $scope.downloadPointCloud = function (file) {
+                // window.open('http://cloud.unifli.aero/api/getPointCloud/' + missionIdForDownload + ".las", '_self');
+                window.open(adminurl + 'getPointCloud/' + missionIdForDownload + '/' + file, '_self');
                 window.close();
             },
 
@@ -1735,7 +1735,7 @@ firstapp
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
         $scope.submitTicket = function (data1) {
-
+            console.log("inside submitTicket", data1);
             $scope.data = {
                 status: "active",
             }
@@ -1836,6 +1836,7 @@ firstapp
                     function (data, ini) {
                         if (ini == i) {
                             $scope.productData = data.data.results;
+                            console.log("$scope.productData", $scope.productData);
                             $scope.totalItems = data.data.total;
                             $scope.maxRow = data.data.options.count;
                         }
@@ -1851,6 +1852,7 @@ firstapp
                     function (data, ini) {
                         if (ini == i) {
                             $scope.productData = data.data.results;
+                            console.log("$scope.productData", $scope.productData);
                             $scope.totalItems = data.data.total;
                             $scope.maxRow = data.data.options.count;
                         }
@@ -1867,6 +1869,7 @@ firstapp
             // window.open(adminurl + 'upload/readFileFromFolder?name=' + data, '_self');
             // console.log("data", data);
             // if (data) {
+            console.log("data", data);
             window.open('http://files.unifli.aero/' + data, '_self');
             // } else {
             //     toastr.error("No PDF Found");
@@ -1894,7 +1897,7 @@ firstapp
         }
     })
 
-    .controller('CreatemissionCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr,$stateParams) {
+    .controller('CreatemissionCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("create-mission");
         $scope.menutitle = NavigationService.makeactive("CreateMission");
@@ -1910,6 +1913,7 @@ firstapp
         $scope.mission = {};
         $scope.mission.selected = true
         $scope.saveMission = function (missiondata) {
+            console.log("inisde mission ctrl", missiondata);
             missiondata.user = userId;
             NavigationService.apiCall("Mission/createMission", missiondata, function (data) {
                 $("#modal-4").modal();
@@ -1921,7 +1925,7 @@ firstapp
             });
         }
 
-            //pagination start
+        //pagination start
 
         // var i = 0;
         // if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
@@ -1951,23 +1955,23 @@ firstapp
         // };
 
         // $scope.getAllItems = function (keywordChange, count) {
-                // $scope.maxCount = keywordChange;
-                // $scope.totalItems = undefined;
-                // if (keywordChange) {}
-                // NavigationService.searchCall("Mission/getMission", {
-                //         page: $scope.currentPage,
-                //         keyword: $scope.search.keyword,
-                //         count: $scope.maxCount
-                //     }, ++i,
-                //     function (data, ini) {
-                //         if (ini == i) {
-                //             $scope.allMissionData = data.data.results;
-                //             $scope.totalItems = data.data.total;
-                //             $scope.maxRow = data.data.options.count;
-                //         }
-                //     });
-             
-                // $scope.totalItems = data.data.total;
+        // $scope.maxCount = keywordChange;
+        // $scope.totalItems = undefined;
+        // if (keywordChange) {}
+        // NavigationService.searchCall("Mission/getMission", {
+        //         page: $scope.currentPage,
+        //         keyword: $scope.search.keyword,
+        //         count: $scope.maxCount
+        //     }, ++i,
+        //     function (data, ini) {
+        //         if (ini == i) {
+        //             $scope.allMissionData = data.data.results;
+        //             $scope.totalItems = data.data.total;
+        //             $scope.maxRow = data.data.options.count;
+        //         }
+        //     });
+
+        // $scope.totalItems = data.data.total;
 
         // };
         //  JsonService.refreshView = $scope.getAllItems;
@@ -2329,9 +2333,12 @@ firstapp
                     formdata.cadLineWork = data.data._id;
                     formdata.user = $scope.profileDetails._id;
                     formdata.totalAmount = $scope.cadLineDetails.amount;
-                    NavigationService.apiCall("ProductOrders/save", formdata, function (data) {
+                    NavigationService.apiCall("ProductOrders/createInvoice", formdata, function (data) {
                         if (data.value === true) {
                             $scope.productOrder = data.data;
+                            var invoiceNumber = data.data.invoiceNo;
+
+                            window.location.href = adminurl + "ProductOrders/acceptPaymentPage?amount=" + $scope.cadLineDetails.amount + "&invoiceNumber=" + invoiceNumber;
 
                         } else {
                             //  toastr.warning('Error submitting the form', 'Please try again');
@@ -2341,13 +2348,13 @@ firstapp
                     //  toastr.warning('Error submitting the form', 'Please try again');
                 }
             });
-            var cardDetails = $uibModal.open({
-                animation: true,
-                templateUrl: 'views/modal/card-detail.html',
-                scope: $scope,
-                size: 'sm',
+            // var cardDetails = $uibModal.open({
+            //     animation: true,
+            //     templateUrl: 'views/modal/card-detail.html',
+            //     scope: $scope,
+            //     size: 'sm',
 
-            });
+            // });
         };
 
         $scope.cadpayment = function (data) {
@@ -2410,8 +2417,12 @@ firstapp
 
         $scope.uploadCadForAdmin = function (data) {
             data._id = $stateParams.cadId;
+            data.completionDate = new Date();
             NavigationService.apiCallWithData("CadLineWork/save", data, function (data) {
                 if (data.value == true) {
+                    var sendDataForMail = {};
+                    sendDataForMail._id = $stateParams.cadId;
+                    NavigationService.apiCallWithData("CadLineWork/sendCadCompletedMail", sendDataForMail, function (data) {});
                     toastr.success("File uploaded successfully");
                     $state.reload();
                 }
@@ -2425,14 +2436,27 @@ firstapp
         NavigationService.apiCallWithData("CadLineWork/getSingleCadData", cad, function (data) {
             if (data.value == true) {
                 $scope.cadForVendorData = data.data;
+                console.log("$scope.cadForVendorData.vendorCharges", $scope.cadForVendorData.vendorCharges)
+                if ($scope.cadForVendorData.vendorCharges == undefined) {
+                    console.log("inside if")
+
+                    $scope.hidebutton = false;
+
+                } else {
+                    console.log("inside else")
+                    $scope.hidebutton = true;
+                }
             }
         });
 
 
         $scope.vendorPriceSet = function (data) {
+            $scope.hidebutton = true;
+            console.log("inside vendorPriceSet", data)
             data._id = $stateParams.cadId;
             data.vendorPaymentStatus = 'Unpaid';
             NavigationService.apiCallWithData("CadLineWork/saveVendorDetails", data, function (data) {
+                console.log("after vendorPriceSet api", data);
                 if (data.value == true) {
                     toastr.success("Amount set");
                     $state.reload();
@@ -2442,7 +2466,6 @@ firstapp
 
         $scope.uploadCadForVendor = function (data) {
             data._id = $stateParams.cadId;
-            data.completionDate = new Date();
             NavigationService.apiCallWithData("CadLineWork/save", data, function (data) {
                 if (data.value == true) {
                     toastr.success("File uploaded successfully");
@@ -2801,33 +2824,50 @@ firstapp
                 toastr.error('Check Entered Password');
             }
         }
-        $scope.dfmData = {};
-        NavigationService.apiCallWithData("User/getByDfm", $scope.formdata1, function (dfm) {
+
+        $scope.dfmDeatils = {}
+        $scope.dfmDeatils._id = $.jStorage.get("user").currentSubscription;
+        NavigationService.apiCallWithData("DFMSubscription/getOne", $scope.dfmDeatils, function (dfm) {
             $scope.dfmData = dfm.data;
-            NavigationService.apiCallWithData("Mission/totalMission", $scope.formdata1, function (mission) {
-                $scope.totalMission = mission.data;
-                console.log("$scope.totalMission", $scope.totalMission);
-                if ($scope.totalMission == undefined) {
-                    $scope.dfmData.currentSubscription.missions = "0" + "/" + $scope.dfmData.currentSubscription.missions
-                } else {
-                    $scope.dfmData.currentSubscription.missions = $scope.totalMission + "/" + $scope.dfmData.currentSubscription.missions
-                }
-                $scope.formdata1.currentSubscriptionDate = dfm.data.currentSubscription.createdAt;
+            if (dfm.value == true) {
+                NavigationService.apiCallWithData("Mission/totalMission", $scope.formdata1, function (mission) {
+                    if (mission.value == true) {
+                        $scope.totalMission = mission.data;
+                        $scope.dfmData.missions = $scope.totalMission + "/" + $scope.dfmData.missions
+                    } else {
+                        $scope.dfmData.missions = "0" + "/" + $scope.dfmData.missions
+                    }
+                })
+                $scope.formdata1.currentSubscriptionDate = dfm.data.createdAt;
                 NavigationService.apiCallWithData("Mission/totalMissionCount", $scope.formdata1, function (mission1) {
-                    console.log("mission1", mission1);
                     if (mission1.value == false) {
-                        console.log("inside if", mission1);
-                        $scope.dfmData.currentSubscription.UploadPhoto = "0";
+                        $scope.dfmData.UploadPhoto = "0";
                         $scope.foldersize = "0";
                     } else {
-                        console.log("inside else", mission1);
-                        $scope.foldersize = mission1.data.folderSize + "/" + $scope.dfmData.currentSubscription.UploadSize;
-                        $scope.dfmData.currentSubscription.UploadPhoto = mission1.data.fileSize + "/" + $scope.dfmData.currentSubscription.UploadPhoto;
+                        $scope.foldersize = mission1.data.folderSize + "/" + $scope.dfmData.UploadSize;
+                        $scope.dfmData.UploadPhoto = mission1.data.fileSize + "/" + $scope.dfmData.UploadPhoto;
                     }
-                });
 
-            });
-        });
+                })
+            } else {
+                $scope.dfmData = {};
+                $scope.dfmData.user = {};
+                $scope.dfmData.user.lisence = "Not Available";
+                $scope.dfmData.name = "Not Available";
+                $scope.dfmData.status = "Not Available"
+                $scope.dfmData.missions = "0";
+                $scope.dfmData.UploadPhoto = "0";
+                $scope.foldersize = "0";
+                $scope.dfmData.Mosaic = "0";
+                $scope.dfmData.updatedAt = "Not Available";
+                $scope.dfmData.expiryDate = "Not Available";
+
+            }
+
+        })
+
+
+
     })
 
     .controller('500Ctrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
@@ -3038,21 +3078,51 @@ firstapp
 
                 console.log("data-------", data);
                 if (data.accessLevel == 'User') {
-                    data.status='Active';
-                    NavigationService.apiCallWithData("User/createUser", data, function (data) {
-                        if (data.value == true) {
-                            $scope.product = data;
-                            $state.reload();
+                    $scope.dmfData = {
+                        name: "TRIAL",
+                        invitations: "0",
+                        missions: "3",
+                        UploadPhoto: "200",
+                        UploadSize: "1GB",
+                        Mosaic: "12cm",
+                        exportKMZ: "15",
+                        exportOrthophoto: "USAGE LIMIT",
+                        exportDEM: "USAGE LIMIT",
+                        exportPointCloud: "false",
+                        status: "Active",
+                        amount: "0",
+                        expiryDate: $scope.dt,
+                    }
+                    console.log("inside test unction dfm data is", $scope.dmfData);
+                    NavigationService.apiCallWithData("DFMSubscription/save", $scope.dmfData, function (dfm) {
+                        console.log("after dfm data is called", dfm);
+                        $scope.dfmId = dfm.data._id;
+                        if (dfm.value == true) {
+                            data.status = 'Active';
+                            data.currentSubscription = $scope.dfmId;
+                            console.log("dota going to be save is or user", data);
+                            NavigationService.apiCallWithData("User/createUser", data, function (data) {
+                                if (data.value == true) {
+                                    $scope.product = data;
+                                    $state.reload();
+                                } else {
+                                    $scope.showerr = "";
+                                    $scope.showerr = true;
+                                    // toastr.warning('Error submitting the form', 'Please try again');
+
+                                }
+                            });
                         } else {
-                            $scope.showerr = "";
-                            $scope.showerr = true;
-                            // toastr.warning('Error submitting the form', 'Please try again');
+                            toastr.warning('try agin');
 
                         }
-                    });
+
+
+                    })
+
                 } else {
-                    data.status='Active';
-                     NavigationService.apiCallWithData("User/createVendor", data, function (data) {
+                    data.status = 'Active';
+                    NavigationService.apiCallWithData("User/createVendor", data, function (data) {
                         if (data.value == true) {
                             $scope.product = data;
                             $state.reload();
@@ -3156,11 +3226,13 @@ firstapp
         $scope.downloadInvoiceEcommerce = function (data) {
             // window.open(adminurl + 'downloadWithName/' + data, '_self');
             // console.log("data-------", data);
-            if (data) {
-                window.open(adminurl + '../pdf/' + data, '_self');
-            } else {
-                toastr.error("No PDF Found");
-            }
+            console.log("data", data);
+            window.open('http://files.unifli.aero/' + data, '_self');
+            // if (data) {
+            //     window.open(adminurl + '../pdf/' + data, '_self');
+            // } else {
+            //     toastr.error("No PDF Found");
+            // }
         }
     })
 
@@ -3348,7 +3420,7 @@ firstapp
             if (data.password == data.confirmPassword) {
                 console.log("data-------", data);
                 data.accessLevel = 'Vendor';
-                    data.status='Active';               
+                data.status = 'Active';
                 console.log("data acesslevel", data);
                 NavigationService.apiCallWithData("User/createVendor", data, function (data) {
                     if (data.value == true) {
@@ -3367,13 +3439,13 @@ firstapp
 
             } else {
                 toastr.warning('Check your Password');
-                        $state.go('vendors');
+                $state.go('vendors');
 
             }
         }
-        $scope.close=function(){
+        $scope.close = function () {
             console.log("inside close function")
-                        $state.go('vendors');
+            $state.go('vendors');
 
         }
 
@@ -6096,7 +6168,11 @@ firstapp
 
         $scope.loginUser = function (info) {
             console.log(info);
-            NavigationService.apiCallWithData("User/login", info, function (data) {
+            information = {};
+            information.name = info.name1;
+            information.password = info.password1;
+            console.log("information for sending is", information);
+            NavigationService.apiCallWithData("User/login", information, function (data) {
                 if (data.value == true) {
                     NavigationService.parseAccessToken(data.data._id, function () {
                         NavigationService.profile(function () {
@@ -6134,6 +6210,7 @@ firstapp
 
         }
         $scope.verifyAndSendEmail = function (formdata) {
+
             console.log("dataForsendOtp", formdata);
             $scope.data = {
                 email: formdata
@@ -6144,7 +6221,7 @@ firstapp
                 console.log("after sendotp excution", data)
                 if (data.value == true) {
                     console.log("data.data._id****", data.data._id);
-                    $scope.id = "59eee664317a857ff90bc862";
+                    $scope.id = data.data._id;
                     console.log("data.data._id", $scope.id);
 
                     $scope.forgotPwd = false;
@@ -6158,6 +6235,27 @@ firstapp
                 }
             });
         };
+        $scope.resendOtp = function () {
+            console.log(" $scope.data", $scope.data);
+            NavigationService.apiCallWithData("User/sendOtp", $scope.data, function (data) {
+                console.log("after sendotp excution", data)
+                if (data.value == true) {
+                    console.log("data.data._id****", data.data._id);
+                    $scope.id = data.data._id;
+                    console.log("data.data._id", $scope.id);
+
+                    $scope.forgotPwd = false;
+                    $scope.otpPwd = true
+                    $scope.resetPwd = false;
+                    $scope.displayThanksBox = false;
+
+                } else {
+                    toastr.error('Incorrect email!');
+
+                }
+            });
+        }
+
         $scope.checkOTP = function (data1) {
 
             console.log("inside check otp", data1);
@@ -6184,9 +6282,9 @@ firstapp
                     _id: $scope.id,
                     password: formdata.password
                 }
-                NavigationService.apiCallWithData("User/Updatepassword", $scope.data, function (data) {
-                    console.log("doneFormDatadata", data);
-                    if (data.value) {
+                NavigationService.apiCallWithData("User/Updatepassword", $scope.data, function (data1) {
+                    console.log("doneFormDatadata", data1);
+                    if (data1.value) {
                         $scope.forgotPwd = false;
                         $scope.otpPwd = false;
                         $scope.resetPwd = false;

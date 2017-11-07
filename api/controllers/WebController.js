@@ -121,8 +121,8 @@ module.exports = {
 
     getPointCloud: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
-        var name = req.param("filename").split('.')[0]
-        var filePath = "C:/Users/unifli/Documents/pix4d/" + name + "/2_densification/point_cloud/" + name + "_group1_densified_point_cloud.las";
+        // var name = req.param("filename").split('.')[0];
+        var filePath = "C:/Users/unifli/Documents/pix4d/" + req.param("missionName") + "/2_densification/point_cloud/" + req.param("filename");
         files = fs.readFileSync(filePath);
         res.send(files);
     },

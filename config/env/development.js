@@ -22,5 +22,6 @@ module.exports = {
     // }
     port: 1337,
     realHost: "http://localhost:1337",
-    emails: ["chintan@wohlig.com", "jagruti@wohlig.com", "tushar@wohlig.com", "chirag@wohlig.com", "harsh@wohlig.com", "nargis.shaikh@wohlig.com"]
+    emails: ["chintan@wohlig.com", "jagruti@wohlig.com", "tushar@wohlig.com", "chirag@wohlig.com", "harsh@wohlig.com", "nargis.shaikh@wohlig.com"],
+    adminEmail:'info@unifli.aero'
 };

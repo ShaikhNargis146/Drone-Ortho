@@ -23,17 +23,20 @@ cron.schedule('1 * * * *', function () {
             callback(err, null);
         } else {
             async.eachSeries(found, function (value, callback1) {
+                    var sendData = {}
+                    sendData.user = found.user;
                     var localDate = moment(value.expiryDate);
                     var currentDate = moment(new Date())
-                    console.log("localDate currentDate", localDate, currentDate, moment(currentDate).isSameOrAfter(localDate));
+                    // console.log("localDate currentDate", localDate, currentDate, moment(currentDate).isSameOrAfter(localDate));
                     if (moment(currentDate).isSameOrAfter(localDate)) {
                         value.status = "Inactive";
                         value.save(function (err, data) {
                             if (err) {
-                                console.log("error occured");
+                                // console.log("error occured");
                                 callback1("next");
                             } else {
-                                console.log("value updated");
+                                // console.log("value updated");
+                                DFMSubscription.sendMissionCompletedMail(sendData, callback);
                                 callback1("next");
                             }
                         });
@@ -43,9 +46,9 @@ cron.schedule('1 * * * *', function () {
                 },
                 function (err, results) {
                     if (err) {
-                        console.log("err", err);
+                        // console.log("err", err);
                     } else {
-                        console.log("results", results);
+                        // console.log("results", results);
                         // callback();
                     }
                 });
