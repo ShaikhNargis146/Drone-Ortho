@@ -9,8 +9,7 @@ firstapp
     .controller('DashboardCtrl', function ($scope, $stateParams, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
         $scope.toolsvalue = 0;
-        $scope.template = TemplateService.changecontent("dashboard");
-        $scope.menutitle = NavigationService.makeactive("Dashboard");
+
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         TemplateService.mainClass = [];
@@ -21,123 +20,6 @@ firstapp
             userId = $.jStorage.get("user")._id;
         }
 
-
-
-
-
-
-        // Standard Chart Example
-        //
-        //   *********************************************************************************************************88
-
-        // ********************************************************************************************************************8
-
-        if ($scope.accessLevel == "User") {
-            var dataToSend = {}
-            dataToSend.userId = userId;
-            NavigationService.apiCallWithData("CadLineWork/getGraphDataForUser", dataToSend, function (data) {
-                if (data.value === true) {
-                    $scope.data2 = data.data.OrderData;
-                    $scope.data1 = data.data.Payment;
-
-                    var i = 0
-                    _.forEach($scope.data2, function (x) {
-                        $scope.data2[i][0] = new Date($scope.data2[i][0]).getTime();
-                        // $scope.data2[i][1] = $scope.data2[i][1] * 100
-                        i++;
-                    });
-
-                    var i = 0
-                    _.forEach($scope.data1, function (x) {
-                        $scope.data1[i][0] = new Date($scope.data1[i][0]).getTime();
-                        // $scope.data1[i][1] = $scope.data1[i][1] * 100
-                        i++;
-                    });
-
-                    $scope.dataset = [{
-                            label: "Number of orders",
-                            grow: {
-                                stepMode: "linear"
-                            },
-                            data: $scope.data2,
-                            color: "#41d0c8",
-                            bars: {
-                                show: true,
-                                align: "center",
-                                barWidth: 24 * 60 * 60 * 600,
-                                lineWidth: 0
-                            }
-
-                        }, {
-                            label: "Payments",
-                            grow: {
-                                stepMode: "linear"
-                            },
-                            data: $scope.data1,
-                            yaxis: 2,
-                            color: "#2a2a2a",
-                            lines: {
-                                lineWidth: 1,
-                                show: true,
-                                fill: true,
-                                fillColor: {
-                                    colors: [{
-                                        opacity: 0.2
-                                    }, {
-                                        opacity: 0.2
-                                    }]
-                                }
-                            }
-                        }
-
-                    ];
-                }
-            });
-
-            $scope.options = {
-                grid: {
-                    hoverable: true,
-                    clickable: true,
-                    tickColor: "#d5d5d5",
-                    borderWidth: 0,
-                    color: '#d5d5d5'
-                },
-                colors: ["#29aba4", "#464f88"],
-                tooltip: true,
-                xaxis: {
-                    mode: "time",
-                    tickSize: [3, "day"],
-                    tickLength: 0,
-                    axisLabel: "Date",
-                    axisLabelUseCanvas: true,
-                    axisLabelFontSizePixels: 12,
-                    axisLabelFontFamily: 'Arial',
-                    axisLabelPadding: 10,
-                    color: "#d5d5d5"
-                },
-                yaxes: [{
-                    position: "left",
-                    max: 1070,
-                    color: "#d5d5d5",
-                    axisLabelUseCanvas: true,
-                    axisLabelFontSizePixels: 12,
-                    axisLabelFontFamily: 'Arial',
-                    axisLabelPadding: 3
-                }, {
-                    position: "right",
-                    color: "#d5d5d5",
-                    axisLabelUseCanvas: true,
-                    axisLabelFontSizePixels: 12,
-                    axisLabelFontFamily: ' Arial',
-                    axisLabelPadding: 67
-                }],
-                legend: {
-                    noColumns: 1,
-                    labelBoxBorderColor: "#d5d5d5",
-                    position: "nw"
-                }
-            };
-        }
 
         // ***************for tooltip***********************
         $scope.onEventExampleClicked = function (event, pos, item) {
@@ -218,124 +100,9 @@ firstapp
                 hoverable: true
             }
         };
-        // *************************************************end of chart for user**********************************************************************************************************
 
-        // *************************************************start of chart for Admin**********************************************************************************************************
-        //
         // Standard Chart Example
         //
-
-        if ($scope.accessLevel == "Admin") {
-
-            NavigationService.apiCallWithoutData("CadLineWork/getGraphDataForAdmin", function (data) {
-                if (data.value === true) {
-
-                    $scope.data4 = data.data.InternalData;
-                    $scope.data3 = data.data.ExternalData;
-
-                    var i = 0
-                    _.forEach($scope.data4, function (x) {
-                        $scope.data4[i][0] = new Date($scope.data4[i][0]).getTime();
-                        $scope.data4[i][1] = $scope.data4[i][1] * 100
-                        i++;
-                    });
-
-                    var i = 0
-                    _.forEach($scope.data3, function (x) {
-                        $scope.data3[i][0] = new Date($scope.data3[i][0]).getTime();
-                        // $scope.data3[i][1] = $scope.data3[i][1] * 100
-                        i++;
-                    });
-
-                    $scope.datasetadmin = [{
-                            label: "Exterrnal CAD",
-                            grow: {
-                                stepMode: "linear"
-                            },
-                            data: $scope.data4,
-                            color: "#41d0c8",
-                            bars: {
-                                show: true,
-                                align: "center",
-                                barWidth: 24 * 60 * 60 * 600,
-                                lineWidth: 0
-                            }
-
-                        },
-                        {
-                            label: " Internal CAD",
-                            grow: {
-                                stepMode: "linear"
-                            },
-                            data: $scope.data3,
-                            yaxis: 2,
-                            color: "#2a2a2a",
-                            lines: {
-                                lineWidth: 1,
-                                show: true,
-                                fill: true,
-                                fillColor: {
-                                    colors: [{
-                                            opacity: 0.2
-                                        },
-                                        {
-                                            opacity: 0.2
-                                        }
-                                    ]
-                                }
-                            }
-                        }
-
-                    ];
-                }
-            });
-
-            $scope.optionsadmin = {
-                grid: {
-                    hoverable: true,
-                    clickable: true,
-                    tickColor: "#d5d5d5",
-                    borderWidth: 0,
-                    color: '#d5d5d5'
-                },
-                colors: ["#29aba4", "#464f88"],
-                tooltip: true,
-                xaxis: {
-                    mode: "time",
-                    tickSize: [3, "day"],
-                    tickLength: 0,
-                    axisLabel: "Date",
-                    axisLabelUseCanvas: true,
-                    axisLabelFontSizePixels: 12,
-                    axisLabelFontFamily: 'Arial',
-                    axisLabelPadding: 10,
-                    color: "#d5d5d5"
-                },
-                yaxes: [{
-                    position: "left",
-                    max: 1070,
-                    color: "#d5d5d5",
-                    axisLabelUseCanvas: true,
-                    axisLabelFontSizePixels: 12,
-                    axisLabelFontFamily: 'Arial',
-                    axisLabelPadding: 3
-                }, {
-                    position: "right",
-                    color: "#d5d5d5",
-                    axisLabelUseCanvas: true,
-                    axisLabelFontSizePixels: 12,
-                    axisLabelFontFamily: ' Arial',
-                    axisLabelPadding: 67
-                }],
-                legend: {
-                    noColumns: 1,
-                    labelBoxBorderColor: "#d5d5d5",
-                    position: "nw"
-                }
-            };
-
-        }
-
 
         // ***************for tooltip***********************
         $scope.onEventExampleClicked1 = function (event, pos, item) {
@@ -651,6 +418,114 @@ firstapp
                     $scope.pieDatasetRevenue[2].data = data.data.totalProductSum;
                 }
             });
+            NavigationService.apiCallWithoutData("CadLineWork/getGraphDataForAdmin", function (data) {
+                if (data.value === true) {
+                    $scope.data4 = data.data.InternalData;
+                    $scope.data3 = data.data.ExternalData;
+                    var i = 0
+                    _.forEach($scope.data4, function (x) {
+                        $scope.data4[i][0] = new Date($scope.data4[i][0]).getTime();
+                        $scope.data4[i][1] = $scope.data4[i][1] * 100
+                        i++;
+                    });
+                    var i = 0
+                    _.forEach($scope.data3, function (x) {
+                        $scope.data3[i][0] = new Date($scope.data3[i][0]).getTime();
+                        // $scope.data3[i][1] = $scope.data3[i][1] * 100
+                        i++;
+                    });
+
+                    $scope.datasetadmin = [{
+                            label: "Exterrnal CAD",
+                            grow: {
+                                stepMode: "linear"
+                            },
+                            data: $scope.data4,
+                            color: "#41d0c8",
+                            bars: {
+                                show: true,
+                                align: "center",
+                                barWidth: 24 * 60 * 60 * 600,
+                                lineWidth: 0
+                            }
+
+                        },
+                        {
+                            label: " Internal CAD",
+                            grow: {
+                                stepMode: "linear"
+                            },
+                            data: $scope.data3,
+                            yaxis: 2,
+                            color: "#2a2a2a",
+                            lines: {
+                                lineWidth: 1,
+                                show: true,
+                                fill: true,
+                                fillColor: {
+                                    colors: [{
+                                            opacity: 0.2
+                                        },
+                                        {
+                                            opacity: 0.2
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+
+                    ];
+                    $scope.template = TemplateService.changecontent("dashboard");
+                    $scope.menutitle = NavigationService.makeactive("Dashboard");
+                } else {
+                    $scope.template = TemplateService.changecontent("dashboard");
+                    $scope.menutitle = NavigationService.makeactive("Dashboard");
+                }
+            });
+
+            $scope.optionsadmin = {
+                grid: {
+                    hoverable: true,
+                    clickable: true,
+                    tickColor: "#d5d5d5",
+                    borderWidth: 0,
+                    color: '#d5d5d5'
+                },
+                colors: ["#29aba4", "#464f88"],
+                tooltip: true,
+                xaxis: {
+                    mode: "time",
+                    tickSize: [3, "day"],
+                    tickLength: 0,
+                    axisLabel: "Date",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: 'Arial',
+                    axisLabelPadding: 10,
+                    color: "#d5d5d5"
+                },
+                yaxes: [{
+                    position: "left",
+                    max: 1070,
+                    color: "#d5d5d5",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: 'Arial',
+                    axisLabelPadding: 3
+                }, {
+                    position: "right",
+                    color: "#d5d5d5",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: ' Arial',
+                    axisLabelPadding: 67
+                }],
+                legend: {
+                    noColumns: 1,
+                    labelBoxBorderColor: "#d5d5d5",
+                    position: "nw"
+                }
+            };
 
             //-------------------dashboard for admin api call End---------------------------//
 
@@ -700,6 +575,115 @@ firstapp
                     $scope.pieDataset[2].data = 90;
                 }
             });
+            var dataToSend1 = {}
+            dataToSend1.userId = userId;
+            NavigationService.apiCallWithData("CadLineWork/getGraphDataForUser", dataToSend1, function (data) {
+                if (data.value === true) {
+                    $scope.data2 = data.data.OrderData;
+                    $scope.data1 = data.data.Payment;
+
+                    var i = 0
+                    _.forEach($scope.data2, function (x) {
+                        $scope.data2[i][0] = new Date($scope.data2[i][0]).getTime();
+                        // $scope.data2[i][1] = $scope.data2[i][1] * 100
+                        i++;
+                    });
+
+                    var i = 0
+                    _.forEach($scope.data1, function (x) {
+                        $scope.data1[i][0] = new Date($scope.data1[i][0]).getTime();
+                        // $scope.data1[i][1] = $scope.data1[i][1] * 100
+                        i++;
+                    });
+
+                    $scope.dataset = [{
+                            label: "Number of orders",
+                            grow: {
+                                stepMode: "linear"
+                            },
+                            data: $scope.data1,
+                            color: "#41d0c8",
+                            bars: {
+                                show: true,
+                                align: "center",
+                                barWidth: 24 * 60 * 60 * 600,
+                                lineWidth: 0
+                            }
+
+                        }, {
+                            label: "Payments",
+                            grow: {
+                                stepMode: "linear"
+                            },
+                            data: $scope.data2,
+                            yaxis: 2,
+                            color: "#2a2a2a",
+                            lines: {
+                                lineWidth: 1,
+                                show: true,
+                                fill: true,
+                                fillColor: {
+                                    colors: [{
+                                        opacity: 0.2
+                                    }, {
+                                        opacity: 0.2
+                                    }]
+                                }
+                            }
+                        }
+
+                    ];
+                    $scope.template = TemplateService.changecontent("dashboard");
+                    $scope.menutitle = NavigationService.makeactive("Dashboard");
+                } else {
+                    $scope.template = TemplateService.changecontent("dashboard");
+                    $scope.menutitle = NavigationService.makeactive("Dashboard");
+                }
+            });
+
+            $scope.options = {
+                grid: {
+                    hoverable: true,
+                    clickable: true,
+                    tickColor: "#d5d5d5",
+                    borderWidth: 0,
+                    color: '#d5d5d5'
+                },
+                colors: ["#29aba4", "#464f88"],
+                tooltip: true,
+                xaxis: {
+                    mode: "time",
+                    tickSize: [3, "day"],
+                    tickLength: 0,
+                    axisLabel: "Date",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: 'Arial',
+                    axisLabelPadding: 10,
+                    color: "#d5d5d5"
+                },
+                yaxes: [{
+                    position: "left",
+                    max: 1070,
+                    color: "#d5d5d5",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: 'Arial',
+                    axisLabelPadding: 3
+                }, {
+                    position: "right",
+                    color: "#d5d5d5",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: ' Arial',
+                    axisLabelPadding: 67
+                }],
+                legend: {
+                    noColumns: 1,
+                    labelBoxBorderColor: "#d5d5d5",
+                    position: "nw"
+                }
+            };
 
         } else if ($scope.accessLevel == "Vendor") {
 
@@ -754,6 +738,8 @@ firstapp
                     $scope.pieDatasetMonth[1].data = 20;
                 }
             });
+            $scope.template = TemplateService.changecontent("dashboard");
+            $scope.menutitle = NavigationService.makeactive("Dashboard");
         }
 
     })
@@ -1197,7 +1183,7 @@ firstapp
 
     })
 
-    .controller('MissionsDetailsCtrl', function ($scope, $rootScope, TemplateService, NavigationService, $uibModal, $timeout, $state, toastr, $stateParams) {
+    .controller('MissionsDetailsCtrl', function ($scope, $rootScope, TemplateService, $http, NavigationService, $uibModal, $timeout, $state, toastr, $stateParams) {
         TemplateService.mainClass = ['page-sidebar-closed', 'active'];
         $scope.demo6 = {
             valueA: 5000,
@@ -1665,9 +1651,21 @@ firstapp
                 window.open('http://cloud.unifli.aero/api/getMeshObj/' + missionIdForDownload + ".Obj", '_self');
             },
 
-            $scope.downloadPointCloud = function () {
+            $scope.listPointCloud = function () {
+                $http.post(adminurl + "Mission/generateZipForPointCloudFiles?filename=" + missionID.filename).then(function (data) {
+                    console.log("data---->>>", data.data.data);
+                    if (data.data.value == true) {
+                        $scope.fileList = data.data.data
+                        $("#myAlertModal").modal();
+                    }
+                });
                 // window.open('http://cloud.unifli.aero/api/getPointCloud/' + missionIdForDownload + ".las", '_self');
-                window.open(adminurl + 'Mission/generateZipForPointCloudFiles?filename=' + missionID.filename, '_self');
+                // window.open(adminurl + 'Mission/generateZipForPointCloudFiles?filename=' + missionID.filename, '_self');
+                // window.close();
+            },
+            $scope.downloadPointCloud = function (file) {
+                // window.open('http://cloud.unifli.aero/api/getPointCloud/' + missionIdForDownload + ".las", '_self');
+                window.open(adminurl + 'getPointCloud/' + missionIdForDownload + '/' + file, '_self');
                 window.close();
             },
 
