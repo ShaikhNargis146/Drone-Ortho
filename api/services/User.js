@@ -865,8 +865,9 @@ var model = {
     },
 
     doLogin: function (data, callback) {
+        console.log("data is",data)
         User.findOne({
-            name: data.name,
+            email: data.email,
             password: md5(data.password)
         }).exec(function (err, found) {
             if (err) {
