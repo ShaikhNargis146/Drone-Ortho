@@ -22,34 +22,34 @@
 							<tr>
 								<td>Activation Date</td>
 								<td>:</td>
-								<td>{{dfmData.currentSubscription.updatedAt | date: 'dd-MM-yyyy'}}
+								<td>{{dfmData.updatedAt | date: 'dd-MM-yyyy'}}
 								</td>
 							</tr>
 							<tr>
 								<td>Expiration Date</td>
 								<td>:</td>
-								<td>{{dfmData.currentSubscription.expiryDate| date: 'dd-MM-yyyy'}}
+								<td>{{dfmData.expiryDate| date: 'dd-MM-yyyy'}}
 								</td>
 							</tr>
 							<tr>
 								<td>Current Plan</td>
 								<td>:</td>
-								<td> {{dfmData.currentSubscription.name}}</td>
+								<td> {{dfmData.name}}</td>
 							</tr>
 							<tr>
 								<td>Current Plan Missions</td>
 								<td>:</td>
-								<td> {{dfmData.currentSubscription.missions}}</td>
+								<td> {{dfmData.missions}}</td>
 							</tr>
 							<tr>
 								<td>Current Plan Uploads</td>
 								<td>:</td>
-								<td> {{dfmData.currentSubscription.UploadSize}}</td>
+								<td> {{dfmData.UploadSize}}</td>
 							</tr>
 							<tr>
 								<td>Current Plan Photo Uploads</td>
 								<td>:</td>
-								<td>{{dfmData.currentSubscription.UploadPhoto}}</td>
+								<td>{{dfmData.UploadPhoto}}</td>
 							</tr>
 							<tr>
 								<td>Total Missions Created</td>
@@ -76,43 +76,42 @@
 							<tr>
 								<td>Address</td>
 								<td>:</td>
-								<td>{{dfmData.address}}</td>
+								<td>{{user.address}}</td>
 							</tr>
 							<tr>
 								<td>City</td>
 								<td>:</td>
-								<td>{{dfmData.city}}</td>
+								<td>{{user.city}}</td>
 							</tr>
 							<tr>
 								<td>State</td>
 								<td>:</td>
-								<td>{{dfmData.state}}</td>
+								<td>{{user.state}}</td>
 							</tr>
 							<tr>
 								<td>Company</td>
 								<td>:</td>
-								<td>{{dfmData.country}}</td>
+								<td>{{user.organization}}</td>
 							</tr>
 							<tr>
 								<td>User Status</td>
 								<td>:</td>
 								<td>
 									<div class="access-select">
-										<select uib-dropdown-menu role="menu" ng-model="dfmData.status" ng-click="setStatus(dfmData)" aria-labelledby="single-button"
-										    class="fa fa-pencil">
-											<option role="menuitem" value="Activate" ><a href="javascript:void(0)">Activate</a></option>
+										<select uib-dropdown-menu role="menu" ng-model="user.status" ng-click="setStatus(user)" aria-labelledby="single-button" class="fa fa-pencil">
+											<option role="menuitem" value="Active" ><a href="javascript:void(0)">Active</a></option>
 											<option role="menuitem" value="Deactivate"><a href="javascript:void(0)">Deactivate</a></option>
 											<option role="menuitem" value="Suspended"><a href="javascript:void(0)">Suspended</a></option>
 										</select>
 									</div>
 								</td>
 							</tr>
-							<tr ng-hide="dfmData.accessLevel=='Vendor'">
+							<tr ng-hide="user.accessLevel=='Vendor'">
 								<td>Access Level</td>
 								<td>:</td>
 								<td>
 									<div class="access-select">
-										<select uib-dropdown-menu role="menu" ng-model="dfmData.accessLevel" ng-click="setAccLevel(dfmData)" aria-labelledby="single-button"
+										<select uib-dropdown-menu role="menu" ng-model="user.accessLevel" ng-click="setAccLevel(user)" aria-labelledby="single-button"
 										    class="fa fa-pencil">
 											<option role="menuitem" value="User" ><a href="javascript:void(0)">User</a></option>
 											<option role="menuitem" value="Admin"><a href="javascript:void(0)">Admin</a></option>

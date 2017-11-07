@@ -36,7 +36,7 @@ cron.schedule('1 * * * *', function () {
                                 callback1("next");
                             } else {
                                 // console.log("value updated");
-                                DFMSubscription.sendMissionCompletedMail(sendData, callback);
+                                DFMSubscription.sendMissionCompletedMail(sendData);
                                 callback1("next");
                             }
                         });

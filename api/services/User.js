@@ -1207,7 +1207,7 @@ var model = {
             _id: data.user
         }).select('_id createdAt email dataId').exec(function (err, data1) {
             if (err) {
-                callback(err, null);
+                //callback(err, null);
             } else if (data1) {
                 async.waterfall([
                         function (callback) {
@@ -1222,11 +1222,11 @@ var model = {
                             Config.email(emailData, function (err, emailRespo) {
                                 if (err) {
                                     console.log(err);
-                                    callback(err, null);
+                                    //callback(err, null);
                                 } else if (emailRespo) {
-                                    callback(null, "Contact us form saved successfully!!!");
+                                    //callback(null, "Contact us form saved successfully!!!");
                                 } else {
-                                    callback("Invalid data", null);
+                                    //callback("Invalid data", null);
                                 }
                             });
                         },
@@ -1238,11 +1238,11 @@ var model = {
                             Config.email(emailData, function (err, emailRespo) {
                                 if (err) {
                                     console.log(err);
-                                    callback(err, null);
+                                    // callback(err, null);
                                 } else if (emailRespo) {
-                                    callback(null, "Contact us form saved successfully!!!");
+                                    //callback(null, "Contact us form saved successfully!!!");
                                 } else {
-                                    callback("Invalid data", null);
+                                    //callback("Invalid data", null);
                                 }
                             });
                         }
@@ -1256,7 +1256,7 @@ var model = {
                         }
                     });
             } else {
-                callback("Invalid data", null);
+                // callback("Invalid data", null);
             }
         });
     }

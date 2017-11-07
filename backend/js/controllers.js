@@ -755,6 +755,7 @@ firstapp
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
 
+
         $scope._id = {
             _id: $stateParams.productId
         };
@@ -819,28 +820,30 @@ firstapp
             var dfmData = [];
         }
 
-        $scope.saveFreeTrial = function () {
-            if ($.jStorage.get("user")) {
-                NavigationService.apiCallWithData("DFMSubscription/save", $scope.dfmData[0], function (dfm) {
-                    $scope.dfmId = dfm.data._id;
-                    if (dfm.data._id) {
-                        var formdata = {};
-                        formdata._id = $.jStorage.get("user")._id;
-                        formdata.currentSubscription = $scope.dfmId;
-                        NavigationService.apiCallWithData("User/save", formdata, function (dfmData) {});
-                    }
-                });
-                $uibModal.open({
-                    animation: true,
-                    templateUrl: 'views/modal/freetrial.html',
-                    scope: $scope,
-                    size: 'sm',
+        // $scope.saveFreeTrial = function () {
+        //     if ($.jStorage.get("user")) {
+        //         $scope.dfmData[0].user = $.jStorage.get("user")._id;
+        //         NavigationService.apiCallWithData("DFMSubscription/save", $scope.dfmData[0], function (dfm) {
+        //             $scope.dfmId = dfm.data._id;
+        //             if (dfm.data._id) {
+        //                 var formdata = {};
+        //                 formdata._id = $.jStorage.get("user")._id;
+        //                 formdata.currentSubscription = $scope.dfmId;
+        //                 console.log("formdata data is", formdata)
+        //                 NavigationService.apiCallWithData("User/save", formdata, function (dfmData) {});
+        //             }
+        //         });
+        //         $uibModal.open({
+        //             animation: true,
+        //             templateUrl: 'views/modal/freetrial.html',
+        //             scope: $scope,
+        //             size: 'sm',
 
-                });
-            } else {
-                $state.go("member")
-            }
-        }
+        //         });
+        //     } else {
+        //         $state.go("member")
+        //     }
+        // }
 
     })
 
@@ -2664,7 +2667,9 @@ firstapp
             };
 
             $scope.getAllItems = function (keywordChange) {
+                console.log("getAllItems", keywordChange);
                 if (keywordChange != undefined && keywordChange != true) {
+                    console.log("inside if")
                     $scope.maxCount = keywordChange;
                     $scope.totalItems = undefined;
                     if (keywordChange) {}
@@ -2681,6 +2686,7 @@ firstapp
                             }
                         });
                 } else {
+                    console.log("inside else")
                     $scope.totalItems = undefined;
                     if (keywordChange) {}
                     NavigationService.searchCall("CadLineWork/getCad", {
@@ -2811,15 +2817,18 @@ firstapp
             });
         };
 
-
         $scope.updatePassword = function (password) {
-            var check = _.isEqual(password.checkPassword, password.password);
+console.log("hdbxjwhe",password);
+
+            // console.log(document.getElementById(pwd).type);
+            // console.log(document.getElementById(fpwd).type);
+            var check = _.isEqual(password.forgotPassword, password.password);
             password._id = $.jStorage.get("user")._id;
             if (check == true) {
                 NavigationService.apiCallWithData("User/Updatepassword", password, function (data) {
                     if (data.value == true) {
-                        $scope.data = data.data;
-                        $uibModal.open({
+                        $scope.data = data.data;                                               
+                         $uibModal.open({
                             animation: true,
                             templateUrl: 'views/modal/updatepassword.html',
                             scope: $scope,
@@ -3085,7 +3094,8 @@ firstapp
         };
         $scope.saveUser = function (data) {
             if (data.password == data.confirmPassword) {
-
+                $scope.dt = new Date();
+                $scope.dt.setDate($scope.dt.getDate() + 30);
                 console.log("data-------", data);
                 if (data.accessLevel == 'User') {
                     $scope.dmfData = {
@@ -3103,32 +3113,33 @@ firstapp
                         amount: "0",
                         expiryDate: $scope.dt,
                     }
-                    console.log("inside test unction dfm data is", $scope.dmfData);
-                    NavigationService.apiCallWithData("DFMSubscription/save", $scope.dmfData, function (dfm) {
-                        console.log("after dfm data is called", dfm);
-                        $scope.dfmId = dfm.data._id;
-                        if (dfm.value == true) {
-                            data.status = 'Active';
-                            data.currentSubscription = $scope.dfmId;
-                            console.log("dota going to be save is or user", data);
-                            NavigationService.apiCallWithData("User/createUser", data, function (data) {
-                                if (data.value == true) {
-                                    $scope.product = data;
-                                    $state.reload();
-                                } else {
-                                    $scope.showerr = "";
-                                    $scope.showerr = true;
-                                    // toastr.warning('Error submitting the form', 'Please try again');
+                    data.status = 'Active';
+                    console.log(" $scope.dmfData", $scope.dmfData)
+                    NavigationService.apiCallWithData("User/createUser", data, function (data) {
+                        if (data.value == true) {
+                            $scope.user = {}
+                            $scope.user._id = data.data._id;
+                            $scope.product = data;
+                            $scope.dmfData.user = data.data._id;;
+                            NavigationService.apiCallWithData("DFMSubscription/save", $scope.dmfData, function (dfm) {
+                                $scope.dfmId = dfm.data._id;
+                                if (dfm.value == true) {
+                                    $scope.user.currentSubscription = $scope.dfmId;
+                                    NavigationService.apiCallWithData("User/save", $scope.user, function (data) {
+                                        $state.reload();
+                                    })
 
                                 }
-                            });
+                            })
+
+
                         } else {
-                            toastr.warning('try agin');
+                            $scope.showerr = "";
+                            $scope.showerr = true;
+                            // toastr.warning('Error submitting the form', 'Please try again');
 
                         }
-
-
-                    })
+                    });
 
                 } else {
                     data.status = 'Active';
@@ -3588,20 +3599,46 @@ firstapp
             $scope.formdata1.user = $stateParams.userId;
             $scope.formdata = {};
             $scope.formdata._id = $stateParams.userId;
-            NavigationService.apiCallWithData("User/getByDfm", $scope.formdata1, function (dfm) {
-                $scope.dfmData = dfm.data
+            $scope.dfmDeatils = {}
+            $scope.dfmDeatils._id = $.jStorage.get("user").currentSubscription;
+            NavigationService.apiCallWithData("DFMSubscription/getOne", $scope.dfmDeatils, function (dfm) {
+                console.log("dfm info is", dfm);
+                if (dfm.value == true) {
+                    $scope.dfmData = dfm.data;
+                }
             });
             NavigationService.apiCallWithData("Mission/totalMission", $scope.formdata1, function (mission) {
-                $scope.totalMission = mission.data;
+                if (mission.value == true) {
+                    $scope.totalMission = mission.data;
+                } else {
+                    $scope.totalMission = "0"
+                }
             });
             NavigationService.apiCallWithData("CadLineWork/totalCadReq", $scope.formdata1, function (cadReq) {
-                $scope.totalCadReq = cadReq.data;
+                console.log("cadReq", cadReq)
+                if (cadReq.value == true) {
+                    $scope.totalCadReq = cadReq.data;
+                } else {
+                    $scope.totalCadReq = "0"
+                }
+
+            });
+            NavigationService.apiCallWithData("User/getOne", $scope.formdata, function (user) {
+                console.log("user", user);
+                if (user.value == true) {
+                    $scope.user = user.data;
+                } else {
+                    // $scope.totalCadReq = "0"
+                }
             });
 
             $scope.setStatus = function (status1) {
                 console.log("inside setStatus", status1)
                 $scope.formdata.status = status1.status
+                console.log("inside setStatus*****", $scope.formdata);
+
                 NavigationService.apiCallWithData("User/save", $scope.formdata, function (dfm) {
+                    // console.log("dfm is",dmf)
 
                 });
 
@@ -6241,7 +6278,7 @@ firstapp
                     $scope.otpPwd = true
                     $scope.resetPwd = false;
                     $scope.displayThanksBox = false;
-
+                    $scope.showotp = true;
                 } else {
                     toastr.error('Incorrect email!');
 
@@ -6253,6 +6290,7 @@ firstapp
             NavigationService.apiCallWithData("User/sendOtp", $scope.data, function (data) {
                 console.log("after sendotp excution", data)
                 if (data.value == true) {
+                    $scope.showotp = false;
                     console.log("data.data._id****", data.data._id);
                     $scope.id = data.data._id;
                     console.log("data.data._id", $scope.id);
