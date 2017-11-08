@@ -1636,6 +1636,9 @@ firstapp
                 window.open('http://cloud.unifli.aero/api/getContourLines/' + missionIdForDownload + ".shp", '_self');
             },
 
+            $scope.downloadContoursPdf = function (missionId) {
+                window.open('http://cloud.unifli.aero/api/getContourPdf/' + missionIdForDownload + ".pdf", '_self');
+            },
             $scope.downloadTFW = function (missionId) {
                 window.open('http://cloud.unifli.aero/api/getTfw/' + missionIdForDownload + ".tfw", '_self');
             },
