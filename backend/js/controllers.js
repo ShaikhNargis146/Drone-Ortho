@@ -3037,10 +3037,10 @@ firstapp
             $scope.search.keyword = $stateParams.keyword;
         }
         $scope.changePage = function (page) {
-            var goTo = "Users";
+            var goTo = "users";
             $scope.currentPage = page;
             if ($scope.search.keyword) {
-                goTo = "Users";
+                goTo = "users";
             }
             $state.go(goTo, {
                 page: page
@@ -3603,14 +3603,6 @@ firstapp
             $scope.formdata1.user = $stateParams.userId;
             $scope.formdata = {};
             $scope.formdata._id = $stateParams.userId;
-            $scope.dfmDeatils = {}
-            $scope.dfmDeatils._id = $.jStorage.get("user").currentSubscription;
-            NavigationService.apiCallWithData("DFMSubscription/getOne", $scope.dfmDeatils, function (dfm) {
-                console.log("dfm info is", dfm);
-                if (dfm.value == true) {
-                    $scope.dfmData = dfm.data;
-                }
-            });
             NavigationService.apiCallWithData("Mission/totalMission", $scope.formdata1, function (mission) {
                 if (mission.value == true) {
                     $scope.totalMission = mission.data;
@@ -3631,11 +3623,20 @@ firstapp
                 console.log("user", user);
                 if (user.value == true) {
                     $scope.user = user.data;
+                    $scope.dfmDeatils = {}
+                    $scope.dfmDeatils._id = user.data.currentSubscription;
+                    NavigationService.apiCallWithData("DFMSubscription/getOne", $scope.dfmDeatils, function (dfm) {
+                        console.log("dfm info is", dfm);
+                        if (dfm.value == true) {
+                            $scope.dfmData = dfm.data;
+                        } else {
+                            console.log("inside else dfm not found")
+                        }
+                    });
                 } else {
                     // $scope.totalCadReq = "0"
                 }
             });
-
             $scope.setStatus = function (status1) {
                 console.log("inside setStatus", status1)
                 $scope.formdata.status = status1.status
