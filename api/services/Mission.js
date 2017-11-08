@@ -575,68 +575,68 @@ var model = {
 
     sendMissionRequestMail: function (data, callback) {
         async.parallel({
-            forUser: function (callback) {
-                var emailData = {}
-                emailData.email = data1.user.email;
-                emailData.filename = "Mission Started";
-                emailData.subject = "MISSION STARTED";
-                Config.email(emailData, function (err, emailRespo) {
-                    // console.log("emailRespo", emailRespo);
-                    if (err) {
-                        console.log(err);
-                        callback(err, null);
-                    } else if (emailRespo) {
-                        callback(null, "Contact us form saved successfully!!!");
-                    } else {
-                        callback("Invalid data", null);
-                    }
-                });
+                forUser: function (callback) {
+                    var emailData = {}
+                    emailData.email = data.user.email;
+                    emailData.filename = "Mission Started";
+                    emailData.subject = "MISSION STARTED";
+                    Config.email(emailData, function (err, emailRespo) {
+                        // console.log("emailRespo", emailRespo);
+                        if (err) {
+                            console.log(err);
+                            callback(err, null);
+                        } else if (emailRespo) {
+                            callback(null, "Contact us form saved successfully!!!");
+                        } else {
+                            callback("Invalid data", null);
+                        }
+                    });
+                },
+                forAdmin: function (callback) {
+                    var creationDate = new Date();
+                    var emailData = {}
+                    emailData.email = global["env"].adminEmail;
+                    emailData.filename = "New Mission Request (Admin)";
+                    emailData.name = data.name;
+                    emailData.subject = "NEW MISSION REQUEST";
+                    emailData.merge_vars = [{
+                        "name": "USER_NAME",
+                        "content": data.userName
+                    }, {
+                        "name": "USER_ID",
+                        "content": data.userId
+                    }, {
+                        "name": "MISSION_ID",
+                        "content": data.missionId
+                    }, {
+                        "name": "MISSION_NAME",
+                        "content": data.missionName
+                    }, {
+                        "name": "DATE_OF_CREATION",
+                        "content": creationDate
+                    }];
+
+                    Config.email(emailData, function (err, emailRespo) {
+                        // console.log("emailRespo", emailRespo);
+                        if (err) {
+                            console.log(err);
+                            callback(err, null);
+                        } else if (emailRespo) {
+                            callback(null, "Contact us form saved successfully!!!");
+                        } else {
+                            callback("Invalid data", null);
+                        }
+                    });
+                }
             },
-            forAdmin: function (callback) {
-                var creationDate=new Date();
-                var emailData = {}
-                emailData.email = global["env"].adminEmail;
-                emailData.filename = "New Mission Request (Admin)";
-                emailData.name = data1.name;
-                emailData.subject = "NEW MISSION REQUEST";
-                emailData.merge_vars = [{
-                    "name": "USER_NAME",
-                    "content": data.userName
-                }, {
-                    "name": "USER_ID",
-                    "content": data.userId
-                }, {
-                    "name": "MISSION_ID",
-                    "content": data.missionId
-                }, {
-                    "name": "MISSION_NAME",
-                    "content": data.missionName
-                }, {
-                    "name": "DATE_OF_CREATION",
-                    "content":creationDate
-                }];
-        
-                Config.email(emailData, function (err, emailRespo) {
-                    // console.log("emailRespo", emailRespo);
-                    if (err) {
-                        console.log(err);
-                        callback(err, null);
-                    } else if (emailRespo) {
-                        callback(null, "Contact us form saved successfully!!!");
-                    } else {
-                        callback("Invalid data", null);
-                    }
-                });
-            } 
-        },
-        function (err, result) {
-            if (err || _.isEmpty(result)) {
-                // callback(err, []);
-            } else {
-                // callback(null, result);
-            }
-        });
-      
+            function (err, result) {
+                if (err || _.isEmpty(result)) {
+                    // callback(err, []);
+                } else {
+                    // callback(null, result);
+                }
+            });
+
     },
 
     sendMissionCompletedMail: function (data, callback) {

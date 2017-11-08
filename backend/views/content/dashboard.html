@@ -41,7 +41,7 @@
                             <div class="stats-progress progress">
                                 <!-- <div style="width: 76.3%;" class="progress-bar"></div>-->
                             </div>
-                            <div class="stats-desc">{{dfmDateAndStatusOfUser.currentSubscription.status}}</div>
+                            <div class="stats-desc">{{dfmDateAndStatusOfUser.status}}</div>
                         </div>
                     </div>
                     <!-- end col-3 -->
@@ -54,7 +54,7 @@
                             <div class="stats-progress progress">
                                 <!--<div style="width: 54.9%;" class="progress-bar"></div>-->
                             </div>
-                            <div class="stats-desc">{{dfmDateAndStatusOfUser.currentSubscription.expiryDate | date}}</div>
+                            <div class="stats-desc">{{dfmDateAndStatusOfUser.expiryDate | date}}</div>
                         </div>
                     </div>
                     <!-- end col-3 -->
@@ -93,25 +93,25 @@
                                                     <li>
                                                         <h2 class="no-margins ">{{lastMonthData}}</h2>
                                                         <small>Total CAD Orders in {{lastMonth}}</small>
-                                                        <div class="stat-percent ">{{lastMonthData/100}}% <i class="fa fa-level-up text-navy "></i></div>
+                                                        <div class="stat-percent ">{{lastMonthData}} <i class="fa fa-level-up text-navy "></i></div>
                                                         <div class="progress progress-mini ">
-                                                            <div class="progress-bar " style="width: {{lastMonthData/100}}%; "></div>
+                                                            <div class="progress-bar " style="width: {{lastMonthData}};"></div>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <h2 class="no-margins ">{{last1MonthData}}</h2>
                                                         <small>Total CAD Orders in {{last1Month}}</small>
-                                                        <div class="stat-percent ">{{last1MonthData/100}}% <i class="fa fa-level-up text-navy "></i></div>
+                                                        <div class="stat-percent ">{{last1MonthData}} <i class="fa fa-level-up text-navy "></i></div>
                                                         <div class="progress progress-mini ">
-                                                            <div class="progress-bar " style="width:{{last1MonthData/100}}%; "></div>
+                                                            <div class="progress-bar " style="width:{{last1MonthData}};"></div>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <h2 class="no-margins ">{{last2MonthData}}</h2>
                                                         <small>Total CAD Orders in {{last2Month}}</small>
-                                                        <div class="stat-percent ">{{last2MonthData/100}}% <i class="fa fa-level-down text-navy "></i></div>
+                                                        <div class="stat-percent ">{{last2MonthData}} <i class="fa fa-level-down text-navy "></i></div>
                                                         <div class="progress progress-mini ">
-                                                            <div class="progress-bar " style="width:{{last2MonthData/100}}%; "></div>
+                                                            <div class="progress-bar " style="width:{{last2MonthData}}; "></div>
                                                         </div>
                                                     </li>
                                                     <!--<li>
@@ -261,31 +261,31 @@
                                                         <small>Total DFM Revenue</small>
                                                         <div class="stat-percent ">{{totalDfmSum/100}}<i class="fa fa-level-up text-navy "></i></div>
                                                         <div class="progress progress-mini ">
-                                                            <div class="progress-bar " style="width: {{totalDfmSum/100}}%; "></div>
+                                                            <div class="progress-bar " style="width: {{totalDfmSum}}; "></div>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <h2 class="no-margins ">{{totalProductSum}}</h2>
                                                         <small>Total DRONE Revenue</small>
-                                                        <div class="stat-percent ">{{totalProductSum/100}}<i class="fa fa-level-up text-navy "></i></div>
+                                                        <div class="stat-percent ">{{totalProductSum}}<i class="fa fa-level-up text-navy "></i></div>
                                                         <div class="progress progress-mini ">
-                                                            <div class="progress-bar " style="width: {{totalProductSum/100}}%; "></div>
+                                                            <div class="progress-bar " style="width: {{totalProductSum}}; "></div>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <h2 class="no-margins ">{{totalCadSum}}</h2>
                                                         <small>Total CAD Revenue</small>
-                                                        <div class="stat-percent ">{{totalCadSum/100}}<i class="fa fa-level-down text-navy "></i></div>
+                                                        <div class="stat-percent ">{{totalCadSum}}<i class="fa fa-level-down text-navy "></i></div>
                                                         <div class="progress progress-mini ">
-                                                            <div class="progress-bar " style="width: {{totalCadSum/100}}%; "></div>
+                                                            <div class="progress-bar " style="width: {{totalCadSum}}; "></div>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <h2 class="no-margins ">{{totalSum}}</h2>
                                                         <small>Total Revenue</small>
-                                                        <div class="stat-percent ">{{totalSum/100}}<i class="fa fa-bolt text-navy "></i></div>
+                                                        <div class="stat-percent ">{{totalSum}}<i class="fa fa-bolt text-navy "></i></div>
                                                         <div class="progress progress-mini ">
-                                                            <div class="progress-bar " style="width: {{totalSum/100}}%; "></div>
+                                                            <div class="progress-bar " style="width: {{totalSum}}; "></div>
                                                         </div>
                                                     </li>
                                                 </ul>

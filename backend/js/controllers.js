@@ -18,6 +18,7 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
             userId = $.jStorage.get("user")._id;
+            currentSubscriptionId = $.jStorage.get("user").currentSubscription
         }
 
 
@@ -546,8 +547,8 @@ firstapp
             });
 
             var sendId = {};
-            sendId._id = userId;
-            NavigationService.apiCallWithData("User/getOne", sendId, function (data) {
+            sendId._id = currentSubscriptionId;
+            NavigationService.apiCallWithData("DFMSubscription/getOne", sendId, function (data) {
                 if (data.value === true) {
                     $scope.dfmDateAndStatusOfUser = data.data;
                 }
@@ -2818,7 +2819,7 @@ firstapp
         };
 
         $scope.updatePassword = function (password) {
-console.log("hdbxjwhe",password);
+            console.log("hdbxjwhe", password);
 
             // console.log(document.getElementById(pwd).type);
             // console.log(document.getElementById(fpwd).type);
@@ -2827,8 +2828,8 @@ console.log("hdbxjwhe",password);
             if (check == true) {
                 NavigationService.apiCallWithData("User/Updatepassword", password, function (data) {
                     if (data.value == true) {
-                        $scope.data = data.data;                                               
-                         $uibModal.open({
+                        $scope.data = data.data;
+                        $uibModal.open({
                             animation: true,
                             templateUrl: 'views/modal/updatepassword.html',
                             scope: $scope,
