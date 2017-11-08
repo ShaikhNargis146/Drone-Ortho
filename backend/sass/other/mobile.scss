@@ -1,4 +1,8 @@
 @media (max-width:$screen-xs-max) {
+  .mob-view{
+    height: 600px;
+    overflow: auto;
+  }
   .info-holder {
     height: auto;
   }
