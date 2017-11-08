@@ -3034,10 +3034,10 @@ firstapp
             $scope.search.keyword = $stateParams.keyword;
         }
         $scope.changePage = function (page) {
-            var goTo = "Users";
+            var goTo = "users";
             $scope.currentPage = page;
             if ($scope.search.keyword) {
-                goTo = "Users";
+                goTo = "users";
             }
             $state.go(goTo, {
                 page: page
