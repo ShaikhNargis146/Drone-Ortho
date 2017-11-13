@@ -234,6 +234,7 @@ var model = {
                     } else {
                         sendAllData.userName = found.name;
                         sendAllData.userId = found.dataId;
+                        sendAllData.email = found.email;
                         var foundObj = found.toObject();
                         var missionIdWithSub = {}
                         missionIdWithSub.missionId = missionID
@@ -577,7 +578,7 @@ var model = {
         async.parallel({
                 forUser: function (callback) {
                     var emailData = {}
-                    emailData.email = data.user.email;
+                    emailData.email = data.email;
                     emailData.filename = "Mission Started";
                     emailData.subject = "MISSION STARTED";
                     Config.email(emailData, function (err, emailRespo) {

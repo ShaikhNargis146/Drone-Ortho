@@ -111,7 +111,7 @@ var model = {
             _id: data.user
         }).exec(function (err, data1) {
             if (err) {
-                callback(err, null);
+                //callback(err, null);
             } else if (data1) {
                 var emailData = {}
                 emailData.email = data1.email;
@@ -129,7 +129,7 @@ var model = {
                     }
                 });
             } else {
-                callback("Invalid data", null);
+                // callback("Invalid data", null);
             }
         });
     }

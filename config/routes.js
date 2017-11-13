@@ -72,6 +72,10 @@ module.exports.routes = {
         action: "getContourLines"
     },
 
+    'GET /api/getContourPdf/:filename': {
+        controller: "WebController",
+        action: "getContourPdf"
+    },
     'GET /api/getTfw/:filename': {
         controller: "WebController",
         action: "getTfw"

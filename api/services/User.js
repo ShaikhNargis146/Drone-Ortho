@@ -144,6 +144,63 @@ module.exports = mongoose.model('User', schema);
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema));
 var model = {
 
+
+    findUserForUpdatePass: function (data, callback) {
+        console.log("insied api data is",data)
+
+        async.waterfall([
+            function (callback1) { // generate VendorID 
+                User.findOne({
+                    _id: data._id,
+                    password: md5(data.currpassword),
+                }).exec(function (err, data) {
+                    console.log("data is", data)
+                    if (err || _.isEmpty(data)) {
+                        console.log("inside isempty");
+                        callback1(err, null);
+                    } else {
+                        console.log("data if found true", data)
+                        callback1(null, data);
+                    }
+                })
+            },
+            function (password, callback2) {
+                if (password == null) {
+                    callback("nodata found");
+                } else {
+                    User.update({
+                        _id: mongoose.Types.ObjectId(password._id)
+                    }, {
+                        $set: {
+                            password: md5(data.password)
+                        }
+                    }).exec(function (err, found) {
+                        if (err) {
+                            callback2(err, null);
+                        } else if (_.isEmpty(found)) {
+                            callback2(null, "noDataound");
+                        } else {
+                            callback2(null, found);
+                        }
+
+                    });
+                }
+                // console.log("insidesencod waterfall data is", data)
+
+            }
+        ], function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        });
+    },
+
+
+
+
+
     sendOtp: function (data, callback) {
         // console.log("inside send otp", data)
         var emailOtp = (Math.random() + "").substring(2, 6);
@@ -865,7 +922,7 @@ var model = {
     },
 
     doLogin: function (data, callback) {
-        console.log("data is",data)
+        console.log("data is", data)
         User.findOne({
             email: data.email,
             password: md5(data.password)

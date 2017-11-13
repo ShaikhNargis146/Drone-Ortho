@@ -1636,6 +1636,9 @@ firstapp
                 window.open('http://cloud.unifli.aero/api/getContourLines/' + missionIdForDownload + ".shp", '_self');
             },
 
+            $scope.downloadContoursPdf = function (missionId) {
+                window.open('http://cloud.unifli.aero/api/getContourPdf/' + missionIdForDownload + ".pdf", '_self');
+            },
             $scope.downloadTFW = function (missionId) {
                 window.open('http://cloud.unifli.aero/api/getTfw/' + missionIdForDownload + ".tfw", '_self');
             },
@@ -2817,16 +2820,17 @@ firstapp
 
             });
         };
+        $scope.showerrmsg = true
 
         $scope.updatePassword = function (password) {
-            console.log("hdbxjwhe", password);
-
-            // console.log(document.getElementById(pwd).type);
-            // console.log(document.getElementById(fpwd).type);
             var check = _.isEqual(password.forgotPassword, password.password);
-            password._id = $.jStorage.get("user")._id;
+
             if (check == true) {
-                NavigationService.apiCallWithData("User/Updatepassword", password, function (data) {
+                $scope.showerrmsg = true
+                console.log("hdbxjwhe", password);
+                password._id = $.jStorage.get("user")._id;
+                NavigationService.apiCallWithData("User/findUserForUpdatePass", password, function (data) {
+                    console.log("insideupdatePassword ", data);
                     if (data.value == true) {
                         $scope.data = data.data;
                         $uibModal.open({
@@ -2835,13 +2839,31 @@ firstapp
                             scope: $scope,
                             size: 'sm',
                         });
+                        $state.go("acc-and-sub");
+
+
+                    } else {
+                        toastr.error('Check Entered Current Password');
+
                     }
-                });
+
+                })
+
+
+
 
             } else {
-                toastr.error('Check Entered Password');
+
+                $scope.showerrmsg = false
             }
         }
+
+        // $scope.closeModal = function () {
+        //     $uibModal.close();
+        //     console.log("insideclose modal")
+        //     $state.reload();
+
+        // }
 
         $scope.dfmDeatils = {}
         $scope.dfmDeatils._id = $.jStorage.get("user").currentSubscription;

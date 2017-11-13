@@ -77,6 +77,13 @@ module.exports = {
         res.send(files);
     },
 
+    getContourPdf: function (req, res) {
+        res.set('Content-Type', "application/octet-stream");
+        var name = req.param("filename").split('.')[0]
+        var filePath = "C:/Users/unifli/Documents/pix4d/" + name + "/3_dsm_ortho/extras/contours/" + name + "_elev10m_res100cm_size20_DSM.pdf";
+        files = fs.readFileSync(filePath);
+        res.send(files);
+    },
     getTfw: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
         var name = req.param("filename").split('.')[0]
