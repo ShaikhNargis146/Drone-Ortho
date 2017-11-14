@@ -1230,139 +1230,6 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
                 }
             }
 
-            // var mapStyle = {
-            //     "version": 8,
-            //     "name": "Dark",
-            //     "sources": {
-            //         "mapbox": {
-            //             "type": "vector",
-            //             "url": "mapbox://mapbox.mapbox-streets-v6"
-            //         },
-            //         "overlay": {
-            //             "type": "image",
-            //             "url": "http://localhost:1337/output03.webp",
-            //             "coordinates": [
-            //                 locations.upperLeft, locations.upperRight, locations.lowerRight, locations.lowerLeft,
-            //             ]
-            //         }
-            //     },
-            //     "sprite": "mapbox://sprites/mapbox/dark-v9",
-            //     "glyphs": "mapbox://fonts/mapbox/{fontstack}/{range}.pbf",
-            //     "layers": [{
-            //             "id": "background",
-            //             "type": "background",
-            //             "paint": {
-            //                 "background-color": "rgb(4,7,14)"
-            //             }
-            //         },
-            //         {
-            //             "id": "water",
-            //             "source": "mapbox",
-            //             "source-layer": "water",
-            //             "type": "fill",
-            //             "paint": {
-            //                 "fill-color": "#2c2c2c"
-            //             }
-            //         },
-            //         {
-            //             "id": "boundaries",
-            //             "source": "mapbox",
-            //             "source-layer": "admin",
-            //             "type": "line",
-            //             "paint": {
-            //                 "line-color": "#797979",
-            //                 "line-dasharray": [2, 2, 6, 2]
-            //             },
-            //             "filter": ["all", ["==", "maritime", 0]]
-            //         },
-            //         {
-            //             "id": "overlay",
-            //             "source": "overlay",
-            //             "type": "raster",
-            //             "paint": {
-            //                 "raster-opacity": 0.85
-            //             }
-            //         },
-            //         {
-            //             "id": "cities",
-            //             "source": "mapbox",
-            //             "source-layer": "place_label",
-            //             "type": "symbol",
-            //             "layout": {
-            //                 "text-field": "{name_en}",
-            //                 "text-font": ["DIN Offc Pro Bold", "Arial Unicode MS Bold"],
-            //                 "text-size": {
-            //                     "stops": [
-            //                         [4, 9],
-            //                         [6, 12]
-            //                     ]
-            //                 }
-            //             },
-            //             "paint": {
-            //                 "text-color": "#969696",
-            //                 "text-halo-width": 2,
-            //                 "text-halo-color": "rgba(0, 0, 0, 0.85)"
-            //             }
-            //         },
-            //         {
-            //             "id": "states",
-            //             "source": "mapbox",
-            //             "source-layer": "state_label",
-            //             "type": "symbol",
-            //             "layout": {
-            //                 "text-transform": "uppercase",
-            //                 "text-field": "{name_en}",
-            //                 "text-font": ["DIN Offc Pro Bold", "Arial Unicode MS Bold"],
-            //                 "text-letter-spacing": 0.15,
-            //                 "text-max-width": 7,
-            //                 "text-size": {
-            //                     "stops": [
-            //                         [4, 10],
-            //                         [6, 14]
-            //                     ]
-            //                 }
-            //             },
-            //             "filter": [">=", "area", 80000],
-            //             "paint": {
-            //                 "text-color": "#969696",
-            //                 "text-halo-width": 2,
-            //                 "text-halo-color": "rgba(0, 0, 0, 0.85)"
-            //             }
-            //         }
-            //     ]
-            // };
-            // var videoStyle = {
-            //     "version": 8,
-            //     "sources": {
-            //         "satellite": {
-            //             "type": "raster",
-            //             "url": "mapbox://mapbox.streets",
-            //             "tileSize": 256
-            //         },
-            //         "video": {
-            //             "type": "image",
-            //             "url": "http://localhost:1337/output03.webp",
-            //             "coordinates": [
-            //                 locations.upperLeft, locations.upperRight, locations.lowerRight, locations.lowerLeft,
-            //             ]
-            //         }
-            //     },
-            //     "layers": [{
-            //         "id": "background",
-            //         "type": "background",
-            //         "paint": {
-            //             "background-color": "rgb(4,7,14)"
-            //         }
-            //     }, {
-            //         "id": "satellite",
-            //         "type": "raster",
-            //         "source": "satellite"
-            //     }, {
-            //         "id": "video",
-            //         "type": "raster",
-            //         "source": "video"
-            //     }]
-            // };
             var imageUrl;
             var zoomLevel = [];
             if ($scope.missionDetails && $scope.missionDetails.missionId) {
@@ -1436,96 +1303,13 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
             // $rootScope.$on('greeting', function (event, arg) {
             //     overlay.setOpacity(arg.value);
             // })
-            var polygon;
-            if ($scope.cadLineDetails && !_.isEmpty($scope.cadLineDetails.points)) {
-                polygon = L.polygon(latlngs, {
-                    color: 'white'
-                }).addTo(map);
-                map.fitBounds(polygon.getBounds());
-            }
-
-            var featureGroup = L.featureGroup().addTo(map);
-
-            var drawControl = new L.Control.Draw({
-                edit: {
-                    featureGroup: featureGroup
-                },
-                draw: {
-                    polygon: {
-                        showArea: true,
-                        allowIntersection: true,
-                        shapeOptions: {
-                            stroke: true,
-                            metric: false,
-                            color: '#fff',
-                            weight: 4,
-                            opacity: 1,
-                            fill: true,
-                            fillColor: null, //same as color by default
-                            fillOpacity: 0.3
-                        }
-                    },
-                    polyline: false,
-                    rectangle: false,
-                    circle: false,
-                    marker: false
-                }
-            }).addTo(map);
-
-            map.on('draw:created', showPolygonArea);
-            map.on('draw:edited', showPolygonAreaEdited);
-
-            function showPolygonAreaEdited(e) {
-                e.layers.eachLayer(function (layer) {
-                    showPolygonArea({
-                        layer: layer
-                    });
-                });
-            }
-            var acres;
-
-            function showPolygonArea(e) {
-                featureGroup.clearLayers();
-                featureGroup.addLayer(e.layer);
-                var type = e.layerType;
-                var layer = e.layer;
-                layer.getLatLngs()[0][layer.getLatLngs()[0].length] = layer.getLatLngs()[0][0]
-                console.log("e.layer", layer);
-                var pointsList = [];
-
-                _.forEach(e.layer._latlngs[0], function (val) {
-                    var latLng = [];
-                    latLng.push(val.lat);
-                    latLng.push(val.lng)
-                    console.log("val--", latLng);
-                    pointsList.push(latLng);
-                });
-                console.log("pointsList", pointsList);
-                var polygon = turf.polygon([
-                    pointsList
-                ]);
-
-                area = turf.area(polygon);
-                console.log("area--", area, LGeo.area(e.layer) * 0.0002471054);
-                acres = LGeo.area(e.layer) * 0.0002471054;
-                console.log("acres--", Number(acres).toFixed(2));
-                if ($scope.cadLineDetails) {
-                    $scope.cadLineDetails.acreage = Number(acres).toFixed(2);
-                    $scope.cadLineDetails.points = e.layer._latlngs;
-                    // $("#myModal").modal();
-                    $('#myModal').on('show.bs.modal', function () {
-                        console.log("inside modal")
-                        $("#acreage").val(Number(acres).toFixed(2));
-                    }).modal('show');
-                }
-                // var mapmodal = $uibModal.open({
-                //     animation: $scope.animationsEnabled,
-                //     templateUrl: '/backend/views/modal/cadline-name.html',
-                //     size: 'sm',
-                //     scope: $scope
-                // });
-            }
-
+            // var polygon;
+            // if ($scope.cadLineDetails && !_.isEmpty($scope.cadLineDetails.points)) {
+            //     polygon = L.polygon(latlngs, {
+            //         color: 'white'
+            //     }).addTo(map);
+            //     map.fitBounds(polygon.getBounds());
+            // }
 
             // var featureGroup = L.featureGroup().addTo(map);
 
@@ -1534,13 +1318,27 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
             //         featureGroup: featureGroup
             //     },
             //     draw: {
-            //         polygon: true,
+            //         polygon: {
+            //             showArea: true,
+            //             allowIntersection: true,
+            //             shapeOptions: {
+            //                 stroke: true,
+            //                 metric: false,
+            //                 color: '#fff',
+            //                 weight: 4,
+            //                 opacity: 1,
+            //                 fill: true,
+            //                 fillColor: null, //same as color by default
+            //                 fillOpacity: 0.3
+            //             }
+            //         },
             //         polyline: false,
             //         rectangle: false,
             //         circle: false,
             //         marker: false
             //     }
             // }).addTo(map);
+
             // map.on('draw:created', showPolygonArea);
             // map.on('draw:edited', showPolygonAreaEdited);
 
@@ -1551,27 +1349,44 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
             //         });
             //     });
             // }
+            // var acres;
 
             // function showPolygonArea(e) {
             //     featureGroup.clearLayers();
             //     featureGroup.addLayer(e.layer);
-            //     e.layer.bindPopup((LGeo.area(e.layer) / 1000000).toFixed(2) + 'Hi');
-            //     e.layer.openPopup();
-            //     alert("hello")
-            // }
-            // var calcButton;
-            // if ($scope.missionDetails && $scope.missionDetails.missionId) {
-            //     calcButton = document.getElementById('missionName');
-            // } else if ($scope.cadLineDetails) {
-            //     calcButton = document.getElementById('contours');
-            // }
-            // calcButton.onclick = function () {
-            //     if (acres > 0) {
-            //         $scope.cadLineDetails.acreage = acres
-            //     } else {
-            //         alert("Use the draw tools to draw a polygon!");
+            //     var type = e.layerType;
+            //     var layer = e.layer;
+            //     layer.getLatLngs()[0][layer.getLatLngs()[0].length] = layer.getLatLngs()[0][0]
+            //     console.log("e.layer", layer);
+            //     var pointsList = [];
+
+            //     _.forEach(e.layer._latlngs[0], function (val) {
+            //         var latLng = [];
+            //         latLng.push(val.lat);
+            //         latLng.push(val.lng)
+            //         console.log("val--", latLng);
+            //         pointsList.push(latLng);
+            //     });
+            //     console.log("pointsList", pointsList);
+            //     var polygon = turf.polygon([
+            //         pointsList
+            //     ]);
+
+            //     area = turf.area(polygon);
+            //     console.log("area--", area, LGeo.area(e.layer) * 0.0002471054);
+            //     acres = LGeo.area(e.layer) * 0.0002471054;
+            //     console.log("acres--", Number(acres).toFixed(2));
+            //     if ($scope.cadLineDetails) {
+            //         $scope.cadLineDetails.acreage = Number(acres).toFixed(2);
+            //         $scope.cadLineDetails.points = e.layer._latlngs;
+            //         // $("#myModal").modal();
+            //         $('#myModal').on('show.bs.modal', function () {
+            //             console.log("inside modal")
+            //             $("#acreage").val(Number(acres).toFixed(2));
+            //         }).modal('show');
             //     }
-            // };
+               
+            // }
 
             map.on('load', function () {
                 // ALL YOUR APPLICATION CODE
