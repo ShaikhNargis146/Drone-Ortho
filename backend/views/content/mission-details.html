@@ -386,7 +386,7 @@ $("#showCheckoutCadR").change(function(event){
 					<tr ng-repeat="file in fileList">
 						<td>#{{$index+1}}.</td>
 						<td><a type="button" ng-click="downloadPointCloud(file)" ng-disabled="missionDetails.status !='ready'">{{file}}</a></td>
-						<td><i class="fa fa-download padLeft5" aria-hidden="true"></i></td>
+						<td><i ng-click="downloadPointCloud(file)" class="fa fa-download padLeft5" aria-hidden="true"></i></td>
 					</tr>
 				</table>
 				<!--<span ng-repeat="file in fileList">
