@@ -172,7 +172,7 @@ var controller = {
                             var cord = [];
                             cord.push(pt_wgs84.x);
                             cord.push(pt_wgs84.y);
-                            cornList[corner_name] = cord;
+                            cornList[corner_name] = cord.reverse();
                         });
                         // console.log(cornList)
                         callback(null, cornList);
@@ -246,7 +246,7 @@ var controller = {
                     // console.log("fileName[0] ", 'C:/Users/unifli/Documents/googleTile-Mosaic/' + firstName[0] + '.jpg', path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile.file)
                     sharp(path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile.file)
                         .jpeg()
-                        .toFile('C:/Users/unifli/Documents/googleTile-Mosaic/' + firstName[0] + '.jpg', function (err, info) {
+                        .toFile('/home/user/Documents/htdocs/unifli-backend/.tmp/'+ firstName[0] + '.jpg', function (err, info) {
                             // console.log("done");
                             callback(null, "done");
                         });
