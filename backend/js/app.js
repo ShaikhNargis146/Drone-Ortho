@@ -1239,9 +1239,9 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
                 zoomLevel.push($scope.missionDetails.zoomLevel[$scope.missionDetails.zoomLevel.length - 1]);
                 // imageUrl = 'http://localhost:1337/google_tiles/{z}/{x}/{myY}.png';
             } else if ($scope.cadLineDetails && $scope.cadLineDetails.orthoFile.file) {
-                imageUrl = 'http://localhost:1337/5a0a8c4cda0e182241afa514.jpg';
+                // imageUrl = 'http://localhost:1337/5a0a8c4cda0e182241afa514.jpg';
                 // imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.orthoFile.file.split(".")[0] + '.jpg';
-                // imageUrl = 'http://files.unifli.aero/' + $scope.cadLineDetails.orthoFile.file.split(".")[0] + '.jpg';
+                imageUrl = 'http://files.unifli.aero/' + $scope.cadLineDetails.orthoFile.file.split(".")[0] + '.jpg';
                 zoomLevel = [16, 21];
             } else if ($scope.cadLineDetails && $scope.cadLineDetails.mission) {
                 // imageUrl = 'http://localhost:1337/google_tiles/{z}/{x}/{myY}.png';
