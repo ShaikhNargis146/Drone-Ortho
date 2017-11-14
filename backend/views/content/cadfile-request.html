@@ -260,6 +260,8 @@
                   <thead>
                     <tr>
                       <th>Cad ID</th>
+                      <th>User ID</th>
+                      
                       <th>Acreage</th>
                       <th>Description</th>
 
@@ -273,6 +275,8 @@
                     <tr ng-repeat="cadData in allCadLineData track by $index">
 
                       <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.cadId}}</a></td>
+                      <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.user.dataId}}</a></td>
+                      
                       <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.acreage}}</a></td>
                       <td>
                         <a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.instruction}}</a>
