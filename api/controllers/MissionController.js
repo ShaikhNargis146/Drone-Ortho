@@ -116,7 +116,7 @@ var controller = {
                 var cord = []
                 cord.push(pt_wgs84.x)
                 cord.push(pt_wgs84.y)
-                cornList[corner_name.trim()] = cord
+                cornList[corner_name.trim()] = cord.reverse();
                 console.log(cornList)
                 var description = util.format('%s (%d, %d) (%s, %s)',
                     corner_name,
