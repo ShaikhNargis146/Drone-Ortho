@@ -270,7 +270,7 @@ var controller = {
                     // console.log("fileName[0] ", 'C:/Users/unifli/Documents/googleTile-Mosaic/' + firstName[0] + '.jpg', path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile.file)
                     sharp(path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile.file)
                         .jpeg()
-                        .toFile('/home/user/Documents/htdocs/unifli-backend/.tmp/'+ firstName[0] + '.jpg', function (err, info) {
+                        .toFile('C:/Users/unifli/Documents/googleTile-Mosaic/'+ firstName[0] + '.jpg', function (err, info) {
                             // console.log("done");
                             callback(null, "done");
                         });
