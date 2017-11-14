@@ -29,6 +29,32 @@ module.exports = mongoose.model('VendorBill', schema);
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "cad", "cad"));
 var model = {
 
+    exceltotalVendorBill: function (data, callback) {
+        User.find({}).deepPopulate().exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        })
+    },
+
+    generateExcelVendorBill: function (match, callback) {
+        async.concatSeries(match, function (mainData, callback) {
+                var obj = {};
+                obj["VENDOR BILL ID"] = mainData.vendorBillId;
+                obj["VENDOR CHARGES"] = mainData.vendorCharges;
+                obj["PAID AMOUNT"] = mainData.paidAmount;
+                obj[" BALANCE"] = mainData.balance;
+                obj["ADVANCE"] = mainData.Advance;
+                callback(null, obj);
+            },
+            function (err, singleData) {
+                callback(null, singleData);
+            });
+
+    },
+
     getBill: function (data, callback) {
         if (data.count) {
             var maxCount = data.count;

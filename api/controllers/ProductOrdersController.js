@@ -14,6 +14,30 @@ var ups = new upsAPI({
 });
 
 var controller = {
+	exceltotalProductOrders: function (req, res) {
+		ProductOrders.exceltotalProductOrders(req.body, function (err, data) {
+			ProductOrders.generateExcelProductOrders(data, function (err, singleData) {
+				Config.generateExcel("ProductExcel", singleData, function (excels) {
+					// console.log("excel", excels, "err", err);
+					res.set('Content-Type', "application/octet-stream");
+					res.set('Content-Disposition', "attachment;filename=" + excels.path);
+					res.send(excels.excel);
+				});
+			});
+		});
+	},
+	exceltotalProductOrdersforUser: function (req, res) {
+		ProductOrders.exceltotalProductOrdersforUser(req.body, function (err, data) {
+			ProductOrders.generateExcelProductOrdersforUser(data, function (err, singleData) {
+				Config.generateExcel("ProductExcel", singleData, function (excels) {
+					// console.log("excel", excels, "err", err);
+					res.set('Content-Type', "application/octet-stream");
+					res.set('Content-Disposition', "attachment;filename=" + excels.path);
+					res.send(excels.excel);
+				});
+			});
+		});
+	},
 
 	getProductData: function (req, res) {
 		if (req.body) {

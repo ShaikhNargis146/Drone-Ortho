@@ -82,6 +82,60 @@ module.exports = mongoose.model('Mission', schema);
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "others.serviceId user DFMSubscription", "others.serviceId user DFMSubscriptions"));
 var model = {
 
+    exceltotalMission: function (data, callback) {
+        Mission.find({
+
+        }).deepPopulate().exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        })
+    },
+
+    generateExcelMission: function (match, callback) {
+        async.concatSeries(match, function (mainData, callback) {
+                var obj = {};
+                obj["MISSION ID"] = mainData.name;
+                obj["MISSION NAME"] = mainData.missionId;
+                obj["STATUS"] = mainData.status;
+                obj[" DATE"] = mainData.date;
+                callback(null, obj);
+            },
+            function (err, singleData) {
+                callback(null, singleData);
+            });
+
+    },
+    exceltotalMissionforUser: function (data, callback) {
+        Mission.find({
+            user: data._id
+        }).deepPopulate().exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        })
+    },
+
+    generateExcelMissionforUser: function (match, callback) {
+        async.concatSeries(match, function (mainData, callback) {
+                var obj = {};
+                obj["MISSION ID"] = mainData.name;
+                obj["MISSION NAME"] = mainData.missionId;
+                obj["STATUS"] = mainData.status;
+                obj[" DATE"] = mainData.date;
+                callback(null, obj);
+            },
+            function (err, singleData) {
+                callback(null, singleData);
+            });
+
+    },
+
+
     getMissionUser: function (data, callback) {
         if (data.count) {
             var maxCount = data.count;

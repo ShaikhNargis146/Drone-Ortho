@@ -12,6 +12,30 @@ var JSZip = require("jszip");
 var gdal = require("gdal");
 
 var controller = {
+    exceltotalCad: function (req, res) {
+        CadLineWork.exceltotalCad(req.body, function (err, data) {
+            CadLineWork.generateExcelCad(data, function (err, singleData) {
+                Config.generateExcel("CadExcel", singleData, function (excels) {
+                    // console.log("excel", excels, "err", err);
+                    res.set('Content-Type', "application/octet-stream");
+                    res.set('Content-Disposition', "attachment;filename=" + excels.path);
+                    res.send(excels.excel);
+                });
+            });
+        });
+    },
+    exceltotalCadforUser: function (req, res) {
+        CadLineWork.exceltotalCadforUser(req.body, function (err, data) {
+            CadLineWork.generateExcelCadforUser(data, function (err, singleData) {
+                Config.generateExcel("CadExcel", singleData, function (excels) {
+                    // console.log("excel", excels, "err", err);
+                    res.set('Content-Type', "application/octet-stream");
+                    res.set('Content-Disposition', "attachment;filename=" + excels.path);
+                    res.send(excels.excel);
+                });
+            });
+        });
+    },
     getCadByUSer: function (req, res) {
         if (req.body) {
             CadLineWork.getCadByUSer(req.body, res.callback);

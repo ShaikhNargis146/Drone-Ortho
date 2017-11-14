@@ -15,7 +15,30 @@ var gdal = require("gdal");
 var util = require('util');
 var dms = require("dms-conversion");
 var controller = {
-
+    exceltotalMission: function (req, res) {
+        Mission.exceltotalMission(req.body, function (err, data) {
+            Mission.generateExcelMission(data, function (err, singleData) {
+                Config.generateExcel("CadExcel", singleData, function (excels) {
+                    // console.log("excel", excels, "err", err);
+                    res.set('Content-Type', "application/octet-stream");
+                    res.set('Content-Disposition', "attachment;filename=" + excels.path);
+                    res.send(excels.excel);
+                });
+            });
+        });
+    },
+    exceltotalMissionforUser: function (req, res) {
+        Mission.exceltotalMissionforUser(req.body, function (err, data) {
+            Mission.generateExcelMissionforUser(data, function (err, singleData) {
+                Config.generateExcel("CadExcel", singleData, function (excels) {
+                    // console.log("excel", excels, "err", err);
+                    res.set('Content-Type', "application/octet-stream");
+                    res.set('Content-Disposition', "attachment;filename=" + excels.path);
+                    res.send(excels.excel);
+                });
+            });
+        });
+    },
 
     getMissionUser: function (req, res) {
         if (req.body) {

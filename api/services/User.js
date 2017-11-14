@@ -143,11 +143,65 @@ module.exports = mongoose.model('User', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema));
 var model = {
+    exceltotalUser: function (data, callback) {
+        User.find({
+            accessLevel: 'User'
+        }).deepPopulate().exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        })
+    },
 
+    generateExcelUser: function (match, callback) {
+        async.concatSeries(match, function (mainData, callback) {
+                var obj = {};
+                obj["USER ID"] = mainData.dataId;
+                obj["USER NAME"] = mainData.name;
+                obj["STATUS"] = mainData.status;
+                obj[" EMAIL"] = mainData.email;
+                obj["LISENCE"] = mainData.lisence;
+                obj["MOBILE"] = mainData.mobile;
+                callback(null, obj);
+            },
+            function (err, singleData) {
+                callback(null, singleData);
+            });
+
+    },
+
+
+    exceltotalVendor: function (data, callback) {
+        User.find({
+            accessLevel: 'Vendor'
+        }).deepPopulate().exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        })
+    },
+
+    generateExcelVendor: function (match, callback) {
+        async.concatSeries(match, function (mainData, callback) {
+                var obj = {};
+                obj["VENDOR ID"] = mainData.dataId;
+                obj["VENDOR NAME"] = mainData.name;
+                obj["STATUS"] = mainData.status;
+                obj[" EMAIL"] = mainData.email;
+                obj["MOBILE"] = mainData.mobile;
+                callback(null, obj);
+            },
+            function (err, singleData) {
+                callback(null, singleData);
+            });
+
+    },
 
     findUserForUpdatePass: function (data, callback) {
-        console.log("insied api data is",data)
-
         async.waterfall([
             function (callback1) { // generate VendorID 
                 User.findOne({
