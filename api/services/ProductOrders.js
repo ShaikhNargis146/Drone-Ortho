@@ -99,6 +99,61 @@ module.exports = mongoose.model('ProductOrders', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "products user cadLineWork dfmSubscription", "products user cadLineWork dfmSubscription"));
 var model = {
+    exceltotalProductOrders: function (data, callback) {
+        ProductOrders.find({}).deepPopulate().exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        })
+    },
+
+    generateExcelProductOrders: function (match, callback) {
+        async.concatSeries(match, function (mainData, callback) {
+                var obj = {};
+
+                obj["NAME"] = mainData.name;
+                obj["iNVOICE NUMBER"] = mainData.invoiceNo;
+                obj["STATUS"] = mainData.status;
+                obj["MOBILE"] = mainData.phonenumber;
+                callback(null, obj);
+            },
+            function (err, singleData) {
+                callback(null, singleData);
+            });
+
+    },
+
+
+    exceltotalProductOrdersforUser: function (data, callback) {
+        ProductOrders.find({
+            user: data._id
+        }).deepPopulate().exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        })
+    },
+
+    generateExcelProductOrdersforUser: function (match, callback) {
+        async.concatSeries(match, function (mainData, callback) {
+                var obj = {};
+
+                obj["NAME"] = mainData.name;
+                obj["iNVOICE NUMBER"] = mainData.invoiceNo;
+                obj["STATUS"] = mainData.status;
+                obj["MOBILE"] = mainData.phonenumber;
+                callback(null, obj);
+            },
+            function (err, singleData) {
+                callback(null, singleData);
+            });
+
+    },
+
 
     invoiceGenerate: function (data, callback) {
         // console.log(data);
@@ -427,10 +482,10 @@ var model = {
                         }, {
                             "name": "CAD_ID",
                             "content": data.cadLineWork.cadId
-                        },  {
+                        }, {
                             "name": "AMOUNT",
                             "content": data.totalAmount
-                        },{
+                        }, {
                             "name": "ACREAGE",
                             "content": data.cadLineWork.acreage
                         }, {
@@ -464,7 +519,7 @@ var model = {
                     forUser: function (callback) {
                         emailData.filename = "DFM Purchase";
                         emailData.subject = "DFM PURCHASE";
-                        emailData.email = data.user.email;                        
+                        emailData.email = data.user.email;
                         Config.email(emailData, function (err, emailRespo) {
                             if (err) {
                                 console.log(err);
@@ -479,7 +534,7 @@ var model = {
                     forAdmin: function (callback) {
                         emailData.filename = "New DFM Purchase (Admin)";
                         emailData.subject = "DFM REQUEST";
-                        emailData.email = global["env"].adminEmail;                        
+                        emailData.email = global["env"].adminEmail;
                         emailData.merge_vars = [{
                             "name": "USER_NAME",
                             "content": data.user.name
@@ -495,7 +550,7 @@ var model = {
                         }, {
                             "name": "ACTIVATION_DATE",
                             "content": data.dfmSubscription.createdAt
-                        },{
+                        }, {
                             "name": "EXPIRATION_DATE",
                             "content": data.dfmSubscription.expiryDate
                         }];
@@ -525,7 +580,7 @@ var model = {
                     forUser: function (callback) {
                         emailData.filename = "Drone Purchase";
                         emailData.subject = "DRONE PURCHASE";
-                        emailData.email = data.user.email;                        
+                        emailData.email = data.user.email;
                         Config.email(emailData, function (err, emailRespo) {
                             // console.log("emailRespo", emailRespo);
                             if (err) {

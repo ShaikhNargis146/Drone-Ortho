@@ -1,7 +1,32 @@
 module.exports = _.cloneDeep(require("sails-wohlig-controller"));
 var controller = {
 
-  findUserForUpdatePass: function (req, res) {
+
+    exceltotalVendor: function (req, res) {
+        User.exceltotalVendor(req.body, function (err, data) {
+            User.generateExcelVendor(data, function (err, singleData) {
+                Config.generateExcel("UserExcel", singleData, function (excels) {
+                    // console.log("excel", excels, "err", err);
+                    res.set('Content-Type', "application/octet-stream");
+                    res.set('Content-Disposition', "attachment;filename=" + excels.path);
+                    res.send(excels.excel);
+                });
+            });
+        });
+    },
+    exceltotalUser: function (req, res) {
+        User.exceltotalUser(req.body, function (err, data) {
+            User.generateExcelUser(data, function (err, singleData) {
+                Config.generateExcel("UserExcel", singleData, function (excels) {
+                    // console.log("excel", excels, "err", err);
+                    res.set('Content-Type', "application/octet-stream");
+                    res.set('Content-Disposition', "attachment;filename=" + excels.path);
+                    res.send(excels.excel);
+                });
+            });
+        });
+    },
+    findUserForUpdatePass: function (req, res) {
         if (req.body) {
             User.findUserForUpdatePass(req.body, res.callback);
         } else {
