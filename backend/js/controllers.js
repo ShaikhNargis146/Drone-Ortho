@@ -880,16 +880,16 @@ firstapp
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
             var userId = $.jStorage.get("user")._id;
         }
-          excelName={
-            name:"support",
+        excelName = {
+            name: "support",
             _id: $.jStorage.get("user")._id
         }
-         $scope.generateExcel=function(){
-                NavigationService.generateExcelWithName("Ticket/exceltotalTicket", excelName, function (data) {});
+        $scope.generateExcel = function () {
+            NavigationService.generateExcelWithName("Ticket/exceltotalTicket", excelName, function (data) {});
         };
-        
-         $scope.generateExcelforUser=function(){
-                NavigationService.generateExcelWithName("Ticket/exceltotalTicketforUser", excelName, function (data) {});
+
+        $scope.generateExcelforUser = function () {
+            NavigationService.generateExcelWithName("Ticket/exceltotalTicketforUser", excelName, function (data) {});
         };
         if ($scope.accessLevel == "User") {
 
@@ -1046,15 +1046,15 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
-          excelName={
-            name:"Mission",
-            _id:$.jStorage.get("user")._id
+        excelName = {
+            name: "Mission",
+            _id: $.jStorage.get("user")._id
         }
-        $scope.generateExcel=function(){
-                NavigationService.generateExcelWithName("Mission/exceltotalMission",excelName, function (data) {});
+        $scope.generateExcel = function () {
+            NavigationService.generateExcelWithName("Mission/exceltotalMission", excelName, function (data) {});
         };
-         $scope.generateExcelforUser=function(){
-                NavigationService.generateExcelWithName("Mission/exceltotalMissionforUser", excelName, function (data) {});
+        $scope.generateExcelforUser = function () {
+            NavigationService.generateExcelWithName("Mission/exceltotalMissionforUser", excelName, function (data) {});
         };
 
         if ($scope.accessLevel == "Admin") {
@@ -1823,12 +1823,12 @@ firstapp
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
             var userId = $.jStorage.get("user")._id;
         }
-    excelName={
-            name:"InvoiceList",
-            _id:$.jStorage.get("user")._id
+        excelName = {
+            name: "InvoiceList",
+            _id: $.jStorage.get("user")._id
         }
-     $scope.generateExcelforUser=function(){
-                NavigationService.generateExcelWithName("ProductOrders/exceltotalProductOrdersforUser",excelName, function (data) {});
+        $scope.generateExcelforUser = function () {
+            NavigationService.generateExcelWithName("ProductOrders/exceltotalProductOrdersforUser", excelName, function (data) {});
         };
         //pagination user
 
@@ -2558,23 +2558,23 @@ firstapp
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         TemplateService.mainClass = [];
-         if ($.jStorage.get("user")) {
+        if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
             var userId = $.jStorage.get("user")._id;
         }
 
-            excelName={
-            name:"CadFileRequest",
-            _id:$.jStorage.get("user")._id
+        excelName = {
+            name: "CadFileRequest",
+            _id: $.jStorage.get("user")._id
         }
-     $scope.generateExcel=function(){
-                NavigationService.generateExcelWithName("CadLineWork/exceltotalCad",excelName, function (data) {});
+        $scope.generateExcel = function () {
+            NavigationService.generateExcelWithName("CadLineWork/exceltotalCad", excelName, function (data) {});
         };
-        $scope.generateExcelforUser=function(){
-                NavigationService.generateExcelWithName("CadLineWork/exceltotalCadforUser",excelName, function (data) {});
+        $scope.generateExcelforUser = function () {
+            NavigationService.generateExcelWithName("CadLineWork/exceltotalCadforUser", excelName, function (data) {});
         };
-         
-        
+
+
         $scope.cadOpen = function () {
             $uibModal.open({
                 animation: true,
@@ -2584,21 +2584,37 @@ firstapp
 
             });
         };
-        $scope.upload = function (file) {
-            Upload.upload({
-                url: missionFileUrl,
-                data: {
-                    file: file
-                }
-            }).then(function (resp) {
-                console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
-            }, function (resp) {
-                console.log('Error status: ' + resp.status);
-            }, function (evt) {
-                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-            });
-        };
+        // $scope.upload = function (file) {
+        //     $(".loading-img").css("display", "block");
+        //     $(".loading-img-modal").css("display", "block");
+        //     Upload.upload({
+        //         url: missionFileUrl,
+        //         data: {
+        //             file: file
+        //         },
+        //         headers: {
+        //             'Content-Type': undefined
+        //         },
+        //         transformRequest: angular.identity,
+        //         uploadEventHandlers: {
+        //             progress: function (e) {
+        //                 console.log("--------------...", e.loaded * 100 / e.total);
+        //                 $scope.fileprogressbar = parseInt((e.loaded / e.total) * 100); // percentage of progress
+        //             }
+        //         }
+        //     }).then(function (resp) {
+        //         console.log('Success ' + resp.data + 'uploaded. ');
+        //         data = resp.data;
+        //         $(".loading-img").css("display", "none");
+        //         $(".loading-img-modal").css("display", "none");
+        //         $scope.uploadStatus = "uploaded";
+        //         var fileList = {};
+        //         fileList.file = resp.data[0];
+        //         $scope.model = fileList;
+        //     }, function (resp) {
+        //         console.log('Error status: ' + resp.status);
+        //     });
+        // };
 
         //*****************user CadFileRequest start*****************************
 
@@ -3086,11 +3102,11 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
-           excelName={
-            name:"UserList"
+        excelName = {
+            name: "UserList"
         }
-           $scope.generateExcel=function(){
-                NavigationService.generateExcelWithName("User/exceltotalUser",excelName, function (data) {});
+        $scope.generateExcel = function () {
+            NavigationService.generateExcelWithName("User/exceltotalUser", excelName, function (data) {});
         };
 
 
@@ -3253,11 +3269,11 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
-        excelName={
-            name:"ecommerce"
+        excelName = {
+            name: "ecommerce"
         }
-       $scope.generateExcel=function(){
-                NavigationService.generateExcelWithName("ProductOrders/exceltotalProductOrders", excelName, function (data) {});
+        $scope.generateExcel = function () {
+            NavigationService.generateExcelWithName("ProductOrders/exceltotalProductOrders", excelName, function (data) {});
         };
 
         //pagination ecommerce
@@ -3428,11 +3444,11 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
-         excelName={
-            name:"vendorList"
+        excelName = {
+            name: "vendorList"
         }
-        $scope.generateExcel=function(){
-                NavigationService.generateExcelWithName("User/exceltotalVendor", excelName, function (data) {});
+        $scope.generateExcel = function () {
+            NavigationService.generateExcelWithName("User/exceltotalVendor", excelName, function (data) {});
         };
 
         //pagination
@@ -3752,12 +3768,12 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
-                excelName={
-            name:"Billing",
+        excelName = {
+            name: "Billing",
             _id: $.jStorage.get("user")._id
         }
-         $scope.generateExcelforVendor=function(){
-                NavigationService.generateExcelWithName("VendorBill/exceltotalVendorBill", excelName, function (data) {});
+        $scope.generateExcelforVendor = function () {
+            NavigationService.generateExcelWithName("VendorBill/exceltotalVendorBill", excelName, function (data) {});
         };
         //pagination
         var i = 0;

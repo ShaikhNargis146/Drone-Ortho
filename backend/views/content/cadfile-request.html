@@ -107,9 +107,6 @@
             </div>
           </div>
 
-
-
-
         </div>
 
 
@@ -186,7 +183,12 @@
               <div class="col-sm-6">
                 <!--<upload-image multiple="true" required ng-model="data.orthoFile"></upload-image>-->
                 <upload-image-files ng-model="data.orthoFile" no-view multiple ng-disabled="type.disabled" required></upload-image-files>
-
+                <!--<div class="btn-primary" ng-model="data.orthoFile" ngf-select="upload($file)">Choose File</div>
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{fileprogressbar}}%"
+                  aria-valuemin="0" aria-valuemax="100" ng-style="{'width':fileprogressbar+'%'}">
+                  {{fileprogressbar}}%
+                </div>
+  <span class="label label-success" ng-if="uploadStatus == 'uploaded'" >Uploaded Successfully- {{image.file.name}}</span>-->
               </div>
             </div>
 
@@ -263,7 +265,7 @@
                     <tr>
                       <th>Cad ID</th>
                       <th>User ID</th>
-                      
+
                       <th>Acreage</th>
                       <th>Description</th>
 
@@ -278,7 +280,7 @@
 
                       <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.cadId}}</a></td>
                       <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.user.dataId}}</a></td>
-                      
+
                       <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.acreage}}</a></td>
                       <td>
                         <a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.instruction}}</a>
