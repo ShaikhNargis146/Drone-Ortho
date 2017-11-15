@@ -46,7 +46,10 @@
                   <div class="col-md-6">
                     <div class="pull-right"> <label>Search: <input type="text " ng-change="getAllItems(true) " placeholder="Search Here...
                         " ng-model="search.keyword " /></label>
-                      <div class="dt-buttons btn-group"> <a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Copy</span>             </a>                        <a class="btn btn-default buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>CSV</span>             </a>                        <a class="btn btn-default buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Excel</span>             </a>                        <a class="btn btn-default buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>PDF</span>             </a>                        <a class="btn btn-default buttons-print" tabindex="0" aria-controls="DataTables_Table_0"><span>Print</span>             </a>                        </div>
+                      <div class="dt-buttons btn-group"> <a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Copy</span>             </a>                        <a class="btn btn-default buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>CSV</span>             </a>                        <a class="btn btn-default buttons-excel buttons-html5" tabindex="0" ng-click=generateExcelforUser();
+                          aria-controls="DataTables_Table_0"><span>Excel</span>             </a> <a class="btn btn-default buttons-pdf buttons-html5"
+                          tabindex="0" aria-controls="DataTables_Table_0"><span>PDF</span>             </a> <a class="btn btn-default buttons-print"
+                          tabindex="0" aria-controls="DataTables_Table_0"><span>Print</span>             </a> </div>
                     </div>
                   </div>
                 </div>
@@ -248,7 +251,7 @@
                   <div class="col-md-6">
                     <div class="pull-right"> <label>Search:<input type="text " ng-change="getAllItems(true) " placeholder="Search Here...
                         " ng-model="search.keyword " /></label>
-                      <div class="dt-buttons btn-group"> <a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Copy</span>             </a>                        <a class="btn btn-default buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>CSV</span>             </a>                        <a class="btn btn-default buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Excel</span>             </a>                        <a class="btn btn-default buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>PDF</span>             </a>                        <a class="btn btn-default buttons-print" tabindex="0" aria-controls="DataTables_Table_0"><span>Print</span>             </a>                        </div>
+                      <div class="dt-buttons btn-group"> <a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Copy</span>             </a>                        <a class="btn btn-default buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>CSV</span>             </a>                        <a class="btn btn-default buttons-excel buttons-html5" tabindex="0" ng-click=generateExcel(); aria-controls="DataTables_Table_0"><span>Excel</span>             </a>                        <a class="btn btn-default buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>PDF</span>             </a>                        <a class="btn btn-default buttons-print" tabindex="0" aria-controls="DataTables_Table_0"><span>Print</span>             </a>                        </div>
                     </div>
                   </div>
                 </div>
@@ -259,6 +262,8 @@
                   <thead>
                     <tr>
                       <th>Cad ID</th>
+                      <th>User ID</th>
+                      
                       <th>Acreage</th>
                       <th>Description</th>
 
@@ -272,6 +277,8 @@
                     <tr ng-repeat="cadData in allCadLineData track by $index">
 
                       <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.cadId}}</a></td>
+                      <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.user.dataId}}</a></td>
+                      
                       <td><a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.acreage}}</a></td>
                       <td>
                         <a ui-sref="cadfile-details({'cadId' : cadData._id})">{{cadData.instruction}}</a>
@@ -334,7 +341,10 @@
                   <div class="col-md-6">
                     <div class="pull-right"> <label>Search:<input type="text " ng-change="getAllItems(true) " placeholder="Search Here...
                         " ng-model="search.keyword " /></label>
-                      <div class="dt-buttons btn-group"> <a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Copy</span>             </a>                        <a class="btn btn-default buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>CSV</span>             </a>                        <a class="btn btn-default buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Excel</span>             </a>                        <a class="btn btn-default buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>PDF</span>             </a>                        <a class="btn btn-default buttons-print" tabindex="0" aria-controls="DataTables_Table_0"><span>Print</span>             </a>                        </div>
+                      <div class="dt-buttons btn-group"> <a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Copy</span>             </a>                        <a class="btn btn-default buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>CSV</span>             </a>                        <a class="btn btn-default buttons-excel buttons-html5" tabindex="0" ng-click=generateExcelforUser();
+                          aria-controls="DataTables_Table_0"><span>Excel</span>             </a> <a class="btn btn-default buttons-pdf buttons-html5"
+                          tabindex="0" aria-controls="DataTables_Table_0"><span>PDF</span>             </a> <a class="btn btn-default buttons-print"
+                          tabindex="0" aria-controls="DataTables_Table_0"><span>Print</span>             </a> </div>
                     </div>
                   </div>
                 </div>

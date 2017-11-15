@@ -880,8 +880,17 @@ firstapp
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
             var userId = $.jStorage.get("user")._id;
         }
-
-
+          excelName={
+            name:"support",
+            _id: $.jStorage.get("user")._id
+        }
+         $scope.generateExcel=function(){
+                NavigationService.generateExcelWithName("Ticket/exceltotalTicket", excelName, function (data) {});
+        };
+        
+         $scope.generateExcelforUser=function(){
+                NavigationService.generateExcelWithName("Ticket/exceltotalTicketforUser", excelName, function (data) {});
+        };
         if ($scope.accessLevel == "User") {
 
             //pagination user
@@ -1037,7 +1046,16 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
-
+          excelName={
+            name:"Mission",
+            _id:$.jStorage.get("user")._id
+        }
+        $scope.generateExcel=function(){
+                NavigationService.generateExcelWithName("Mission/exceltotalMission",excelName, function (data) {});
+        };
+         $scope.generateExcelforUser=function(){
+                NavigationService.generateExcelWithName("Mission/exceltotalMissionforUser", excelName, function (data) {});
+        };
 
         if ($scope.accessLevel == "Admin") {
 
@@ -1805,7 +1823,13 @@ firstapp
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
             var userId = $.jStorage.get("user")._id;
         }
-
+    excelName={
+            name:"InvoiceList",
+            _id:$.jStorage.get("user")._id
+        }
+     $scope.generateExcelforUser=function(){
+                NavigationService.generateExcelWithName("ProductOrders/exceltotalProductOrdersforUser",excelName, function (data) {});
+        };
         //pagination user
 
         var i = 0;
@@ -2534,13 +2558,23 @@ firstapp
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         TemplateService.mainClass = [];
-
-
-        if ($.jStorage.get("user")) {
+         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
             var userId = $.jStorage.get("user")._id;
         }
 
+            excelName={
+            name:"CadFileRequest",
+            _id:$.jStorage.get("user")._id
+        }
+     $scope.generateExcel=function(){
+                NavigationService.generateExcelWithName("CadLineWork/exceltotalCad",excelName, function (data) {});
+        };
+        $scope.generateExcelforUser=function(){
+                NavigationService.generateExcelWithName("CadLineWork/exceltotalCadforUser",excelName, function (data) {});
+        };
+         
+        
         $scope.cadOpen = function () {
             $uibModal.open({
                 animation: true,
@@ -3052,6 +3086,12 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
+           excelName={
+            name:"UserList"
+        }
+           $scope.generateExcel=function(){
+                NavigationService.generateExcelWithName("User/exceltotalUser",excelName, function (data) {});
+        };
 
 
         //pagination admin
@@ -3213,7 +3253,12 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
-
+        excelName={
+            name:"ecommerce"
+        }
+       $scope.generateExcel=function(){
+                NavigationService.generateExcelWithName("ProductOrders/exceltotalProductOrders", excelName, function (data) {});
+        };
 
         //pagination ecommerce
 
@@ -3383,6 +3428,13 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
+         excelName={
+            name:"vendorList"
+        }
+        $scope.generateExcel=function(){
+                NavigationService.generateExcelWithName("User/exceltotalVendor", excelName, function (data) {});
+        };
+
         //pagination
 
         var i = 0;
@@ -3700,6 +3752,13 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
+                excelName={
+            name:"Billing",
+            _id: $.jStorage.get("user")._id
+        }
+         $scope.generateExcelforVendor=function(){
+                NavigationService.generateExcelWithName("VendorBill/exceltotalVendorBill", excelName, function (data) {});
+        };
         //pagination
         var i = 0;
         if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {

@@ -12,6 +12,30 @@ var JSZip = require("jszip");
 var gdal = require("gdal");
 
 var controller = {
+    exceltotalCad: function (req, res) {
+        CadLineWork.exceltotalCad(req.body, function (err, data) {
+            CadLineWork.generateExcelCad(data, function (err, singleData) {
+                Config.generateExcel("CadExcel", singleData, function (excels) {
+                    // console.log("excel", excels, "err", err);
+                    res.set('Content-Type', "application/octet-stream");
+                    res.set('Content-Disposition', "attachment;filename=" + excels.path);
+                    res.send(excels.excel);
+                });
+            });
+        });
+    },
+    exceltotalCadforUser: function (req, res) {
+        CadLineWork.exceltotalCadforUser(req.body, function (err, data) {
+            CadLineWork.generateExcelCadforUser(data, function (err, singleData) {
+                Config.generateExcel("CadExcel", singleData, function (excels) {
+                    // console.log("excel", excels, "err", err);
+                    res.set('Content-Type', "application/octet-stream");
+                    res.set('Content-Disposition', "attachment;filename=" + excels.path);
+                    res.send(excels.excel);
+                });
+            });
+        });
+    },
     getCadByUSer: function (req, res) {
         if (req.body) {
             CadLineWork.getCadByUSer(req.body, res.callback);
@@ -172,7 +196,7 @@ var controller = {
                             var cord = [];
                             cord.push(pt_wgs84.x);
                             cord.push(pt_wgs84.y);
-                            cornList[corner_name] = cord;
+                            cornList[corner_name] = cord.reverse();
                         });
                         // console.log(cornList)
                         callback(null, cornList);
@@ -246,7 +270,7 @@ var controller = {
                     // console.log("fileName[0] ", 'C:/Users/unifli/Documents/googleTile-Mosaic/' + firstName[0] + '.jpg', path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile.file)
                     sharp(path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile.file)
                         .jpeg()
-                        .toFile('C:/Users/unifli/Documents/googleTile-Mosaic/' + firstName[0] + '.jpg', function (err, info) {
+                        .toFile('C:/Users/unifli/Documents/googleTile-Mosaic/'+ firstName[0] + '.jpg', function (err, info) {
                             // console.log("done");
                             callback(null, "done");
                         });

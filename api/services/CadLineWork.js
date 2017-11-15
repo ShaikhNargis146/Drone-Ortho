@@ -93,6 +93,63 @@ module.exports = mongoose.model('CadLineWork', schema);
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "user mission vendor", "user mission vendor"));
 var model = {
 
+    exceltotalCad: function (data, callback) {
+        CadLineWork.find({
+
+        }).deepPopulate().exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        })
+    },
+
+    generateExcelCad: function (match, callback) {
+        async.concatSeries(match, function (mainData, callback) {
+                var obj = {};
+                obj["VENDOR BILLING ID"] = mainData.vendorBillingId;
+                obj["PAYMENT STATUS"] = mainData.vendorPaymentStatus;
+                obj["STATUS"] = mainData.status;
+                obj[" AMOUNT"] = mainData.amount;
+                obj["NAME"] = mainData.name;
+                callback(null, obj);
+            },
+            function (err, singleData) {
+                callback(null, singleData);
+            });
+
+    },
+    exceltotalCadforUser: function (data, callback) {
+        CadLineWork.find({
+            user: data._id
+        }).deepPopulate().exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        })
+    },
+
+    generateExcelCadforUser: function (match, callback) {
+        async.concatSeries(match, function (mainData, callback) {
+                var obj = {};
+                obj["VENDOR BILLING ID"] = mainData.vendorBillingId;
+                obj["PAYMENT STATUS"] = mainData.vendorPaymentStatus;
+                obj["STATUS"] = mainData.status;
+                obj[" AMOUNT"] = mainData.amount;
+                obj["NAME"] = mainData.name;
+                obj["ACREAGE"] = mainData.Acreage;
+
+                callback(null, obj);
+            },
+            function (err, singleData) {
+                callback(null, singleData);
+            });
+
+    },
+
     getCadByUSer: function (data, callback) {
         if (data.count) {
             var maxCount = data.count;

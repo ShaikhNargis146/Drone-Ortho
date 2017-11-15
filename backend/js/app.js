@@ -1231,139 +1231,6 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
                 }
             }
 
-            // var mapStyle = {
-            //     "version": 8,
-            //     "name": "Dark",
-            //     "sources": {
-            //         "mapbox": {
-            //             "type": "vector",
-            //             "url": "mapbox://mapbox.mapbox-streets-v6"
-            //         },
-            //         "overlay": {
-            //             "type": "image",
-            //             "url": "http://localhost:1337/output03.webp",
-            //             "coordinates": [
-            //                 locations.upperLeft, locations.upperRight, locations.lowerRight, locations.lowerLeft,
-            //             ]
-            //         }
-            //     },
-            //     "sprite": "mapbox://sprites/mapbox/dark-v9",
-            //     "glyphs": "mapbox://fonts/mapbox/{fontstack}/{range}.pbf",
-            //     "layers": [{
-            //             "id": "background",
-            //             "type": "background",
-            //             "paint": {
-            //                 "background-color": "rgb(4,7,14)"
-            //             }
-            //         },
-            //         {
-            //             "id": "water",
-            //             "source": "mapbox",
-            //             "source-layer": "water",
-            //             "type": "fill",
-            //             "paint": {
-            //                 "fill-color": "#2c2c2c"
-            //             }
-            //         },
-            //         {
-            //             "id": "boundaries",
-            //             "source": "mapbox",
-            //             "source-layer": "admin",
-            //             "type": "line",
-            //             "paint": {
-            //                 "line-color": "#797979",
-            //                 "line-dasharray": [2, 2, 6, 2]
-            //             },
-            //             "filter": ["all", ["==", "maritime", 0]]
-            //         },
-            //         {
-            //             "id": "overlay",
-            //             "source": "overlay",
-            //             "type": "raster",
-            //             "paint": {
-            //                 "raster-opacity": 0.85
-            //             }
-            //         },
-            //         {
-            //             "id": "cities",
-            //             "source": "mapbox",
-            //             "source-layer": "place_label",
-            //             "type": "symbol",
-            //             "layout": {
-            //                 "text-field": "{name_en}",
-            //                 "text-font": ["DIN Offc Pro Bold", "Arial Unicode MS Bold"],
-            //                 "text-size": {
-            //                     "stops": [
-            //                         [4, 9],
-            //                         [6, 12]
-            //                     ]
-            //                 }
-            //             },
-            //             "paint": {
-            //                 "text-color": "#969696",
-            //                 "text-halo-width": 2,
-            //                 "text-halo-color": "rgba(0, 0, 0, 0.85)"
-            //             }
-            //         },
-            //         {
-            //             "id": "states",
-            //             "source": "mapbox",
-            //             "source-layer": "state_label",
-            //             "type": "symbol",
-            //             "layout": {
-            //                 "text-transform": "uppercase",
-            //                 "text-field": "{name_en}",
-            //                 "text-font": ["DIN Offc Pro Bold", "Arial Unicode MS Bold"],
-            //                 "text-letter-spacing": 0.15,
-            //                 "text-max-width": 7,
-            //                 "text-size": {
-            //                     "stops": [
-            //                         [4, 10],
-            //                         [6, 14]
-            //                     ]
-            //                 }
-            //             },
-            //             "filter": [">=", "area", 80000],
-            //             "paint": {
-            //                 "text-color": "#969696",
-            //                 "text-halo-width": 2,
-            //                 "text-halo-color": "rgba(0, 0, 0, 0.85)"
-            //             }
-            //         }
-            //     ]
-            // };
-            // var videoStyle = {
-            //     "version": 8,
-            //     "sources": {
-            //         "satellite": {
-            //             "type": "raster",
-            //             "url": "mapbox://mapbox.streets",
-            //             "tileSize": 256
-            //         },
-            //         "video": {
-            //             "type": "image",
-            //             "url": "http://localhost:1337/output03.webp",
-            //             "coordinates": [
-            //                 locations.upperLeft, locations.upperRight, locations.lowerRight, locations.lowerLeft,
-            //             ]
-            //         }
-            //     },
-            //     "layers": [{
-            //         "id": "background",
-            //         "type": "background",
-            //         "paint": {
-            //             "background-color": "rgb(4,7,14)"
-            //         }
-            //     }, {
-            //         "id": "satellite",
-            //         "type": "raster",
-            //         "source": "satellite"
-            //     }, {
-            //         "id": "video",
-            //         "type": "raster",
-            //         "source": "video"
-            //     }]
-            // };
             var imageUrl;
             var zoomLevel = [];
             if ($scope.missionDetails && $scope.missionDetails.missionId) {
@@ -1373,7 +1240,7 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
                 zoomLevel.push($scope.missionDetails.zoomLevel[$scope.missionDetails.zoomLevel.length - 1]);
                 // imageUrl = 'http://localhost:1337/google_tiles/{z}/{x}/{myY}.png';
             } else if ($scope.cadLineDetails && $scope.cadLineDetails.orthoFile.file) {
-                // imageUrl = 'http://localhost:1337/demo.jpg';
+                // imageUrl = 'http://localhost:1337/5a0a8c4cda0e182241afa514.jpg';
                 // imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.orthoFile.file.split(".")[0] + '.jpg';
                 imageUrl = 'http://files.unifli.aero/' + $scope.cadLineDetails.orthoFile.file.split(".")[0] + '.jpg';
                 zoomLevel = [16, 21];
@@ -1392,10 +1259,10 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
             var imageBounds;
             if (!_.isEmpty(locations)) {
                 imageBounds = L.latLngBounds([
-                    locations.upperLeft.reverse(),
-                    locations.lowerLeft.reverse(),
-                    locations.upperRight.reverse(),
-                    locations.lowerRight.reverse()
+                    locations.upperLeft,
+                    locations.lowerLeft,
+                    locations.upperRight,
+                    locations.lowerRight
                 ]);
             }
             var latlngs;
@@ -1519,60 +1386,8 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
                         $("#acreage").val(Number(acres).toFixed(2));
                     }).modal('show');
                 }
-                // var mapmodal = $uibModal.open({
-                //     animation: $scope.animationsEnabled,
-                //     templateUrl: '/backend/views/modal/cadline-name.html',
-                //     size: 'sm',
-                //     scope: $scope
-                // });
+               
             }
-
-
-            // var featureGroup = L.featureGroup().addTo(map);
-
-            // var drawControl = new L.Control.Draw({
-            //     edit: {
-            //         featureGroup: featureGroup
-            //     },
-            //     draw: {
-            //         polygon: true,
-            //         polyline: false,
-            //         rectangle: false,
-            //         circle: false,
-            //         marker: false
-            //     }
-            // }).addTo(map);
-            // map.on('draw:created', showPolygonArea);
-            // map.on('draw:edited', showPolygonAreaEdited);
-
-            // function showPolygonAreaEdited(e) {
-            //     e.layers.eachLayer(function (layer) {
-            //         showPolygonArea({
-            //             layer: layer
-            //         });
-            //     });
-            // }
-
-            // function showPolygonArea(e) {
-            //     featureGroup.clearLayers();
-            //     featureGroup.addLayer(e.layer);
-            //     e.layer.bindPopup((LGeo.area(e.layer) / 1000000).toFixed(2) + 'Hi');
-            //     e.layer.openPopup();
-            //     alert("hello")
-            // }
-            // var calcButton;
-            // if ($scope.missionDetails && $scope.missionDetails.missionId) {
-            //     calcButton = document.getElementById('missionName');
-            // } else if ($scope.cadLineDetails) {
-            //     calcButton = document.getElementById('contours');
-            // }
-            // calcButton.onclick = function () {
-            //     if (acres > 0) {
-            //         $scope.cadLineDetails.acreage = acres
-            //     } else {
-            //         alert("Use the draw tools to draw a polygon!");
-            //     }
-            // };
 
             map.on('load', function () {
                 // ALL YOUR APPLICATION CODE

@@ -1,6 +1,20 @@
 module.exports = _.cloneDeep(require("sails-wohlig-controller"));
 var controller = {
 
+    exceltotalVendorBill: function (req, res) {
+        VendorBill.exceltotalVendorBill(req.body, function (err, data) {
+            VendorBill.generateExcelVendorBill(data, function (err, singleData) {
+                Config.generateExcel("MissionExcel", singleData, function (excels) {
+                    // console.log("excel", excels, "err", err);
+                    res.set('Content-Type', "application/octet-stream");
+                    res.set('Content-Disposition', "attachment;filename=" + excels.path);
+                    res.send(excels.excel);
+                });
+            });
+        });
+    },
+
+
     getBill: function (req, res) {
         if (req.body) {
             VendorBill.getBill(req.body, res.callback);

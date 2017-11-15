@@ -54,7 +54,7 @@ module.exports = [
   // *******my bower component********
   // "bower_components/angular-morris/build/module/angular-morris/angular-morris.js",
   // *******my bower component********
-
+"bower_components/ng-file-upload/ng-file-upload.min.js",
   // "bower_components/highcharts-ng/dist/highcharts-ng.js",
   "bower_components/angularjs-slider/dist/rzslider.js",
   "bower_components/mapbox.js/mapbox.js",
