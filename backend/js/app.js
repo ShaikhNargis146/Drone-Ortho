@@ -14,7 +14,8 @@ var firstapp = angular.module('firstapp', [
     'summernote',
     'datePicker',
     'angular-flot',
-    'rzModule'
+    'rzModule',
+    'ngFileUpload'
 ]);
 
 L.mapbox.accessToken = 'pk.eyJ1IjoibmFyZ2lzLXNoYWlraCIsImEiOiJjajVsMWdjbTgyN2t0MzBuejY0YWZvYnU1In0.sxNSmPeAZRDks6p3JmRUkw';

@@ -1,6 +1,8 @@
 <!--*************************************** START OF USER VIEW **********************************************-->
+
 <div class="page-container" ng-if="accessLevel=='User'">
   <!-- Start page content wrapper -->
+
   <div class="page-content-wrapper animated fadeInRight  ">
     <div class="page-content">
       <div class="row wrapper border-bottom page-heading">
@@ -28,8 +30,6 @@
           </div>
         </div>
 
-
-
         <div class="ibox float-e-margins">
 
           <div class="ibox-content collapse in">
@@ -41,6 +41,8 @@
                   <div class="col-md-6"> <label>Show          <select name="DataTables_Table_2_length" ng-change="getAllItems(selectData)" ng-model="selectData" aria-controls="DataTables_Table_2" class="form-control input-sm">              <option value="10">10</option>              <option value="25">25</option>              <option value="50">50</option>              <option value="100">100</option>          </select> entries        </label>
                     <!--<div class="dataTables_info" id="DataTables_Table_1_info" role="status" aria-live="polite">Showing 1 to 10 of 13 entries</div>-->
                   </div>
+                  <div class="myButton" ngf-select="upload($file)">Upload on file select</div>
+
                   <div class="col-md-6">
                     <div class="pull-right"> <label>Search: <input type="text " ng-change="getAllItems(true) " placeholder="Search Here...
                         " ng-model="search.keyword " /></label>

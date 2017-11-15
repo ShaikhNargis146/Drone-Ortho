@@ -63,6 +63,7 @@ module.exports = [
   "node_modules/leaflet-draw/dist/leaflet.draw.js",
   "node_modules/leaflet-geodesy/leaflet-geodesy.js",
   "node_modules/async/dist/async.js",
+  "bower_components/ng-file-upload/ng-file-upload.min.js",
   // "bower_components/crypto-js/hmac.js",
   // "bower_components/crypto-js/cre.js",
   // "bower_components/crypto-js/md5.js",
