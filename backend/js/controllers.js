@@ -2562,7 +2562,7 @@ firstapp
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
             var userId = $.jStorage.get("user")._id;
         }
-
+        $scope.cadLineDetails = {};
         excelName = {
             name: "CadFileRequest",
             _id: $.jStorage.get("user")._id
@@ -2584,37 +2584,37 @@ firstapp
 
             });
         };
-        // $scope.upload = function (file) {
-        //     $(".loading-img").css("display", "block");
-        //     $(".loading-img-modal").css("display", "block");
-        //     Upload.upload({
-        //         url: missionFileUrl,
-        //         data: {
-        //             file: file
-        //         },
-        //         headers: {
-        //             'Content-Type': undefined
-        //         },
-        //         transformRequest: angular.identity,
-        //         uploadEventHandlers: {
-        //             progress: function (e) {
-        //                 console.log("--------------...", e.loaded * 100 / e.total);
-        //                 $scope.fileprogressbar = parseInt((e.loaded / e.total) * 100); // percentage of progress
-        //             }
-        //         }
-        //     }).then(function (resp) {
-        //         console.log('Success ' + resp.data + 'uploaded. ');
-        //         data = resp.data;
-        //         $(".loading-img").css("display", "none");
-        //         $(".loading-img-modal").css("display", "none");
-        //         $scope.uploadStatus = "uploaded";
-        //         var fileList = {};
-        //         fileList.file = resp.data[0];
-        //         $scope.model = fileList;
-        //     }, function (resp) {
-        //         console.log('Error status: ' + resp.status);
-        //     });
-        // };
+        $scope.upload = function (file) {
+            $(".loading-img").css("display", "block");
+            $(".loading-img-modal").css("display", "block");
+            Upload.upload({
+                url: missionFileUrl,
+                data: {
+                    file: file
+                },
+                headers: {
+                    'Content-Type': undefined
+                },
+                transformRequest: angular.identity,
+                uploadEventHandlers: {
+                    progress: function (e) {
+                        console.log("--------------...", e.loaded * 100 / e.total);
+                        $scope.fileprogressbar = parseInt((e.loaded / e.total) * 100); // percentage of progress
+                    }
+                }
+            }).then(function (resp) {
+                console.log('Success ' + resp.data + 'uploaded. ');
+                data = resp.data;
+                $(".loading-img").css("display", "none");
+                $(".loading-img-modal").css("display", "none");
+                $scope.uploadStatus = "uploaded";
+                var fileList = {};
+                fileList.file = data.data[0];
+                $scope.cadLineDetails.orthoFile = fileList;
+            }, function (resp) {
+                console.log('Error status: ' + resp.status);
+            });
+        };
 
         //*****************user CadFileRequest start*****************************
 
@@ -2625,10 +2625,12 @@ firstapp
             $scope.misssonInfo = data.data;
         })
 
-        $scope.saveExtcadfile = function (data) {
-            data.user = userId;
-            NavigationService.apiCallWithData("CadLineWork/createCad", data, function (data) {
+        $scope.saveExtcadfile = function (cadLineDetails) {
+            cadLineDetails.orthoFile = $scope.cadLineDetails.orthoFile
+            cadLineDetails.user = userId;
+            NavigationService.apiCallWithData("CadLineWork/createCad", cadLineDetails, function (data) {
                 $scope.cadLineDetails = data.data.results;
+                $state.reload();
             })
         };
 

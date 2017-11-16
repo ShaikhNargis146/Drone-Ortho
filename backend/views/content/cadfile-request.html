@@ -182,13 +182,13 @@
               <label class="control-label col-sm-4" for="pwd">Upload Orthomosaic</label>
               <div class="col-sm-6">
                 <!--<upload-image multiple="true" required ng-model="data.orthoFile"></upload-image>-->
-                <upload-image-files ng-model="data.orthoFile" no-view multiple ng-disabled="type.disabled" required></upload-image-files>
-                <!--<div class="btn-primary" ng-model="data.orthoFile" ngf-select="upload($file)">Choose File</div>
+                <!--<upload-image-files ng-model="data.orthoFile" no-view multiple ng-disabled="type.disabled" required></upload-image-files>-->
+                <div class="btn-primary" ng-model="data.orthoFile" ngf-select="upload($file)">Choose File</div>
                 <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{fileprogressbar}}%"
                   aria-valuemin="0" aria-valuemax="100" ng-style="{'width':fileprogressbar+'%'}">
                   {{fileprogressbar}}%
                 </div>
-  <span class="label label-success" ng-if="uploadStatus == 'uploaded'" >Uploaded Successfully- {{image.file.name}}</span>-->
+                <span class="label label-success" ng-if="uploadStatus == 'uploaded'">Uploaded Successfullys</span>
               </div>
             </div>
 
