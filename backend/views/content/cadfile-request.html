@@ -183,7 +183,7 @@
               <div class="col-sm-6">
                 <!--<upload-image multiple="true" required ng-model="data.orthoFile"></upload-image>-->
                 <!--<upload-image-files ng-model="data.orthoFile" no-view multiple ng-disabled="type.disabled" required></upload-image-files>-->
-                <div class="btn-primary" ng-model="data.orthoFile" ngf-select="upload($file)">Choose File</div>
+                <div class="btn-primary btn-sm" ng-model="data.orthoFile" ngf-select="upload($file)" style="margin-bottom: 10px;">Choose File</div>
                 <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{fileprogressbar}}%"
                   aria-valuemin="0" aria-valuemax="100" ng-style="{'width':fileprogressbar+'%'}">
                   {{fileprogressbar}}%
