@@ -12,6 +12,90 @@ var JSZip = require("jszip");
 var gdal = require("gdal");
 
 var controller = {
+    generatecsvForUser: function (req, res) {
+        CadLineWork.exceltotalCadforUser(req.body, function (err, data) {
+            data.name = "CadLineWorkForUser"
+            Config.jsonTOCsvConvert(data, function (csv) {
+                _.cloneDeep(csv);
+                console.log("CSV", csv)
+                res.set('Content-Type', "application/CSV");
+                res.set('Content-Disposition', "attachment;filename=" + csv.path);
+                res.send(csv.csvData);
+            });
+        });
+    },
+    generatecsvForVendor: function (req, res) {
+        CadLineWork.exceltotalCad(req.body, function (err, data) {
+            data.name = "CadLineWorkForVendor"
+            Config.jsonTOCsvConvert(data, function (csv) {
+                _.cloneDeep(csv);
+                console.log("CSV", csv)
+                res.set('Content-Type', "application/CSV");
+                res.set('Content-Disposition', "attachment;filename=" + csv.path);
+                res.send(csv.csvData);
+            });
+        });
+    },
+    generatecsv: function (req, res) {
+        CadLineWork.exceltotalCad(req.body, function (err, data) {
+            data.name = "CadLineWork"
+            Config.jsonTOCsvConvert(data, function (csv) {
+                _.cloneDeep(csv);
+                console.log("CSV", csv)
+                res.set('Content-Type', "application/CSV");
+                res.set('Content-Disposition', "attachment;filename=" + csv.path);
+                res.send(csv.csvData);
+            });
+        });
+    },
+    generatePdfForUser: function (req, res) {
+        CadLineWork.exceltotalCadforUser(req.body, function (err, data) {
+            data.name = "CadLineWorkForUser"
+            Config.generatePdfFormatData(data, function (pdf) {
+                _.cloneDeep(pdf);
+                console.log("pdf", pdf)
+                res.set('Content-Type', "application/pdf");
+                res.set('Content-Disposition', "attachment;filename=" + pdf.path);
+                res.send(pdf.pdfData);
+            });
+        });
+    },
+    generatePdfForVendor: function (req, res) {
+        CadLineWork.exceltotalCad(req.body, function (err, data) {
+            data.name = "CadLineWorkForVendor"
+            Config.generatePdfFormatData(data, function (pdf) {
+                _.cloneDeep(pdf);
+                console.log("pdf", pdf)
+                res.set('Content-Type', "application/pdf");
+                res.set('Content-Disposition', "attachment;filename=" + pdf.path);
+                res.send(pdf.pdfData);
+            });
+        });
+    },
+    generatePdf: function (req, res) {
+        CadLineWork.exceltotalCad(req.body, function (err, data) {
+            data.name = "CadLineWork"
+            Config.generatePdfFormatData(data, function (pdf) {
+                _.cloneDeep(pdf);
+                console.log("pdf", pdf)
+                res.set('Content-Type', "application/pdf");
+                res.set('Content-Disposition', "attachment;filename=" + pdf.path);
+                res.send(pdf.pdfData);
+            });
+        });
+    },
+    exceltotalCadforVendor: function (req, res) {
+        CadLineWork.exceltotalCad(req.body, function (err, data) {
+            CadLineWork.generateExcelCadForVendor(data, function (err, singleData) {
+                Config.generateExcel("CadExcel", singleData, function (excels) {
+                    // console.log("excel", excels, "err", err);
+                    res.set('Content-Type', "application/octet-stream");
+                    res.set('Content-Disposition', "attachment;filename=" + excels.path);
+                    res.send(excels.excel);
+                });
+            });
+        });
+    },
     exceltotalCad: function (req, res) {
         CadLineWork.exceltotalCad(req.body, function (err, data) {
             CadLineWork.generateExcelCad(data, function (err, singleData) {

@@ -144,9 +144,7 @@ module.exports = mongoose.model('User', schema);
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema));
 var model = {
     exceltotalUser: function (data, callback) {
-        User.find({
-            accessLevel: 'User'
-        }).deepPopulate().exec(function (err, data) {
+        User.find({}).deepPopulate("currentSubscription").exec(function (err, data) {
             if (err || _.isEmpty(data)) {
                 callback(err, [])
             } else {
@@ -160,10 +158,15 @@ var model = {
                 var obj = {};
                 obj["USER ID"] = mainData.dataId;
                 obj["USER NAME"] = mainData.name;
-                obj["STATUS"] = mainData.status;
                 obj[" EMAIL"] = mainData.email;
-                obj["LISENCE"] = mainData.lisence;
-                obj["MOBILE"] = mainData.mobile;
+                obj["DFM STATUS"] = mainData.status;
+                if (mainData.currentSubscription) {
+                    obj["DFM PLAN"] = mainData.currentSubscription.name
+                } else {
+                    obj["DFM PLAN"] = "-";
+                }
+                obj["LISENCE TYPE"] = mainData.lisence;
+                obj["ACCESS LEVEL"] = mainData.accessLevel;
                 callback(null, obj);
             },
             function (err, singleData) {
@@ -190,9 +193,9 @@ var model = {
                 var obj = {};
                 obj["VENDOR ID"] = mainData.dataId;
                 obj["VENDOR NAME"] = mainData.name;
-                obj["STATUS"] = mainData.status;
                 obj[" EMAIL"] = mainData.email;
-                obj["MOBILE"] = mainData.mobile;
+                obj["CONTACT NUMBER"] = mainData.mobile;
+                obj["CREATED DATE"] = moment(mainData.createdAt).format("DD/MM/YYYY")
                 callback(null, obj);
             },
             function (err, singleData) {

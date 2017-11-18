@@ -85,7 +85,7 @@ var model = {
     exceltotalMission: function (data, callback) {
         Mission.find({
 
-        }).deepPopulate().exec(function (err, data) {
+        }).deepPopulate("user").exec(function (err, data) {
             if (err || _.isEmpty(data)) {
                 callback(err, [])
             } else {
@@ -97,10 +97,16 @@ var model = {
     generateExcelMission: function (match, callback) {
         async.concatSeries(match, function (mainData, callback) {
                 var obj = {};
-                obj["MISSION ID"] = mainData.name;
-                obj["MISSION NAME"] = mainData.missionId;
+                obj["MISSION ID"] = mainData.missionId;
+                obj["USER ID"] = mainData.user.dataId;
+                obj["MISSION NAME"] = mainData.name;
                 obj["STATUS"] = mainData.status;
-                obj[" DATE"] = mainData.date;
+                obj[" DATE"] = moment(mainData.createdAt).format("DD/MM/YYYY")
+                if (mainData.cadline[0]) {
+                    obj[" CADRQUEST"] = "Yes";
+                } else {
+                    obj[" CADRQUEST"] = "No";
+                }
                 callback(null, obj);
             },
             function (err, singleData) {
@@ -111,7 +117,7 @@ var model = {
     exceltotalMissionforUser: function (data, callback) {
         Mission.find({
             user: data._id
-        }).deepPopulate().exec(function (err, data) {
+        }).deepPopulate("user").exec(function (err, data) {
             if (err || _.isEmpty(data)) {
                 callback(err, [])
             } else {
@@ -123,10 +129,10 @@ var model = {
     generateExcelMissionforUser: function (match, callback) {
         async.concatSeries(match, function (mainData, callback) {
                 var obj = {};
-                obj["MISSION ID"] = mainData.name;
-                obj["MISSION NAME"] = mainData.missionId;
+                obj["MISSION ID"] = mainData.missionId;
+                obj["MISSION NAME"] = mainData.name;
                 obj["STATUS"] = mainData.status;
-                obj[" DATE"] = mainData.date;
+                obj[" DATE"] = moment(mainData.createdAt).format("DD/MM/YYYY")
                 callback(null, obj);
             },
             function (err, singleData) {

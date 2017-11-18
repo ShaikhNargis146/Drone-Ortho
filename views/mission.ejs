@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        ​ td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    ​
+    <% if(name1=="mission"){ %>
+        <table>
+            <tr>
+                <th style="text-align:center;">Mission ID</th>
+                <th style="text-align:center;">USER ID</th>
+                <th style="text-align:center;">Mission Name</th>
+                <th style="text-align:center;">createdAt</th>
+                <th style="text-align:center;">Status</th>
+                <th style="text-align:center;">CAD REQUSET</th>
+            </tr>
+            <% for(var i=0; i< missionId.length; i++) {%>
+                <tr>
+                    <td align="center">
+                        <%=missionId[i]%>
+                    </td>
+                    <td align="center">
+                        <%=dataId[i]%>
+                    </td>
+                    <td align="center">
+                        <%=name[i]%>
+                    </td>
+                    <td align="center">
+                        <%=createdAt[i]%>
+                    </td>
+                    <td align="center">
+                        <%=status[i]%>
+                    </td>
+                    <td align="center">
+                        <%=cad[i]%>
+                    </td>
+                </tr>
+                <%}%>
+        </table>
+        <% } %>
+            <% if(name1=="missionUser"){ %>
+                <table>
+                    <tr>
+                        <th style="text-align:center;">Mission ID</th>
+                        <th style="text-align:center;">Mission Name</th>
+                        <th style="text-align:center;">createdAt</th>
+                        <th style="text-align:center;">Status</th>
+                    </tr>
+                    <% for(var i=0; i< missionId.length; i++) {%>
+                        <tr>
+                            <td align="center">
+                                <%=missionId[i]%>
+                            </td>
+                            <td align="center">
+                                <%=name[i]%>
+                            </td>
+                            <td align="center">
+                                <%=createdAt[i]%>
+                            </td>
+                            <td align="center">
+                                <%=status[i]%>
+                            </td>
+                        </tr>
+                        <%}%>
+                </table>
+                <% } %>
+                    <% if(name1=="CadLineWork"){ %>
+                        <table>
+                            <tr>
+                                <th style="text-align:center;">CAD ID</th>
+                                <th style="text-align:center;">ACREAGE</th>
+                                <th style="text-align:center;">DISCRIPTION</th>
+                                <th style="text-align:center;">STATUS</th>
+                                <th style="text-align:center;">REQUESTED AT</th>
+                                <th style="text-align:center;">COMPLETION DATE</th>
+                            </tr>
+                            <% for(var i=0; i< cadId.length; i++) {%>
+                                <tr>
+                                    <td align="center">
+                                        <%=cadId[i]%>
+                                    </td>
+                                    <td align="center">
+                                        <%=acreage[i]%>
+                                    </td>
+                                    <td align="center">
+                                        <%=instruction[i]%>
+                                    </td>
+                                    <td align="center">
+                                        <%=status[i]%>
+                                    </td>
+                                    <td align="center">
+                                        <%=createdAt[i]%>
+                                    </td>
+                                    <td align="center">
+                                        <%=CompletionDate[i]%>
+                                    </td>
+                                </tr>
+                                <%}%>
+                        </table>
+                        <% } %>
+                            <% if(name1=="CadLineWorkForUser"){ %>
+                                <table>
+                                    <tr>
+                                        <th style="text-align:center;">CAD ID</th>
+                                        <th style="text-align:center;">ACREAGE</th>
+                                        <th style="text-align:center;">DISCRIPTION</th>
+                                        <th style="text-align:center;">STATUS</th>
+                                        <th style="text-align:center;">REQUESTED AT</th>
+                                        <th style="text-align:center;">COMPLETION DATE</th>
+                                    </tr>
+                                    <% for(var i=0; i< cadId.length; i++) {%>
+                                        <tr>
+                                            <td align="center">
+                                                <%=cadId[i]%>
+                                            </td>
+                                            <td align="center">
+                                                <%=acreage[i]%>
+                                            </td>
+                                            <td align="center">
+                                                <%=instruction[i]%>
+                                            </td>
+                                            <td align="center">
+                                                <%=status[i]%>
+                                            </td>
+                                            <td align="center">
+                                                <%=createdAt[i]%>
+                                            </td>
+                                            <td align="center">
+                                                <%=CompletionDate[i]%>
+                                            </td>
+                                        </tr>
+                                        <%}%>
+                                </table>
+                                <% } %>
+                                    <% if(name1=="CadLineWorkForVendor"){ %>
+                                        <table>
+                                            <tr>
+                                                <th style="text-align:center;">MISSION ID</th>
+                                                <th style="text-align:center;">ACREAGE</th>
+                                                <th style="text-align:center;">DISCRIPTION</th>
+                                                <th style="text-align:center;">STATUS</th>
+                                                <th style="text-align:center;">REQUESTED AT</th>
+                                                <th style="text-align:center;">COMPLETION DATE</th>
+                                            </tr>
+                                            <% for(var i=0; i< missionId.length; i++) {%>
+                                                <tr>
+                                                    <td align="center">
+                                                        <%=missionId[i]%>
+                                                    </td>
+                                                    <td align="center">
+                                                        <%=acreage[i]%>
+                                                    </td>
+                                                    <td align="center">
+                                                        <%=instruction[i]%>
+                                                    </td>
+                                                    <td align="center">
+                                                        <%=status[i]%>
+                                                    </td>
+                                                    <td align="center">
+                                                        <%=createdAt[i]%>
+                                                    </td>
+                                                    <td align="center">
+                                                        <%=CompletionDate[i]%>
+                                                    </td>
+                                                </tr>
+                                                <%}%>
+                                        </table>
+                                        <% } %>
+                                            <% if(name1=="user"){ %>
+                                                <table>
+                                                    <tr>
+                                                        <th style="text-align:center;">User ID</th>
+                                                        <th style="text-align:center;"> NAME</th>
+                                                        <th style="text-align:center;">EMAIL</th>
+                                                        <th style="text-align:center;">DFM Status</th>
+                                                        <th style="text-align:center;">DFM PLAN</th>
+                                                        <th style="text-align:center;">LISENCE</th>
+                                                        <th style="text-align:center;">USER TYPE</th>
+                                                    </tr>
+                                                    <% for(var i=0; i< dataId.length; i++) {%>
+                                                        <tr>
+                                                            <td align="center">
+                                                                <%=dataId[i]%>
+                                                            </td>
+                                                            <td align="center">
+                                                                <%=name[i]%>
+                                                            </td>
+                                                            <td align="center">
+                                                                <%=email[i]%>
+                                                            </td>
+                                                            <td align="center">
+                                                                <%=status[i]%>
+                                                            </td>
+                                                            <td align="center">
+                                                                <%=dfmPlan[i]%>
+                                                            </td>
+                                                            <td align="center">
+                                                                <%=lisence[i]%>
+                                                            </td>
+                                                            <td align="center">
+                                                                <%=accessLevel[i]%>
+                                                            </td>
+                                                        </tr>
+                                                        <%}%>
+                                                </table>
+                                                <% } %>
+
+                                                    <% if(name1=="ecommerce"){ %>
+                                                        <table>
+                                                            <tr>
+                                                                <th style="text-align:center;">User ID</th>
+                                                                <th style="text-align:center;"> TRANSACTION ID</th>
+                                                                <th style="text-align:center;">TRANSACTION DATE</th>
+                                                                <th style="text-align:center;">SOLD ITEM</th>
+                                                                <th style="text-align:center;">COST</th>
+                                                                <th style="text-align:center;">LICENSE TYPE</th>
+                                                                <th style="text-align:center;"> SHIPPING ADDRESS</th>
+                                                                <th style="text-align:center;"> PAYMENT STATUS</th>
+                                                            </tr>
+                                                            <% for(var i=0; i< DataId.length; i++) {%>
+                                                                <tr>
+                                                                    <td align="center">
+                                                                        <%=DataId[i]%>
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <%=TrascationId[i]%>
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <%=TrascationDate[i]%>
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <%=SoldItem[i]%>
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <%=Cost[i]%>
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <%=Lisence[i]%>
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <%=Status[i]%>
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <%=ShippingAddress[i]%>
+                                                                    </td>
+
+                                                                </tr>
+                                                                <%}%>
+                                                        </table>
+                                                        <% } %>
+                                                            <% if(name1=="vendor"){ %>
+                                                                <table>
+                                                                    <tr>
+                                                                        <th style="text-align:center;">User ID</th>
+                                                                        <th style="text-align:center;"> NAME</th>
+                                                                        <th style="text-align:center;"> EMAIL</th>
+                                                                        <th style="text-align:center;">CONTACT NUMBER</th>
+                                                                        <th style="text-align:center;">CREATED DATE</th>
+                                                                    </tr>
+                                                                    <% for(var i=0; i< dataId.length; i++) {%>
+                                                                        <tr>
+                                                                            <td align="center">
+                                                                                <%=dataId[i]%>
+                                                                            </td>
+                                                                            <td align="center">
+                                                                                <%=name[i]%>
+                                                                            </td>
+                                                                            <td align="center">
+                                                                                <%=email[i]%>
+                                                                            </td>
+                                                                            <td align="center">
+                                                                                <%=mobile[i]%>
+                                                                            </td>
+                                                                            <td align="center">
+                                                                                <%=createdAt[i]%>
+                                                                            </td>
+
+                                                                        </tr>
+                                                                        <%}%>
+                                                                </table>
+                                                                <% } %>
+                                                                    <% if(name1=="ticketForUser"){ %>
+                                                                        <table>
+                                                                            <tr>
+                                                                                <th style="text-align:center;">TICKET ID</th>
+                                                                                <th style="text-align:center;"> CREATED DATE</th>
+                                                                                <th style="text-align:center;"> SUBJECT</th>
+                                                                                <th style="text-align:center;"> DESCRIPTION</th>
+                                                                                <th style="text-align:center;">TICKET STATUS</th>
+                                                                                <th style="text-align:center;">CLOSING DATE</th>
+                                                                            </tr>
+                                                                            <% for(var i=0; i< ticketId.length; i++) {%>
+                                                                                <tr>
+                                                                                    <td align="center">
+                                                                                        <%=ticketId[i]%>
+                                                                                    </td>
+                                                                                    <td align="center">
+                                                                                        <%=createdAt[i]%>
+                                                                                    </td>
+                                                                                    <td align="center">
+                                                                                        <%=subject[i]%>
+                                                                                    </td>
+                                                                                    <td align="center">
+                                                                                        <%=description[i]%>
+                                                                                    </td>
+                                                                                    <td align="center">
+                                                                                        <%=status[i]%>
+                                                                                    </td>
+                                                                                    <td align="center">
+                                                                                        <%=replyDate[i]%>
+                                                                                    </td>
+
+                                                                                </tr>
+                                                                                <%}%>
+                                                                        </table>
+
+                                                                        <% } %>
+                                                                            <% if(name1=="ticket"){ %>
+                                                                                <table>
+                                                                                    <tr>
+                                                                                        <th style="text-align:center;">TICKET ID</th>
+                                                                                        <th style="text-align:center;"> CREATED DATE</th>
+                                                                                        <th style="text-align:center;"> SUBJECT</th>
+                                                                                        <th style="text-align:center;">USER ID</th>
+                                                                                        <th style="text-align:center;">TICKET STATUS</th>
+                                                                                        <th style="text-align:center;">CLOSING DATE</th>
+                                                                                    </tr>
+                                                                                    <% for(var i=0; i< ticketId.length; i++) {%>
+                                                                                        <tr>
+                                                                                            <td align="center">
+                                                                                                <%=ticketId[i]%>
+                                                                                            </td>
+                                                                                            <td align="center">
+                                                                                                <%=createdAt[i]%>
+                                                                                            </td>
+                                                                                            <td align="center">
+                                                                                                <%=subject[i]%>
+                                                                                            </td>
+                                                                                            <td align="center">
+                                                                                                <%=dataId[i]%>
+                                                                                            </td>
+                                                                                            <td align="center">
+                                                                                                <%=status[i]%>
+                                                                                            </td>
+                                                                                            <td align="center">
+                                                                                                <%=replyDate[i]%>
+                                                                                            </td>
+
+                                                                                        </tr>
+                                                                                        <%}%>
+                                                                                </table>
+
+                                                                                <% } %>
+                                                                                    <% if(name1=="invoice"){ %>
+                                                                                        <table>
+                                                                                            <tr>
+                                                                                                <th style="text-align:center;">PRODUCT</th>
+                                                                                                <th style="text-align:center;"> TRANSACTION DATE</th>
+                                                                                                <th style="text-align:center;"> COST</th>
+                                                                                                <th style="text-align:center;">PAYMENT STATUS</th>
+                                                                                            </tr>
+                                                                                            <% for(var i=0; i< name.length; i++) {%>
+                                                                                                <tr>
+                                                                                                    <td align="center">
+                                                                                                        <%=name[i]%>
+                                                                                                    </td>
+                                                                                                    <td align="center">
+                                                                                                        <%=createdAt[i]%>
+                                                                                                    </td>
+                                                                                                    <td align="center">
+                                                                                                        <%=amount[i]%>
+                                                                                                    </td>
+                                                                                                    <td align="center">
+                                                                                                        <%=status[i]%>
+                                                                                                    </td>
+
+                                                                                                </tr>
+                                                                                                <%}%>
+                                                                                        </table>
+                                                                                        <% } %>
+                                                                                            <% if(name1=="vendorbill"){ %>
+                                                                                                <table>
+                                                                                                    <tr>
+                                                                                                        <th style="text-align:center;">MISSION ID</th>
+                                                                                                        <th style="text-align:center;">VENDOR ID</th>
+                                                                                                        <th style="text-align:center;">Earning</th>
+                                                                                                        <th style="text-align:center;">PAYMENT STATUS</th>
+                                                                                                        <th style="text-align:center;">ADDITIONAL INFORMATION</th>
+                                                                                                        <th style="text-align:center;">BILL DATE</th>
+                                                                                                        <th style="text-align:center;">PAID AMOUNT</th>
+                                                                                                        <th style="text-align:center;">BALANCE AMOUNT</th>
+                                                                                                        <th style="text-align:center;">OUTSTANDING AMOUNT</th>
+                                                                                                    </tr>
+                                                                                                    <% for(var i=0; i< vendorBillId.length; i++) {%>
+                                                                                                        <tr>
+                                                                                                            <td align="center">
+                                                                                                                <%=missionId[i]%>
+                                                                                                            </td>
+                                                                                                            <td align="center">
+                                                                                                                <%=vendorBillId[i]%>
+                                                                                                            </td>
+                                                                                                            <td align="center">
+                                                                                                                <%=Earning[i]%>
+                                                                                                            </td>
+                                                                                                            <td align="center">
+                                                                                                                <%=paymentStatus[i]%>
+                                                                                                            </td>
+                                                                                                            <td align="center">
+                                                                                                                <%=additionalInfo[i]%>
+                                                                                                            </td>
+                                                                                                            <td align="center">
+                                                                                                                <%=createdAt[i]%>
+                                                                                                            </td>
+                                                                                                            <td align="center">
+                                                                                                                <%=paidAmount[i]%>
+                                                                                                            </td>
+                                                                                                            <td align="center">
+                                                                                                                <%=balance[i]%>
+                                                                                                            </td>
+                                                                                                            <td align="center">
+                                                                                                                <%=Advance[i]%>
+                                                                                                            </td>
+
+                                                                                                        </tr>
+                                                                                                        <%}%>
+                                                                                                </table>
+
+                                                                                                <% } %>
+
+</body>
+
+</html>

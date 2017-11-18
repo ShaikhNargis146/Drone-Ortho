@@ -104,6 +104,723 @@ var models = {
     },
 
 
+    jsonTOCsvConvert: function (page, res) {
+        // console.log("inside jsonTOCsvConvert", page)
+        var json2csv = require('json2csv');
+        var fs = require('fs');
+
+
+        var mission = [];
+        if (page.name == "mission") {
+            var fields = ['MissionId', 'UserId', 'MissionName', 'Status', 'CreatedAt', 'CadRequest'];
+            _.forEach(page, function (pg) {
+                var tempObj = {};
+                tempObj.MissionId = pg.missionId;
+                tempObj.UserId = pg.user.dataId;
+                tempObj.MissionName = pg.name;
+                tempObj.Status = pg.status;
+                tempObj.CreatedAt = moment(pg.createdAt).format("DD/MM/YYYY");
+                if (pg.cadline[0]) {
+                    tempObj.CadRequest = "YES";
+                } else {
+                    tempObj.CadRequest = "NO";
+                }
+                mission.push(tempObj);
+
+            });
+            console.log("mission", mission);
+            var csv = json2csv({
+                data: mission,
+                fields: fields,
+
+
+            });
+        } else if (page.name == "missionUser") {
+            var missionUser = [];
+            var fields = ['MissionId', 'MissionName', 'Status', 'CreatedAt'];
+            _.forEach(page, function (pg) {
+                var tempObj = {};
+                tempObj.MissionId = pg.missionId;
+                tempObj.MissionName = pg.name;
+                tempObj.Status = pg.status;
+                tempObj.CreatedAt = moment(pg.createdAt).format("DD/MM/YYYY");
+
+                missionUser.push(tempObj);
+
+            });
+            console.log("mission", missionUser);
+            var csv = json2csv({
+                data: missionUser,
+                fields: fields,
+
+
+            });
+        } else if (page.name == "CadLineWork") {
+            var fields = ['CadId', 'Acreage', 'Description', 'Status', 'CreatedAt', 'CompletionDate'];
+            var CadLineWork = [];
+            _.forEach(page, function (pg) {
+                var tempObj = {};
+                tempObj.CadId = pg.cadId;
+                tempObj.Acreage = pg.acreage;
+                tempObj.Description = pg.instruction;
+                tempObj.Status = pg.status;
+                tempObj.CreatedAt = moment(pg.createdAt).format("DD/MM/YYYY");
+                if (pg.completionDate) {
+                    tempObj.CompletionDate = moment(pg.completionDate).format("DD/MM/YYYY")
+                } else {
+                    tempObj.CompletionDate = "-"
+                }
+
+                CadLineWork.push(tempObj);
+            });
+
+            console.log("mission", mission);
+            var csv = json2csv({
+                data: CadLineWork,
+                fields: fields
+
+            });
+        } else if (page.name == "CadLineWorkForUser") {
+            var fields = ['CadId', 'Acreage', 'Description', 'Status', 'CreatedAt', 'CompletionDate'];
+            var CadLineWorkForUser = [];
+            _.forEach(page, function (pg) {
+                var tempObj = {};
+                tempObj.CadId = pg.cadId;
+                tempObj.Acreage = pg.acreage;
+                tempObj.Description = pg.instruction;
+                tempObj.Status = pg.status;
+                tempObj.CreatedAt = moment(pg.createdAt).format("DD/MM/YYYY");
+                if (pg.completionDate) {
+                    tempObj.CompletionDate = moment(pg.completionDate).format("DD/MM/YYYY")
+                } else {
+                    tempObj.CompletionDate = "-"
+                }
+
+                CadLineWorkForUser.push(tempObj);
+            });
+
+            console.log("mission", mission);
+            var csv = json2csv({
+                data: CadLineWorkForUser,
+                fields: fields
+
+            });
+        } else if (page.name == "CadLineWorkForVendor") {
+            var fields = ['MissionId', 'Acreage', 'Description', 'Status', 'CreatedAt', 'CompletionDate'];
+            var CadLineWorkForVendor = [];
+            _.forEach(page, function (pg) {
+                var tempObj = {};
+                tempObj.MissionId = pg.mission.missionId;
+                tempObj.Acreage = pg.acreage;
+                tempObj.Description = pg.instruction;
+                tempObj.Status = pg.status;
+                tempObj.CreatedAt = moment(pg.createdAt).format("DD/MM/YYYY");
+                if (pg.completionDate) {
+                    tempObj.CompletionDate = moment(pg.completionDate).format("DD/MM/YYYY")
+                } else {
+                    tempObj.CompletionDate = "-"
+                }
+
+                CadLineWorkForVendor.push(tempObj);
+            });
+
+            console.log("mission", mission);
+            var csv = json2csv({
+                data: CadLineWorkForVendor,
+                fields: fields
+
+            });
+        } else if (page.name == "user") {
+            var fields = ['UserId', 'Name', 'Email', 'LisenceType', 'AccessLevel', 'DFMStatus', 'DFMPlan'];
+            var user = [];
+            _.forEach(page, function (pg) {
+                var tempObj = {};
+                tempObj.UserId = pg.dataId;
+                tempObj.Name = pg.name;
+                tempObj.Email = pg.email;
+                tempObj.LisenceType = pg.lisence;
+                tempObj.AccessLevel = pg.accessLevel;
+                tempObj.DFMStatus = pg.status;
+                if (pg.currentSubscription) {
+                    tempObj.DFMPlan = pg.currentSubscription.name
+                } else {
+                    tempObj.DFMPlan = "-"
+                }
+                user.push(tempObj);
+            });
+
+            console.log("user", mission);
+            var csv = json2csv({
+                data: user,
+                fields: fields,
+
+            });
+        } else if (page.name == "ecommerce") {
+            console.log("page data is ecc", page)
+            var fields = ['DataId', 'TrascationId', 'TrascationDate', 'SoldItem', 'Cost', 'Lisence', 'Status', 'ShippingAddress'];
+            var ecommerce = [];
+            _.forEach(page, function (pg) {
+                var tempObj = {};
+                tempObj.DataId = pg.user.dataId;
+                tempObj.TrascationId = "-";
+                tempObj.TrascationDate = "-";
+                if (pg.dfmSubscription) {
+                    tempObj.SoldItem = pg.dfmSubscription.name;
+                    tempObj.Cost = pg.dfmSubscription.amount;
+                    tempObj.TrascationDate = moment(pg.dfmSubscription.createdAt).format("DD/MM/YYYY");
+
+                } else if (pg.products) {
+                    tempObj.SoldItem = pg.products.name;
+                    tempObj.Cost = pg.products.amount;
+                    tempObj.TrascationDate = moment(pg.products.createdAt).format("DD/MM/YYYY");
+                } else if (pg.cadLineWork) {
+                    tempObj.SoldItem = pg.cadLineWork.name;
+                    tempObj.Cost = pg.cadLineWork.amount;
+                    tempObj.TrascationDate = moment(pg.cadLineWork.createdAt).format("DD/MM/YYYY");
+                }
+                tempObj.Lisence = pg.user.lisence;
+                tempObj.Status = pg.status;
+                tempObj.ShippingAddress = pg.shippingAddress.city;
+
+                ecommerce.push(tempObj);
+            });
+
+            console.log("ecommerce", mission);
+            var csv = json2csv({
+                data: ecommerce,
+                fields: fields,
+                quotes: ''
+
+            });
+        } else if (page.name == "vendor") {
+            var fields = ['VendorId', 'Name', 'Email', 'ContactNumber', 'CreatedAt'];
+            var vendor = [];
+            _.forEach(page, function (pg) {
+                var tempObj = {};
+                tempObj.VendorId = pg.dataId;
+                tempObj.Name = pg.name;
+                tempObj.Email = pg.email;
+                tempObj.ContactNumber = pg.mobile;
+                tempObj.CreatedAt = moment(pg.createdAt).format("DD/MM/YYYY");
+                vendor.push(tempObj);
+            });
+
+            console.log("vendor", vendor);
+            var csv = json2csv({
+                data: vendor,
+                fields: fields,
+
+            });
+        } else if (page.name == "ticket") {
+            var fields = ['TicketId', 'CreatedAt', 'Subject', 'UserId', 'TicketStatus', 'TicketClosingDate'];
+            var ticket = [];
+            _.forEach(page, function (pg) {
+                var tempObj = {};
+                tempObj.TicketId = pg.ticketId;
+                tempObj.CreatedAt = moment(pg.createdAt).format("DD/MM/YYYY")
+                tempObj.Subject = pg.subject;
+                tempObj.UserId = pg.user.dataId;
+                tempObj.TicketStatus = pg.status;
+                if (pg.replyDate) {
+                    tempObj.TicketClosingDate = moment(pg.replyDate).format("DD/MM/YYYY");
+                } else {
+                    tempObj.TicketClosingDate = "-";
+                }
+                ticket.push(tempObj);
+            });
+
+            console.log("ticket", ticket);
+            var csv = json2csv({
+                data: ticket,
+                fields: fields,
+
+            });
+        } else if (page.name == "ticketForUser") {
+            var fields = ['TicketId', 'CreatedAt', 'Subject', 'Description', 'TicketStatus', 'TicketClosingDate'];
+            var ticketForUser = [];
+            _.forEach(page, function (pg) {
+                var tempObj = {};
+                tempObj.TicketId = pg.ticketId;
+                tempObj.CreatedAt = moment(pg.createdAt).format("DD/MM/YYYY")
+                tempObj.Subject = pg.subject;
+                tempObj.Description = pg.description;
+                tempObj.TicketStatus = pg.status;
+                if (pg.replyDate) {
+                    tempObj.TicketClosingDate = moment(pg.replyDate).format("DD/MM/YYYY");
+                } else {
+                    tempObj.TicketClosingDate = "-";
+                }
+                ticketForUser.push(tempObj);
+            });
+
+            console.log("ticketForUser", ticketForUser);
+            var csv = json2csv({
+                data: ticketForUser,
+                fields: fields,
+
+            });
+        } else if (page.name == "invoice") {
+            var fields = ['name', 'createdAt', 'amount', 'status'];
+            var invoice = [];
+            _.forEach(page, function (pg) {
+                var tempObj = {};
+                tempObj.CadId = pg.cadId;
+                if (pg.dfmSubscription) {
+                    tempObj.name = pg.dfmSubscription.name;
+                    tempObj.createdAt = moment(pg.dfmSubscription.createdAt).format("DD/MM/YYYY")
+                    tempObj.amount = pg.dfmSubscription.amount;
+                    tempObj.status = pg.status;
+                } else if (pg.products) {
+                    tempObj.name = pg.products.name;
+                    tempObj.createdAt = moment(pg.products.createdAt).format("DD/MM/YYYY")
+                    tempObj.amount = pg.products.amount;
+                    tempObj.status = pg.status;
+                } else if (pg.cadLineWork) {
+                    tempObj.name = pg.cadLineWork.name;
+                    tempObj.createdAt = moment(pg.cadLineWork.createdAt).format("DD/MM/YYYY")
+                    tempObj.amount = pg.cadLineWork.amount;
+                    tempObj.status = pg.status;
+                }
+
+                invoice.push(tempObj);
+            });
+
+            console.log("invoice", invoice);
+            var csv = json2csv({
+                data: invoice,
+                fields: fields
+
+            });
+        } else if (page.name == "vendorbill") {
+            var fields = ['MissionId', 'VendorBillId', 'Earning', 'PaymentStatus', 'AdditionalInfo', 'BillDate', 'PaidAmount', 'Balance', 'Advance'];
+            var vendorbill = [];
+            _.forEach(page, function (pg) {
+                var tempObj = {};
+                tempObj.MissionId = pg.cad.mission.missionId;
+                tempObj.VendorBillId = pg.cad.vendor.dataId;
+                tempObj.Earning = pg.cad.vendorCharges;
+                tempObj.PaymentStatus = pg.paymentStatus;
+                tempObj.AdditionalInfo = pg.additionalInfo;
+                tempObj.BillDate = moment(pg.createdAt).format("DD/MM/YYYY")
+                tempObj.PaidAmount = pg.paidAmount;
+                if (pg.cad.vendorCharges > pg.paidAmount) {
+                    tempObj.Balance = pg.cad.vendorCharges - pg.paidAmount;
+                } else {
+                    tempObj.Balance = "-";
+                }
+                if (pg.cad.vendorCharges < pg.paidAmount) {
+                    tempObj.Advance = pg.cad.vendorCharges - pg.cad.vendorCharges;
+                } else {
+                    tempObj.Advance = "-";
+                }
+                vendorbill.push(tempObj);
+            });
+
+            console.log("vendorbill", vendorbill);
+            var csv = json2csv({
+                data: vendorbill,
+                fields: fields,
+
+            });
+        }
+
+        var newFilename = page.name + ".csv";
+        var finalPath = newFilename;
+        console.log("newFilename", newFilename)
+        fs.writeFile(finalPath, csv, function (err, csvDatas) {
+            if (err) {
+                res.callback(err, null);
+            } else {
+                // console.log()
+                fs.readFile(finalPath, function (err, csvData) {
+                    if (err) {
+                        res.callback(err, null);
+                    } else {
+                        res({
+                            csvData: csvData,
+                            path: newFilename,
+                            finalPath: finalPath
+                        })
+                        fs.unlink(finalPath);
+                    }
+                });
+            }
+        });
+    },
+
+
+    generatePdfFormatData: function (page, res) {
+        console.log("inside generatePdfFormatData", page.name)
+        // console.log("inside generatePdfFormatData", page)
+
+        var pdf = require('html-pdf');
+        var env = {};
+        if (page.name == "mission") {
+            var obj = {};
+            obj.missionId = [];
+            obj.status = [];
+            obj.name = [];
+            obj.dataId = [];
+            obj.cad = [];
+            obj.createdAt = [];
+            console.log("inside if mission")
+            _.forEach(page, function (pg) {
+                obj.missionId.push(pg.missionId);
+                obj.dataId.push(pg.user.dataId);
+                obj.name.push(pg.name);
+                obj.status.push(pg.status);
+                obj.createdAt.push(moment(pg.createdAt).format("DD/MM/YYYY"));
+                if (pg.cadline[0]) {
+                    obj.cad.push("YES");
+                } else {
+                    obj.cad.push("NO");
+                }
+            });
+            obj.name1 = "mission";
+        } else if (page.name == "missionUser") {
+            var obj = {};
+            obj.missionId = [];
+            obj.status = [];
+            obj.name = [];
+            obj.dataId = [];
+            obj.cad = [];
+            obj.createdAt = [];
+            console.log("inside if missionUser")
+            _.forEach(page, function (pg) {
+                obj.missionId.push(pg.missionId);
+                obj.name.push(pg.name);
+                obj.status.push(pg.status);
+                obj.createdAt.push(moment(pg.createdAt).format("DD/MM/YYYY"));
+            });
+            obj.name1 = "missionUser";
+        } else if (page.name == "CadLineWork") {
+            var obj = {};
+            obj.cadId = [];
+            obj.acreage = [];
+            obj.instruction = [];
+            obj.status = [];
+            obj.createdAt = [];
+            obj.CompletionDate = [];
+            console.log("inside if CadLineWork")
+
+            _.forEach(page, function (pg) {
+                obj.cadId.push(pg.cadId);
+                obj.acreage.push(pg.acreage);
+                obj.instruction.push(pg.instruction);
+                obj.status.push(pg.status);
+                obj.createdAt.push(moment(pg.createdAt).format("DD/MM/YYYY"));
+                if (pg.completionDate) {
+                    obj.CompletionDate.push(moment(pg.completionDate).format("DD/MM/YYYY"));
+                } else {
+                    obj.CompletionDate.push("-");
+                }
+            });
+            obj.name1 = "CadLineWork";
+        } else if (page.name == "CadLineWorkForUser") {
+            var obj = {};
+            obj.cadId = [];
+            obj.acreage = [];
+            obj.instruction = [];
+            obj.status = [];
+            obj.createdAt = [];
+            obj.CompletionDate = [];
+            obj.missionId = [];
+            console.log("inside if CadLineWorkForUser")
+
+            _.forEach(page, function (pg) {
+                obj.cadId.push(pg.cadId);
+                obj.acreage.push(pg.acreage);
+                obj.instruction.push(pg.instruction);
+                obj.status.push(pg.status);
+                obj.createdAt.push(moment(pg.createdAt).format("DD/MM/YYYY"));
+                if (pg.completionDate) {
+                    obj.CompletionDate.push(moment(pg.completionDate).format("DD/MM/YYYY"));
+                } else {
+                    obj.CompletionDate.push("-");
+                }
+            });
+            obj.name1 = "CadLineWorkForUser";
+        } else if (page.name == "CadLineWorkForVendor") {
+            var obj = {};
+            obj.missionId = [];
+            obj.acreage = [];
+            obj.instruction = [];
+            obj.status = [];
+            obj.createdAt = [];
+            obj.CompletionDate = [];
+            obj.missionId = [];
+            console.log("inside if CadLineWorkForVendor")
+
+            _.forEach(page, function (pg) {
+                obj.missionId.push(pg.mission.missionId);
+                obj.acreage.push(pg.acreage);
+                obj.instruction.push(pg.instruction);
+                obj.status.push(pg.status);
+                obj.createdAt.push(moment(pg.createdAt).format("DD/MM/YYYY"));
+                if (pg.completionDate) {
+                    obj.CompletionDate.push(moment(pg.completionDate).format("DD/MM/YYYY"));
+                } else {
+                    obj.CompletionDate.push("-");
+                }
+            });
+            obj.name1 = "CadLineWorkForVendor";
+        } else if (page.name == "user") {
+            var obj = {};
+            obj.dataId = [];
+            obj.name = [];
+            obj.email = [];
+            obj.status = [];
+            obj.lisence = [];
+            obj.accessLevel = [];
+            obj.dfmPlan = [];
+            console.log("inside if user")
+            _.forEach(page, function (pg) {
+                obj.dataId.push(pg.dataId);
+                obj.name.push(pg.name);
+                obj.email.push(pg.email);
+                obj.status.push(pg.status);
+                obj.lisence.push(pg.lisence);
+                obj.accessLevel.push(pg.accessLevel);
+                if (pg.currentSubscription) {
+                    obj.dfmPlan.push(pg.currentSubscription.name)
+                } else {
+                    obj.dfmPlan.push("-")
+                }
+
+            });
+            obj.name1 = "user";
+        } else if (page.name == "ecommerce") {
+            var obj = {};
+            obj.DataId = [];
+            obj.TrascationId = [];
+            obj.TrascationDate = [];
+            obj.SoldItem = [];
+            obj.Cost = [];
+            obj.Lisence = [];
+            obj.Status = [];
+            obj.ShippingAddress = [];
+            console.log("inside if ecommerce")
+            _.forEach(page, function (pg) {
+                obj.DataId.push(pg.user.dataId);
+                obj.TrascationId.push("-");
+                if (pg.dfmSubscription) {
+                    obj.SoldItem.push(pg.dfmSubscription.name);
+                    obj.Cost.push(pg.dfmSubscription.amount);
+                    obj.TrascationDate.push(moment(pg.dfmSubscription.createdAt).format("DD/MM/YYYY"));
+                } else if (pg.products) {
+                    obj.SoldItem.push(pg.products.name);
+                    obj.Cost.push(pg.products.amount);
+                    obj.TrascationDate.push(moment(pg.products.createdAt).format("DD/MM/YYYY"));
+                } else if (pg.cadLineWork) {
+                    obj.SoldItem.push(pg.cadLineWork.name);
+                    obj.Cost.push(pg.cadLineWork.amount);
+                    obj.TrascationDate.push(moment(pg.cadLineWork.createdAt).format("DD/MM/YYYY"));
+                }
+
+                obj.Lisence.push(pg.user.lisence);
+                obj.Status.push(pg.status);
+                obj.ShippingAddress.push(pg.shippingAddress.city);
+            });
+            obj.name1 = "ecommerce";
+        } else if (page.name == "vendor") {
+            var obj = {};
+            obj.dataId = [];
+            obj.name = [];
+            obj.email = [];
+            obj.mobile = [];
+            obj.createdAt = [];
+            console.log("inside if vendor")
+            _.forEach(page, function (pg) {
+                obj.dataId.push(pg.dataId);
+                obj.name.push(pg.name);
+                obj.email.push(pg.email);
+                obj.mobile.push(pg.mobile);
+                obj.createdAt.push(moment(pg.createdAt).format("DD/MM/YYYY"));
+            });
+            obj.name1 = "vendor";
+        } else if (page.name == "ticket") {
+            var obj = {};
+            obj.ticketId = [];
+            obj.subject = [];
+            obj.dataId = [];
+            obj.status = [];
+            obj.createdAt = [];
+            obj.replyDate = [];
+
+            console.log("inside if ticket")
+            _.forEach(page, function (pg) {
+                obj.ticketId.push(pg.ticketId);
+                obj.createdAt.push(moment(pg.createdAt).format("DD/MM/YYYY"));
+                obj.subject.push(pg.subject);
+                obj.dataId.push(pg.user.dataId);
+                obj.status.push(pg.status);
+                if (pg.replyDate) {
+                    obj.replyDate.push(moment(pg.replyDate).format("DD/MM/YYYY"));
+                } else {
+                    obj.replyDate.push("-");
+                }
+            });
+            obj.name1 = "ticket";
+        } else if (page.name == "ticketForUser") {
+            var obj = {};
+            obj.ticketId = [];
+            obj.subject = [];
+            obj.dataId = [];
+            obj.description = [];
+            obj.status = [];
+            obj.createdAt = [];
+            obj.replyDate = [];
+
+            console.log("inside if ticket")
+            _.forEach(page, function (pg) {
+                obj.ticketId.push(pg.ticketId);
+                obj.createdAt.push(moment(pg.createdAt).format("DD/MM/YYYY"));
+                obj.subject.push(pg.subject);
+                obj.description.push(pg.description);
+                obj.status.push(pg.status);
+                if (pg.replyDate) {
+                    obj.replyDate.push(moment(pg.replyDate).format("DD/MM/YYYY"));
+                } else {
+                    obj.replyDate.push("-");
+                }
+            });
+            obj.name1 = "ticketForUser";
+        } else if (page.name == "invoice") {
+            var obj = {};
+            obj.name = [];
+            obj.createdAt = [];
+            obj.amount = [];
+            obj.status = [];
+            _.forEach(page, function (pg) {
+                if (pg.dfmSubscription) {
+                    obj.name.push(pg.dfmSubscription.name);
+                    obj.createdAt.push(moment(pg.dfmSubscription.createdAt).format("DD/MM/YYYY"));
+                    obj.amount.push(pg.dfmSubscription.amount);
+                    obj.status.push(pg.status);
+                } else if (pg.products) {
+                    obj.name.push(pg.products.name);
+                    obj.createdAt.push(moment(pg.products.createdAt).format("DD/MM/YYYY"));
+                    obj.amount.push(pg.products.amount);
+                    obj.status.push(pg.status);
+                } else if (pg.cadLineWork) {
+                    obj.name.push(pg.cadLineWork.name);
+                    obj.createdAt.push(moment(pg.cadLineWork.createdAt).format("DD/MM/YYYY"));
+                    obj.amount.push(pg.cadLineWork.amount);
+                    obj.status.push(pg.status);
+                }
+
+
+            });
+            obj.name1 = "invoice";
+        } else if (page.name == "vendorbill") {
+            var obj = {};
+            obj.missionId = [];
+            obj.vendorBillId = [];
+            obj.Earning = [];
+            obj.paymentStatus = [];
+            obj.additionalInfo = [];
+            obj.createdAt = [];
+            obj.paidAmount = [];
+            obj.balance = [];
+            obj.Advance = [];
+            console.log("inside if vendorbill")
+            _.forEach(page, function (pg) {
+                obj.missionId.push(pg.cad.mission.missionId);
+                obj.vendorBillId.push(pg.cad.vendor.dataId);
+                obj.Earning.push(pg.cad.vendorCharges);
+                obj.paymentStatus.push(pg.paymentStatus);
+                obj.additionalInfo.push(pg.additionalInfo);
+                obj.createdAt.push(moment(pg.createdAt).format("DD/MM/YYYY"));
+                obj.paidAmount.push(pg.paidAmount);
+                if (pg.cad.vendorCharges > pg.paidAmount) {
+                    obj.balance.push(pg.cad.vendorCharges - pg.paidAmount);
+                } else {
+                    obj.balance.push("-")
+                }
+                if (pg.cad.vendorCharges < pg.paidAmount) {
+                    obj.Advance.push(mainData.cad.vendorCharges - mainData.cad.vendorCharges)
+                } else {
+                    obj.Advance.push("-")
+                }
+            });
+            obj.name1 = "vendorbill";
+        }
+
+
+
+        var i = 0;
+
+        var file = "mission";
+        // console.log("*****file data", obj);
+        sails.hooks.views.render(file, obj, function (err, html) {
+            if (err) {
+                console.log("errr", err);
+                callback(err);
+            } else {
+                console.log("*****file data*******", obj);
+                // var path = "C:/Users/unifli/Documents/googleTile-Mosaic/";
+
+                var newFilename = file + ".pdf";
+                var finalPath = newFilename;
+                var writestream = fs.createWriteStream(newFilename);
+                writestream.on('finish', function (err, response) {
+                    fs.readFile(finalPath, function (err, pdfData) {
+                        if (err) {
+                            res.callback(err, null);
+                        } else {
+
+                            res({
+                                pdfData: pdfData,
+                                path: newFilename,
+                                finalPath: finalPath
+                            })
+                            fs.unlink(finalPath);
+                        }
+                    });
+
+                });
+
+                var options = {
+
+                    // "phantomPath": "C:/Windows/System32/phantomjs",
+                    "format": "A4",
+
+                    "directory": "/pdf",
+                    "height": "13in", // allowed units: mm, cm, in, px
+                    "width": "14in",
+
+                    "border": {
+                        "top": "2cm", // default is 0, units: mm, cm, in, px 
+                        "right": "1cm",
+                        "bottom": "1cm",
+                        "left": "1cm"
+                    },
+                    // File options 
+                    "type": "pdf", // allowed file types: png, jpeg, pdf 
+                    "timeout": 30000, // Timeout that will cancel phantomjs, in milliseconds 
+                    "footer": {
+                        "height": "2cm",
+                    },
+
+                };
+
+                pdf.create(html, options).toStream(function (err, stream) {
+                    if (err) {
+                        console.log("err", err)
+                        callback(err);
+                    } else {
+                        green("IN PDF CREATE");
+                        // console.log("In Config To generate PDF");
+                        i++;
+                        stream.pipe(writestream);
+                    }
+                });
+            }
+
+        });
+    },
+
+
     generatePdf: function (page, callback) {
         var pdf = require('html-pdf');
         var obj = {};
@@ -146,7 +863,8 @@ var models = {
                 });
 
                 var options = {
-                    "phantomPath": "C:/Windows/System32/phantomjs",
+                    "phantomPath": "node_modules/phantomjs/bin/phantomjs",
+                    // "phantomPath": "C:/Windows/System32/phantomjs",
                     "format": "A4",
                     // Export options 
                     "directory": "/tmp",
@@ -544,7 +1262,7 @@ var models = {
         });
         var xls = json2xls(excelData);
         var folder = "./.tmp/";
-        var path = name + "-" + moment().format("MMM-DD-YYYY-hh-mm-ss-a") + ".xlsx";
+        var path = name + "-" + moment().format("MMM-DD-YYYY-hh-mm-ss-amoment") + ".xlsx";
         var finalPath = folder + path;
         fs.writeFile(finalPath, xls, 'binary', function (err) {
             if (err) {

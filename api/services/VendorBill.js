@@ -26,11 +26,11 @@ schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('VendorBill', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "cad", "cad"));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "cad cad.mission cad.vendor", "cad cad.mission cad.vendor"));
 var model = {
 
     exceltotalVendorBill: function (data, callback) {
-        User.find({}).deepPopulate().exec(function (err, data) {
+        VendorBill.find({}).deepPopulate('cad cad.mission cad.vendor').exec(function (err, data) {
             if (err || _.isEmpty(data)) {
                 callback(err, [])
             } else {
@@ -39,14 +39,28 @@ var model = {
         })
     },
 
-    generateExcelVendorBill: function (match, callback) {
+    generateExcelVendorBills: function (match, callback) {
         async.concatSeries(match, function (mainData, callback) {
+                console.log("concatSeries", mainData);
+                console.log("concatSeries", mainData.earning)
                 var obj = {};
-                obj["VENDOR BILL ID"] = mainData.vendorBillId;
-                obj["VENDOR CHARGES"] = mainData.vendorCharges;
+                obj["MISSION ID"] = mainData.cad.mission.missionId;
+                obj["VENDOR BILLING ID"] = mainData.cad.vendor.dataId;
+                obj["Earning "] = mainData.cad.vendorCharges;
+                obj[" PAYMENT STATUS"] = mainData.paymentStatus;
+                obj["ADDITIONAL INFORMATION"] = mainData.additionalInfo;
+                obj["BILL DATE "] = moment(mainData.createdAt).format("DD/MM/YYYY")
                 obj["PAID AMOUNT"] = mainData.paidAmount;
-                obj[" BALANCE"] = mainData.balance;
-                obj["ADVANCE"] = mainData.Advance;
+                if (mainData.cad.vendorCharges > mainData.paidAmount) {
+                    obj["BALANCE AMOUNT"] = mainData.cad.vendorCharges - mainData.paidAmount;
+                } else {
+                    obj["BALANCE AMOUNT"] = "-";
+                }
+                if (mainData.cad.vendorCharges < mainData.paidAmount) {
+                    obj["OUTSTANDING AMOUNT"] = mainData.cad.vendorCharges - mainData.cad.vendorCharges;
+                } else {
+                    obj["OUTSTANDING AMOUNT"] = "-";
+                }
                 callback(null, obj);
             },
             function (err, singleData) {
@@ -82,7 +96,7 @@ var model = {
             count: maxRow
         };
         VendorBill.find({})
-            .deepPopulate("cad")
+            .deepPopulate("cad cad.mission cad.vendor")
             .order(options)
             .keyword(options)
             .page(options,

@@ -35,9 +35,9 @@
                                                 <div class="pull-right"> <label>Search:<input type="text " ng-change="getAllItems(true) " placeholder="Search Here...
                         " ng-model="search.keyword " /></label>
                                                     <div class="dt-buttons btn-group"> <a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Copy</span>             </a>                                                        <a class="btn btn-default buttons-csv buttons-html5" tabindex="0"
-                                                            aria-controls="DataTables_Table_0"><span>CSV</span>             </a>                                                        <a class="btn btn-default buttons-excel buttons-html5" tabindex="0"
+                                                            aria-controls="DataTables_Table_0" ng-click="csvFile();"><span>CSV</span>             </a>                                                        <a class="btn btn-default buttons-excel buttons-html5" tabindex="0"
                                                             aria-controls="DataTables_Table_0" ng-click=generateExcelforVendor();><span>Excel</span>             </a>                                                        <a class="btn btn-default buttons-pdf buttons-html5" tabindex="0"
-                                                            aria-controls="DataTables_Table_0"><span>PDF</span>             </a>                                                        <a class="btn btn-default buttons-print" tabindex="0" aria-controls="DataTables_Table_0"><span>Print</span>             </a>                                                        </div>
+                                                            aria-controls="DataTables_Table_0" ng-click="generatePdf();"><span>PDF</span>             </a>                                                        <a class="btn btn-default buttons-print" tabindex="0" aria-controls="DataTables_Table_0"><span>Print</span>             </a>                                                        </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -61,15 +61,17 @@
 
                                             <tbody>
                                                 <tr ng-repeat="billData in allBillData track by $index">
-                                                    <td>{{billData.cad.mission}}</td>
-                                                    <td> VBI#_1</td>
-                                                    <td>{{billData.paidAmount}}</td>
+                                                    <td>{{billData.cad.mission.missionId}}</td>
+                                                    <td> {{billData.cad.vendor.dataId}}</td>
+                                                    <td>{{billData.cad.vendorCharges}}</td>
                                                     <td>{{billData.paymentStatus}}</td>
                                                     <td>{{billData.additionalInfo}}</td>
                                                     <td>{{billData.createdAt}}</td>
                                                     <td>{{billData.paidAmount}}</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
+                                                    <td><span ng-if="billData.cad.vendorCharges>billData.paidAmount">{{billData.cad.vendorCharges-billData.paidAmount}}</span>
+                                                        <span ng-if="!billData.cad.vendorCharges>billData.paidAmount">   -  </span></td>
+                                                    <td><span ng-if="billData.cad.vendorCharges<billData.paidAmount">{{billData.paidAmount-billData.cad.vendorCharges}}</span>
+                                                        <span ng-if="!billData.cad.vendorCharges<billData.paidAmount">   -  </span></td>
 
                                                     <!-- <td><button type="button" ui-sref="invoice_view" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;<button type="button" class="btn green btn-outline btn-xs">Download</button></td>-->
 

@@ -100,7 +100,7 @@ module.exports = mongoose.model('ProductOrders', schema);
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "products user cadLineWork dfmSubscription", "products user cadLineWork dfmSubscription"));
 var model = {
     exceltotalProductOrders: function (data, callback) {
-        ProductOrders.find({}).deepPopulate().exec(function (err, data) {
+        ProductOrders.find({}).deepPopulate("user dfmSubscription products cadLineWork ").exec(function (err, data) {
             if (err || _.isEmpty(data)) {
                 callback(err, [])
             } else {
@@ -113,10 +113,24 @@ var model = {
         async.concatSeries(match, function (mainData, callback) {
                 var obj = {};
 
-                obj["NAME"] = mainData.name;
-                obj["iNVOICE NUMBER"] = mainData.invoiceNo;
-                obj["STATUS"] = mainData.status;
-                obj["MOBILE"] = mainData.phonenumber;
+                obj["USER ID"] = mainData.user.dataId;
+                obj["TRANSACTION ID"] = "-"
+                if (mainData.dfmSubscription) {
+                    obj["SOLD ITEM"] = mainData.dfmSubscription.name;
+                    obj["COST"] = mainData.dfmSubscription.amount;
+                    obj["TRANSACTION DATE"] = moment(mainData.dfmSubscription.createdAt).format("DD/MM/YYYY")
+                } else if (mainData.products) {
+                    obj["SOLD ITEM"] = mainData.products.name;
+                    obj["COST"] = mainData.products.amount;
+                    obj["TRANSACTION DATE"] = moment(mainData.products.createdAt).format("DD/MM/YYYY")
+                } else if (mainData.cadLineWork) {
+                    obj["SOLD ITEM"] = mainData.cadLineWork.name;
+                    obj["COST"] = mainData.cadLineWork.amount;
+                    obj["TRANSACTION DATE"] = moment(mainData.cadLineWork.createdAt).format("DD/MM/YYYY")
+                }
+                obj["LICENSE TYPE"] = mainData.user.lisence;
+                obj["SHIPPING ADDRESS"] = mainData.shippingAddress.city;
+                obj["PAYMENT STATUS"] = mainData.status;
                 callback(null, obj);
             },
             function (err, singleData) {
@@ -129,7 +143,7 @@ var model = {
     exceltotalProductOrdersforUser: function (data, callback) {
         ProductOrders.find({
             user: data._id
-        }).deepPopulate().exec(function (err, data) {
+        }).deepPopulate('user cadLineWork dfmSubscription products').exec(function (err, data) {
             if (err || _.isEmpty(data)) {
                 callback(err, [])
             } else {
@@ -141,11 +155,20 @@ var model = {
     generateExcelProductOrdersforUser: function (match, callback) {
         async.concatSeries(match, function (mainData, callback) {
                 var obj = {};
-
-                obj["NAME"] = mainData.name;
-                obj["iNVOICE NUMBER"] = mainData.invoiceNo;
-                obj["STATUS"] = mainData.status;
-                obj["MOBILE"] = mainData.phonenumber;
+                if (mainData.dfmSubscription) {
+                    obj["PRODUCT NAME"] = mainData.dfmSubscription.name;
+                    obj["COST"] = mainData.dfmSubscription.amount;
+                    obj["TRANSACTION DATE"] = moment(mainData.dfmSubscription.createdAt).format("DD/MM/YYYY")
+                } else if (mainData.products) {
+                    obj["PRODUCT"] = mainData.products.name;
+                    obj["COST"] = mainData.products.amount;
+                    obj["TRANSACTION DATE"] = moment(mainData.products.createdAt).format("DD/MM/YYYY")
+                } else if (mainData.cadLineWork) {
+                    obj["PRODUCT "] = mainData.cadLineWork.name;
+                    obj["COST"] = mainData.cadLineWork.amount;
+                    obj["TRANSACTION DATE"] = moment(mainData.cadLineWork.createdAt).format("DD/MM/YYYY")
+                }
+                obj["PAYMENT STATUS"] = mainData.status;
                 callback(null, obj);
             },
             function (err, singleData) {

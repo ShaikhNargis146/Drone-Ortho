@@ -53,10 +53,16 @@ var model = {
         async.concatSeries(match, function (mainData, callback) {
                 var obj = {};
                 obj["TICKET ID"] = mainData.ticketId;
-                obj["STATUS"] = mainData.status;
+                obj["DATE"] = moment(mainData.createdAt).format("DD/MM/YYYY")
                 obj["SUBJECT"] = mainData.subject;
-                obj["DATE"] = mainData.createdAt;
-                obj["CLOSING DATE"] = mainData.replyDate;
+                obj["DESCRIPTION"] = mainData.description;
+                obj["TICKET STATUS"] = mainData.status;
+                if (mainData.replyDate) {
+                    obj["CLOSING DATE"] = moment(mainData.replyDate).format("DD/MM/YYYY")
+                } else {
+                    obj["CLOSING DATE"] = '-'
+                }
+
 
 
                 // obj["USER"] = mainData.user.name;
@@ -84,13 +90,16 @@ var model = {
         async.concatSeries(match, function (mainData, callback) {
                 var obj = {};
                 obj["TICKET ID"] = mainData.ticketId;
-                obj["STATUS"] = mainData.status;
+                obj["DATE"] = moment(mainData.createdAt).format("DD/MM/YYYY")
                 obj["SUBJECT"] = mainData.subject;
-                obj["DATE"] = mainData.createdAt;
-                obj["CLOSING DATE"] = mainData.replyDate;
-                // obj["USER"] = mainData.user.name;
-                // obj["DFM SUBSCRIPTION"] = mainData.DFMSubscription.name;
-                // obj["DATE"] = mainData.date;
+                obj["USER ID"] = mainData.user.dataId;
+                obj["TICKET STATUS"] = mainData.status;
+                if (mainData.replyDate) {
+                    obj["CLOSING DATE"] = moment(mainData.replyDate).format("DD/MM/YYYY")
+                } else {
+                    obj["CLOSING DATE"] = '-'
+                }
+
                 callback(null, obj);
             },
             function (err, singleData) {

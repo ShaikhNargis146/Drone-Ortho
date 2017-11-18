@@ -15,6 +15,54 @@ var gdal = require("gdal");
 var util = require('util');
 var dms = require("dms-conversion");
 var controller = {
+    generatecsvForUser: function (req, res) {
+        Mission.exceltotalMissionforUser(req.body, function (err, data) {
+            data.name = "missionUser"
+            Config.jsonTOCsvConvert(data, function (csv) {
+                _.cloneDeep(csv);
+                console.log("CSV", csv)
+                res.set('Content-Type', "application/CSV");
+                res.set('Content-Disposition', "attachment;filename=" + csv.path);
+                res.send(csv.csvData);
+            });
+        });
+    },
+    generatecsv: function (req, res) {
+        Mission.exceltotalMission(req.body, function (err, data) {
+            data.name = "mission"
+            Config.jsonTOCsvConvert(data, function (csv) {
+                _.cloneDeep(csv);
+                console.log("CSV", csv)
+                res.set('Content-Type', "application/CSV");
+                res.set('Content-Disposition', "attachment;filename=" + csv.path);
+                res.send(csv.csvData);
+            });
+        });
+    },
+    generatePdfForUser: function (req, res) {
+        Mission.exceltotalMissionforUser(req.body, function (err, data) {
+            data.name = "missionUser"
+            Config.generatePdfFormatData(data, function (pdf) {
+                _.cloneDeep(pdf);
+                console.log("pdf", pdf)
+                res.set('Content-Type', "application/pdf");
+                res.set('Content-Disposition', "attachment;filename=" + pdf.path);
+                res.send(pdf.pdfData);
+            });
+        });
+    },
+    generatePdf: function (req, res) {
+        Mission.exceltotalMission(req.body, function (err, data) {
+            data.name = "mission"
+            Config.generatePdfFormatData(data, function (pdf) {
+                _.cloneDeep(pdf);
+                console.log("pdf", pdf)
+                res.set('Content-Type', "application/pdf");
+                res.set('Content-Disposition', "attachment;filename=" + pdf.path);
+                res.send(pdf.pdfData);
+            });
+        });
+    },
     exceltotalMission: function (req, res) {
         Mission.exceltotalMission(req.body, function (err, data) {
             Mission.generateExcelMission(data, function (err, singleData) {

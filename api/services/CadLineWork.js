@@ -96,7 +96,7 @@ var model = {
     exceltotalCad: function (data, callback) {
         CadLineWork.find({
 
-        }).deepPopulate().exec(function (err, data) {
+        }).deepPopulate('mission').exec(function (err, data) {
             if (err || _.isEmpty(data)) {
                 callback(err, [])
             } else {
@@ -107,12 +107,18 @@ var model = {
 
     generateExcelCad: function (match, callback) {
         async.concatSeries(match, function (mainData, callback) {
+
                 var obj = {};
-                obj["VENDOR BILLING ID"] = mainData.vendorBillingId;
-                obj["PAYMENT STATUS"] = mainData.vendorPaymentStatus;
-                obj["STATUS"] = mainData.status;
-                obj[" AMOUNT"] = mainData.amount;
-                obj["NAME"] = mainData.name;
+                obj["CAD ID"] = mainData.cadId;
+                obj["ACREAGE"] = mainData.acreage;
+                obj["DESCRIPTION"] = mainData.instruction;
+                obj[" STATUS"] = mainData.status;
+                obj["DATE-OF-REQUEST"] = moment(mainData.createdAt).format("DD/MM/YYYY")
+                if (mainData.completionDate) {
+                    obj["COMPLETION DATE"] = moment(mainData.completionDate).format("DD/MM/YYYY");
+                } else {
+                    obj["COMPLETION DATE"] = "-";
+                }
                 callback(null, obj);
             },
             function (err, singleData) {
@@ -123,7 +129,7 @@ var model = {
     exceltotalCadforUser: function (data, callback) {
         CadLineWork.find({
             user: data._id
-        }).deepPopulate().exec(function (err, data) {
+        }).deepPopulate('mission').exec(function (err, data) {
             if (err || _.isEmpty(data)) {
                 callback(err, [])
             } else {
@@ -135,12 +141,37 @@ var model = {
     generateExcelCadforUser: function (match, callback) {
         async.concatSeries(match, function (mainData, callback) {
                 var obj = {};
-                obj["VENDOR BILLING ID"] = mainData.vendorBillingId;
-                obj["PAYMENT STATUS"] = mainData.vendorPaymentStatus;
-                obj["STATUS"] = mainData.status;
-                obj[" AMOUNT"] = mainData.amount;
-                obj["NAME"] = mainData.name;
-                obj["ACREAGE"] = mainData.Acreage;
+                obj["CAD ID"] = mainData.cadId;
+                obj["ACREAGE"] = mainData.acreage;
+                obj["DESCRIPTION"] = mainData.instruction;
+                obj[" STATUS"] = mainData.status;
+                obj["DATE-OF-REQUEST"] = moment(mainData.createdAt).format("DD/MM/YYYY")
+                if (mainData.completionDate) {
+                    obj["COMPLETION DATE"] = moment(mainData.completionDate).format("DD/MM/YYYY");
+                } else {
+                    obj["COMPLETION DATE"] = "-";
+                }
+
+                callback(null, obj);
+            },
+            function (err, singleData) {
+                callback(null, singleData);
+            });
+
+    },
+    generateExcelCadForVendor: function (match, callback) {
+        async.concatSeries(match, function (mainData, callback) {
+                var obj = {};
+                obj["Mission ID"] = mainData.mission.missionId;
+                obj["ACREAGE"] = mainData.acreage;
+                obj["DESCRIPTION"] = mainData.instruction;
+                obj[" STATUS"] = mainData.status;
+                obj["DATE-OF-REQUEST"] = moment(mainData.createdAt).format("DD/MM/YYYY")
+                if (mainData.completionDate) {
+                    obj["COMPLETION DATE"] = moment(mainData.completionDate).format("DD/MM/YYYY");
+                } else {
+                    obj["COMPLETION DATE"] = "-";
+                }
 
                 callback(null, obj);
             },

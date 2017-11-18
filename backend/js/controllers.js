@@ -880,16 +880,40 @@ firstapp
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
             var userId = $.jStorage.get("user")._id;
         }
-          excelName={
-            name:"support",
+        excelName = {
+            name: "support",
             _id: $.jStorage.get("user")._id
         }
-         $scope.generateExcel=function(){
-                NavigationService.generateExcelWithName("Ticket/exceltotalTicket", excelName, function (data) {});
+           $scope.csvFileForUser = function () {
+            console.log("inside csvFile ")
+            NavigationService.generateCsvithName("Ticket/generatecsvForUser", excelName,function (data) {
+                console.log("ater api called", data);
+             });
         };
-        
-         $scope.generateExcelforUser=function(){
-                NavigationService.generateExcelWithName("Ticket/exceltotalTicketforUser", excelName, function (data) {});
+          $scope.csvFile = function () {
+            console.log("inside csvFile ")
+            NavigationService.generateCsvithName("Ticket/generatecsv", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+            $scope.generatePdfForUser = function () {
+            console.log("inside generatePdf ")
+            NavigationService.generatepdfwithName("Ticket/generatePdfForUser", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+          $scope.generatePdf = function () {
+            console.log("inside generatePdf ")
+            NavigationService.generatepdfwithName("Ticket/generatePdf", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+        $scope.generateExcel = function () {
+            NavigationService.generateExcelWithName("Ticket/exceltotalTicket", excelName, function (data) {});
+        };
+
+        $scope.generateExcelforUser = function () {
+            NavigationService.generateExcelWithName("Ticket/exceltotalTicketforUser", excelName, function (data) {});
         };
         if ($scope.accessLevel == "User") {
 
@@ -1046,15 +1070,40 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
-          excelName={
-            name:"Mission",
-            _id:$.jStorage.get("user")._id
-        }
-        $scope.generateExcel=function(){
-                NavigationService.generateExcelWithName("Mission/exceltotalMission",excelName, function (data) {});
+        excelName = {
+            name: "Mission",
+            _id: $.jStorage.get("user")._id
+        } 
+          $scope.csvFileForUser = function () {
+            console.log("inside csvFile ")
+            NavigationService.generateCsvithName("Mission/generatecsvForUser", excelName,function (data) {
+                console.log("ater api called", data);
+             });
         };
-         $scope.generateExcelforUser=function(){
-                NavigationService.generateExcelWithName("Mission/exceltotalMissionforUser", excelName, function (data) {});
+         $scope.csvFile = function () {
+            console.log("inside csvFile ")
+            NavigationService.generateCsvithName("Mission/generatecsv", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+        $scope.generatePdf = function () {
+            console.log("inside generatePdf ")
+            NavigationService.generatepdfwithName("Mission/generatePdf", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+          $scope.generatePdfForUser = function () {
+            console.log("inside generatePdf ")
+            NavigationService.generatepdfwithName("Mission/generatePdfForUser", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+
+        $scope.generateExcel = function () {
+            NavigationService.generateExcelWithName("Mission/exceltotalMission", excelName, function (data) {});
+        };
+        $scope.generateExcelforUser = function () {
+            NavigationService.generateExcelWithName("Mission/exceltotalMissionforUser", excelName, function (data) {});
         };
 
         if ($scope.accessLevel == "Admin") {
@@ -1823,12 +1872,24 @@ firstapp
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
             var userId = $.jStorage.get("user")._id;
         }
-    excelName={
-            name:"InvoiceList",
-            _id:$.jStorage.get("user")._id
-        }
-     $scope.generateExcelforUser=function(){
-                NavigationService.generateExcelWithName("ProductOrders/exceltotalProductOrdersforUser",excelName, function (data) {});
+        excelName = {
+            name: "InvoiceList",
+            _id: $.jStorage.get("user")._id
+        },
+         $scope.csvFileForUser = function () {
+            console.log("inside csvFile ")
+            NavigationService.generateCsvithName("ProductOrders/generatecsvForUser", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+            $scope.generatePdfForUser = function () {
+            console.log("inside generatePdf ");
+            NavigationService.generatepdfwithName("ProductOrders/generatePdfForUser", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+        $scope.generateExcelforUser = function () {
+            NavigationService.generateExcelWithName("ProductOrders/exceltotalProductOrdersforUser", excelName, function (data) {});
         };
         //pagination user
 
@@ -2438,6 +2499,8 @@ firstapp
         $scope.vendorPay = function (data) {
             var data1 = {};
             data.cad = $stateParams.cadId;
+            data.vendor=$scope.cadLineDetails.vendor._id;
+            data.earning=$scope.cadLineDetails.vendorCharges;
             NavigationService.apiCallWithData("VendorBill/save", data, function (data) {
                 if (data.value == true) {
                     data1._id = $stateParams.cadId;
@@ -2558,23 +2621,63 @@ firstapp
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         TemplateService.mainClass = [];
-         if ($.jStorage.get("user")) {
+        if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
             var userId = $.jStorage.get("user")._id;
         }
 
-            excelName={
-            name:"CadFileRequest",
-            _id:$.jStorage.get("user")._id
+        excelName = {
+            name: "CadFileRequest",
+            _id: $.jStorage.get("user")._id
         }
-     $scope.generateExcel=function(){
-                NavigationService.generateExcelWithName("CadLineWork/exceltotalCad",excelName, function (data) {});
+         $scope.csvFileForVendor = function () {
+            console.log("inside csvFile ")
+            NavigationService.generateCsvithName("CadLineWork/generatecsvForVendor", excelName,function (data) {
+                console.log("ater api called", data);
+             });
         };
-        $scope.generateExcelforUser=function(){
-                NavigationService.generateExcelWithName("CadLineWork/exceltotalCadforUser",excelName, function (data) {});
+         $scope.csvFileForUser = function () {
+            console.log("inside csvFile ")
+            NavigationService.generateCsvithName("CadLineWork/generatecsvForUser", excelName,function (data) {
+                console.log("ater api called", data);
+             });
         };
-         
+             $scope.csvFile = function () {
+            console.log("inside csvFile ")
+            NavigationService.generateCsvithName("CadLineWork/generatecsv", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+         $scope.generatePdfForVendor = function () {
+            console.log("inside generatePdf ")
+            NavigationService.generatepdfwithName("CadLineWork/generatePdfForVendor", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+           $scope.generatePdf = function () {
+            console.log("inside generatePdf ")
+            NavigationService.generatepdfwithName("CadLineWork/generatePdf", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
         
+           $scope.generatePdfForUser = function () {
+            console.log("inside generatePdf ")
+            NavigationService.generatepdfwithName("CadLineWork/generatePdfForUser", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+          $scope.generateExcelForVendor = function () {
+            NavigationService.generateExcelWithName("CadLineWork/exceltotalCadforVendor", excelName, function (data) {});
+        };
+        $scope.generateExcel = function () {
+            NavigationService.generateExcelWithName("CadLineWork/exceltotalCad", excelName, function (data) {});
+        };
+        $scope.generateExcelforUser = function () {
+            NavigationService.generateExcelWithName("CadLineWork/exceltotalCadforUser", excelName, function (data) {});
+        };
+
+
         $scope.cadOpen = function () {
             $uibModal.open({
                 animation: true,
@@ -2599,6 +2702,7 @@ firstapp
             data.user = userId;
             NavigationService.apiCallWithData("CadLineWork/createCad", data, function (data) {
                 $scope.cadLineDetails = data.data.results;
+                
             })
         };
 
@@ -3072,11 +3176,23 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
-           excelName={
-            name:"UserList"
+        excelName = {
+            name: "UserList"
         }
-           $scope.generateExcel=function(){
-                NavigationService.generateExcelWithName("User/exceltotalUser",excelName, function (data) {});
+         $scope.csvFile = function () {
+            console.log("inside csvFile ")
+            NavigationService.generateCsvithName("User/generatecsv", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+           $scope.generatePdf = function () {
+            console.log("inside generatePdf ")
+            NavigationService.generatepdfwithName("User/generatePdf", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+        $scope.generateExcel = function () {
+            NavigationService.generateExcelWithName("User/exceltotalUser", excelName, function (data) {});
         };
 
 
@@ -3239,11 +3355,23 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
-        excelName={
-            name:"ecommerce"
-        }
-       $scope.generateExcel=function(){
-                NavigationService.generateExcelWithName("ProductOrders/exceltotalProductOrders", excelName, function (data) {});
+        excelName = {
+            name: "ecommerce"
+        } 
+         $scope.csvFile = function () {
+            console.log("inside csvFile ")
+            NavigationService.generateCsvithName("ProductOrders/generatecsv", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+            $scope.generatePdf = function () {
+            console.log("inside generatePdf ")
+            NavigationService.generatepdfwithName("ProductOrders/generatePdf", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+        $scope.generateExcel = function () {
+            NavigationService.generateExcelWithName("ProductOrders/exceltotalProductOrders", excelName, function (data) {});
         };
 
         //pagination ecommerce
@@ -3414,11 +3542,23 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
-         excelName={
-            name:"vendorList"
+        excelName = {
+            name: "vendorList"
         }
-        $scope.generateExcel=function(){
-                NavigationService.generateExcelWithName("User/exceltotalVendor", excelName, function (data) {});
+          $scope.csvFile = function () {
+            console.log("inside csvFile ")
+            NavigationService.generateCsvithName("User/generatecsvForVendor", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+         $scope.generatePdf = function () {
+            console.log("inside generatePdf ")
+            NavigationService.generatepdfwithName("User/generatePdfforVendor", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+        $scope.generateExcel = function () {
+            NavigationService.generateExcelWithName("User/exceltotalVendor", excelName, function (data) {});
         };
 
         //pagination
@@ -3738,12 +3878,24 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
-                excelName={
-            name:"Billing",
+        excelName = {
+            name: "Billing",
             _id: $.jStorage.get("user")._id
         }
-         $scope.generateExcelforVendor=function(){
-                NavigationService.generateExcelWithName("VendorBill/exceltotalVendorBill", excelName, function (data) {});
+           $scope.csvFile = function () {
+            console.log("inside csvFile ")
+            NavigationService.generateCsvithName("VendorBill/generatecsv", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+             $scope.generatePdf = function () {
+            console.log("inside generatePdf ")
+            NavigationService.generatepdfwithName("VendorBill/generatePdf", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+        $scope.generateExcelforVendor = function () {
+            NavigationService.generateExcelWithName("VendorBill/exceltotalVendorBill", excelName, function (data) {});
         };
         //pagination
         var i = 0;
