@@ -156,11 +156,16 @@ var models = {
 
             });
         } else if (page.name == "CadLineWork") {
-            var fields = ['CadId', 'Acreage', 'Description', 'Status', 'CreatedAt', 'CompletionDate'];
+            var fields = ['CadId', 'UserId', 'Acreage', 'Description', 'Status', 'CreatedAt', 'CompletionDate'];
             var CadLineWork = [];
             _.forEach(page, function (pg) {
                 var tempObj = {};
                 tempObj.CadId = pg.cadId;
+                if (pg.user) {
+                    tempObj.UserId = pg.user.dataId;
+                } else {
+                    tempObj.UserId = "";
+                }
                 tempObj.Acreage = pg.acreage;
                 tempObj.Description = pg.instruction;
                 tempObj.Status = pg.status;
@@ -181,7 +186,7 @@ var models = {
 
             });
         } else if (page.name == "CadLineWorkForUser") {
-            var fields = ['CadId', 'Acreage', 'Description', 'Status', 'CreatedAt', 'CompletionDate'];
+            var fields = ['CadId', 'Acreage', 'Description', 'Status', 'DateofRequest', 'CompletionDate'];
             var CadLineWorkForUser = [];
             _.forEach(page, function (pg) {
                 var tempObj = {};
@@ -189,7 +194,7 @@ var models = {
                 tempObj.Acreage = pg.acreage;
                 tempObj.Description = pg.instruction;
                 tempObj.Status = pg.status;
-                tempObj.CreatedAt = moment(pg.createdAt).format("DD/MM/YYYY");
+                tempObj.DateofRequest = moment(pg.createdAt).format("DD/MM/YYYY");
                 if (pg.completionDate) {
                     tempObj.CompletionDate = moment(pg.completionDate).format("DD/MM/YYYY")
                 } else {
@@ -206,7 +211,7 @@ var models = {
 
             });
         } else if (page.name == "CadLineWorkForVendor") {
-            var fields = ['MissionId', 'Acreage', 'Description', 'Status', 'CreatedAt', 'CompletionDate'];
+            var fields = ['MissionId', 'Acreage', 'Description', 'Status', 'DateofRequest', 'CompletionDate'];
             var CadLineWorkForVendor = [];
             _.forEach(page, function (pg) {
                 var tempObj = {};
@@ -214,7 +219,7 @@ var models = {
                 tempObj.Acreage = pg.acreage;
                 tempObj.Description = pg.instruction;
                 tempObj.Status = pg.status;
-                tempObj.CreatedAt = moment(pg.createdAt).format("DD/MM/YYYY");
+                tempObj.DateofRequest = moment(pg.createdAt).format("DD/MM/YYYY");
                 if (pg.completionDate) {
                     tempObj.CompletionDate = moment(pg.completionDate).format("DD/MM/YYYY")
                 } else {
@@ -496,6 +501,7 @@ var models = {
         } else if (page.name == "CadLineWork") {
             var obj = {};
             obj.cadId = [];
+            obj.dataId = [];
             obj.acreage = [];
             obj.instruction = [];
             obj.status = [];
@@ -505,6 +511,11 @@ var models = {
 
             _.forEach(page, function (pg) {
                 obj.cadId.push(pg.cadId);
+                if (pg.user) {
+                    obj.dataId.push(pg.user.dataId);
+                } else {
+                    obj.dataId.push("");
+                }
                 obj.acreage.push(pg.acreage);
                 obj.instruction.push(pg.instruction);
                 obj.status.push(pg.status);

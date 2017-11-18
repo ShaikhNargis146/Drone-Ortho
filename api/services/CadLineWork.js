@@ -96,7 +96,7 @@ var model = {
     exceltotalCad: function (data, callback) {
         CadLineWork.find({
 
-        }).deepPopulate('mission').exec(function (err, data) {
+        }).deepPopulate('mission user').exec(function (err, data) {
             if (err || _.isEmpty(data)) {
                 callback(err, [])
             } else {
@@ -110,6 +110,11 @@ var model = {
 
                 var obj = {};
                 obj["CAD ID"] = mainData.cadId;
+                if (mainData.user) {
+                    obj["USER ID"] = mainData.user.dataId;
+                } else {
+                    obj["USER ID"] = "-";
+                }
                 obj["ACREAGE"] = mainData.acreage;
                 obj["DESCRIPTION"] = mainData.instruction;
                 obj[" STATUS"] = mainData.status;

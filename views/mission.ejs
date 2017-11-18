@@ -84,6 +84,7 @@
                         <table>
                             <tr>
                                 <th style="text-align:center;">CAD ID</th>
+                                <th style="text-align:center;">USER ID</th>
                                 <th style="text-align:center;">ACREAGE</th>
                                 <th style="text-align:center;">DISCRIPTION</th>
                                 <th style="text-align:center;">STATUS</th>
@@ -94,6 +95,9 @@
                                 <tr>
                                     <td align="center">
                                         <%=cadId[i]%>
+                                    </td>
+                                    <td align="center">
+                                        <%=dataId[i]%>
                                     </td>
                                     <td align="center">
                                         <%=acreage[i]%>
@@ -121,7 +125,7 @@
                                         <th style="text-align:center;">ACREAGE</th>
                                         <th style="text-align:center;">DISCRIPTION</th>
                                         <th style="text-align:center;">STATUS</th>
-                                        <th style="text-align:center;">REQUESTED AT</th>
+                                        <th style="text-align:center;">DATE OF REQUESTED</th>
                                         <th style="text-align:center;">COMPLETION DATE</th>
                                     </tr>
                                     <% for(var i=0; i< cadId.length; i++) {%>
