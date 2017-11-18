@@ -14,7 +14,8 @@ var firstapp = angular.module('firstapp', [
     'summernote',
     'datePicker',
     'angular-flot',
-    'rzModule'
+    'rzModule',
+    'ngFileUpload'
 ]);
 
 L.mapbox.accessToken = 'pk.eyJ1IjoibmFyZ2lzLXNoYWlraCIsImEiOiJjajVsMWdjbTgyN2t0MzBuejY0YWZvYnU1In0.sxNSmPeAZRDks6p3JmRUkw';
@@ -1239,7 +1240,7 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
                 zoomLevel.push($scope.missionDetails.zoomLevel[$scope.missionDetails.zoomLevel.length - 1]);
                 // imageUrl = 'http://localhost:1337/google_tiles/{z}/{x}/{myY}.png';
             } else if ($scope.cadLineDetails && $scope.cadLineDetails.orthoFile.file) {
-                // imageUrl = 'http://localhost:1337/demo.jpg';
+                // imageUrl = 'http://localhost:1337/5a0a8c4cda0e182241afa514.jpg';
                 // imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.orthoFile.file.split(".")[0] + '.jpg';
                 imageUrl = 'http://files.unifli.aero/' + $scope.cadLineDetails.orthoFile.file.split(".")[0] + '.jpg';
                 zoomLevel = [16, 21];
@@ -1258,10 +1259,10 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
             var imageBounds;
             if (!_.isEmpty(locations)) {
                 imageBounds = L.latLngBounds([
-                    locations.upperLeft.reverse(),
-                    locations.lowerLeft.reverse(),
-                    locations.upperRight.reverse(),
-                    locations.lowerRight.reverse()
+                    locations.upperLeft,
+                    locations.lowerLeft,
+                    locations.upperRight,
+                    locations.lowerRight
                 ]);
             }
             var latlngs;
@@ -1303,90 +1304,90 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
             // $rootScope.$on('greeting', function (event, arg) {
             //     overlay.setOpacity(arg.value);
             // })
-            // var polygon;
-            // if ($scope.cadLineDetails && !_.isEmpty($scope.cadLineDetails.points)) {
-            //     polygon = L.polygon(latlngs, {
-            //         color: 'white'
-            //     }).addTo(map);
-            //     map.fitBounds(polygon.getBounds());
-            // }
+            var polygon;
+            if ($scope.cadLineDetails && !_.isEmpty($scope.cadLineDetails.points)) {
+                polygon = L.polygon(latlngs, {
+                    color: 'white'
+                }).addTo(map);
+                map.fitBounds(polygon.getBounds());
+            }
 
-            // var featureGroup = L.featureGroup().addTo(map);
+            var featureGroup = L.featureGroup().addTo(map);
 
-            // var drawControl = new L.Control.Draw({
-            //     edit: {
-            //         featureGroup: featureGroup
-            //     },
-            //     draw: {
-            //         polygon: {
-            //             showArea: true,
-            //             allowIntersection: true,
-            //             shapeOptions: {
-            //                 stroke: true,
-            //                 metric: false,
-            //                 color: '#fff',
-            //                 weight: 4,
-            //                 opacity: 1,
-            //                 fill: true,
-            //                 fillColor: null, //same as color by default
-            //                 fillOpacity: 0.3
-            //             }
-            //         },
-            //         polyline: false,
-            //         rectangle: false,
-            //         circle: false,
-            //         marker: false
-            //     }
-            // }).addTo(map);
+            var drawControl = new L.Control.Draw({
+                edit: {
+                    featureGroup: featureGroup
+                },
+                draw: {
+                    polygon: {
+                        showArea: true,
+                        allowIntersection: true,
+                        shapeOptions: {
+                            stroke: true,
+                            metric: false,
+                            color: '#fff',
+                            weight: 4,
+                            opacity: 1,
+                            fill: true,
+                            fillColor: null, //same as color by default
+                            fillOpacity: 0.3
+                        }
+                    },
+                    polyline: false,
+                    rectangle: false,
+                    circle: false,
+                    marker: false
+                }
+            }).addTo(map);
 
-            // map.on('draw:created', showPolygonArea);
-            // map.on('draw:edited', showPolygonAreaEdited);
+            map.on('draw:created', showPolygonArea);
+            map.on('draw:edited', showPolygonAreaEdited);
 
-            // function showPolygonAreaEdited(e) {
-            //     e.layers.eachLayer(function (layer) {
-            //         showPolygonArea({
-            //             layer: layer
-            //         });
-            //     });
-            // }
-            // var acres;
+            function showPolygonAreaEdited(e) {
+                e.layers.eachLayer(function (layer) {
+                    showPolygonArea({
+                        layer: layer
+                    });
+                });
+            }
+            var acres;
 
-            // function showPolygonArea(e) {
-            //     featureGroup.clearLayers();
-            //     featureGroup.addLayer(e.layer);
-            //     var type = e.layerType;
-            //     var layer = e.layer;
-            //     layer.getLatLngs()[0][layer.getLatLngs()[0].length] = layer.getLatLngs()[0][0]
-            //     console.log("e.layer", layer);
-            //     var pointsList = [];
+            function showPolygonArea(e) {
+                featureGroup.clearLayers();
+                featureGroup.addLayer(e.layer);
+                var type = e.layerType;
+                var layer = e.layer;
+                layer.getLatLngs()[0][layer.getLatLngs()[0].length] = layer.getLatLngs()[0][0]
+                console.log("e.layer", layer);
+                var pointsList = [];
 
-            //     _.forEach(e.layer._latlngs[0], function (val) {
-            //         var latLng = [];
-            //         latLng.push(val.lat);
-            //         latLng.push(val.lng)
-            //         console.log("val--", latLng);
-            //         pointsList.push(latLng);
-            //     });
-            //     console.log("pointsList", pointsList);
-            //     var polygon = turf.polygon([
-            //         pointsList
-            //     ]);
+                _.forEach(e.layer._latlngs[0], function (val) {
+                    var latLng = [];
+                    latLng.push(val.lat);
+                    latLng.push(val.lng)
+                    console.log("val--", latLng);
+                    pointsList.push(latLng);
+                });
+                console.log("pointsList", pointsList);
+                var polygon = turf.polygon([
+                    pointsList
+                ]);
 
-            //     area = turf.area(polygon);
-            //     console.log("area--", area, LGeo.area(e.layer) * 0.0002471054);
-            //     acres = LGeo.area(e.layer) * 0.0002471054;
-            //     console.log("acres--", Number(acres).toFixed(2));
-            //     if ($scope.cadLineDetails) {
-            //         $scope.cadLineDetails.acreage = Number(acres).toFixed(2);
-            //         $scope.cadLineDetails.points = e.layer._latlngs;
-            //         // $("#myModal").modal();
-            //         $('#myModal').on('show.bs.modal', function () {
-            //             console.log("inside modal")
-            //             $("#acreage").val(Number(acres).toFixed(2));
-            //         }).modal('show');
-            //     }
+                area = turf.area(polygon);
+                console.log("area--", area, LGeo.area(e.layer) * 0.0002471054);
+                acres = LGeo.area(e.layer) * 0.0002471054;
+                console.log("acres--", Number(acres).toFixed(2));
+                if ($scope.cadLineDetails) {
+                    $scope.cadLineDetails.acreage = Number(acres).toFixed(2);
+                    $scope.cadLineDetails.points = e.layer._latlngs;
+                    // $("#myModal").modal();
+                    $('#myModal').on('show.bs.modal', function () {
+                        console.log("inside modal")
+                        $("#acreage").val(Number(acres).toFixed(2));
+                    }).modal('show');
+                }
                
-            // }
+            }
 
             map.on('load', function () {
                 // ALL YOUR APPLICATION CODE

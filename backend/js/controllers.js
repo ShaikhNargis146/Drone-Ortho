@@ -1,5 +1,5 @@
 // var globalfunction = {};
-angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', "jsonservicemod", 'ui.bootstrap', 'ui.select', 'toastr', 'angular-flexslider', 'ui.tinymce', 'imageupload', 'ngMap', 'toggle-switch', 'cfp.hotkeys', 'ui.sortable'])
+angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', "jsonservicemod", 'ui.bootstrap', 'ui.select', 'toastr', 'angular-flexslider', 'ui.tinymce', 'imageupload', 'ngMap', 'toggle-switch', 'cfp.hotkeys', 'ui.sortable', 'ngFileUpload'])
 // .run([function () {
 //     mapboxgl.accessToken = 'pk.eyJ1IjoibmFpbWlrYW4iLCJhIjoiY2lraXJkOXFjMDA0OXdhbTYzNTE0b2NtbiJ9.O64XgZQHNHcV2gwNLN2a0Q';
 // }])
@@ -884,6 +884,7 @@ firstapp
             name: "support",
             _id: $.jStorage.get("user")._id
         }
+
            $scope.csvFileForUser = function () {
             console.log("inside csvFile ")
             NavigationService.generateCsvithName("Ticket/generatecsvForUser", excelName,function (data) {
@@ -911,6 +912,7 @@ firstapp
         $scope.generateExcel = function () {
             NavigationService.generateExcelWithName("Ticket/exceltotalTicket", excelName, function (data) {});
         };
+
 
         $scope.generateExcelforUser = function () {
             NavigationService.generateExcelWithName("Ticket/exceltotalTicketforUser", excelName, function (data) {});
@@ -1102,6 +1104,7 @@ firstapp
         $scope.generateExcel = function () {
             NavigationService.generateExcelWithName("Mission/exceltotalMission", excelName, function (data) {});
         };
+
         $scope.generateExcelforUser = function () {
             NavigationService.generateExcelWithName("Mission/exceltotalMissionforUser", excelName, function (data) {});
         };
@@ -2614,7 +2617,7 @@ firstapp
         };
     })
 
-    .controller('CadFileRequestCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams, $uibModal) {
+    .controller('CadFileRequestCtrl', function ($scope, TemplateService, Upload, NavigationService, $timeout, $state, toastr, $stateParams, $uibModal) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("cadfile-request");
         $scope.menutitle = NavigationService.makeactive("CadFileRequest");
@@ -2626,10 +2629,12 @@ firstapp
             var userId = $.jStorage.get("user")._id;
         }
 
-        excelName = {
+        $scope.cadLineDetails = {};
+ excelName = {
             name: "CadFileRequest",
             _id: $.jStorage.get("user")._id
         }
+
          $scope.csvFileForVendor = function () {
             console.log("inside csvFile ")
             NavigationService.generateCsvithName("CadLineWork/generatecsvForVendor", excelName,function (data) {
@@ -2678,6 +2683,7 @@ firstapp
         };
 
 
+
         $scope.cadOpen = function () {
             $uibModal.open({
                 animation: true,
@@ -2687,7 +2693,37 @@ firstapp
 
             });
         };
-
+        $scope.upload = function (file) {
+            $(".loading-img").css("display", "block");
+            $(".loading-img-modal").css("display", "block");
+            Upload.upload({
+                url: missionFileUrl,
+                data: {
+                    file: file
+                },
+                headers: {
+                    'Content-Type': undefined
+                },
+                transformRequest: angular.identity,
+                uploadEventHandlers: {
+                    progress: function (e) {
+                        console.log("--------------...", e.loaded * 100 / e.total);
+                        $scope.fileprogressbar = parseInt((e.loaded / e.total) * 100); // percentage of progress
+                    }
+                }
+            }).then(function (resp) {
+                console.log('Success ' + resp.data + 'uploaded. ');
+                data = resp.data;
+                $(".loading-img").css("display", "none");
+                $(".loading-img-modal").css("display", "none");
+                $scope.uploadStatus = "uploaded";
+                var fileList = {};
+                fileList.file = data.data[0];
+                $scope.cadLineDetails.orthoFile = fileList;
+            }, function (resp) {
+                console.log('Error status: ' + resp.status);
+            });
+        };
 
         //*****************user CadFileRequest start*****************************
 
@@ -2698,11 +2734,13 @@ firstapp
             $scope.misssonInfo = data.data;
         })
 
-        $scope.saveExtcadfile = function (data) {
-            data.user = userId;
-            NavigationService.apiCallWithData("CadLineWork/createCad", data, function (data) {
+        $scope.saveExtcadfile = function (cadLineDetails) {
+            cadLineDetails.orthoFile = $scope.cadLineDetails.orthoFile
+            cadLineDetails.user = userId;
+            NavigationService.apiCallWithData("CadLineWork/createCad", cadLineDetails, function (data) {
                 $scope.cadLineDetails = data.data.results;
-                
+
+                $state.reload();
             })
         };
 
@@ -3179,6 +3217,7 @@ firstapp
         excelName = {
             name: "UserList"
         }
+
          $scope.csvFile = function () {
             console.log("inside csvFile ")
             NavigationService.generateCsvithName("User/generatecsv", excelName,function (data) {
@@ -3191,6 +3230,7 @@ firstapp
                 console.log("ater api called", data);
              });
         };
+
         $scope.generateExcel = function () {
             NavigationService.generateExcelWithName("User/exceltotalUser", excelName, function (data) {});
         };
@@ -3370,6 +3410,7 @@ firstapp
                 console.log("ater api called", data);
              });
         };
+
         $scope.generateExcel = function () {
             NavigationService.generateExcelWithName("ProductOrders/exceltotalProductOrders", excelName, function (data) {});
         };
@@ -3545,6 +3586,7 @@ firstapp
         excelName = {
             name: "vendorList"
         }
+
           $scope.csvFile = function () {
             console.log("inside csvFile ")
             NavigationService.generateCsvithName("User/generatecsvForVendor", excelName,function (data) {
@@ -3557,6 +3599,7 @@ firstapp
                 console.log("ater api called", data);
              });
         };
+
         $scope.generateExcel = function () {
             NavigationService.generateExcelWithName("User/exceltotalVendor", excelName, function (data) {});
         };

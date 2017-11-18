@@ -8,7 +8,7 @@ var ConvertTiff = require('tiff-to-png');
 var path = require('path');
 var decode = require("decode-tiff");
 var PNG = require('pngjs');
-var sharp = require('sharp');
+// var sharp = require('sharp');
 var getSize = require('get-folder-size');
 var cron = require('node-cron');
 var gdal = require("gdal");
@@ -164,7 +164,7 @@ var controller = {
                 var cord = []
                 cord.push(pt_wgs84.x)
                 cord.push(pt_wgs84.y)
-                cornList[corner_name.trim()] = cord
+                cornList[corner_name.trim()] = cord.reverse();
                 console.log(cornList)
                 var description = util.format('%s (%d, %d) (%s, %s)',
                     corner_name,

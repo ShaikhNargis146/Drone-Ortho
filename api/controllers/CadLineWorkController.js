@@ -7,7 +7,7 @@ var ConvertTiff = require('tiff-to-png');
 var path = require('path');
 var decode = require("decode-tiff");
 var PNG = require('pngjs');
-var sharp = require('sharp');
+// var sharp = require('sharp');
 var JSZip = require("jszip");
 var gdal = require("gdal");
 
@@ -280,7 +280,7 @@ var controller = {
                             var cord = [];
                             cord.push(pt_wgs84.x);
                             cord.push(pt_wgs84.y);
-                            cornList[corner_name] = cord;
+                            cornList[corner_name] = cord.reverse();
                         });
                         // console.log(cornList)
                         callback(null, cornList);
@@ -351,13 +351,32 @@ var controller = {
                     // console.log("fileName[0]----", cadData.orthoFile.file);
                     var firstName = cadData.orthoFile.file.split(".");
                     var extension = cadData.orthoFile.file.split(".").pop();
+                    var inputFile = path.join(path.join(process.cwd(), "pix4dUpload"), cadData.orthoFile.file);
+                    var outputFile = 'C:/Users/unifli/Documents/googleTile-Mosaic/' + firstName[0] + '.jpg';
+                    exec('gdal_translate -of JPEG -B 1 -B 2 -B 3 -co "QUALITY=70" ' + inputFile + ' ' + outputFile, {
+                        maxBuffer: 1024 * 500000
+                    }, function (error, stdout, stderr) {
+                        if (error) {
+                            console.log("\n error inside gdal_translate", error);
+                            callback(null, error);
+                        } else if (stdout) {
+                            console.log("stdout inside----c -n---->>>>>>>>>>>> ", stdout);
+                            if (stdout.includes("done")) {
+                                console.log("found------>>>>>>>>>>>", stdout.indexOf("done"));
+                                callback(null, "done");
+                            }
+                        } else {
+                            console.log("stderr", stderr);
+                            callback(null, stderr);
+                        }
+                    });
                     // console.log("fileName[0] ", 'C:/Users/unifli/Documents/googleTile-Mosaic/' + firstName[0] + '.jpg', path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile.file)
-                    sharp(path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile.file)
-                        .jpeg()
-                        .toFile('C:/Users/unifli/Documents/googleTile-Mosaic/' + firstName[0] + '.jpg', function (err, info) {
-                            // console.log("done");
-                            callback(null, "done");
-                        });
+                    // sharp(path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile.file)
+                    //     .jpeg()
+                    //     .toFile('C:/Users/unifli/Documents/googleTile-Mosaic/' + firstName[0] + '.jpg', function (err, info) {
+                    //         // console.log("done");
+                    //         callback(null, "done");
+                    //     });
                 }
             ],
             function (err, data) {

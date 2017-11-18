@@ -392,6 +392,7 @@
 						<div class="col-sm-6">
 							<input type="text" ng-model="cadLineDetails.acreage" class="form-control" id="acreage" placeholder="Enter Acreage" disabled
 							    name="acreage" required>
+							<span class="errormsg" ng-show="cadFile.acreage.$touched && cadFile.acreage.$invalid">The acreage is required.</span>
 						</div>
 					</div>
 					<span class="errormsg" ng-show="cadFile.acreage.$touched && cadFile.acreage.$invalid">The acreage is required.</span>
@@ -406,7 +407,7 @@
 
 					<div class="form-group">
 						<div class="col-sm-offset-6 col-sm-6">
-							<button type="button" ng-click="calculateAmount(cadLineDetails)" class="btn green">Calculate Cost</button>
+							<button type="button" ng-disabled="cadFile.$invalid" ng-click="calculateAmount(cadLineDetails)" class="btn green">Calculate Cost</button>
 						</div>
 					</div>
 
