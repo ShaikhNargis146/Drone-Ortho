@@ -166,8 +166,18 @@ var models = {
                 } else {
                     tempObj.UserId = "";
                 }
-                tempObj.Acreage = pg.acreage;
-                tempObj.Description = pg.instruction;
+                if (pg.acreage) {
+                    tempObj.Acreage = pg.acreage;
+                } else {
+                    tempObj.Acreage = "-";
+                }
+                if (pg.instruction) {
+                    tempObj.Description = pg.instruction;
+                } else {
+                    tempObj.Description = "-";
+                }
+
+
                 tempObj.Status = pg.status;
                 tempObj.CreatedAt = moment(pg.createdAt).format("DD/MM/YYYY");
                 if (pg.completionDate) {
@@ -191,8 +201,16 @@ var models = {
             _.forEach(page, function (pg) {
                 var tempObj = {};
                 tempObj.CadId = pg.cadId;
-                tempObj.Acreage = pg.acreage;
-                tempObj.Description = pg.instruction;
+                if (pg.acreage) {
+                    tempObj.Acreage = pg.acreage;
+                } else {
+                    tempObj.Acreage = "-";
+                }
+                if (pg.instruction) {
+                    tempObj.Description = pg.instruction;
+                } else {
+                    tempObj.Description = "-";
+                }
                 tempObj.Status = pg.status;
                 tempObj.DateofRequest = moment(pg.createdAt).format("DD/MM/YYYY");
                 if (pg.completionDate) {
@@ -216,8 +234,16 @@ var models = {
             _.forEach(page, function (pg) {
                 var tempObj = {};
                 tempObj.MissionId = pg.mission.missionId;
-                tempObj.Acreage = pg.acreage;
-                tempObj.Description = pg.instruction;
+                if (pg.acreage) {
+                    tempObj.Acreage = pg.acreage;
+                } else {
+                    tempObj.Acreage = "-";
+                }
+                if (pg.instruction) {
+                    tempObj.Description = pg.instruction;
+                } else {
+                    tempObj.Description = "-";
+                }
                 tempObj.Status = pg.status;
                 tempObj.DateofRequest = moment(pg.createdAt).format("DD/MM/YYYY");
                 if (pg.completionDate) {
@@ -514,10 +540,20 @@ var models = {
                 if (pg.user) {
                     obj.dataId.push(pg.user.dataId);
                 } else {
-                    obj.dataId.push("");
+                    obj.dataId.push("-");
                 }
-                obj.acreage.push(pg.acreage);
-                obj.instruction.push(pg.instruction);
+                if (pg.acreage) {
+                    obj.acreage.push(pg.acreage);
+                } else {
+                    obj.acreage.push("-");
+                }
+                if (pg.instruction) {
+                    obj.instruction.push(pg.instruction);
+                } else {
+                    obj.instruction.push("-");
+                }
+
+
                 obj.status.push(pg.status);
                 obj.createdAt.push(moment(pg.createdAt).format("DD/MM/YYYY"));
                 if (pg.completionDate) {
@@ -540,8 +576,16 @@ var models = {
 
             _.forEach(page, function (pg) {
                 obj.cadId.push(pg.cadId);
-                obj.acreage.push(pg.acreage);
-                obj.instruction.push(pg.instruction);
+                if (pg.acreage) {
+                    obj.acreage.push(pg.acreage);
+                } else {
+                    obj.acreage.push("-");
+                }
+                if (pg.instruction) {
+                    obj.instruction.push(pg.instruction);
+                } else {
+                    obj.instruction.push("-");
+                }
                 obj.status.push(pg.status);
                 obj.createdAt.push(moment(pg.createdAt).format("DD/MM/YYYY"));
                 if (pg.completionDate) {
@@ -564,8 +608,16 @@ var models = {
 
             _.forEach(page, function (pg) {
                 obj.missionId.push(pg.mission.missionId);
-                obj.acreage.push(pg.acreage);
-                obj.instruction.push(pg.instruction);
+                if (pg.acreage) {
+                    obj.acreage.push(pg.acreage);
+                } else {
+                    obj.acreage.push("-");
+                }
+                if (pg.instruction) {
+                    obj.instruction.push(pg.instruction);
+                } else {
+                    obj.instruction.push("-");
+                }
                 obj.status.push(pg.status);
                 obj.createdAt.push(moment(pg.createdAt).format("DD/MM/YYYY"));
                 if (pg.completionDate) {
@@ -793,7 +845,7 @@ var models = {
 
                 var options = {
 
-                    "phantomPath": "C:/Windows/System32/phantomjs",
+                    "phantomPath": "C:/Windows//System32/phantomjs",
                     "format": "A4",
 
                     "directory": "/pdf",

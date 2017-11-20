@@ -115,8 +115,17 @@ var model = {
                 } else {
                     obj["USER ID"] = "-";
                 }
-                obj["ACREAGE"] = mainData.acreage;
-                obj["DESCRIPTION"] = mainData.instruction;
+                if (mainData.acreage) {
+                    obj["ACREAGE"] = mainData.acreage;
+                } else {
+                    obj["ACREAGE"] = "-";
+                }
+                if (mainData.instruction) {
+                    obj["DESCRIPTION"] = mainData.instruction;
+                } else {
+                    obj["DESCRIPTION"] = "-";
+                }
+
                 obj[" STATUS"] = mainData.status;
                 obj["DATE-OF-REQUEST"] = moment(mainData.createdAt).format("DD/MM/YYYY")
                 if (mainData.completionDate) {
@@ -147,8 +156,16 @@ var model = {
         async.concatSeries(match, function (mainData, callback) {
                 var obj = {};
                 obj["CAD ID"] = mainData.cadId;
-                obj["ACREAGE"] = mainData.acreage;
-                obj["DESCRIPTION"] = mainData.instruction;
+                if (mainData.acreage) {
+                    obj["ACREAGE"] = mainData.acreage;
+                } else {
+                    obj["ACREAGE"] = "-";
+                }
+                if (mainData.instruction) {
+                    obj["DESCRIPTION"] = mainData.instruction;
+                } else {
+                    obj["DESCRIPTION"] = "-";
+                }
                 obj[" STATUS"] = mainData.status;
                 obj["DATE-OF-REQUEST"] = moment(mainData.createdAt).format("DD/MM/YYYY")
                 if (mainData.completionDate) {
@@ -168,8 +185,16 @@ var model = {
         async.concatSeries(match, function (mainData, callback) {
                 var obj = {};
                 obj["Mission ID"] = mainData.mission.missionId;
-                obj["ACREAGE"] = mainData.acreage;
-                obj["DESCRIPTION"] = mainData.instruction;
+                if (mainData.acreage) {
+                    obj["ACREAGE"] = mainData.acreage;
+                } else {
+                    obj["ACREAGE"] = "-";
+                }
+                if (mainData.instruction) {
+                    obj["DESCRIPTION"] = mainData.instruction;
+                } else {
+                    obj["DESCRIPTION"] = "-";
+                }
                 obj[" STATUS"] = mainData.status;
                 obj["DATE-OF-REQUEST"] = moment(mainData.createdAt).format("DD/MM/YYYY")
                 if (mainData.completionDate) {
