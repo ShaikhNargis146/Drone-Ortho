@@ -98,7 +98,12 @@ var model = {
         async.concatSeries(match, function (mainData, callback) {
                 var obj = {};
                 obj["MISSION ID"] = mainData.missionId;
-                obj["USER ID"] = mainData.user.dataId;
+                if (mainData.user) {
+                    obj["USER ID"] = mainData.user.dataId;
+                } else {
+                    obj["USER ID"] = "-";
+                }
+
                 obj["MISSION NAME"] = mainData.name;
                 obj["STATUS"] = mainData.status;
                 obj[" DATE"] = moment(mainData.createdAt).format("DD/MM/YYYY")

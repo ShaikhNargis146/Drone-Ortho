@@ -116,7 +116,12 @@ var models = {
             _.forEach(page, function (pg) {
                 var tempObj = {};
                 tempObj.MissionId = pg.missionId;
-                tempObj.UserId = pg.user.dataId;
+                if (pg.user) {
+                    tempObj.UserId = pg.user.dataId;
+                } else {
+                    tempObj.UserId = "-";
+                }
+
                 tempObj.MissionName = pg.name;
                 tempObj.Status = pg.status;
                 tempObj.CreatedAt = moment(pg.createdAt).format("DD/MM/YYYY");
