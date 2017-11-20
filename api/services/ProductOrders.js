@@ -112,8 +112,12 @@ var model = {
     generateExcelProductOrders: function (match, callback) {
         async.concatSeries(match, function (mainData, callback) {
                 var obj = {};
+                if (mainData.user) {
+                    obj["USER ID"] = mainData.user.dataId;
+                } else {
+                    obj["USER ID"] = "-";
+                }
 
-                obj["USER ID"] = mainData.user.dataId;
                 obj["TRANSACTION ID"] = "-"
                 if (mainData.dfmSubscription) {
                     obj["SOLD ITEM"] = mainData.dfmSubscription.name;
@@ -128,8 +132,18 @@ var model = {
                     obj["COST"] = mainData.cadLineWork.amount;
                     obj["TRANSACTION DATE"] = moment(mainData.cadLineWork.createdAt).format("DD/MM/YYYY")
                 }
-                obj["LICENSE TYPE"] = mainData.user.lisence;
-                obj["SHIPPING ADDRESS"] = mainData.shippingAddress.city;
+                if (mainData.user) {
+                    obj["LICENSE TYPE"] = mainData.user.lisence;
+                } else {
+                    obj["LICENSE TYPE"] = "-";
+                }
+
+                if (mainData.shippingAddress) {
+                    obj["SHIPPING ADDRESS"] = mainData.shippingAddress.city;
+                } else {
+                    obj["SHIPPING ADDRESS"] = "-";
+                }
+
                 obj["PAYMENT STATUS"] = mainData.status;
                 callback(null, obj);
             },

@@ -92,7 +92,12 @@ var model = {
                 obj["TICKET ID"] = mainData.ticketId;
                 obj["DATE"] = moment(mainData.createdAt).format("DD/MM/YYYY")
                 obj["SUBJECT"] = mainData.subject;
-                obj["USER ID"] = mainData.user.dataId;
+                if (mainData.user) {
+                    obj["USER ID"] = mainData.user.dataId;
+                } else {
+                    obj["USER ID"] = "-";
+                }
+
                 obj["TICKET STATUS"] = mainData.status;
                 if (mainData.replyDate) {
                     obj["CLOSING DATE"] = moment(mainData.replyDate).format("DD/MM/YYYY")

@@ -297,7 +297,12 @@ var models = {
             var ecommerce = [];
             _.forEach(page, function (pg) {
                 var tempObj = {};
-                tempObj.DataId = pg.user.dataId;
+                if (pg.user) {
+                    tempObj.DataId = pg.user.dataId;
+                } else {
+                    tempObj.DataId = "-";
+                }
+
                 tempObj.TrascationId = "-";
                 tempObj.TrascationDate = "-";
                 if (pg.dfmSubscription) {
@@ -314,9 +319,19 @@ var models = {
                     tempObj.Cost = pg.cadLineWork.amount;
                     tempObj.TrascationDate = moment(pg.cadLineWork.createdAt).format("DD/MM/YYYY");
                 }
-                tempObj.Lisence = pg.user.lisence;
+                if (pg.user) {
+                    tempObj.Lisence = pg.user.lisence;
+                } else {
+                    tempObj.Lisence = "-";
+                }
+
                 tempObj.Status = pg.status;
-                tempObj.ShippingAddress = pg.shippingAddress.city;
+                if (pg.shippingAddress) {
+                    tempObj.ShippingAddress = pg.shippingAddress.city;
+                } else {
+                    tempObj.ShippingAddress = "-";
+                }
+
 
                 ecommerce.push(tempObj);
             });
@@ -355,7 +370,12 @@ var models = {
                 tempObj.TicketId = pg.ticketId;
                 tempObj.CreatedAt = moment(pg.createdAt).format("DD/MM/YYYY")
                 tempObj.Subject = pg.subject;
-                tempObj.UserId = pg.user.dataId;
+                if (pg.user) {
+                    tempObj.UserId = pg.user.dataId;
+                } else {
+                    tempObj.UserId = "-";
+                }
+
                 tempObj.TicketStatus = pg.status;
                 if (pg.replyDate) {
                     tempObj.TicketClosingDate = moment(pg.replyDate).format("DD/MM/YYYY");
@@ -432,9 +452,23 @@ var models = {
             var vendorbill = [];
             _.forEach(page, function (pg) {
                 var tempObj = {};
-                tempObj.MissionId = pg.cad.mission.missionId;
-                tempObj.VendorBillId = pg.cad.vendor.dataId;
-                tempObj.Earning = pg.cad.vendorCharges;
+                if (pg.cad.mission) {
+                    tempObj.MissionId = pg.cad.mission.missionId;
+                } else {
+                    tempObj.MissionId = "-";
+                }
+                if (pg.cad.vendor) {
+                    tempObj.VendorBillId = pg.cad.vendor.dataId;
+                } else {
+                    tempObj.VendorBillId = "-";
+                }
+
+                if (pg.cad) {
+                    tempObj.Earning = pg.cad.vendorCharges;
+                } else {
+                    tempObj.Earning = "-";
+                }
+
                 tempObj.PaymentStatus = pg.paymentStatus;
                 tempObj.AdditionalInfo = pg.additionalInfo;
                 tempObj.BillDate = moment(pg.createdAt).format("DD/MM/YYYY")
@@ -502,7 +536,12 @@ var models = {
             console.log("inside if mission")
             _.forEach(page, function (pg) {
                 obj.missionId.push(pg.missionId);
-                obj.dataId.push(pg.user.dataId);
+                if (pg.user) {
+                    obj.dataId.push(pg.user.dataId);
+                } else {
+                    obj.dataId.push("-");
+                }
+
                 obj.name.push(pg.name);
                 obj.status.push(pg.status);
                 obj.createdAt.push(moment(pg.createdAt).format("DD/MM/YYYY"));
@@ -669,7 +708,12 @@ var models = {
             obj.ShippingAddress = [];
             console.log("inside if ecommerce")
             _.forEach(page, function (pg) {
-                obj.DataId.push(pg.user.dataId);
+                if (pg.user) {
+                    obj.DataId.push(pg.user.dataId);
+                } else {
+                    obj.DataId.push("-");
+                }
+
                 obj.TrascationId.push("-");
                 if (pg.dfmSubscription) {
                     obj.SoldItem.push(pg.dfmSubscription.name);
@@ -684,10 +728,21 @@ var models = {
                     obj.Cost.push(pg.cadLineWork.amount);
                     obj.TrascationDate.push(moment(pg.cadLineWork.createdAt).format("DD/MM/YYYY"));
                 }
+                if (pg.user) {
+                    obj.Lisence.push(pg.user.lisence);
+                } else {
+                    obj.Lisence.push("-");
+                }
 
-                obj.Lisence.push(pg.user.lisence);
+
                 obj.Status.push(pg.status);
-                obj.ShippingAddress.push(pg.shippingAddress.city);
+                if (pg.shippingAddress) {
+                    obj.ShippingAddress.push(pg.shippingAddress.city);
+
+                } else {
+                    obj.ShippingAddress.push("-");
+                }
+
             });
             obj.name1 = "ecommerce";
         } else if (page.name == "vendor") {
@@ -793,23 +848,41 @@ var models = {
             obj.Advance = [];
             console.log("inside if vendorbill")
             _.forEach(page, function (pg) {
-                obj.missionId.push(pg.cad.mission.missionId);
-                obj.vendorBillId.push(pg.cad.vendor.dataId);
-                obj.Earning.push(pg.cad.vendorCharges);
+                if (pg.cad.mission) {
+                    obj.missionId.push(pg.cad.mission.missionId);
+                } else {
+                    obj.missionId.push("-");
+                }
+                if (pg.cad.vendor) {
+                    obj.vendorBillId.push(pg.cad.vendor.dataId);
+                } else {
+                    obj.vendorBillId.push("-");
+                }
+                if (pg.cad) {
+                    obj.Earning.push(pg.cad.vendorCharges);
+                } else {
+                    obj.Earning.push("-");
+                }
+
                 obj.paymentStatus.push(pg.paymentStatus);
                 obj.additionalInfo.push(pg.additionalInfo);
                 obj.createdAt.push(moment(pg.createdAt).format("DD/MM/YYYY"));
                 obj.paidAmount.push(pg.paidAmount);
-                if (pg.cad.vendorCharges > pg.paidAmount) {
-                    obj.balance.push(pg.cad.vendorCharges - pg.paidAmount);
+                if (pg.cad) {
+                    if (pg.cad.vendorCharges > pg.paidAmount) {
+                        obj.balance.push(pg.cad.vendorCharges - pg.paidAmount);
+                    } else {
+                        obj.balance.push("-")
+                    }
+                    if (pg.cad.vendorCharges < pg.paidAmount) {
+                        obj.Advance.push(mainData.cad.vendorCharges - mainData.cad.vendorCharges)
+                    } else {
+                        obj.Advance.push("-")
+                    }
                 } else {
-                    obj.balance.push("-")
+                    console.log("inside else")
                 }
-                if (pg.cad.vendorCharges < pg.paidAmount) {
-                    obj.Advance.push(mainData.cad.vendorCharges - mainData.cad.vendorCharges)
-                } else {
-                    obj.Advance.push("-")
-                }
+
             });
             obj.name1 = "vendorbill";
         }

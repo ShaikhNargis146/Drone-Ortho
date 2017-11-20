@@ -44,23 +44,42 @@ var model = {
                 console.log("concatSeries", mainData);
                 console.log("concatSeries", mainData.earning)
                 var obj = {};
-                obj["MISSION ID"] = mainData.cad.mission.missionId;
-                obj["VENDOR BILLING ID"] = mainData.cad.vendor.dataId;
-                obj["Earning "] = mainData.cad.vendorCharges;
+                if (mainData.cad.mission) {
+                    obj["MISSION ID"] = mainData.cad.mission.missionId;
+                } else {
+                    obj["MISSION ID"] = "-";
+                }
+                if (mainData.cad.vendor) {
+                    obj["VENDOR BILLING ID"] = mainData.cad.vendor.dataId;
+                } else {
+                    obj["VENDOR BILLING ID"] = "-";
+                }
+                if (mainData.cad) {
+                    obj["Earning "] = mainData.cad.vendorCharges;
+                } else {
+                    obj["Earning "] = "-";
+                }
+
                 obj[" PAYMENT STATUS"] = mainData.paymentStatus;
                 obj["ADDITIONAL INFORMATION"] = mainData.additionalInfo;
                 obj["BILL DATE "] = moment(mainData.createdAt).format("DD/MM/YYYY")
                 obj["PAID AMOUNT"] = mainData.paidAmount;
-                if (mainData.cad.vendorCharges > mainData.paidAmount) {
-                    obj["BALANCE AMOUNT"] = mainData.cad.vendorCharges - mainData.paidAmount;
+                if (mainData.cad) {
+                    if (mainData.cad.vendorCharges > mainData.paidAmount) {
+                        obj["BALANCE AMOUNT"] = mainData.cad.vendorCharges - mainData.paidAmount;
+                    } else {
+                        obj["BALANCE AMOUNT"] = "-";
+                    }
+                    if (mainData.cad.vendorCharges < mainData.paidAmount) {
+                        obj["OUTSTANDING AMOUNT"] = mainData.cad.vendorCharges - mainData.cad.vendorCharges;
+                    } else {
+                        obj["OUTSTANDING AMOUNT"] = "-";
+                    }
                 } else {
                     obj["BALANCE AMOUNT"] = "-";
-                }
-                if (mainData.cad.vendorCharges < mainData.paidAmount) {
-                    obj["OUTSTANDING AMOUNT"] = mainData.cad.vendorCharges - mainData.cad.vendorCharges;
-                } else {
                     obj["OUTSTANDING AMOUNT"] = "-";
                 }
+
                 callback(null, obj);
             },
             function (err, singleData) {
