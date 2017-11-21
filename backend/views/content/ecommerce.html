@@ -66,7 +66,7 @@
                                             <td>
                                                 <span ng-if="orderData.cadLineWork">CadLineWork</span>
                                                 <span ng-if="orderData.dfmSubscription">{{ orderData.dfmSubscription.name}}</span>
-                                                <span ng-if="orderData.products">{{orderData.products.name}}</span>
+                                                <span ng-if="orderData.products[0]">{{orderData.products.name}}</span>
                                             </td>
                                             <td>{{orderData.totalAmount}}</td>
                                             <td>{{orderData.user.lisence}}</td>

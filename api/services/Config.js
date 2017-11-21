@@ -316,8 +316,11 @@ var models = {
                     tempObj.SoldItem = pg.dfmSubscription.name
 
                 } else if (pg.products[0]) {
-                    tempObj.SoldItem = pg.products.name;
-
+                    var myVal = '';
+                    _.forEach(products, function (pro) {
+                        myVal = myVal + ',' + pro.name;
+                    })
+                    tempObj.SoldItem = myVal;
                 } else if (pg.cadLineWork) {
                     tempObj.SoldItem = "cadLineWork";
                 }
@@ -432,9 +435,11 @@ var models = {
                 if (pg.dfmSubscription) {
                     tempObj.name = pg.dfmSubscription.name;
                 } else if (pg.products[0]) {
+                    var myVal = '';
                     _.forEach(products, function (pro) {
-                        tempObj.name = pro.products.name;
+                        myVal = myVal + ',' + pro.name;
                     })
+                    tempObj.name = myVal;
 
                 } else if (pg.cadLineWork) {
                     tempObj.name = "cadLineWork";
@@ -530,7 +535,6 @@ var models = {
 
 
     generatePdfFormatData: function (page, res) {
-        console.log("inside generatePdfFormatData", page.name)
         // console.log("inside generatePdfFormatData", page)
 
         var pdf = require('html-pdf');
@@ -846,6 +850,7 @@ var models = {
                     obj.name.push(pg.dfmSubscription.name);
                 } else if (pg.products[0]) {
                     var myVal = '';
+                    var myVal = '';
                     _.forEach(products, function (pro) {
                         myVal = myVal + ',' + pro.name;
                     })
@@ -1015,7 +1020,7 @@ var models = {
             obj.price = page.dfmSubscription.amount;
 
 
-        } else if (page.products) {
+        } else if (page.products[0]) {
             obj.SoldItem = page.products.name;
             obj.price = page.products.amount;
         } else if (page.cadLineWork) {

@@ -187,14 +187,16 @@ var model = {
                 var obj = {};
                 if (mainData.dfmSubscription) {
                     obj["PRODUCT NAME"] = mainData.dfmSubscription.name;
-                    obj["COST"] = mainData.totalAmount;
+
                 } else if (mainData.products[0]) {
-                    obj["PRODUCT"] = mainData.products.name;
-                    obj["COST"] = mainData.totalAmount;
+                    _.forEach(products, function (pro) {
+                        myVal = myVal + ',' + pro.name;
+                    })
+                    obj["PRODUCT"] = myVal;
                 } else if (mainData.cadLineWork) {
-                    obj["PRODUCT "] = cadLineWork;
-                    obj["COST"] = mainData.totalAmount;
+                    obj["PRODUCT "] = "cadLineWork";
                 }
+                obj["COST"] = mainData.totalAmount;
                 if (mainData.transactionDate) {
                     obj["TRANSACTION DATE"] = moment(mainData.transactionDate).format("DD/MM/YYYY")
                 } else {
