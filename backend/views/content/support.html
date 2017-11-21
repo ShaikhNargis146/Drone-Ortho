@@ -32,11 +32,10 @@
                       <div class="col-md-6">
                         <div class="pull-right"> <label>Search: <input type="text " ng-change="getAllItems(true) " placeholder="Search Here...
                         " ng-model="search.keyword " /></label>
-                          <div class="dt-buttons btn-group"> <a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Copy</span>             </a>                            <a class="btn btn-default buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"
+                          <div class="dt-buttons btn-group"> <a class="btn btn-default buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"
                               ng-click="csvFileForUser();"><span>CSV</span>             </a> <a class="btn btn-default buttons-excel buttons-html5"
                               tabindex="0" ng-click=generateExcelforUser(); aria-controls="DataTables_Table_0"><span>Excel</span>             </a>                            <a class="btn btn-default buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"
-                              ng-click="generatePdfForUser();"><span>PDF</span>             </a> <a class="btn btn-default buttons-print"
-                              tabindex="0" aria-controls="DataTables_Table_0"><span>Print</span>             </a> </div>
+                              ng-click="generatePdfForUser();"><span>PDF</span>             </a> </div>
                         </div>
                       </div>
                     </div>
@@ -61,7 +60,8 @@
                           <td><a ui-sref="ticket-history({'ticketId' : ticket._id})">{{ticket.subject}}</a></td>
                           <td><a ui-sref="ticket-history({'ticketId' : ticket._id})">{{ticket.description}}</a></td>
                           <td><a ui-sref="ticket-history({'ticketId' : ticket._id})">{{ticket.status}}</a></td>
-                          <td><a ui-sref="ticket-history({'ticketId' : ticket._id})"></a>{{ticket.replyDate | date}}</td>
+                          <td>
+                            <a ui-sref="ticket-history({'ticketId' : ticket._id})"></a>{{ticket.replyDate | date}}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -109,11 +109,10 @@
                   <div class="col-md-6">
                     <div class="pull-right"> <label>Search:<input type="text " ng-change="getAllItems(true) " placeholder="Search Here...
                         " ng-model="search.keyword " /></label>
-                      <div class="dt-buttons btn-group"> <a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Copy</span>             </a>                        <a class="btn btn-default buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"
+                      <div class="dt-buttons btn-group"> <a class="btn btn-default buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"
                           ng-click="csvFile();"><span>CSV</span>             </a> <a class="btn btn-default buttons-excel buttons-html5"
                           tabindex="0" ng-click=generateExcel(); aria-controls="DataTables_Table_0"><span>Excel</span>             </a>                        <a class="btn btn-default buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"
-                          ng-click="generatePdf();"><span>PDF</span>             </a> <a class="btn btn-default buttons-print"
-                          tabindex="0" aria-controls="DataTables_Table_0"><span>Print</span>             </a> </div>
+                          ng-click="generatePdf();"><span>PDF</span>             </a> </div>
                     </div>
                   </div>
                 </div>
