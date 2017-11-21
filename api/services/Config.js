@@ -1015,7 +1015,7 @@ var models = {
             obj.price = page.dfmSubscription.amount;
 
 
-        } else if (page.products) {
+        } else if (page.products[0]) {
             obj.SoldItem = page.products.name;
             obj.price = page.products.amount;
         } else if (page.cadLineWork) {
