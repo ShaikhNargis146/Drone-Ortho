@@ -317,7 +317,7 @@ var models = {
 
                 } else if (pg.products[0]) {
                     var myVal = '';
-                    _.forEach(products, function (pro) {
+                    _.forEach(pg.products, function (pro) {
                         myVal = myVal + ',' + pro.name;
                     })
                     tempObj.SoldItem = myVal;
@@ -436,7 +436,7 @@ var models = {
                     tempObj.name = pg.dfmSubscription.name;
                 } else if (pg.products[0]) {
                     var myVal = '';
-                    _.forEach(products, function (pro) {
+                    _.forEach(pg.products, function (pro) {
                         myVal = myVal + ',' + pro.name;
                     })
                     tempObj.name = myVal;
@@ -743,7 +743,7 @@ var models = {
                     obj.SoldItem.push(pg.dfmSubscription.name);
                 } else if (pg.products[0]) {
                     var myVal = '';
-                    _.forEach(products, function (pro) {
+                    _.forEach(pg.products, function (pro) {
                         myVal = myVal + ',' + pro.name;
                     })
                     obj.SoldItem.push(myVal);
@@ -850,8 +850,8 @@ var models = {
                     obj.name.push(pg.dfmSubscription.name);
                 } else if (pg.products[0]) {
                     var myVal = '';
-                    var myVal = '';
-                    _.forEach(products, function (pro) {
+
+                    _.forEach(pg.products, function (pro) {
                         myVal = myVal + ',' + pro.name;
                     })
                     obj.name.push(myVal);

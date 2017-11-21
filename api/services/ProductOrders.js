@@ -133,7 +133,7 @@ var model = {
                 if (mainData.dfmSubscription) {
                     obj["SOLD ITEM"] = mainData.dfmSubscription.name;
                 } else if (mainData.products[0]) {
-                    _.forEach(products, function (pro) {
+                    _.forEach(mainData.products, function (pro) {
                         myVal = myVal + ',' + pro.name;
                     })
                     obj["SOLD ITEM"] = myVal;
@@ -189,7 +189,7 @@ var model = {
                     obj["PRODUCT NAME"] = mainData.dfmSubscription.name;
 
                 } else if (mainData.products[0]) {
-                    _.forEach(products, function (pro) {
+                    _.forEach(mainData.products, function (pro) {
                         myVal = myVal + ',' + pro.name;
                     })
                     obj["PRODUCT"] = myVal;
