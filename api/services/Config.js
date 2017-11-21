@@ -934,7 +934,7 @@ var models = {
 
                 var options = {
 
-                    // "phantomPath": "C:/Windows//System32/phantomjs",
+                    "phantomPath": "C:/Windows//System32/phantomjs",
                     "format": "A4",
 
                     "directory": "/pdf",
@@ -1029,8 +1029,8 @@ var models = {
                 });
 
                 var options = {
-                    "phantomPath": "node_modules/phantomjs/bin/phantomjs",
-                    // "phantomPath": "C:/Windows/System32/phantomjs",
+                    // "phantomPath": "node_modules/phantomjs/bin/phantomjs",
+                    "phantomPath": "C:/Windows/System32/phantomjs",
                     "format": "A4",
                     // Export options 
                     "directory": "/tmp",
