@@ -412,7 +412,7 @@ var controller = {
     },
 };
 
-cron.schedule('1 * * * *', function () {
+cron.schedule('1 * * * * *', function () {
     Mission.find({
         status: {
             $nin: ['ready', 'failed']
