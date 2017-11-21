@@ -61,9 +61,13 @@
                                     <tbody>
                                         <tr ng-repeat="orderData in allOrderData track by $index">
                                             <td>{{orderData.user.dataId}}</td>
-                                            <td>transactionId</td>
-                                            <td>transactionDate</td>
-                                            <td>{{orderData.cadLineWork.name || orderData.dfmSubscription.name }}</td>
+                                            <td>{{orderData.transactionId}}</td>
+                                            <td>{{orderData.transactionDate}}</td>
+                                            <td>
+                                                <span ng-if="orderData.cadLineWork">"CadLineWork"</span>
+                                                <span ng-if="orderData.dfmSubscription">{{ orderData.dfmSubscription.name}}</span>
+                                                <span ng-if="orderData.products">{{orderData.products.name}}</span>
+                                            </td>
                                             <td>{{orderData.totalAmount}}</td>
                                             <td>{{orderData.user.lisence}}</td>
                                             <td>{{orderData.discountCoupon}}</td>

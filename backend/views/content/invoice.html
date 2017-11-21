@@ -57,11 +57,11 @@
                         <tr ng-repeat="abc in product.products" ng-if="abc._id">
                           <!--<tr ng-repeat="abc in product.products">-->
                           <td>{{abc.name}}</td>
-                          <td>{{abc.createdAt | date}}
+                          <td>{{abc.transactionDate | date}}
                           </td>
-                          <td>{{abc.price}}</td>
+                          <td>{{abc.totalAmount}}</td>
                           <td>{{abc.status}}</td>
-                          <td></td>
+                          <td>{{abc.transactionId}}</td>
                           <td>
                             <!--<button type="button" ng-click="getInvoice()" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;-->
                             <button type="button" class="btn green btn-outline btn-xs" ng-click="downloadInvoice(product.pdf)">Download</button>
@@ -76,12 +76,10 @@
                           <!--<tr ng-repeat="cad in productData">-->
 
                           <td>{{cad.cadLineWork.name}}</td>
-                          <td>{{cad.cadLineWork.createdAt | date}}</td>
-                          <td>{{cad.cadLineWork.amount}}</td>
+                          <td>{{cad.transactionDate | date}}</td>
+                          <td>{{cad.totalAmount}}</td>
                           <td>{{cad.status}}</td>
-                          <td>{{cad.cadLineWork.status}}</td>
-                          <td></td>
-
+                          <td>{{cad.transactionId}}</td>
                           <td>
                             <!--<button type="button" ng-click="getInvoice()" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;-->
                             <button type="button" class="btn green btn-outline btn-xs" ng-click="downloadInvoice(cad.pdf)">Download</button>
@@ -96,11 +94,11 @@
 
                           <td>{{dfm.dfmSubscription.name}}
                           </td>
-                          <td>{{dfm.dfmSubscription.createdAt | date}}</td>
-                          <td>{{dfm.dfmSubscription.amount}}</td>
+                          <td>{{dfm.transactionDate | date}}</td>
+                          <td>{{dfm.totalAmount}}</td>
                           <td>{{dfm.status}}</td>
-                          <td>{{cad.dfmSubscription.status}}</td>
-                          <td></td>
+                          <td>{{dfm.transactionId}}</td>
+
                           <td>
                             <!--<button type="button" ng-click="getInvoice()" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;-->
                             <button type="button" class="btn green btn-outline btn-xs" ng-click="downloadInvoice(dfm.pdf)">Download</button>

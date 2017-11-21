@@ -71,7 +71,10 @@ var schema = new Schema({
     trackingCode: String,
     paymentId: String,
     oraganization: String,
-    apartment: String
+    apartment: String,
+    transactionId: String,
+    transactionDate: Date
+
 });
 
 
@@ -117,21 +120,25 @@ var model = {
                 } else {
                     obj["USER ID"] = "-";
                 }
-
-                obj["TRANSACTION ID"] = "-"
+                if (mainData.transactionDate) {
+                    obj["TRANSACTION DATE"] = mainData.transactionDate;
+                } else {
+                    obj["TRANSACTION DATE"] = "-";
+                }
+                if (mainData.transactionId) {
+                    obj["TRANSACTION ID"] = mainData.transactionId;
+                } else {
+                    obj["TRANSACTION ID"] = "-";
+                }
                 if (mainData.dfmSubscription) {
                     obj["SOLD ITEM"] = mainData.dfmSubscription.name;
-                    obj["COST"] = mainData.dfmSubscription.amount;
-                    obj["TRANSACTION DATE"] = moment(mainData.dfmSubscription.createdAt).format("DD/MM/YYYY")
                 } else if (mainData.products) {
                     obj["SOLD ITEM"] = mainData.products.name;
-                    obj["COST"] = mainData.products.amount;
-                    obj["TRANSACTION DATE"] = moment(mainData.products.createdAt).format("DD/MM/YYYY")
                 } else if (mainData.cadLineWork) {
                     obj["SOLD ITEM"] = mainData.cadLineWork.name;
-                    obj["COST"] = mainData.cadLineWork.amount;
-                    obj["TRANSACTION DATE"] = moment(mainData.cadLineWork.createdAt).format("DD/MM/YYYY")
                 }
+                obj["COST"] = mainData.totalAmount;
+
                 if (mainData.user) {
                     obj["LICENSE TYPE"] = mainData.user.lisence;
                 } else {
@@ -168,20 +175,24 @@ var model = {
 
     generateExcelProductOrdersforUser: function (match, callback) {
         async.concatSeries(match, function (mainData, callback) {
+                console.log("mainData.transactionDate", mainData.transactionDate)
                 var obj = {};
                 if (mainData.dfmSubscription) {
                     obj["PRODUCT NAME"] = mainData.dfmSubscription.name;
-                    obj["COST"] = mainData.dfmSubscription.amount;
-                    obj["TRANSACTION DATE"] = moment(mainData.dfmSubscription.createdAt).format("DD/MM/YYYY")
+                    obj["COST"] = mainData.totalAmount;
                 } else if (mainData.products) {
                     obj["PRODUCT"] = mainData.products.name;
-                    obj["COST"] = mainData.products.amount;
-                    obj["TRANSACTION DATE"] = moment(mainData.products.createdAt).format("DD/MM/YYYY")
+                    obj["COST"] = mainData.totalAmount;
                 } else if (mainData.cadLineWork) {
-                    obj["PRODUCT "] = mainData.cadLineWork.name;
-                    obj["COST"] = mainData.cadLineWork.amount;
-                    obj["TRANSACTION DATE"] = moment(mainData.cadLineWork.createdAt).format("DD/MM/YYYY")
+                    obj["PRODUCT "] = cadLineWork;
+                    obj["COST"] = mainData.totalAmount;
                 }
+                if (mainData.transactionDate) {
+                    obj["TRANSACTION DATE"] = moment(mainData.transactionDate).format("DD/MM/YYYY")
+                } else {
+                    obj["TRANSACTION DATE"] = "-"
+                }
+
                 obj["PAYMENT STATUS"] = mainData.status;
                 callback(null, obj);
             },
@@ -278,7 +289,7 @@ var model = {
             start: (page - 1) * maxRow,
             count: maxRow
         };
-        ProductOrders.find({}).deepPopulate('user')
+        ProductOrders.find({}).deepPopulate('user dfmSubscription products  cadLineWork')
             .order(options)
             .keyword(options)
             .page(options,

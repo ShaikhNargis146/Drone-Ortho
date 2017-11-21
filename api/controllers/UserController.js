@@ -5,7 +5,6 @@ var controller = {
             data.name = "vendor"
             Config.jsonTOCsvConvert(data, function (csv) {
                 _.cloneDeep(csv);
-                console.log("CSV", csv)
                 res.set('Content-Type', "application/CSV");
                 res.set('Content-Disposition', "attachment;filename=" + csv.path);
                 res.send(csv.csvData);
@@ -17,7 +16,6 @@ var controller = {
             data.name = "user"
             Config.jsonTOCsvConvert(data, function (csv) {
                 _.cloneDeep(csv);
-                console.log("CSV", csv)
                 res.set('Content-Type', "application/CSV");
                 res.set('Content-Disposition', "attachment;filename=" + csv.path);
                 res.send(csv.csvData);
@@ -30,7 +28,6 @@ var controller = {
             data.name = "vendor"
             Config.generatePdfFormatData(data, function (pdf) {
                 _.cloneDeep(pdf);
-                console.log("pdf", pdf)
                 res.set('Content-Type', "application/pdf");
                 res.set('Content-Disposition', "attachment;filename=" + pdf.path);
                 res.send(pdf.pdfData);
@@ -42,7 +39,6 @@ var controller = {
             data.name = "user"
             Config.generatePdfFormatData(data, function (pdf) {
                 _.cloneDeep(pdf);
-                console.log("pdf", pdf)
                 res.set('Content-Type', "application/pdf");
                 res.set('Content-Disposition', "attachment;filename=" + pdf.path);
                 res.send(pdf.pdfData);

@@ -302,22 +302,26 @@ var models = {
                 } else {
                     tempObj.DataId = "-";
                 }
-
-                tempObj.TrascationId = "-";
-                tempObj.TrascationDate = "-";
+                if (pg.transactionId) {
+                    tempObj.TrascationId = pg.transactionId;
+                } else {
+                    tempObj.TrascationId = "-";
+                }
+                if (pg.transactionDate) {
+                    tempObj.TrascationDate = pg.TrascationDate;
+                } else {
+                    tempObj.TrascationDate = "-";
+                }
                 if (pg.dfmSubscription) {
                     tempObj.SoldItem = pg.dfmSubscription.name;
-                    tempObj.Cost = pg.dfmSubscription.amount;
-                    tempObj.TrascationDate = moment(pg.dfmSubscription.createdAt).format("DD/MM/YYYY");
+                    tempObj.Cost = pg.totalAmount;
 
                 } else if (pg.products) {
                     tempObj.SoldItem = pg.products.name;
-                    tempObj.Cost = pg.products.amount;
-                    tempObj.TrascationDate = moment(pg.products.createdAt).format("DD/MM/YYYY");
+                    tempObj.Cost = pg.totalAmount;
                 } else if (pg.cadLineWork) {
-                    tempObj.SoldItem = pg.cadLineWork.name;
-                    tempObj.Cost = pg.cadLineWork.amount;
-                    tempObj.TrascationDate = moment(pg.cadLineWork.createdAt).format("DD/MM/YYYY");
+                    tempObj.SoldItem = "cadLineWork";
+                    tempObj.Cost = pg.totalAmount;
                 }
                 if (pg.user) {
                     tempObj.Lisence = pg.user.lisence;
@@ -416,28 +420,27 @@ var models = {
 
             });
         } else if (page.name == "invoice") {
-            var fields = ['name', 'createdAt', 'amount', 'status'];
+            var fields = ['name', 'TrasactionDate', 'amount', 'status'];
             var invoice = [];
             _.forEach(page, function (pg) {
                 var tempObj = {};
                 tempObj.CadId = pg.cadId;
                 if (pg.dfmSubscription) {
                     tempObj.name = pg.dfmSubscription.name;
-                    tempObj.createdAt = moment(pg.dfmSubscription.createdAt).format("DD/MM/YYYY")
-                    tempObj.amount = pg.dfmSubscription.amount;
-                    tempObj.status = pg.status;
                 } else if (pg.products) {
                     tempObj.name = pg.products.name;
-                    tempObj.createdAt = moment(pg.products.createdAt).format("DD/MM/YYYY")
-                    tempObj.amount = pg.products.amount;
-                    tempObj.status = pg.status;
                 } else if (pg.cadLineWork) {
-                    tempObj.name = pg.cadLineWork.name;
-                    tempObj.createdAt = moment(pg.cadLineWork.createdAt).format("DD/MM/YYYY")
-                    tempObj.amount = pg.cadLineWork.amount;
-                    tempObj.status = pg.status;
+                    tempObj.name = "cadLineWork";
+
+                }
+                if (pg.transactionDate) {
+                    tempObj.TrasactionDate = moment(pg.transactionDate).format("DD/MM/YYYY")
+                } else {
+                    tempObj.TrasactionDate = "-"
                 }
 
+                tempObj.amount = pg.totalAmount;
+                tempObj.status = pg.status;
                 invoice.push(tempObj);
             });
 
@@ -713,20 +716,28 @@ var models = {
                 } else {
                     obj.DataId.push("-");
                 }
+                if (pg.transactionId) {
+                    obj.TrascationId.push(pg.transactionId);
+                } else {
+                    obj.TrascationId.push("-");
+                }
+                if (pg.transactionDate) {
+                    obj.TrascationDate.push(pg.transactionDate);
+                } else {
+                    obj.TrascationDate.push("-");
+                }
 
                 obj.TrascationId.push("-");
                 if (pg.dfmSubscription) {
                     obj.SoldItem.push(pg.dfmSubscription.name);
-                    obj.Cost.push(pg.dfmSubscription.amount);
-                    obj.TrascationDate.push(moment(pg.dfmSubscription.createdAt).format("DD/MM/YYYY"));
+                    obj.Cost.push(pg.totalAmount);
                 } else if (pg.products) {
                     obj.SoldItem.push(pg.products.name);
-                    obj.Cost.push(pg.products.amount);
-                    obj.TrascationDate.push(moment(pg.products.createdAt).format("DD/MM/YYYY"));
+                    obj.Cost.push(pg.totalAmount);
                 } else if (pg.cadLineWork) {
-                    obj.SoldItem.push(pg.cadLineWork.name);
-                    obj.Cost.push(pg.cadLineWork.amount);
-                    obj.TrascationDate.push(moment(pg.cadLineWork.createdAt).format("DD/MM/YYYY"));
+                    obj.SoldItem.push("cadLineWork");
+                    obj.Cost.push(pg.totalAmount);
+
                 }
                 if (pg.user) {
                     obj.Lisence.push(pg.user.lisence);
@@ -817,20 +828,20 @@ var models = {
             _.forEach(page, function (pg) {
                 if (pg.dfmSubscription) {
                     obj.name.push(pg.dfmSubscription.name);
-                    obj.createdAt.push(moment(pg.dfmSubscription.createdAt).format("DD/MM/YYYY"));
-                    obj.amount.push(pg.dfmSubscription.amount);
-                    obj.status.push(pg.status);
                 } else if (pg.products) {
                     obj.name.push(pg.products.name);
-                    obj.createdAt.push(moment(pg.products.createdAt).format("DD/MM/YYYY"));
-                    obj.amount.push(pg.products.amount);
-                    obj.status.push(pg.status);
                 } else if (pg.cadLineWork) {
-                    obj.name.push(pg.cadLineWork.name);
-                    obj.createdAt.push(moment(pg.cadLineWork.createdAt).format("DD/MM/YYYY"));
-                    obj.amount.push(pg.cadLineWork.amount);
-                    obj.status.push(pg.status);
+                    obj.name.push("cadLineWork");
+
                 }
+                if (pg.transactionDate) {
+                    obj.createdAt.push(moment(pg.transactionDate).format("DD/MM/YYYY"));
+                } else {
+                    obj.createdAt.push("-");
+                }
+
+                obj.amount.push(pg.totalAmount);
+                obj.status.push(pg.status);
 
 
             });
@@ -923,7 +934,7 @@ var models = {
 
                 var options = {
 
-                    "phantomPath": "C:/Windows//System32/phantomjs",
+                    // "phantomPath": "C:/Windows//System32/phantomjs",
                     "format": "A4",
 
                     "directory": "/pdf",
@@ -976,7 +987,21 @@ var models = {
         obj.status = page.status;
         obj.phonenumber = page.phonenumber;
         obj.apartment = page.apartment;
-        obj.invoiceNo = page.invoiceNo;
+
+
+        obj.Cost = page.totalAmount;
+        if (page.dfmSubscription) {
+            obj.SoldItem = page.dfmSubscription.name;
+            obj.price = page.dfmSubscription.amount;
+
+
+        } else if (page.products) {
+            obj.SoldItem = page.products.name;
+            obj.price = page.products.amount;
+        } else if (page.cadLineWork) {
+            obj.SoldItem = "cadLineWork";
+            obj.price = page.cadLineWork.amount;
+        }
         var i = 0;
 
         var file = "cad_invoice";
@@ -1004,8 +1029,8 @@ var models = {
                 });
 
                 var options = {
-                    // "phantomPath": "node_modules/phantomjs/bin/phantomjs",
-                    "phantomPath": "C:/Windows/System32/phantomjs",
+                    "phantomPath": "node_modules/phantomjs/bin/phantomjs",
+                    // "phantomPath": "C:/Windows/System32/phantomjs",
                     "format": "A4",
                     // Export options 
                     "directory": "/tmp",
