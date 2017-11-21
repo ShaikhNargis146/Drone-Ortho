@@ -738,7 +738,11 @@ var models = {
                 if (pg.dfmSubscription) {
                     obj.SoldItem.push(pg.dfmSubscription.name);
                 } else if (pg.products[0]) {
-                    obj.SoldItem.push(pg.products.name);
+                    var myVal = '';
+                    _.forEach(products, function (pro) {
+                        myVal = myVal + ',' + pro.name;
+                    })
+                    obj.SoldItem.push(myVal);
                 } else if (pg.cadLineWork) {
                     obj.SoldItem.push("cadLineWork");
 
@@ -813,6 +817,7 @@ var models = {
             obj.dataId = [];
             obj.description = [];
             obj.status = [];
+
             obj.createdAt = [];
             obj.replyDate = [];
 
@@ -840,9 +845,11 @@ var models = {
                 if (pg.dfmSubscription) {
                     obj.name.push(pg.dfmSubscription.name);
                 } else if (pg.products[0]) {
+                    var myVal = '';
                     _.forEach(products, function (pro) {
-                        obj.name.push(pro.products.name);
+                        myVal = myVal + ',' + pro.name;
                     })
+                    obj.name.push(myVal);
                 } else if (pg.cadLineWork) {
                     obj.name.push("cadLineWork");
 
@@ -947,7 +954,7 @@ var models = {
 
                 var options = {
 
-                    // "phantomPath": "C:/Windows//System32/phantomjs",
+                    "phantomPath": "C:/Windows//System32/phantomjs",
                     "format": "A4",
 
                     "directory": "/pdf",
@@ -1042,8 +1049,8 @@ var models = {
                 });
 
                 var options = {
-                    "phantomPath": "node_modules/phantomjs/bin/phantomjs",
-                    // "phantomPath": "C:/Windows/System32/phantomjs",
+                    // "phantomPath": "node_modules/phantomjs/bin/phantomjs",
+                    "phantomPath": "C:/Windows/System32/phantomjs",
                     "format": "A4",
                     // Export options 
                     "directory": "/tmp",

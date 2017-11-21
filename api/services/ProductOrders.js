@@ -133,7 +133,10 @@ var model = {
                 if (mainData.dfmSubscription) {
                     obj["SOLD ITEM"] = mainData.dfmSubscription.name;
                 } else if (mainData.products[0]) {
-                    obj["SOLD ITEM"] = mainData.products.name;
+                    _.forEach(products, function (pro) {
+                        myVal = myVal + ',' + pro.name;
+                    })
+                    obj["SOLD ITEM"] = myVal;
                 } else if (mainData.cadLineWork) {
                     obj["SOLD ITEM"] = mainData.cadLineWork.name;
                 }
