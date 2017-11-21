@@ -313,25 +313,29 @@ var models = {
                     tempObj.TrascationDate = "-";
                 }
                 if (pg.dfmSubscription) {
-                    tempObj.SoldItem = pg.dfmSubscription.name;
-                    tempObj.Cost = pg.totalAmount;
+                    tempObj.SoldItem = pg.dfmSubscription.name
 
-                } else if (pg.products) {
+                } else if (pg.products[0]) {
                     tempObj.SoldItem = pg.products.name;
-                    tempObj.Cost = pg.totalAmount;
+
                 } else if (pg.cadLineWork) {
                     tempObj.SoldItem = "cadLineWork";
-                    tempObj.Cost = pg.totalAmount;
                 }
                 if (pg.user) {
                     tempObj.Lisence = pg.user.lisence;
                 } else {
                     tempObj.Lisence = "-";
                 }
+                tempObj.Cost = pg.totalAmount;
 
                 tempObj.Status = pg.status;
                 if (pg.shippingAddress) {
-                    tempObj.ShippingAddress = pg.shippingAddress.city;
+                    if (pg.shippingAddress.city) {
+                        tempObj.ShippingAddress = pg.shippingAddress.city;
+                    } else {
+                        tempObj.ShippingAddress = "-";
+                    }
+
                 } else {
                     tempObj.ShippingAddress = "-";
                 }
@@ -427,8 +431,11 @@ var models = {
                 tempObj.CadId = pg.cadId;
                 if (pg.dfmSubscription) {
                     tempObj.name = pg.dfmSubscription.name;
-                } else if (pg.products) {
-                    tempObj.name = pg.products.name;
+                } else if (pg.products[0]) {
+                    _.forEach(products, function (pro) {
+                        tempObj.name = pro.products.name;
+                    })
+
                 } else if (pg.cadLineWork) {
                     tempObj.name = "cadLineWork";
 
@@ -730,15 +737,14 @@ var models = {
                 obj.TrascationId.push("-");
                 if (pg.dfmSubscription) {
                     obj.SoldItem.push(pg.dfmSubscription.name);
-                    obj.Cost.push(pg.totalAmount);
-                } else if (pg.products) {
+                } else if (pg.products[0]) {
                     obj.SoldItem.push(pg.products.name);
-                    obj.Cost.push(pg.totalAmount);
                 } else if (pg.cadLineWork) {
                     obj.SoldItem.push("cadLineWork");
-                    obj.Cost.push(pg.totalAmount);
 
                 }
+
+                obj.Cost.push(pg.totalAmount);
                 if (pg.user) {
                     obj.Lisence.push(pg.user.lisence);
                 } else {
@@ -748,7 +754,12 @@ var models = {
 
                 obj.Status.push(pg.status);
                 if (pg.shippingAddress) {
-                    obj.ShippingAddress.push(pg.shippingAddress.city);
+                    if (pg.shippingAddress.city) {
+                        obj.ShippingAddress.push(pg.shippingAddress.city);
+                    } else {
+                        obj.ShippingAddress.push("-");
+                    }
+
 
                 } else {
                     obj.ShippingAddress.push("-");
@@ -828,8 +839,10 @@ var models = {
             _.forEach(page, function (pg) {
                 if (pg.dfmSubscription) {
                     obj.name.push(pg.dfmSubscription.name);
-                } else if (pg.products) {
-                    obj.name.push(pg.products.name);
+                } else if (pg.products[0]) {
+                    _.forEach(products, function (pro) {
+                        obj.name.push(pro.products.name);
+                    })
                 } else if (pg.cadLineWork) {
                     obj.name.push("cadLineWork");
 
@@ -934,7 +947,7 @@ var models = {
 
                 var options = {
 
-                    "phantomPath": "C:/Windows//System32/phantomjs",
+                    // "phantomPath": "C:/Windows//System32/phantomjs",
                     "format": "A4",
 
                     "directory": "/pdf",
@@ -1029,8 +1042,8 @@ var models = {
                 });
 
                 var options = {
-                    // "phantomPath": "node_modules/phantomjs/bin/phantomjs",
-                    "phantomPath": "C:/Windows/System32/phantomjs",
+                    "phantomPath": "node_modules/phantomjs/bin/phantomjs",
+                    // "phantomPath": "C:/Windows/System32/phantomjs",
                     "format": "A4",
                     // Export options 
                     "directory": "/tmp",

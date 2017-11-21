@@ -132,7 +132,7 @@ var model = {
                 }
                 if (mainData.dfmSubscription) {
                     obj["SOLD ITEM"] = mainData.dfmSubscription.name;
-                } else if (mainData.products) {
+                } else if (mainData.products[0]) {
                     obj["SOLD ITEM"] = mainData.products.name;
                 } else if (mainData.cadLineWork) {
                     obj["SOLD ITEM"] = mainData.cadLineWork.name;
@@ -146,7 +146,12 @@ var model = {
                 }
 
                 if (mainData.shippingAddress) {
-                    obj["SHIPPING ADDRESS"] = mainData.shippingAddress.city;
+                    if (mainData.shippingAddress.city) {
+                        obj["SHIPPING ADDRESS"] = mainData.shippingAddress.city;
+                    } else {
+                        obj["SHIPPING ADDRESS"] = "-";
+                    }
+
                 } else {
                     obj["SHIPPING ADDRESS"] = "-";
                 }
@@ -180,7 +185,7 @@ var model = {
                 if (mainData.dfmSubscription) {
                     obj["PRODUCT NAME"] = mainData.dfmSubscription.name;
                     obj["COST"] = mainData.totalAmount;
-                } else if (mainData.products) {
+                } else if (mainData.products[0]) {
                     obj["PRODUCT"] = mainData.products.name;
                     obj["COST"] = mainData.totalAmount;
                 } else if (mainData.cadLineWork) {
