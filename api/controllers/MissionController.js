@@ -421,13 +421,13 @@ cron.schedule('1 * * * * *', function () {
         if (err) {
             callback(err, null);
         } else {
-            console.log(found.length);
+            // console.log(found.length);
             var emailData = {};
             var dsmList;
             var mosaicList;
             var geoLocation;
             async.eachSeries(found, function (value, callback1) {
-                    console.log("value", value);
+                    // console.log("value", value);
                     emailData.user = value.user;
                     dirName1 = 'C:/Users/unifli/Documents/pix4d/' + value.missionId + '/3_dsm_ortho/2_mosaic'
                     // dirName1 = 'C:/Users/dell/Documents/pix4d/' + value.missionId + '/3_dsm_ortho/2_mosaic' //for local                 
@@ -501,12 +501,12 @@ cron.schedule('1 * * * * *', function () {
                                                             var cord = [];
                                                             cord.push(pt_wgs84.x);
                                                             cord.push(pt_wgs84.y);
-                                                            cornList[corner_name] = cord;
+                                                            cornList[corner_name.trim()] = cord.reverse();
                                                         });
-                                                        console.log(cornList)
+                                                        // console.log(cornList)
                                                         callback(null, cornList);
                                                     } catch (err) {
-                                                        console.log("errrrrrrrr", err);
+                                                        // console.log("errrrrrrrr", err);
                                                         callback(null, "error");
                                                     }
                                                     // fs.readFile(dirName1 + '/' + val, function (err, data) {
