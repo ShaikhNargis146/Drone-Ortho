@@ -194,9 +194,9 @@ var model = {
                     _.forEach(mainData.products, function (pro) {
                         myVal = myVal + ',' + pro.name;
                     })
-                    obj["PRODUCT"] = myVal;
+                    obj["PRODUCT NAME"] = myVal;
                 } else if (mainData.cadLineWork) {
-                    obj["PRODUCT "] = "cadLineWork";
+                    obj["PRODUCT NAME "] = "cadLineWork";
                 }
                 obj["COST"] = mainData.totalAmount;
                 if (mainData.transactionDate) {
