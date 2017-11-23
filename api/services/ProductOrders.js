@@ -581,6 +581,7 @@ var model = {
                         emailData.filename = "DFM Purchase";
                         emailData.subject = "DFM PURCHASE";
                         emailData.email = data.user.email;
+                        console.log("emailData---for user",emailData);
                         Config.email(emailData, function (err, emailRespo) {
                             if (err) {
                                 console.log(err);
