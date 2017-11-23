@@ -412,14 +412,15 @@ var controller = {
     },
 };
 
-cron.schedule('1 * * * *', function () {
+cron.schedule('1 * * * * *', function () {
     Mission.find({
         status: {
             $nin: ['ready', 'failed']
         }
     }, function (err, found) {
-        if (err) {
-            callback(err, null);
+        if (err || _.isEmpty(found)) {
+            console.log("err or empty");
+            // callback(err, null);
         } else {
             // console.log(found.length);
             var emailData = {};
