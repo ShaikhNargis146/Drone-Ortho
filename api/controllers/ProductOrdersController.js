@@ -227,9 +227,9 @@ var controller = {
 			setting4.setSettingName('hostedPaymentReturnOptions');
 			var settingValue = {
 				'showReceipt': false,
-				'url': 'http://localhost:1337/api/ProductOrders/paymentReturn?invoiceNumber=' + req.query.invoiceNumber,
+				'url': 'http://cloud.unifli.aero/api/ProductOrders/paymentReturn?invoiceNumber=' + req.query.invoiceNumber,
 				'urlText': 'Continue',
-				'cancelUrl': 'http://localhost:1337/api/ProductOrders/paymentCancel',
+				'cancelUrl': 'http://cloud.unifli.aero/api/ProductOrders/paymentCancel',
 				'cancelUrlText': 'Cancel'
 			};
 			setting4.setSettingValue(JSON.stringify(settingValue));
