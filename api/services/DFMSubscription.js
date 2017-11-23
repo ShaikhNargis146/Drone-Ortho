@@ -106,7 +106,7 @@ var model = {
     },
 
 
-    sendMissionCompletedMail: function (data, callback) {
+    sendDfmRenewalMail: function (data, callback) {
         User.findOne({
             _id: data.user
         }).exec(function (err, data1) {
