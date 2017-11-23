@@ -53,54 +53,55 @@ var controller = {
 	paymentReturn: function (req, res) {
 
 		var invoiceUserId = {};
-		invoiceUserId.invoiceNo = req.query.invoiceNumber;
-		console.log("check invoice id");
-		console.log(invoiceUserId);
-		ProductOrders.invoiceGenerate(invoiceUserId, function (err, data) {
-			console.log(data);
-		})
+		console.log("................................");
+		console.log(req.body);
+		console.log(req.query);
+		res.redirect("http://unifli.aero/thankyou");
+		// ProductOrders.invoiceGenerate(invoiceUserId, function (err, data) {
+		// 	console.log(data);
+		// })
 
-		ProductOrders.findOne({
-			invoiceNo: req.query.invoiceNumber
-		}).lean().exec(function (err, found) {
-			if (err || _.isEmpty(found)) {} else {
-				if (found.cadLineWork) {
-					res.redirect("http://cloud.unifli.aero/#!/cadfile-request");
-				} else {
-					res.redirect("http://unifli.aero/thankyou");
-				}
+		// ProductOrders.findOne({
+		// 	invoiceNo: req.query.invoiceNumber
+		// }).lean().exec(function (err, found) {
+		// 	if (err || _.isEmpty(found)) {} else {
+		// 		if (found.cadLineWork) {
+		// 			res.redirect("http://cloud.unifli.aero/#!/cadfile-request");
+		// 		} else {
+		// 			res.redirect("http://unifli.aero/thankyou");
+		// 		}
 
-				if (found.dfmSubscription) {
-					console.log("user", found.user);
-					User.findOneAndUpdate({
-						_id: found.user
-					}, {
-						currentSubscription: found.dfmSubscription
-					}).exec(function (err, found) {
-						if (err) {
-							console.log("err1")
-						} else if (_.isEmpty(found)) {
-							console.log("err2")
-						} else {
-							console.log("err3")
-						}
+		// 		if (found.dfmSubscription) {
+		// 			console.log("user", found.user);
+		// 			User.findOneAndUpdate({
+		// 				_id: found.user
+		// 			}, {
+		// 				currentSubscription: found.dfmSubscription
+		// 			}).exec(function (err, found) {
+		// 				if (err) {
+		// 					console.log("err1")
+		// 				} else if (_.isEmpty(found)) {
+		// 					console.log("err2")
+		// 				} else {
+		// 					console.log("err3")
+		// 				}
 
-					})
-					found.status = "Paid";
-					ProductOrders.saveData(found, function (err, data) {
-						if (err) {
-							console.log("error occured while updating payment status");
-						} else {
-							console.log("saved successfully");
-						}
+		// 			})
+		// 			found.status = "Paid";
+		// 			ProductOrders.saveData(found, function (err, data) {
+		// 				if (err) {
+		// 					console.log("error occured while updating payment status");
+		// 				} else {
+		// 					console.log("saved successfully");
+		// 				}
 
-					})
-				}
+		// 			})
+		// 		}
 
 
-			}
+		// 	}
 
-		});
+		// });
 	},
 
 	paymentCancel: function (req, res) {
@@ -122,6 +123,28 @@ var controller = {
 			transactionOrderType.setInvoiceNumber(req.query.invoiceNumber);
 			transactionRequestType.setOrder(transactionOrderType);
 
+			var transactionBillTo = new ApiContracts.CustomerAddressType();
+			transactionBillTo.setFirstName("jagruti");
+			transactionBillTo.setLastName("patil");
+			transactionBillTo.setCompany("Wohlig Tranfarmation PVT LTD");
+			transactionBillTo.setAddress("A30 Laxmi nivas near sadhana school");
+			transactionBillTo.setCity("Sion");
+			transactionBillTo.setState("Maharashtra");
+			transactionBillTo.setZip("400022");
+			transactionBillTo.setCountry("India");
+			transactionRequestType.setBillTo(transactionBillTo);
+
+			var transactionShippTo = new ApiContracts.NameAndAddressType();
+			transactionShippTo.setFirstName("jagruti");
+			transactionShippTo.setLastName("patil");
+			transactionShippTo.setCompany("Wohlig Tranfarmation PVT LTD");
+			transactionShippTo.setAddress("A30 Laxmi nivas near sadhana school");
+			transactionShippTo.setCity("Sion");
+			transactionShippTo.setState("Maharashtra");
+			transactionShippTo.setZip("400022");
+			transactionShippTo.setCountry("India");
+			transactionRequestType.setShipTo(transactionShippTo);
+
 
 			var setting1 = new ApiContracts.SettingType();
 			setting1.setSettingName('hostedPaymentButtonOptions');
@@ -139,7 +162,7 @@ var controller = {
 			setting4.setSettingName('hostedPaymentReturnOptions');
 			var settingValue = {
 				'showReceipt': false,
-				'url': 'http://cloud.unifli.aero/api/ProductOrders/paymentReturn?invoiceNumber=' + req.query.invoiceNumber,
+				'url': 'http://cloud.unifli.aero/api/ProductOrders/paymentReturn',
 				'urlText': 'Continue',
 				'cancelUrl': 'http://cloud.unifli.aero/api/ProductOrders/paymentCancel',
 				'cancelUrlText': 'Cancel'
@@ -164,7 +187,7 @@ var controller = {
 			//console.log(JSON.stringify(getRequest.getJSON(), null, 2));
 
 			var ctrl = new ApiControllers.GetHostedPaymentPageController(getRequest.getJSON());
-			ctrl.setEnvironment(SDKConstants.endpoint.production);
+			ctrl.setEnvironment("https://apitest.authorize.net/xml/v1/request.api");
 
 			ctrl.execute(function () {
 
@@ -178,7 +201,7 @@ var controller = {
 				if (response != null) {
 					if (response.getMessages().getResultCode() == ApiContracts.MessageTypeEnum.OK) {
 						console.log('Hosted payment page token :');
-						console.log('Error message: ' + response.getMessages().getMessage()[0].getText());
+						console.log('Error message: ' + response.getToken());
 						var formData = {
 							token: response.getToken()
 						};
@@ -189,13 +212,13 @@ var controller = {
 						res.view("pay_form", formData);
 
 					} else {
-						res.redirect("http://localhost:8081/sorry");
+						res.redirect("http://unifli.aero/sorry");
 
 						console.log('Error Code: ' + response.getMessages().getMessage()[0].getCode());
 						console.log('Error message: ' + response.getMessages().getMessage()[0].getText());
 					}
 				} else {
-					res.redirect("http://localhost:8081/sorry")
+					res.redirect("http://unifli.aero/sorry")
 
 				}
 
@@ -416,6 +439,80 @@ var controller = {
 			});
 		}
 	},
+
+	payPalCheckout: function (req, res) {
+        console.log("sdfasdfasdf");
+        var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
+        merchantAuthenticationType.setName(constants.apiLoginKey);
+        merchantAuthenticationType.setTransactionKey(constants.transactionKey);
+    
+        var payPalType = new ApiContracts.PayPalType();
+        payPalType.setCancelUrl('http://localhost:1337/api/ProductOrders/paymentCancel');
+        payPalType.setSuccessUrl('http://localhost:1337/api/ProductOrders/paymentReturn');
+        payPalType.setPayerID('X3KMJR6UXFJG2');
+    
+        var paymentType = new ApiContracts.PaymentType();
+        paymentType.setPayPal(payPalType);
+    
+        var transactionRequestType = new ApiContracts.TransactionRequestType();
+        transactionRequestType.setTransactionType(ApiContracts.TransactionTypeEnum.AUTHCAPTURETRANSACTION);
+        transactionRequestType.setPayment(paymentType);
+        transactionRequestType.setAmount(1000);
+    
+        var createRequest = new ApiContracts.CreateTransactionRequest();
+        createRequest.setMerchantAuthentication(merchantAuthenticationType);
+        createRequest.setTransactionRequest(transactionRequestType);
+    
+        console.log(JSON.stringify(createRequest.getJSON(), null, 2));
+    
+		var ctrl = new ApiControllers.CreateTransactionController(createRequest.getJSON());
+		
+		ctrl.setEnvironment(SDKConstants.endpoint.sandbox);		
+    
+        ctrl.execute(function(){
+    
+            var apiResponse = ctrl.getResponse();
+    
+            var response = new ApiContracts.CreateTransactionResponse(apiResponse);
+    
+            console.log(JSON.stringify(response, null, 2));
+    
+            if(response != null){
+                if(response.getMessages().getResultCode() == ApiContracts.MessageTypeEnum.OK){
+                    if(response.getTransactionResponse().getMessages() != null){
+                        console.log('Successfully created transaction with Transaction ID: ' + response.getTransactionResponse().getTransId());
+                        console.log('Secure Acceptance URL: ' + response.getTransactionResponse().getSecureAcceptance().getSecureAcceptanceUrl());
+                        console.log('Response Code: ' + response.getTransactionResponse().getResponseCode());
+                        console.log('Message Code: ' + response.getTransactionResponse().getMessages().getMessage()[0].getCode());
+                        console.log('Description: ' + response.getTransactionResponse().getMessages().getMessage()[0].getDescription());
+                    }
+                    else {
+                        console.log('Failed Transaction.');
+                        if(response.getTransactionResponse().getErrors() != null){
+                            console.log('Error Code: ' + response.getTransactionResponse().getErrors().getError()[0].getErrorCode());
+                            console.log('Error message: ' + response.getTransactionResponse().getErrors().getError()[0].getErrorText());
+                        }
+                    }
+                }
+                else {
+                    console.log('Failed Transaction. ');
+                    if(response.getTransactionResponse() != null && response.getTransactionResponse().getErrors() != null){
+                    
+                        console.log('Error Code: ' + response.getTransactionResponse().getErrors().getError()[0].getErrorCode());
+                        console.log('Error message: ' + response.getTransactionResponse().getErrors().getError()[0].getErrorText());
+                    }
+                    else {
+                        console.log('Error Code: ' + response.getMessages().getMessage()[0].getCode());
+                        console.log('Error message: ' + response.getMessages().getMessage()[0].getText());
+                    }
+                }
+            }
+            else {
+                console.log('Null Response.');
+            }
+    
+        });
+    }
 
 };
 
