@@ -869,6 +869,10 @@ var model = {
                 emailData.email = data1.user.email;
                 emailData.filename = "CAD Complete";
                 emailData.subject = "CAD COMPLETED";
+                emailData.merge_vars = [{
+                    "name": "CAD_ID",
+                    "content": data1.cadId
+                }];
                 Config.email(emailData, function (err, emailRespo) {
                     // console.log("emailRespo", emailRespo);
                     if (err) {

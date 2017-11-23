@@ -719,6 +719,10 @@ var model = {
                 var emailData = {}
                 emailData.email = data1.email;
                 emailData.filename = "Mission Completed";
+                emailData.merge_vars = [{
+                    "name": "MISSION_ID",
+                    "content": data.missionId
+                }];
                 emailData.subject = "MISSION COMPLETED";
                 Config.email(emailData, function (err, emailRespo) {
                     // console.log("emailRespo", emailRespo);
