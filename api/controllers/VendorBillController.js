@@ -1,5 +1,40 @@
 module.exports = _.cloneDeep(require("sails-wohlig-controller"));
 var controller = {
+    generatecsv: function (req, res) {
+        VendorBill.exceltotalVendorBill(req.body, function (err, data) {
+            data.name = "vendorbill"
+            Config.jsonTOCsvConvert(data, function (csv) {
+                _.cloneDeep(csv);
+                res.set('Content-Type', "application/CSV");
+                res.set('Content-Disposition', "attachment;filename=" + csv.path);
+                res.send(csv.csvData);
+            });
+        });
+    },
+    generatePdf: function (req, res) {
+        VendorBill.exceltotalVendorBill(req.body, function (err, data) {
+            data.name = "vendorbill"
+            Config.generatePdfFormatData(data, function (pdf) {
+                _.cloneDeep(pdf);
+                res.set('Content-Type', "application/pdf");
+                res.set('Content-Disposition', "attachment;filename=" + pdf.path);
+                res.send(pdf.pdfData);
+            });
+        });
+    },
+    exceltotalVendorBill: function (req, res) {
+        VendorBill.exceltotalVendorBill(req.body, function (err, data) {
+            VendorBill.generateExcelVendorBills(data, function (err, singleData) {
+                Config.generateExcel("MissionExcel", singleData, function (excels) {
+                    // console.log("excel", excels, "err", err);
+                    res.set('Content-Type', "application/octet-stream");
+                    res.set('Content-Disposition', "attachment;filename=" + excels.path);
+                    res.send(excels.excel);
+                });
+            });
+        });
+    },
+
 
     getBill: function (req, res) {
         if (req.body) {

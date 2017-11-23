@@ -32,7 +32,10 @@
                                     <div class="col-md-6">
                                         <div class="pull-right"> <label>Search:<input type="text " ng-change="getAllItems(true) " placeholder="Search Here...
                         " ng-model="search.keyword " /></label>
-                                            <div class="dt-buttons btn-group"> <a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Copy</span>             </a>                                                <a class="btn btn-default buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>CSV</span>             </a>                                                <a class="btn btn-default buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Excel</span>             </a>                                                <a class="btn btn-default buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>PDF</span>             </a>                                                <a class="btn btn-default buttons-print" tabindex="0" aria-controls="DataTables_Table_0"><span>Print</span>             </a>                                                </div>
+                                            <div class="dt-buttons btn-group"> <a class="btn btn-default buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"
+                                                    ng-click="csvFile();"><span>CSV</span>             </a> <a class="btn btn-default buttons-excel buttons-html5"
+                                                    tabindex="0" ng-click=generateExcel(); aria-controls="DataTables_Table_0"><span>Excel</span>             </a>
+                                                <a class="btn btn-default buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" ng-click="generatePdf();"><span>PDF</span> </a>                                                </div>
                                         </div>
                                     </div>
                                 </div>
@@ -58,9 +61,13 @@
                                     <tbody>
                                         <tr ng-repeat="orderData in allOrderData track by $index">
                                             <td>{{orderData.user.dataId}}</td>
-                                            <td>transactionId</td>
-                                            <td>transactionDate</td>
-                                            <td>{{orderData.cadLineWork.name || orderData.dfmSubscription.name }}</td>
+                                            <td>{{orderData.transactionId}}</td>
+                                            <td>{{orderData.transactionDate}}</td>
+                                            <td>
+                                                <span ng-if="orderData.cadLineWork">CadLineWork</span>
+                                                <span ng-if="orderData.dfmSubscription">{{ orderData.dfmSubscription.name}}</span>
+                                                <span ng-if="orderData.products[0]">{{orderData.products.name}}</span>
+                                            </td>
                                             <td>{{orderData.totalAmount}}</td>
                                             <td>{{orderData.user.lisence}}</td>
                                             <td>{{orderData.discountCoupon}}</td>

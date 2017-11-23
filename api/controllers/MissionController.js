@@ -8,14 +8,81 @@ var ConvertTiff = require('tiff-to-png');
 var path = require('path');
 var decode = require("decode-tiff");
 var PNG = require('pngjs');
-var sharp = require('sharp');
+// var sharp = require('sharp');
 var getSize = require('get-folder-size');
 var cron = require('node-cron');
 var gdal = require("gdal");
 var util = require('util');
 var dms = require("dms-conversion");
 var controller = {
-
+    generatecsvForUser: function (req, res) {
+        Mission.exceltotalMissionforUser(req.body, function (err, data) {
+            data.name = "missionUser"
+            Config.jsonTOCsvConvert(data, function (csv) {
+                _.cloneDeep(csv);
+                res.set('Content-Type', "application/CSV");
+                res.set('Content-Disposition', "attachment;filename=" + csv.path);
+                res.send(csv.csvData);
+            });
+        });
+    },
+    generatecsv: function (req, res) {
+        Mission.exceltotalMission(req.body, function (err, data) {
+            data.name = "mission"
+            Config.jsonTOCsvConvert(data, function (csv) {
+                _.cloneDeep(csv);
+                res.set('Content-Type', "application/CSV");
+                res.set('Content-Disposition', "attachment;filename=" + csv.path);
+                res.send(csv.csvData);
+            });
+        });
+    },
+    generatePdfForUser: function (req, res) {
+        Mission.exceltotalMissionforUser(req.body, function (err, data) {
+            data.name = "missionUser"
+            Config.generatePdfFormatData(data, function (pdf) {
+                _.cloneDeep(pdf);
+                res.set('Content-Type', "application/pdf");
+                res.set('Content-Disposition', "attachment;filename=" + pdf.path);
+                res.send(pdf.pdfData);
+            });
+        });
+    },
+    generatePdf: function (req, res) {
+        Mission.exceltotalMission(req.body, function (err, data) {
+            data.name = "mission"
+            Config.generatePdfFormatData(data, function (pdf) {
+                _.cloneDeep(pdf);
+                res.set('Content-Type', "application/pdf");
+                res.set('Content-Disposition', "attachment;filename=" + pdf.path);
+                res.send(pdf.pdfData);
+            });
+        });
+    },
+    exceltotalMission: function (req, res) {
+        Mission.exceltotalMission(req.body, function (err, data) {
+            Mission.generateExcelMission(data, function (err, singleData) {
+                Config.generateExcel("CadExcel", singleData, function (excels) {
+                    // console.log("excel", excels, "err", err);
+                    res.set('Content-Type', "application/octet-stream");
+                    res.set('Content-Disposition', "attachment;filename=" + excels.path);
+                    res.send(excels.excel);
+                });
+            });
+        });
+    },
+    exceltotalMissionforUser: function (req, res) {
+        Mission.exceltotalMissionforUser(req.body, function (err, data) {
+            Mission.generateExcelMissionforUser(data, function (err, singleData) {
+                Config.generateExcel("CadExcel", singleData, function (excels) {
+                    // console.log("excel", excels, "err", err);
+                    res.set('Content-Type', "application/octet-stream");
+                    res.set('Content-Disposition', "attachment;filename=" + excels.path);
+                    res.send(excels.excel);
+                });
+            });
+        });
+    },
 
     getMissionUser: function (req, res) {
         if (req.body) {
@@ -93,7 +160,7 @@ var controller = {
                 var cord = []
                 cord.push(pt_wgs84.x)
                 cord.push(pt_wgs84.y)
-                cornList[corner_name.trim()] = cord
+                cornList[corner_name.trim()] = cord.reverse();
                 console.log(cornList)
                 var description = util.format('%s (%d, %d) (%s, %s)',
                     corner_name,
@@ -345,14 +412,15 @@ var controller = {
     },
 };
 
-cron.schedule('1 * * * *', function () {
+cron.schedule('1 * * * * *', function () {
     Mission.find({
         status: {
             $nin: ['ready', 'failed']
         }
     }, function (err, found) {
-        if (err) {
-            callback(err, null);
+        if (err || _.isEmpty(found)) {
+            console.log("err or empty");
+            // callback(err, null);
         } else {
             // console.log(found.length);
             var emailData = {};
@@ -360,7 +428,7 @@ cron.schedule('1 * * * *', function () {
             var mosaicList;
             var geoLocation;
             async.eachSeries(found, function (value, callback1) {
-                    // console.log("value", value);
+                    console.log("value", value.missionId);
                     emailData.user = value.user;
                     dirName1 = 'C:/Users/unifli/Documents/pix4d/' + value.missionId + '/3_dsm_ortho/2_mosaic'
                     // dirName1 = 'C:/Users/dell/Documents/pix4d/' + value.missionId + '/3_dsm_ortho/2_mosaic' //for local                 
@@ -434,13 +502,13 @@ cron.schedule('1 * * * *', function () {
                                                             var cord = [];
                                                             cord.push(pt_wgs84.x);
                                                             cord.push(pt_wgs84.y);
-                                                            cornList[corner_name] = cord;
+                                                            cornList[corner_name.trim()] = cord.reverse();
                                                         });
                                                         // console.log(cornList)
                                                         callback(null, cornList);
                                                     } catch (err) {
-                                                        // console.log("errrrrrrrr", err);
-                                                        callback(null, "error");
+                                                        console.log("errrrrrrrr", err);
+                                                        callback1();
                                                     }
                                                     // fs.readFile(dirName1 + '/' + val, function (err, data) {
                                                     //     if (err) {
@@ -521,7 +589,7 @@ cron.schedule('1 * * * *', function () {
                                             ],
                                             function (err, data) {
                                                 if (err) {
-                                                    callback(null, err);
+                                                    callback1();
                                                 } else {
                                                     console.log("waterfall completed successfully", data);
                                                     Mission.sendMissionCompletedMail(emailData, callback);

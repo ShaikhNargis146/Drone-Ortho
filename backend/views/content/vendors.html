@@ -38,10 +38,10 @@
                                             <div class="col-md-6">
                                                 <div class="pull-right"> <label>Search:<input type="text " ng-change="getAllItems(true) " placeholder="Search Here...
                         " ng-model="search.keyword " /></label>
-                                                    <div class="dt-buttons btn-group"> <a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Copy</span>             </a>                                                        <a class="btn btn-default buttons-csv buttons-html5" tabindex="0"
-                                                            aria-controls="DataTables_Table_0"><span>CSV</span>             </a>                                                        <a class="btn btn-default buttons-excel buttons-html5" tabindex="0"
-                                                            aria-controls="DataTables_Table_0"><span>Excel</span>             </a>                                                        <a class="btn btn-default buttons-pdf buttons-html5" tabindex="0"
-                                                            aria-controls="DataTables_Table_0"><span>PDF</span>             </a>                                                        <a class="btn btn-default buttons-print" tabindex="0" aria-controls="DataTables_Table_0"><span>Print</span>             </a>                                                        </div>
+                                                    <div class="dt-buttons btn-group"> <a class="btn btn-default buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"
+                                                            ng-click="csvFile();"><span>CSV</span>             </a> <a class="btn btn-default buttons-excel buttons-html5"
+                                                            tabindex="0" aria-controls="DataTables_Table_0" ng-click=generateExcel();><span>Excel</span>             </a>                                                        <a class="btn btn-default buttons-pdf buttons-html5" tabindex="0"
+                                                            aria-controls="DataTables_Table_0" ng-click="generatePdf();"><span>PDF</span>             </a>                                                        </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -69,7 +69,8 @@
                                                     <td>{{vendorData.createdAt | date: 'dd-MM-yyyy'}}
                                                     </td>
 
-                                                    <td><a ui-sref="edit-vendor({'vendorId' : vendorData._id})" class="btn blue btn-outline btn-xs"><i class="fa fa-pencil"></i> Edit</a>                                                        &nbsp;&nbsp;&nbsp;
+                                                    <td>
+                                                        <a ui-sref="edit-vendor({'vendorId' : vendorData._id})" class="btn blue btn-outline btn-xs"><i class="fa fa-pencil"></i> Edit</a>                                                        &nbsp;&nbsp;&nbsp;
                                                         <button type="submit" class="btn red btn-outline btn-xs" ng-click="removeVendor(vendorData._id)"><i class="fa fa-trash"></i> Delete</button></td>
 
                                                 </tr>

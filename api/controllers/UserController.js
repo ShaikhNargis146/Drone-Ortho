@@ -1,5 +1,86 @@
 module.exports = _.cloneDeep(require("sails-wohlig-controller"));
 var controller = {
+    generatecsvForVendor: function (req, res) {
+        User.exceltotalVendor(req.body, function (err, data) {
+            data.name = "vendor"
+            Config.jsonTOCsvConvert(data, function (csv) {
+                _.cloneDeep(csv);
+                res.set('Content-Type', "application/CSV");
+                res.set('Content-Disposition', "attachment;filename=" + csv.path);
+                res.send(csv.csvData);
+            });
+        });
+    },
+    generatecsv: function (req, res) {
+        User.exceltotalUser(req.body, function (err, data) {
+            data.name = "user"
+            Config.jsonTOCsvConvert(data, function (csv) {
+                _.cloneDeep(csv);
+                res.set('Content-Type', "application/CSV");
+                res.set('Content-Disposition', "attachment;filename=" + csv.path);
+                res.send(csv.csvData);
+            });
+        });
+    },
+
+    generatePdfforVendor: function (req, res) {
+        User.exceltotalVendor(req.body, function (err, data) {
+            data.name = "vendor"
+            Config.generatePdfFormatData(data, function (pdf) {
+                _.cloneDeep(pdf);
+                res.set('Content-Type', "application/pdf");
+                res.set('Content-Disposition', "attachment;filename=" + pdf.path);
+                res.send(pdf.pdfData);
+            });
+        });
+    },
+    generatePdf: function (req, res) {
+        User.exceltotalUser(req.body, function (err, data) {
+            data.name = "user"
+            Config.generatePdfFormatData(data, function (pdf) {
+                _.cloneDeep(pdf);
+                res.set('Content-Type', "application/pdf");
+                res.set('Content-Disposition', "attachment;filename=" + pdf.path);
+                res.send(pdf.pdfData);
+            });
+        });
+    },
+    exceltotalVendor: function (req, res) {
+        User.exceltotalVendor(req.body, function (err, data) {
+            User.generateExcelVendor(data, function (err, singleData) {
+                Config.generateExcel("UserExcel", singleData, function (excels) {
+                    // console.log("excel", excels, "err", err);
+                    res.set('Content-Type', "application/octet-stream");
+                    res.set('Content-Disposition', "attachment;filename=" + excels.path);
+                    res.send(excels.excel);
+                });
+            });
+        });
+    },
+    exceltotalUser: function (req, res) {
+        User.exceltotalUser(req.body, function (err, data) {
+            User.generateExcelUser(data, function (err, singleData) {
+                Config.generateExcel("UserExcel", singleData, function (excels) {
+                    // console.log("excel", excels, "err", err);
+                    res.set('Content-Type', "application/octet-stream");
+                    res.set('Content-Disposition', "attachment;filename=" + excels.path);
+                    res.send(excels.excel);
+                });
+            });
+        });
+    },
+    findUserForUpdatePass: function (req, res) {
+        if (req.body) {
+            User.findUserForUpdatePass(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            });
+        }
+    },
 
     getUser: function (req, res) {
         if (req.body) {
@@ -485,21 +566,6 @@ var controller = {
                 }
             });
         }
-    },
-
-    sendDfmTrailAndMembershipMail: function (req, res) {
-        if (req.body) {
-            User.sendDfmTrailAndMembershipMail(req.body, res.callback);
-        } else {
-            res.json({
-                value: false,
-                data: {
-                    message: "Invalid Request"
-                }
-            });
-        }
-    },
-
-
+    }
 };
 module.exports = _.assign(module.exports, controller);

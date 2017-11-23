@@ -1,5 +1,5 @@
 // var globalfunction = {};
-angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', "jsonservicemod", 'ui.bootstrap', 'ui.select', 'toastr', 'angular-flexslider', 'ui.tinymce', 'imageupload', 'ngMap', 'toggle-switch', 'cfp.hotkeys', 'ui.sortable'])
+angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', "jsonservicemod", 'ui.bootstrap', 'ui.select', 'toastr', 'angular-flexslider', 'ui.tinymce', 'imageupload', 'ngMap', 'toggle-switch', 'cfp.hotkeys', 'ui.sortable', 'ngFileUpload'])
 // .run([function () {
 //     mapboxgl.accessToken = 'pk.eyJ1IjoibmFpbWlrYW4iLCJhIjoiY2lraXJkOXFjMDA0OXdhbTYzNTE0b2NtbiJ9.O64XgZQHNHcV2gwNLN2a0Q';
 // }])
@@ -880,8 +880,43 @@ firstapp
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
             var userId = $.jStorage.get("user")._id;
         }
+        excelName = {
+            name: "support",
+            _id: $.jStorage.get("user")._id
+        }
+
+           $scope.csvFileForUser = function () {
+            console.log("inside csvFile ")
+            NavigationService.generateCsvithName("Ticket/generatecsvForUser", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+          $scope.csvFile = function () {
+            console.log("inside csvFile ")
+            NavigationService.generateCsvithName("Ticket/generatecsv", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+            $scope.generatePdfForUser = function () {
+            console.log("inside generatePdf ")
+            NavigationService.generatepdfwithName("Ticket/generatePdfForUser", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+          $scope.generatePdf = function () {
+            console.log("inside generatePdf ")
+            NavigationService.generatepdfwithName("Ticket/generatePdf", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+        $scope.generateExcel = function () {
+            NavigationService.generateExcelWithName("Ticket/exceltotalTicket", excelName, function (data) {});
+        };
 
 
+        $scope.generateExcelforUser = function () {
+            NavigationService.generateExcelWithName("Ticket/exceltotalTicketforUser", excelName, function (data) {});
+        };
         if ($scope.accessLevel == "User") {
 
             //pagination user
@@ -1037,7 +1072,42 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
+        excelName = {
+            name: "Mission",
+            _id: $.jStorage.get("user")._id
+        } 
+          $scope.csvFileForUser = function () {
+            console.log("inside csvFile ")
+            NavigationService.generateCsvithName("Mission/generatecsvForUser", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+         $scope.csvFile = function () {
+            console.log("inside csvFile ")
+            NavigationService.generateCsvithName("Mission/generatecsv", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+        $scope.generatePdf = function () {
+            console.log("inside generatePdf ")
+            NavigationService.generatepdfwithName("Mission/generatePdf", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+          $scope.generatePdfForUser = function () {
+            console.log("inside generatePdf ")
+            NavigationService.generatepdfwithName("Mission/generatePdfForUser", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
 
+        $scope.generateExcel = function () {
+            NavigationService.generateExcelWithName("Mission/exceltotalMission", excelName, function (data) {});
+        };
+
+        $scope.generateExcelforUser = function () {
+            NavigationService.generateExcelWithName("Mission/exceltotalMissionforUser", excelName, function (data) {});
+        };
 
         if ($scope.accessLevel == "Admin") {
 
@@ -1805,7 +1875,25 @@ firstapp
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
             var userId = $.jStorage.get("user")._id;
         }
-
+        excelName = {
+            name: "InvoiceList",
+            _id: $.jStorage.get("user")._id
+        },
+         $scope.csvFileForUser = function () {
+            console.log("inside csvFile ")
+            NavigationService.generateCsvithName("ProductOrders/generatecsvForUser", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+            $scope.generatePdfForUser = function () {
+            console.log("inside generatePdf ");
+            NavigationService.generatepdfwithName("ProductOrders/generatePdfForUser", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+        $scope.generateExcelforUser = function () {
+            NavigationService.generateExcelWithName("ProductOrders/exceltotalProductOrdersforUser", excelName, function (data) {});
+        };
         //pagination user
 
         var i = 0;
@@ -2414,6 +2502,8 @@ firstapp
         $scope.vendorPay = function (data) {
             var data1 = {};
             data.cad = $stateParams.cadId;
+            data.vendor=$scope.cadLineDetails.vendor._id;
+            data.earning=$scope.cadLineDetails.vendorCharges;
             NavigationService.apiCallWithData("VendorBill/save", data, function (data) {
                 if (data.value == true) {
                     data1._id = $stateParams.cadId;
@@ -2527,19 +2617,72 @@ firstapp
         };
     })
 
-    .controller('CadFileRequestCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams, $uibModal) {
+    .controller('CadFileRequestCtrl', function ($scope, TemplateService, Upload, NavigationService, $timeout, $state, toastr, $stateParams, $uibModal) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("cadfile-request");
         $scope.menutitle = NavigationService.makeactive("CadFileRequest");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         TemplateService.mainClass = [];
-
-
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
             var userId = $.jStorage.get("user")._id;
         }
+
+        $scope.cadLineDetails = {};
+ excelName = {
+            name: "CadFileRequest",
+            _id: $.jStorage.get("user")._id
+        }
+
+         $scope.csvFileForVendor = function () {
+            console.log("inside csvFile ")
+            NavigationService.generateCsvithName("CadLineWork/generatecsvForVendor", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+         $scope.csvFileForUser = function () {
+            console.log("inside csvFile ")
+            NavigationService.generateCsvithName("CadLineWork/generatecsvForUser", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+             $scope.csvFile = function () {
+            console.log("inside csvFile ")
+            NavigationService.generateCsvithName("CadLineWork/generatecsv", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+         $scope.generatePdfForVendor = function () {
+            console.log("inside generatePdf ")
+            NavigationService.generatepdfwithName("CadLineWork/generatePdfForVendor", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+           $scope.generatePdf = function () {
+            console.log("inside generatePdf ")
+            NavigationService.generatepdfwithName("CadLineWork/generatePdf", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+        
+           $scope.generatePdfForUser = function () {
+            console.log("inside generatePdf ")
+            NavigationService.generatepdfwithName("CadLineWork/generatePdfForUser", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+          $scope.generateExcelForVendor = function () {
+            NavigationService.generateExcelWithName("CadLineWork/exceltotalCadforVendor", excelName, function (data) {});
+        };
+        $scope.generateExcel = function () {
+            NavigationService.generateExcelWithName("CadLineWork/exceltotalCad", excelName, function (data) {});
+        };
+        $scope.generateExcelforUser = function () {
+            NavigationService.generateExcelWithName("CadLineWork/exceltotalCadforUser", excelName, function (data) {});
+        };
+
+
 
         $scope.cadOpen = function () {
             $uibModal.open({
@@ -2550,7 +2693,37 @@ firstapp
 
             });
         };
-
+        $scope.upload = function (file) {
+            $(".loading-img").css("display", "block");
+            $(".loading-img-modal").css("display", "block");
+            Upload.upload({
+                url: missionFileUrl,
+                data: {
+                    file: file
+                },
+                headers: {
+                    'Content-Type': undefined
+                },
+                transformRequest: angular.identity,
+                uploadEventHandlers: {
+                    progress: function (e) {
+                        console.log("--------------...", e.loaded * 100 / e.total);
+                        $scope.fileprogressbar = parseInt((e.loaded / e.total) * 100); // percentage of progress
+                    }
+                }
+            }).then(function (resp) {
+                console.log('Success ' + resp.data + 'uploaded. ');
+                data = resp.data;
+                $(".loading-img").css("display", "none");
+                $(".loading-img-modal").css("display", "none");
+                $scope.uploadStatus = "uploaded";
+                var fileList = {};
+                fileList.file = data.data[0];
+                $scope.cadLineDetails.orthoFile = fileList;
+            }, function (resp) {
+                console.log('Error status: ' + resp.status);
+            });
+        };
 
         //*****************user CadFileRequest start*****************************
 
@@ -2561,10 +2734,13 @@ firstapp
             $scope.misssonInfo = data.data;
         })
 
-        $scope.saveExtcadfile = function (data) {
-            data.user = userId;
-            NavigationService.apiCallWithData("CadLineWork/createCad", data, function (data) {
+        $scope.saveExtcadfile = function (cadLineDetails) {
+            cadLineDetails.orthoFile = $scope.cadLineDetails.orthoFile
+            cadLineDetails.user = userId;
+            NavigationService.apiCallWithData("CadLineWork/createCad", cadLineDetails, function (data) {
                 $scope.cadLineDetails = data.data.results;
+
+                $state.reload();
             })
         };
 
@@ -2820,16 +2996,17 @@ firstapp
 
             });
         };
+        $scope.showerrmsg = true
 
         $scope.updatePassword = function (password) {
-            console.log("hdbxjwhe", password);
-
-            // console.log(document.getElementById(pwd).type);
-            // console.log(document.getElementById(fpwd).type);
             var check = _.isEqual(password.forgotPassword, password.password);
-            password._id = $.jStorage.get("user")._id;
+
             if (check == true) {
-                NavigationService.apiCallWithData("User/Updatepassword", password, function (data) {
+                $scope.showerrmsg = true
+                console.log("hdbxjwhe", password);
+                password._id = $.jStorage.get("user")._id;
+                NavigationService.apiCallWithData("User/findUserForUpdatePass", password, function (data) {
+                    console.log("insideupdatePassword ", data);
                     if (data.value == true) {
                         $scope.data = data.data;
                         $uibModal.open({
@@ -2838,13 +3015,31 @@ firstapp
                             scope: $scope,
                             size: 'sm',
                         });
+                        $state.go("acc-and-sub");
+
+
+                    } else {
+                        toastr.error('Check Entered Current Password');
+
                     }
-                });
+
+                })
+
+
+
 
             } else {
-                toastr.error('Check Entered Password');
+
+                $scope.showerrmsg = false
             }
         }
+
+        // $scope.closeModal = function () {
+        //     $uibModal.close();
+        //     console.log("insideclose modal")
+        //     $state.reload();
+
+        // }
 
         $scope.dfmDeatils = {}
         $scope.dfmDeatils._id = $.jStorage.get("user").currentSubscription;
@@ -3019,6 +3214,26 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
+        excelName = {
+            name: "UserList"
+        }
+
+         $scope.csvFile = function () {
+            console.log("inside csvFile ")
+            NavigationService.generateCsvithName("User/generatecsv", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+           $scope.generatePdf = function () {
+            console.log("inside generatePdf ")
+            NavigationService.generatepdfwithName("User/generatePdf", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+
+        $scope.generateExcel = function () {
+            NavigationService.generateExcelWithName("User/exceltotalUser", excelName, function (data) {});
+        };
 
 
         //pagination admin
@@ -3180,7 +3395,25 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
+        excelName = {
+            name: "ecommerce"
+        } 
+         $scope.csvFile = function () {
+            console.log("inside csvFile ")
+            NavigationService.generateCsvithName("ProductOrders/generatecsv", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+            $scope.generatePdf = function () {
+            console.log("inside generatePdf ")
+            NavigationService.generatepdfwithName("ProductOrders/generatePdf", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
 
+        $scope.generateExcel = function () {
+            NavigationService.generateExcelWithName("ProductOrders/exceltotalProductOrders", excelName, function (data) {});
+        };
 
         //pagination ecommerce
 
@@ -3350,6 +3583,27 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
+        excelName = {
+            name: "vendorList"
+        }
+
+          $scope.csvFile = function () {
+            console.log("inside csvFile ")
+            NavigationService.generateCsvithName("User/generatecsvForVendor", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+         $scope.generatePdf = function () {
+            console.log("inside generatePdf ")
+            NavigationService.generatepdfwithName("User/generatePdfforVendor", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+
+        $scope.generateExcel = function () {
+            NavigationService.generateExcelWithName("User/exceltotalVendor", excelName, function (data) {});
+        };
+
         //pagination
 
         var i = 0;
@@ -3667,6 +3921,25 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
+        excelName = {
+            name: "Billing",
+            _id: $.jStorage.get("user")._id
+        }
+           $scope.csvFile = function () {
+            console.log("inside csvFile ")
+            NavigationService.generateCsvithName("VendorBill/generatecsv", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+             $scope.generatePdf = function () {
+            console.log("inside generatePdf ")
+            NavigationService.generatepdfwithName("VendorBill/generatePdf", excelName,function (data) {
+                console.log("ater api called", data);
+             });
+        };
+        $scope.generateExcelforVendor = function () {
+            NavigationService.generateExcelWithName("VendorBill/exceltotalVendorBill", excelName, function (data) {});
+        };
         //pagination
         var i = 0;
         if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {

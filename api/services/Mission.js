@@ -82,6 +82,71 @@ module.exports = mongoose.model('Mission', schema);
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "others.serviceId user DFMSubscription", "others.serviceId user DFMSubscriptions"));
 var model = {
 
+    exceltotalMission: function (data, callback) {
+        Mission.find({
+
+        }).deepPopulate("user").exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        })
+    },
+
+    generateExcelMission: function (match, callback) {
+        async.concatSeries(match, function (mainData, callback) {
+                var obj = {};
+                obj["MISSION ID"] = mainData.missionId;
+                if (mainData.user) {
+                    obj["USER ID"] = mainData.user.dataId;
+                } else {
+                    obj["USER ID"] = "-";
+                }
+
+                obj["MISSION NAME"] = mainData.name;
+                obj["STATUS"] = mainData.status;
+                obj[" DATE"] = moment(mainData.createdAt).format("DD/MM/YYYY")
+                if (mainData.cadline[0]) {
+                    obj[" CADRQUEST"] = "Yes";
+                } else {
+                    obj[" CADRQUEST"] = "No";
+                }
+                callback(null, obj);
+            },
+            function (err, singleData) {
+                callback(null, singleData);
+            });
+
+    },
+    exceltotalMissionforUser: function (data, callback) {
+        Mission.find({
+            user: data._id
+        }).deepPopulate("user").exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        })
+    },
+
+    generateExcelMissionforUser: function (match, callback) {
+        async.concatSeries(match, function (mainData, callback) {
+                var obj = {};
+                obj["MISSION ID"] = mainData.missionId;
+                obj["MISSION NAME"] = mainData.name;
+                obj["STATUS"] = mainData.status;
+                obj[" DATE"] = moment(mainData.createdAt).format("DD/MM/YYYY")
+                callback(null, obj);
+            },
+            function (err, singleData) {
+                callback(null, singleData);
+            });
+
+    },
+
+
     getMissionUser: function (data, callback) {
         if (data.count) {
             var maxCount = data.count;
@@ -581,6 +646,10 @@ var model = {
                     emailData.email = data.email;
                     emailData.filename = "Mission Started";
                     emailData.subject = "MISSION STARTED";
+                    emailData.merge_vars = [{
+                        "name": "MISSION_ID",
+                        "content": data.missionId
+                    }];
                     Config.email(emailData, function (err, emailRespo) {
                         // console.log("emailRespo", emailRespo);
                         if (err) {
@@ -650,6 +719,10 @@ var model = {
                 var emailData = {}
                 emailData.email = data1.email;
                 emailData.filename = "Mission Completed";
+                emailData.merge_vars = [{
+                    "name": "MISSION_ID",
+                    "content": data.missionId
+                }];
                 emailData.subject = "MISSION COMPLETED";
                 Config.email(emailData, function (err, emailRespo) {
                     // console.log("emailRespo", emailRespo);

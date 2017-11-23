@@ -1,0 +1,11 @@
+appId: 6b7b968f-2227-474a-886a-7f3925098873
+
+key: zuMsshfyk/tnFpYlqb1+eCJMKCQvCPaEqz78aF3UIf8=
+
+directoryId: zuMsshfyk/tnFpYlqb1+eCJMKCQvCPaEqz78aF3UIf8=
+
+"apiVersions": [
+                        "2016-08-01"
+                    ]
+
+                    dir id: e247dc39-abba-4fcf-b626-370066fc99e6

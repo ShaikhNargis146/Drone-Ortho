@@ -143,6 +143,120 @@ module.exports = mongoose.model('User', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema));
 var model = {
+    exceltotalUser: function (data, callback) {
+        User.find({}).deepPopulate("currentSubscription").exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        })
+    },
+
+    generateExcelUser: function (match, callback) {
+        async.concatSeries(match, function (mainData, callback) {
+                var obj = {};
+                obj["USER ID"] = mainData.dataId;
+                obj["USER NAME"] = mainData.name;
+                obj[" EMAIL"] = mainData.email;
+                obj["DFM STATUS"] = mainData.status;
+                if (mainData.currentSubscription) {
+                    obj["DFM PLAN"] = mainData.currentSubscription.name
+                } else {
+                    obj["DFM PLAN"] = "-";
+                }
+                obj["LISENCE TYPE"] = mainData.lisence;
+                obj["ACCESS LEVEL"] = mainData.accessLevel;
+                callback(null, obj);
+            },
+            function (err, singleData) {
+                callback(null, singleData);
+            });
+
+    },
+
+
+    exceltotalVendor: function (data, callback) {
+        User.find({
+            accessLevel: 'Vendor'
+        }).deepPopulate().exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        })
+    },
+
+    generateExcelVendor: function (match, callback) {
+        async.concatSeries(match, function (mainData, callback) {
+                var obj = {};
+                obj["VENDOR ID"] = mainData.dataId;
+                obj["VENDOR NAME"] = mainData.name;
+                obj[" EMAIL"] = mainData.email;
+                obj["CONTACT NUMBER"] = mainData.mobile;
+                obj["CREATED DATE"] = moment(mainData.createdAt).format("DD/MM/YYYY")
+                callback(null, obj);
+            },
+            function (err, singleData) {
+                callback(null, singleData);
+            });
+
+    },
+
+    findUserForUpdatePass: function (data, callback) {
+        async.waterfall([
+            function (callback1) { // generate VendorID 
+                User.findOne({
+                    _id: data._id,
+                    password: md5(data.currpassword),
+                }).exec(function (err, data) {
+                    console.log("data is", data)
+                    if (err || _.isEmpty(data)) {
+                        console.log("inside isempty");
+                        callback1(err, null);
+                    } else {
+                        console.log("data if found true", data)
+                        callback1(null, data);
+                    }
+                })
+            },
+            function (password, callback2) {
+                if (password == null) {
+                    callback("nodata found");
+                } else {
+                    User.update({
+                        _id: mongoose.Types.ObjectId(password._id)
+                    }, {
+                        $set: {
+                            password: md5(data.password)
+                        }
+                    }).exec(function (err, found) {
+                        if (err) {
+                            callback2(err, null);
+                        } else if (_.isEmpty(found)) {
+                            callback2(null, "noDataound");
+                        } else {
+                            callback2(null, found);
+                        }
+
+                    });
+                }
+                // console.log("insidesencod waterfall data is", data)
+
+            }
+        ], function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        });
+    },
+
+
+
+
 
     sendOtp: function (data, callback) {
         // console.log("inside send otp", data)
@@ -865,7 +979,7 @@ var model = {
     },
 
     doLogin: function (data, callback) {
-        console.log("data is",data)
+        console.log("data is", data)
         User.findOne({
             email: data.email,
             password: md5(data.password)
@@ -1091,9 +1205,7 @@ var model = {
         });
     },
     //end vendorId
-
     createUser: function (data, callback) {
-
         async.waterfall([
             function (callback) { // generate VendorID 
                 User.UserIdGenerate(data, function (err, data1) {
@@ -1114,37 +1226,84 @@ var model = {
                     if (err) {
                         callback(err, null);
                     } else if (created) {
-                        var emailData = {}
-                        emailData.email = global["env"].adminEmail;
-                        emailData.filename = "New Member (Admin)";
-                        emailData.subject = "NEW MEMBER";
-                        emailData.merge_vars = [{
-                            "name": "USER_NAME",
-                            "content": created.name
-                        }, {
-                            "name": "USER_ID",
-                            "content": created.dataId
-                        }, {
-                            "name": "PHONE",
-                            "content": created.phone
-                        }, {
-                            "name": "ADDRESS",
-                            "content": created.address
-                        }];
+                        async.parallel([
+                                function (callback) {
+                                    var emailData = {}
+                                    emailData.email = global["env"].adminEmail;
+                                    emailData.filename = "New Member (Admin)";
+                                    emailData.subject = "NEW MEMBER";
+                                    emailData.merge_vars = [{
+                                        "name": "USER_NAME",
+                                        "content": created.name
+                                    }, {
+                                        "name": "USER_ID",
+                                        "content": created.dataId
+                                    }, {
+                                        "name": "PHONE",
+                                        "content": created.phone
+                                    }, {
+                                        "name": "ADDRESS",
+                                        "content": created.address
+                                    }];
 
-                        Config.email(emailData, function (err, emailRespo) {
-                            // console.log("emailRespo", emailRespo);
-                            if (err) {
-                                console.log(err);
-                                //callback(err, null);
-                            } else if (emailRespo) {
-                                //callback(null, "Contact us form saved successfully!!!");
-                            } else {
-                                // callback("Invalid data", null);
-                            }
-                        });
-                        User.sendDfmTrailAndMembershipMail(created, callback);
-                        callback(null, created);
+                                    Config.email(emailData, function (err, emailRespo) {
+                                        // console.log("emailRespo", emailRespo);
+                                        if (err) {
+                                            console.log(err);
+                                            callback();
+                                        } else if (emailRespo) {
+                                            callback();
+                                        } else {
+                                            callback("Invalid data", null);
+                                        }
+                                    });
+                                },
+                                function (callback) {
+                                    var emailData = {}
+                                    emailData.email = created.email;
+                                    emailData.filename = "Membership";
+                                    emailData.subject = "MEMBERSHIP";
+                                    emailData.merge_vars = [{
+                                        "name": "USER_ID",
+                                        "content": created.dataId
+                                    }];
+                                    Config.email(emailData, function (err, emailRespo) {
+                                        if (err) {
+                                            console.log(err);
+                                            callback();
+                                        } else if (emailRespo) {
+                                            callback();
+                                        } else {
+                                            callback("Invalid data", null);
+                                        }
+                                    });
+                                },
+                                function (callback) {
+                                    var emailData = {}
+                                    emailData.email = created.email;
+                                    emailData.filename = "DFM Free Trial";
+                                    emailData.subject = "DFM FREE TRIAL";
+                                    Config.email(emailData, function (err, emailRespo) {
+                                        if (err) {
+                                            console.log(err);
+                                            callback();
+                                        } else if (emailRespo) {
+                                            callback();
+                                        } else {
+                                            callback("Invalid data", null);
+                                        }
+                                    });
+                                }
+                            ],
+                            function (err, data) {
+                                if (err) {
+                                    console.log("error occured")
+                                    // callback(null, err);
+                                } else {
+                                    console.log("waterfall completed successfully", data);
+                                    callback(null, created);
+                                }
+                            });
                     } else {
                         callback(null, {});
                     }
@@ -1158,6 +1317,7 @@ var model = {
             }
         });
     },
+
 
     //userId Generate start
     UserIdGenerate: function (data, callback) {

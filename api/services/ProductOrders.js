@@ -71,7 +71,10 @@ var schema = new Schema({
     trackingCode: String,
     paymentId: String,
     oraganization: String,
-    apartment: String
+    apartment: String,
+    transactionId: String,
+    transactionDate: Date
+
 });
 
 
@@ -99,6 +102,118 @@ module.exports = mongoose.model('ProductOrders', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "products user cadLineWork dfmSubscription", "products user cadLineWork dfmSubscription"));
 var model = {
+    exceltotalProductOrders: function (data, callback) {
+        ProductOrders.find({}).deepPopulate("user dfmSubscription products cadLineWork ").exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        })
+    },
+
+    generateExcelProductOrders: function (match, callback) {
+        async.concatSeries(match, function (mainData, callback) {
+                var obj = {};
+                if (mainData.user) {
+                    obj["USER ID"] = mainData.user.dataId;
+                } else {
+                    obj["USER ID"] = "-";
+                }
+                if (mainData.transactionDate) {
+                    obj["TRANSACTION DATE"] = mainData.transactionDate;
+                } else {
+                    obj["TRANSACTION DATE"] = "-";
+                }
+                if (mainData.transactionId) {
+                    obj["TRANSACTION ID"] = mainData.transactionId;
+                } else {
+                    obj["TRANSACTION ID"] = "-";
+                }
+                if (mainData.dfmSubscription) {
+                    obj["SOLD ITEM"] = mainData.dfmSubscription.name;
+                } else if (mainData.products[0]) {
+                    var myVal = ''
+                    _.forEach(mainData.products, function (pro) {
+                        myVal = myVal + ',' + pro.name;
+                    })
+                    obj["SOLD ITEM"] = myVal;
+                } else if (mainData.cadLineWork) {
+                    obj["SOLD ITEM"] = mainData.cadLineWork.name;
+                }
+                obj["COST"] = mainData.totalAmount;
+
+                if (mainData.user) {
+                    obj["LICENSE TYPE"] = mainData.user.lisence;
+                } else {
+                    obj["LICENSE TYPE"] = "-";
+                }
+
+                if (mainData.shippingAddress) {
+                    if (mainData.shippingAddress.city) {
+                        obj["SHIPPING ADDRESS"] = mainData.shippingAddress.city;
+                    } else {
+                        obj["SHIPPING ADDRESS"] = "-";
+                    }
+
+                } else {
+                    obj["SHIPPING ADDRESS"] = "-";
+                }
+
+                obj["PAYMENT STATUS"] = mainData.status;
+                callback(null, obj);
+            },
+            function (err, singleData) {
+                callback(null, singleData);
+            });
+
+    },
+
+
+    exceltotalProductOrdersforUser: function (data, callback) {
+        ProductOrders.find({
+            user: data._id
+        }).deepPopulate('user cadLineWork dfmSubscription products').exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        })
+    },
+
+    generateExcelProductOrdersforUser: function (match, callback) {
+        async.concatSeries(match, function (mainData, callback) {
+                console.log("mainData.transactionDate", mainData.transactionDate)
+                var obj = {};
+                if (mainData.dfmSubscription) {
+                    obj["PRODUCT NAME"] = mainData.dfmSubscription.name;
+
+                } else if (mainData.products[0]) {
+                    var myVal = ''
+                    _.forEach(mainData.products, function (pro) {
+                        myVal = myVal + ',' + pro.name;
+                    })
+                    obj["PRODUCT NAME"] = myVal;
+                } else if (mainData.cadLineWork) {
+                    obj["PRODUCT NAME "] = "cadLineWork";
+                }
+                obj["COST"] = mainData.totalAmount;
+                if (mainData.transactionDate) {
+                    obj["TRANSACTION DATE"] = moment(mainData.transactionDate).format("DD/MM/YYYY")
+                } else {
+                    obj["TRANSACTION DATE"] = "-"
+                }
+
+                obj["PAYMENT STATUS"] = mainData.status;
+                callback(null, obj);
+            },
+            function (err, singleData) {
+                callback(null, singleData);
+            });
+
+    },
+
 
     invoiceGenerate: function (data, callback) {
         // console.log(data);
@@ -186,7 +301,7 @@ var model = {
             start: (page - 1) * maxRow,
             count: maxRow
         };
-        ProductOrders.find({}).deepPopulate('user')
+        ProductOrders.find({}).deepPopulate('user dfmSubscription products  cadLineWork')
             .order(options)
             .keyword(options)
             .page(options,
@@ -427,10 +542,10 @@ var model = {
                         }, {
                             "name": "CAD_ID",
                             "content": data.cadLineWork.cadId
-                        },  {
+                        }, {
                             "name": "AMOUNT",
                             "content": data.totalAmount
-                        },{
+                        }, {
                             "name": "ACREAGE",
                             "content": data.cadLineWork.acreage
                         }, {
@@ -464,7 +579,7 @@ var model = {
                     forUser: function (callback) {
                         emailData.filename = "DFM Purchase";
                         emailData.subject = "DFM PURCHASE";
-                        emailData.email = data.user.email;                        
+                        emailData.email = data.user.email;
                         Config.email(emailData, function (err, emailRespo) {
                             if (err) {
                                 console.log(err);
@@ -479,7 +594,7 @@ var model = {
                     forAdmin: function (callback) {
                         emailData.filename = "New DFM Purchase (Admin)";
                         emailData.subject = "DFM REQUEST";
-                        emailData.email = global["env"].adminEmail;                        
+                        emailData.email = global["env"].adminEmail;
                         emailData.merge_vars = [{
                             "name": "USER_NAME",
                             "content": data.user.name
@@ -495,7 +610,7 @@ var model = {
                         }, {
                             "name": "ACTIVATION_DATE",
                             "content": data.dfmSubscription.createdAt
-                        },{
+                        }, {
                             "name": "EXPIRATION_DATE",
                             "content": data.dfmSubscription.expiryDate
                         }];
@@ -525,7 +640,7 @@ var model = {
                     forUser: function (callback) {
                         emailData.filename = "Drone Purchase";
                         emailData.subject = "DRONE PURCHASE";
-                        emailData.email = data.user.email;                        
+                        emailData.email = data.user.email;
                         Config.email(emailData, function (err, emailRespo) {
                             // console.log("emailRespo", emailRespo);
                             if (err) {

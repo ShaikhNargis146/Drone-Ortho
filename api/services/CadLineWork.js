@@ -93,6 +93,124 @@ module.exports = mongoose.model('CadLineWork', schema);
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "user mission vendor", "user mission vendor"));
 var model = {
 
+    exceltotalCad: function (data, callback) {
+        CadLineWork.find({
+
+        }).deepPopulate('mission user').exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        })
+    },
+
+    generateExcelCad: function (match, callback) {
+        async.concatSeries(match, function (mainData, callback) {
+
+                var obj = {};
+                obj["CAD ID"] = mainData.cadId;
+                if (mainData.user) {
+                    obj["USER ID"] = mainData.user.dataId;
+                } else {
+                    obj["USER ID"] = "-";
+                }
+                if (mainData.acreage) {
+                    obj["ACREAGE"] = mainData.acreage;
+                } else {
+                    obj["ACREAGE"] = "-";
+                }
+                if (mainData.instruction) {
+                    obj["DESCRIPTION"] = mainData.instruction;
+                } else {
+                    obj["DESCRIPTION"] = "-";
+                }
+
+                obj[" STATUS"] = mainData.status;
+                obj["DATE-OF-REQUEST"] = moment(mainData.createdAt).format("DD/MM/YYYY")
+                if (mainData.completionDate) {
+                    obj["COMPLETION DATE"] = moment(mainData.completionDate).format("DD/MM/YYYY");
+                } else {
+                    obj["COMPLETION DATE"] = "-";
+                }
+                callback(null, obj);
+            },
+            function (err, singleData) {
+                callback(null, singleData);
+            });
+
+    },
+    exceltotalCadforUser: function (data, callback) {
+        CadLineWork.find({
+            user: data._id
+        }).deepPopulate('mission').exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        })
+    },
+
+    generateExcelCadforUser: function (match, callback) {
+        async.concatSeries(match, function (mainData, callback) {
+                var obj = {};
+                obj["CAD ID"] = mainData.cadId;
+                if (mainData.acreage) {
+                    obj["ACREAGE"] = mainData.acreage;
+                } else {
+                    obj["ACREAGE"] = "-";
+                }
+                if (mainData.instruction) {
+                    obj["DESCRIPTION"] = mainData.instruction;
+                } else {
+                    obj["DESCRIPTION"] = "-";
+                }
+                obj[" STATUS"] = mainData.status;
+                obj["DATE-OF-REQUEST"] = moment(mainData.createdAt).format("DD/MM/YYYY")
+                if (mainData.completionDate) {
+                    obj["COMPLETION DATE"] = moment(mainData.completionDate).format("DD/MM/YYYY");
+                } else {
+                    obj["COMPLETION DATE"] = "-";
+                }
+
+                callback(null, obj);
+            },
+            function (err, singleData) {
+                callback(null, singleData);
+            });
+
+    },
+    generateExcelCadForVendor: function (match, callback) {
+        async.concatSeries(match, function (mainData, callback) {
+                var obj = {};
+                obj["Mission ID"] = mainData.mission.missionId;
+                if (mainData.acreage) {
+                    obj["ACREAGE"] = mainData.acreage;
+                } else {
+                    obj["ACREAGE"] = "-";
+                }
+                if (mainData.instruction) {
+                    obj["DESCRIPTION"] = mainData.instruction;
+                } else {
+                    obj["DESCRIPTION"] = "-";
+                }
+                obj[" STATUS"] = mainData.status;
+                obj["DATE-OF-REQUEST"] = moment(mainData.createdAt).format("DD/MM/YYYY")
+                if (mainData.completionDate) {
+                    obj["COMPLETION DATE"] = moment(mainData.completionDate).format("DD/MM/YYYY");
+                } else {
+                    obj["COMPLETION DATE"] = "-";
+                }
+
+                callback(null, obj);
+            },
+            function (err, singleData) {
+                callback(null, singleData);
+            });
+
+    },
+
     getCadByUSer: function (data, callback) {
         if (data.count) {
             var maxCount = data.count;
@@ -751,6 +869,10 @@ var model = {
                 emailData.email = data1.user.email;
                 emailData.filename = "CAD Complete";
                 emailData.subject = "CAD COMPLETED";
+                emailData.merge_vars = [{
+                    "name": "CAD_ID",
+                    "content": data1.cadId
+                }];
                 Config.email(emailData, function (err, emailRespo) {
                     // console.log("emailRespo", emailRespo);
                     if (err) {

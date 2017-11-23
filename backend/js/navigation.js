@@ -259,5 +259,58 @@ var navigationservice = angular.module('navigationservice', [])
                 })
             },
 
+
+            generatepdfwithName: function (url, data, callback) {
+                $http.post(adminurl + url, data, {
+                    responseType: 'arraybuffer'
+                }).then(function (response) {
+                    var header = response.headers('Content-Disposition')
+                    var fileName = data.name + "-" + moment().format("MMM-DD-YYYY-hh-mm-ss-a") + ".pdf";
+                    var blob = new Blob([response.data], {
+                        type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation;charset=UTF-8'
+                    });
+                    var objectUrl = (window.URL || window.webkitURL).createObjectURL(blob);
+                    var link = angular.element('<a/>');
+                    link.attr({
+                        href: objectUrl,
+                        download: fileName
+                    })[0].click();
+                })
+            },
+            generateCsvithName: function (url, data, callback) {
+                $http.post(adminurl + url, data, {
+                    responseType: 'arraybuffer'
+                }).then(function (response) {
+                    var header = response.headers('Content-Disposition')
+                    var fileName = data.name + "-" + moment().format("MMM-DD-YYYY-hh-mm-ss-a") + ".csv";
+                    var blob = new Blob([response.data], {
+                        type: 'text/csv;charset=utf-8;'
+                    });
+                    var objectUrl = (window.URL || window.webkitURL).createObjectURL(blob);
+                    var link = angular.element('<a/>');
+                    link.attr({
+                        href: objectUrl,
+                        download: fileName
+                    })[0].click();
+                })
+            },
+            generateExcelWithName: function (url, data, callback) {
+                $http.post(adminurl + url, data, {
+                    responseType: 'arraybuffer'
+                }).then(function (response) {
+                    var header = response.headers('Content-Disposition')
+                    var fileName = data.name + "-" + moment().format("MMM-DD-YYYY-hh-mm-ss-a") + ".xlsx";
+                    var blob = new Blob([response.data], {
+                        type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation;charset=UTF-8'
+                    });
+                    var objectUrl = (window.URL || window.webkitURL).createObjectURL(blob);
+                    var link = angular.element('<a/>');
+                    link.attr({
+                        href: objectUrl,
+                        download: fileName
+                    })[0].click();
+                })
+            },
+
         };
     });

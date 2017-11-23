@@ -146,7 +146,7 @@
 											Vendor Billing ID
 										</td>
 										<td>:</td>
-										<td ng-if="cadLineDetails.vendor">{{cadLineDetails.vendorBillingId}}</td>
+										<td ng-if="cadLineDetails.vendorBillingId">{{cadLineDetails.vendorBillingId}}</td>
 										<!--<td ng-if="cadLineDetails.vendor">{{cadLineDetails.vendor.name}}</td>-->
 										<!--<td ng-if="!cadLineDetails.vendor">
 											<select class="cad-dropdown" ng-repeat="vedors in allVendorsForRequest" ng-model="formData.vendor">
@@ -158,8 +158,7 @@
 										<td>Vendor Payment Status </td>
 										<td>:</td>
 										<td ng-if="cadLineDetails.vendorPaymentStatus=='Unpaid'">
-											<button type="submit" data-toggle="modal" data-target=".modal-n" class="btn green btn-outline btn-xs" ng-if="cadLineDetails.vendor"
-											    ng-disabled="!cadLineDetails.vendorCharges">Pay Now</button>
+											<button type="submit" data-toggle="modal" data-target=".modal-n" class="btn green btn-outline btn-xs" ng-disabled="!cadLineDetails.vendorCharges">Pay Now</button>
 											<!--<button type="submit" data-toggle="modal" data-target="" class="btn green btn-outline btn-xs" ng-click="cadVendorUpdate(formData)"
 											    ng-if="!cadLineDetails.vendor"> Sent Request</button>-->
 										</td>
@@ -343,7 +342,7 @@
 
 <!-- SET EARNING MODAL -->
 
-<div class="modal fade modal-m" id="myModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+<div class="modal fade modal-m contours" id="myModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
 	<div class="modal-dialog ">
 		<div class="modal-content">
 			<div class="modal-header" style="background-color:#36918b">
@@ -351,13 +350,13 @@
 				<h4 class="modal-title" style="color:#fff">CAD Request FORM</h4>
 			</div>
 			<div class="modal-body">
-				<form class="form-horizontal">
+				<form class="form-horizontal" name="cadFile">
 
 
 					<div class="form-group">
 						<label class="control-label col-sm-4" z for="pwd">Contours</label>
 						<div class="col-sm-6">
-							<select class="form-control" id="contours" ng-model="cadLineDetails.contours">
+							<select class="form-control" id="contours" ng-model="cadLineDetails.contours" required>
 								<option value="">SELECT</option>
 								<option value="true">Yes</option>
 								<option value="false">No</option>
@@ -368,7 +367,7 @@
 					<div class="form-group">
 						<label class="control-label col-sm-4" for="pwd">Contour Density</label>
 						<div class="col-sm-6">
-							<select class="form-control" ng-model="cadLineDetails.contoursDensity" ng-disabled="cadLineDetails.contours=='false'">
+							<select class="form-control" ng-model="cadLineDetails.contoursDensity" ng-disabled="cadLineDetails.contours=='false'" required>
 								<option value="">SELECT</option>
 								<option value="high">High</option>
 								<option value="medium">Medium</option>
@@ -380,7 +379,7 @@
 					<div class="form-group">
 						<label class="control-label col-sm-4" for="pwd">Drafting Density</label>
 						<div class="col-sm-6">
-							<select class="form-control" ng-model="cadLineDetails.draftingDensity">
+							<select class="form-control" ng-model="cadLineDetails.draftingDensity" required>
 								<option value="">SELECT</option>
 								<option value="high">High</option>
 								<option value="medium">Medium</option>
@@ -392,9 +391,11 @@
 						<label class="control-label col-sm-4" for="pwd">Acreage</label>
 						<div class="col-sm-6">
 							<input type="text" ng-model="cadLineDetails.acreage" class="form-control" id="acreage" placeholder="Enter Acreage" disabled
-							    name="pwd">
+							    name="acreage" required>
+							<span class="errormsg" ng-show="cadFile.acreage.$touched && cadFile.acreage.$invalid">The acreage is required.</span>
 						</div>
 					</div>
+					<span class="errormsg" ng-show="cadFile.acreage.$touched && cadFile.acreage.$invalid">The acreage is required.</span>
 					<div class="form-group">
 						<label class="control-label col-sm-4" for="pwd">Description</label>
 						<div class="col-sm-8">
@@ -406,7 +407,7 @@
 
 					<div class="form-group">
 						<div class="col-sm-offset-6 col-sm-6">
-							<button type="button" ng-click="calculateAmount(cadLineDetails)" class="btn green">Calculate Cost</button>
+							<button type="button" ng-disabled="cadFile.$invalid" ng-click="calculateAmount(cadLineDetails)" class="btn green">Calculate Cost</button>
 						</div>
 					</div>
 
@@ -420,7 +421,7 @@
 
 					<div class="form-group">
 						<div class="col-sm-offset-6 col-sm-4">
-							<button type="button" ng-click="cadSave(cadLineDetails)" data-dismiss="modal" class="btn green btn-outline pull-right">Proceed to Pay</button>
+							<button type="button" ng-disabled="cadFile.$invalid" ng-click="cadSave(cadLineDetails)" data-dismiss="modal" class="btn green btn-outline pull-right">Proceed to Pay</button>
 						</div>
 					</div>
 

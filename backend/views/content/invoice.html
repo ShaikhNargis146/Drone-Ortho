@@ -29,14 +29,17 @@
                       <div class="col-md-6">
                         <div class="pull-right"> <label>Search:<input type="text " ng-change="getAllItems(true) " placeholder="Search Here...
                         " ng-model="search.keyword " /></label>
-                          <div class="dt-buttons btn-group"> <a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Copy</span>             </a>                            <a class="btn btn-default buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>CSV</span>             </a>                            <a class="btn btn-default buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Excel</span>             </a>                            <a class="btn btn-default buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>PDF</span>             </a>                            <a class="btn btn-default buttons-print" tabindex="0" aria-controls="DataTables_Table_0"><span>Print</span>             </a>                            </div>
+                          <div class="dt-buttons btn-group"> <a class="btn btn-default buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"
+                              ng-click="csvFileForUser();"><span>CSV</span>             </a> <a class="btn btn-default buttons-excel buttons-html5"
+                              tabindex="0" ng-click="generateExcelforUser()" aria-controls="DataTables_Table_0"><span>Excel</span>             </a>                            <a class="btn btn-default buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"
+                              ng-click="generatePdfForUser();"><span>PDF</span>             </a> </div>
                         </div>
                       </div>
                     </div>
                   </div>
                   </common-view>
                   <div>
-                                              <!-- <th>Coupon Discount</th> -->
+                    <!-- <th>Coupon Discount</th> -->
                     <table datatable="" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
                       <thead>
                         <tr>
@@ -53,11 +56,11 @@
                         <tr ng-repeat="abc in product.products" ng-if="abc._id">
                           <!--<tr ng-repeat="abc in product.products">-->
                           <td>{{abc.name}}</td>
-                          <td>{{abc.createdAt | date}}
+                          <td>{{abc.transactionDate | date}}
                           </td>
-                          <td>{{abc.price}}</td>
-                          <td>{{abc.status}}</td>
-                          <td></td>
+                          <td>{{abc.totalAmount}}</td>
+                          <td>{{product.status}}</td>
+                          <td>{{abc.transactionId}}</td>
                           <td>
                             <!--<button type="button" ng-click="getInvoice()" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;-->
                             <button type="button" class="btn green btn-outline btn-xs" ng-click="downloadInvoice(product.pdf)">Download</button>
@@ -72,12 +75,10 @@
                           <!--<tr ng-repeat="cad in productData">-->
 
                           <td>{{cad.cadLineWork.name}}</td>
-                          <td>{{cad.cadLineWork.createdAt | date}}</td>
-                          <td>{{cad.cadLineWork.amount}}</td>
-                          <td>{{cad.cadLineWork.DiscountAmount}}</td>
-                          <td>{{cad.cadLineWork.status}}</td>
-                          <td></td>
-
+                          <td>{{cad.transactionDate | date}}</td>
+                          <td>{{cad.totalAmount}}</td>
+                          <td>{{cad.status}}</td>
+                          <td>{{cad.transactionId}}</td>
                           <td>
                             <!--<button type="button" ng-click="getInvoice()" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;-->
                             <button type="button" class="btn green btn-outline btn-xs" ng-click="downloadInvoice(cad.pdf)">Download</button>
@@ -92,11 +93,11 @@
 
                           <td>{{dfm.dfmSubscription.name}}
                           </td>
-                          <td>{{dfm.dfmSubscription.createdAt | date}}</td>
-                          <td>{{dfm.dfmSubscription.amount}}</td>
-                          <td>{{dfm.dfmSubscription.DiscountAmount}}</td>
-                          <td>{{cad.dfmSubscription.status}}</td>
-                          <td></td>
+                          <td>{{dfm.transactionDate | date}}</td>
+                          <td>{{dfm.totalAmount}}</td>
+                          <td>{{dfm.status}}</td>
+                          <td>{{dfm.transactionId}}</td>
+
                           <td>
                             <!--<button type="button" ng-click="getInvoice()" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;-->
                             <button type="button" class="btn green btn-outline btn-xs" ng-click="downloadInvoice(dfm.pdf)">Download</button>

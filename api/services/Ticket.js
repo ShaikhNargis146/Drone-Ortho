@@ -37,6 +37,81 @@ module.exports = mongoose.model('Ticket', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "user", "user"));
 var model = {
+    exceltotalTicketforUser: function (data, callback) {
+        Ticket.find({
+            user: data._id
+        }).deepPopulate("user").exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        })
+    },
+
+    generateExcelTicketforUser: function (match, callback) {
+        async.concatSeries(match, function (mainData, callback) {
+                var obj = {};
+                obj["TICKET ID"] = mainData.ticketId;
+                obj["DATE"] = moment(mainData.createdAt).format("DD/MM/YYYY")
+                obj["SUBJECT"] = mainData.subject;
+                obj["DESCRIPTION"] = mainData.description;
+                obj["TICKET STATUS"] = mainData.status;
+                if (mainData.replyDate) {
+                    obj["CLOSING DATE"] = moment(mainData.replyDate).format("DD/MM/YYYY")
+                } else {
+                    obj["CLOSING DATE"] = '-'
+                }
+
+
+
+                // obj["USER"] = mainData.user.name;
+                // obj["DFM SUBSCRIPTION"] = mainData.DFMSubscription.name;
+                // obj["DATE"] = mainData.date;
+                callback(null, obj);
+            },
+            function (err, singleData) {
+                callback(null, singleData);
+            });
+
+    },
+
+    exceltotalTicket: function (data, callback) {
+        Ticket.find({}).deepPopulate("user").exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        })
+    },
+
+    generateExcelTicket: function (match, callback) {
+        async.concatSeries(match, function (mainData, callback) {
+                var obj = {};
+                obj["TICKET ID"] = mainData.ticketId;
+                obj["DATE"] = moment(mainData.createdAt).format("DD/MM/YYYY")
+                obj["SUBJECT"] = mainData.subject;
+                if (mainData.user) {
+                    obj["USER ID"] = mainData.user.dataId;
+                } else {
+                    obj["USER ID"] = "-";
+                }
+
+                obj["TICKET STATUS"] = mainData.status;
+                if (mainData.replyDate) {
+                    obj["CLOSING DATE"] = moment(mainData.replyDate).format("DD/MM/YYYY")
+                } else {
+                    obj["CLOSING DATE"] = '-'
+                }
+
+                callback(null, obj);
+            },
+            function (err, singleData) {
+                callback(null, singleData);
+            });
+
+    },
 
     createTicketForUser: function (data, callback) {
         async.waterfall([

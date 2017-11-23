@@ -7,9 +7,113 @@ var ConvertTiff = require('tiff-to-png');
 var path = require('path');
 var decode = require("decode-tiff");
 var PNG = require('pngjs');
-var sharp = require('sharp');
+// var sharp = require('sharp');
 var JSZip = require("jszip");
+var gdal = require("gdal");
+
 var controller = {
+    generatecsvForUser: function (req, res) {
+        CadLineWork.exceltotalCadforUser(req.body, function (err, data) {
+            data.name = "CadLineWorkForUser"
+            Config.jsonTOCsvConvert(data, function (csv) {
+                _.cloneDeep(csv);
+                res.set('Content-Type', "application/CSV");
+                res.set('Content-Disposition', "attachment;filename=" + csv.path);
+                res.send(csv.csvData);
+            });
+        });
+    },
+    generatecsvForVendor: function (req, res) {
+        CadLineWork.exceltotalCad(req.body, function (err, data) {
+            data.name = "CadLineWorkForVendor"
+            Config.jsonTOCsvConvert(data, function (csv) {
+                _.cloneDeep(csv);
+                res.set('Content-Type', "application/CSV");
+                res.set('Content-Disposition', "attachment;filename=" + csv.path);
+                res.send(csv.csvData);
+            });
+        });
+    },
+    generatecsv: function (req, res) {
+        CadLineWork.exceltotalCad(req.body, function (err, data) {
+            data.name = "CadLineWork"
+            Config.jsonTOCsvConvert(data, function (csv) {
+                _.cloneDeep(csv);
+                res.set('Content-Type', "application/CSV");
+                res.set('Content-Disposition', "attachment;filename=" + csv.path);
+                res.send(csv.csvData);
+            });
+        });
+    },
+    generatePdfForUser: function (req, res) {
+        CadLineWork.exceltotalCadforUser(req.body, function (err, data) {
+            data.name = "CadLineWorkForUser"
+            Config.generatePdfFormatData(data, function (pdf) {
+                _.cloneDeep(pdf);
+                res.set('Content-Type', "application/pdf");
+                res.set('Content-Disposition', "attachment;filename=" + pdf.path);
+                res.send(pdf.pdfData);
+            });
+        });
+    },
+    generatePdfForVendor: function (req, res) {
+        CadLineWork.exceltotalCad(req.body, function (err, data) {
+            data.name = "CadLineWorkForVendor"
+            Config.generatePdfFormatData(data, function (pdf) {
+                _.cloneDeep(pdf);
+                res.set('Content-Type', "application/pdf");
+                res.set('Content-Disposition', "attachment;filename=" + pdf.path);
+                res.send(pdf.pdfData);
+            });
+        });
+    },
+    generatePdf: function (req, res) {
+        CadLineWork.exceltotalCad(req.body, function (err, data) {
+            data.name = "CadLineWork"
+            Config.generatePdfFormatData(data, function (pdf) {
+                _.cloneDeep(pdf);
+                res.set('Content-Type', "application/pdf");
+                res.set('Content-Disposition', "attachment;filename=" + pdf.path);
+                res.send(pdf.pdfData);
+            });
+        });
+    },
+    exceltotalCadforVendor: function (req, res) {
+        CadLineWork.exceltotalCad(req.body, function (err, data) {
+            CadLineWork.generateExcelCadForVendor(data, function (err, singleData) {
+                Config.generateExcel("CadExcel", singleData, function (excels) {
+                    // console.log("excel", excels, "err", err);
+                    res.set('Content-Type', "application/octet-stream");
+                    res.set('Content-Disposition', "attachment;filename=" + excels.path);
+                    res.send(excels.excel);
+                });
+            });
+        });
+    },
+    exceltotalCad: function (req, res) {
+        CadLineWork.exceltotalCad(req.body, function (err, data) {
+            CadLineWork.generateExcelCad(data, function (err, singleData) {
+                Config.generateExcel("CadExcel", singleData, function (excels) {
+                    // console.log("excel", excels, "err", err);
+                    res.set('Content-Type', "application/octet-stream");
+                    res.set('Content-Disposition', "attachment;filename=" + excels.path);
+                    res.send(excels.excel);
+                });
+            });
+        });
+    },
+    exceltotalCadforUser: function (req, res) {
+        CadLineWork.exceltotalCadforUser(req.body, function (err, data) {
+            CadLineWork.generateExcelCadforUser(data, function (err, singleData) {
+                Config.generateExcel("CadExcel", singleData, function (excels) {
+                    // console.log("excel", excels, "err", err);
+                    res.set('Content-Type', "application/octet-stream");
+                    res.set('Content-Disposition', "attachment;filename=" + excels.path);
+                    res.send(excels.excel);
+                });
+            });
+        });
+    },
     getCadByUSer: function (req, res) {
         if (req.body) {
             CadLineWork.getCadByUSer(req.body, res.callback);
@@ -170,7 +274,7 @@ var controller = {
                             var cord = [];
                             cord.push(pt_wgs84.x);
                             cord.push(pt_wgs84.y);
-                            cornList[corner_name] = cord;
+                            cornList[corner_name] = cord.reverse();
                         });
                         // console.log(cornList)
                         callback(null, cornList);
@@ -241,13 +345,32 @@ var controller = {
                     // console.log("fileName[0]----", cadData.orthoFile.file);
                     var firstName = cadData.orthoFile.file.split(".");
                     var extension = cadData.orthoFile.file.split(".").pop();
+                    var inputFile = path.join(path.join(process.cwd(), "pix4dUpload"), cadData.orthoFile.file);
+                    var outputFile = 'C:/Users/unifli/Documents/googleTile-Mosaic/' + firstName[0] + '.jpg';
+                    exec('gdal_translate -of JPEG -B 1 -B 2 -B 3 -co "QUALITY=70" ' + inputFile + ' ' + outputFile, {
+                        maxBuffer: 1024 * 500000
+                    }, function (error, stdout, stderr) {
+                        if (error) {
+                            console.log("\n error inside gdal_translate", error);
+                            callback(null, error);
+                        } else if (stdout) {
+                            console.log("stdout inside----c -n---->>>>>>>>>>>> ", stdout);
+                            if (stdout.includes("done")) {
+                                console.log("found------>>>>>>>>>>>", stdout.indexOf("done"));
+                                callback(null, "done");
+                            }
+                        } else {
+                            console.log("stderr", stderr);
+                            callback(null, stderr);
+                        }
+                    });
                     // console.log("fileName[0] ", 'C:/Users/unifli/Documents/googleTile-Mosaic/' + firstName[0] + '.jpg', path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile.file)
-                    sharp(path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile.file)
-                        .jpeg()
-                        .toFile('C:/Users/unifli/Documents/googleTile-Mosaic/' + firstName[0] + '.jpg', function (err, info) {
-                            // console.log("done");
-                            callback(null, "done");
-                        });
+                    // sharp(path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile.file)
+                    //     .jpeg()
+                    //     .toFile('C:/Users/unifli/Documents/googleTile-Mosaic/' + firstName[0] + '.jpg', function (err, info) {
+                    //         // console.log("done");
+                    //         callback(null, "done");
+                    //     });
                 }
             ],
             function (err, data) {
