@@ -1207,7 +1207,6 @@ var model = {
     //end vendorId
 
     createUser: function (data, callback) {
-
         async.waterfall([
             function (callback) { // generate VendorID 
                 User.UserIdGenerate(data, function (err, data1) {
@@ -1228,6 +1227,7 @@ var model = {
                     if (err) {
                         callback(err, null);
                     } else if (created) {
+                        this.sendDfmTrailAndMembershipMail(created, callback);
                         var emailData = {}
                         emailData.email = global["env"].adminEmail;
                         emailData.filename = "New Member (Admin)";
@@ -1257,7 +1257,6 @@ var model = {
                                 // callback("Invalid data", null);
                             }
                         });
-                        User.sendDfmTrailAndMembershipMail(created, callback);
                         callback(null, created);
                     } else {
                         callback(null, {});
