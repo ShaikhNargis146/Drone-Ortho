@@ -259,8 +259,9 @@ var model = {
                         } else if (_.isEmpty(found)) {
                             callback(null, "noDataound");
                         } else {
-                            callback(null, found);
+                            console.log("emailData--------------",emailData);
                             ProductOrders.sendMailOnPurchase(emailData, callback);
+                            callback(null, found);
                         }
 
                     });
