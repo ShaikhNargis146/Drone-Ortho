@@ -1227,37 +1227,84 @@ var model = {
                     if (err) {
                         callback(err, null);
                     } else if (created) {
-                        model.sendDfmTrailAndMembershipMail(created, callback);
-                        var emailData = {}
-                        emailData.email = global["env"].adminEmail;
-                        emailData.filename = "New Member (Admin)";
-                        emailData.subject = "NEW MEMBER";
-                        emailData.merge_vars = [{
-                            "name": "USER_NAME",
-                            "content": created.name
-                        }, {
-                            "name": "USER_ID",
-                            "content": created.dataId
-                        }, {
-                            "name": "PHONE",
-                            "content": created.phone
-                        }, {
-                            "name": "ADDRESS",
-                            "content": created.address
-                        }];
+                        async.parallel([
+                                function (callback) {
+                                    var emailData = {}
+                                    emailData.email = global["env"].adminEmail;
+                                    emailData.filename = "New Member (Admin)";
+                                    emailData.subject = "NEW MEMBER";
+                                    emailData.merge_vars = [{
+                                        "name": "USER_NAME",
+                                        "content": created.name
+                                    }, {
+                                        "name": "USER_ID",
+                                        "content": created.dataId
+                                    }, {
+                                        "name": "PHONE",
+                                        "content": created.phone
+                                    }, {
+                                        "name": "ADDRESS",
+                                        "content": created.address
+                                    }];
 
-                        Config.email(emailData, function (err, emailRespo) {
-                            // console.log("emailRespo", emailRespo);
-                            if (err) {
-                                console.log(err);
-                                //callback(err, null);
-                            } else if (emailRespo) {
-                                //callback(null, "Contact us form saved successfully!!!");
-                            } else {
-                                // callback("Invalid data", null);
-                            }
-                        });
-                        callback(null, created);
+                                    Config.email(emailData, function (err, emailRespo) {
+                                        // console.log("emailRespo", emailRespo);
+                                        if (err) {
+                                            console.log(err);
+                                            callback(err, null);
+                                        } else if (emailRespo) {
+                                            callback(null, "Contact us form saved successfully!!!");
+                                        } else {
+                                            callback("Invalid data", null);
+                                        }
+                                    });
+                                },
+                                function (data, callback) {
+                                    var emailData = {}
+                                    emailData.email = created.email;
+                                    emailData.filename = "Membership";
+                                    emailData.subject = "MEMBERSHIP";
+                                    emailData.merge_vars = [{
+                                        "name": "USER_ID",
+                                        "content": created.dataId
+                                    }];
+                                    Config.email(emailData, function (err, emailRespo) {
+                                        if (err) {
+                                            console.log(err);
+                                            callback(err, null);
+                                        } else if (emailRespo) {
+                                            callback(null, "Contact us form saved successfully!!!");
+                                        } else {
+                                            callback("Invalid data", null);
+                                        }
+                                    });
+                                },
+                                function (first, callback) {
+                                    var emailData = {}
+                                    emailData.email = created.email;
+                                    emailData.filename = "DFM Free Trial";
+                                    emailData.subject = "DFM FREE TRIAL";
+                                    Config.email(emailData, function (err, emailRespo) {
+                                        if (err) {
+                                            console.log(err);
+                                            callback(err, null);
+                                        } else if (emailRespo) {
+                                            callback(null, "Contact us form saved successfully!!!");
+                                        } else {
+                                            callback("Invalid data", null);
+                                        }
+                                    });
+                                }
+                            ],
+                            function (err, data) {
+                                if (err) {
+                                    console.log("error occured")
+                                    callback(null, err);
+                                } else {
+                                    console.log("waterfall completed successfully", data);
+                                    callback(null, created);
+                                }
+                            });
                     } else {
                         callback(null, {});
                     }
