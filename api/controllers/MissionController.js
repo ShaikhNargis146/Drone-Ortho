@@ -428,7 +428,7 @@ cron.schedule('1 * * * * *', function () {
             var mosaicList;
             var geoLocation;
             async.eachSeries(found, function (value, callback1) {
-                    // console.log("value", value);
+                    console.log("value", value.missionId);
                     emailData.user = value.user;
                     dirName1 = 'C:/Users/unifli/Documents/pix4d/' + value.missionId + '/3_dsm_ortho/2_mosaic'
                     // dirName1 = 'C:/Users/dell/Documents/pix4d/' + value.missionId + '/3_dsm_ortho/2_mosaic' //for local                 
