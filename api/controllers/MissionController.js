@@ -589,7 +589,7 @@ cron.schedule('1 * * * * *', function () {
                                             ],
                                             function (err, data) {
                                                 if (err) {
-                                                    callback(null, err);
+                                                    callback1();
                                                 } else {
                                                     console.log("waterfall completed successfully", data);
                                                     Mission.sendMissionCompletedMail(emailData, callback);
