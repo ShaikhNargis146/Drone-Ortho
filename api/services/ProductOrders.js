@@ -259,8 +259,9 @@ var model = {
                         } else if (_.isEmpty(found)) {
                             callback(null, "noDataound");
                         } else {
-                            callback(null, found);
+                            console.log("emailData--------------",emailData);
                             ProductOrders.sendMailOnPurchase(emailData, callback);
+                            callback(null, found);
                         }
 
                     });
@@ -496,6 +497,7 @@ var model = {
     },
 
     sendMailOnPurchase: function (data, callback) {
+        console.log("data for email---",data)
         var emailData = {};
         if (data.cadLineWork) {
             async.parallel({
@@ -657,6 +659,10 @@ var model = {
                         emailData.email = global["env"].adminEmail;
                         emailData.filename = "New Drone Purchase (Admin)";
                         emailData.subject = "DRONE PURCHASE";
+                        var allProducts='';
+                        _.forEach(data.products,function(n){
+                            allProducts=allProducts+','+n.name;
+                        })
                         emailData.merge_vars = [{
                             "name": "USER_NAME",
                             "content": data.user.name
@@ -665,10 +671,10 @@ var model = {
                             "content": data.user.dataId
                         }, {
                             "name": "NAME_DRONE",
-                            "content": data.products.name
+                            "content": allProducts
                         }, {
                             "name": "PRICE",
-                            "content": data.products.price
+                            "content": data.totalAmount
                         }];
 
                         Config.email(emailData, function (err, emailRespo) {
