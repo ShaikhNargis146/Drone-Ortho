@@ -122,54 +122,56 @@ var controller = {
 
 		var invoiceUserId = {};
 		console.log("................................");
+		console.log(req);
 		console.log(req.body);
 		console.log(req.query);
-		res.redirect("http://unifli.aero/thankyou");
-		// ProductOrders.invoiceGenerate(invoiceUserId, function (err, data) {
-		// 	console.log(data);
-		// })
+		invoiceUserId.invoiceNo = req.query.invoiceNumber;
+		// res.redirect("http://unifli.aero/thankyou");
+		ProductOrders.invoiceGenerate(invoiceUserId, function (err, data) {
+			console.log(data);
+		})
 
-		// ProductOrders.findOne({
-		// 	invoiceNo: req.query.invoiceNumber
-		// }).lean().exec(function (err, found) {
-		// 	if (err || _.isEmpty(found)) {} else {
-		// 		if (found.cadLineWork) {
-		// 			res.redirect("http://cloud.unifli.aero/#!/cadfile-request");
-		// 		} else {
-		// 			res.redirect("http://unifli.aero/thankyou");
-		// 		}
+		ProductOrders.findOne({
+			invoiceNo: req.query.invoiceNumber
+		}).lean().exec(function (err, found) {
+			if (err || _.isEmpty(found)) {} else {
+				if (found.cadLineWork) {
+					res.redirect("http://cloud.unifli.aero/#!/cadfile-request");
+				} else {
+					res.redirect("http://unifli.aero/thankyou");
+				}
 
-		// 		if (found.dfmSubscription) {
-		// 			console.log("user", found.user);
-		// 			User.findOneAndUpdate({
-		// 				_id: found.user
-		// 			}, {
-		// 				currentSubscription: found.dfmSubscription
-		// 			}).exec(function (err, found) {
-		// 				if (err) {
-		// 					console.log("err1")
-		// 				} else if (_.isEmpty(found)) {
-		// 					console.log("err2")
-		// 				} else {
-		// 					console.log("err3")
-		// 				}
+				if (found.dfmSubscription) {
+					console.log("user", found.user);
+					User.findOneAndUpdate({
+						_id: found.user
+					}, {
+						currentSubscription: found.dfmSubscription
+					}).exec(function (err, found) {
+						if (err) {
+							console.log("err1")
+						} else if (_.isEmpty(found)) {
+							console.log("err2")
+						} else {
+							console.log("err3")
+						}
 
-		// 			})
-		// 			found.status = "Paid";
-		// 			ProductOrders.saveData(found, function (err, data) {
-		// 				if (err) {
-		// 					console.log("error occured while updating payment status");
-		// 				} else {
-		// 					console.log("saved successfully");
-		// 				}
+					})
+					found.status = "Paid";
+					ProductOrders.saveData(found, function (err, data) {
+						if (err) {
+							console.log("error occured while updating payment status");
+						} else {
+							console.log("saved successfully");
+						}
 
-		// 			})
-		// 		}
+					})
+				}
 
 
-		// 	}
+			}
 
-		// });
+		});
 	},
 
 	paymentCancel: function (req, res) {
@@ -230,9 +232,9 @@ var controller = {
 			setting4.setSettingName('hostedPaymentReturnOptions');
 			var settingValue = {
 				'showReceipt': false,
-				'url': 'http://cloud.unifli.aero/api/ProductOrders/paymentReturn',
+				'url': 'http://localhost:1337/api/ProductOrders/paymentReturn?invoiceNumber=' + req.query.invoiceNumber,
 				'urlText': 'Continue',
-				'cancelUrl': 'http://cloud.unifli.aero/api/ProductOrders/paymentCancel',
+				'cancelUrl': 'http://localhost:1337/api/ProductOrders/paymentCancel',
 				'cancelUrlText': 'Cancel'
 			};
 			setting4.setSettingValue(JSON.stringify(settingValue));
