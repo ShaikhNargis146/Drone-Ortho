@@ -1205,7 +1205,6 @@ var model = {
         });
     },
     //end vendorId
-
     createUser: function (data, callback) {
         async.waterfall([
             function (callback) { // generate VendorID 
@@ -1228,7 +1227,7 @@ var model = {
                         callback(err, null);
                     } else if (created) {
                         async.parallel([
-                                function (callback) {
+                                function (callback1) {
                                     var emailData = {}
                                     emailData.email = global["env"].adminEmail;
                                     emailData.filename = "New Member (Admin)";
@@ -1251,15 +1250,15 @@ var model = {
                                         // console.log("emailRespo", emailRespo);
                                         if (err) {
                                             console.log(err);
-                                            callback(err, null);
+                                            callback1(err, null);
                                         } else if (emailRespo) {
-                                            callback(null, "Contact us form saved successfully!!!");
+                                            callback1(null, emailRespo);
                                         } else {
-                                            callback("Invalid data", null);
+                                            callback1("Invalid data", null);
                                         }
                                     });
                                 },
-                                function (data, callback) {
+                                function (data, callback1) {
                                     var emailData = {}
                                     emailData.email = created.email;
                                     emailData.filename = "Membership";
@@ -1271,15 +1270,15 @@ var model = {
                                     Config.email(emailData, function (err, emailRespo) {
                                         if (err) {
                                             console.log(err);
-                                            callback(err, null);
+                                            callback1(err, null);
                                         } else if (emailRespo) {
-                                            callback(null, "Contact us form saved successfully!!!");
+                                            callback1(null, emailRespo);
                                         } else {
-                                            callback("Invalid data", null);
+                                            callback1("Invalid data", null);
                                         }
                                     });
                                 },
-                                function (first, callback) {
+                                function (first, callback1) {
                                     var emailData = {}
                                     emailData.email = created.email;
                                     emailData.filename = "DFM Free Trial";
@@ -1287,11 +1286,11 @@ var model = {
                                     Config.email(emailData, function (err, emailRespo) {
                                         if (err) {
                                             console.log(err);
-                                            callback(err, null);
+                                            callback1(err, null);
                                         } else if (emailRespo) {
-                                            callback(null, "Contact us form saved successfully!!!");
+                                            callback1(null, emailRespo);
                                         } else {
-                                            callback("Invalid data", null);
+                                            callback1("Invalid data", null);
                                         }
                                     });
                                 }
@@ -1299,7 +1298,7 @@ var model = {
                             function (err, data) {
                                 if (err) {
                                     console.log("error occured")
-                                    callback(null, err);
+                                    // callback(null, err);
                                 } else {
                                     console.log("waterfall completed successfully", data);
                                     callback(null, created);
@@ -1318,6 +1317,7 @@ var model = {
             }
         });
     },
+
 
     //userId Generate start
     UserIdGenerate: function (data, callback) {
