@@ -508,7 +508,7 @@ cron.schedule('1 * * * * *', function () {
                                                         callback(null, cornList);
                                                     } catch (err) {
                                                         console.log("errrrrrrrr", err);
-                                                        callback(null, "error");
+                                                        callback1();
                                                     }
                                                     // fs.readFile(dirName1 + '/' + val, function (err, data) {
                                                     //     if (err) {
