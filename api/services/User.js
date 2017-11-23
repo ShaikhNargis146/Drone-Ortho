@@ -1227,7 +1227,7 @@ var model = {
                         callback(err, null);
                     } else if (created) {
                         async.parallel([
-                                function (callback1) {
+                                function (callback) {
                                     var emailData = {}
                                     emailData.email = global["env"].adminEmail;
                                     emailData.filename = "New Member (Admin)";
@@ -1250,15 +1250,15 @@ var model = {
                                         // console.log("emailRespo", emailRespo);
                                         if (err) {
                                             console.log(err);
-                                            callback1(err, null);
+                                            callback();
                                         } else if (emailRespo) {
-                                            callback1(null, emailRespo);
+                                            callback();
                                         } else {
-                                            callback1("Invalid data", null);
+                                            callback("Invalid data", null);
                                         }
                                     });
                                 },
-                                function (data, callback1) {
+                                function (callback) {
                                     var emailData = {}
                                     emailData.email = created.email;
                                     emailData.filename = "Membership";
@@ -1270,15 +1270,15 @@ var model = {
                                     Config.email(emailData, function (err, emailRespo) {
                                         if (err) {
                                             console.log(err);
-                                            callback1(err, null);
+                                            callback();
                                         } else if (emailRespo) {
-                                            callback1(null, emailRespo);
+                                            callback();
                                         } else {
-                                            callback1("Invalid data", null);
+                                            callback("Invalid data", null);
                                         }
                                     });
                                 },
-                                function (first, callback1) {
+                                function (callback) {
                                     var emailData = {}
                                     emailData.email = created.email;
                                     emailData.filename = "DFM Free Trial";
@@ -1286,11 +1286,11 @@ var model = {
                                     Config.email(emailData, function (err, emailRespo) {
                                         if (err) {
                                             console.log(err);
-                                            callback1(err, null);
+                                            callback();
                                         } else if (emailRespo) {
-                                            callback1(null, emailRespo);
+                                            callback();
                                         } else {
-                                            callback1("Invalid data", null);
+                                            callback("Invalid data", null);
                                         }
                                     });
                                 }
