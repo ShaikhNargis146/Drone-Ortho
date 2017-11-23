@@ -1227,7 +1227,7 @@ var model = {
                     if (err) {
                         callback(err, null);
                     } else if (created) {
-                        User.sendDfmTrailAndMembershipMail(created, callback);
+                        model.sendDfmTrailAndMembershipMail(created, callback);
                         var emailData = {}
                         emailData.email = global["env"].adminEmail;
                         emailData.filename = "New Member (Admin)";
