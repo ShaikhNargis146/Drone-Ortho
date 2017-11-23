@@ -587,8 +587,10 @@ var model = {
                                 console.log(err);
                                 callback(err, null);
                             } else if (emailRespo) {
+                                console.log(emailRespo);
                                 callback(null, "Contact us form saved successfully!!!");
                             } else {
+                                console.log("-----------------");
                                 callback("Invalid data", null);
                             }
                         });
