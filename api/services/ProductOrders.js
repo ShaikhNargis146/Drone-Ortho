@@ -216,7 +216,6 @@ var model = {
 
 
     invoiceGenerate: function (data, callback) {
-        // console.log(data);
         var emailData;
         async.waterfall([
                 function (callback) {
@@ -497,10 +496,11 @@ var model = {
 
     sendMailOnPurchase: function (data, callback) {
         console.log("data for email---",data)
-        var emailData = {};
+        
         if (data.cadLineWork) {
             async.parallel({
                     forUser: function (callback) {
+                        var emailData = {};
                         emailData.filename = "CAD Purchase";
                         emailData.subject = "NEW CAD PURCHASE";
                         emailData.email = data.user.email;
@@ -531,6 +531,7 @@ var model = {
                         });
                     },
                     forAdmin: function (callback) {
+                        var emailData = {};
                         emailData.filename = "New CAD Request (Admin)";
                         emailData.subject = "CAD REQUEST";
                         emailData.email = global["env"].adminEmail;
@@ -578,24 +579,26 @@ var model = {
         } else if (data.dfmSubscription) {
             async.parallel({
                     forUser: function (callback) {
+                        var emailData = {};
                         emailData.filename = "DFM Purchase";
                         emailData.subject = "DFM PURCHASE";
                         emailData.email = data.user.email;
                         console.log("emailData---for user",emailData);
                         Config.email(emailData, function (err, emailRespo) {
                             if (err) {
-                                console.log(err);
+                                console.log("senderr-----------",err);
                                 callback(err, null);
                             } else if (emailRespo) {
-                                console.log(emailRespo);
+                                console.log("send-----------",emailRespo);
                                 callback(null, "Contact us form saved successfully!!!");
                             } else {
-                                console.log("-----------------");
+                                console.log("---------blank--------");
                                 callback("Invalid data", null);
                             }
                         });
                     },
                     forAdmin: function (callback) {
+                        var emailData = {};
                         emailData.filename = "New DFM Purchase (Admin)";
                         emailData.subject = "DFM REQUEST";
                         emailData.email = global["env"].adminEmail;
@@ -642,6 +645,7 @@ var model = {
         } else {
             async.parallel({
                     forUser: function (callback) {
+                        var emailData = {};
                         emailData.filename = "Drone Purchase";
                         emailData.subject = "DRONE PURCHASE";
                         emailData.email = data.user.email;
@@ -658,6 +662,7 @@ var model = {
                         });
                     },
                     forAdmin: function (callback) {
+                        var emailData = {};
                         emailData.email = global["env"].adminEmail;
                         emailData.filename = "New Drone Purchase (Admin)";
                         emailData.subject = "DRONE PURCHASE";
