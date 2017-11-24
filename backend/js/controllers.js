@@ -3015,7 +3015,7 @@ firstapp
                             scope: $scope,
                             size: 'sm',
                         });
-                        $state.go("acc-and-sub");
+                        // $state.go("dashboard");
 
 
                     } else {
@@ -3034,12 +3034,11 @@ firstapp
             }
         }
 
-        // $scope.closeModal = function () {
-        //     $uibModal.close();
-        //     console.log("insideclose modal")
-        //     $state.reload();
-
-        // }
+        $scope.statechnage = function () {
+            console.log("inside statechnage")
+                        $state.go("dashboard");
+          
+        }
 
         $scope.dfmDeatils = {}
         $scope.dfmDeatils._id = $.jStorage.get("user").currentSubscription;
