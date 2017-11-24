@@ -706,7 +706,6 @@ var model = {
                     // callback(null, result);
                 }
             });
-
     },
 
     sendMissionCompletedMail: function (data, callback) {
