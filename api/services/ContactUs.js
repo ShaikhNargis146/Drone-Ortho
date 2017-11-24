@@ -100,9 +100,9 @@ var model = {
                 },
                 function (err, result) {
                     if (err || _.isEmpty(result)) {
-                        // callback(err, []);
+                        callback(err, []);
                     } else {
-                        // callback(null, result);
+                        callback(null, data1);
                     }
                 });
             } else {
