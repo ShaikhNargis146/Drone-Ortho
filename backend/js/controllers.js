@@ -1935,6 +1935,13 @@ firstapp
                     function (data, ini) {
                         if (ini == i) {
                             $scope.productData = data.data.results;
+                             if ($scope.productData.products[0]) {
+                                var myVal = '';
+                                _.forEach($scope.productData.products, function (pro) {
+                                    myVal = myVal + ',' + pro.name;
+                                })
+                                 $scope.productName = myVal;
+                            }
                             console.log("$scope.productData", $scope.productData);
                             $scope.totalItems = data.data.total;
                             $scope.maxRow = data.data.options.count;
@@ -1953,6 +1960,13 @@ firstapp
                         if (ini == i) {
                             $scope.productData = data.data.results;
                             console.log("$scope.productData", $scope.productData);
+                             if ($scope.productData.products[0]) {
+                                var myVal = '';
+                                _.forEach($scope.productData.products, function (pro) {
+                                    myVal = myVal + ',' + pro.name;
+                                })
+                                 $scope.productName = myVal;
+                            }
                             $scope.totalItems = data.data.total;
                             $scope.maxRow = data.data.options.count;
                         }
