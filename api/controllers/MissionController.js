@@ -430,7 +430,7 @@ cron.schedule('1 * * * * *', function () {
             async.eachSeries(found, function (value, callback1) {
                     console.log("value", value.missionId);
                     emailData.user = value.user;
-                    emailData.missionid=value.missionId
+                    emailData.missionid = value.missionId
                     dirName1 = 'C:/Users/unifli/Documents/pix4d/' + value.missionId + '/3_dsm_ortho/2_mosaic'
                     // dirName1 = 'C:/Users/dell/Documents/pix4d/' + value.missionId + '/3_dsm_ortho/2_mosaic' //for local                 
                     if (fs.existsSync(dirName1)) {
@@ -585,6 +585,7 @@ cron.schedule('1 * * * * *', function () {
                                                     fse.copy(oldPath, newPath, err => {
                                                         if (err) console.error(err)
                                                         // console.log('success!')
+                                                        callback(null, "done");
                                                     })
                                                 }
                                             ],
@@ -593,7 +594,7 @@ cron.schedule('1 * * * * *', function () {
                                                     callback1();
                                                 } else {
                                                     console.log("waterfall completed successfully", data);
-                                                    console.log("emailData emailData emailData", emailData);                                                    
+                                                    console.log("emailData emailData emailData", emailData);
                                                     Mission.sendMissionCompletedMail(emailData, callback);
                                                     callback1();
                                                 }
