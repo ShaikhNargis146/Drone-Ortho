@@ -121,6 +121,9 @@ var controller = {
 	paymentReturn: function (req, res) {
 
 		var invoiceUserId = {};
+		console.log("...........................Payment Responce..........................");
+		console.log(req.body);
+		console.log(req.query);
 		invoiceUserId.invoiceNo = req.query.invoiceNumber;
 		// res.redirect("http://unifli.aero/thankyou");
 		ProductOrders.invoiceGenerate(invoiceUserId, function (err, data) {
