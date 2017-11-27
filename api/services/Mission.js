@@ -706,7 +706,6 @@ var model = {
                     // callback(null, result);
                 }
             });
-
     },
 
     sendMissionCompletedMail: function (data, callback) {
@@ -719,11 +718,12 @@ var model = {
                 var emailData = {}
                 emailData.email = data1.email;
                 emailData.filename = "Mission Completed";
+                emailData.subject = "MISSION COMPLETED";
                 emailData.merge_vars = [{
                     "name": "MISSION_ID",
-                    "content": data.missionId
+                    "content": data.missionid
                 }];
-                emailData.subject = "MISSION COMPLETED";
+                console.log("emailData------------",emailData);
                 Config.email(emailData, function (err, emailRespo) {
                     // console.log("emailRespo", emailRespo);
                     if (err) {
