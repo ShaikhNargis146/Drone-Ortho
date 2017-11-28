@@ -267,7 +267,7 @@ var controller = {
 					//console.log(JSON.stringify(getRequest.getJSON(), null, 2));
 		
 					var ctrl = new ApiControllers.GetHostedPaymentPageController(getRequest.getJSON());
-					ctrl.setEnvironment(SDKConstants.endpoint.sandbox);
+					ctrl.setEnvironment(SDKConstants.endpoint.production);
 		
 					ctrl.execute(function () {
 		
