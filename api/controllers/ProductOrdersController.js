@@ -180,7 +180,7 @@ var controller = {
 
 	paymentNotify: function (req, res) {
 		console.log("notify notify");
-		console.log(req.allParams());
+		console.log(req.body.payload.id);
 	},
 
 	acceptPaymentPage: function (req, res) {
