@@ -125,7 +125,7 @@ var controller = {
 		console.log(req.allParams());
 		console.log(req.query);
 		console.log("...........................Payment Responce..........................");
-		
+
 		invoiceUserId.invoiceNo = req.query.invoiceNumber;
 		// res.redirect("http://unifli.aero/thankyou");
 		ProductOrders.invoiceGenerate(invoiceUserId, function (err, data) {
@@ -178,6 +178,11 @@ var controller = {
 		res.redirect("http://unifli.aero/sorry");
 	},
 
+	paymentNotify: function (req, res) {
+		console.log("notify notify");
+		console.log(req.allParams());
+	},
+
 	acceptPaymentPage: function (req, res) {
 		console.log(req.query);
 		if (req.query.amount && req.query.invoiceNumber) {
@@ -192,20 +197,20 @@ var controller = {
 					var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
 					merchantAuthenticationType.setName(constants.apiLoginKey);
 					merchantAuthenticationType.setTransactionKey(constants.transactionKey);
-		
+
 					var transactionRequestType = new ApiContracts.TransactionRequestType();
 					transactionRequestType.setTransactionType(ApiContracts.TransactionTypeEnum.AUTHCAPTURETRANSACTION);
 					transactionRequestType.setAmount(1);
-		
+
 					var transactionOrderType = new ApiContracts.OrderType();
 					transactionOrderType.setInvoiceNumber(req.query.invoiceNumber);
 					transactionRequestType.setOrder(transactionOrderType);
-		
+
 					var transactionBillTo = new ApiContracts.CustomerAddressType();
 					transactionBillTo.setFirstName(data.billingAddress.fname);
 					transactionBillTo.setLastName(data.billingAddress.lname);
 					transactionBillTo.setCompany(data.billingAddress.comapny);
-					transactionBillTo.setAddress(data.billingAddress.address +" "+ data.billingAddress.streetAddress);
+					transactionBillTo.setAddress(data.billingAddress.address + " " + data.billingAddress.streetAddress);
 					transactionBillTo.setCity(data.billingAddress.city);
 					transactionBillTo.setState(data.billingAddress.state);
 					transactionBillTo.setZip(data.billingAddress.zip);
@@ -213,31 +218,31 @@ var controller = {
 					transactionBillTo.setPhoneNumber(data.billingAddress.phonenumber);
 					transactionBillTo.setEmail(data.user.email);
 					transactionRequestType.setBillTo(transactionBillTo);
-		
+
 					var transactionShippTo = new ApiContracts.NameAndAddressType();
 					transactionShippTo.setFirstName(data.shippingAddress.fname);
 					transactionShippTo.setLastName(data.shippingAddress.lname);
 					transactionShippTo.setCompany(data.shippingAddress.comapny);
-					transactionShippTo.setAddress(data.shippingAddress.address +" "+ data.shippingAddress.streetAddress);
+					transactionShippTo.setAddress(data.shippingAddress.address + " " + data.shippingAddress.streetAddress);
 					transactionShippTo.setCity(data.shippingAddress.city);
 					transactionShippTo.setState(data.shippingAddress.state);
 					transactionShippTo.setZip(data.shippingAddress.zip);
 					transactionShippTo.setCountry(data.shippingAddress.country);
 					transactionRequestType.setShipTo(transactionShippTo);
-		
-		
+
+
 					var setting1 = new ApiContracts.SettingType();
 					setting1.setSettingName('hostedPaymentButtonOptions');
 					setting1.setSettingValue('{\"text\": \"Pay\"}');
-		
+
 					var setting2 = new ApiContracts.SettingType();
 					setting2.setSettingName('hostedPaymentOrderOptions');
 					setting2.setSettingValue('{\"show\": true}');
-		
+
 					var setting3 = new ApiContracts.SettingType();
 					setting3.setSettingName('hostedPaymentBillingAddressOptions');
 					setting3.setSettingValue('{\"show\": false}');
-		
+
 					var setting4 = new ApiContracts.SettingType();
 					setting4.setSettingName('hostedPaymentReturnOptions');
 					var settingValue = {
@@ -248,36 +253,36 @@ var controller = {
 						'cancelUrlText': 'Cancel'
 					};
 					setting4.setSettingValue(JSON.stringify(settingValue));
-		
+
 					var settingList = [];
 					settingList.push(setting1);
 					settingList.push(setting2);
 					settingList.push(setting3);
 					settingList.push(setting4);
-		
-		
+
+
 					var alist = new ApiContracts.ArrayOfSetting();
 					alist.setSetting(settingList);
-		
+
 					var getRequest = new ApiContracts.GetHostedPaymentPageRequest();
 					getRequest.setMerchantAuthentication(merchantAuthenticationType);
 					getRequest.setTransactionRequest(transactionRequestType);
 					getRequest.setHostedPaymentSettings(alist);
-		
+
 					//console.log(JSON.stringify(getRequest.getJSON(), null, 2));
-		
+
 					var ctrl = new ApiControllers.GetHostedPaymentPageController(getRequest.getJSON());
-					ctrl.setEnvironment(SDKConstants.endpoint.production);
-		
+					ctrl.setEnvironment(SDKConstants.endpoint.sandbox);
+
 					ctrl.execute(function () {
-		
+
 						var apiResponse = ctrl.getResponse();
-		
+
 						var response = new ApiContracts.GetHostedPaymentPageResponse(apiResponse);
-		
+
 						//pretty print response
 						//console.log(JSON.stringify(response, null, 2));
-		
+
 						if (response != null) {
 							if (response.getMessages().getResultCode() == ApiContracts.MessageTypeEnum.OK) {
 								console.log('Hosted payment page token :');
@@ -290,24 +295,24 @@ var controller = {
 								// 	data: response,
 								// });
 								res.view("pay_form", formData);
-		
+
 							} else {
 								res.redirect("http://unifli.aero/sorry");
-		
+
 								console.log('Error Code: ' + response.getMessages().getMessage()[0].getCode());
 								console.log('Error message: ' + response.getMessages().getMessage()[0].getText());
 							}
 						} else {
 							res.redirect("http://unifli.aero/sorry")
-		
+
 						}
-		
-		
+
+
 					});
 				}
 			})
 
-			
+
 		} else {
 			res.redirect("http://unifli.aero/sorry");
 		}
@@ -525,78 +530,74 @@ var controller = {
 	},
 
 	payPalCheckout: function (req, res) {
-        console.log("sdfasdfasdf");
-        var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
-        merchantAuthenticationType.setName(constants.apiLoginKey);
-        merchantAuthenticationType.setTransactionKey(constants.transactionKey);
-    
-        var payPalType = new ApiContracts.PayPalType();
-        payPalType.setCancelUrl('http://localhost:1337/api/ProductOrders/paymentCancel');
-        payPalType.setSuccessUrl('http://localhost:1337/api/ProductOrders/paymentReturn');
-        payPalType.setPayerID('X3KMJR6UXFJG2');
-    
-        var paymentType = new ApiContracts.PaymentType();
-        paymentType.setPayPal(payPalType);
-    
-        var transactionRequestType = new ApiContracts.TransactionRequestType();
-        transactionRequestType.setTransactionType(ApiContracts.TransactionTypeEnum.AUTHCAPTURETRANSACTION);
-        transactionRequestType.setPayment(paymentType);
-        transactionRequestType.setAmount(1000);
-    
-        var createRequest = new ApiContracts.CreateTransactionRequest();
-        createRequest.setMerchantAuthentication(merchantAuthenticationType);
-        createRequest.setTransactionRequest(transactionRequestType);
-    
-        console.log(JSON.stringify(createRequest.getJSON(), null, 2));
-    
+		console.log("sdfasdfasdf");
+		var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
+		merchantAuthenticationType.setName(constants.apiLoginKey);
+		merchantAuthenticationType.setTransactionKey(constants.transactionKey);
+
+		var payPalType = new ApiContracts.PayPalType();
+		payPalType.setCancelUrl('http://localhost:1337/api/ProductOrders/paymentCancel');
+		payPalType.setSuccessUrl('http://localhost:1337/api/ProductOrders/paymentReturn');
+		payPalType.setPayerID('X3KMJR6UXFJG2');
+
+		var paymentType = new ApiContracts.PaymentType();
+		paymentType.setPayPal(payPalType);
+
+		var transactionRequestType = new ApiContracts.TransactionRequestType();
+		transactionRequestType.setTransactionType(ApiContracts.TransactionTypeEnum.AUTHCAPTURETRANSACTION);
+		transactionRequestType.setPayment(paymentType);
+		transactionRequestType.setAmount(1000);
+
+		var createRequest = new ApiContracts.CreateTransactionRequest();
+		createRequest.setMerchantAuthentication(merchantAuthenticationType);
+		createRequest.setTransactionRequest(transactionRequestType);
+
+		console.log(JSON.stringify(createRequest.getJSON(), null, 2));
+
 		var ctrl = new ApiControllers.CreateTransactionController(createRequest.getJSON());
-		
-		ctrl.setEnvironment(SDKConstants.endpoint.sandbox);		
-    
-        ctrl.execute(function(){
-    
-            var apiResponse = ctrl.getResponse();
-    
-            var response = new ApiContracts.CreateTransactionResponse(apiResponse);
-    
-            console.log(JSON.stringify(response, null, 2));
-    
-            if(response != null){
-                if(response.getMessages().getResultCode() == ApiContracts.MessageTypeEnum.OK){
-                    if(response.getTransactionResponse().getMessages() != null){
-                        console.log('Successfully created transaction with Transaction ID: ' + response.getTransactionResponse().getTransId());
-                        console.log('Secure Acceptance URL: ' + response.getTransactionResponse().getSecureAcceptance().getSecureAcceptanceUrl());
-                        console.log('Response Code: ' + response.getTransactionResponse().getResponseCode());
-                        console.log('Message Code: ' + response.getTransactionResponse().getMessages().getMessage()[0].getCode());
-                        console.log('Description: ' + response.getTransactionResponse().getMessages().getMessage()[0].getDescription());
-                    }
-                    else {
-                        console.log('Failed Transaction.');
-                        if(response.getTransactionResponse().getErrors() != null){
-                            console.log('Error Code: ' + response.getTransactionResponse().getErrors().getError()[0].getErrorCode());
-                            console.log('Error message: ' + response.getTransactionResponse().getErrors().getError()[0].getErrorText());
-                        }
-                    }
-                }
-                else {
-                    console.log('Failed Transaction. ');
-                    if(response.getTransactionResponse() != null && response.getTransactionResponse().getErrors() != null){
-                    
-                        console.log('Error Code: ' + response.getTransactionResponse().getErrors().getError()[0].getErrorCode());
-                        console.log('Error message: ' + response.getTransactionResponse().getErrors().getError()[0].getErrorText());
-                    }
-                    else {
-                        console.log('Error Code: ' + response.getMessages().getMessage()[0].getCode());
-                        console.log('Error message: ' + response.getMessages().getMessage()[0].getText());
-                    }
-                }
-            }
-            else {
-                console.log('Null Response.');
-            }
-    
-        });
-    }
+
+		ctrl.setEnvironment(SDKConstants.endpoint.sandbox);
+
+		ctrl.execute(function () {
+
+			var apiResponse = ctrl.getResponse();
+
+			var response = new ApiContracts.CreateTransactionResponse(apiResponse);
+
+			console.log(JSON.stringify(response, null, 2));
+
+			if (response != null) {
+				if (response.getMessages().getResultCode() == ApiContracts.MessageTypeEnum.OK) {
+					if (response.getTransactionResponse().getMessages() != null) {
+						console.log('Successfully created transaction with Transaction ID: ' + response.getTransactionResponse().getTransId());
+						console.log('Secure Acceptance URL: ' + response.getTransactionResponse().getSecureAcceptance().getSecureAcceptanceUrl());
+						console.log('Response Code: ' + response.getTransactionResponse().getResponseCode());
+						console.log('Message Code: ' + response.getTransactionResponse().getMessages().getMessage()[0].getCode());
+						console.log('Description: ' + response.getTransactionResponse().getMessages().getMessage()[0].getDescription());
+					} else {
+						console.log('Failed Transaction.');
+						if (response.getTransactionResponse().getErrors() != null) {
+							console.log('Error Code: ' + response.getTransactionResponse().getErrors().getError()[0].getErrorCode());
+							console.log('Error message: ' + response.getTransactionResponse().getErrors().getError()[0].getErrorText());
+						}
+					}
+				} else {
+					console.log('Failed Transaction. ');
+					if (response.getTransactionResponse() != null && response.getTransactionResponse().getErrors() != null) {
+
+						console.log('Error Code: ' + response.getTransactionResponse().getErrors().getError()[0].getErrorCode());
+						console.log('Error message: ' + response.getTransactionResponse().getErrors().getError()[0].getErrorText());
+					} else {
+						console.log('Error Code: ' + response.getMessages().getMessage()[0].getCode());
+						console.log('Error message: ' + response.getMessages().getMessage()[0].getText());
+					}
+				}
+			} else {
+				console.log('Null Response.');
+			}
+
+		});
+	}
 
 };
 
