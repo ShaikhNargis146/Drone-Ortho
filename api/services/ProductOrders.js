@@ -47,10 +47,10 @@ var schema = new Schema({
         zip: String,
         state: String,
         country: String,
-        fname:String,
-        lname:String,
-        comapny:String,
-        phonenumber:String
+        fname: String,
+        lname: String,
+        comapny: String,
+        phonenumber: String
     },
     shippingAddress: {
         address: String,
@@ -60,10 +60,10 @@ var schema = new Schema({
         zip: String,
         state: String,
         country: String,
-       fname:String,
-        lname:String,
-        comapny:String,
-        phonenumber:String
+        fname: String,
+        lname: String,
+        comapny: String,
+        phonenumber: String
     },
     taxAmount: {
         type: Number,
@@ -81,7 +81,10 @@ var schema = new Schema({
     oraganization: String,
     apartment: String,
     transactionId: String,
-    transactionDate: Date
+    transactionDate: Date,
+    paymentResponse: {
+        type: []
+    }
 
 });
 
@@ -503,8 +506,8 @@ var model = {
     },
 
     sendMailOnPurchase: function (data, callback) {
-        console.log("data for email---",data)
-        
+        console.log("data for email---", data)
+
         if (data.cadLineWork) {
             async.parallel({
                     forUser: function (callback) {
@@ -591,13 +594,13 @@ var model = {
                         emailData.filename = "DFM Purchase";
                         emailData.subject = "DFM PURCHASE";
                         emailData.email = data.user.email;
-                        console.log("emailData---for user",emailData);
+                        console.log("emailData---for user", emailData);
                         Config.email(emailData, function (err, emailRespo) {
                             if (err) {
-                                console.log("senderr-----------",err);
+                                console.log("senderr-----------", err);
                                 callback(err, null);
                             } else if (emailRespo) {
-                                console.log("send-----------",emailRespo);
+                                console.log("send-----------", emailRespo);
                                 callback(null, "Contact us form saved successfully!!!");
                             } else {
                                 console.log("---------blank--------");
@@ -674,9 +677,9 @@ var model = {
                         emailData.email = global["env"].adminEmail;
                         emailData.filename = "New Drone Purchase (Admin)";
                         emailData.subject = "DRONE PURCHASE";
-                        var allProducts='';
-                        _.forEach(data.products,function(n){
-                            allProducts=allProducts+','+n.name;
+                        var allProducts = '';
+                        _.forEach(data.products, function (n) {
+                            allProducts = allProducts + ',' + n.name;
                         })
                         emailData.merge_vars = [{
                             "name": "USER_NAME",

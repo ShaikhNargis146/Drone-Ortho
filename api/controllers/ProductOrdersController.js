@@ -205,10 +205,26 @@ var controller = {
 
 				if (response != null) {
 					if (response.getMessages().getResultCode() == ApiContracts.MessageTypeEnum.OK) {
-						console.log('Transaction Id : ' + response.getTransaction().getTransId());
-						console.log('Transaction Type : ' + response.getTransaction().getTransactionType());
-						console.log('Message Code : ' + response.getMessages().getMessage()[0].getCode());
-						console.log('Message Text : ' + response.getMessages().getMessage()[0].getText());
+						ProductOrders.update({
+							invoiceNo: response.getTransaction().getOrder().getInvoiceNumber()
+						}, {
+							$set: {
+								paymentResponse: JSON.stringify(response, null, 2)
+							}
+						}).exec(function (err, found) {
+							if (err) {
+								console.log(err);
+							} else if (_.isEmpty(found)) {
+								console.log("noDataound");
+							} else {
+								console.log('Transaction Id : ' + response.getTransaction().getTransId());
+								console.log('Transaction Type : ' + response.getTransaction().getTransactionType());
+								console.log('Message Code : ' + response.getMessages().getMessage()[0].getCode());
+								console.log('Message Text : ' + response.getMessages().getMessage()[0].getText());
+							}
+
+						});
+
 					} else {
 						console.log('Result Code: ' + response.getMessages().getResultCode());
 						console.log('Error Code: ' + response.getMessages().getMessage()[0].getCode());
