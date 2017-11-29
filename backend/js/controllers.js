@@ -1960,13 +1960,17 @@ firstapp
                         if (ini == i) {
                             $scope.productData = data.data.results;
                             console.log("$scope.productData", $scope.productData);
-                             if ($scope.productData.products[0]) {
+                             _.forEach($scope.productData, function (pg) {
+                             if (pg.products[0]) {
                                 var myVal = '';
-                                _.forEach($scope.productData.products, function (pro) {
-                                    myVal = myVal + ',' + pro.name;
+                                _.forEach(pg.products, function (pro) {
+                                    myVal = pro.name + ',' + myVal;
                                 })
                                  $scope.productName = myVal;
+                            }else{
+                                 console.log("inside else")
                             }
+                                   });
                             $scope.totalItems = data.data.total;
                             $scope.maxRow = data.data.options.count;
                         }
