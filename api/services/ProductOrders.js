@@ -83,7 +83,7 @@ var schema = new Schema({
     transactionId: String,
     transactionDate: Date,
     paymentResponse: {
-        type: []
+        type: {}
     }
 
 });
