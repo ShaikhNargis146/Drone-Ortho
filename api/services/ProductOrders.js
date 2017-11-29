@@ -46,7 +46,11 @@ var schema = new Schema({
         city: String,
         zip: String,
         state: String,
-        country: String
+        country: String,
+        fname:String,
+        lname:String,
+        comapny:String,
+        phonenumber:String
     },
     shippingAddress: {
         address: String,
@@ -55,7 +59,11 @@ var schema = new Schema({
         city: String,
         zip: String,
         state: String,
-        country: String
+        country: String,
+       fname:String,
+        lname:String,
+        comapny:String,
+        phonenumber:String
     },
     taxAmount: {
         type: Number,
