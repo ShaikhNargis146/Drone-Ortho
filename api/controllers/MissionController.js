@@ -15,6 +15,7 @@ var gdal = require("gdal");
 var util = require('util');
 var dms = require("dms-conversion");
 var controller = {
+
     generatecsvForUser: function (req, res) {
         Mission.exceltotalMissionforUser(req.body, function (err, data) {
             data.name = "missionUser"
@@ -345,7 +346,7 @@ var controller = {
         // var files = req.query.id.split(',');
         var name = req.param("filename");
         var files = [];
-        files = ["C:/Users/unifli/Documents/pix4d/" + name + "/3_dsm_ortho/2_mosaic/" + name + "_transparent_mosaic_group1.tif", "C:/Users/unifli/Documents/pix4d/" + name + "/3_dsm_ortho/1_dsm/" + name + "_dsm.tfw"]
+        files = ["C:/Users/unifli/Documents/pix4d/" + name + "/3_dsm_ortho/2_mosaic/" + name + "_transparent_mosaic_group1.tif", "C:/Users/unifli/Documents/pix4d/" + name + "/3_dsm_ortho/2_mosaic/" + name + "_transparent_mosaic_group1.tfw"]
         async.eachSeries(files, function (image, callback) {
             // request(global["env"].realHost + '/api/upload/readFile?file=' + image).pipe(fs.createWriteStream(image)).on('finish', function (images) {
             // JSZip generates a readable stream with a "end" event,
@@ -412,7 +413,7 @@ var controller = {
     },
 };
 
-cron.schedule('1 * * * * *', function () {
+cron.schedule('1 * * * *', function () {
     Mission.find({
         status: {
             $nin: ['ready', 'failed']
