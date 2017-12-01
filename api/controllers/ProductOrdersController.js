@@ -201,7 +201,7 @@ var controller = {
 
 				var response = new ApiContracts.GetTransactionDetailsResponse(apiResponse);
 
-				console.log(JSON.stringify(response, null, 2));
+				console.log("response-----------",response.message);
 
 				if (response != null) {
 					if (response.getMessages().getResultCode() == ApiContracts.MessageTypeEnum.OK) {
@@ -209,7 +209,8 @@ var controller = {
 							invoiceNo: response.getTransaction().getOrder().getInvoiceNumber()
 						}, {
 							$set: {
-								paymentResponse: JSON.stringify(response, null, 2)
+								paymentResponse: JSON.stringify(response, null, 2),
+								status:'Paid'
 							}
 						}).exec(function (err, found) {
 							if (err) {
