@@ -132,7 +132,7 @@ var model = {
                     obj["USER ID"] = "-";
                 }
                 if (mainData.transactionDate) {
-                    obj["TRANSACTION DATE"] = mainData.transactionDate;
+                    obj["TRANSACTION DATE"] = moment(mainData.transactionDate).format("DD/MM/YYYY")
                 } else {
                     obj["TRANSACTION DATE"] = "-";
                 }
@@ -214,6 +214,11 @@ var model = {
                     obj["TRANSACTION DATE"] = moment(mainData.transactionDate).format("DD/MM/YYYY")
                 } else {
                     obj["TRANSACTION DATE"] = "-"
+                }
+                  if (mainData.transactionId) {
+                    obj["TRANSACTION ID"] = mainData.transactionId;
+                } else {
+                    obj["TRANSACTION ID"] = "-";
                 }
 
                 obj["PAYMENT STATUS"] = mainData.status;

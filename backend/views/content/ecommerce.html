@@ -62,11 +62,11 @@
                                         <tr ng-repeat="orderData in allOrderData track by $index">
                                             <td>{{orderData.user.dataId}}</td>
                                             <td>{{orderData.transactionId}}</td>
-                                            <td>{{orderData.transactionDate}}</td>
+                                            <td>{{orderData.transactionDate| date}}</td>
                                             <td>
                                                 <span ng-if="orderData.cadLineWork">CadLineWork</span>
                                                 <span ng-if="orderData.dfmSubscription">{{ orderData.dfmSubscription.name}}</span>
-                                                <span ng-if="orderData.products[0]">{{orderData.products.name}}</span>
+                                                <span ng-if="orderData.products[0]">{{orderData.name}}</span>
                                             </td>
                                             <td>{{orderData.totalAmount}}</td>
                                             <td>{{orderData.user.lisence}}</td>

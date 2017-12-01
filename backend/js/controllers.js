@@ -885,29 +885,29 @@ firstapp
             _id: $.jStorage.get("user")._id
         }
 
-           $scope.csvFileForUser = function () {
+        $scope.csvFileForUser = function () {
             console.log("inside csvFile ")
-            NavigationService.generateCsvithName("Ticket/generatecsvForUser", excelName,function (data) {
+            NavigationService.generateCsvithName("Ticket/generatecsvForUser", excelName, function (data) {
                 console.log("ater api called", data);
-             });
+            });
         };
-          $scope.csvFile = function () {
+        $scope.csvFile = function () {
             console.log("inside csvFile ")
-            NavigationService.generateCsvithName("Ticket/generatecsv", excelName,function (data) {
+            NavigationService.generateCsvithName("Ticket/generatecsv", excelName, function (data) {
                 console.log("ater api called", data);
-             });
+            });
         };
-            $scope.generatePdfForUser = function () {
+        $scope.generatePdfForUser = function () {
             console.log("inside generatePdf ")
-            NavigationService.generatepdfwithName("Ticket/generatePdfForUser", excelName,function (data) {
+            NavigationService.generatepdfwithName("Ticket/generatePdfForUser", excelName, function (data) {
                 console.log("ater api called", data);
-             });
+            });
         };
-          $scope.generatePdf = function () {
+        $scope.generatePdf = function () {
             console.log("inside generatePdf ")
-            NavigationService.generatepdfwithName("Ticket/generatePdf", excelName,function (data) {
+            NavigationService.generatepdfwithName("Ticket/generatePdf", excelName, function (data) {
                 console.log("ater api called", data);
-             });
+            });
         };
         $scope.generateExcel = function () {
             NavigationService.generateExcelWithName("Ticket/exceltotalTicket", excelName, function (data) {});
@@ -1075,30 +1075,30 @@ firstapp
         excelName = {
             name: "Mission",
             _id: $.jStorage.get("user")._id
-        } 
-          $scope.csvFileForUser = function () {
+        }
+        $scope.csvFileForUser = function () {
             console.log("inside csvFile ")
-            NavigationService.generateCsvithName("Mission/generatecsvForUser", excelName,function (data) {
+            NavigationService.generateCsvithName("Mission/generatecsvForUser", excelName, function (data) {
                 console.log("ater api called", data);
-             });
+            });
         };
-         $scope.csvFile = function () {
+        $scope.csvFile = function () {
             console.log("inside csvFile ")
-            NavigationService.generateCsvithName("Mission/generatecsv", excelName,function (data) {
+            NavigationService.generateCsvithName("Mission/generatecsv", excelName, function (data) {
                 console.log("ater api called", data);
-             });
+            });
         };
         $scope.generatePdf = function () {
             console.log("inside generatePdf ")
-            NavigationService.generatepdfwithName("Mission/generatePdf", excelName,function (data) {
+            NavigationService.generatepdfwithName("Mission/generatePdf", excelName, function (data) {
                 console.log("ater api called", data);
-             });
+            });
         };
-          $scope.generatePdfForUser = function () {
+        $scope.generatePdfForUser = function () {
             console.log("inside generatePdf ")
-            NavigationService.generatepdfwithName("Mission/generatePdfForUser", excelName,function (data) {
+            NavigationService.generatepdfwithName("Mission/generatePdfForUser", excelName, function (data) {
                 console.log("ater api called", data);
-             });
+            });
         };
 
         $scope.generateExcel = function () {
@@ -1876,26 +1876,27 @@ firstapp
             var userId = $.jStorage.get("user")._id;
         }
         excelName = {
-            name: "InvoiceList",
-            _id: $.jStorage.get("user")._id
-        },
-         $scope.csvFileForUser = function () {
-            console.log("inside csvFile ")
-            NavigationService.generateCsvithName("ProductOrders/generatecsvForUser", excelName,function (data) {
-                console.log("ater api called", data);
-             });
-        };
-            $scope.generatePdfForUser = function () {
+                name: "InvoiceList",
+                _id: $.jStorage.get("user")._id
+            },
+            $scope.csvFileForUser = function () {
+                console.log("inside csvFile ")
+                NavigationService.generateCsvithName("ProductOrders/generatecsvForUser", excelName, function (data) {
+                    console.log("ater api called", data);
+                });
+            };
+        $scope.generatePdfForUser = function () {
             console.log("inside generatePdf ");
-            NavigationService.generatepdfwithName("ProductOrders/generatePdfForUser", excelName,function (data) {
+            NavigationService.generatepdfwithName("ProductOrders/generatePdfForUser", excelName, function (data) {
                 console.log("ater api called", data);
-             });
+            });
         };
         $scope.generateExcelforUser = function () {
             NavigationService.generateExcelWithName("ProductOrders/exceltotalProductOrdersforUser", excelName, function (data) {});
         };
         //pagination user
-
+        var formdata = {};
+        formdata.user = userId;
         var i = 0;
         if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
             $scope.currentPage = $stateParams.page;
@@ -1935,14 +1936,19 @@ firstapp
                     function (data, ini) {
                         if (ini == i) {
                             $scope.productData = data.data.results;
-                             if ($scope.productData.products[0]) {
-                                var myVal = '';
-                                _.forEach($scope.productData.products, function (pro) {
-                                    myVal = myVal + ',' + pro.name;
-                                })
-                                 $scope.productName = myVal;
-                            }
-                            console.log("$scope.productData", $scope.productData);
+                            console.log("data is", $scope.productData)
+                            _.forEach($scope.productData, function (pg) {
+                                if (pg.products[0]) {
+                                    var myVal = '';
+                                    _.forEach(pg.products, function (pro) {
+                                        myVal = pro.name + ',' + myVal;
+                                    })
+                                    pg.name = myVal;
+
+                                }
+                            });
+                            console.log("final data is", $scope.productData)
+                            console.log("$scope.productData***", $scope.productData);
                             $scope.totalItems = data.data.total;
                             $scope.maxRow = data.data.options.count;
                         }
@@ -1959,18 +1965,27 @@ firstapp
                     function (data, ini) {
                         if (ini == i) {
                             $scope.productData = data.data.results;
-                            console.log("$scope.productData", $scope.productData);
-                             _.forEach($scope.productData, function (pg) {
-                             if (pg.products[0]) {
-                                var myVal = '';
-                                _.forEach(pg.products, function (pro) {
-                                    myVal = pro.name + ',' + myVal;
-                                })
-                                 $scope.productName = myVal;
-                            }else{
-                                 console.log("inside else")
-                            }
-                                   });
+                            console.log("data is", $scope.productData)
+                            _.forEach($scope.productData, function (pg) {
+                                if (pg.products[0]) {
+                                    var myVal = '';
+                                    _.forEach(pg.products, function (pro) {
+                                        myVal = pro.name + ',' + myVal;
+                                    })
+                                    pg.name = myVal;
+                                }
+
+                            });
+                            console.log("final data is", $scope.productData)
+                            // for (var i=0;i<$scope.productData.length;i++){
+                            //     if($scope.productData[i].products[0]){
+                            //         var myVal="";
+                            //         for(var j=0;j<=$scope.productData[i].products.length;j++){
+                            //             myVal = $scope.productData[i].products[j].name + ',' + myVal;
+                            //         }
+                            //     }
+                            //     $scope.productData[i].productName=mayVal;
+                            // }
                             $scope.totalItems = data.data.total;
                             $scope.maxRow = data.data.options.count;
                         }
@@ -2520,8 +2535,8 @@ firstapp
         $scope.vendorPay = function (data) {
             var data1 = {};
             data.cad = $stateParams.cadId;
-            data.vendor=$scope.cadLineDetails.vendor._id;
-            data.earning=$scope.cadLineDetails.vendorCharges;
+            data.vendor = $scope.cadLineDetails.vendor._id;
+            data.earning = $scope.cadLineDetails.vendorCharges;
             NavigationService.apiCallWithData("VendorBill/save", data, function (data) {
                 if (data.value == true) {
                     data1._id = $stateParams.cadId;
@@ -2648,49 +2663,49 @@ firstapp
         }
 
         $scope.cadLineDetails = {};
- excelName = {
+        excelName = {
             name: "CadFileRequest",
             _id: $.jStorage.get("user")._id
         }
 
-         $scope.csvFileForVendor = function () {
+        $scope.csvFileForVendor = function () {
             console.log("inside csvFile ")
-            NavigationService.generateCsvithName("CadLineWork/generatecsvForVendor", excelName,function (data) {
+            NavigationService.generateCsvithName("CadLineWork/generatecsvForVendor", excelName, function (data) {
                 console.log("ater api called", data);
-             });
+            });
         };
-         $scope.csvFileForUser = function () {
+        $scope.csvFileForUser = function () {
             console.log("inside csvFile ")
-            NavigationService.generateCsvithName("CadLineWork/generatecsvForUser", excelName,function (data) {
+            NavigationService.generateCsvithName("CadLineWork/generatecsvForUser", excelName, function (data) {
                 console.log("ater api called", data);
-             });
+            });
         };
-             $scope.csvFile = function () {
+        $scope.csvFile = function () {
             console.log("inside csvFile ")
-            NavigationService.generateCsvithName("CadLineWork/generatecsv", excelName,function (data) {
+            NavigationService.generateCsvithName("CadLineWork/generatecsv", excelName, function (data) {
                 console.log("ater api called", data);
-             });
+            });
         };
-         $scope.generatePdfForVendor = function () {
+        $scope.generatePdfForVendor = function () {
             console.log("inside generatePdf ")
-            NavigationService.generatepdfwithName("CadLineWork/generatePdfForVendor", excelName,function (data) {
+            NavigationService.generatepdfwithName("CadLineWork/generatePdfForVendor", excelName, function (data) {
                 console.log("ater api called", data);
-             });
+            });
         };
-           $scope.generatePdf = function () {
+        $scope.generatePdf = function () {
             console.log("inside generatePdf ")
-            NavigationService.generatepdfwithName("CadLineWork/generatePdf", excelName,function (data) {
+            NavigationService.generatepdfwithName("CadLineWork/generatePdf", excelName, function (data) {
                 console.log("ater api called", data);
-             });
+            });
         };
-        
-           $scope.generatePdfForUser = function () {
+
+        $scope.generatePdfForUser = function () {
             console.log("inside generatePdf ")
-            NavigationService.generatepdfwithName("CadLineWork/generatePdfForUser", excelName,function (data) {
+            NavigationService.generatepdfwithName("CadLineWork/generatePdfForUser", excelName, function (data) {
                 console.log("ater api called", data);
-             });
+            });
         };
-          $scope.generateExcelForVendor = function () {
+        $scope.generateExcelForVendor = function () {
             NavigationService.generateExcelWithName("CadLineWork/exceltotalCadforVendor", excelName, function (data) {});
         };
         $scope.generateExcel = function () {
@@ -3054,8 +3069,8 @@ firstapp
 
         $scope.statechnage = function () {
             console.log("inside statechnage")
-                        $state.go("dashboard");
-          
+            $state.go("dashboard");
+
         }
 
         $scope.dfmDeatils = {}
@@ -3235,17 +3250,17 @@ firstapp
             name: "UserList"
         }
 
-         $scope.csvFile = function () {
+        $scope.csvFile = function () {
             console.log("inside csvFile ")
-            NavigationService.generateCsvithName("User/generatecsv", excelName,function (data) {
+            NavigationService.generateCsvithName("User/generatecsv", excelName, function (data) {
                 console.log("ater api called", data);
-             });
+            });
         };
-           $scope.generatePdf = function () {
+        $scope.generatePdf = function () {
             console.log("inside generatePdf ")
-            NavigationService.generatepdfwithName("User/generatePdf", excelName,function (data) {
+            NavigationService.generatepdfwithName("User/generatePdf", excelName, function (data) {
                 console.log("ater api called", data);
-             });
+            });
         };
 
         $scope.generateExcel = function () {
@@ -3414,18 +3429,18 @@ firstapp
         }
         excelName = {
             name: "ecommerce"
-        } 
-         $scope.csvFile = function () {
+        }
+        $scope.csvFile = function () {
             console.log("inside csvFile ")
-            NavigationService.generateCsvithName("ProductOrders/generatecsv", excelName,function (data) {
+            NavigationService.generateCsvithName("ProductOrders/generatecsv", excelName, function (data) {
                 console.log("ater api called", data);
-             });
+            });
         };
-            $scope.generatePdf = function () {
+        $scope.generatePdf = function () {
             console.log("inside generatePdf ")
-            NavigationService.generatepdfwithName("ProductOrders/generatePdf", excelName,function (data) {
+            NavigationService.generatepdfwithName("ProductOrders/generatePdf", excelName, function (data) {
                 console.log("ater api called", data);
-             });
+            });
         };
 
         $scope.generateExcel = function () {
@@ -3474,6 +3489,16 @@ firstapp
                             $scope.allOrderData = data.data.results;
                             $scope.totalItems = data.data.total;
                             $scope.maxRow = data.data.options.count;
+                            _.forEach($scope.allOrderData, function (pg) {
+                                if (pg.products[0]) {
+                                    var myVal = '';
+                                    _.forEach(pg.products, function (pro) {
+                                        myVal = pro.name + ',' + myVal;
+                                    })
+                                    pg.name = myVal;
+
+                                }
+                              });
                         }
                     });
             } else {
@@ -3489,6 +3514,17 @@ firstapp
                             $scope.allOrderData = data.data.results;
                             $scope.totalItems = data.data.total;
                             $scope.maxRow = data.data.options.count;
+                            console.log(" $scope.allOrderData", $scope.allOrderData);
+                            _.forEach($scope.allOrderData, function (pg) {
+                          
+                                if (pg.products[0]) {
+                                    var myVal = '';
+                                    _.forEach(pg.products, function (pro) {
+                                        myVal = pro.name + ',' + myVal;
+                                    })
+                                    pg.name = myVal;
+
+                                }});
                         }
                     });
             }
@@ -3604,17 +3640,17 @@ firstapp
             name: "vendorList"
         }
 
-          $scope.csvFile = function () {
+        $scope.csvFile = function () {
             console.log("inside csvFile ")
-            NavigationService.generateCsvithName("User/generatecsvForVendor", excelName,function (data) {
+            NavigationService.generateCsvithName("User/generatecsvForVendor", excelName, function (data) {
                 console.log("ater api called", data);
-             });
+            });
         };
-         $scope.generatePdf = function () {
+        $scope.generatePdf = function () {
             console.log("inside generatePdf ")
-            NavigationService.generatepdfwithName("User/generatePdfforVendor", excelName,function (data) {
+            NavigationService.generatepdfwithName("User/generatePdfforVendor", excelName, function (data) {
                 console.log("ater api called", data);
-             });
+            });
         };
 
         $scope.generateExcel = function () {
@@ -3942,17 +3978,17 @@ firstapp
             name: "Billing",
             _id: $.jStorage.get("user")._id
         }
-           $scope.csvFile = function () {
+        $scope.csvFile = function () {
             console.log("inside csvFile ")
-            NavigationService.generateCsvithName("VendorBill/generatecsv", excelName,function (data) {
+            NavigationService.generateCsvithName("VendorBill/generatecsv", excelName, function (data) {
                 console.log("ater api called", data);
-             });
+            });
         };
-             $scope.generatePdf = function () {
+        $scope.generatePdf = function () {
             console.log("inside generatePdf ")
-            NavigationService.generatepdfwithName("VendorBill/generatePdf", excelName,function (data) {
+            NavigationService.generatepdfwithName("VendorBill/generatePdf", excelName, function (data) {
                 console.log("ater api called", data);
-             });
+            });
         };
         $scope.generateExcelforVendor = function () {
             NavigationService.generateExcelWithName("VendorBill/exceltotalVendorBill", excelName, function (data) {});

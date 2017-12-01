@@ -308,7 +308,7 @@ var models = {
                     tempObj.TrascationId = "-";
                 }
                 if (pg.transactionDate) {
-                    tempObj.TrascationDate = pg.TrascationDate;
+                    tempObj.TrascationDate =moment(pg.transactionDate).format("DD/MM/YYYY")
                 } else {
                     tempObj.TrascationDate = "-";
                 }
@@ -427,7 +427,7 @@ var models = {
 
             });
         } else if (page.name == "invoice") {
-            var fields = ['name', 'TrasactionDate', 'amount', 'status'];
+            var fields = ['name', 'TrasactionDate', 'TrasactionId', 'amount', 'status'];
             var invoice = [];
             _.forEach(page, function (pg) {
                 var tempObj = {};
@@ -449,6 +449,11 @@ var models = {
                     tempObj.TrasactionDate = moment(pg.transactionDate).format("DD/MM/YYYY")
                 } else {
                     tempObj.TrasactionDate = "-"
+                }
+                if (pg.transactionId) {
+                    tempObj.TrasactionId = pg.transactionId
+                } else {
+                    tempObj.TrasactionId = "-"
                 }
 
                 tempObj.amount = pg.totalAmount;
@@ -713,8 +718,8 @@ var models = {
         } else if (page.name == "ecommerce") {
             var obj = {};
             obj.DataId = [];
-            obj.TrascationId = [];
-            obj.TrascationDate = [];
+            obj.TrascationID = [];
+            obj.TrascationDATE = [];
             obj.SoldItem = [];
             obj.Cost = [];
             obj.Lisence = [];
@@ -722,23 +727,22 @@ var models = {
             obj.ShippingAddress = [];
             console.log("inside if ecommerce")
             _.forEach(page, function (pg) {
+                console.log("transactionId****",pg.transactionId)
                 if (pg.user) {
                     obj.DataId.push(pg.user.dataId);
                 } else {
                     obj.DataId.push("-");
                 }
-                if (pg.transactionId) {
-                    obj.TrascationId.push(pg.transactionId);
+               if (pg.transactionId) {
+                    obj.TrascationID.push(pg.transactionId);
                 } else {
-                    obj.TrascationId.push("-");
+                    obj.TrascationID.push("-");
                 }
                 if (pg.transactionDate) {
-                    obj.TrascationDate.push(pg.transactionDate);
+                    obj.TrascationDATE.push(moment(pg.transactionDate).format("DD/MM/YYYY"));
                 } else {
-                    obj.TrascationDate.push("-");
+                    obj.TrascationDATE.push("-");
                 }
-
-                obj.TrascationId.push("-");
                 if (pg.dfmSubscription) {
                     obj.SoldItem.push(pg.dfmSubscription.name);
                 } else if (pg.products[0]) {
@@ -843,6 +847,7 @@ var models = {
             var obj = {};
             obj.name = [];
             obj.createdAt = [];
+            obj.id=[];
             obj.amount = [];
             obj.status = [];
             _.forEach(page, function (pg) {
@@ -864,7 +869,11 @@ var models = {
                 } else {
                     obj.createdAt.push("-");
                 }
-
+                if (pg.transactionId) {
+                    obj.id.push(pg.transactionId);
+                } else {
+                    obj.id.push("-");
+                }
                 obj.amount.push(pg.totalAmount);
                 obj.status.push(pg.status);
 
@@ -959,7 +968,7 @@ var models = {
 
                 var options = {
 
-                    "phantomPath": "C:/Windows//System32/phantomjs",
+                    // "phantomPath": "C:/Windows//System32/phantomjs",
                     "format": "A4",
 
                     "directory": "/pdf",
@@ -1054,8 +1063,8 @@ var models = {
                 });
 
                 var options = {
-                    // "phantomPath": "node_modules/phantomjs/bin/phantomjs",
-                    "phantomPath": "C:/Windows/System32/phantomjs",
+                    "phantomPath": "node_modules/phantomjs/bin/phantomjs",
+                    // "phantomPath": "C:/Windows/System32/phantomjs",
                     "format": "A4",
                     // Export options 
                     "directory": "/tmp",

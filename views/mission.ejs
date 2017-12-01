@@ -243,10 +243,10 @@
                                                                         <%=DataId[i]%>
                                                                     </td>
                                                                     <td align="center">
-                                                                        <%=TrascationId[i]%>
+                                                                        <%=TrascationID[i]%>
                                                                     </td>
                                                                     <td align="center">
-                                                                        <%=TrascationDate[i]%>
+                                                                        <%=TrascationDATE[i]%>
                                                                     </td>
                                                                     <td align="center">
                                                                         <%=SoldItem[i]%>
@@ -377,7 +377,8 @@
                                                                                                 <th style="text-align:center;">PRODUCT</th>
                                                                                                 <th style="text-align:center;"> TRANSACTION DATE</th>
                                                                                                 <th style="text-align:center;"> COST</th>
-                                                                                                <th style="text-align:center;">PAYMENT STATUS</th>
+                                                                                                <th style="text-align:center;">TRANSACTION ID</th>
+                                                                                                 <th style="text-align:center;">PAYMENT STATUS</th>
                                                                                             </tr>
                                                                                             <% for(var i=0; i< name.length; i++) {%>
                                                                                                 <tr>
@@ -389,6 +390,9 @@
                                                                                                     </td>
                                                                                                     <td align="center">
                                                                                                         <%=amount[i]%>
+                                                                                                    </td>
+                                                                                                    <td align="center">
+                                                                                                        <%=id[i]%>
                                                                                                     </td>
                                                                                                     <td align="center">
                                                                                                         <%=status[i]%>
