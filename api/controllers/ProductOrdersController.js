@@ -201,7 +201,7 @@ var controller = {
 
 				var response = new ApiContracts.GetTransactionDetailsResponse(apiResponse);
 
-				console.log("response-----------", response.messages);
+				console.log("response-----------", response);
 
 				if (response != null) {
 					if (response.getMessages().getResultCode() == ApiContracts.MessageTypeEnum.OK) {
