@@ -324,7 +324,7 @@ var controller = {
 					transactionRequestType.setShipTo(transactionShippTo);
 
 					var lineItems = new ApiContracts.ArrayOfLineItem();
-
+					var lineItem_array = [];
 					_.each(data.products, function (n) {
 						var lineItem = new ApiContracts.LineItemType();
 						lineItem.setItemId(n._id);
@@ -332,8 +332,10 @@ var controller = {
 						lineItem.setQuantity("1");
 						lineItem.setUnitPrice(n.price);
 						lineItem.setTaxable(false);
-						lineItems.setLineItem(lineItem);
+						lineItem_array.push(lineItem);
 					});
+					lineItems.setLineItem(lineItem_array);
+
 					transactionRequestType.setLineItems(lineItems);
 
 
