@@ -167,6 +167,33 @@ var controller = {
 
 					})
 				}
+					if (found.products[0]) {
+						console.log("inside if found product ")
+					console.log("user", found.user);
+						User.findOneAndUpdate({
+						_id: found.user
+					}, {
+						cartProducts: []
+					}).exec(function (err, found) {
+						if (err) {
+							console.log("err1")
+						} else if (_.isEmpty(found)) {
+							console.log("err2")
+						} else {
+							console.log("err3")
+						}
+
+					})
+					found.status = "Paid";
+					ProductOrders.saveData(found, function (err, data) {
+						if (err) {
+							console.log("error occured while updating payment status");
+						} else {
+							console.log("saved successfully");
+						}
+
+					})
+				}
 
 
 			}
