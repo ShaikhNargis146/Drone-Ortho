@@ -15,22 +15,27 @@ var controller = {
             maxBuffer: 1024 * 500000
         }, function (error, stdout, stderr) {
             if (error) {
-                console.log("error inside --", error);
+                console.log("error inside --");
                 res.callback(error)
             } else if (stdout) {
-                console.log("and its working----stdout", stdout);
+                console.log("and its working----stdout--->>>>", stdout);
                 if (stdout.includes('Working')) {
                     fs.readFile(path, join(destinationPath, req.body.path + '_report.html'), function (err, html) {
 
                         if (err) {
                             console.log(err);
                         } else {
-                            res.callback(null, html)
+                            res.json({
+                                value: true,
+                                data: {
+                                    html: html
+                                }
+                            });
                         }
                     });
                 }
             } else {
-                console.log("stderr", stderr);
+                console.log("stderr----->>>>>>>");
                 res.callback(stderr)
             }
         });
