@@ -292,46 +292,48 @@ var models = {
 
             });
         } else if (page.name == "ecommerce") {
-            console.log("page data is ecc", page)
-            var fields = ['DataId', 'TrascationId', 'TrascationDate', 'SoldItem', 'Cost', 'Lisence', 'Status', 'ShippingAddress'];
-            var ecommerce = [];
+            var fields = ['UserId', 'name', 'TrasactionDate', 'TrasactionId', 'amount', 'status', 'Lisence', 'ShippingAddress'];
+            var invoice = [];
             _.forEach(page, function (pg) {
                 var tempObj = {};
                 if (pg.user) {
-                    tempObj.DataId = pg.user.dataId;
+                    tempObj.UserId = pg.user.dataId;
                 } else {
-                    tempObj.DataId = "-";
-                }
-                if (pg.transactionId) {
-                    tempObj.TrascationId = pg.transactionId;
-                } else {
-                    tempObj.TrascationId = "-";
-                }
-                if (pg.transactionDate) {
-                    tempObj.TrascationDate =moment(pg.transactionDate).format("DD/MM/YYYY")
-                } else {
-                    tempObj.TrascationDate = "-";
+                    tempObj.UserId = "-";
                 }
                 if (pg.dfmSubscription) {
-                    tempObj.SoldItem = pg.dfmSubscription.name
-
+                    tempObj.name = pg.dfmSubscription.name;
                 } else if (pg.products[0]) {
                     var myVal = '';
+                    var foo = '';
                     _.forEach(pg.products, function (pro) {
-                        myVal = myVal + ',' + pro.name;
+                        myVal = pro.product.name + ',' + myVal;
+                        foo = myVal.substring(0, myVal.length - 1);
                     })
-                    tempObj.SoldItem = myVal;
+                    tempObj.name = foo;
+
                 } else if (pg.cadLineWork) {
-                    tempObj.SoldItem = "cadLineWork";
+                    tempObj.name = "cadLineWork";
+
                 }
+                if (pg.transactionDate) {
+                    tempObj.TrasactionDate = moment(pg.transactionDate).format("DD/MM/YYYY")
+                } else {
+                    tempObj.TrasactionDate = "-"
+                }
+                if (pg.transactionId) {
+                    tempObj.TrasactionId = pg.transactionId
+                } else {
+                    tempObj.TrasactionId = "-"
+                }
+
+                tempObj.amount = pg.totalAmount;
+                tempObj.status = pg.status;
                 if (pg.user) {
                     tempObj.Lisence = pg.user.lisence;
                 } else {
                     tempObj.Lisence = "-";
                 }
-                tempObj.Cost = pg.totalAmount;
-
-                tempObj.Status = pg.status;
                 if (pg.shippingAddress) {
                     if (pg.shippingAddress.city) {
                         tempObj.ShippingAddress = pg.shippingAddress.city;
@@ -342,16 +344,14 @@ var models = {
                 } else {
                     tempObj.ShippingAddress = "-";
                 }
-
-
-                ecommerce.push(tempObj);
+                invoice.push(tempObj);
             });
 
-            console.log("ecommerce", mission);
+
+            console.log("invoice", invoice);
             var csv = json2csv({
-                data: ecommerce,
-                fields: fields,
-                quotes: ''
+                data: invoice,
+                fields: fields
 
             });
         } else if (page.name == "vendor") {
@@ -436,10 +436,12 @@ var models = {
                     tempObj.name = pg.dfmSubscription.name;
                 } else if (pg.products[0]) {
                     var myVal = '';
+                    var foo = '';
                     _.forEach(pg.products, function (pro) {
-                        myVal = myVal + ',' + pro.name;
+                        myVal = pro.product.name + ',' + myVal;
+                        foo = myVal.substring(0, myVal.length - 1);
                     })
-                    tempObj.name = myVal;
+                    tempObj.name = foo;
 
                 } else if (pg.cadLineWork) {
                     tempObj.name = "cadLineWork";
@@ -727,13 +729,13 @@ var models = {
             obj.ShippingAddress = [];
             console.log("inside if ecommerce")
             _.forEach(page, function (pg) {
-                console.log("transactionId****",pg.transactionId)
+                console.log("transactionId****", pg.transactionId)
                 if (pg.user) {
                     obj.DataId.push(pg.user.dataId);
                 } else {
                     obj.DataId.push("-");
                 }
-               if (pg.transactionId) {
+                if (pg.transactionId) {
                     obj.TrascationID.push(pg.transactionId);
                 } else {
                     obj.TrascationID.push("-");
@@ -747,10 +749,12 @@ var models = {
                     obj.SoldItem.push(pg.dfmSubscription.name);
                 } else if (pg.products[0]) {
                     var myVal = '';
+                    var foo = ''
                     _.forEach(pg.products, function (pro) {
-                        myVal = myVal + ',' + pro.name;
+                        myVal = pro.product.name + ',' + myVal;
+                        foo = myVal.substring(0, myVal.length - 1);
                     })
-                    obj.SoldItem.push(myVal);
+                    obj.SoldItem.push(foo);
                 } else if (pg.cadLineWork) {
                     obj.SoldItem.push("cadLineWork");
 
@@ -847,7 +851,7 @@ var models = {
             var obj = {};
             obj.name = [];
             obj.createdAt = [];
-            obj.id=[];
+            obj.id = [];
             obj.amount = [];
             obj.status = [];
             _.forEach(page, function (pg) {
@@ -855,11 +859,12 @@ var models = {
                     obj.name.push(pg.dfmSubscription.name);
                 } else if (pg.products[0]) {
                     var myVal = '';
-
+                    var foo = '';
                     _.forEach(pg.products, function (pro) {
-                        myVal = myVal + ',' + pro.name;
+                        myVal = pro.product.name + ',' + myVal;
+                        foo = myVal.substring(0, myVal.length - 1);
                     })
-                    obj.name.push(myVal);
+                    obj.name.push(foo);
                 } else if (pg.cadLineWork) {
                     obj.name.push("cadLineWork");
 
@@ -1008,6 +1013,7 @@ var models = {
 
 
     generatePdf: function (page, callback) {
+        console.log("inside generate pdf")
         var pdf = require('html-pdf');
         var obj = {};
         var env = {};
@@ -1044,8 +1050,8 @@ var models = {
                 console.log("errr", err);
                 callback(err);
             } else {
-                var path = "C:/Users/unifli/Documents/googleTile-Mosaic/";
-                // var path = "pdf/";
+                // var path = "C:/Users/unifli/Documents/googleTile-Mosaic/";
+                var path = "pdf/";
                 var newFilename = page.invoiceNo + ".pdf";
                 var writestream = fs.createWriteStream(path + newFilename);
                 writestream.on('finish', function (err, res) {
