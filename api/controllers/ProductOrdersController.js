@@ -167,10 +167,10 @@ var controller = {
 
 					})
 				}
-					if (found.products[0]) {
-						console.log("inside if found product ")
+				if (found.products[0]) {
+					console.log("inside if found product ")
 					console.log("user", found.user);
-						User.findOneAndUpdate({
+					User.findOneAndUpdate({
 						_id: found.user
 					}, {
 						cartProducts: []
@@ -277,7 +277,7 @@ var controller = {
 
 			ProductOrders.findOne({
 				invoiceNo: req.query.invoiceNumber
-			}).deepPopulate('user').exec(function (err, data) {
+			}).deepPopulate('user products').exec(function (err, data) {
 				if (err || _.isEmpty(data)) {
 					callback(err, [])
 				} else {
@@ -294,6 +294,10 @@ var controller = {
 					transactionOrderType.setInvoiceNumber(req.query.invoiceNumber);
 					transactionRequestType.setOrder(transactionOrderType);
 
+					var transactionCustomerDataType = new ApiContracts.CustomerDataType();
+					transactionCustomerDataType.setEmail(data.user.email);
+					transactionRequestType.setCustomer(transactionCustomerDataType);
+
 					var transactionBillTo = new ApiContracts.CustomerAddressType();
 					transactionBillTo.setFirstName(data.billingAddress.fname);
 					transactionBillTo.setLastName(data.billingAddress.lname);
@@ -304,6 +308,7 @@ var controller = {
 					transactionBillTo.setZip(data.billingAddress.zip);
 					transactionBillTo.setCountry(data.billingAddress.country);
 					transactionBillTo.setPhoneNumber(data.billingAddress.phonenumber);
+					transactionBillTo.setFaxNumber("NA");
 					transactionBillTo.setEmail(data.user.email);
 					transactionRequestType.setBillTo(transactionBillTo);
 
@@ -317,6 +322,22 @@ var controller = {
 					transactionShippTo.setZip(data.shippingAddress.zip);
 					transactionShippTo.setCountry(data.shippingAddress.country);
 					transactionRequestType.setShipTo(transactionShippTo);
+
+					var lineItems = new ApiContracts.ArrayOfLineItem();
+					var lineItem_array = [];
+					_.each(data.products, function (n) {
+						var lineItem = new ApiContracts.LineItemType();
+						lineItem.setItemId(n._id);
+						lineItem.setName(n.name);
+						lineItem.setQuantity("1");
+						lineItem.setUnitPrice(n.price);
+						lineItem.setTaxable(false);
+						lineItem_array.push(lineItem);
+					});
+					lineItems.setLineItem(lineItem_array);
+
+					transactionRequestType.setLineItems(lineItems);
+
 
 
 					var setting1 = new ApiContracts.SettingType();

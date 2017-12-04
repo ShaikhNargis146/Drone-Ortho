@@ -140,7 +140,7 @@ module.exports = {
     getQualityReports: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
         var name = req.param("filename").split('.')[0]
-        var filePath = "C:/Users/unifli/Documents/pix4d/" + name + "/1_initial/report/" + name + "_report.pdf";
+        var filePath = "C:/Users/unifli/Documents/pix4d/" + name + "/1_initial/report/" + name + "_generatedReport.pdf";
         files = fs.readFileSync(filePath);
         res.send(files);
     },
