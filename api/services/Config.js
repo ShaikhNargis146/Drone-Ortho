@@ -1012,23 +1012,22 @@ var models = {
     },
 
 
-    generatePdf: function (page, callback) {
-        console.log("inside generate pdf")
+   generatePdf: function (page, callback) {
         var pdf = require('html-pdf');
         var obj = {};
         var env = {};
-        obj.name = page.name;
-        obj.lname = page.lname;
-        obj.organization = page.organization;
+        var allprod=[];  
+        var allprodCost=[];        
+        obj.name = page.shippingAddress.name;
+        obj.lname = page.shippingAddress.lname;
+        obj.organization = page.shippingAddress.company;
         obj.city = page.shippingAddress.city;
         obj.country = page.shippingAddress.country;
         obj.state = page.shippingAddress.state;
         obj.createdAt = page.createdAt;
         obj.status = page.status;
-        obj.phonenumber = page.phonenumber;
-        obj.apartment = page.apartment;
-
-
+        obj.phonenumber = page.shippingAddress.phonenumber;
+        obj.apartment = page.shippingAddress.address;
         obj.Cost = page.totalAmount;
         if (page.dfmSubscription) {
             obj.SoldItem = page.dfmSubscription.name;
@@ -1036,8 +1035,12 @@ var models = {
 
 
         } else if (page.products[0]) {
-            obj.SoldItem = page.products.name;
-            obj.price = page.products.amount;
+            _.forEach(page.products,function(n){
+                allprod=n.name+','
+                allprodCost=n.price+','                
+            })
+            obj.SoldItem = allprod;
+            obj.price = allprodCost;
         } else if (page.cadLineWork) {
             obj.SoldItem = "cadLineWork";
             obj.price = page.cadLineWork.amount;
@@ -1050,8 +1053,8 @@ var models = {
                 console.log("errr", err);
                 callback(err);
             } else {
-                // var path = "C:/Users/unifli/Documents/googleTile-Mosaic/";
-                var path = "pdf/";
+                var path = "C:/Users/unifli/Documents/googleTile-Mosaic/";
+                // var path = "pdf/";
                 var newFilename = page.invoiceNo + ".pdf";
                 var writestream = fs.createWriteStream(path + newFilename);
                 writestream.on('finish', function (err, res) {
