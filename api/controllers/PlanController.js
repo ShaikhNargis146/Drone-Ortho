@@ -84,7 +84,7 @@ var controller = {
             },
             // "filename": page.filename + ".pdf"
         };
-        pdf.create(page.body.html, options).toFile(destinationPath, function (err, res) {
+        pdf.create(page.body.htmlData, options).toFile(destinationPath, function (err, res) {
             if (err) return console.log(err);
             console.log(res); // { filename: '/app/businesscard.pdf' }
             res.json({
