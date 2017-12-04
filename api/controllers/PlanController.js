@@ -54,7 +54,7 @@ var controller = {
             }
         });
     },
-    generatePdf: function (page, res) {
+    generatePdf: function (page, response) {
         var pdf = require('html-pdf');
         var destinationPath = "C:/Users/unifli/Documents/pix4d/" + page.body.path + "/1_initial/report/" + page.body.path + '_generatedReport.pdf';
 
@@ -87,7 +87,7 @@ var controller = {
         pdf.create(page.body.htmlData, options).toFile(destinationPath, function (err, res) {
             if (err) return console.log(err);
             console.log(res); // { filename: '/app/businesscard.pdf' }
-            res.json({
+            response.json({
                 value: true,
                 data: {
                     message: "done"
