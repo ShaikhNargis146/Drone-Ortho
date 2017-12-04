@@ -58,7 +58,7 @@ var controller = {
     generatePdfForHtml: function (page, callback) {
         // console.log("page---------",page.body.htmlData);
         var conversion = require("phantom-html-to-pdf")();
-        var destinationPath = "C:/Users/unifli/Documents/pix4d/" + req.body.path + "/1_initial/report/" + req.body.path + '_generatedReport.pdf';
+        var destinationPath = "C:/Users/unifli/Documents/pix4d/" + page.body.path + "/1_initial/report/" + page.body.path + '_generatedReport.pdf';
 
         conversion({
             html: page.body.htmlData,
