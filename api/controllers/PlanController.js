@@ -55,7 +55,7 @@ var controller = {
         });
     },
 
-    generatePdfForHtml: function (page, callback) {
+    generatePdfForHtml: function (page, res) {
         // console.log("page---------",page.body.htmlData);
         var conversion = require("phantom-html-to-pdf")();
         var destinationPath = "C:/Users/unifli/Documents/pix4d/" + page.body.path + "/1_initial/report/" + page.body.path + '_generatedReport.pdf';
