@@ -8,7 +8,7 @@ var controller = {
 
     pdfEditor1: function (req, res) {
         var filePath = "C:/Users/unifli/Documents/pix4d/" + req.body.path + "/1_initial/report/" + req.body.path + "_report.pdf";
-        var destinationPath = 'C:/Users/unifli/Documents/googleTile-Mosaic/report/'
+        var destinationPath = 'C:/Users/unifli/Documents/googleTile-Mosaic/report'
         // var filePath = "/home/user/Documents/htdocs/unifli-backend/pdf/M2017112.pdf";
         // var destinationPath = "/home/user/Documents/htdocs/unifli-backend/pdf";
         exec('cd C:/pdf2htmlEX-win32-0.14.6-upx-with-poppler-data && pdf2htmlEX --dest-dir ' + destinationPath + ' ' + filePath, {
