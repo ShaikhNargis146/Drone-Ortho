@@ -275,152 +275,223 @@ var controller = {
 		console.log(req.query);
 		if (req.query.amount && req.query.invoiceNumber) {
 
-			ProductOrders.findOne({
-				invoiceNo: req.query.invoiceNumber
-			}).deepPopulate('user products.product').exec(function (err, data) {
-				if (err || _.isEmpty(data)) {
-					callback(err, [])
-				} else {
-					console.log(data);
-					var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
-					merchantAuthenticationType.setName(constants.apiLoginKey);
-					merchantAuthenticationType.setTransactionKey(constants.transactionKey);
+			if (req.query.paymentType == "paypal") {
+				var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
+				merchantAuthenticationType.setName(constants.apiLoginKey);
+				merchantAuthenticationType.setTransactionKey(constants.transactionKey);
 
-					var transactionRequestType = new ApiContracts.TransactionRequestType();
-					transactionRequestType.setTransactionType(ApiContracts.TransactionTypeEnum.AUTHCAPTURETRANSACTION);
-					transactionRequestType.setAmount(1);
+				var payPalType = new ApiContracts.PayPalType();
+				payPalType.setCancelUrl('http://localhost:1337/api/ProductOrders/paymentCancel');
+				payPalType.setSuccessUrl('http://localhost:1337/api/ProductOrders/paymentReturn');
+				payPalType.setPayerID('X3KMJR6UXFJG2');
 
-					var transactionOrderType = new ApiContracts.OrderType();
-					transactionOrderType.setInvoiceNumber(req.query.invoiceNumber);
-					transactionRequestType.setOrder(transactionOrderType);
+				var paymentType = new ApiContracts.PaymentType();
+				paymentType.setPayPal(payPalType);
 
-					var transactionCustomerDataType = new ApiContracts.CustomerDataType();
-					transactionCustomerDataType.setEmail(data.user.email);
-					transactionRequestType.setCustomer(transactionCustomerDataType);
+				var transactionRequestType = new ApiContracts.TransactionRequestType();
+				transactionRequestType.setTransactionType(ApiContracts.TransactionTypeEnum.AUTHCAPTURETRANSACTION);
+				transactionRequestType.setPayment(paymentType);
+				transactionRequestType.setAmount(1000);
 
-					var transactionBillTo = new ApiContracts.CustomerAddressType();
-					transactionBillTo.setFirstName(data.billingAddress.fname);
-					transactionBillTo.setLastName(data.billingAddress.lname);
-					transactionBillTo.setCompany(data.billingAddress.comapny);
-					transactionBillTo.setAddress(data.billingAddress.address + " " + data.billingAddress.streetAddress);
-					transactionBillTo.setCity(data.billingAddress.city);
-					transactionBillTo.setState(data.billingAddress.state);
-					transactionBillTo.setZip(data.billingAddress.zip);
-					transactionBillTo.setCountry(data.billingAddress.country);
-					transactionBillTo.setPhoneNumber(data.billingAddress.phonenumber);
-					transactionBillTo.setFaxNumber("NA");
-					transactionBillTo.setEmail(data.user.email);
-					transactionRequestType.setBillTo(transactionBillTo);
+				var createRequest = new ApiContracts.CreateTransactionRequest();
+				createRequest.setMerchantAuthentication(merchantAuthenticationType);
+				createRequest.setTransactionRequest(transactionRequestType);
 
-					var transactionShippTo = new ApiContracts.NameAndAddressType();
-					transactionShippTo.setFirstName(data.shippingAddress.fname);
-					transactionShippTo.setLastName(data.shippingAddress.lname);
-					transactionShippTo.setCompany(data.shippingAddress.comapny);
-					transactionShippTo.setAddress(data.shippingAddress.address + " " + data.shippingAddress.streetAddress);
-					transactionShippTo.setCity(data.shippingAddress.city);
-					transactionShippTo.setState(data.shippingAddress.state);
-					transactionShippTo.setZip(data.shippingAddress.zip);
-					transactionShippTo.setCountry(data.shippingAddress.country);
-					transactionRequestType.setShipTo(transactionShippTo);
+				console.log(JSON.stringify(createRequest.getJSON(), null, 2));
 
-					var lineItems = new ApiContracts.ArrayOfLineItem();
-					var lineItem_array = [];
-					_.each(data.products, function (n) {
-						var lineItem = new ApiContracts.LineItemType();
-						lineItem.setItemId(n.product._id);
-						lineItem.setName(n.product.name);
-						lineItem.setQuantity(n.qty);
-						lineItem.setUnitPrice(n.product.price);
-						lineItem.setTaxable(false);
-						lineItem_array.push(lineItem);
-					});
-					lineItems.setLineItem(lineItem_array);
+				var ctrl = new ApiControllers.CreateTransactionController(createRequest.getJSON());
 
-					transactionRequestType.setLineItems(lineItems);
+				ctrl.setEnvironment(SDKConstants.endpoint.production);
 
+				ctrl.execute(function () {
 
+					var apiResponse = ctrl.getResponse();
 
-					var setting1 = new ApiContracts.SettingType();
-					setting1.setSettingName('hostedPaymentButtonOptions');
-					setting1.setSettingValue('{\"text\": \"Pay\"}');
+					var response = new ApiContracts.CreateTransactionResponse(apiResponse);
 
-					var setting2 = new ApiContracts.SettingType();
-					setting2.setSettingName('hostedPaymentOrderOptions');
-					setting2.setSettingValue('{\"show\": true}');
+					console.log(JSON.stringify(response, null, 2));
 
-					var setting3 = new ApiContracts.SettingType();
-					setting3.setSettingName('hostedPaymentBillingAddressOptions');
-					setting3.setSettingValue('{\"show\": false}');
+					if (response != null) {
+						if (response.getMessages().getResultCode() == ApiContracts.MessageTypeEnum.OK) {
+							if (response.getTransactionResponse().getMessages() != null) {
+								console.log('Successfully created transaction with Transaction ID: ' + response.getTransactionResponse().getTransId());
+								console.log('Secure Acceptance URL: ' + response.getTransactionResponse().getSecureAcceptance().getSecureAcceptanceUrl());
+								console.log('Response Code: ' + response.getTransactionResponse().getResponseCode());
+								console.log('Message Code: ' + response.getTransactionResponse().getMessages().getMessage()[0].getCode());
+								console.log('Description: ' + response.getTransactionResponse().getMessages().getMessage()[0].getDescription());
+								var formbody = '<form id="nonseamless" method="post" name="redirect" action="' + response.getTransactionResponse().getSecureAcceptance().getSecureAcceptanceUrl() + '"/><script language="javascript">document.redirect.submit();</script></form>';
 
-					var setting4 = new ApiContracts.SettingType();
-					setting4.setSettingName('hostedPaymentReturnOptions');
-					var settingValue = {
-						'showReceipt': false,
-						'url': 'http://cloud.unifli.aero/api/ProductOrders/paymentReturn?invoiceNumber=' + req.query.invoiceNumber,
-						'urlText': 'Continue',
-						'cancelUrl': 'http://cloud.unifli.aero/api/ProductOrders/paymentCancel',
-						'cancelUrlText': 'Cancel'
-					};
-					setting4.setSettingValue(JSON.stringify(settingValue));
-
-					var settingList = [];
-					settingList.push(setting1);
-					settingList.push(setting2);
-					settingList.push(setting3);
-					settingList.push(setting4);
-
-
-					var alist = new ApiContracts.ArrayOfSetting();
-					alist.setSetting(settingList);
-
-					var getRequest = new ApiContracts.GetHostedPaymentPageRequest();
-					getRequest.setMerchantAuthentication(merchantAuthenticationType);
-					getRequest.setTransactionRequest(transactionRequestType);
-					getRequest.setHostedPaymentSettings(alist);
-
-					//console.log(JSON.stringify(getRequest.getJSON(), null, 2));
-
-					var ctrl = new ApiControllers.GetHostedPaymentPageController(getRequest.getJSON());
-					ctrl.setEnvironment(SDKConstants.endpoint.sandbox);
-
-					ctrl.execute(function () {
-
-						var apiResponse = ctrl.getResponse();
-
-						var response = new ApiContracts.GetHostedPaymentPageResponse(apiResponse);
-
-						//pretty print response
-						//console.log(JSON.stringify(response, null, 2));
-
-						if (response != null) {
-							if (response.getMessages().getResultCode() == ApiContracts.MessageTypeEnum.OK) {
-								console.log('Hosted payment page token :');
-								console.log('Error message: ' + response.getToken());
-								var formData = {
-									token: response.getToken()
-								};
-								// res.json({
-								// 	value: true,
-								// 	data: response,
-								// });
-								res.view("pay_form", formData);
-
+								res.send(formbody);
 							} else {
-								res.redirect("http://unifli.aero/sorry");
+								console.log('Failed Transaction.');
+								if (response.getTransactionResponse().getErrors() != null) {
+									console.log('Error Code: ' + response.getTransactionResponse().getErrors().getError()[0].getErrorCode());
+									console.log('Error message: ' + response.getTransactionResponse().getErrors().getError()[0].getErrorText());
+								}
+							}
+						} else {
+							console.log('Failed Transaction. ');
+							if (response.getTransactionResponse() != null && response.getTransactionResponse().getErrors() != null) {
 
+								console.log('Error Code: ' + response.getTransactionResponse().getErrors().getError()[0].getErrorCode());
+								console.log('Error message: ' + response.getTransactionResponse().getErrors().getError()[0].getErrorText());
+							} else {
 								console.log('Error Code: ' + response.getMessages().getMessage()[0].getCode());
 								console.log('Error message: ' + response.getMessages().getMessage()[0].getText());
 							}
-						} else {
-							res.redirect("http://unifli.aero/sorry")
-
 						}
+					} else {
+						console.log('Null Response.');
+					}
+
+				});
+			} else {
+				ProductOrders.findOne({
+					invoiceNo: req.query.invoiceNumber
+				}).deepPopulate('user products.product').exec(function (err, data) {
+					if (err || _.isEmpty(data)) {
+						callback(err, [])
+					} else {
+						console.log(data);
+						var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
+						merchantAuthenticationType.setName(constants.apiLoginKey);
+						merchantAuthenticationType.setTransactionKey(constants.transactionKey);
+
+						var transactionRequestType = new ApiContracts.TransactionRequestType();
+						transactionRequestType.setTransactionType(ApiContracts.TransactionTypeEnum.AUTHCAPTURETRANSACTION);
+						transactionRequestType.setAmount(1);
+
+						var transactionOrderType = new ApiContracts.OrderType();
+						transactionOrderType.setInvoiceNumber(req.query.invoiceNumber);
+						transactionRequestType.setOrder(transactionOrderType);
+
+						var transactionCustomerDataType = new ApiContracts.CustomerDataType();
+						transactionCustomerDataType.setEmail(data.user.email);
+						transactionRequestType.setCustomer(transactionCustomerDataType);
+
+						var transactionBillTo = new ApiContracts.CustomerAddressType();
+						transactionBillTo.setFirstName(data.billingAddress.fname);
+						transactionBillTo.setLastName(data.billingAddress.lname);
+						transactionBillTo.setCompany(data.billingAddress.comapny);
+						transactionBillTo.setAddress(data.billingAddress.address + " " + data.billingAddress.streetAddress);
+						transactionBillTo.setCity(data.billingAddress.city);
+						transactionBillTo.setState(data.billingAddress.state);
+						transactionBillTo.setZip(data.billingAddress.zip);
+						transactionBillTo.setCountry(data.billingAddress.country);
+						transactionBillTo.setPhoneNumber(data.billingAddress.phonenumber);
+						transactionBillTo.setFaxNumber("NA");
+						transactionBillTo.setEmail(data.user.email);
+						transactionRequestType.setBillTo(transactionBillTo);
+
+						var transactionShippTo = new ApiContracts.NameAndAddressType();
+						transactionShippTo.setFirstName(data.shippingAddress.fname);
+						transactionShippTo.setLastName(data.shippingAddress.lname);
+						transactionShippTo.setCompany(data.shippingAddress.comapny);
+						transactionShippTo.setAddress(data.shippingAddress.address + " " + data.shippingAddress.streetAddress);
+						transactionShippTo.setCity(data.shippingAddress.city);
+						transactionShippTo.setState(data.shippingAddress.state);
+						transactionShippTo.setZip(data.shippingAddress.zip);
+						transactionShippTo.setCountry(data.shippingAddress.country);
+						transactionRequestType.setShipTo(transactionShippTo);
+
+						var lineItems = new ApiContracts.ArrayOfLineItem();
+						var lineItem_array = [];
+						_.each(data.products, function (n) {
+							var lineItem = new ApiContracts.LineItemType();
+							lineItem.setItemId(n.product._id);
+							lineItem.setName(n.product.name);
+							lineItem.setQuantity(n.qty);
+							lineItem.setUnitPrice(n.product.price);
+							lineItem.setTaxable(false);
+							lineItem_array.push(lineItem);
+						});
+						lineItems.setLineItem(lineItem_array);
+
+						transactionRequestType.setLineItems(lineItems);
 
 
-					});
-				}
-			})
 
+						var setting1 = new ApiContracts.SettingType();
+						setting1.setSettingName('hostedPaymentButtonOptions');
+						setting1.setSettingValue('{\"text\": \"Pay\"}');
+
+						var setting2 = new ApiContracts.SettingType();
+						setting2.setSettingName('hostedPaymentOrderOptions');
+						setting2.setSettingValue('{\"show\": true}');
+
+						var setting3 = new ApiContracts.SettingType();
+						setting3.setSettingName('hostedPaymentBillingAddressOptions');
+						setting3.setSettingValue('{\"show\": false}');
+
+						var setting4 = new ApiContracts.SettingType();
+						setting4.setSettingName('hostedPaymentReturnOptions');
+						var settingValue = {
+							'showReceipt': false,
+							'url': 'http://cloud.unifli.aero/api/ProductOrders/paymentReturn?invoiceNumber=' + req.query.invoiceNumber,
+							'urlText': 'Continue',
+							'cancelUrl': 'http://cloud.unifli.aero/api/ProductOrders/paymentCancel',
+							'cancelUrlText': 'Cancel'
+						};
+						setting4.setSettingValue(JSON.stringify(settingValue));
+
+						var settingList = [];
+						settingList.push(setting1);
+						settingList.push(setting2);
+						settingList.push(setting3);
+						settingList.push(setting4);
+
+
+						var alist = new ApiContracts.ArrayOfSetting();
+						alist.setSetting(settingList);
+
+						var getRequest = new ApiContracts.GetHostedPaymentPageRequest();
+						getRequest.setMerchantAuthentication(merchantAuthenticationType);
+						getRequest.setTransactionRequest(transactionRequestType);
+						getRequest.setHostedPaymentSettings(alist);
+
+						//console.log(JSON.stringify(getRequest.getJSON(), null, 2));
+
+						var ctrl = new ApiControllers.GetHostedPaymentPageController(getRequest.getJSON());
+						ctrl.setEnvironment(SDKConstants.endpoint.sandbox);
+
+						ctrl.execute(function () {
+
+							var apiResponse = ctrl.getResponse();
+
+							var response = new ApiContracts.GetHostedPaymentPageResponse(apiResponse);
+
+							//pretty print response
+							//console.log(JSON.stringify(response, null, 2));
+
+							if (response != null) {
+								if (response.getMessages().getResultCode() == ApiContracts.MessageTypeEnum.OK) {
+									console.log('Hosted payment page token :');
+									console.log('Error message: ' + response.getToken());
+									var formData = {
+										token: response.getToken()
+									};
+									// res.json({
+									// 	value: true,
+									// 	data: response,
+									// });
+									res.view("pay_form", formData);
+
+								} else {
+									res.redirect("http://unifli.aero/sorry");
+
+									console.log('Error Code: ' + response.getMessages().getMessage()[0].getCode());
+									console.log('Error message: ' + response.getMessages().getMessage()[0].getText());
+								}
+							} else {
+								res.redirect("http://unifli.aero/sorry")
+
+							}
+
+
+						});
+					}
+				})
+			}
 
 		} else {
 			res.redirect("http://unifli.aero/sorry");
