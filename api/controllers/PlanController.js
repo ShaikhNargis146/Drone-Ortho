@@ -11,7 +11,7 @@ var controller = {
         var destinationPath = 'C:/Users/unifli/Documents/googleTile-Mosaic/report/'
         // var filePath = "/home/user/Documents/htdocs/unifli-backend/pdf/M2017112.pdf";
         // var destinationPath = "/home/user/Documents/htdocs/unifli-backend/pdf";
-        exec('pdf2htmlEX --dest-dir ' + destinationPath + ' ' + filePath, {
+        exec('cd C:\pdf2htmlEX-win32-0.14.6-upx-with-poppler-data && pdf2htmlEX --dest-dir ' + destinationPath + ' ' + filePath, {
             maxBuffer: 1024 * 500000
         }, function (error, stdout, stderr) {
             if (error) {
