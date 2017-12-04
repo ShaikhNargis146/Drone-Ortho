@@ -36,7 +36,21 @@ var controller = {
                 }
             } else {
                 console.log("stderr----->>>>>>>");
-                res.callback(stderr)
+                if (stderr.includes('Working')) {
+                    fs.readFile(path, join(destinationPath, req.body.path + '_report.html'), function (err, html) {
+
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            res.json({
+                                value: true,
+                                data: {
+                                    html: html
+                                }
+                            });
+                        }
+                    });
+                }
             }
         });
     },
