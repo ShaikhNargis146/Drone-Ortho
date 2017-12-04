@@ -1755,7 +1755,7 @@ firstapp
             NavigationService.apiCallWithData("Plan/pdfEditor1", path, function (data) {
                 // console.log("data", data);
                 $.get('http://files.unifli.aero/report/' + missionIdForDownload + '_report.html', function (data) {
-                    // console.log("data----------", data);
+                    console.log("data----------", data);
                     // $("#data1").html(data);
 
                     $('#render-pdfholder').html(data);
