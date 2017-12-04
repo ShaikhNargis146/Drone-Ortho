@@ -18,8 +18,17 @@ var controller = {
                 console.log("error inside --", error);
                 res.callback(error)
             } else if (stdout) {
-                console.log("and its working----stdout");
-                res.callback(stdout)
+                console.log("and its working----stdout", stdout);
+                if (stdout.includes('Working')) {
+                    fs.readFile(path, join(destinationPath, req.body.path + '_report.html'), function (err, html) {
+
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            res.callback(null, html)
+                        }
+                    });
+                }
             } else {
                 console.log("stderr", stderr);
                 res.callback(stderr)
