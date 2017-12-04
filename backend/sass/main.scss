@@ -4296,9 +4296,11 @@ WIDGETS
         background-image: url(../img/spritesheet-2x.png);
         background-image: linear-gradient(transparent, transparent), url(../img/spritesheet.svg);
     }
+
     .leaflet-top {
-        top:100px !important;
-    }        
+        top: 100px !important;
+    }
+
     .leaflet-draw-toolbar a {
         background-image: url(../img/spritesheet.png);
         background-image: linear-gradient(transparent, transparent), url(../img/spritesheet.svg);
@@ -4445,4 +4447,12 @@ WIDGETS
 
     .padLeft5 {
         padding-left: 5px;
+    }
+
+    .render-pdfholder {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 0;
+        opacity: 0;
     }

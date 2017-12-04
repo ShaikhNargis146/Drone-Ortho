@@ -1766,6 +1766,7 @@ firstapp
                 $('.t.m0.x2.h3.y2.ff1.fs0.fc0.sc0.ls0.ws0').html('<span class="p_right">Generated with UNIFLI- Drone File Management(DFM) System Version 2.0.0</span>');
                 var sendHtmlData = {};
                 sendHtmlData.htmlData = $('#render-pdfholder').html();
+                sendHtmlData.path = missionIdForDownload;
                 console.log("sendHtmlData", sendHtmlData);
                 NavigationService.apiCallWithData("Plan/generatePdfForHtml", sendHtmlData, function (data) {
                     window.open('http://cloud.unifli.aero/api/getQualityReports/' + missionIdForDownload + ".pdf", '_self');
