@@ -277,7 +277,7 @@ var controller = {
 
 			ProductOrders.findOne({
 				invoiceNo: req.query.invoiceNumber
-			}).deepPopulate('user products').exec(function (err, data) {
+			}).deepPopulate('user products.product').exec(function (err, data) {
 				if (err || _.isEmpty(data)) {
 					callback(err, [])
 				} else {
@@ -327,10 +327,10 @@ var controller = {
 					var lineItem_array = [];
 					_.each(data.products, function (n) {
 						var lineItem = new ApiContracts.LineItemType();
-						lineItem.setItemId(n._id);
-						lineItem.setName(n.name);
-						lineItem.setQuantity("1");
-						lineItem.setUnitPrice(n.price);
+						lineItem.setItemId(n.product._id);
+						lineItem.setName(n.product.name);
+						lineItem.setQuantity(n.qty);
+						lineItem.setUnitPrice(n.product.price);
 						lineItem.setTaxable(false);
 						lineItem_array.push(lineItem);
 					});
