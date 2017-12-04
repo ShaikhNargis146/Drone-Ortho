@@ -1767,7 +1767,7 @@ firstapp
                 sendHtmlData.htmlData = $('#render-pdfholder').html();
                 sendHtmlData.path = missionIdForDownload;
                 console.log("sendHtmlData", sendHtmlData);
-                NavigationService.apiCallWithData("Plan/generatePdfForHtml", sendHtmlData, function (data) {
+                NavigationService.apiCallWithData("Plan/generatePdf", sendHtmlData, function (data) {
                     window.open('http://cloud.unifli.aero/api/getQualityReports/' + missionIdForDownload + ".pdf", '_self');
 
                     // console.log("data", data);

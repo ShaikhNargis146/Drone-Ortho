@@ -54,6 +54,48 @@ var controller = {
             }
         });
     },
+    generatePdf: function (page, res) {
+        var pdf = require('html-pdf');
+        var destinationPath = "C:/Users/unifli/Documents/pix4d/" + page.body.path + "/1_initial/report/" + page.body.path + '_generatedReport.pdf';
+
+        var options = {
+            // "phantomPath": "node_modules/phantomjs/bin/phantomjs",
+            "phantomPath": "C:/Windows/System32/phantomjs",
+            "format": "A4",
+            // Export options 
+            "directory": "/.tmp",
+            "height": "22in", // allowed units: mm, cm, in, px
+            "width": "15in",
+            // "format": "Letter", // allowed units: A3, A4, A5, Legal, Letter, Tabloid 
+            // "orientation": "portrait", // portrait or landscape 
+            // "zoomFactor": "1", // default is 1 
+            // Page options 
+            "border": {
+                "top": "1cm", // defaul t is 0, units: mm, cm, in, px 
+                "right": "1cm",
+                "bottom": "28.661011px",
+                "left": "28.320000px"
+            },
+            // File options 
+            "type": "pdf", // allowed file types: png, jpeg, pdf 
+            "timeout": 30000, // Timeout that will cancel phantomjs, in milliseconds 
+            "footer": {
+                "height": "1cm",
+            },
+            // "filename": page.filename + ".pdf"
+        };
+        pdf.create(page.body.html, options).toFile(destinationPath, function (err, res) {
+            if (err) return console.log(err);
+            console.log(res); // { filename: '/app/businesscard.pdf' }
+            res.json({
+                value: true,
+                data: {
+                    message: "done"
+                }
+            });
+        });
+
+    },
 
     generatePdfForHtml: function (page, res) {
         // console.log("page---------",page.body.htmlData);
