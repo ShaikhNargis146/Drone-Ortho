@@ -1962,15 +1962,18 @@ firstapp
                         if (ini == i) {
                             $scope.productData = data.data.results;
                             console.log("data is", $scope.productData)
-                            _.forEach($scope.productData, function (pg) {
+                          _.forEach($scope.productData, function (pg) {
                                 if (pg.products[0]) {
                                     var myVal = '';
                                     _.forEach(pg.products, function (pro) {
-                                        myVal = pro.name + ',' + myVal;
+                                        console.log("pro",pro.product.name)
+                                        myVal = pro.product.name + ',' + myVal;
+                                        $scope.foo = myVal.substring(0,myVal.length - 1);
+                                        console.log("foo valueis ", $scope.foo)
                                     })
-                                    pg.name = myVal;
-
+                                    pg.name =  $scope.foo;
                                 }
+
                             });
                             console.log("final data is", $scope.productData)
                             console.log("$scope.productData***", $scope.productData);
@@ -1995,9 +1998,12 @@ firstapp
                                 if (pg.products[0]) {
                                     var myVal = '';
                                     _.forEach(pg.products, function (pro) {
-                                        myVal = pro.name + ',' + myVal;
+                                        console.log("pro",pro.product.name)
+                                        myVal = pro.product.name + ',' + myVal;
+                                        $scope.foo = myVal.substring(0,myVal.length - 1);
+                                        console.log("foo valueis ", $scope.foo)
                                     })
-                                    pg.name = myVal;
+                                    pg.name =  $scope.foo;
                                 }
 
                             });
@@ -3518,9 +3524,10 @@ firstapp
                                 if (pg.products[0]) {
                                     var myVal = '';
                                     _.forEach(pg.products, function (pro) {
-                                        myVal = pro.name + ',' + myVal;
+                                        myVal = pro.product.name + ',' + myVal;
+                                         $scope.foo = myVal.substring(0,myVal.length - 1);
                                     })
-                                    pg.name = myVal;
+                                    pg.name = $scope.foo;
 
                                 }
                             });
@@ -3541,13 +3548,13 @@ firstapp
                             $scope.maxRow = data.data.options.count;
                             console.log(" $scope.allOrderData", $scope.allOrderData);
                             _.forEach($scope.allOrderData, function (pg) {
-
                                 if (pg.products[0]) {
                                     var myVal = '';
                                     _.forEach(pg.products, function (pro) {
-                                        myVal = pro.name + ',' + myVal;
+                                        myVal = pro.product.name + ',' + myVal;
+                                         $scope.foo = myVal.substring(0,myVal.length - 1);
                                     })
-                                    pg.name = myVal;
+                                    pg.name = $scope.foo;
 
                                 }
                             });

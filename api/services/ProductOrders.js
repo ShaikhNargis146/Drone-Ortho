@@ -117,7 +117,7 @@ module.exports = mongoose.model('ProductOrders', schema);
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "products user cadLineWork dfmSubscription", "products user cadLineWork dfmSubscription"));
 var model = {
     exceltotalProductOrders: function (data, callback) {
-        ProductOrders.find({}).deepPopulate("user dfmSubscription products cadLineWork ").exec(function (err, data) {
+        ProductOrders.find({}).deepPopulate("user dfmSubscription products.product cadLineWork ").exec(function (err, data) {
             if (err || _.isEmpty(data)) {
                 callback(err, [])
             } else {
@@ -128,6 +128,7 @@ var model = {
 
     generateExcelProductOrders: function (match, callback) {
         async.concatSeries(match, function (mainData, callback) {
+            console.log("inside concat",mainData)
                 var obj = {};
                 if (mainData.user) {
                     obj["USER ID"] = mainData.user.dataId;
@@ -147,11 +148,13 @@ var model = {
                 if (mainData.dfmSubscription) {
                     obj["SOLD ITEM"] = mainData.dfmSubscription.name;
                 } else if (mainData.products[0]) {
-                    var myVal = ''
+                    var myVal = '';
+var foo=''
                     _.forEach(mainData.products, function (pro) {
-                        myVal = myVal + ',' + pro.name;
+                          myVal =  pro.product.name + ',' +myVal;
+                       foo= myVal.substring(0,myVal.length - 1);
                     })
-                    obj["SOLD ITEM"] = myVal;
+                    obj["SOLD ITEM"] = foo;
                 } else if (mainData.cadLineWork) {
                     obj["SOLD ITEM"] = mainData.cadLineWork.name;
                 }
@@ -187,7 +190,7 @@ var model = {
     exceltotalProductOrdersforUser: function (data, callback) {
         ProductOrders.find({
             user: data._id
-        }).deepPopulate('user cadLineWork dfmSubscription products').exec(function (err, data) {
+        }).deepPopulate('user cadLineWork dfmSubscription products.product').exec(function (err, data) {
             if (err || _.isEmpty(data)) {
                 callback(err, [])
             } else {
@@ -198,17 +201,19 @@ var model = {
 
     generateExcelProductOrdersforUser: function (match, callback) {
         async.concatSeries(match, function (mainData, callback) {
-                console.log("mainData.transactionDate", mainData.transactionDate)
+                console.log("mainData.transactionDate", mainData)
                 var obj = {};
                 if (mainData.dfmSubscription) {
                     obj["PRODUCT NAME"] = mainData.dfmSubscription.name;
 
                 } else if (mainData.products[0]) {
                     var myVal = ''
+                    var foo=''
                     _.forEach(mainData.products, function (pro) {
-                        myVal = myVal + ',' + pro.name;
+                        myVal =  pro.product.name + ',' +myVal;
+                       foo= myVal.substring(0,myVal.length - 1);
                     })
-                    obj["PRODUCT NAME"] = myVal;
+                    obj["PRODUCT NAME"] = foo;
                 } else if (mainData.cadLineWork) {
                     obj["PRODUCT NAME "] = "cadLineWork";
                 }
@@ -319,7 +324,7 @@ var model = {
             start: (page - 1) * maxRow,
             count: maxRow
         };
-        ProductOrders.find({}).deepPopulate('user dfmSubscription products  cadLineWork')
+        ProductOrders.find({}).deepPopulate('user dfmSubscription products.product  cadLineWork')
             .order(options)
             .keyword(options)
             .page(options,
@@ -364,7 +369,7 @@ var model = {
         ProductOrders.find({
                 user: data.user
             })
-            .deepPopulate("products user cadLineWork dfmSubscription")
+            .deepPopulate("products.product user cadLineWork dfmSubscription")
             .order(options)
             .keyword(options)
             .page(options,
