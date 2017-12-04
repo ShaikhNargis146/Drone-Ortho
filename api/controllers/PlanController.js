@@ -37,7 +37,7 @@ var controller = {
             } else {
                 console.log("stderr----->>>>>>>");
                 if (stderr.includes('Working')) {
-                    fs.readFile(path.join(destinationPath, req.body.path + '_report.html'), function (err, html) {
+                    fs.readFile(path.join(destinationPath, req.body.path + '_report.html'), 'utf8', function (err, html) {
 
                         if (err) {
                             console.log(err);
