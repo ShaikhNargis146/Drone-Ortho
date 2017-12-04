@@ -1694,63 +1694,88 @@ firstapp
 
 
         $scope.downloadThree = function () {
-                window.open(adminurl + 'Mission/generateZipForMissionFiles?filename=' + missionID.filename, '_self');
-                window.close();
-            },
+            window.open(adminurl + 'Mission/generateZipForMissionFiles?filename=' + missionID.filename, '_self');
+            window.close();
+        }
 
-            $scope.downloadAutocadDXF = function (missionId) {
-                window.open('http://cloud.unifli.aero/api/getAutocad/' + missionIdForDownload + ".dxf", '_self');
-            },
+        $scope.downloadAutocadDXF = function (missionId) {
+            window.open('http://cloud.unifli.aero/api/getAutocad/' + missionIdForDownload + ".dxf", '_self');
+        }
 
-            $scope.downloadContoursLines = function (missionId) {
-                window.open('http://cloud.unifli.aero/api/getContourLines/' + missionIdForDownload + ".shp", '_self');
-            },
+        $scope.downloadContoursLines = function (missionId) {
+            window.open('http://cloud.unifli.aero/api/getContourLines/' + missionIdForDownload + ".shp", '_self');
+        }
 
-            $scope.downloadContoursPdf = function (missionId) {
-                window.open('http://cloud.unifli.aero/api/getContourPdf/' + missionIdForDownload + ".pdf", '_self');
-            },
-            $scope.downloadTFW = function (missionId) {
-                window.open('http://cloud.unifli.aero/api/getTfw/' + missionIdForDownload + ".tfw", '_self');
-            },
+        $scope.downloadContoursPdf = function (missionId) {
+            window.open('http://cloud.unifli.aero/api/getContourPdf/' + missionIdForDownload + ".pdf", '_self');
+        }
+        $scope.downloadTFW = function (missionId) {
+            window.open('http://cloud.unifli.aero/api/getTfw/' + missionIdForDownload + ".tfw", '_self');
+        }
 
-            $scope.downloadOrthoM = function () {
-                window.open('http://cloud.unifli.aero/api/getOrthoM/' + missionIdForDownload + ".tif", '_self');
-            },
+        $scope.downloadOrthoM = function () {
+            window.open('http://cloud.unifli.aero/api/getOrthoM/' + missionIdForDownload + ".tif", '_self');
+        }
 
-            $scope.downloadDsm = function () {
-                window.open('http://cloud.unifli.aero/api/getDsm/' + missionIdForDownload + ".tif", '_self');
-            },
+        $scope.downloadDsm = function () {
+            window.open('http://cloud.unifli.aero/api/getDsm/' + missionIdForDownload + ".tif", '_self');
+        }
 
-            $scope.downloadMeshFbx = function () {
-                window.open('http://cloud.unifli.aero/api/getMeshFbx/' + missionIdForDownload + ".fbx", '_self');
-            },
+        $scope.downloadMeshFbx = function () {
+            window.open('http://cloud.unifli.aero/api/getMeshFbx/' + missionIdForDownload + ".fbx", '_self');
+        }
 
-            $scope.downloadMeshObj = function () {
-                window.open('http://cloud.unifli.aero/api/getMeshObj/' + missionIdForDownload + ".Obj", '_self');
-            },
+        $scope.downloadMeshObj = function () {
+            window.open('http://cloud.unifli.aero/api/getMeshObj/' + missionIdForDownload + ".Obj", '_self');
+        }
 
-            $scope.listPointCloud = function () {
-                $http.post(adminurl + "Mission/generateZipForPointCloudFiles?filename=" + missionID.filename).then(function (data) {
-                    console.log("data---->>>", data.data.data);
-                    if (data.data.value == true) {
-                        $scope.fileList = data.data.data
-                        $("#myAlertModal").modal();
-                    }
+        $scope.listPointCloud = function () {
+            $http.post(adminurl + "Mission/generateZipForPointCloudFiles?filename=" + missionID.filename).then(function (data) {
+                console.log("data---->>>", data.data.data);
+                if (data.data.value == true) {
+                    $scope.fileList = data.data.data
+                    $("#myAlertModal").modal();
+                }
+            });
+            // window.open('http://cloud.unifli.aero/api/getPointCloud/' + missionIdForDownload + ".las", '_self');
+            // window.open(adminurl + 'Mission/generateZipForPointCloudFiles?filename=' + missionID.filename, '_self');
+            // window.close();
+        }
+        $scope.downloadPointCloud = function (file) {
+            // window.open('http://cloud.unifli.aero/api/getPointCloud/' + missionIdForDownload + ".las", '_self');
+            window.open(adminurl + 'getPointCloud/' + missionIdForDownload + '/' + file, '_self');
+            window.close();
+        }
+        // $scope.downloadQualityReports = function () {
+        //     window.open('http://cloud.unifli.aero/api/getQualityReports/' + missionIdForDownload + ".pdf", '_self');
+        // }
+        $scope.downloadQualityReports = function () {
+            var path = {}
+            path.path = missionIdForDownload;
+            NavigationService.apiCallWithData("Plan/pdfEditor1", path, function (data) {
+                // console.log("data", data);
+                $.get('http://files.unifli.aero/report/' + missionIdForDownload + '.html', function (data) {
+                    console.log("data----------", data);
+                    // $("#data1").html(data);
+
+                    $('#render-pdfholder').html(data);
+                    var demo1 = '<style type="text/css"> .pdf-bg-holder{ background: #fff; width: 14%; position: absolute; height: 45px;top: 0; right: 0; z-index: 1;} .pdf-img-holder{width: 100%; height: 100%; position: relative;} .pdf-logo-img{ width:50%; height: auto; position: absolute; bottom: 0; left: 0; } @media print{.x2{left:440px} .p_right{display: block;width: 100vh;position: absolute; text-align: right;} .pdf-bg-holder{ background: #fff; width: 14%; position: absolute; height: 100px;top: 0; right: 0; z-index: 1;} .pdf-img-holder{ width: 100%; height: 100%; position: relative;} .pdf-logo-img{width:50%; height: auto; position: absolute; bottom: 0; left: 0;}}</style><div class="pdf-bg-holder"><div class="pdf-img-holder"><img src="backend/img/productDetail/unifli.png" class="pdf-logo-img"></img> </div></div>';
+                    $('.h1').after(demo1);
+                    $('.t.m0.x2.h3.y2.ff1.fs0.fc0.sc0.ls0.ws0').val("")
+                    $('.t.m0.x2.h3.y2.ff1.fs0.fc0.sc0.ls0.ws0').html('<span class="p_right">Generated with UNIFLI- Drone File Management(DFM) System Version 2.0.0</span>');
+                    var sendHtmlData = {};
+                    sendHtmlData.htmlData = $('#render-pdfholder').html();
+                    // console.log("sendHtmlData",sendHtmlData);
+                    NavigationService.apiCallWithData("Plan/generatePdfForHtml", sendHtmlData, function (data) {
+                        window.open('http://cloud.unifli.aero/api/getQualityReports/' + missionIdForDownload + ".pdf", '_self');
+
+                        // console.log("data", data);
+                    });
+
                 });
-                // window.open('http://cloud.unifli.aero/api/getPointCloud/' + missionIdForDownload + ".las", '_self');
-                // window.open(adminurl + 'Mission/generateZipForPointCloudFiles?filename=' + missionID.filename, '_self');
-                // window.close();
-            },
-            $scope.downloadPointCloud = function (file) {
-                // window.open('http://cloud.unifli.aero/api/getPointCloud/' + missionIdForDownload + ".las", '_self');
-                window.open(adminurl + 'getPointCloud/' + missionIdForDownload + '/' + file, '_self');
-                window.close();
-            },
 
-            $scope.downloadQualityReports = function () {
-                window.open('http://cloud.unifli.aero/api/getQualityReports/' + missionIdForDownload + ".pdf", '_self');
-            }
-
+            });
+        }
         $scope.downloadProcessingLog = function () {
             window.open('http://cloud.unifli.aero/api/getProcessingLog/' + missionIdForDownload + ".log", '_self');
         }
@@ -3498,7 +3523,7 @@ firstapp
                                     pg.name = myVal;
 
                                 }
-                              });
+                            });
                         }
                     });
             } else {
@@ -3516,7 +3541,7 @@ firstapp
                             $scope.maxRow = data.data.options.count;
                             console.log(" $scope.allOrderData", $scope.allOrderData);
                             _.forEach($scope.allOrderData, function (pg) {
-                          
+
                                 if (pg.products[0]) {
                                     var myVal = '';
                                     _.forEach(pg.products, function (pro) {
@@ -3524,7 +3549,8 @@ firstapp
                                     })
                                     pg.name = myVal;
 
-                                }});
+                                }
+                            });
                         }
                     });
             }

@@ -77,6 +77,8 @@
     "passport-local": "^1.0.0",
     "passport-twitter": "^1.0.4",
     "path": "^0.12.7",
+    "pdftohtmljs": "^0.4.2",
+    "phantom-html-to-pdf": "^0.5.5",
     "phantomjs": "^2.1.7",
     "proj4": "^2.4.4",
     "python": "0.0.4",
