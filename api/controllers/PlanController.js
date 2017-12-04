@@ -15,22 +15,50 @@ var controller = {
             maxBuffer: 1024 * 500000
         }, function (error, stdout, stderr) {
             if (error) {
-                console.log("error inside --", error);
+                console.log("error inside --");
                 res.callback(error)
             } else if (stdout) {
-                console.log("and its working----stdout");
-                res.callback(stdout)
+                console.log("and its working----stdout--->>>>", stdout);
+                if (stdout.includes('Working')) {
+                    fs.readFile(path, join(destinationPath, req.body.path + '_report.html'), function (err, html) {
+
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            res.json({
+                                value: true,
+                                data: {
+                                    html: html
+                                }
+                            });
+                        }
+                    });
+                }
             } else {
-                console.log("stderr", stderr);
-                res.callback(stderr)
+                console.log("stderr----->>>>>>>");
+                if (stderr.includes('Working')) {
+                    fs.readFile(path.join(destinationPath, req.body.path + '_report.html'), 'utf8', function (err, html) {
+
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            res.json({
+                                value: true,
+                                data: {
+                                    html: html
+                                }
+                            });
+                        }
+                    });
+                }
             }
         });
     },
 
-    generatePdfForHtml: function (page, callback) {
+    generatePdfForHtml: function (page, res) {
         // console.log("page---------",page.body.htmlData);
         var conversion = require("phantom-html-to-pdf")();
-        var destinationPath = "C:/Users/unifli/Documents/pix4d/" + req.body.path + "/1_initial/report/" + req.body.path + '_generatedReport.pdf';
+        var destinationPath = "C:/Users/unifli/Documents/pix4d/" + page.body.path + "/1_initial/report/" + page.body.path + '_generatedReport.pdf';
 
         conversion({
             html: page.body.htmlData,
@@ -48,6 +76,12 @@ var controller = {
             // to save the pdf to a file (like in this example) or to
             // respond an http request.
             pdf.stream.pipe(output);
+            res.json({
+                value: true,
+                data: {
+                    message: "done"
+                }
+            });
         });
     }
 };
