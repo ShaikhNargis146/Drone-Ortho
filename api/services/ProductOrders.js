@@ -22,9 +22,12 @@ var schema = new Schema({
         index: true
     },
     products: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Products',
-        index: true
+        product: {
+            type: Schema.Types.ObjectId,
+            ref: 'Products',
+            index: true
+        },
+        qty: Number
     }],
     totalAmount: {
         type: Number,
@@ -215,7 +218,7 @@ var model = {
                 } else {
                     obj["TRANSACTION DATE"] = "-"
                 }
-                  if (mainData.transactionId) {
+                if (mainData.transactionId) {
                     obj["TRANSACTION ID"] = mainData.transactionId;
                 } else {
                     obj["TRANSACTION ID"] = "-";

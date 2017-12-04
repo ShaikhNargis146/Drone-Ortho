@@ -54,9 +54,12 @@ var schema = new Schema({
         nameOnCard: String
     }],
     cartProducts: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Products',
-        index: true
+        product: {
+            type: Schema.Types.ObjectId,
+            ref: 'Products',
+            index: true
+        },
+        qty: Number
     }],
     cart: {
         totalAmount: String,
@@ -1122,7 +1125,24 @@ var model = {
             } else {
                 callback(null, deleted);
             }
-        }).populate('cartProducts');
+        }).populate('cartProducts.product');
+    },
+
+
+    setQty: function (data, callback) {
+        console.log("inside set qty",data)
+        this.findOneAndUpdate({
+            "_id": data._id,
+            cartProducts:{$elemMatch: {
+                product:data.product._id
+            }}
+        },{
+            $set:{
+                "cartProducts.$.qty":data.qty
+            }
+        }).exec(function (err, data) {
+           console.log("ergkuir",data)
+        });
     },
 
     //Generate Vendor
