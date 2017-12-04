@@ -76,6 +76,12 @@ var controller = {
             // to save the pdf to a file (like in this example) or to
             // respond an http request.
             pdf.stream.pipe(output);
+            res.json({
+                value: true,
+                data: {
+                    message: "done"
+                }
+            });
         });
     }
 };
