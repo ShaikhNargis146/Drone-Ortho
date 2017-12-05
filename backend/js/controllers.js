@@ -1762,7 +1762,7 @@ firstapp
                 var demo1 = '<style type="text/css"> .pdf-bg-holder{ background: #fff; width: 14%; position: absolute; height: 45px;top: 0; right: 0; z-index: 1;} .pdf-img-holder{width: 100%; height: 100%; position: relative;} .pdf-logo-img{ width:50%; height: auto; position: absolute; bottom: 0; left: 0; } @media print{.printleft{} .x2{left:440px} .p_right{display: block;width: 100vh;position: absolute; text-align: right;} .pdf-bg-holder{ background: #fff; width: 14%; position: absolute; height: 100px;top: 0; right: 0; z-index: 1;} .pdf-img-holder{ width: 100%; height: 100%; position: relative;} .pdf-logo-img{width:50%; height: auto; position: absolute; bottom: 0; left: 0;}}</style><div class="pdf-bg-holder"><div class="pdf-img-holder"><img src="http://files.unifli.aero/unifli.png" class="pdf-logo-img"></img> </div></div>';
                 $('.h1').after(demo1);
                 $('.t.m0.x2.h3.y2.ff1.fs0.fc0.sc0.ls0.ws0').val("")
-                $('.t.m0.x2.h3.y2.ff1.fs0.fc0.sc0.ls0.ws0').html('<span class="p_right">Generated with UNIFLI- Drone File Management(DFM) System Version 2.0.0</span>');
+                $('.t.m0.x2.h3.y2.ff1.fs0.fc0.sc0.ls0.ws0').html('<span class="p_right">Generated with UNIFLI-Drone File Management(DFM) System Version 2.0.0</span>');
                 var right = $("img.bi.x0.y0.w1.h1").css('right')
                 $(".pdf-bg-holder").css("right", right);
                 $(".printleft").css("right", right);
