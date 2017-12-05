@@ -281,8 +281,8 @@ var controller = {
 				merchantAuthenticationType.setTransactionKey(constants.transactionKey);
 
 				var payPalType = new ApiContracts.PayPalType();
-				payPalType.setCancelUrl('http://localhost:1337/api/ProductOrders/paymentCancel');
-				payPalType.setSuccessUrl('http://localhost:1337/api/ProductOrders/paymentReturn');
+				payPalType.setCancelUrl('http://cloud.unifli.aero/api/ProductOrders/paymentCancel');
+				payPalType.setSuccessUrl('http://cloud.unifli.aero/api/ProductOrders/paymentReturn?invoiceNumber=' + req.query.invoiceNumber);
 				payPalType.setPayerID('X3KMJR6UXFJG2');
 
 				var paymentType = new ApiContracts.PaymentType();
@@ -291,7 +291,7 @@ var controller = {
 				var transactionRequestType = new ApiContracts.TransactionRequestType();
 				transactionRequestType.setTransactionType(ApiContracts.TransactionTypeEnum.AUTHCAPTURETRANSACTION);
 				transactionRequestType.setPayment(paymentType);
-				transactionRequestType.setAmount(1000);
+				transactionRequestType.setAmount(1);
 
 				var createRequest = new ApiContracts.CreateTransactionRequest();
 				createRequest.setMerchantAuthentication(merchantAuthenticationType);
