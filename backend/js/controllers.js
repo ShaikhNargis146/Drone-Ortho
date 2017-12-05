@@ -1759,13 +1759,19 @@ firstapp
                 // $("#data1").html(data);
 
                 $('#render-pdfholder').html(data.data.html);
-                var demo1 = '<style type="text/css"> .pdf-bg-holder{ background: #fff; width: 14%; position: absolute; height: 45px;top: 0; right: 0; z-index: 1;} .pdf-img-holder{width: 100%; height: 100%; position: relative;} .pdf-logo-img{ width:50%; height: auto; position: absolute; bottom: 0; left: 0; } @media print{.x2{left:440px} .p_right{display: block;width: 100vh;position: absolute; text-align: right;} .pdf-bg-holder{ background: #fff; width: 14%; position: absolute; height: 100px;top: 0; right: 0; z-index: 1;} .pdf-img-holder{ width: 100%; height: 100%; position: relative;} .pdf-logo-img{width:50%; height: auto; position: absolute; bottom: 0; left: 0;}}</style><div class="pdf-bg-holder"><div class="pdf-img-holder"><img src="backend/img/productDetail/unifli.png" class="pdf-logo-img"></img> </div></div>';
+                var demo1 = '<style type="text/css"> .pdf-bg-holder{ background: #fff; width: 14%; position: absolute; height: 45px;top: 0; right: 0; z-index: 1;} .pdf-img-holder{width: 100%; height: 100%; position: relative;} .pdf-logo-img{ width:50%; height: auto; position: absolute; bottom: 0; left: 0; } @media print{.printleft{} .x2{left:440px} .p_right{display: block;width: 100vh;position: absolute; text-align: right;} .pdf-bg-holder{ background: #fff; width: 14%; position: absolute; height: 100px;top: 0; right: 0; z-index: 1;} .pdf-img-holder{ width: 100%; height: 100%; position: relative;} .pdf-logo-img{width:50%; height: auto; position: absolute; bottom: 0; left: 0;}}</style><div class="pdf-bg-holder"><div class="pdf-img-holder"><img src="http://files.unifli.aero/unifli.png" class="pdf-logo-img"></img> </div></div>';
                 $('.h1').after(demo1);
                 $('.t.m0.x2.h3.y2.ff1.fs0.fc0.sc0.ls0.ws0').val("")
                 $('.t.m0.x2.h3.y2.ff1.fs0.fc0.sc0.ls0.ws0').html('<span class="p_right">Generated with UNIFLI- Drone File Management(DFM) System Version 2.0.0</span>');
+                var right = $("img.bi.x0.y0.w1.h1").css('right')
+                $(".pdf-bg-holder").css("right", right);
+                $(".printleft").css("right", right);
+                $(".pdf-bg-holder").addClass("printleft");
                 var sendHtmlData = {};
+
                 sendHtmlData.htmlData = $('#render-pdfholder').html();
                 sendHtmlData.path = missionIdForDownload;
+
                 console.log("sendHtmlData", sendHtmlData);
                 NavigationService.apiCallWithData("Plan/generatePdf", sendHtmlData, function (data) {
                     window.open('http://cloud.unifli.aero/api/getQualityReports/' + missionIdForDownload + ".pdf", '_self');
@@ -1963,16 +1969,16 @@ firstapp
                         if (ini == i) {
                             $scope.productData = data.data.results;
                             console.log("data is", $scope.productData)
-                          _.forEach($scope.productData, function (pg) {
+                            _.forEach($scope.productData, function (pg) {
                                 if (pg.products[0]) {
                                     var myVal = '';
                                     _.forEach(pg.products, function (pro) {
-                                        console.log("pro",pro.product.name)
+                                        console.log("pro", pro.product.name)
                                         myVal = pro.product.name + ',' + myVal;
-                                        $scope.foo = myVal.substring(0,myVal.length - 1);
+                                        $scope.foo = myVal.substring(0, myVal.length - 1);
                                         console.log("foo valueis ", $scope.foo)
                                     })
-                                    pg.name =  $scope.foo;
+                                    pg.name = $scope.foo;
                                 }
 
                             });
@@ -1999,12 +2005,12 @@ firstapp
                                 if (pg.products[0]) {
                                     var myVal = '';
                                     _.forEach(pg.products, function (pro) {
-                                        console.log("pro",pro.product.name)
+                                        console.log("pro", pro.product.name)
                                         myVal = pro.product.name + ',' + myVal;
-                                        $scope.foo = myVal.substring(0,myVal.length - 1);
+                                        $scope.foo = myVal.substring(0, myVal.length - 1);
                                         console.log("foo valueis ", $scope.foo)
                                     })
-                                    pg.name =  $scope.foo;
+                                    pg.name = $scope.foo;
                                 }
 
                             });
@@ -3526,7 +3532,7 @@ firstapp
                                     var myVal = '';
                                     _.forEach(pg.products, function (pro) {
                                         myVal = pro.product.name + ',' + myVal;
-                                         $scope.foo = myVal.substring(0,myVal.length - 1);
+                                        $scope.foo = myVal.substring(0, myVal.length - 1);
                                     })
                                     pg.name = $scope.foo;
 
@@ -3553,7 +3559,7 @@ firstapp
                                     var myVal = '';
                                     _.forEach(pg.products, function (pro) {
                                         myVal = pro.product.name + ',' + myVal;
-                                         $scope.foo = myVal.substring(0,myVal.length - 1);
+                                        $scope.foo = myVal.substring(0, myVal.length - 1);
                                     })
                                     pg.name = $scope.foo;
 
