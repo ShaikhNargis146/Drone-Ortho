@@ -207,7 +207,9 @@ var controller = {
 
 	paymentNotify: function (req, res) {
 		console.log("notify notify");
-		console.log(req.body.payload.id);
+		console.log(req.body);
+		console.log("notify notify");
+
 		if (req.body.payload.id) {
 			var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
 			merchantAuthenticationType.setName(constants.apiLoginKey);
