@@ -14,6 +14,18 @@ var ups = new upsAPI({
 });
 
 var controller = {
+	 getOrderOfInvoice: function (req, res) {
+        if (req.body) {
+            ProductOrders.getOrderOfInvoice(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            })
+        }
+    },
 	generatecsvForUser: function (req, res) {
 		ProductOrders.exceltotalProductOrdersforUser(req.body, function (err, data) {
 			data.name = "invoice"
@@ -138,7 +150,8 @@ var controller = {
 				if (found.cadLineWork) {
 					res.redirect("http://cloud.unifli.aero/#!/cadfile-request");
 				} else {
-					res.redirect("http://unifli.aero/thankyou");
+					var invoiceNum=found.invoiceNo;
+					res.redirect("http://unifli.aero/thankyou"+ invoiceNum);
 				}
 
 				if (found.dfmSubscription) {

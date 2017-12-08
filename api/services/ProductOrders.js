@@ -116,6 +116,19 @@ module.exports = mongoose.model('ProductOrders', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "products user cadLineWork dfmSubscription", "products user cadLineWork dfmSubscription"));
 var model = {
+
+
+    getOrderOfInvoice: function (data, callback) {
+        ProductOrders.findOne({
+            invoiceNo: data.invoiceNo
+        }).deepPopulate("user dfmSubscription products.product cadLineWork ").exec(function (err, data) {
+            if (err) {
+                callback(err, null);
+            } else {
+                callback(null, data);
+            }
+        })
+    },
     exceltotalProductOrders: function (data, callback) {
         ProductOrders.find({}).deepPopulate("user dfmSubscription products.product cadLineWork ").exec(function (err, data) {
             if (err || _.isEmpty(data)) {
@@ -128,7 +141,7 @@ var model = {
 
     generateExcelProductOrders: function (match, callback) {
         async.concatSeries(match, function (mainData, callback) {
-            console.log("inside concat",mainData)
+                console.log("inside concat", mainData)
                 var obj = {};
                 if (mainData.user) {
                     obj["USER ID"] = mainData.user.dataId;
@@ -149,10 +162,10 @@ var model = {
                     obj["SOLD ITEM"] = mainData.dfmSubscription.name;
                 } else if (mainData.products[0]) {
                     var myVal = '';
-var foo=''
+                    var foo = ''
                     _.forEach(mainData.products, function (pro) {
-                          myVal =  pro.product.name + ',' +myVal;
-                       foo= myVal.substring(0,myVal.length - 1);
+                        myVal = pro.product.name + ',' + myVal;
+                        foo = myVal.substring(0, myVal.length - 1);
                     })
                     obj["SOLD ITEM"] = foo;
                 } else if (mainData.cadLineWork) {
@@ -208,10 +221,10 @@ var foo=''
 
                 } else if (mainData.products[0]) {
                     var myVal = ''
-                    var foo=''
+                    var foo = ''
                     _.forEach(mainData.products, function (pro) {
-                        myVal =  pro.product.name + ',' +myVal;
-                       foo= myVal.substring(0,myVal.length - 1);
+                        myVal = pro.product.name + ',' + myVal;
+                        foo = myVal.substring(0, myVal.length - 1);
                     })
                     obj["PRODUCT NAME"] = foo;
                 } else if (mainData.cadLineWork) {
