@@ -213,6 +213,9 @@ var controller = {
 
 							// callback(response);
 						});
+					} else {
+						res.redirect("http://unifli.aero/thankyou/" + invoiceNum);
+
 					}
 
 				}
@@ -298,7 +301,7 @@ var controller = {
 			console.log(JSON.stringify(getRequest.getJSON(), null, 2));
 
 			var ctrl = new ApiControllers.GetTransactionDetailsController(getRequest.getJSON());
-			ctrl.setEnvironment(SDKConstants.endpoint.production);
+			ctrl.setEnvironment(SDKConstants.endpoint.sandbox);
 
 			ctrl.execute(function () {
 
@@ -362,8 +365,8 @@ var controller = {
 					console.log(data);
 					if (req.query.paymentType == "paypal") {
 						var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
-						merchantAuthenticationType.setName(constants.apiLoginKey);
-						merchantAuthenticationType.setTransactionKey(constants.transactionKey);
+						merchantAuthenticationType.setName(constants.apiLoginKeyLive);
+						merchantAuthenticationType.setTransactionKey(constants.transactionKeyLive);
 
 						var payPalType = new ApiContracts.PayPalType();
 						payPalType.setCancelUrl('http://cloud.unifli.aero/api/ProductOrders/paymentCancel');
