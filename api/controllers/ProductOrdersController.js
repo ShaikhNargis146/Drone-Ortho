@@ -151,7 +151,70 @@ var controller = {
 					res.redirect("http://cloud.unifli.aero/#!/cadfile-request");
 				} else {
 					var invoiceNum = found.invoiceNo;
-					res.redirect("http://unifli.aero/thankyou" + invoiceNum);
+
+					//get transaction
+					if (found.transactionId) {
+						var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
+						merchantAuthenticationType.setName(constants.apiLoginKey);
+						merchantAuthenticationType.setTransactionKey(constants.transactionKey);
+
+						var getRequest = new ApiContracts.GetTransactionDetailsRequest();
+						getRequest.setMerchantAuthentication(merchantAuthenticationType);
+						getRequest.setTransId(found.transactionId);
+
+						console.log(JSON.stringify(getRequest.getJSON(), null, 2));
+
+						var ctrl = new ApiControllers.GetTransactionDetailsController(getRequest.getJSON());
+						ctrl.setEnvironment(SDKConstants.endpoint.production);
+
+						ctrl.execute(function () {
+
+							var apiResponse = ctrl.getResponse();
+
+							var response = new ApiContracts.GetTransactionDetailsResponse(apiResponse);
+
+							var paymentRes = JSON.parse(JSON.stringify(response, null, 2))
+							console.log("response-----------", paymentRes);
+
+							if (response != null) {
+								if (response.getMessages().getResultCode() == ApiContracts.MessageTypeEnum.OK) {
+									ProductOrders.update({
+										invoiceNo: response.getTransaction().getOrder().getInvoiceNumber()
+									}, {
+										$set: {
+											paymentResponse: paymentRes,
+											status: 'Paid',
+											transactionId: paymentRes.transaction.transId,
+											transactionDate: paymentRes.transaction.submitTimeUTC
+										}
+									}).exec(function (err, found) {
+										if (err) {
+											console.log(err);
+										} else if (_.isEmpty(found)) {
+											console.log("noDataound");
+										} else {
+											console.log('Transaction Id : ' + response.getTransaction().getTransId());
+											console.log('Transaction Type : ' + response.getTransaction().getTransactionType());
+											console.log('Message Code : ' + response.getMessages().getMessage()[0].getCode());
+											console.log('Message Text : ' + response.getMessages().getMessage()[0].getText());
+											res.redirect("http://unifli.aero/thankyou/" + invoiceNum);
+										}
+
+									});
+
+								} else {
+									console.log('Result Code: ' + response.getMessages().getResultCode());
+									console.log('Error Code: ' + response.getMessages().getMessage()[0].getCode());
+									console.log('Error message: ' + response.getMessages().getMessage()[0].getText());
+								}
+							} else {
+								console.log('Null Response.');
+							}
+
+							// callback(response);
+						});
+					}
+
 				}
 
 				if (found.dfmSubscription) {
@@ -391,9 +454,25 @@ var controller = {
 										console.log('Response Code: ' + response.getTransactionResponse().getResponseCode());
 										console.log('Message Code: ' + response.getTransactionResponse().getMessages().getMessage()[0].getCode());
 										console.log('Description: ' + response.getTransactionResponse().getMessages().getMessage()[0].getDescription());
-										var formbody = '<form id="nonseamless" method="post" name="redirect" action="' + response.getTransactionResponse().getSecureAcceptance().getSecureAcceptanceUrl() + '"/><script language="javascript">document.redirect.submit();</script></form>';
+										ProductOrders.update({
+											invoiceNo: req.query.invoiceNumber
+										}, {
+											$set: {
+												transactionId: response.getTransactionResponse().getTransId()
+											}
+										}).exec(function (err, found) {
+											if (err) {
+												console.log(err);
+											} else if (_.isEmpty(found)) {
+												console.log("noDataound");
+											} else {
+												var formbody = '<form id="nonseamless" method="post" name="redirect" action="' + response.getTransactionResponse().getSecureAcceptance().getSecureAcceptanceUrl() + '"/><script language="javascript">document.redirect.submit();</script></form>';
 
-										res.send(formbody);
+												res.send(formbody);
+											}
+
+										});
+
 									} else {
 										console.log('Failed Transaction.');
 										if (response.getTransactionResponse().getErrors() != null) {
