@@ -376,7 +376,7 @@ var controller = {
 						paymentType.setPayPal(payPalType);
 
 						var transactionRequestType = new ApiContracts.TransactionRequestType();
-						transactionRequestType.setTransactionType(ApiContracts.TransactionTypeEnum.AUTHCAPTURETRANSACTION);
+						transactionRequestType.setTransactionType(ApiContracts.TransactionTypeEnum.AUTHCAPTURECONTINUETRANSACTION);
 						transactionRequestType.setPayment(paymentType);
 						transactionRequestType.setAmount(1);
 
