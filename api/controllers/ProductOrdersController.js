@@ -13,6 +13,13 @@ var ups = new upsAPI({
 	imperial: true // set to false for metric
 });
 
+/**
+ * This file include all Authorized.net payment functions as follow.
+ * Credentials are saved in : controllers/constants.js
+ * Functions used are : acceptPaymentPage -> paymentReturn, paymentCancel -> paymentNotify.
+ * 
+ */
+
 var controller = {
 	getOrderOfInvoice: function (req, res) {
 		if (req.body) {
@@ -115,7 +122,6 @@ var controller = {
 			});
 		}
 	},
-
 
 	invoiceGenerate: function (req, res) {
 		if (req.body) {
@@ -304,6 +310,10 @@ var controller = {
 		res.redirect("http://unifli.aero/sorry");
 	},
 
+	/**
+	 * Webhook Funtion
+	 * This function is initated in authorized.net.
+	 */
 	paymentNotify: function (req, res) {
 		console.log("notify notify");
 		console.log(req.body);
@@ -372,6 +382,13 @@ var controller = {
 
 	},
 
+	/**
+	 * Start of transaction:
+	 * As per which type of transaction it excecute paypal or card transaction 
+	 * In card transaction refer : https://developer.authorize.net/api/reference/index.html#payment-transactions-get-an-accept-payment-page
+	 * In Paypal : https://developer.authorize.net/api/reference/features/paypal.html
+	 * 			   SEQUENCE 3 is used.
+	 */
 	acceptPaymentPage: function (req, res) {
 		console.log(req.query);
 		if (req.query.amount && req.query.invoiceNumber) {
@@ -876,76 +893,6 @@ var controller = {
 				}
 			});
 		}
-	},
-
-	payPalCheckout: function (req, res) {
-		console.log("sdfasdfasdf");
-		var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
-		merchantAuthenticationType.setName(constants.apiLoginKey);
-		merchantAuthenticationType.setTransactionKey(constants.transactionKey);
-
-		var payPalType = new ApiContracts.PayPalType();
-		payPalType.setCancelUrl('http://localhost:1337/api/ProductOrders/paymentCancel');
-		payPalType.setSuccessUrl('http://localhost:1337/api/ProductOrders/paymentReturn');
-		payPalType.setPayerID('X3KMJR6UXFJG2');
-
-		var paymentType = new ApiContracts.PaymentType();
-		paymentType.setPayPal(payPalType);
-
-		var transactionRequestType = new ApiContracts.TransactionRequestType();
-		transactionRequestType.setTransactionType(ApiContracts.TransactionTypeEnum.AUTHCAPTURETRANSACTION);
-		transactionRequestType.setPayment(paymentType);
-		transactionRequestType.setAmount(1000);
-
-		var createRequest = new ApiContracts.CreateTransactionRequest();
-		createRequest.setMerchantAuthentication(merchantAuthenticationType);
-		createRequest.setTransactionRequest(transactionRequestType);
-
-		console.log(JSON.stringify(createRequest.getJSON(), null, 2));
-
-		var ctrl = new ApiControllers.CreateTransactionController(createRequest.getJSON());
-
-		ctrl.setEnvironment(SDKConstants.endpoint.sandbox);
-
-		ctrl.execute(function () {
-
-			var apiResponse = ctrl.getResponse();
-
-			var response = new ApiContracts.CreateTransactionResponse(apiResponse);
-
-			console.log(JSON.stringify(response, null, 2));
-
-			if (response != null) {
-				if (response.getMessages().getResultCode() == ApiContracts.MessageTypeEnum.OK) {
-					if (response.getTransactionResponse().getMessages() != null) {
-						console.log('Successfully created transaction with Transaction ID: ' + response.getTransactionResponse().getTransId());
-						console.log('Secure Acceptance URL: ' + response.getTransactionResponse().getSecureAcceptance().getSecureAcceptanceUrl());
-						console.log('Response Code: ' + response.getTransactionResponse().getResponseCode());
-						console.log('Message Code: ' + response.getTransactionResponse().getMessages().getMessage()[0].getCode());
-						console.log('Description: ' + response.getTransactionResponse().getMessages().getMessage()[0].getDescription());
-					} else {
-						console.log('Failed Transaction.');
-						if (response.getTransactionResponse().getErrors() != null) {
-							console.log('Error Code: ' + response.getTransactionResponse().getErrors().getError()[0].getErrorCode());
-							console.log('Error message: ' + response.getTransactionResponse().getErrors().getError()[0].getErrorText());
-						}
-					}
-				} else {
-					console.log('Failed Transaction. ');
-					if (response.getTransactionResponse() != null && response.getTransactionResponse().getErrors() != null) {
-
-						console.log('Error Code: ' + response.getTransactionResponse().getErrors().getError()[0].getErrorCode());
-						console.log('Error message: ' + response.getTransactionResponse().getErrors().getError()[0].getErrorText());
-					} else {
-						console.log('Error Code: ' + response.getMessages().getMessage()[0].getCode());
-						console.log('Error message: ' + response.getMessages().getMessage()[0].getText());
-					}
-				}
-			} else {
-				console.log('Null Response.');
-			}
-
-		});
 	}
 
 };
