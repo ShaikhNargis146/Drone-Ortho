@@ -431,11 +431,11 @@ var controller = {
 						transactionBillTo.setFirstName(data.billingAddress.fname);
 						transactionBillTo.setLastName(data.billingAddress.lname);
 						transactionBillTo.setCompany(data.billingAddress.comapny);
-						transactionBillTo.setAddress(data.billingAddress.address + " " + data.billingAddress.streetAddress);
+						transactionBillTo.setAddress(data.billingAddress.address);
 						transactionBillTo.setCity(data.billingAddress.city);
 						transactionBillTo.setState(data.billingAddress.state);
 						transactionBillTo.setZip(data.billingAddress.zip);
-						transactionBillTo.setCountry(data.billingAddress.country);
+						transactionBillTo.setCountry("India");
 						transactionBillTo.setPhoneNumber(data.billingAddress.phonenumber);
 						transactionBillTo.setFaxNumber("NA");
 						transactionBillTo.setEmail(data.user.email);
@@ -445,11 +445,11 @@ var controller = {
 						transactionShippTo.setFirstName(data.shippingAddress.fname);
 						transactionShippTo.setLastName(data.shippingAddress.lname);
 						transactionShippTo.setCompany(data.shippingAddress.comapny);
-						transactionShippTo.setAddress(data.shippingAddress.address + " " + data.shippingAddress.streetAddress);
+						transactionShippTo.setAddress(data.shippingAddress.address);
 						transactionShippTo.setCity(data.shippingAddress.city);
 						transactionShippTo.setState(data.shippingAddress.state);
 						transactionShippTo.setZip(data.shippingAddress.zip);
-						transactionShippTo.setCountry(data.shippingAddress.country);
+						transactionShippTo.setCountry("India");
 						transactionRequestType.setShipTo(transactionShippTo);
 
 						// var lineItems = new ApiContracts.ArrayOfLineItem();
@@ -559,11 +559,11 @@ var controller = {
 						transactionBillTo.setFirstName(data.billingAddress.fname);
 						transactionBillTo.setLastName(data.billingAddress.lname);
 						transactionBillTo.setCompany(data.billingAddress.comapny);
-						transactionBillTo.setAddress(data.billingAddress.address + " " + data.billingAddress.streetAddress);
+						transactionBillTo.setAddress(data.billingAddress.address);
 						transactionBillTo.setCity(data.billingAddress.city);
 						transactionBillTo.setState(data.billingAddress.state);
 						transactionBillTo.setZip(data.billingAddress.zip);
-						transactionBillTo.setCountry(data.billingAddress.country);
+						transactionBillTo.setCountry("India");
 						transactionBillTo.setPhoneNumber(data.billingAddress.phonenumber);
 						transactionBillTo.setFaxNumber("NA");
 						transactionBillTo.setEmail(data.user.email);
@@ -573,11 +573,11 @@ var controller = {
 						transactionShippTo.setFirstName(data.shippingAddress.fname);
 						transactionShippTo.setLastName(data.shippingAddress.lname);
 						transactionShippTo.setCompany(data.shippingAddress.comapny);
-						transactionShippTo.setAddress(data.shippingAddress.address + " " + data.shippingAddress.streetAddress);
+						transactionShippTo.setAddress(data.shippingAddress.address);
 						transactionShippTo.setCity(data.shippingAddress.city);
 						transactionShippTo.setState(data.shippingAddress.state);
 						transactionShippTo.setZip(data.shippingAddress.zip);
-						transactionShippTo.setCountry(data.shippingAddress.country);
+						transactionShippTo.setCountry("India");
 						transactionRequestType.setShipTo(transactionShippTo);
 
 						var lineItems = new ApiContracts.ArrayOfLineItem();
