@@ -159,7 +159,7 @@ var controller = {
 					var invoiceNum = found.invoiceNo;
 
 					//get transaction
-					if (found.transactionId) {
+					if (req.query.PayerID) {
 
 						var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
 						merchantAuthenticationType.setName(constants.apiLoginKey);
@@ -241,7 +241,7 @@ var controller = {
 
 						});
 					} else {
-						res.redirect("http://unifli.aero/sorry");
+						res.redirect("http://unifli.aero/thankyou/" + invoiceNum);
 					}
 
 				}
