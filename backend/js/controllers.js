@@ -2078,14 +2078,15 @@ firstapp
         if ($.jStorage.get("user")) {
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
             var userId = $.jStorage.get("user")._id;
+            $scope.profile = $.jStorage.get("user");
         }
-        $scope.profile = $.jStorage.get("user");
         $scope.date = new Date();
         $scope.mission = {};
         $scope.mission.selected = true
         $scope.saveMission = function (missiondata) {
             console.log("inisde mission ctrl", missiondata);
             missiondata.user = userId;
+            missiondata.DFMSubscription = $scope.profile.currentSubscription;
             NavigationService.apiCall("Mission/createMission", missiondata, function (data) {
                 $("#modal-4").modal();
                 if (data.value === true) {

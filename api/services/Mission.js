@@ -4,8 +4,14 @@ var request = require('request');
 var geotiff = require('geotiff');
 var epsg = require('epsg-to-proj');
 var extents = require('geotiff-extents');
+var storage = require('azure-storage');
+var util = require('util');
+var fileService = storage.createFileService('DefaultEndpointsProtocol=https;AccountName=ubunturgdiag149;AccountKey=h62EQtRoeZtOE973xR2eZ5QrjJrV4/oP6dTETyNQgyQcuwTuiwUp6cKVSe0w3CsRsSt8LZrBcBBC3cEY+Erdcg==;EndpointSuffix=core.windows.net');
+var shareName = "fileshareunifli";
+var counter;
 var schema = new Schema({
     missionId: String,
+    vmName: String,
     DFMSubscription: {
         type: Schema.Types.ObjectId,
         ref: 'DFMSubscription'
@@ -283,6 +289,7 @@ var model = {
         // console.log("data", data);
         var sendAllData = {};
         sendAllData.missionName = data.name;
+        counter = 0;
         async.waterfall([
             function (callback) { // generate mission id
                 Mission.missionIdGenerate(data, function (err, data1) {
@@ -328,21 +335,22 @@ var model = {
                     if (err) {
                         callback(err, null);
                     } else if (created) {
-                        var dir;
-                        var folder;
-                        dir = path.join(process.cwd(), "pix4dUpload");
-                        if (!fs.existsSync(dir)) {
-                            fs.mkdirSync(dir);
-                            folder = path.join(dir, created._id.toString());
-                            fs.mkdirSync(folder)
-                        } else {
-                            folder = path.join(dir, created._id.toString());
-                            fs.mkdirSync(folder)
-                        }
+                        var directoryName = created._id.toString();
+                        callback(null, "mission Created");
                         async.waterfall([
-                            function concatFiles(callback) {
-                                async.concatLimit(created.files, 20, function (image, callback) {
-                                    model.uploadFileToServer(folder, image, callback);
+                            function makeDirOnAzure(callback) {
+                                fileService.createDirectoryIfNotExists(shareName, directoryName, function (error) {
+                                    if (error) {
+                                        console.log("error", error);
+                                        callback(err, null);
+                                    } else {
+                                        callback(null, directoryName);
+                                    }
+                                });
+                            },
+                            function concatFiles(directoryName, callback) {
+                                async.concatLimit(created.files, 10, function (image, callback) {
+                                    model.uploadFileToServer(directoryName, image, callback);
                                 }, callback);
                             }
                         ], function asyncComplete(err, asyncData) {
@@ -350,9 +358,9 @@ var model = {
                                 callback(err, null);
                             } else {
                                 // console.log("---1---");
-                                callback(null, asyncData);
+                                // callback(null, asyncData);
                                 Mission.sendMissionRequestMail(sendAllData, callback); //sending mail
-                                model.pix4dCommandExecution(folder, missionIdWithSub, callback);
+                                // model.pix4dCommandExecution(folder, missionIdWithSub, callback);
                             }
                         });
                     } else {
@@ -369,7 +377,7 @@ var model = {
         });
     },
 
-    uploadFileToServer: function (imgPath, image, callback) {
+    uploadFileToServer: function (directoryName, image, callback) {
         async.waterfall([
                 // function (callback) {
                 //     request(global["env"].realHost + '/api/upload/readFile?file=' + image.file).pipe(fs.createWriteStream(image.file)).on('finish', function (myImg) {
@@ -381,12 +389,17 @@ var model = {
                 // },
                 function (callback) {
                     var oldPath = path.join(path.join(process.cwd(), "pix4dUpload"), image.file);
-                    var newPath = path.join(imgPath, image.file);
-                    fs.rename(oldPath, newPath, function (err) {
-                        if (err) {
-                            callback(err, null);
+                    // Uploading a local file to the directory created above
+                    console.log('3. Uploading a file to directory', ++counter);
+                    fileService.createFileFromLocalFile(shareName, directoryName, image.file, oldPath, function (error) {
+                        if (error) {
+                            console.log("error", error);
+                            callback(error, null);
                         } else {
-                            callback(null, imgPath);
+                            // List all files/directories under the root directory
+                            fs.unlink(oldPath);
+                            console.log('file saved successfully');
+                            callback(null, path.join(directoryName, image.file));
                         }
                     });
 
@@ -396,6 +409,7 @@ var model = {
                 if (err) {
                     callback(null, err);
                 } else {
+                    console.log('file saved successfully', counter);
                     callback(null, data);
                 }
             });
@@ -723,7 +737,7 @@ var model = {
                     "name": "MISSION_ID",
                     "content": data.missionid
                 }];
-                console.log("emailData------------",emailData);
+                console.log("emailData------------", emailData);
                 Config.email(emailData, function (err, emailRespo) {
                     // console.log("emailRespo", emailRespo);
                     if (err) {

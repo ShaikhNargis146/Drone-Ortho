@@ -561,6 +561,7 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                                                             console.log($scope.$parent.mission, $scope.$parent.profile);
                                                             if ($scope.$parent.mission.selected == true && $scope.$parent.mission.name) {
                                                                 $scope.$parent.mission.user = $scope.$parent.profile._id;
+                                                                $scope.$parent.mission.DFMSubscription = currentSubscriptionForm._id;
                                                                 $http.post(adminurl + "Mission/createMission", $scope.$parent.mission).then(function (data) {
                                                                     data = data.data;
                                                                     console.log("missionCreated", $state.$current.name)
@@ -1386,7 +1387,7 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
                         $("#acreage").val(Number(acres).toFixed(2));
                     }).modal('show');
                 }
-               
+
             }
 
             map.on('load', function () {
