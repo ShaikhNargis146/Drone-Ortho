@@ -431,7 +431,7 @@ var controller = {
 						transactionBillTo.setFirstName(data.billingAddress.fname);
 						transactionBillTo.setLastName(data.billingAddress.lname);
 						transactionBillTo.setCompany(data.billingAddress.comapny);
-						transactionBillTo.setAddress(data.billingAddress.address);
+						transactionBillTo.setAddress(data.billingAddress.streetAddress);
 						transactionBillTo.setCity(data.billingAddress.city);
 						transactionBillTo.setState(data.billingAddress.state);
 						transactionBillTo.setZip(data.billingAddress.zip);
@@ -445,7 +445,7 @@ var controller = {
 						transactionShippTo.setFirstName(data.shippingAddress.fname);
 						transactionShippTo.setLastName(data.shippingAddress.lname);
 						transactionShippTo.setCompany(data.shippingAddress.comapny);
-						transactionShippTo.setAddress(data.shippingAddress.address);
+						transactionShippTo.setAddress(data.shippingAddress.streetAddress);
 						transactionShippTo.setCity(data.shippingAddress.city);
 						transactionShippTo.setState(data.shippingAddress.state);
 						transactionShippTo.setZip(data.shippingAddress.zip);
@@ -559,7 +559,7 @@ var controller = {
 						transactionBillTo.setFirstName(data.billingAddress.fname);
 						transactionBillTo.setLastName(data.billingAddress.lname);
 						transactionBillTo.setCompany(data.billingAddress.comapny);
-						transactionBillTo.setAddress(data.billingAddress.address);
+						transactionBillTo.setAddress(data.billingAddress.streetAddress);
 						transactionBillTo.setCity(data.billingAddress.city);
 						transactionBillTo.setState(data.billingAddress.state);
 						transactionBillTo.setZip(data.billingAddress.zip);
@@ -573,7 +573,7 @@ var controller = {
 						transactionShippTo.setFirstName(data.shippingAddress.fname);
 						transactionShippTo.setLastName(data.shippingAddress.lname);
 						transactionShippTo.setCompany(data.shippingAddress.comapny);
-						transactionShippTo.setAddress(data.shippingAddress.address);
+						transactionShippTo.setAddress(data.shippingAddress.streetAddress);
 						transactionShippTo.setCity(data.shippingAddress.city);
 						transactionShippTo.setState(data.shippingAddress.state);
 						transactionShippTo.setZip(data.shippingAddress.zip);
