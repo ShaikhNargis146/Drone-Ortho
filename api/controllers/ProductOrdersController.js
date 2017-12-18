@@ -563,7 +563,7 @@ var controller = {
 						transactionBillTo.setCity(data.billingAddress.city);
 						transactionBillTo.setState(data.billingAddress.state);
 						transactionBillTo.setZip(data.billingAddress.zip);
-						transactionBillTo.setCountry("India");
+						transactionBillTo.setCountry("US");
 						transactionBillTo.setPhoneNumber(data.billingAddress.phonenumber);
 						transactionBillTo.setFaxNumber("NA");
 						transactionBillTo.setEmail(data.user.email);
@@ -577,7 +577,7 @@ var controller = {
 						transactionShippTo.setCity(data.shippingAddress.city);
 						transactionShippTo.setState(data.shippingAddress.state);
 						transactionShippTo.setZip(data.shippingAddress.zip);
-						transactionShippTo.setCountry("India");
+						transactionShippTo.setCountry("US");
 						transactionRequestType.setShipTo(transactionShippTo);
 
 						var lineItems = new ApiContracts.ArrayOfLineItem();
