@@ -1,11 +1,11 @@
 module.exports = _.cloneDeep(require("sails-wohlig-controller"));
 var fs = require('fs');
-var geotiff = require('geotiff');
-var epsg = require('epsg-to-proj');
-var extents = require('geotiff-extents');
-var ConvertTiff = require('tiff-to-png');
+// var geotiff = require('geotiff');
+// var epsg = require('epsg-to-proj');
+// var extents = require('geotiff-extents');
+// var ConvertTiff = require('tiff-to-png');
 var path = require('path');
-var decode = require("decode-tiff");
+// var decode = require("decode-tiff");
 var PNG = require('pngjs');
 // var sharp = require('sharp');
 var JSZip = require("jszip");
