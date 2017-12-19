@@ -712,6 +712,7 @@ var model = {
                             "name": "PRICE",
                             "content": data.totalAmount
                         }];
+                        console.log("emailData",emailData);
                         Config.email(emailData, function (err, emailRespo) {
                             // console.log("emailRespo", emailRespo);
                             if (err) {
@@ -746,7 +747,7 @@ var model = {
                             "name": "PRICE",
                             "content": data.totalAmount
                         }];
-
+                        console.log("emailData",emailData);                        
                         Config.email(emailData, function (err, emailRespo) {
                             // console.log("emailRespo", emailRespo);
                             if (err) {

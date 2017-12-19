@@ -1019,9 +1019,9 @@ var models = {
         var allprod=[];  
         var allprodCost=[];        
         console.log("pagepage",page);
-        obj.name = page.shippingAddress.name;
+        obj.name = page.shippingAddress.fname;
         obj.lname = page.shippingAddress.lname;
-        obj.organization = page.shippingAddress.company;
+        obj.organization = page.shippingAddress.comapny;
         obj.city = page.shippingAddress.city;
         obj.country = page.shippingAddress.country;
         obj.state = page.shippingAddress.state;
