@@ -2041,7 +2041,7 @@ firstapp
             // console.log("data", data);
             // if (data) {
             console.log("data", data);
-            window.open('http://files.unifli.aero/' + data, '_self');
+            window.open('http://files.unifli.aero/invoice/' + data, '_self');
             // } else {
             //     toastr.error("No PDF Found");
             // }
