@@ -533,7 +533,6 @@ var model = {
 
     sendMailOnPurchase: function (data, callback) {
         console.log("data for email---", data)
-
         if (data.cadLineWork) {
             async.parallel({
                     forUser: function (callback) {
@@ -551,6 +550,9 @@ var model = {
                             "name": "ACREAGE",
                             "content": data.cadLineWork.acreage
                         }, {
+                            "name": "TRANSACTION_ID",
+                            "content": data.transactionId
+                        },{
                             "name": "REQUESTED_DATE",
                             "content": data.createdAt
                         }];
@@ -620,6 +622,16 @@ var model = {
                         emailData.filename = "DFM Purchase";
                         emailData.subject = "DFM PURCHASE";
                         emailData.email = data.user.email;
+                        emailData.merge_vars = [{
+                            "name": "NAME_OF_PACKAGE",
+                            "content": data.dfmSubscription.name
+                        }, {
+                            "name": "PRICE",
+                            "content": data.dfmSubscription.amount
+                        }, {
+                            "name": "TRANSACTION_ID",
+                            "content": data.transactionId
+                        }];
                         console.log("emailData---for user", emailData);
                         Config.email(emailData, function (err, emailRespo) {
                             if (err) {
@@ -686,6 +698,20 @@ var model = {
                         emailData.filename = "Drone Purchase";
                         emailData.subject = "DRONE PURCHASE";
                         emailData.email = data.user.email;
+                        var allProducts = '';
+                        _.forEach(data.products, function (n) {
+                            allProducts = allProducts + ',' + n.name;
+                        })
+                        emailData.merge_vars = [{
+                            "name": "ADDRESS",
+                            "content": data.shippingAddress.address
+                        },{
+                            "name": "NAME_DRONE",
+                            "content": allProducts
+                        }, {
+                            "name": "PRICE",
+                            "content": data.totalAmount
+                        }];
                         Config.email(emailData, function (err, emailRespo) {
                             // console.log("emailRespo", emailRespo);
                             if (err) {

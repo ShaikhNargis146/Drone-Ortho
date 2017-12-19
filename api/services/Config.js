@@ -1018,6 +1018,7 @@ var models = {
         var env = {};
         var allprod=[];  
         var allprodCost=[];        
+        console.log("pagepage",page);
         obj.name = page.shippingAddress.name;
         obj.lname = page.shippingAddress.lname;
         obj.organization = page.shippingAddress.company;
@@ -1032,8 +1033,6 @@ var models = {
         if (page.dfmSubscription) {
             obj.SoldItem = page.dfmSubscription.name;
             obj.price = page.dfmSubscription.amount;
-
-
         } else if (page.products[0]) {
             _.forEach(page.products,function(n){
                 allprod=n.name+','
@@ -1046,7 +1045,6 @@ var models = {
             obj.price = page.cadLineWork.amount;
         }
         var i = 0;
-
         var file = "cad_invoice";
         sails.hooks.views.render(file, obj, function (err, html) {
             if (err) {
