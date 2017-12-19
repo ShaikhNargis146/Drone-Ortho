@@ -1053,7 +1053,7 @@ var models = {
                 console.log("errr", err);
                 callback(err);
             } else {
-                var path = "C:/Users/unifli/Documents/googleTile-Mosaic/invoice";
+                var path = "C:/Users/unifli/Documents/googleTile-Mosaic/invoice/";
                 // var path = "pdf/";
                 var newFilename = page.invoiceNo + ".pdf";
                 var writestream = fs.createWriteStream(path + newFilename);
