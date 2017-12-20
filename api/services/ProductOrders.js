@@ -694,6 +694,7 @@ var model = {
                         emailData.filename = "Drone Purchase";
                         emailData.subject = "DRONE PURCHASE";
                         emailData.email = data.user.email;
+                        var myVal = ''
                         var foo = ''
                         _.forEach(mainData.products, function (pro) {
                             myVal = pro.product.name + ',' + myVal;
@@ -726,6 +727,7 @@ var model = {
                         emailData.email = global["env"].adminEmail;
                         emailData.filename = "New Drone Purchase (Admin)";
                         emailData.subject = "DRONE PURCHASE";
+                        var myVal = ''
                         var foo = ''
                         _.forEach(mainData.products, function (pro) {
                             myVal = pro.product.name + ',' + myVal;

@@ -1028,12 +1028,13 @@ var models = {
         obj.createdAt = page.createdAt;
         obj.status = page.status;
         obj.phonenumber = page.shippingAddress.phonenumber;
-        obj.apartment = page.shippingAddress.address;
+        obj.apartment = page.shippingAddress.streetAddress;
         obj.Cost = page.totalAmount;
         if (page.dfmSubscription) {
             obj.SoldItem = page.dfmSubscription.name;
             obj.price = page.dfmSubscription.amount;
         } else if (page.products[0]) {
+            var myVal = ''
             var foo = ''
             _.forEach(page.products, function (pro) {
                 myVal = pro.product.name + ',' + myVal;
