@@ -552,7 +552,7 @@ var model = {
                         }, {
                             "name": "TRANSACTION_ID",
                             "content": data.transactionId
-                        },{
+                        }, {
                             "name": "REQUESTED_DATE",
                             "content": data.createdAt
                         }];
@@ -700,10 +700,11 @@ var model = {
                             myVal = pro.product.name + ',' + myVal;
                             foo = myVal.substring(0, myVal.length - 1);
                         })
+                        var addressDetails = data.shippingAddress.state + ',' + data.shippingAddress.city + ',' + data.shippingAddress.streetAddress
                         emailData.merge_vars = [{
                             "name": "ADDRESS",
-                            "content": data.shippingAddress.streetAddress
-                        },{
+                            "content": addressDetails
+                        }, {
                             "name": "NAME_DRONE",
                             "content": foo
                         }, {
