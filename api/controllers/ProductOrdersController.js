@@ -620,11 +620,16 @@ var controller = {
 						};
 						setting4.setSettingValue(JSON.stringify(settingValue));
 
+						var setting5 = new ApiContracts.SettingType();
+						setting5.setSettingName('hostedPaymentPaymentOptions');
+						setting5.setSettingValue("{\"cardCodeRequired\": false, \"showCreditCard\": true, \"showBankAccount\": true}");
+
 						var settingList = [];
 						settingList.push(setting1);
 						settingList.push(setting2);
 						settingList.push(setting3);
 						settingList.push(setting4);
+						settingList.push(setting5);
 
 
 						var alist = new ApiContracts.ArrayOfSetting();
