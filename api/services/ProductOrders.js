@@ -696,7 +696,7 @@ var model = {
                         emailData.email = data.user.email;
                         var myVal = ''
                         var foo = ''
-                        _.forEach(mainData.products, function (pro) {
+                        _.forEach(data.products, function (pro) {
                             myVal = pro.product.name + ',' + myVal;
                             foo = myVal.substring(0, myVal.length - 1);
                         })
@@ -729,7 +729,7 @@ var model = {
                         emailData.subject = "DRONE PURCHASE";
                         var myVal = ''
                         var foo = ''
-                        _.forEach(mainData.products, function (pro) {
+                        _.forEach(data.products, function (pro) {
                             myVal = pro.product.name + ',' + myVal;
                             foo = myVal.substring(0, myVal.length - 1);
                         })
