@@ -1034,11 +1034,13 @@ var models = {
             obj.SoldItem = page.dfmSubscription.name;
             obj.price = page.dfmSubscription.amount;
         } else if (page.products[0]) {
-            _.forEach(page.products,function(n){
-                allprod=n.name+','
-                allprodCost=n.price+','                
+            var foo = ''
+            _.forEach(page.products, function (pro) {
+                myVal = pro.product.name + ',' + myVal;
+                foo = myVal.substring(0, myVal.length - 1);
+                allprodCost=pro.product.price+','
             })
-            obj.SoldItem = allprod;
+            obj.SoldItem = foo;
             obj.price = allprodCost;
         } else if (page.cadLineWork) {
             obj.SoldItem = "cadLineWork";
