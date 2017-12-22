@@ -5,12 +5,14 @@ unifli-file-share
 
 
 appId &client id: 6b7b968f-2227-474a-886a-7f3925098873
+new : 8071bab1-bd2b-44c3-8187-c4e0ff587a6d
 
 
 key: OVuj+j1DV+qIrTgkLGWg95pfledcIqztlDkSDwRomTU=
-
+new : e67K/jEBfaNlyR69NSDBULSduGIaU5csBXPKXaFkLRg=
 
 directoryId: zuMsshfyk/tnFpYlqb1+eCJMKCQvCPaEqz78aF3UIf8=
+
 
 
 "apiVersions": [
@@ -18,8 +20,10 @@ directoryId: zuMsshfyk/tnFpYlqb1+eCJMKCQvCPaEqz78aF3UIf8=
                     ]
 
                     dir id & tenant id: e247dc39-abba-4fcf-b626-370066fc99e6
+                    new : 21890070-e17a-4ba7-a788-e3533a8e1cb8
 
                     sub id: ac825e96-87df-4576-93fb-5a3f24840ed2
+                    new : 88979fb6-3173-4a84-840e-0d1317650f11
                     client id: 7d35f8bc-4dba-45d6-902d-3fa454d84b6d 
 
 

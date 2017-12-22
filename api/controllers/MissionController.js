@@ -28,7 +28,7 @@ var subscriptionId = global["env"].AZURE_SUBSCRIPTION_ID;
 var resourceClient, computeClient, storageClient, networkClient;
 //Sample Config
 var randomIds = {};
-var location = 'australiaeast';
+var location = 'South Central US';
 var accType = 'Standard_LRS';
 // var resourceGroupName = 'myResourceGroup';
 // var vmName = 'myVM1';
@@ -41,7 +41,7 @@ var accType = 'Standard_LRS';
 // var domainNameLabel = 'gsourcedataoutlook.onmicrosoft.com'
 // var osDiskName = 'myVM_OsDisk_1_fc1a7ced97274cf490c019aa14fec4c1';
 
-var resourceGroupName = "ubuntuRG"; //_generateRandomId('testrg', randomIds);
+var resourceGroupName = "unifliRG"; //_generateRandomId('testrg', randomIds);
 var vmName = _generateRandomId('testvm', randomIds);
 var storageAccountName = _generateRandomId('testac', randomIds);
 var vnetName = _generateRandomId('testvnet', randomIds);
@@ -277,7 +277,7 @@ var controller = {
         });
     },
     vmFileStorage: function (req, res) {
-        var fileService = storage.createFileService('DefaultEndpointsProtocol=https;AccountName=ubunturgdiag149;AccountKey=h62EQtRoeZtOE973xR2eZ5QrjJrV4/oP6dTETyNQgyQcuwTuiwUp6cKVSe0w3CsRsSt8LZrBcBBC3cEY+Erdcg==;EndpointSuffix=core.windows.net');
+        var fileService = storage.createFileService('DefaultEndpointsProtocol=https;AccountName=uniflirgdiag391;AccountKey=hEiJdKu0GiMFwVtVCqKTJ8n7+7netu5Y4yd4rDjAg8x8RGxZA7E0a4BI3v1V8EkrDBlakpUu1aiqNNIESMWXMg==;EndpointSuffix=core.windows.net');
 
         var imageToUpload = "MissionApi.js";
         var shareName = "unifli-file-share"

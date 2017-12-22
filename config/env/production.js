@@ -29,10 +29,10 @@ module.exports = {
   realHost: "https://cloud.unifli.aero",
   emails: ["chintan@wohlig.com", "jagruti@wohlig.com", "tushar@wohlig.com", "chirag@wohlig.com", "harsh@wohlig.com", "nargis.shaikh@wohlig.com"],
   adminEmail: 'info@unifli.aero',
-  CLIENT_ID: '6b7b968f-2227-474a-886a-7f3925098873',
-  DOMAIN: 'e247dc39-abba-4fcf-b626-370066fc99e6',
-  APPLICATION_SECRET: 'OVuj+j1DV+qIrTgkLGWg95pfledcIqztlDkSDwRomTU=',
-  AZURE_SUBSCRIPTION_ID: 'ac825e96-87df-4576-93fb-5a3f24840ed2',
+  CLIENT_ID: '8071bab1-bd2b-44c3-8187-c4e0ff587a6d',
+  DOMAIN: '21890070-e17a-4ba7-a788-e3533a8e1cb8',
+  APPLICATION_SECRET: 'e67K/jEBfaNlyR69NSDBULSduGIaU5csBXPKXaFkLRg=',
+  AZURE_SUBSCRIPTION_ID: '88979fb6-3173-4a84-840e-0d1317650f11',
 
   /***************************************************************************
    * Set the log level in production environment to "silent"                 *
