@@ -1,3 +1,9 @@
+username for ubuntu: unifliubuntu
+unifliwindows01
+unifli-file-share
+
+
+
 appId &client id: 6b7b968f-2227-474a-886a-7f3925098873
 
 
@@ -5,6 +11,7 @@ key: OVuj+j1DV+qIrTgkLGWg95pfledcIqztlDkSDwRomTU=
 
 
 directoryId: zuMsshfyk/tnFpYlqb1+eCJMKCQvCPaEqz78aF3UIf8=
+
 
 "apiVersions": [
                         "2016-08-01"

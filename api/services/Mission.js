@@ -7,7 +7,7 @@ var extents = require('geotiff-extents');
 var storage = require('azure-storage');
 var util = require('util');
 var fileService = storage.createFileService('DefaultEndpointsProtocol=https;AccountName=ubunturgdiag149;AccountKey=h62EQtRoeZtOE973xR2eZ5QrjJrV4/oP6dTETyNQgyQcuwTuiwUp6cKVSe0w3CsRsSt8LZrBcBBC3cEY+Erdcg==;EndpointSuffix=core.windows.net');
-var shareName = "uniflifileshare";
+var shareName = "unifli-file-share";
 var counter;
 var schema = new Schema({
     missionId: String,
