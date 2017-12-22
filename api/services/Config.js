@@ -1018,35 +1018,36 @@ var models = {
         var env = {};
         var allprod=[];  
         var allprodCost=[];        
-        obj.name = page.shippingAddress.name;
+        console.log("pagepage",page);
+        obj.name = page.shippingAddress.fname;
         obj.lname = page.shippingAddress.lname;
-        obj.organization = page.shippingAddress.company;
+        obj.organization = page.shippingAddress.comapny;
         obj.city = page.shippingAddress.city;
         obj.country = page.shippingAddress.country;
         obj.state = page.shippingAddress.state;
         obj.createdAt = page.createdAt;
         obj.status = page.status;
         obj.phonenumber = page.shippingAddress.phonenumber;
-        obj.apartment = page.shippingAddress.address;
+        obj.apartment = page.shippingAddress.streetAddress;
         obj.Cost = page.totalAmount;
         if (page.dfmSubscription) {
             obj.SoldItem = page.dfmSubscription.name;
             obj.price = page.dfmSubscription.amount;
-
-
         } else if (page.products[0]) {
-            _.forEach(page.products,function(n){
-                allprod=n.name+','
-                allprodCost=n.price+','                
+            var myVal = ''
+            var foo = ''
+            _.forEach(page.products, function (pro) {
+                myVal = pro.product.name + ',' + myVal;
+                foo = myVal.substring(0, myVal.length - 1);
+                allprodCost=pro.product.price+','
             })
-            obj.SoldItem = allprod;
+            obj.SoldItem = foo;
             obj.price = allprodCost;
         } else if (page.cadLineWork) {
             obj.SoldItem = "cadLineWork";
             obj.price = page.cadLineWork.amount;
         }
         var i = 0;
-
         var file = "cad_invoice";
         sails.hooks.views.render(file, obj, function (err, html) {
             if (err) {

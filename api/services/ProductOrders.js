@@ -258,7 +258,7 @@ var model = {
                 function (callback) {
                     ProductOrders.findOne({
                         invoiceNo: data.invoiceNo
-                    }).deepPopulate('user cadLineWork dfmSubscription products').exec(function (err, data) {
+                    }).deepPopulate('user cadLineWork dfmSubscription products.product').exec(function (err, data) {
                         if (err || _.isEmpty(data)) {
                             callback(err, [])
                         } else {
@@ -533,7 +533,6 @@ var model = {
 
     sendMailOnPurchase: function (data, callback) {
         console.log("data for email---", data)
-
         if (data.cadLineWork) {
             async.parallel({
                     forUser: function (callback) {
@@ -551,12 +550,14 @@ var model = {
                             "name": "ACREAGE",
                             "content": data.cadLineWork.acreage
                         }, {
+                            "name": "TRANSACTION_ID",
+                            "content": data.transactionId
+                        }, {
                             "name": "REQUESTED_DATE",
                             "content": data.createdAt
                         }];
 
                         Config.email(emailData, function (err, emailRespo) {
-                            console.log("emailRespo", emailRespo);
                             if (err) {
                                 console.log(err);
                                 callback(err, null);
@@ -620,16 +621,23 @@ var model = {
                         emailData.filename = "DFM Purchase";
                         emailData.subject = "DFM PURCHASE";
                         emailData.email = data.user.email;
-                        console.log("emailData---for user", emailData);
+                        emailData.merge_vars = [{
+                            "name": "NAME_OF_PACKAGE",
+                            "content": data.dfmSubscription.name
+                        }, {
+                            "name": "PRICE",
+                            "content": data.dfmSubscription.amount
+                        }, {
+                            "name": "TRANSACTION_ID",
+                            "content": data.transactionId
+                        }];
                         Config.email(emailData, function (err, emailRespo) {
                             if (err) {
                                 console.log("senderr-----------", err);
                                 callback(err, null);
                             } else if (emailRespo) {
-                                console.log("send-----------", emailRespo);
                                 callback(null, "Contact us form saved successfully!!!");
                             } else {
-                                console.log("---------blank--------");
                                 callback("Invalid data", null);
                             }
                         });
@@ -686,6 +694,23 @@ var model = {
                         emailData.filename = "Drone Purchase";
                         emailData.subject = "DRONE PURCHASE";
                         emailData.email = data.user.email;
+                        var myVal = ''
+                        var foo = ''
+                        _.forEach(data.products, function (pro) {
+                            myVal = pro.product.name + ',' + myVal;
+                            foo = myVal.substring(0, myVal.length - 1);
+                        })
+                        var addressDetails = data.shippingAddress.state + ',' + data.shippingAddress.city + ',' + data.shippingAddress.streetAddress
+                        emailData.merge_vars = [{
+                            "name": "ADDRESS",
+                            "content": addressDetails
+                        }, {
+                            "name": "NAME_DRONE",
+                            "content": foo
+                        }, {
+                            "name": "PRICE",
+                            "content": data.totalAmount
+                        }];
                         Config.email(emailData, function (err, emailRespo) {
                             // console.log("emailRespo", emailRespo);
                             if (err) {
@@ -703,9 +728,11 @@ var model = {
                         emailData.email = global["env"].adminEmail;
                         emailData.filename = "New Drone Purchase (Admin)";
                         emailData.subject = "DRONE PURCHASE";
-                        var allProducts = '';
-                        _.forEach(data.products, function (n) {
-                            allProducts = allProducts + ',' + n.name;
+                        var myVal = ''
+                        var foo = ''
+                        _.forEach(data.products, function (pro) {
+                            myVal = pro.product.name + ',' + myVal;
+                            foo = myVal.substring(0, myVal.length - 1);
                         })
                         emailData.merge_vars = [{
                             "name": "USER_NAME",
@@ -715,12 +742,11 @@ var model = {
                             "content": data.user.dataId
                         }, {
                             "name": "NAME_DRONE",
-                            "content": allProducts
+                            "content": foo
                         }, {
                             "name": "PRICE",
                             "content": data.totalAmount
                         }];
-
                         Config.email(emailData, function (err, emailRespo) {
                             // console.log("emailRespo", emailRespo);
                             if (err) {

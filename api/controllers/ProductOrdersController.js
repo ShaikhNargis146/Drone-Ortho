@@ -435,7 +435,7 @@ var controller = {
 						transactionBillTo.setCity(data.billingAddress.city);
 						transactionBillTo.setState(data.billingAddress.state);
 						transactionBillTo.setZip(data.billingAddress.zip);
-						transactionBillTo.setCountry("India");
+						transactionBillTo.setCountry("USA");
 						transactionBillTo.setPhoneNumber(data.billingAddress.phonenumber);
 						transactionBillTo.setFaxNumber("NA");
 						transactionBillTo.setEmail(data.user.email);
@@ -449,7 +449,7 @@ var controller = {
 						transactionShippTo.setCity(data.shippingAddress.city);
 						transactionShippTo.setState(data.shippingAddress.state);
 						transactionShippTo.setZip(data.shippingAddress.zip);
-						transactionShippTo.setCountry("India");
+						transactionShippTo.setCountry("USA");
 						transactionRequestType.setShipTo(transactionShippTo);
 
 						// var lineItems = new ApiContracts.ArrayOfLineItem();
@@ -563,7 +563,7 @@ var controller = {
 						transactionBillTo.setCity(data.billingAddress.city);
 						transactionBillTo.setState(data.billingAddress.state);
 						transactionBillTo.setZip(data.billingAddress.zip);
-						transactionBillTo.setCountry("US");
+						transactionBillTo.setCountry("USA");
 						transactionBillTo.setPhoneNumber(data.billingAddress.phonenumber);
 						transactionBillTo.setFaxNumber("NA");
 						transactionBillTo.setEmail(data.user.email);
@@ -577,7 +577,7 @@ var controller = {
 						transactionShippTo.setCity(data.shippingAddress.city);
 						transactionShippTo.setState(data.shippingAddress.state);
 						transactionShippTo.setZip(data.shippingAddress.zip);
-						transactionShippTo.setCountry("US");
+						transactionShippTo.setCountry("USA");
 						transactionRequestType.setShipTo(transactionShippTo);
 
 						var lineItems = new ApiContracts.ArrayOfLineItem();
@@ -620,11 +620,16 @@ var controller = {
 						};
 						setting4.setSettingValue(JSON.stringify(settingValue));
 
+						var setting5 = new ApiContracts.SettingType();
+						setting5.setSettingName('hostedPaymentPaymentOptions');
+						setting5.setSettingValue("{\"cardCodeRequired\": false, \"showCreditCard\": true, \"showBankAccount\": true}");
+
 						var settingList = [];
 						settingList.push(setting1);
 						settingList.push(setting2);
 						settingList.push(setting3);
 						settingList.push(setting4);
+						settingList.push(setting5);
 
 
 						var alist = new ApiContracts.ArrayOfSetting();
