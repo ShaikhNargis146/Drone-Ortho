@@ -1162,7 +1162,7 @@ cron.schedule('1 * * * * *', function () {
                                     }
                                 });
                             } else {
-                                var localDate = moment(value.createdAt).add(24, 'hours');
+                                var localDate = moment(value.createdAt).add(48, 'hours');
                                 var currentDate = moment(new Date())
                                 // console.log("file doesn't exist", localDate, currentDate, moment(currentDate).isSameOrAfter(localDate));
                                 if (moment(currentDate).isSameOrAfter(localDate)) {
