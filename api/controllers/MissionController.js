@@ -965,484 +965,224 @@ function listOfFreeVMs(callback) {
     });
 }
 cron.schedule('1 * * * * *', function () {
-    var freeVMs = [];
-    listOfFreeVMs(function (err, VMs) {
-        if (err) {
-            console.log('Could not get the VM: ', util.inspect(err, {
-                depth: null
-            }));
-            freeVMs = [];
-            Mission.find({
-                status: {
-                    $nin: ['ready', 'failed', 'In Progress']
-                }
-            }, function (err, found) {
-                if (err || _.isEmpty(found)) {
-                    console.log("err or empty");
-                    // callback(err, null);
-                } else {
-                    console.log(found.length);
-                    var emailData = {};
-                    var dsmList;
-                    var mosaicList;
-                    var geoLocation;
-                    async.eachSeries(found, function (value, callback1) {
-                            console.log("value", value.missionId);
-                            emailData.user = value.user;
-                            emailData.missionid = value.missionId
-                            dirName1 = 'C:/Users/unifli/Documents/pix4d/' + value.missionId + '/3_dsm_ortho/2_mosaic'
-                            // dirName1 = 'C:/Users/dell/Documents/pix4d/' + value.missionId + '/3_dsm_ortho/2_mosaic' //for local                 
-                            if (fs.existsSync(dirName1)) {
-                                fs.readdir(dirName1, function (err, items) {
-                                    if (err) {
-                                        console.log("err-----1  ", err);
-                                        callback1();
-                                    } else {
-                                        // console.log("inside dsm", items);
-                                        _.forEach(items, function (val) {
-                                            var fileName = val.split(".");
-                                            var extension = val.split(".").pop();
-                                            extension = extension.toLowerCase();
-                                            // console.log("dirName1 + '/' + val", dirName1 + '/' + val);
-                                            if (extension == 'tif') {
-                                                // console.log("status-----", extension, fileName[0]);
-                                                async.waterfall([
-                                                        function (callback) {
-                                                            try {
-                                                                var ds = gdal.open(path.join(dirName1, val));
-                                                                // raster dimensions
-                                                                var size = ds.rasterSize;
-                                                                // console.log('Size is ' + size.x + ', ' + size.y);
-
-                                                                // geotransform
-                                                                var geotransform = ds.geoTransform;
-                                                                // console.log('GeoTransform =');
-                                                                // console.log(geotransform);
-
-                                                                // corners
-                                                                var corners = {
-                                                                    'upperLeft': {
-                                                                        x: 0,
-                                                                        y: 0
-                                                                    },
-                                                                    'upperRight': {
-                                                                        x: size.x,
-                                                                        y: 0
-                                                                    },
-                                                                    'lowerRight': {
-                                                                        x: size.x,
-                                                                        y: size.y
-                                                                    },
-                                                                    'lowerLeft': {
-                                                                        x: 0,
-                                                                        y: size.y
-                                                                    },
-                                                                    'center': {
-                                                                        x: size.x / 2,
-                                                                        y: size.y / 2
-                                                                    }
-                                                                };
-
-                                                                var wgs84 = gdal.SpatialReference.fromEPSG(4326);
-                                                                var coord_transform = new gdal.CoordinateTransformation(ds.srs, wgs84);
-
-                                                                // console.log('Corner Coordinates:');
-                                                                var corner_names = Object.keys(corners);
-                                                                var cornList = {}
-
-                                                                corner_names.forEach(function (corner_name) {
-                                                                    // convert pixel x,y to the coordinate system of the raster
-                                                                    // then transform it to WGS84
-                                                                    var corner = corners[corner_name];
-                                                                    var pt_orig = {
-                                                                        x: geotransform[0] + corner.x * geotransform[1] + corner.y * geotransform[2],
-                                                                        y: geotransform[3] + corner.x * geotransform[4] + corner.y * geotransform[5]
-                                                                    };
-                                                                    var pt_wgs84 = coord_transform.transformPoint(pt_orig);
-                                                                    var cord = [];
-                                                                    cord.push(pt_wgs84.x);
-                                                                    cord.push(pt_wgs84.y);
-                                                                    cornList[corner_name.trim()] = cord.reverse();
-                                                                });
-                                                                // console.log(cornList)
-                                                                callback(null, cornList);
-                                                            } catch (err) {
-                                                                console.log("errrrrrrrr", err);
-                                                                callback1();
-                                                            }
-                                                            // fs.readFile(dirName1 + '/' + val, function (err, data) {
-                                                            //     if (err) {
-                                                            //         console.log("err", err);
-                                                            //         callback(null, "err");
-                                                            //     } else {
-                                                            //         console.log("data f1 ", data);
-                                                            //         callback(null, data);
-                                                            //     }
-                                                            // });
-                                                        },
-                                                        // function (data, callback) {
-                                                        //     console.log("data inside f2 ", data);
-                                                        //     if (data != "err") {
-                                                        //         dataArray = data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength);
-                                                        //         var tiff = geotiff.parse(dataArray);
-                                                        //         var im = geotiff.parse(dataArray).getImage()
-                                                        //         var fd = im.getFileDirectory()
-                                                        //         var gk = im.getGeoKeys()
-                                                        //         var geoLoc;
-                                                        //         try {
-                                                        //             var geoLoc = extents({
-                                                        //                 tiePoint: fd.ModelTiepoint,
-                                                        //                 pixelScale: fd.ModelPixelScale,
-                                                        //                 width: fd.ImageWidth,
-                                                        //                 height: fd.ImageLength,
-                                                        //                 proj: require('proj4'),
-                                                        //                 from: epsg[gk.ProjectedCSTypeGeoKey || gk.GeographicTypeGeoKey],
-                                                        //                 to: epsg[4326]
-                                                        //             });
-                                                        //             console.log("geoLocation ", geoLoc);
-                                                        //             callback(null, geoLoc);
-                                                        //         } catch (err) {
-                                                        //             console.log("errrrrrrrr", err);
-                                                        //             callback(null, "error");
-                                                        //         }
-                                                        //     } else {
-                                                        //         console.log("errrrrrrrr in else");
-                                                        //         callback(null, "error");
-                                                        //     }
-                                                        // },
-                                                        function (geoLocation, callback) {
-                                                            // console.log("geoLocation inside f3 ", geoLocation);
-                                                            if (geoLocation != "error") {
-                                                                value.status = "ready";
-                                                                value.geoLocation = geoLocation;
-                                                                var tilePath = dirName1 + '/google_tiles'
-                                                                fs.readdirSync(tilePath).filter(function (file) {
-                                                                    if (fs.statSync(tilePath + '/' + file).isDirectory()) {
-                                                                        // console.log(file);
-                                                                        value.zoomLevel.push(file)
-                                                                    }
-                                                                });
-                                                                value.save(function (err, data) {
-                                                                    if (err) {
-                                                                        console.log("error occured");
-                                                                        callback(null, err);
-                                                                    } else {
-                                                                        // console.log("value.geoLocation", data.geoLocation);
-                                                                        callback(null, "done");
-                                                                    }
-                                                                });
-                                                            } else {
-                                                                callback(null, "error");
-                                                            }
-                                                        },
-                                                        function (msg, callback) {
-                                                            // console.log("C:/Users/unifli/Documents/googleTile-Mosaic");
-                                                            // console.log("fileName[0]----", fileName[0].split('_'));
-                                                            var oldPath = dirName1 + '/google_tiles'
-                                                            var newPath = 'C:/Users/unifli/Documents/googleTile-Mosaic/' + value.missionId + 'google_tiles'
-
-                                                            fse.copy(oldPath, newPath, err => {
-                                                                if (err) console.error(err)
-                                                                // console.log('success!')
-                                                                callback(null, "done");
-                                                            })
-                                                        }
-                                                    ],
-                                                    function (err, data) {
-                                                        if (err) {
-                                                            callback1();
-                                                        } else {
-                                                            console.log("waterfall completed successfully", data);
-                                                            console.log("emailData emailData emailData", emailData);
-                                                            Mission.sendMissionCompletedMail(emailData, callback1);
-                                                        }
-                                                    });
-                                            }
-                                        });
-                                    }
-                                });
-                            } else {
-                                var localDate = moment(value.createdAt).add(48, 'hours');
-                                var currentDate = moment(new Date())
-                                // console.log("file doesn't exist", localDate, currentDate, moment(currentDate).isSameOrAfter(localDate));
-                                if (moment(currentDate).isSameOrAfter(localDate)) {
-                                    value.status = "failed";
-                                    value.save(function (err, data) {
-                                        if (err) {
-                                            console.log("error occured");
-                                            callback1();
-                                        } else {
-                                            // console.log("value updated");
-                                            callback1();
-                                        }
-                                    });
-                                }
-                            }
-                            // write their api to update status if changed
-                        },
-                        function (err, results) {
-                            if (err) {
-                                console.log(err);
-                            } else {
-                                // console.log("results", results);
-                                // callback();
-                            }
-                        });
-                }
-            });
+    Mission.find({
+        status: {
+            $nin: ['ready', 'failed', 'In Progress']
+        }
+    }, function (err, found) {
+        if (err || _.isEmpty(found)) {
+            console.log("err or empty");
+            // callback(err, null);
         } else {
-            console.log('Found the VMs: \n' + VMs.length + util.inspect(VMs, {
-                depth: null
-            }));
-            freeVMs = VMs;
-            Mission.find({
-                status: {
-                    $nin: ['ready', 'failed', 'In Progress']
-                }
-            }, function (err, found) {
-                if (err || _.isEmpty(found)) {
-                    console.log("err or empty");
-                    // callback(err, null);
-                } else {
-                    console.log(found.length);
-                    var emailData = {};
-                    var dsmList;
-                    var mosaicList;
-                    var geoLocation;
-                    async.eachSeries(found, function (value, callback1) {
-                            console.log("value", value.missionId);
-                            emailData.user = value.user;
-                            emailData.missionid = value.missionId
-                            dirName1 = 'C:/Users/unifli/Documents/pix4d/' + value.missionId + '/3_dsm_ortho/2_mosaic'
-                            // dirName1 = 'C:/Users/dell/Documents/pix4d/' + value.missionId + '/3_dsm_ortho/2_mosaic' //for local                 
-                            if (fs.existsSync(dirName1)) {
-                                fs.readdir(dirName1, function (err, items) {
-                                    if (err) {
-                                        console.log("err-----1  ", err);
-                                        callback1();
-                                    } else {
-                                        // console.log("inside dsm", items);
-                                        _.forEach(items, function (val) {
-                                            var fileName = val.split(".");
-                                            var extension = val.split(".").pop();
-                                            extension = extension.toLowerCase();
-                                            // console.log("dirName1 + '/' + val", dirName1 + '/' + val);
-                                            if (extension == 'tif') {
-                                                // console.log("status-----", extension, fileName[0]);
-                                                async.waterfall([
-                                                        function (callback) {
-                                                            try {
-                                                                var ds = gdal.open(path.join(dirName1, val));
-                                                                // raster dimensions
-                                                                var size = ds.rasterSize;
-                                                                // console.log('Size is ' + size.x + ', ' + size.y);
-
-                                                                // geotransform
-                                                                var geotransform = ds.geoTransform;
-                                                                // console.log('GeoTransform =');
-                                                                // console.log(geotransform);
-
-                                                                // corners
-                                                                var corners = {
-                                                                    'upperLeft': {
-                                                                        x: 0,
-                                                                        y: 0
-                                                                    },
-                                                                    'upperRight': {
-                                                                        x: size.x,
-                                                                        y: 0
-                                                                    },
-                                                                    'lowerRight': {
-                                                                        x: size.x,
-                                                                        y: size.y
-                                                                    },
-                                                                    'lowerLeft': {
-                                                                        x: 0,
-                                                                        y: size.y
-                                                                    },
-                                                                    'center': {
-                                                                        x: size.x / 2,
-                                                                        y: size.y / 2
-                                                                    }
-                                                                };
-
-                                                                var wgs84 = gdal.SpatialReference.fromEPSG(4326);
-                                                                var coord_transform = new gdal.CoordinateTransformation(ds.srs, wgs84);
-
-                                                                // console.log('Corner Coordinates:');
-                                                                var corner_names = Object.keys(corners);
-                                                                var cornList = {}
-
-                                                                corner_names.forEach(function (corner_name) {
-                                                                    // convert pixel x,y to the coordinate system of the raster
-                                                                    // then transform it to WGS84
-                                                                    var corner = corners[corner_name];
-                                                                    var pt_orig = {
-                                                                        x: geotransform[0] + corner.x * geotransform[1] + corner.y * geotransform[2],
-                                                                        y: geotransform[3] + corner.x * geotransform[4] + corner.y * geotransform[5]
-                                                                    };
-                                                                    var pt_wgs84 = coord_transform.transformPoint(pt_orig);
-                                                                    var cord = [];
-                                                                    cord.push(pt_wgs84.x);
-                                                                    cord.push(pt_wgs84.y);
-                                                                    cornList[corner_name.trim()] = cord.reverse();
-                                                                });
-                                                                // console.log(cornList)
-                                                                callback(null, cornList);
-                                                            } catch (err) {
-                                                                console.log("errrrrrrrr", err);
-                                                                callback1();
-                                                            }
-                                                            // fs.readFile(dirName1 + '/' + val, function (err, data) {
-                                                            //     if (err) {
-                                                            //         console.log("err", err);
-                                                            //         callback(null, "err");
-                                                            //     } else {
-                                                            //         console.log("data f1 ", data);
-                                                            //         callback(null, data);
-                                                            //     }
-                                                            // });
-                                                        },
-                                                        // function (data, callback) {
-                                                        //     console.log("data inside f2 ", data);
-                                                        //     if (data != "err") {
-                                                        //         dataArray = data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength);
-                                                        //         var tiff = geotiff.parse(dataArray);
-                                                        //         var im = geotiff.parse(dataArray).getImage()
-                                                        //         var fd = im.getFileDirectory()
-                                                        //         var gk = im.getGeoKeys()
-                                                        //         var geoLoc;
-                                                        //         try {
-                                                        //             var geoLoc = extents({
-                                                        //                 tiePoint: fd.ModelTiepoint,
-                                                        //                 pixelScale: fd.ModelPixelScale,
-                                                        //                 width: fd.ImageWidth,
-                                                        //                 height: fd.ImageLength,
-                                                        //                 proj: require('proj4'),
-                                                        //                 from: epsg[gk.ProjectedCSTypeGeoKey || gk.GeographicTypeGeoKey],
-                                                        //                 to: epsg[4326]
-                                                        //             });
-                                                        //             console.log("geoLocation ", geoLoc);
-                                                        //             callback(null, geoLoc);
-                                                        //         } catch (err) {
-                                                        //             console.log("errrrrrrrr", err);
-                                                        //             callback(null, "error");
-                                                        //         }
-                                                        //     } else {
-                                                        //         console.log("errrrrrrrr in else");
-                                                        //         callback(null, "error");
-                                                        //     }
-                                                        // },
-                                                        function (geoLocation, callback) {
-                                                            // console.log("geoLocation inside f3 ", geoLocation);
-                                                            if (geoLocation != "error") {
-                                                                value.status = "ready";
-                                                                value.geoLocation = geoLocation;
-                                                                var tilePath = dirName1 + '/google_tiles'
-                                                                fs.readdirSync(tilePath).filter(function (file) {
-                                                                    if (fs.statSync(tilePath + '/' + file).isDirectory()) {
-                                                                        // console.log(file);
-                                                                        value.zoomLevel.push(file)
-                                                                    }
-                                                                });
-                                                                value.save(function (err, data) {
-                                                                    if (err) {
-                                                                        console.log("error occured");
-                                                                        callback(null, err);
-                                                                    } else {
-                                                                        // console.log("value.geoLocation", data.geoLocation);
-                                                                        callback(null, "done");
-                                                                    }
-                                                                });
-                                                            } else {
-                                                                callback(null, "error");
-                                                            }
-                                                        },
-                                                        function (msg, callback) {
-                                                            // console.log("C:/Users/unifli/Documents/googleTile-Mosaic");
-                                                            // console.log("fileName[0]----", fileName[0].split('_'));
-                                                            var oldPath = dirName1 + '/google_tiles'
-                                                            var newPath = 'C:/Users/unifli/Documents/googleTile-Mosaic/' + value.missionId + 'google_tiles'
-
-                                                            fse.copy(oldPath, newPath, err => {
-                                                                if (err) console.error(err)
-                                                                // console.log('success!')
-                                                                callback(null, "done");
-                                                            })
-                                                        }
-                                                    ],
-                                                    function (err, data) {
-                                                        if (err) {
-                                                            callback1();
-                                                        } else {
-                                                            console.log("waterfall completed successfully", data);
-                                                            console.log("emailData emailData emailData", emailData);
-                                                            Mission.sendMissionCompletedMail(emailData, callback1);
-                                                        }
-                                                    });
-                                            }
-                                        });
-                                    }
-                                });
+            console.log(found.length);
+            var emailData = {};
+            var dsmList;
+            var mosaicList;
+            var geoLocation;
+            async.eachSeries(found, function (value, callback1) {
+                    console.log("value", value.missionId);
+                    emailData.user = value.user;
+                    emailData.missionid = value.missionId
+                    dirName1 = 'C:/Users/unifli/Documents/pix4d/' + value.missionId + '/3_dsm_ortho/2_mosaic'
+                    // dirName1 = 'C:/Users/dell/Documents/pix4d/' + value.missionId + '/3_dsm_ortho/2_mosaic' //for local                 
+                    if (fs.existsSync(dirName1)) {
+                        fs.readdir(dirName1, function (err, items) {
+                            if (err) {
+                                console.log("err-----1  ", err);
+                                callback1();
                             } else {
-                                var localDate = moment(value.createdAt).add(24, 'hours');
-                                var currentDate = moment(new Date())
-                                // console.log("file doesn't exist", localDate, currentDate, moment(currentDate).isSameOrAfter(localDate));
-                                if (moment(currentDate).isSameOrAfter(localDate)) {
-                                    value.status = "failed";
-                                    value.save(function (err, data) {
-                                        if (err) {
-                                            console.log("error occured");
-                                            callback1();
-                                        } else {
-                                            // console.log("value updated");
-                                            callback1();
-                                        }
-                                    });
-                                } else if (freeVMs.length > 0) {
-                                    computeClient.virtualMachines.start(resourceGroupName, freeVMs[0], function (err, result) {
-                                        if (err) {
-                                            console.log(util.format('\n???????Error in Task4: while starting the VM:\n%s',
-                                                util.inspect(err, {
-                                                    depth: null
-                                                })));
-                                            callback1();
-                                        } else {
-                                            value.status = "In Progress"
-                                            value.vmName = freeVMs[0];
-                                            console.log(util.format('\n######End of Task4: Start the VM is successful.\n%s',
-                                                util.inspect(result, {
-                                                    depth: null
-                                                })));
-                                            value.save(function (err, data) {
+                                // console.log("inside dsm", items);
+                                _.forEach(items, function (val) {
+                                    var fileName = val.split(".");
+                                    var extension = val.split(".").pop();
+                                    extension = extension.toLowerCase();
+                                    // console.log("dirName1 + '/' + val", dirName1 + '/' + val);
+                                    if (extension == 'tif') {
+                                        // console.log("status-----", extension, fileName[0]);
+                                        async.waterfall([
+                                                function (callback) {
+                                                    try {
+                                                        var ds = gdal.open(path.join(dirName1, val));
+                                                        // raster dimensions
+                                                        var size = ds.rasterSize;
+                                                        // console.log('Size is ' + size.x + ', ' + size.y);
+
+                                                        // geotransform
+                                                        var geotransform = ds.geoTransform;
+                                                        // console.log('GeoTransform =');
+                                                        // console.log(geotransform);
+
+                                                        // corners
+                                                        var corners = {
+                                                            'upperLeft': {
+                                                                x: 0,
+                                                                y: 0
+                                                            },
+                                                            'upperRight': {
+                                                                x: size.x,
+                                                                y: 0
+                                                            },
+                                                            'lowerRight': {
+                                                                x: size.x,
+                                                                y: size.y
+                                                            },
+                                                            'lowerLeft': {
+                                                                x: 0,
+                                                                y: size.y
+                                                            },
+                                                            'center': {
+                                                                x: size.x / 2,
+                                                                y: size.y / 2
+                                                            }
+                                                        };
+
+                                                        var wgs84 = gdal.SpatialReference.fromEPSG(4326);
+                                                        var coord_transform = new gdal.CoordinateTransformation(ds.srs, wgs84);
+
+                                                        // console.log('Corner Coordinates:');
+                                                        var corner_names = Object.keys(corners);
+                                                        var cornList = {}
+
+                                                        corner_names.forEach(function (corner_name) {
+                                                            // convert pixel x,y to the coordinate system of the raster
+                                                            // then transform it to WGS84
+                                                            var corner = corners[corner_name];
+                                                            var pt_orig = {
+                                                                x: geotransform[0] + corner.x * geotransform[1] + corner.y * geotransform[2],
+                                                                y: geotransform[3] + corner.x * geotransform[4] + corner.y * geotransform[5]
+                                                            };
+                                                            var pt_wgs84 = coord_transform.transformPoint(pt_orig);
+                                                            var cord = [];
+                                                            cord.push(pt_wgs84.x);
+                                                            cord.push(pt_wgs84.y);
+                                                            cornList[corner_name.trim()] = cord.reverse();
+                                                        });
+                                                        // console.log(cornList)
+                                                        callback(null, cornList);
+                                                    } catch (err) {
+                                                        console.log("errrrrrrrr", err);
+                                                        callback1();
+                                                    }
+                                                    // fs.readFile(dirName1 + '/' + val, function (err, data) {
+                                                    //     if (err) {
+                                                    //         console.log("err", err);
+                                                    //         callback(null, "err");
+                                                    //     } else {
+                                                    //         console.log("data f1 ", data);
+                                                    //         callback(null, data);
+                                                    //     }
+                                                    // });
+                                                },
+                                                // function (data, callback) {
+                                                //     console.log("data inside f2 ", data);
+                                                //     if (data != "err") {
+                                                //         dataArray = data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength);
+                                                //         var tiff = geotiff.parse(dataArray);
+                                                //         var im = geotiff.parse(dataArray).getImage()
+                                                //         var fd = im.getFileDirectory()
+                                                //         var gk = im.getGeoKeys()
+                                                //         var geoLoc;
+                                                //         try {
+                                                //             var geoLoc = extents({
+                                                //                 tiePoint: fd.ModelTiepoint,
+                                                //                 pixelScale: fd.ModelPixelScale,
+                                                //                 width: fd.ImageWidth,
+                                                //                 height: fd.ImageLength,
+                                                //                 proj: require('proj4'),
+                                                //                 from: epsg[gk.ProjectedCSTypeGeoKey || gk.GeographicTypeGeoKey],
+                                                //                 to: epsg[4326]
+                                                //             });
+                                                //             console.log("geoLocation ", geoLoc);
+                                                //             callback(null, geoLoc);
+                                                //         } catch (err) {
+                                                //             console.log("errrrrrrrr", err);
+                                                //             callback(null, "error");
+                                                //         }
+                                                //     } else {
+                                                //         console.log("errrrrrrrr in else");
+                                                //         callback(null, "error");
+                                                //     }
+                                                // },
+                                                function (geoLocation, callback) {
+                                                    // console.log("geoLocation inside f3 ", geoLocation);
+                                                    if (geoLocation != "error") {
+                                                        value.status = "ready";
+                                                        value.geoLocation = geoLocation;
+                                                        var tilePath = dirName1 + '/google_tiles'
+                                                        fs.readdirSync(tilePath).filter(function (file) {
+                                                            if (fs.statSync(tilePath + '/' + file).isDirectory()) {
+                                                                // console.log(file);
+                                                                value.zoomLevel.push(file)
+                                                            }
+                                                        });
+                                                        value.save(function (err, data) {
+                                                            if (err) {
+                                                                console.log("error occured");
+                                                                callback(null, err);
+                                                            } else {
+                                                                // console.log("value.geoLocation", data.geoLocation);
+                                                                callback(null, "done");
+                                                            }
+                                                        });
+                                                    } else {
+                                                        callback(null, "error");
+                                                    }
+                                                },
+                                                function (msg, callback) {
+                                                    // console.log("C:/Users/unifli/Documents/googleTile-Mosaic");
+                                                    // console.log("fileName[0]----", fileName[0].split('_'));
+                                                    var oldPath = dirName1 + '/google_tiles'
+                                                    var newPath = 'C:/Users/unifli/Documents/googleTile-Mosaic/' + value.missionId + 'google_tiles'
+
+                                                    fse.copy(oldPath, newPath, err => {
+                                                        if (err) console.error(err)
+                                                        // console.log('success!')
+                                                        callback(null, "done");
+                                                    })
+                                                }
+                                            ],
+                                            function (err, data) {
                                                 if (err) {
-                                                    console.log("error occured");
                                                     callback1();
                                                 } else {
-                                                    console.log("value updated");
-                                                    callback1();
+                                                    console.log("waterfall completed successfully", data);
+                                                    console.log("emailData emailData emailData", emailData);
+                                                    Mission.sendMissionCompletedMail(emailData, callback1);
                                                 }
                                             });
-                                        }
-                                    });
-
-                                }
-                            }
-                            // write their api to update status if changed
-                        },
-                        function (err, results) {
-                            if (err) {
-                                console.log(err);
-                            } else {
-                                // console.log("results", results);
-                                // callback();
+                                    }
+                                });
                             }
                         });
-                }
-            });
+                    } else {
+                        var localDate = moment(value.createdAt).add(48, 'hours');
+                        var currentDate = moment(new Date())
+                        // console.log("file doesn't exist", localDate, currentDate, moment(currentDate).isSameOrAfter(localDate));
+                        if (moment(currentDate).isSameOrAfter(localDate)) {
+                            value.status = "failed";
+                            value.save(function (err, data) {
+                                if (err) {
+                                    console.log("error occured");
+                                    callback1();
+                                } else {
+                                    // console.log("value updated");
+                                    callback1();
+                                }
+                            });
+                        }
+                    }
+                    // write their api to update status if changed
+                },
+                function (err, results) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        // console.log("results", results);
+                        // callback();
+                    }
+                });
         }
     });
-
 });
 module.exports = _.assign(module.exports, controller);
 

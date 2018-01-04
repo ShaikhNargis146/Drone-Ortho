@@ -1,5 +1,6 @@
-username for ubuntu: unifliubuntu
+username for ubuntu: unifliubuntu ip 13.65.103.46
 unifliwindows01
+unifliwindows02
 unifli-file-share
 
 
