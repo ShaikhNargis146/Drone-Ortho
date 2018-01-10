@@ -1279,6 +1279,7 @@ firstapp
                 $scope.missionDetails = data.data;
                 missionID.filename = $scope.missionDetails.missionId;
                 missionIdForDownload = $scope.missionDetails.missionId;
+                idForDownload = $scope.missionDetails._id;
                 $scope.template = TemplateService.changecontent("mission-details");
                 $scope.menutitle = NavigationService.makeactive("MissionDetails");
                 TemplateService.title = $scope.menutitle;
@@ -1699,34 +1700,34 @@ firstapp
         }
 
         $scope.downloadAutocadDXF = function (missionId) {
-            window.open('http://cloud.unifli.aero/api/getAutocad/' + missionIdForDownload + ".dxf", '_self');
+            window.open('http://cloud.unifli.aero/api/getAutocad/' + missionIdForDownload + ".dxf/" + idForDownload, '_self');
         }
 
         $scope.downloadContoursLines = function (missionId) {
-            window.open('http://cloud.unifli.aero/api/getContourLines/' + missionIdForDownload + ".shp", '_self');
+            window.open('http://cloud.unifli.aero/api/getContourLines/' + missionIdForDownload + ".shp/" + idForDownload, '_self');
         }
 
         $scope.downloadContoursPdf = function (missionId) {
-            window.open('http://cloud.unifli.aero/api/getContourPdf/' + missionIdForDownload + ".pdf", '_self');
+            window.open('http://cloud.unifli.aero/api/getContourPdf/' + missionIdForDownload + ".pdf/" + idForDownload, '_self');
         }
         $scope.downloadTFW = function (missionId) {
-            window.open('http://cloud.unifli.aero/api/getTfw/' + missionIdForDownload + ".tfw", '_self');
+            window.open('http://cloud.unifli.aero/api/getTfw/' + missionIdForDownload + ".tfw/" + idForDownload, '_self');
         }
 
         $scope.downloadOrthoM = function () {
-            window.open('http://cloud.unifli.aero/api/getOrthoM/' + missionIdForDownload + ".tif", '_self');
+            window.open('http://cloud.unifli.aero/api/getOrthoM/' + missionIdForDownload + ".tif/" + idForDownload, '_self');
         }
 
         $scope.downloadDsm = function () {
-            window.open('http://cloud.unifli.aero/api/getDsm/' + missionIdForDownload + ".tif", '_self');
+            window.open('http://cloud.unifli.aero/api/getDsm/' + missionIdForDownload + ".tif/" + idForDownload, '_self');
         }
 
         $scope.downloadMeshFbx = function () {
-            window.open('http://cloud.unifli.aero/api/getMeshFbx/' + missionIdForDownload + ".fbx", '_self');
+            window.open('http://cloud.unifli.aero/api/getMeshFbx/' + missionIdForDownload + ".fbx/" + idForDownload, '_self');
         }
 
         $scope.downloadMeshObj = function () {
-            window.open('http://cloud.unifli.aero/api/getMeshObj/' + missionIdForDownload + ".Obj", '_self');
+            window.open('http://cloud.unifli.aero/api/getMeshObj/' + missionIdForDownload + ".Obj/" + idForDownload, '_self');
         }
 
         $scope.listPointCloud = function () {
@@ -1743,7 +1744,7 @@ firstapp
         }
         $scope.downloadPointCloud = function (file) {
             // window.open('http://cloud.unifli.aero/api/getPointCloud/' + missionIdForDownload + ".las", '_self');
-            window.open(adminurl + 'getPointCloud/' + missionIdForDownload + '/' + file, '_self');
+            window.open(adminurl + 'getPointCloud/' + missionIdForDownload + '/' + file + "/" + idForDownload, '_self');
             window.close();
         }
         // $scope.downloadQualityReports = function () {
@@ -1774,7 +1775,7 @@ firstapp
 
                 console.log("sendHtmlData", sendHtmlData);
                 NavigationService.apiCallWithData("Plan/generatePdf", sendHtmlData, function (data) {
-                    window.open('http://cloud.unifli.aero/api/getQualityReports/' + missionIdForDownload + ".pdf", '_self');
+                    window.open('http://cloud.unifli.aero/api/getQualityReports/' + missionIdForDownload + ".pdf/" + idForDownload, '_self');
 
                     // console.log("data", data);
                 });
@@ -1784,7 +1785,7 @@ firstapp
             });
         }
         $scope.downloadProcessingLog = function () {
-            window.open('http://cloud.unifli.aero/api/getProcessingLog/' + missionIdForDownload + ".log", '_self');
+            window.open('http://cloud.unifli.aero/api/getProcessingLog/' + missionIdForDownload + ".log/" + idForDownload, '_self');
         }
         $scope.mapOpen = function () {
             $uibModal.open({

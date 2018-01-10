@@ -73,21 +73,24 @@ module.exports = {
     getContourLines: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
         var name = req.param("filename").split('.')[0]
-        var filePath = "C:/Users/unifli/Documents/pix4d/" + name + "/3_dsm_ortho/extras/contours/" + name + "_elev10m_res100cm_size20_DSM.shp";
+        var id = req.param("id");
+        var filePath = "/mymountpoint/" + id + "/" + name + "/3_dsm_ortho/extras/contours/" + name + "_elev10m_res100cm_size20_DSM.shp";
         files = fs.readFileSync(filePath);
         res.send(files);
     },
 
     getContourPdf: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
-        var name = req.param("filename").split('.')[0]
+        var name = req.param("filename").split('.')[0];
+        var id = req.param("id");
         var filePath = "/mymountpoint/" + id + "/" + name + "/3_dsm_ortho/extras/contours/" + name + "_elev10m_res100cm_size20_DSM.pdf";
         files = fs.readFileSync(filePath);
         res.send(files);
     },
     getTfw: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
-        var name = req.param("filename").split('.')[0]
+        var name = req.param("filename").split('.')[0];
+        var id = req.param("id");
         var filePath = "/mymountpoint/" + id + "/" + name + "/3_dsm_ortho/2_mosaic/" + name + "_transparent_mosaic_group1.tfw";
         files = fs.readFileSync(filePath);
         res.send(files);
@@ -95,7 +98,8 @@ module.exports = {
 
     getOrthoM: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
-        var name = req.param("filename").split('.')[0]
+        var name = req.param("filename").split('.')[0];
+        var id = req.param("id");
         var filePath = "/mymountpoint/" + id + "/" + name + "/3_dsm_ortho/2_mosaic/" + name + "_transparent_mosaic_group1.tif";
         files = fs.readFileSync(filePath);
         res.send(files);
@@ -107,7 +111,8 @@ module.exports = {
 
     getDsm: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
-        var name = req.param("filename").split('.')[0]
+        var name = req.param("filename").split('.')[0];
+        var id = req.param("id");
         var filePath = "/mymountpoint/" + id + "/" + name + "/3_dsm_ortho/1_dsm/" + name + "_dsm.tif";
         files = fs.readFileSync(filePath);
         res.send(files);
@@ -118,7 +123,8 @@ module.exports = {
 
     getMeshFbx: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
-        var name = req.param("filename").split('.')[0]
+        var name = req.param("filename").split('.')[0];
+        var id = req.param("id");
         var filePath = "/mymountpoint/" + id + "/" + name + "/2_densification/3d_mesh/" + name + "_simplified_3d_mesh.fbx";
         files = fs.readFileSync(filePath);
         res.send(files);
@@ -130,6 +136,7 @@ module.exports = {
     getPointCloud: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
         // var name = req.param("filename").split('.')[0];
+        var id = req.param("id");
         var filePath = "/mymountpoint/" + id + "/" + req.param("missionName") + "/2_densification/point_cloud/" + req.param("filename");
         files = fs.readFileSync(filePath);
         res.send(files);
@@ -140,7 +147,8 @@ module.exports = {
 
     getQualityReports: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
-        var name = req.param("filename").split('.')[0]
+        var name = req.param("filename").split('.')[0];
+        var id = req.param("id");
         var filePath = "/mymountpoint/" + id + "/" + name + "/1_initial/report/" + name + "_generatedReport.pdf";
         files = fs.readFileSync(filePath);
         res.send(files);
@@ -153,7 +161,8 @@ module.exports = {
 
     getProcessingLog: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
-        var name = req.param("filename").split('.')[0]
+        var name = req.param("filename").split('.')[0];
+        var id = req.param("id");
         var filePath = "/mymountpoint/" + id + "/" + name + "/" + name + ".log";
         files = fs.readFileSync(filePath);
         res.send(files);
@@ -161,7 +170,8 @@ module.exports = {
 
     getMeshObj: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
-        var name = req.param("filename").split('.')[0]
+        var name = req.param("filename").split('.')[0];
+        var id = req.param("id");
         var filePath = "/mymountpoint/" + id + "/" + name + "/2_densification/3d_mesh/" + name + "_simplified_3d_mesh.Obj";
         files = fs.readFileSync(filePath);
         res.send(files);
