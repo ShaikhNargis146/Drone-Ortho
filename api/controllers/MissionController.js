@@ -983,7 +983,7 @@ cron.schedule('1 * * * * *', function () {
                     console.log("value", value.missionId);
                     emailData.user = value.user;
                     emailData.missionid = value.missionId
-                    dirName1 = 'C:/Users/unifli/Documents/pix4d/' + value.missionId + '/3_dsm_ortho/2_mosaic'
+                    dirName1 = '/mymountpoint/' + value._id + '/' + value.missionId + '/3_dsm_ortho/2_mosaic'
                     // dirName1 = 'C:/Users/dell/Documents/pix4d/' + value.missionId + '/3_dsm_ortho/2_mosaic' //for local                 
                     if (fs.existsSync(dirName1)) {
                         fs.readdir(dirName1, function (err, items) {
@@ -1132,7 +1132,7 @@ cron.schedule('1 * * * * *', function () {
                                                     // console.log("C:/Users/unifli/Documents/googleTile-Mosaic");
                                                     // console.log("fileName[0]----", fileName[0].split('_'));
                                                     var oldPath = dirName1 + '/google_tiles'
-                                                    var newPath = 'C:/Users/unifli/Documents/googleTile-Mosaic/' + value.missionId + 'google_tiles'
+                                                    var newPath = '/home/unifliubuntu/myApp/googleTile-Mosaic/' + value.missionId + 'google_tiles'
 
                                                     fse.copy(oldPath, newPath, err => {
                                                         if (err) console.error(err)
