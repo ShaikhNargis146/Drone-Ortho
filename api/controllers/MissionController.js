@@ -704,7 +704,7 @@ var controller = {
         var dirName = "/mymountpoint/" + id + "/" + +name + "/2_densification/point_cloud/";
         if (fs.existsSync(dirName)) {
             fs.readdir(dirName, function (err, found) {
-                // console.log("found------", found);
+                console.log("found------", found);
                 res.json({
                     value: true,
                     data: found
