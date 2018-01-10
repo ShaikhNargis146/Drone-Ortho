@@ -1695,7 +1695,7 @@ firstapp
 
 
         $scope.downloadThree = function () {
-            window.open(adminurl + 'Mission/generateZipForMissionFiles?filename=' + missionID.filename, '_self');
+            window.open(adminurl + 'Mission/generateZipForMissionFiles?filename=' + missionID.filename + '&id=' + idForDownload, '_self');
             window.close();
         }
 
@@ -1731,7 +1731,7 @@ firstapp
         }
 
         $scope.listPointCloud = function () {
-            $http.post(adminurl + "Mission/generateZipForPointCloudFiles?filename=" + missionID.filename).then(function (data) {
+            $http.post(adminurl + "Mission/generateZipForPointCloudFiles?filename=" + missionID.filename + '&id=' + idForDownload).then(function (data) {
                 console.log("data---->>>", data.data.data);
                 if (data.data.value == true) {
                     $scope.fileList = data.data.data
