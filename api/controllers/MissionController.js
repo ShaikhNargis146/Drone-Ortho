@@ -991,7 +991,7 @@ cron.schedule('1 * * * * *', function () {
                                 console.log("err-----1  ", err);
                                 callback1();
                             } else {
-                                // console.log("inside dsm", items);
+                                console.log("inside dsm", items);
                                 _.forEach(items, function (val) {
                                     var fileName = val.split(".");
                                     var extension = val.split(".").pop();
