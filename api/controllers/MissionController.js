@@ -1036,7 +1036,7 @@ cron.schedule('1 * * * * *', function () {
                                                             }
                                                         };
 
-                                                        var wgs84 = gdal.SpatialReference.fromEPSG(4326);
+                                                        var wgs84 = gdal.SpatialReference.fromEPSG(3031);
                                                         var coord_transform = new gdal.CoordinateTransformation(ds.srs, wgs84);
 
                                                         // console.log('Corner Coordinates:');
