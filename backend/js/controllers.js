@@ -1732,7 +1732,10 @@ firstapp
 
         $scope.listPointCloud = function () {
             console.log("listPointCloud--->")
-            $http.post(adminurl + "Mission/generateZipForPointCloudFiles?filename=" + missionIdForDownload + '&id=' + idForDownload).then(function (data) {
+            var pointCloud = {};
+            pointCloud.filename = missionIdForDownload;
+            pointCloud.id = idForDownload;
+            $http.post(adminurl + "Mission/generateZipForPointCloudFiles", pointCloud).then(function (data) {
                 console.log("data---->>>", data.data.data);
                 if (data.data.value == true) {
                     $scope.fileList = data.data.data
