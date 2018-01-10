@@ -62,31 +62,31 @@ module.exports.routes = {
         action: "getPdf"
     },
 
-    'GET /api/getAutocad/:filename': {
+    'GET /api/getAutocad/:filename/:id': {
         controller: "WebController",
         action: "getAutocad"
     },
 
-    'GET /api/getContourLines/:filename': {
+    'GET /api/getContourLines/:filename/:id': {
         controller: "WebController",
         action: "getContourLines"
     },
 
-    'GET /api/getContourPdf/:filename': {
+    'GET /api/getContourPdf/:filename/:id': {
         controller: "WebController",
         action: "getContourPdf"
     },
-    'GET /api/getTfw/:filename': {
+    'GET /api/getTfw/:filename/:id': {
         controller: "WebController",
         action: "getTfw"
     },
 
-    'GET /api/getOrthoM/:filename': {
+    'GET /api/getOrthoM/:filename/:id': {
         controller: "WebController",
         action: "getOrthoM"
     },
 
-    'GET /api/getDsm/:filename': {
+    'GET /api/getDsm/:filename/:id': {
         controller: "WebController",
         action: "getDsm"
     },
@@ -96,31 +96,31 @@ module.exports.routes = {
     //     action: "getMeshObj"
     // },
 
-    'GET /api/getMeshFbx/:filename': {
+    'GET /api/getMeshFbx/:filename/:id': {
         controller: "WebController",
         action: "getMeshFbx"
     },
-    'GET /api/getPointCloud/:missionName/:filename': {
+    'GET /api/getPointCloud/:missionName/:filename/:id': {
         controller: "WebController",
         action: "getPointCloud"
     },
 
-    'GET /api/getQualityReports/:filename': {
+    'GET /api/getQualityReports/:filename/:id': {
         controller: "WebController",
         action: "getQualityReports"
     },
 
-    'GET /api/getProcessingLog/:filename': {
+    'GET /api/getProcessingLog/:filename/:id': {
         controller: "WebController",
         action: "getProcessingLog"
     },
 
-    'GET /api/getMeshObj/:filename': {
+    'GET /api/getMeshObj/:filename/:id': {
         controller: "WebController",
         action: "getMeshObj"
     },
 
-    'GET /api/getOrtho/:filename': {
+    'GET /api/getOrtho/:filename/:id': {
         controller: "WebController",
         action: "getOrtho"
     },
