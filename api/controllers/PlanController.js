@@ -7,11 +7,13 @@ var pdftohtml = require('pdftohtmljs');
 var controller = {
 
     pdfEditor1: function (req, res) {
-        var filePath = "C:/Users/unifli/Documents/pix4d/" + req.body.path + "/1_initial/report/" + req.body.path + "_report.pdf";
-        var destinationPath = path.join('C:', path.join('Users', path.join('unifli', path.join('Documents', path.join('googleTile-Mosaic', 'report')))));
+        var filePath = "/mymountpoint/" + req.body.id + "/"
+        req.body.path + "/1_initial/report/" + req.body.path + "_report.pdf";
+        // /home/unifliubuntu / myApp / googleTile - Mosaic /
+        var destinationPath = path.join('/home', path.join('unifliubuntu', path.join('myApp', path.join('googleTile-Mosaic', 'report'))));
         // var filePath = "/home/user/Documents/htdocs/unifli-backend/pdf/M2017112.pdf";
         // var destinationPath = "/home/user/Documents/htdocs/unifli-backend/pdf";
-        exec('cd C:/pdf2htmlEX-win && pdf2htmlEX --dest-dir ' + destinationPath + ' ' + filePath, {
+        exec('pdf2htmlEX --dest-dir ' + destinationPath + ' ' + filePath, {
             maxBuffer: 1024 * 500000
         }, function (error, stdout, stderr) {
             if (error) {
@@ -20,7 +22,7 @@ var controller = {
             } else if (stdout) {
                 console.log("and its working----stdout--->>>>", stdout);
                 if (stdout.includes('Working')) {
-                    fs.readFile(path, join(destinationPath, req.body.path + '_report.html'), function (err, html) {
+                    fs.readFile(path.join(destinationPath, req.body.path + '_report.html'), function (err, html) {
 
                         if (err) {
                             console.log(err);

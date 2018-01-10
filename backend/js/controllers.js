@@ -1753,7 +1753,7 @@ firstapp
         $scope.downloadQualityReports = function () {
             var path = {}
             path.path = missionIdForDownload;
-
+            path.id = idForDownload;
             NavigationService.apiCallWithData("Plan/pdfEditor1", path, function (data) {
                 // console.log("data", data.data.html);
                 // $.get('http://files.unifli.aero/report/' + missionIdForDownload + '_report.html', function (data) {
