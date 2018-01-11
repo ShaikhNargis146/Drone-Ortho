@@ -699,7 +699,7 @@ var controller = {
         // var files = req.query.id.split(',');
         var name = req.body.filename;
         var id = req.body.id;
-        var dirName = "/mymountpoint/" + id + "/" + +name + "/2_densification/point_cloud/";
+        var dirName = "/mymountpoint/" + id + "/" + +name + "/2_densification/point_cloud";
         if (fs.existsSync(dirName)) {
             console.log("files exists------");
             fs.readdir(dirName, function (err, found) {
