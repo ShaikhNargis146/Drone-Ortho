@@ -7,8 +7,7 @@ var pdftohtml = require('pdftohtmljs');
 var controller = {
 
     pdfEditor1: function (req, res) {
-        var filePath = "/mymountpoint/" + req.body.id + "/"
-        req.body.path + "/1_initial/report/" + req.body.path + "_report.pdf";
+        var filePath = "/mymountpoint/" + req.body.id + "/" + req.body.path + "/1_initial/report/" + req.body.path + "_report.pdf";
         // /home/unifliubuntu / myApp / googleTile - Mosaic /
         var destinationPath = path.join('/home', path.join('unifliubuntu', path.join('myApp', path.join('googleTile-Mosaic', 'report'))));
         // var filePath = "/home/user/Documents/htdocs/unifli-backend/pdf/M2017112.pdf";
