@@ -1735,10 +1735,9 @@ firstapp
             var pointCloud = {};
             pointCloud.filename = missionIdForDownload;
             pointCloud.id = idForDownload;
-            $http.post(adminurl + "Mission/generateZipForPointCloudFiles", pointCloud).then(function (data) {
-                console.log("data---->>>", data.data.data);
-                if (data.data.value == true) {
-                    $scope.fileList = data.data.data
+            NavigationService.apiCall("Mission/generateZipForPointCloudFiles", pointCloud, function (data) {
+                if (data.value === true) {
+                    $scope.fileList = data.data;
                     $("#myAlertModal").modal();
                 }
             });
