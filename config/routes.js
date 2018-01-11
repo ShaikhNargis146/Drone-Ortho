@@ -62,31 +62,31 @@ module.exports.routes = {
         action: "getPdf"
     },
 
-    'GET /api/getAutocad/:filename/:id': {
+    'GET /api/getAutocad/:id/:filename': {
         controller: "WebController",
         action: "getAutocad"
     },
 
-    'GET /api/getContourLines/:filename/:id': {
+    'GET /api/getContourLines/:id/:filename': {
         controller: "WebController",
         action: "getContourLines"
     },
 
-    'GET /api/getContourPdf/:filename/:id': {
+    'GET /api/getContourPdf/:id/:filename': {
         controller: "WebController",
         action: "getContourPdf"
     },
-    'GET /api/getTfw/:filename/:id': {
+    'GET /api/getTfw/:id/:filename': {
         controller: "WebController",
         action: "getTfw"
     },
 
-    'GET /api/getOrthoM/:filename/:id': {
+    'GET /api/getOrthoM/:id/:filename': {
         controller: "WebController",
         action: "getOrthoM"
     },
 
-    'GET /api/getDsm/:filename/:id': {
+    'GET /api/getDsm/:id/:filename': {
         controller: "WebController",
         action: "getDsm"
     },
@@ -96,7 +96,7 @@ module.exports.routes = {
     //     action: "getMeshObj"
     // },
 
-    'GET /api/getMeshFbx/:filename/:id': {
+    'GET /api/getMeshFbx/:id/:filename': {
         controller: "WebController",
         action: "getMeshFbx"
     },
@@ -105,22 +105,22 @@ module.exports.routes = {
         action: "getPointCloud"
     },
 
-    'GET /api/getQualityReports/:filename/:id': {
+    'GET /api/getQualityReports/:id/:filename': {
         controller: "WebController",
         action: "getQualityReports"
     },
 
-    'GET /api/getProcessingLog/:filename/:id': {
+    'GET /api/getProcessingLog/:id/:filename': {
         controller: "WebController",
         action: "getProcessingLog"
     },
 
-    'GET /api/getMeshObj/:filename/:id': {
+    'GET /api/getMeshObj/:id/:filename': {
         controller: "WebController",
         action: "getMeshObj"
     },
 
-    'GET /api/getOrtho/:filename/:id': {
+    'GET /api/getOrtho/:id/:filename': {
         controller: "WebController",
         action: "getOrtho"
     },
