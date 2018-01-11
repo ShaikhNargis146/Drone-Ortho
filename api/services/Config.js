@@ -973,7 +973,7 @@ var models = {
 
                 var options = {
 
-                    "phantomPath": "C:/Windows//System32/phantomjs",
+                    "phantomPath": "node_modules/phantomjs/bin/phantomjs",
                     "format": "A4",
 
                     "directory": "/pdf",
@@ -1012,13 +1012,13 @@ var models = {
     },
 
 
-   generatePdf: function (page, callback) {
+    generatePdf: function (page, callback) {
         var pdf = require('html-pdf');
         var obj = {};
         var env = {};
-        var allprod=[];  
-        var allprodCost=[];        
-        console.log("pagepage",page);
+        var allprod = [];
+        var allprodCost = [];
+        console.log("pagepage", page);
         obj.name = page.shippingAddress.fname;
         obj.lname = page.shippingAddress.lname;
         obj.organization = page.shippingAddress.comapny;
@@ -1039,7 +1039,7 @@ var models = {
             _.forEach(page.products, function (pro) {
                 myVal = pro.product.name + ',' + myVal;
                 foo = myVal.substring(0, myVal.length - 1);
-                allprodCost=pro.product.price+','
+                allprodCost = pro.product.price + ','
             })
             obj.SoldItem = foo;
             obj.price = allprodCost;
@@ -1073,8 +1073,8 @@ var models = {
                 });
 
                 var options = {
-                    // "phantomPath": "node_modules/phantomjs/bin/phantomjs",
-                    "phantomPath": "C:/Windows/System32/phantomjs",
+                    "phantomPath": "node_modules/phantomjs/bin/phantomjs",
+                    // "phantomPath": "C:/Windows/System32/phantomjs",
                     "format": "A4",
                     // Export options 
                     "directory": "/tmp",

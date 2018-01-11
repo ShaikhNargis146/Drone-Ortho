@@ -60,8 +60,8 @@ var controller = {
         var destinationPath = "C:/Users/unifli/Documents/pix4d/" + page.body.path + "/1_initial/report/" + page.body.path + '_generatedReport.pdf';
 
         var options = {
-            // "phantomPath": "node_modules/phantomjs/bin/phantomjs",
-            "phantomPath": "C:/Windows/System32/phantomjs",
+            "phantomPath": "node_modules/phantomjs/bin/phantomjs",
+            // "phantomPath": "C:/Windows/System32/phantomjs",
             "format": "A4",
             // Export options 
             "directory": "/.tmp",
