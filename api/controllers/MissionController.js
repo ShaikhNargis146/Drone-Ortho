@@ -8,6 +8,7 @@ var ConvertTiff = require('tiff-to-png');
 var path = require('path');
 var decode = require("decode-tiff");
 var PNG = require('pngjs');
+var JSZip = require("jszip");
 // var sharp = require('sharp');
 var getSize = require('get-folder-size');
 var cron = require('node-cron');
@@ -635,7 +636,6 @@ var controller = {
     //generate zip for 3 files in mission details
 
     generateZipForMissionFiles: function (req, res) {
-        var JSZip = require("jszip");
         var type = req.query;
         var zip = new JSZip();
         var folder = "./.tmp/";
@@ -691,9 +691,7 @@ var controller = {
     //for pointCloud
 
     generateZipForPointCloudFiles: function (req, res) {
-        console.log(req.body.filename);
-        var JSZip = require("jszip");
-        var type = req.query;
+        console.log(req.body);
         var zip = new JSZip();
         var folder = "./.tmp/";
         var path = moment().format("MMM-DD-YYYY-hh-mm-ss-a") + ".zip";
@@ -711,7 +709,7 @@ var controller = {
                 });
             })
         }
-    },
+    }
 };
 
 

@@ -1735,7 +1735,7 @@ firstapp
             var pointCloud = {};
             pointCloud.filename = missionIdForDownload;
             pointCloud.id = idForDownload;
-            NavigationService.apiCall("Mission/generateZipForPointCloudFiles", pointCloud, function (data) {
+            NavigationService.apiCallWithData("Mission/generateZipForPointCloudFiles", pointCloud, function (data) {
                 if (data.value === true) {
                     $scope.fileList = data.data;
                     $("#myAlertModal").modal();
