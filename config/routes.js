@@ -100,7 +100,7 @@ module.exports.routes = {
         controller: "WebController",
         action: "getMeshFbx"
     },
-    'GET /api/getPointCloud/:missionName/:filename/:id': {
+    'GET /api/getPointCloud/:missionName/:id/:filename': {
         controller: "WebController",
         action: "getPointCloud"
     },
