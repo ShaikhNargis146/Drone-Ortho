@@ -1739,6 +1739,9 @@ firstapp
                 if (data.value === true) {
                     $scope.fileList = data.data;
                     $("#myAlertModal").modal();
+                } else {
+                    $scope.fileList=null;
+                    $("#myAlertModal").modal();
                 }
             });
             // window.open('http://cloud.unifli.aero/api/getPointCloud/' + missionIdForDownload + ".las", '_self');

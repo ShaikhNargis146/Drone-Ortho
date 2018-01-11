@@ -712,7 +712,7 @@ var controller = {
                 });
             } else {
                 res.json({
-                    value: true,
+                    value: false,
                     data: "files not found"
                 });
             }
