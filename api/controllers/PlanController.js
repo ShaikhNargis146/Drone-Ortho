@@ -66,7 +66,7 @@ var controller = {
             // Export options 
             "directory": "/.tmp",
             "height": "22in", // allowed units: mm, cm, in, px
-            "width": "10in",
+            "width": "8in",
             // "format": "Letter", // allowed units: A3, A4, A5, Legal, Letter, Tabloid 
             // "orientation": "portrait", // portrait or landscape 
             // "zoomFactor": "1", // default is 1 
