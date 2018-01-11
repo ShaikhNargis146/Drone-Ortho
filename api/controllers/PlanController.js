@@ -57,7 +57,7 @@ var controller = {
     },
     generatePdf: function (page, response) {
         var pdf = require('html-pdf');
-        var destinationPath = "C:/Users/unifli/Documents/pix4d/" + page.body.path + "/1_initial/report/" + page.body.path + '_generatedReport.pdf';
+        var destinationPath = "/mymountpoint/" + req.body.id + "/" + page.body.path + "/1_initial/report/" + page.body.path + '_generatedReport.pdf';
 
         var options = {
             "phantomPath": "node_modules/phantomjs/bin/phantomjs",

@@ -1740,7 +1740,7 @@ firstapp
                     $scope.fileList = data.data;
                     $("#myAlertModal").modal();
                 } else {
-                    $scope.fileList=null;
+                    $scope.fileList = null;
                     $("#myAlertModal").modal();
                 }
             });
@@ -1778,7 +1778,7 @@ firstapp
 
                 sendHtmlData.htmlData = $('#render-pdfholder').html();
                 sendHtmlData.path = missionIdForDownload;
-
+                sendHtmlData.id = idForDownload;
                 console.log("sendHtmlData", sendHtmlData);
                 NavigationService.apiCallWithData("Plan/generatePdf", sendHtmlData, function (data) {
                     window.open('http://cloud.unifli.aero/api/getQualityReports/' + missionIdForDownload + ".pdf/" + idForDownload, '_self');
