@@ -701,6 +701,7 @@ var controller = {
         var id = req.body.id;
         var dirName = "/mymountpoint/" + id + "/" + +name + "/2_densification/point_cloud/";
         if (fs.existsSync(dirName)) {
+            console.log("files exists------");
             fs.readdir(dirName, function (err, found) {
                 console.log("found------", found);
                 res.json({
@@ -708,6 +709,11 @@ var controller = {
                     data: found
                 });
             })
+        } else {
+            res.json({
+                value: true,
+                data: "files not found"
+            });
         }
     }
 };
