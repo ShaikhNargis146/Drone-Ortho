@@ -642,8 +642,8 @@ var controller = {
         var path = moment().format("MMM-DD-YYYY-hh-mm-ss-a") + ".zip";
         var finalPath = folder + path;
         // var files = req.query.id.split(',');
-        var name = req.body.filename;
-        var id = req.body.id;
+        var name = req.param("filename");
+        var id = req.param("id");
         var files = [];
         files = ["/mymountpoint/" + id + "/" + name + "/3_dsm_ortho/2_mosaic/" + name + "_transparent_mosaic_group1.tif", "/mymountpoint/" + id + "/" + name + "/3_dsm_ortho/2_mosaic/" + name + "_transparent_mosaic_group1.tfw"]
         async.eachSeries(files, function (image, callback) {
@@ -699,8 +699,8 @@ var controller = {
         var path = moment().format("MMM-DD-YYYY-hh-mm-ss-a") + ".zip";
         var finalPath = folder + path;
         // var files = req.query.id.split(',');
-        var name = req.param("filename");
-        var id = req.param("id");
+        var name = req.body.filename;
+        var id = req.body.id;
         var dirName = "/mymountpoint/" + id + "/" + +name + "/2_densification/point_cloud/";
         if (fs.existsSync(dirName)) {
             fs.readdir(dirName, function (err, found) {
