@@ -691,7 +691,7 @@ var controller = {
     //for pointCloud
 
     generateZipForPointCloudFiles: function (req, res) {
-        console.log(req.param("filename"));
+        console.log(req.body.filename);
         var JSZip = require("jszip");
         var type = req.query;
         var zip = new JSZip();
