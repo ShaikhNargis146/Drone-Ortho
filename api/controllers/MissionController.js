@@ -700,7 +700,7 @@ var controller = {
         var name = req.body.filename;
         var id = req.body.id;
         //" /mymountpoint/5a54c7da9c64c776608e48c4/M2018011/2_densification/point_cloud"
-        var dirName = "/mymountpoint/" + id + "/" + +name + "/2_densification/point_cloud/";
+        var dirName = "/mymountpoint/" + id + "/" + name + "/2_densification/point_cloud/";
         console.log("dirname", dirName);
         console.log("files exists------");
         fs.readdir(dirName, function (err, found) {
