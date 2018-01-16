@@ -193,7 +193,7 @@ var controller = {
 
 						var ctrl = new ApiControllers.CreateTransactionController(createRequest.getJSON());
 
-						ctrl.setEnvironment(SDKConstants.endpoint.production);
+						ctrl.setEnvironment(SDKConstants.endpoint.sandbox);
 
 						ctrl.execute(function () {
 
@@ -522,7 +522,7 @@ var controller = {
 			console.log(JSON.stringify(getRequest.getJSON(), null, 2));
 
 			var ctrl = new ApiControllers.GetTransactionDetailsController(getRequest.getJSON());
-			ctrl.setEnvironment(SDKConstants.endpoint.production);
+			ctrl.setEnvironment(SDKConstants.endpoint.sandbox);
 
 			ctrl.execute(function () {
 
@@ -668,7 +668,7 @@ var controller = {
 
 						var ctrl = new ApiControllers.CreateTransactionController(createRequest.getJSON());
 
-						ctrl.setEnvironment(SDKConstants.endpoint.production);
+						ctrl.setEnvironment(SDKConstants.endpoint.sandbox);
 
 						ctrl.execute(function () {
 
@@ -835,7 +835,7 @@ var controller = {
 						console.log(JSON.stringify(getRequest.getJSON(), null, 2));
 
 						var ctrl = new ApiControllers.GetHostedPaymentPageController(getRequest.getJSON());
-						ctrl.setEnvironment(SDKConstants.endpoint.production);
+						ctrl.setEnvironment(SDKConstants.endpoint.sandbox);
 
 						ctrl.execute(function () {
 
