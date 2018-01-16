@@ -2,11 +2,14 @@
     crossorigin="anonymous">
 <form action="https://test.authorize.net/customer/manage" name="payment" method="POST">
     <input type="hidden" value="<%= token %>" name="token" />
+    <!-- <input type="hidden" name="token" value="pfGaUNntEKMGfyWPmI4p+Bb4TJf2F0NCoCBp3cOXB7"/> -->
     <button style="display:none;" type="submit" class="submitForm"> SUBMIT </button>
 </form>
 <div class="container">
     <h3 class="text-center" style="padding:20%;">Loading Authorized Payment Gateway</h3>
 </div>
+<input type="button" onclick="document.getElementById('formAuthorizeNetPage').submit();">
+Manage my payment and shipping information</input>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
     crossorigin="anonymous"></script>
 <script>
