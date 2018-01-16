@@ -33,6 +33,7 @@ var controller = {
 			})
 		}
 	},
+
 	generatecsvForUser: function (req, res) {
 		ProductOrders.exceltotalProductOrdersforUser(req.body, function (err, data) {
 			data.name = "invoice"
@@ -44,6 +45,7 @@ var controller = {
 			});
 		});
 	},
+
 	generatecsv: function (req, res) {
 		ProductOrders.exceltotalProductOrders(req.body, function (err, data) {
 			data.name = "ecommerce"
@@ -55,6 +57,7 @@ var controller = {
 			});
 		});
 	},
+
 	generatePdfForUser: function (req, res) {
 		ProductOrders.exceltotalProductOrdersforUser(req.body, function (err, data) {
 			data.name = "invoice"
@@ -66,6 +69,7 @@ var controller = {
 			});
 		});
 	},
+
 	generatePdf: function (req, res) {
 		ProductOrders.exceltotalProductOrders(req.body, function (err, data) {
 			data.name = "ecommerce"
@@ -77,6 +81,7 @@ var controller = {
 			});
 		});
 	},
+	
 	exceltotalProductOrders: function (req, res) {
 		ProductOrders.exceltotalProductOrders(req.body, function (err, data) {
 			ProductOrders.generateExcelProductOrders(data, function (err, singleData) {
@@ -89,6 +94,7 @@ var controller = {
 			});
 		});
 	},
+
 	exceltotalProductOrdersforUser: function (req, res) {
 		ProductOrders.exceltotalProductOrdersforUser(req.body, function (err, data) {
 			ProductOrders.generateExcelProductOrdersforUser(data, function (err, singleData) {
@@ -399,11 +405,106 @@ var controller = {
 	// 	});
 	// },
 
+	//create customer profile
+
+	// getAcceptCustomerProfilePage: function (req, res) {
+
+	// 	var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
+	// 	merchantAuthenticationType.setName(constants.apiLoginKey);
+	// 	merchantAuthenticationType.setTransactionKey(constants.transactionKey);
+
+	// 	var setting = new ApiContracts.SettingType();
+	// 	setting.setSettingName('hostedProfileReturnUrl');
+	// 	setting.setSettingValue('https://returnurl.com/return/');
+
+	// 	var settingList = [];
+	// 	settingList.push(setting);
+
+	// 	var alist = new ApiContracts.ArrayOfSetting();
+	// 	alist.setSetting(settingList);
+
+	// 	var getRequest = new ApiContracts.GetHostedProfilePageRequest();
+	// 	getRequest.setMerchantAuthentication(merchantAuthenticationType);
+	// 	getRequest.setCustomerProfileId(customerProfileId);
+	// 	getRequest.setHostedProfileSettings(alist);
+
+	// 	//console.log(JSON.stringify(getRequest.getJSON(), null, 2));
+
+	// 	var ctrl = new ApiControllers.GetHostedProfilePageController(getRequest.getJSON());
+
+	// 	ctrl.execute(function () {
+
+	// 		var apiResponse = ctrl.getResponse();
+
+	// 		var response = new ApiContracts.GetHostedProfilePageResponse(apiResponse);
+
+	// 		//pretty print response
+	// 		//console.log(JSON.stringify(response, null, 2));
+
+	// 		if (response != null) {
+	// 			if (response.getMessages().getResultCode() == ApiContracts.MessageTypeEnum.OK) {
+	// 				console.log('Hosted profile page token :');
+	// 				console.log(response.getToken());
+	// 			} else {
+	// 				//console.log('Result Code: ' + response.getMessages().getResultCode());
+	// 				console.log('Error Code: ' + response.getMessages().getMessage()[0].getCode());
+	// 				console.log('Error message: ' + response.getMessages().getMessage()[0].getText());
+	// 			}
+	// 		} else {
+	// 			console.log('Null response received');
+	// 		}
+
+	// 		callback(response);
+	// 	});
+	// },
+
+	// createCustomerProfileFromTransaction: function (req, res) {
+
+	// 	var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
+	// 	merchantAuthenticationType.setName(constants.apiLoginKey);
+	// 	merchantAuthenticationType.setTransactionKey(constants.transactionKey);
+
+	// 	var createRequest = new ApiContracts.CreateCustomerProfileFromTransactionRequest();
+	// 	createRequest.setTransId(transactionId);
+	// 	createRequest.setMerchantAuthentication(merchantAuthenticationType);
+
+	// 	//console.log(JSON.stringify(createRequest.getJSON(), null, 2));
+
+	// 	var ctrl = new ApiControllers.CreateCustomerProfileFromTransactionController(createRequest.getJSON());
+
+	// 	ctrl.execute(function () {
+
+	// 		var apiResponse = ctrl.getResponse();
+
+	// 		var response = new ApiContracts.CreateCustomerProfileResponse(apiResponse);
+	// 		//console.log(JSON.stringify(response.getJSON(), null, 2));
+
+	// 		if (response != null) {
+	// 			if (response.getMessages().getResultCode() == ApiContracts.MessageTypeEnum.OK) {
+	// 				console.log('Successfully created a customer payment profile with id: ' + response.getCustomerProfileId() +
+	// 					' from a transaction : ' + transactionId);
+	// 			} else {
+	// 				//console.log(JSON.stringify(response));
+	// 				//console.log('Result Code: ' + response.getMessages().getResultCode());
+	// 				console.log('Error Code: ' + response.getMessages().getMessage()[0].getCode());
+	// 				console.log('Error message: ' + response.getMessages().getMessage()[0].getText());
+	// 			}
+	// 		} else {
+	// 			console.log('Null response received');
+	// 		}
+
+	// 		callback(response);
+
+	// 	});
+	// },
+
+	//end create customer profile
+
 	/**
 	 * Webhook Funtion
 	 * This function is initated in authorized.net.
 	 */
-	
+
 	paymentNotify: function (req, res) {
 		console.log("notify notify");
 		console.log(req.body);
@@ -479,6 +580,7 @@ var controller = {
 	 * In Paypal : https://developer.authorize.net/api/reference/features/paypal.html
 	 * 			   SEQUENCE 3 is used.
 	 */
+
 	acceptPaymentPage: function (req, res) {
 		console.log(req.query);
 		if (req.query.amount && req.query.invoiceNumber) {
@@ -751,12 +853,12 @@ var controller = {
 									var formData = {
 										token: response.getToken()
 									};
+									// this.createCustomerProfileFromTransaction()									
 									// res.json({
 									// 	value: true,
 									// 	data: response,
 									// });
 									res.view("pay_form", formData);
-
 								} else {
 									res.redirect("http://unifli.aero/sorry");
 
@@ -918,7 +1020,7 @@ var controller = {
 
 		var ctrl = new ApiControllers.CreateTransactionController(createRequest.getJSON());
 		//Defaults to sandbox
-		ctrl.setEnvironment(SDKConstants.endpoint.production);
+		ctrl.setEnvironment(SDKConstants.endpoint.sandbox);
 
 		ctrl.execute(function () {
 
