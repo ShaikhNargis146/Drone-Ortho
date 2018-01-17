@@ -1018,7 +1018,7 @@ var models = {
         var env = {};
         var allprod = [];
         var allprodCost = [];
-        console.log("pagepage", page);
+        // console.log("pagepage", page);
         obj.name = page.shippingAddress.fname;
         obj.lname = page.shippingAddress.lname;
         obj.organization = page.shippingAddress.comapny;
@@ -1054,8 +1054,8 @@ var models = {
                 console.log("errr", err);
                 callback(err);
             } else {
-                var path = "C:/Users/unifli/Documents/googleTile-Mosaic/invoice/";
-                // var path = "pdf/";
+                // var path = "C:/Users/unifli/Documents/googleTile-Mosaic/invoice/";
+                var path = "pdf/";
                 var newFilename = page.invoiceNo + ".pdf";
                 var writestream = fs.createWriteStream(path + newFilename);
                 writestream.on('finish', function (err, res) {

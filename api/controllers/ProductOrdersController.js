@@ -81,7 +81,7 @@ var controller = {
 			});
 		});
 	},
-	
+
 	exceltotalProductOrders: function (req, res) {
 		ProductOrders.exceltotalProductOrders(req.body, function (err, data) {
 			ProductOrders.generateExcelProductOrders(data, function (err, singleData) {
@@ -316,189 +316,246 @@ var controller = {
 		res.redirect("http://unifli.aero/sorry");
 	},
 
-	// createCustomerProfile: function (req, res) {
+	//recursive payment
 
-	// 	var invoiceUserId = {};
-	// 	console.log("...........................Payment Responce..........................");
-	// 	console.log(req.allParams());
-	// 	console.log(req.query);
-	// 	console.log("...........................Payment Responce..........................");
+	createCustomerProfileFromTransaction: function (transactionIdData, callback) {
 
-	// 	ProductOrders.findOne({
-	// 		invoiceNo: req.allParams().invoiceNumber
-	// 	}).lean().exec(function (err, found) {
-	// 		console.log("--------------",found)			
-	// 		if (err || _.isEmpty(found)) {} else {
-	// 				console.log("--------------",found)
-	// 				var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
-	// 				console.log("constants.apiLoginKey",constants.apiLoginKey)
-	// 				console.log("constants.apiLoginKey",constants.transactionKey)
-	// 				merchantAuthenticationType.setName(constants.apiLoginKey);
-	// 				merchantAuthenticationType.setTransactionKey(constants.transactionKey);
+		var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
+		merchantAuthenticationType.setName(constants.apiLoginKey);
+		merchantAuthenticationType.setTransactionKey(constants.transactionKey);
 
-	// 				var creditCard = new ApiContracts.CreditCardType();
-	// 				creditCard.setCardNumber('4242424242424242');
-	// 				creditCard.setExpirationDate('0822');
+		var createRequest = new ApiContracts.CreateCustomerProfileFromTransactionRequest();
+		createRequest.setTransId(transactionIdData);
+		createRequest.setMerchantAuthentication(merchantAuthenticationType);
 
-	// 				var paymentType = new ApiContracts.PaymentType();
-	// 				paymentType.setCreditCard(creditCard);
+		//console.log(JSON.stringify(createRequest.getJSON(), null, 2));
 
-	// 				var customerAddress = new ApiContracts.CustomerAddressType();
-	// 				customerAddress.setFirstName('test');
-	// 				customerAddress.setLastName('scenario');
-	// 				customerAddress.setAddress('123 Main Street');
-	// 				customerAddress.setCity('Bellevue');
-	// 				customerAddress.setState('WA');
-	// 				customerAddress.setZip('98004');
-	// 				customerAddress.setCountry('USA');
-	// 				customerAddress.setPhoneNumber('000-000-0000');
+		var ctrl = new ApiControllers.CreateCustomerProfileFromTransactionController(createRequest.getJSON());
 
-	// 				var customerPaymentProfileType = new ApiContracts.CustomerPaymentProfileType();
-	// 				customerPaymentProfileType.setCustomerType(ApiContracts.CustomerTypeEnum.INDIVIDUAL);
-	// 				customerPaymentProfileType.setPayment(paymentType);
-	// 				customerPaymentProfileType.setBillTo(customerAddress);
+		ctrl.execute(function () {
 
-	// 				var paymentProfilesList = [];
-	// 				paymentProfilesList.push(customerPaymentProfileType);
+			var apiResponse = ctrl.getResponse();
 
-	// 				var customerProfileType = new ApiContracts.CustomerProfileType();
-	// 				customerProfileType.setMerchantCustomerId('M_' + utils.getRandomString('cust'));
-	// 				customerProfileType.setDescription('Profile description here');
-	// 				customerProfileType.setEmail(utils.getRandomString('cust') + '@anet.net');
-	// 				customerProfileType.setPaymentProfiles(paymentProfilesList);
+			var response = new ApiContracts.CreateCustomerProfileResponse(apiResponse);
+			//console.log(JSON.stringify(response.getJSON(), null, 2));
 
-	// 				var createRequest = new ApiContracts.CreateCustomerProfileRequest();
-	// 				createRequest.setProfile(customerProfileType);
-	// 				createRequest.setValidationMode(ApiContracts.ValidationModeEnum.TESTMODE);
-	// 				createRequest.setMerchantAuthentication(merchantAuthenticationType);
+			if (response != null) {
+				if (response.getMessages().getResultCode() == ApiContracts.MessageTypeEnum.OK) {
+					console.log('Successfully created a customer payment profile with id: ' + response.getCustomerProfileId() +
+						' from a transaction : ' + "60036139346");
+				} else {
+					//console.log(JSON.stringify(response));
+					//console.log('Result Code: ' + response.getMessages().getResultCode());
+					console.log('Error Code: ' + response.getMessages().getMessage()[0].getCode());
+					console.log('Error message: ' + response.getMessages().getMessage()[0].getText());
+				}
+			} else {
+				console.log('Null response received');
+			}
 
-	// 				//pretty print request
-	// 				//console.log(JSON.stringify(createRequest.getJSON(), null, 2));
+			res.callback(response);
 
+		});
+	},
 
-	// 				var ctrl = new ApiControllers.CreateCustomerProfileController(createRequest.getJSON());
+	getCustomerProfile: function (profileIdData, callback) {
 
-	// 				ctrl.execute(function () {
+		var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
+		merchantAuthenticationType.setName(constants.apiLoginKey);
+		merchantAuthenticationType.setTransactionKey(constants.transactionKey);
 
-	// 					var apiResponse = ctrl.getResponse();
+		var getRequest = new ApiContracts.GetCustomerProfileRequest();
+		getRequest.setCustomerProfileId(profileIdData);
+		getRequest.setMerchantAuthentication(merchantAuthenticationType);
 
-	// 					var response = new ApiContracts.CreateCustomerProfileResponse(apiResponse);
+		//pretty print request
+		//console.log(JSON.stringify(createRequest.getJSON(), null, 2));
 
-	// 					//pretty print response
-	// 					//console.log(JSON.stringify(response, null, 2));
+		var ctrl = new ApiControllers.GetCustomerProfileController(getRequest.getJSON());
 
-	// 					if (response != null) {
-	// 						if (response.getMessages().getResultCode() == ApiContracts.MessageTypeEnum.OK) {
-	// 							console.log('Successfully created a customer profile with id: ' + response.getCustomerProfileId());
-	// 						} else {
-	// 							console.log('Result Code: ' + response.getMessages().getResultCode());
-	// 							console.log('Error Code: ' + response.getMessages().getMessage()[0].getCode());
-	// 							console.log('Error message: ' + response.getMessages().getMessage()[0].getText());
-	// 						}
-	// 					} else {
-	// 						console.log('Null response received');
-	// 					}
+		ctrl.execute(function () {
 
-	// 					res.callback(response);
-	// 				})
-	// 			}
-	// 	});
-	// },
+			var apiResponse = ctrl.getResponse();
 
-	//create customer profile
+			var response = new ApiContracts.GetCustomerProfileResponse(apiResponse);
 
-	// getAcceptCustomerProfilePage: function (req, res) {
+			//pretty print response
+			//console.log(JSON.stringify(response, null, 2));
 
-	// 	var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
-	// 	merchantAuthenticationType.setName(constants.apiLoginKey);
-	// 	merchantAuthenticationType.setTransactionKey(constants.transactionKey);
+			if (response != null) {
+				if (response.getMessages().getResultCode() == ApiContracts.MessageTypeEnum.OK) {
+					console.log('Customer profile ID : ' + response.getProfile().getCustomerProfileId());
+					console.log('Customer Email : ' + response.getProfile().getEmail());
+					console.log('Description : ' + response.getProfile().getDescription());
+				} else {
+					//console.log('Result Code: ' + response.getMessages().getResultCode());
+					console.log('Error Code: ' + response.getMessages().getMessage()[0].getCode());
+					console.log('Error message: ' + response.getMessages().getMessage()[0].getText());
+				}
+			} else {
+				console.log('Null response received');
+			}
 
-	// 	var setting = new ApiContracts.SettingType();
-	// 	setting.setSettingName('hostedProfileReturnUrl');
-	// 	setting.setSettingValue('https://returnurl.com/return/');
+			res.callback(response);
+		});
+	},
 
-	// 	var settingList = [];
-	// 	settingList.push(setting);
+	createSubscriptionFromCustomerProfile: function (profileData, callback) {
 
-	// 	var alist = new ApiContracts.ArrayOfSetting();
-	// 	alist.setSetting(settingList);
+		var customerProfileId=profileData.profiledata.customerProfileId;
+		var customerAddressId=profileData.profiledata.shipToList[0].customerAddressId;
+		var customerPaymentProfileId=profileData.profiledata.paymentProfiles[0].customerPaymentProfileId;
 
-	// 	var getRequest = new ApiContracts.GetHostedProfilePageRequest();
-	// 	getRequest.setMerchantAuthentication(merchantAuthenticationType);
-	// 	getRequest.setCustomerProfileId(customerProfileId);
-	// 	getRequest.setHostedProfileSettings(alist);
+		var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
+		merchantAuthenticationType.setName(constants.apiLoginKey);
+		merchantAuthenticationType.setTransactionKey(constants.transactionKey);
 
-	// 	//console.log(JSON.stringify(getRequest.getJSON(), null, 2));
+		var interval = new ApiContracts.PaymentScheduleType.Interval();
+		interval.setLength(1);
+		interval.setUnit(ApiContracts.ARBSubscriptionUnitEnum.MONTHS);
 
-	// 	var ctrl = new ApiControllers.GetHostedProfilePageController(getRequest.getJSON());
+		var paymentScheduleType = new ApiContracts.PaymentScheduleType();
+		paymentScheduleType.setInterval(interval);
+		paymentScheduleType.setStartDate(profileData.transactiondate);
+		paymentScheduleType.setTotalOccurrences(9999);
+		paymentScheduleType.setTrialOccurrences(0);
 
-	// 	ctrl.execute(function () {
+		var customerProfileIdType = new ApiContracts.CustomerProfileIdType();
+		customerProfileIdType.setCustomerProfileId(customerProfileId);
+		customerProfileIdType.setCustomerPaymentProfileId(customerPaymentProfileId);
+		customerProfileIdType.setCustomerAddressId(customerAddressId);
 
-	// 		var apiResponse = ctrl.getResponse();
+		var arbSubscription = new ApiContracts.ARBSubscriptionType();
+		arbSubscription.setName(utils.getRandomString('Name'));
+		arbSubscription.setPaymentSchedule(paymentScheduleType);
+		arbSubscription.setAmount(profileData.transactionamt);
+		// arbSubscription.setTrialAmount(utils.getRandomAmount());
+		arbSubscription.setProfile(customerProfileIdType);
 
-	// 		var response = new ApiContracts.GetHostedProfilePageResponse(apiResponse);
+		var createRequest = new ApiContracts.ARBCreateSubscriptionRequest();
+		createRequest.setMerchantAuthentication(merchantAuthenticationType);
+		createRequest.setSubscription(arbSubscription);
 
-	// 		//pretty print response
-	// 		//console.log(JSON.stringify(response, null, 2));
+		console.log(JSON.stringify(createRequest.getJSON(), null, 2));
 
-	// 		if (response != null) {
-	// 			if (response.getMessages().getResultCode() == ApiContracts.MessageTypeEnum.OK) {
-	// 				console.log('Hosted profile page token :');
-	// 				console.log(response.getToken());
-	// 			} else {
-	// 				//console.log('Result Code: ' + response.getMessages().getResultCode());
-	// 				console.log('Error Code: ' + response.getMessages().getMessage()[0].getCode());
-	// 				console.log('Error message: ' + response.getMessages().getMessage()[0].getText());
-	// 			}
-	// 		} else {
-	// 			console.log('Null response received');
-	// 		}
+		var ctrl = new ApiControllers.ARBCreateSubscriptionController(createRequest.getJSON());
 
-	// 		callback(response);
-	// 	});
-	// },
+		ctrl.execute(function () {
 
-	// createCustomerProfileFromTransaction: function (req, res) {
+			var apiResponse = ctrl.getResponse();
 
-	// 	var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
-	// 	merchantAuthenticationType.setName(constants.apiLoginKey);
-	// 	merchantAuthenticationType.setTransactionKey(constants.transactionKey);
+			var response = new ApiContracts.ARBCreateSubscriptionResponse(apiResponse);
 
-	// 	var createRequest = new ApiContracts.CreateCustomerProfileFromTransactionRequest();
-	// 	createRequest.setTransId(transactionId);
-	// 	createRequest.setMerchantAuthentication(merchantAuthenticationType);
+			console.log(JSON.stringify(response, null, 2));
 
-	// 	//console.log(JSON.stringify(createRequest.getJSON(), null, 2));
+			if (response != null) {
+				if (response.getMessages().getResultCode() == ApiContracts.MessageTypeEnum.OK) {
+					console.log('Subscription Id : ' + response.getSubscriptionId());
+					console.log('Message Code : ' + response.getMessages().getMessage()[0].getCode());
+					console.log('Message Text : ' + response.getMessages().getMessage()[0].getText());
+				} else {
+					console.log('Result Code: ' + response.getMessages().getResultCode());
+					console.log('Error Code: ' + response.getMessages().getMessage()[0].getCode());
+					console.log('Error message: ' + response.getMessages().getMessage()[0].getText());
+				}
+			} else {
+				console.log('Null Response.');
+			}
 
-	// 	var ctrl = new ApiControllers.CreateCustomerProfileFromTransactionController(createRequest.getJSON());
+			res.callback(response);
+		});
+	},
 
-	// 	ctrl.execute(function () {
+	cancelSubscription: function (req, res) {
 
-	// 		var apiResponse = ctrl.getResponse();
+		var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
+		merchantAuthenticationType.setName(constants.apiLoginKey);
+		merchantAuthenticationType.setTransactionKey(constants.transactionKey);
 
-	// 		var response = new ApiContracts.CreateCustomerProfileResponse(apiResponse);
-	// 		//console.log(JSON.stringify(response.getJSON(), null, 2));
+		var cancelRequest = new ApiContracts.ARBCancelSubscriptionRequest();
+		cancelRequest.setMerchantAuthentication(merchantAuthenticationType);
+		cancelRequest.setSubscriptionId(subscriptionId);
 
-	// 		if (response != null) {
-	// 			if (response.getMessages().getResultCode() == ApiContracts.MessageTypeEnum.OK) {
-	// 				console.log('Successfully created a customer payment profile with id: ' + response.getCustomerProfileId() +
-	// 					' from a transaction : ' + transactionId);
-	// 			} else {
-	// 				//console.log(JSON.stringify(response));
-	// 				//console.log('Result Code: ' + response.getMessages().getResultCode());
-	// 				console.log('Error Code: ' + response.getMessages().getMessage()[0].getCode());
-	// 				console.log('Error message: ' + response.getMessages().getMessage()[0].getText());
-	// 			}
-	// 		} else {
-	// 			console.log('Null response received');
-	// 		}
+		console.log(JSON.stringify(cancelRequest.getJSON(), null, 2));
 
-	// 		callback(response);
+		var ctrl = new ApiControllers.ARBCancelSubscriptionController(cancelRequest.getJSON());
 
-	// 	});
-	// },
+		ctrl.execute(function () {
 
-	//end create customer profile
+			var apiResponse = ctrl.getResponse();
+
+			var response = new ApiContracts.ARBCancelSubscriptionResponse(apiResponse);
+
+			console.log(JSON.stringify(response, null, 2));
+
+			if (response != null) {
+				if (response.getMessages().getResultCode() == ApiContracts.MessageTypeEnum.OK) {
+					console.log('Message Code : ' + response.getMessages().getMessage()[0].getCode());
+					console.log('Message Text : ' + response.getMessages().getMessage()[0].getText());
+				} else {
+					console.log('Result Code: ' + response.getMessages().getResultCode());
+					console.log('Error Code: ' + response.getMessages().getMessage()[0].getCode());
+					console.log('Error message: ' + response.getMessages().getMessage()[0].getText());
+				}
+			} else {
+				console.log('Null Response.');
+			}
+
+			res.callback(response);
+		});
+	},
+
+	recursivePayment: function (req, res) {
+		async.waterfall([
+			function (data, callback) {
+				ProductOrders.findOne({
+					invoiceNo: req.query.invoiceNumber
+				}).exec(function (err, data) {
+					if (err || _.isEmpty(data)) {
+						callback(err, []);
+					} else {
+						var transactionId=data.transactionId;
+						var transactionDate=data.transactionDate;
+						var transactionAmt=data.totalAmount;
+						callback(null, transactionId);
+					}
+				});
+			},
+			function (transactionIdData,callback) {
+				ProductOrders.createCustomerProfileFromTransaction(transactionIdData, function (err, data) {
+					if (err || _.isEmpty(data)) {
+						callback(err, []);
+					} else {
+						callback(null, data.customerProfileId);
+					}
+				})
+			},
+			function (profileIdData, callback) {
+				console.log("createCustomerProfileFromTransaction", profileIdData)
+				// remove all the transactions where this rule is mensioned
+				ProductOrders.getCustomerProfile(profileIdData, function (err, data) {
+					if (err || _.isEmpty(data)) {
+						callback(err, []);
+					} else {
+						var dataToSend={};
+						dataToSend.profiledata=data;
+						dataToSend.transactiondate=transactionDate;
+						dataToSend.transactionamt=transactionAmt						
+						callback(null, dataToSend);
+					}
+				})
+			},
+			function (profileData, callback) { // 
+				console.log("getCustomerProfile", profileData)
+				// checkViolationForRule run rules on all the transactions for this new created rule only
+				ProductOrders.createSubscriptionFromCustomerProfile(profileData, callback)
+			}
+		], function () {
+			// nothing at all
+		});
+	},
+
+	//recursive payment end
 
 	/**
 	 * Webhook Funtion
