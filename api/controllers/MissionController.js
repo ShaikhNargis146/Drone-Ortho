@@ -1126,7 +1126,7 @@ cron.schedule('1 * * * * *', function () {
                                                         });
                                                         value.save(function (err, data) {
                                                             if (err) {
-                                                                console.log("error occured");
+                                                                console.log("error occured", err);
                                                                 callback(null, err);
                                                             } else {
                                                                 // console.log("value.geoLocation", data.geoLocation);
