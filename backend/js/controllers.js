@@ -1750,7 +1750,7 @@ firstapp
         }
         $scope.downloadPointCloud = function (file) {
             // window.open('http://cloud.unifli.aero/api/getPointCloud/' + missionIdForDownload + ".las", '_self');
-            window.open(adminurl + 'getPointCloud/' + missionIdForDownload + '/' + file + "/" + idForDownload, '_self');
+            window.open(adminurl + 'getPointCloud/' + missionIdForDownload + '/' + idForDownload + "/" + file, '_self');
             window.close();
         }
         // $scope.downloadQualityReports = function () {

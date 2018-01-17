@@ -1120,13 +1120,13 @@ cron.schedule('1 * * * * *', function () {
                                                         var tilePath = dirName1 + '/google_tiles'
                                                         fs.readdirSync(tilePath).filter(function (file) {
                                                             if (fs.statSync(tilePath + '/' + file).isDirectory()) {
-                                                                // console.log(file);
+                                                                console.log(file);
                                                                 value.zoomLevel.push(file)
                                                             }
                                                         });
                                                         value.save(function (err, data) {
                                                             if (err) {
-                                                                console.log("error occured");
+                                                                console.log("error occured", err);
                                                                 callback(null, err);
                                                             } else {
                                                                 // console.log("value.geoLocation", data.geoLocation);
