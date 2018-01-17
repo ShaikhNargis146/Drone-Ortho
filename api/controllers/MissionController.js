@@ -1120,7 +1120,7 @@ cron.schedule('1 * * * * *', function () {
                                                         var tilePath = dirName1 + '/google_tiles'
                                                         fs.readdirSync(tilePath).filter(function (file) {
                                                             if (fs.statSync(tilePath + '/' + file).isDirectory()) {
-                                                                // console.log(file);
+                                                                console.log(file);
                                                                 value.zoomLevel.push(file)
                                                             }
                                                         });
