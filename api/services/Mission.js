@@ -66,6 +66,8 @@ var schema = new Schema({
         ref: 'CadLineWork',
         index: true
     }]
+}, {
+    usePushEach: true
 });
 
 schema.plugin(deepPopulate, {
