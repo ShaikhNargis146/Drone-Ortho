@@ -30,6 +30,7 @@ var schema = new Schema({
     },
     userPaymentStatus: {
         type: String,
+        default: "Unpaid",
         enum: ['Paid', 'Unpaid']
     },
     vendorPaymentStatus: {
