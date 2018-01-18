@@ -6,7 +6,7 @@ var constants = require('../controllers/constants');
 var utils = require('../controllers/utils');
 var upsAPI = require('shipping-ups');
 var ups = new upsAPI({
-	environment: 'sandbox', // or live
+	environment: 'production', // or live
 	username: 'UPSUSERNAME',
 	password: 'UPSPASSWORD',
 	access_key: 'UPSACCESSTOKEN',
@@ -193,7 +193,7 @@ var controller = {
 
 						var ctrl = new ApiControllers.CreateTransactionController(createRequest.getJSON());
 
-						ctrl.setEnvironment(SDKConstants.endpoint.sandbox);
+						ctrl.setEnvironment(SDKConstants.endpoint.production);
 
 						ctrl.execute(function () {
 
@@ -353,7 +353,7 @@ var controller = {
 				console.log('Null response received');
 			}
 
-			res.callback(response);
+		callback(response);
 
 		});
 	},
@@ -396,7 +396,7 @@ var controller = {
 				console.log('Null response received');
 			}
 
-			res.callback(response);
+			callback(response);
 		});
 	},
 
@@ -462,11 +462,11 @@ var controller = {
 				console.log('Null Response.');
 			}
 
-			res.callback(response);
+			callback(response);
 		});
 	},
 
-	cancelSubscription: function (req, res) {
+	cancelSubscription: function (subData, callback) {
 
 		var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
 		merchantAuthenticationType.setName(constants.apiLoginKey);
@@ -474,7 +474,7 @@ var controller = {
 
 		var cancelRequest = new ApiContracts.ARBCancelSubscriptionRequest();
 		cancelRequest.setMerchantAuthentication(merchantAuthenticationType);
-		cancelRequest.setSubscriptionId(subscriptionId);
+		cancelRequest.setSubscriptionId(subData.subId);
 
 		console.log(JSON.stringify(cancelRequest.getJSON(), null, 2));
 
@@ -505,11 +505,11 @@ var controller = {
 		});
 	},
 
-	recursivePayment: function (req, res) {
+	recursivePayment: function (req) {
 		async.waterfall([
 			function (data, callback) {
 				ProductOrders.findOne({
-					invoiceNo: req.query.invoiceNumber
+					transactionId: req.query.transactionid
 				}).exec(function (err, data) {
 					if (err || _.isEmpty(data)) {
 						callback(err, []);
@@ -532,7 +532,6 @@ var controller = {
 			},
 			function (profileIdData, callback) {
 				console.log("createCustomerProfileFromTransaction", profileIdData)
-				// remove all the transactions where this rule is mensioned
 				ProductOrders.getCustomerProfile(profileIdData, function (err, data) {
 					if (err || _.isEmpty(data)) {
 						callback(err, []);
@@ -545,12 +544,33 @@ var controller = {
 					}
 				})
 			},
-			function (profileData, callback) { // 
+			function (profileData, callback) {
 				console.log("getCustomerProfile", profileData)
-				// checkViolationForRule run rules on all the transactions for this new created rule only
-				ProductOrders.createSubscriptionFromCustomerProfile(profileData, callback)
+				ProductOrders.createSubscriptionFromCustomerProfile(profileData, function (err, data) {
+					if (err || _.isEmpty(data)) {
+						callback(err, []);
+					} else {
+						callback(null, data);
+					}
+				})
+			},
+			function (subData, callback) {
+				ProductOrders.findOneAndUpdate({
+					transactionId: req.query.transactionid
+				}, {
+					paymentResponseForArbSub: subData
+				}, {
+					new: true
+				}).exec(function (err, data) {
+					if (err || _.isEmpty(data)) {
+						callback(err, []);
+					} else {
+						callback(null, data);
+					}
+				});
 			}
 		], function () {
+			console.log("finished")
 			// nothing at all
 		});
 	},
@@ -579,7 +599,7 @@ var controller = {
 			console.log(JSON.stringify(getRequest.getJSON(), null, 2));
 
 			var ctrl = new ApiControllers.GetTransactionDetailsController(getRequest.getJSON());
-			ctrl.setEnvironment(SDKConstants.endpoint.sandbox);
+			ctrl.setEnvironment(SDKConstants.endpoint.production);
 
 			ctrl.execute(function () {
 
@@ -615,6 +635,49 @@ var controller = {
 
 						});
 
+						async.waterfall([
+							function (callback) {
+								ProductOrders.findOne({
+									invoiceNo: response.getTransaction().getOrder().getInvoiceNumber()
+								}).exec(function (err, data) {
+									if (err || _.isEmpty(data)) {
+										callback(err, []);
+									} else {
+										if (data.dfmSubscription) {
+											var dfmData = data.dfmSubscription
+											callback(null, dfmData);
+										} else {
+											callback(err, []);
+										}
+									}
+								});
+							},
+							function (dfmData, callback) {
+								if (dfmData) {
+									var currentDate = new Date();
+									console.log("moment(currentDate).add(1, 'M')", moment(currentDate).add(1, 'M'));
+									DFMSubscription.findOneAndUpdate({
+										_id: dfmData
+									}, {
+										status: 'Active',
+										expiryDate: moment(currentDate).add(1, 'M'),
+										transactionId: response.getTransaction().getTransId()
+									}).exec(function (err, data) {
+										if (err || _.isEmpty(data)) {
+											callback(err, []);
+										} else {
+											callback(null, data)
+										}
+									});
+								} else {
+									callback(err, []);
+								}
+							}
+						], function () {
+							console.log("finished------");
+							// nothing at all
+						});
+
 					} else {
 						console.log('Result Code: ' + response.getMessages().getResultCode());
 						console.log('Error Code: ' + response.getMessages().getMessage()[0].getCode());
@@ -639,6 +702,7 @@ var controller = {
 	 */
 
 	acceptPaymentPage: function (req, res) {
+		unifli.aero
 		console.log(req.query);
 		if (req.query.amount && req.query.invoiceNumber) {
 
@@ -725,7 +789,7 @@ var controller = {
 
 						var ctrl = new ApiControllers.CreateTransactionController(createRequest.getJSON());
 
-						ctrl.setEnvironment(SDKConstants.endpoint.sandbox);
+						ctrl.setEnvironment(SDKConstants.endpoint.production);
 
 						ctrl.execute(function () {
 
@@ -762,6 +826,49 @@ var controller = {
 
 										});
 
+										async.waterfall([
+											function (callback) {
+												ProductOrders.findOne({
+													invoiceNo: req.query.invoiceNumber
+												}).exec(function (err, data) {
+													if (err || _.isEmpty(data)) {
+														callback(err, []);
+													} else {
+														if (data.dfmSubscription) {
+															var dfmData = data.dfmSubscription
+															callback(null, dfmData);
+														} else {
+															callback(err, []);
+														}
+													}
+												});
+											},
+											function (dfmData, callback) {
+												if (dfmData) {
+													var currentDate = new Date();
+													console.log("moment(currentDate).add(1, 'M')", moment(currentDate).add(1, 'M'));
+													DFMSubscription.findOneAndUpdate({
+														_id: dfmData
+													}, {
+														status: 'Active',
+														expiryDate: moment(currentDate).add(1, 'M'),
+														transactionId: response.getTransactionResponse().getTransId()
+													}).exec(function (err, data) {
+														if (err || _.isEmpty(data)) {
+															callback(err, []);
+														} else {
+															callback(null, data)
+														}
+													});
+												} else {
+													callback(err, []);
+												}
+											}
+										], function () {
+											console.log("finished------");
+											// nothing at all
+										});
+
 									} else {
 										console.log('Failed Transaction.');
 										if (response.getTransactionResponse().getErrors() != null) {
@@ -786,7 +893,6 @@ var controller = {
 
 						});
 					} else {
-
 						console.log(data);
 						var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
 						merchantAuthenticationType.setName(constants.apiLoginKey);
@@ -844,8 +950,6 @@ var controller = {
 
 						transactionRequestType.setLineItems(lineItems);
 
-
-
 						var setting1 = new ApiContracts.SettingType();
 						setting1.setSettingName('hostedPaymentButtonOptions');
 						setting1.setSettingValue('{\"text\": \"Pay\"}');
@@ -892,7 +996,7 @@ var controller = {
 						console.log(JSON.stringify(getRequest.getJSON(), null, 2));
 
 						var ctrl = new ApiControllers.GetHostedPaymentPageController(getRequest.getJSON());
-						ctrl.setEnvironment(SDKConstants.endpoint.sandbox);
+						ctrl.setEnvironment(SDKConstants.endpoint.production);
 
 						ctrl.execute(function () {
 
@@ -917,13 +1021,13 @@ var controller = {
 									// });
 									res.view("pay_form", formData);
 								} else {
-									res.redirect("http://unifli.aero/sorry");
+									res.redirect("http://localhost:8080/sorry");
 
 									console.log('Error Code: ' + response.getMessages().getMessage()[0].getCode());
 									console.log('Error message: ' + response.getMessages().getMessage()[0].getText());
 								}
 							} else {
-								res.redirect("http://unifli.aero/sorry")
+								res.redirect("http://localhost:8080/sorry")
 
 							}
 
@@ -934,7 +1038,7 @@ var controller = {
 			})
 
 		} else {
-			res.redirect("http://unifli.aero/sorry");
+			res.redirect("http://localhost:8080/sorry");
 		}
 
 	},
@@ -1076,8 +1180,8 @@ var controller = {
 		console.log(JSON.stringify(createRequest.getJSON(), null, 2));
 
 		var ctrl = new ApiControllers.CreateTransactionController(createRequest.getJSON());
-		//Defaults to sandbox
-		ctrl.setEnvironment(SDKConstants.endpoint.sandbox);
+		//Defaults to production
+		ctrl.setEnvironment(SDKConstants.endpoint.production);
 
 		ctrl.execute(function () {
 

@@ -3079,7 +3079,6 @@ firstapp
 
         $scope.updatePassword = function (password) {
             var check = _.isEqual(password.forgotPassword, password.password);
-
             if (check == true) {
                 $scope.showerrmsg = true
                 console.log("hdbxjwhe", password);
@@ -3101,12 +3100,7 @@ firstapp
                         toastr.error('Check Entered Current Password');
 
                     }
-
                 })
-
-
-
-
             } else {
 
                 $scope.showerrmsg = false
@@ -3155,12 +3149,42 @@ firstapp
                 $scope.dfmData.Mosaic = "0";
                 $scope.dfmData.updatedAt = "Not Available";
                 $scope.dfmData.expiryDate = "Not Available";
-
             }
-
         })
 
+        //autorenewal
 
+        $scope.renew = function () {
+            if (document.getElementById('ischecked').checked) {
+                var getUserData = {}
+                getUserData._id = $scope.userId
+                NavigationService.apiCallWithData("User/getOne", getUserData, function (data) {
+                    if (data.value == true) {
+                        var changeDfmRenewal = {};
+                        changeDfmRenewal._id = data.data.currentSubscription;
+                        NavigationService.apiCallWithData("DFMSubscription/arbSubReqest", changeDfmRenewal, function (dfmData) {
+                            if (dfmData.value == true) {
+                                console.log("values changed");
+                            }
+                        })
+                    }
+                })
+            } else {
+                var getUserData = {}
+                getUserData._id = $scope.userId
+                NavigationService.apiCallWithData("User/getOne", getUserData, function (data) {
+                    if (data.value == true) {
+                        var changeDfmRenewal = {};
+                        changeDfmRenewal._id = data.data.currentSubscription;
+                        NavigationService.apiCallWithData("DFMSubscription/arbSubCancelReqest", changeDfmRenewal, function (dfmData) {
+                            if (dfmData.value == true) {
+                                console.log("values changed");
+                            }
+                        })
+                    }
+                })
+            }
+        }
 
     })
 

@@ -87,6 +87,9 @@ var schema = new Schema({
     transactionDate: Date,
     paymentResponse: {
         type: {}
+    },
+    paymentResponseForArbSub: {
+        type: {}
     }
 
 });
