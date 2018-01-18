@@ -160,7 +160,7 @@ var controller = {
 		}).lean().exec(function (err, found) {
 			if (err || _.isEmpty(found)) {} else {
 				if (found.cadLineWork) {
-					res.redirect("http://cloud.unifli.aero/#!/cadfile-request");
+					res.redirect(global["env"].realHost + "/#!/cadfile-request");
 				} else {
 					var invoiceNum = found.invoiceNo;
 
@@ -514,7 +514,11 @@ var controller = {
 					if (err || _.isEmpty(data)) {
 						callback(err, []);
 					} else {
+<<<<<<< HEAD
 						var transactionId = req.query.transactionid;
+=======
+						var transactionId = data.transactionId;
+>>>>>>> 773f26d5577f8fdd9e9e588eb40a2a6583919b19
 						var transactionDate = data.transactionDate;
 						var transactionAmt = data.totalAmount;
 						callback(null, transactionId);
@@ -719,8 +723,8 @@ var controller = {
 						merchantAuthenticationType.setTransactionKey(constants.transactionKey);
 
 						var payPalType = new ApiContracts.PayPalType();
-						payPalType.setCancelUrl('http://cloud.unifli.aero/api/ProductOrders/paymentCancel');
-						payPalType.setSuccessUrl('http://cloud.unifli.aero/api/ProductOrders/paymentReturn?invoiceNumber=' + req.query.invoiceNumber);
+						payPalType.setCancelUrl(global["env"].realHost+'/api/ProductOrders/paymentCancel');
+						payPalType.setSuccessUrl(global["env"].realHost+'/api/ProductOrders/paymentReturn?invoiceNumber=' + req.query.invoiceNumber);
 						payPalType.setPayerID('X3KMJR6UXFJG2');
 
 						var paymentType = new ApiContracts.PaymentType();
