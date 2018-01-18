@@ -9,6 +9,7 @@ module.exports = {
             description: "Backend",
             keywords: "Backend",
             adminurl: env.realHost + "/api/",
+            realhosturl: env.realHost
         });
     },
     download: function (req, res) {
@@ -22,6 +23,7 @@ module.exports = {
             description: "Backend",
             keywords: "Backend",
             adminurl: env.realHost + "/api/",
+            realhosturl: env.realHost
         });
     },
     gitPull: function (req, res) {
