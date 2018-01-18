@@ -1236,18 +1236,18 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
             var zoomLevel = [];
             if ($scope.missionDetails && $scope.missionDetails.missionId) {
                 // console.log("$scope.missionDetails.name", $scope.missionDetails.name);
-                imageUrl = 'https://cloud.unifli.aero/orthoFiles/' + $scope.missionDetails.missionId + 'google_tiles/{z}/{x}/{myY}.png';
+                imageUrl = global["env"].realHost + '/orthoFiles/' + $scope.missionDetails.missionId + 'google_tiles/{z}/{x}/{myY}.png';
                 zoomLevel.push($scope.missionDetails.zoomLevel[0]);
                 zoomLevel.push($scope.missionDetails.zoomLevel[$scope.missionDetails.zoomLevel.length - 1]);
                 // imageUrl = 'http://localhost:1337/google_tiles/{z}/{x}/{myY}.png';
             } else if ($scope.cadLineDetails && $scope.cadLineDetails.orthoFile.file) {
                 // imageUrl = 'http://localhost:1337/5a0a8c4cda0e182241afa514.jpg';
                 // imageUrl = 'http://localhost:1337/' + $scope.cadLineDetails.orthoFile.file.split(".")[0] + '.jpg';
-                imageUrl = 'https://cloud.unifli.aero/orthoFiles/' + $scope.cadLineDetails.orthoFile.file.split(".")[0] + '.jpg';
+                imageUrl = global["env"].realHost + '/orthoFiles/' + $scope.cadLineDetails.orthoFile.file.split(".")[0] + '.jpg';
                 zoomLevel = [16, 21];
             } else if ($scope.cadLineDetails && $scope.cadLineDetails.mission) {
                 // imageUrl = 'http://localhost:1337/google_tiles/{z}/{x}/{myY}.png';
-                imageUrl = 'https://cloud.unifli.aero/orthoFiles/' + $scope.cadLineDetails.mission.missionId + 'google_tiles/{z}/{x}/{myY}.png';
+                imageUrl = global["env"].realHost + '/orthoFiles/' + $scope.cadLineDetails.mission.missionId + 'google_tiles/{z}/{x}/{myY}.png';
                 zoomLevel.push($scope.cadLineDetails.mission.zoomLevel[0]);
                 zoomLevel.push($scope.cadLineDetails.mission.zoomLevel[$scope.cadLineDetails.mission.zoomLevel.length - 1])
                 // imageUrl = 'http://35.194.248.13:80/google_tiles/{z}/{x}/{myY}.png';

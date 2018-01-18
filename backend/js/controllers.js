@@ -1700,34 +1700,34 @@ firstapp
         }
 
         $scope.downloadAutocadDXF = function (missionId) {
-            window.open('http://cloud.unifli.aero/api/getAutocad/' + idForDownload + "/" + missionIdForDownload + ".dxf", '_self');
+            window.open(adminurl + 'getAutocad/' + idForDownload + "/" + missionIdForDownload + ".dxf", '_self');
         }
 
         $scope.downloadContoursLines = function (missionId) {
-            window.open('http://cloud.unifli.aero/api/getContourLines/' + idForDownload + "/" + missionIdForDownload + ".shp", '_self');
+            window.open(adminurl + 'getContourLines/' + idForDownload + "/" + missionIdForDownload + ".shp", '_self');
         }
 
         $scope.downloadContoursPdf = function (missionId) {
-            window.open('http://cloud.unifli.aero/api/getContourPdf/' + idForDownload + "/" + missionIdForDownload + ".pdf", '_self');
+            window.open(adminurl + 'getContourPdf/' + idForDownload + "/" + missionIdForDownload + ".pdf", '_self');
         }
         $scope.downloadTFW = function (missionId) {
-            window.open('http://cloud.unifli.aero/api/getTfw/' + idForDownload + "/" + missionIdForDownload + ".tfw", '_self');
+            window.open(adminurl + 'getTfw/' + idForDownload + "/" + missionIdForDownload + ".tfw", '_self');
         }
 
         $scope.downloadOrthoM = function () {
-            window.open('http://cloud.unifli.aero/api/getOrthoM/' + idForDownload + "/" + missionIdForDownload + ".tif", '_self');
+            window.open(adminurl + 'getOrthoM/' + idForDownload + "/" + missionIdForDownload + ".tif", '_self');
         }
 
         $scope.downloadDsm = function () {
-            window.open('http://cloud.unifli.aero/api/getDsm/' + idForDownload + "/" + missionIdForDownload + ".tif", '_self');
+            window.open(adminurl + 'getDsm/' + idForDownload + "/" + missionIdForDownload + ".tif", '_self');
         }
 
         $scope.downloadMeshFbx = function () {
-            window.open('http://cloud.unifli.aero/api/getMeshFbx/' + idForDownload + "/" + missionIdForDownload + ".fbx", '_self');
+            window.open(adminurl + 'getMeshFbx/' + idForDownload + "/" + missionIdForDownload + ".fbx", '_self');
         }
 
         $scope.downloadMeshObj = function () {
-            window.open('http://cloud.unifli.aero/api/getMeshObj/' + idForDownload + "/" + missionIdForDownload + ".Obj", '_self');
+            window.open(adminurl + 'getMeshObj/' + idForDownload + "/" + missionIdForDownload + ".Obj", '_self');
         }
 
         $scope.listPointCloud = function () {
@@ -1766,7 +1766,7 @@ firstapp
                 // $("#data1").html(data);
 
                 $('#render-pdfholder').html(data.data.html);
-                var demo1 = '<style type="text/css"> .pdf-bg-holder{ background: #fff; width: 14%; position: absolute; height: 45px;top: 0; right: 0; z-index: 1;} .pdf-img-holder{width: 100%; height: 100%; position: relative;} .pdf-logo-img{ width:50%; height: auto; position: absolute; bottom: 0; left: 0; } @media print{.printleft{} .x2{left:440px} .p_right{display: block;width: 100vh;position: absolute; text-align: right;} .pdf-bg-holder{ background: #fff; width: 14%; position: absolute; height: 100px;top: 0; right: 0; z-index: 1;} .pdf-img-holder{ width: 100%; height: 100%; position: relative;} .pdf-logo-img{width:50%; height: auto; position: absolute; bottom: 0; left: 0;}}</style><div class="pdf-bg-holder"><div class="pdf-img-holder"><img src="https://cloud.unifli.aero/orthoFiles/unifli.png" class="pdf-logo-img"></img> </div></div>';
+                var demo1 = '<style type="text/css"> .pdf-bg-holder{ background: #fff; width: 14%; position: absolute; height: 45px;top: 0; right: 0; z-index: 1;} .pdf-img-holder{width: 100%; height: 100%; position: relative;} .pdf-logo-img{ width:50%; height: auto; position: absolute; bottom: 0; left: 0; } @media print{.printleft{} .x2{left:440px} .p_right{display: block;width: 100vh;position: absolute; text-align: right;} .pdf-bg-holder{ background: #fff; width: 14%; position: absolute; height: 100px;top: 0; right: 0; z-index: 1;} .pdf-img-holder{ width: 100%; height: 100%; position: relative;} .pdf-logo-img{width:50%; height: auto; position: absolute; bottom: 0; left: 0;}}</style><div class="pdf-bg-holder"><div class="pdf-img-holder"><img src=' + global["env"].realHost + '"/orthoFiles/unifli.png" class="pdf-logo-img"></img> </div></div>';
                 $('.h1').after(demo1);
                 $('.t.m0.x2.h3.y2.ff1.fs0.fc0.sc0.ls0.ws0').val("")
                 $('.t.m0.x2.h3.y2.ff1.fs0.fc0.sc0.ls0.ws0').html('<span class="p_right">Generated with UNIFLI-Drone File Management(DFM) System Version 2.0.0</span>');
@@ -1781,7 +1781,7 @@ firstapp
                 sendHtmlData.id = idForDownload;
                 console.log("sendHtmlData", sendHtmlData);
                 NavigationService.apiCallWithData("Plan/generatePdf", sendHtmlData, function (data) {
-                    window.open('http://cloud.unifli.aero/api/getQualityReports/' + idForDownload + "/" + missionIdForDownload + ".pdf", '_self');
+                    window.open(adminurl + 'getQualityReports/' + idForDownload + "/" + missionIdForDownload + ".pdf", '_self');
 
                     // console.log("data", data);
                 });
@@ -1791,7 +1791,7 @@ firstapp
             });
         }
         $scope.downloadProcessingLog = function () {
-            window.open('http://cloud.unifli.aero/api/getProcessingLog/' + idForDownload + "/" + missionIdForDownload + ".log", '_self');
+            window.open(adminurl + 'getProcessingLog/' + idForDownload + "/" + missionIdForDownload + ".log", '_self');
         }
         $scope.mapOpen = function () {
             $uibModal.open({
@@ -2048,7 +2048,7 @@ firstapp
             // console.log("data", data);
             // if (data) {
             console.log("data", data);
-            window.open('https://cloud.unifli.aero/orthoFiles/invoice/' + data, '_self');
+            window.open(global["env"].realHost + '/orthoFiles/invoice/' + data, '_self');
             // } else {
             //     toastr.error("No PDF Found");
             // }
@@ -2659,7 +2659,7 @@ firstapp
         // download ortho
 
         $scope.downloadOrtho = function (data) {
-            window.open('http://cloud.unifli.aero/api/getOrtho/' + data, '_self');
+            window.open(adminurl + 'getOrtho/' + data, '_self');
         }
 
 
@@ -3587,7 +3587,7 @@ firstapp
             // window.open(adminurl + 'downloadWithName/' + data, '_self');
             // console.log("data-------", data);
             console.log("data", data);
-            window.open('https://cloud.unifli.aero/orthoFiles/' + data, '_self');
+            window.open(global["env"].realHost + '/orthoFiles/' + data, '_self');
             // if (data) {
             //     window.open(adminurl + '../pdf/' + data, '_self');
             // } else {

@@ -160,7 +160,7 @@ var controller = {
 		}).lean().exec(function (err, found) {
 			if (err || _.isEmpty(found)) {} else {
 				if (found.cadLineWork) {
-					res.redirect("http://cloud.unifli.aero/#!/cadfile-request");
+					res.redirect(global["env"].realHost + "/#!/cadfile-request");
 				} else {
 					var invoiceNum = found.invoiceNo;
 
@@ -402,9 +402,9 @@ var controller = {
 
 	createSubscriptionFromCustomerProfile: function (profileData, callback) {
 
-		var customerProfileId=profileData.profiledata.customerProfileId;
-		var customerAddressId=profileData.profiledata.shipToList[0].customerAddressId;
-		var customerPaymentProfileId=profileData.profiledata.paymentProfiles[0].customerPaymentProfileId;
+		var customerProfileId = profileData.profiledata.customerProfileId;
+		var customerAddressId = profileData.profiledata.shipToList[0].customerAddressId;
+		var customerPaymentProfileId = profileData.profiledata.paymentProfiles[0].customerPaymentProfileId;
 
 		var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
 		merchantAuthenticationType.setName(constants.apiLoginKey);
@@ -514,14 +514,14 @@ var controller = {
 					if (err || _.isEmpty(data)) {
 						callback(err, []);
 					} else {
-						var transactionId=data.transactionId;
-						var transactionDate=data.transactionDate;
-						var transactionAmt=data.totalAmount;
+						var transactionId = data.transactionId;
+						var transactionDate = data.transactionDate;
+						var transactionAmt = data.totalAmount;
 						callback(null, transactionId);
 					}
 				});
 			},
-			function (transactionIdData,callback) {
+			function (transactionIdData, callback) {
 				ProductOrders.createCustomerProfileFromTransaction(transactionIdData, function (err, data) {
 					if (err || _.isEmpty(data)) {
 						callback(err, []);
@@ -537,10 +537,10 @@ var controller = {
 					if (err || _.isEmpty(data)) {
 						callback(err, []);
 					} else {
-						var dataToSend={};
-						dataToSend.profiledata=data;
-						dataToSend.transactiondate=transactionDate;
-						dataToSend.transactionamt=transactionAmt						
+						var dataToSend = {};
+						dataToSend.profiledata = data;
+						dataToSend.transactiondate = transactionDate;
+						dataToSend.transactionamt = transactionAmt
 						callback(null, dataToSend);
 					}
 				})
@@ -655,8 +655,8 @@ var controller = {
 						merchantAuthenticationType.setTransactionKey(constants.transactionKey);
 
 						var payPalType = new ApiContracts.PayPalType();
-						payPalType.setCancelUrl('http://cloud.unifli.aero/api/ProductOrders/paymentCancel');
-						payPalType.setSuccessUrl('http://cloud.unifli.aero/api/ProductOrders/paymentReturn?invoiceNumber=' + req.query.invoiceNumber);
+						payPalType.setCancelUrl(global["env"].realHost+'/api/ProductOrders/paymentCancel');
+						payPalType.setSuccessUrl(global["env"].realHost+'/api/ProductOrders/paymentReturn?invoiceNumber=' + req.query.invoiceNumber);
 						payPalType.setPayerID('X3KMJR6UXFJG2');
 
 						var paymentType = new ApiContracts.PaymentType();
