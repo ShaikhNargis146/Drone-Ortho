@@ -577,6 +577,24 @@ var controller = {
             });
         }
     },
+    compressCad: function (req, res) {
+        var inputFile = 'C:\\xampp\\htdocs\\unifli-backend\\pix4dUpload\\trying_transparent_mosaic_group1.tif';
+        var outputFile = 'C:\\xampp\htdocs\\unifli-backend\\pix4dUpload\\abc.tif';
+        exec('gdal_translate -of GTiff -co COMPRESS=DEFLATE -co PREDICTOR=2 -co ZLEVEL=9 -co "BIGTIFF=YES" -a_srs "EPSG:3057"' + inputFile + ' ' + outputFile, {
+            maxBuffer: 1024 * 500000
+        }, function (error, stdout, stderr) {
+            if (error) {
+                console.log("\n error inside gdal_translate", error);
+            } else if (stdout) {
+                console.log("stdout inside----c -n---->>>>>>>>>>>> ", stdout);
+                if (stdout.includes("done")) {
+                    console.log("found------>>>>>>>>>>>", stdout.indexOf("done"));
+                }
+            } else {
+                console.log("stderr", stderr);
+            }
+        });
+    }
 
 };
 module.exports = _.assign(module.exports, controller);

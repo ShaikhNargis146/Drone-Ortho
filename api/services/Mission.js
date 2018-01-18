@@ -65,7 +65,11 @@ var schema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'CadLineWork',
         index: true
-    }]
+    }],
+    trialCount: {
+        type: Number,
+        default: 0
+    }
 }, {
     usePushEach: true
 });
