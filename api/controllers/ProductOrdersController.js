@@ -514,11 +514,7 @@ var controller = {
 					if (err || _.isEmpty(data)) {
 						callback(err, []);
 					} else {
-<<<<<<< HEAD
-						var transactionId = req.query.transactionid;
-=======
 						var transactionId = data.transactionId;
->>>>>>> 773f26d5577f8fdd9e9e588eb40a2a6583919b19
 						var transactionDate = data.transactionDate;
 						var transactionAmt = data.totalAmount;
 						callback(null, transactionId);
