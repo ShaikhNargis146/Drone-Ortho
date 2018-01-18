@@ -13,6 +13,32 @@ var controller = {
                 }
             });
         }
+    },
+
+    arbSubReqest: function (req, res) {
+        if (req.body) {
+            DFMSubscription.arbSubReqest(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            });
+        }
+    },
+
+    arbSubCancelReqest: function (req, res) {
+        if (req.body) {
+            DFMSubscription.arbSubCancelReqest(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            });
+        }
     }
 };
 cron.schedule('1 * * * *', function () {
@@ -28,7 +54,7 @@ cron.schedule('1 * * * *', function () {
                     var localDate = moment(value.expiryDate);
                     var currentDate = moment(new Date())
                     // console.log("localDate currentDate", localDate, currentDate, moment(currentDate).isSameOrAfter(localDate));
-                    if (moment(currentDate).isSameOrAfter(localDate)) {
+                    if (moment(currentDate).isSameOrAfter(localDate) && value.autoRenewal == false) {
                         value.status = "Inactive";
                         value.save(function (err, data) {
                             if (err) {
@@ -40,8 +66,6 @@ cron.schedule('1 * * * *', function () {
                                 callback1("next");
                             }
                         });
-                    } else {
-                        callback1();
                     }
                 },
                 function (err, results) {
