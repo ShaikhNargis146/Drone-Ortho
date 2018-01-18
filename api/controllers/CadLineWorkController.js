@@ -346,7 +346,7 @@ var controller = {
                     var firstName = cadData.orthoFile.file.split(".");
                     var extension = cadData.orthoFile.file.split(".").pop();
                     var inputFile = path.join(path.join(process.cwd(), "pix4dUpload"), cadData.orthoFile.file);
-                    var outputFile = 'C:/Users/unifli/Documents/googleTile-Mosaic/' + firstName[0] + '.jpg';
+                    var outputFile = global["env"].ORTHOFOLDER + firstName[0] + '.jpg';
                     exec('gdal_translate -of JPEG -B 1 -B 2 -B 3 -co "QUALITY=70" ' + inputFile + ' ' + outputFile, {
                         maxBuffer: 1024 * 500000
                     }, function (error, stdout, stderr) {

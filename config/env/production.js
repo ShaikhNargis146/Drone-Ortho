@@ -33,6 +33,7 @@ module.exports = {
   DOMAIN: '21890070-e17a-4ba7-a788-e3533a8e1cb8',
   APPLICATION_SECRET: 'e67K/jEBfaNlyR69NSDBULSduGIaU5csBXPKXaFkLRg=',
   AZURE_SUBSCRIPTION_ID: '88979fb6-3173-4a84-840e-0d1317650f11',
+  ORTHOFOLDER: '/home/unifliubuntu/files/orthoFiles/'
 
   /***************************************************************************
    * Set the log level in production environment to "silent"                 *

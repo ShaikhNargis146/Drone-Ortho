@@ -1141,7 +1141,7 @@ cron.schedule('1 * * * * *', function () {
                                                     // console.log("C:/Users/unifli/Documents/googleTile-Mosaic");
                                                     // console.log("fileName[0]----", fileName[0].split('_'));
                                                     var oldPath = dirName1 + '/google_tiles'
-                                                    var newPath = '/home/unifliubuntu/myApp/googleTile-Mosaic/' + value.missionId + 'google_tiles'
+                                                    var newPath = global["env"].ORTHOFOLDER + value.missionId + 'google_tiles'
 
                                                     fse.copy(oldPath, newPath, err => {
                                                         if (err) console.error(err)
