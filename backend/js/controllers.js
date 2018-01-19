@@ -3988,15 +3988,11 @@ firstapp
                     $scope.proCount = 0;
                     _.forEach(data.data, function (value) {
                         if (value.products[0]) {
-                            console.log("inside else part")
                             $scope.proCount = parseInt($scope.proCount) + parseInt(value.totalAmount)
                         } else if (value.dfmSubscription && !value.products[0]) {
-                            console.log("inside else part")
                             $scope.dfmCount = parseInt($scope.dfmCount) + parseInt(value.totalAmount)
-                            console.log("inside else part  $scope.dfmCoun*******", $scope.dfmCount)
                         } else if (value.cadLineWork) {
                             $scope.cadCount = parseInt($scope.cadCount) + parseInt(value.totalAmount)
-                            console.log("inside cadLine", $scope.cadCount)
                         }
                     });
 
@@ -4032,7 +4028,25 @@ firstapp
                         console.log("dfm info is", dfm);
                         if (dfm.value == true) {
                             $scope.dfmData = dfm.data;
+                            $scope.createdAt = dfm.data.createdAt;
+                            console.log("*********************", $scope.createdAt)
+                            console.log("$scope.createdAt$scope.createdAt", $scope.createdAt)
+                            $scope.formdata1.currentSubscriptionDate = $scope.createdAt,
+                            console.log(" $scope.formdata1 $scope.formdata1", $scope.formdata1)
+                            NavigationService.apiCallWithData("Mission/totalMissionCount", $scope.formdata1, function (mission1) {
+                                console.log("*****mission1****", mission1)
+                                if (mission1.value == false) {
+                                    $scope.UploadSize = "0";
+                                    $scope.foldersize = "0";
+                                } else {
+                                    $scope.foldersize = mission1.data.folderSize + "/" + $scope.dfmData.UploadSize;
+                                    $scope.UploadSize = mission1.data.fileSize + "/" + $scope.dfmData.UploadPhoto;
+                                }
+
+                            })
                         } else {
+                             $scope.foldersize="0"
+                              $scope.UploadSize="0"
                             console.log("inside else dfm not found")
                         }
                     });
@@ -4040,6 +4054,9 @@ firstapp
                     // $scope.totalCadReq = "0"
                 }
             });
+
+
+
             $scope.setStatus = function (status1) {
                 console.log("inside setStatus", status1)
                 $scope.formdata.status = status1.status

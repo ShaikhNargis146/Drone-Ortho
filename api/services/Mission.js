@@ -233,6 +233,7 @@ var model = {
     },
 
     totalMissionCount: function (data, callback) {
+        console.log("inside totalMissionCount",data)
         var currentSubscriptionDate = data.currentSubscriptionDate
         var ltDate = new Date();
         // console.log(currentSubscriptionDate)
