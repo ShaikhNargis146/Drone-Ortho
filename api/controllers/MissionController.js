@@ -244,7 +244,7 @@ var controller = {
                                 console.log(util.format('\n######End of Task5: List all the vms under the current ' +
                                     'subscription is successful.\n%s'));
                                 _.forEach(result, function (value) {
-                                    console.log(value);
+                                    // console.log(value);
                                     console.log(value.name);
                                     computeClient.virtualMachines.get(resourceGroupName, value.name, {
                                         expand: 'instanceView'
@@ -973,7 +973,7 @@ function listOfFreeVMs(callback) {
         });
     });
 }
-cron.schedule('1 * * * * *', function () {
+cron.schedule('*/5 * * * *', function () {
     Mission.find({
         status: {
             $nin: ['ready', 'failed', 'In Progress']
@@ -1154,8 +1154,8 @@ cron.schedule('1 * * * * *', function () {
                                                 if (err) {
                                                     callback1();
                                                 } else {
-                                                    console.log("waterfall completed successfully", data);
-                                                    console.log("emailData emailData emailData", emailData);
+                                                    console.log("waterfall completed successfully", emailData);
+                                                    // console.log("emailData emailData emailData", emailData);
                                                     Mission.sendMissionCompletedMail(emailData, callback1);
                                                 }
                                             });
