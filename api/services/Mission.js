@@ -254,17 +254,23 @@ var model = {
                 };
                 callback(null, data);
             } else if (found) {
+                console.log("*********data",found)
+                console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55")
                 var countFiles = 0;
                 var a = 0;
                 var foundLength = found.length;
                 var totalSizeLenght = 0;
                 _.forEach(found, function (x) {
                     countFiles = countFiles + x.files.length
+                    console.log("1st console",countFiles)
                     var getSize = require('get-folder-size');
-                    var path = 'pix4dUpload/' + x._id;
+                    var path = '/mymountpoint/' + x._id;
+                    console.log("2nd console")
                     if (!fs.existsSync(path)) {
+                        console.log("3rd console")
                         totalSizeLenght++;
                     } else {
+                        console.log("4th console")
                         getSize(path, function (err, bytes) {
                             if (err) {
                                 throw err;
