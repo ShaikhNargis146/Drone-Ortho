@@ -450,8 +450,7 @@ firstapp
                             lineWidth: 0
                         }
 
-                    },
-                    {
+                    }, {
                         label: " Internal CAD",
                         grow: {
                             stepMode: "linear"
@@ -466,11 +465,9 @@ firstapp
                             fillColor: {
                                 colors: [{
                                     opacity: 0.2
-                                },
-                                {
+                                }, {
                                     opacity: 0.2
-                                }
-                                ]
+                                }]
                             }
                         }
                     }
@@ -3128,6 +3125,7 @@ firstapp
                 })
                 $scope.formdata1.currentSubscriptionDate = dfm.data.createdAt;
                 NavigationService.apiCallWithData("Mission/totalMissionCount", $scope.formdata1, function (mission1) {
+                    console.log("*****mission1****", mission1)
                     if (mission1.value == false) {
                         $scope.dfmData.UploadPhoto = "0";
                         $scope.foldersize = "0";
@@ -3611,7 +3609,7 @@ firstapp
             // window.open(adminurl + 'downloadWithName/' + data, '_self');
             // console.log("data-------", data);
             console.log("data", data);
-            window.open(realhosturl + '/orthoFiles/invoice/' + data, '_self');
+            window.open(realhosturl + '/orthoFiles/' + data, '_self');
             // if (data) {
             //     window.open(adminurl + '../pdf/' + data, '_self');
             // } else {
@@ -3982,6 +3980,28 @@ firstapp
             $scope.formdata1.user = $stateParams.userId;
             $scope.formdata = {};
             $scope.formdata._id = $stateParams.userId;
+            NavigationService.apiCallWithData("ProductOrders/getuserwiseProduct", $scope.formdata, function (data) {
+                console.log(" $scope.formdata  $scope.formdata ", data);
+                if (data.value == true) {
+                    $scope.dfmCount = 0;
+                    $scope.cadCount = 0;
+                    $scope.proCount = 0;
+                    _.forEach(data.data, function (value) {
+                        if (value.products[0]) {
+                            $scope.proCount = parseInt($scope.proCount) + parseInt(value.totalAmount)
+                        } else if (value.dfmSubscription && !value.products[0]) {
+                            $scope.dfmCount = parseInt($scope.dfmCount) + parseInt(value.totalAmount)
+                        } else if (value.cadLineWork) {
+                            $scope.cadCount = parseInt($scope.cadCount) + parseInt(value.totalAmount)
+                        }
+                    });
+
+                } else {
+                    console.log("inside else dfm not found")
+                }
+            });
+
+
             NavigationService.apiCallWithData("Mission/totalMission", $scope.formdata1, function (mission) {
                 if (mission.value == true) {
                     $scope.totalMission = mission.data;
@@ -4008,7 +4028,25 @@ firstapp
                         console.log("dfm info is", dfm);
                         if (dfm.value == true) {
                             $scope.dfmData = dfm.data;
+                            $scope.createdAt = dfm.data.createdAt;
+                            console.log("*********************", $scope.createdAt)
+                            console.log("$scope.createdAt$scope.createdAt", $scope.createdAt)
+                            $scope.formdata1.currentSubscriptionDate = $scope.createdAt,
+                                console.log(" $scope.formdata1 $scope.formdata1", $scope.formdata1)
+                            NavigationService.apiCallWithData("Mission/totalMissionCount", $scope.formdata1, function (mission1) {
+                                console.log("*****mission1****", mission1)
+                                if (mission1.value == false) {
+                                    $scope.UploadSize = "0";
+                                    $scope.foldersize = "0";
+                                } else {
+                                    $scope.foldersize = mission1.data.folderSize + "/" + $scope.dfmData.UploadSize;
+                                    $scope.UploadSize = mission1.data.fileSize + "/" + $scope.dfmData.UploadPhoto;
+                                }
+
+                            })
                         } else {
+                            $scope.foldersize = "0"
+                            $scope.UploadSize = "0"
                             console.log("inside else dfm not found")
                         }
                     });
@@ -4016,6 +4054,9 @@ firstapp
                     // $scope.totalCadReq = "0"
                 }
             });
+
+
+
             $scope.setStatus = function (status1) {
                 console.log("inside setStatus", status1)
                 $scope.formdata.status = status1.status
