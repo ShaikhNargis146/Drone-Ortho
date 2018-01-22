@@ -1285,7 +1285,7 @@ var model = {
                                     emailData.subject = "MEMBERSHIP";
                                     emailData.merge_vars = [{
                                         "name": "USER_ID",
-                                        "content": created.dataId
+                                        "content": created.email
                                     }];
                                     Config.email(emailData, function (err, emailRespo) {
                                         if (err) {
@@ -1402,7 +1402,7 @@ var model = {
                             emailData.subject = "MEMBERSHIP";
                             emailData.merge_vars = [{
                                 "name": "USER_ID",
-                                "content": data1.dataId
+                                "content": data1.email
                             }];
                             Config.email(emailData, function (err, emailRespo) {
                                 if (err) {
