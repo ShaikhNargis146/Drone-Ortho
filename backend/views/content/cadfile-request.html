@@ -360,7 +360,7 @@
                 <table datatable="" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
                   <thead>
                     <tr>
-                      <th>Mission ID</th>
+                      <th>CAD ID</th>
                       <th>Acreage</th>
                       <th>Description</th>
                       <th>Status</th>
@@ -372,9 +372,10 @@
                   <tbody>
                     <tr ng-repeat="cadVendorData in allCadLineVendorData track by $index">
 
-                      <td><a ui-sref="cadfile-details({'cadId' : cadVendorData._id})">{{cadVendorData.mission.missionId}}</a></td>
+                      <td><a ui-sref="cadfile-details({'cadId' : cadVendorData._id})">{{cadVendorData.cadId}}</a></td>
+
                       <td><a ui-sref="cadfile-details({'cadId' : cadVendorData._id})">{{cadVendorData.acreage}}</a></td>
-                      <td> <a ui-sref="cadfile-details({'cadId' : cadVendorData._id})">{{cadData.instruction}}</a></td>
+                      <td> <a ui-sref="cadfile-details({'cadId' : cadVendorData._id})">{{cadVendorData.instruction}}</a></td>
 
                       <td><a ui-sref="cadfile-details({'cadId' : cadVendorData._id})">{{cadVendorData.status}}</a></td>
                       <td><a ui-sref="cadfile-details({'cadId' : cadVendorData._id})">{{cadVendorData.createdAt | date}}</a></td>
