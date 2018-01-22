@@ -128,6 +128,18 @@ var controller = {
 			});
 		}
 	},
+	getuserwiseProduct: function (req, res) {
+		if (req.body) {
+			ProductOrders.getuserwiseProduct(req.body, res.callback);
+		} else {
+			res.json({
+				value: false,
+				data: {
+					message: "Invalid Request"
+				}
+			});
+		}
+	},
 
 	invoiceGenerate: function (req, res) {
 		if (req.body) {

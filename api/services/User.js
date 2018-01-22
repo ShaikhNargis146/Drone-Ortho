@@ -214,12 +214,12 @@ var model = {
                     _id: data._id,
                     password: md5(data.currpassword),
                 }).exec(function (err, data) {
-                    console.log("data is", data)
+                    // console.log("data is", data)
                     if (err || _.isEmpty(data)) {
                         console.log("inside isempty");
                         callback1(err, null);
                     } else {
-                        console.log("data if found true", data)
+                        // console.log("data if found true", data)
                         callback1(null, data);
                     }
                 })
@@ -982,7 +982,7 @@ var model = {
     },
 
     doLogin: function (data, callback) {
-        console.log("data is", data)
+        // console.log("data is", data)
         User.findOne({
             email: data.email,
             password: md5(data.password)
@@ -1130,7 +1130,7 @@ var model = {
 
 
     setQty: function (data, callback) {
-        console.log("inside set qty",data)
+        // console.log("inside set qty",data)
         this.findOneAndUpdate({
             "_id": data._id,
             cartProducts:{$elemMatch: {
@@ -1141,7 +1141,7 @@ var model = {
                 "cartProducts.$.qty":data.qty
             }
         }).exec(function (err, data) {
-           console.log("ergkuir",data)
+        //    console.log("ergkuir",data)
         });
     },
 
