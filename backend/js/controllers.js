@@ -419,10 +419,12 @@ firstapp
                     $scope.pieDatasetRevenue[2].data = data.data.totalProductSum;
                 }
             });
+
             NavigationService.apiCallWithoutData("CadLineWork/getGraphDataForAdmin", function (data) {
                 if (data.value === true) {
                     $scope.data4 = data.data.InternalData;
                     $scope.data3 = data.data.ExternalData;
+
                     var i = 0
                     _.forEach($scope.data4, function (x) {
                         $scope.data4[i][0] = new Date($scope.data4[i][0]).getTime();
@@ -586,7 +588,6 @@ firstapp
                         // $scope.data2[i][1] = $scope.data2[i][1] * 100
                         i++;
                     });
-
                     var i = 0
                     _.forEach($scope.data1, function (x) {
                         $scope.data1[i][0] = new Date($scope.data1[i][0]).getTime();
@@ -594,12 +595,13 @@ firstapp
                         i++;
                     });
 
+
                     $scope.dataset = [{
                         label: "Number of orders",
                         grow: {
                             stepMode: "linear"
                         },
-                        data: $scope.data1,
+                        data: $scope.data2,
                         color: "#41d0c8",
                         bars: {
                             show: true,
@@ -613,7 +615,7 @@ firstapp
                         grow: {
                             stepMode: "linear"
                         },
-                        data: $scope.data2,
+                        data: $scope.data1,
                         yaxis: 2,
                         color: "#2a2a2a",
                         lines: {

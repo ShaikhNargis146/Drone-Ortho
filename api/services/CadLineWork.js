@@ -109,33 +109,33 @@ var model = {
     generateExcelCad: function (match, callback) {
         async.concatSeries(match, function (mainData, callback) {
 
-                var obj = {};
-                obj["CAD ID"] = mainData.cadId;
-                if (mainData.user) {
-                    obj["USER ID"] = mainData.user.dataId;
-                } else {
-                    obj["USER ID"] = "-";
-                }
-                if (mainData.acreage) {
-                    obj["ACREAGE"] = mainData.acreage;
-                } else {
-                    obj["ACREAGE"] = "-";
-                }
-                if (mainData.instruction) {
-                    obj["DESCRIPTION"] = mainData.instruction;
-                } else {
-                    obj["DESCRIPTION"] = "-";
-                }
+            var obj = {};
+            obj["CAD ID"] = mainData.cadId;
+            if (mainData.user) {
+                obj["USER ID"] = mainData.user.dataId;
+            } else {
+                obj["USER ID"] = "-";
+            }
+            if (mainData.acreage) {
+                obj["ACREAGE"] = mainData.acreage;
+            } else {
+                obj["ACREAGE"] = "-";
+            }
+            if (mainData.instruction) {
+                obj["DESCRIPTION"] = mainData.instruction;
+            } else {
+                obj["DESCRIPTION"] = "-";
+            }
 
-                obj[" STATUS"] = mainData.status;
-                obj["DATE-OF-REQUEST"] = moment(mainData.createdAt).format("DD/MM/YYYY")
-                if (mainData.completionDate) {
-                    obj["COMPLETION DATE"] = moment(mainData.completionDate).format("DD/MM/YYYY");
-                } else {
-                    obj["COMPLETION DATE"] = "-";
-                }
-                callback(null, obj);
-            },
+            obj[" STATUS"] = mainData.status;
+            obj["DATE-OF-REQUEST"] = moment(mainData.createdAt).format("DD/MM/YYYY")
+            if (mainData.completionDate) {
+                obj["COMPLETION DATE"] = moment(mainData.completionDate).format("DD/MM/YYYY");
+            } else {
+                obj["COMPLETION DATE"] = "-";
+            }
+            callback(null, obj);
+        },
             function (err, singleData) {
                 callback(null, singleData);
             });
@@ -155,28 +155,28 @@ var model = {
 
     generateExcelCadforUser: function (match, callback) {
         async.concatSeries(match, function (mainData, callback) {
-                var obj = {};
-                obj["CAD ID"] = mainData.cadId;
-                if (mainData.acreage) {
-                    obj["ACREAGE"] = mainData.acreage;
-                } else {
-                    obj["ACREAGE"] = "-";
-                }
-                if (mainData.instruction) {
-                    obj["DESCRIPTION"] = mainData.instruction;
-                } else {
-                    obj["DESCRIPTION"] = "-";
-                }
-                obj[" STATUS"] = mainData.status;
-                obj["DATE-OF-REQUEST"] = moment(mainData.createdAt).format("DD/MM/YYYY")
-                if (mainData.completionDate) {
-                    obj["COMPLETION DATE"] = moment(mainData.completionDate).format("DD/MM/YYYY");
-                } else {
-                    obj["COMPLETION DATE"] = "-";
-                }
+            var obj = {};
+            obj["CAD ID"] = mainData.cadId;
+            if (mainData.acreage) {
+                obj["ACREAGE"] = mainData.acreage;
+            } else {
+                obj["ACREAGE"] = "-";
+            }
+            if (mainData.instruction) {
+                obj["DESCRIPTION"] = mainData.instruction;
+            } else {
+                obj["DESCRIPTION"] = "-";
+            }
+            obj[" STATUS"] = mainData.status;
+            obj["DATE-OF-REQUEST"] = moment(mainData.createdAt).format("DD/MM/YYYY")
+            if (mainData.completionDate) {
+                obj["COMPLETION DATE"] = moment(mainData.completionDate).format("DD/MM/YYYY");
+            } else {
+                obj["COMPLETION DATE"] = "-";
+            }
 
-                callback(null, obj);
-            },
+            callback(null, obj);
+        },
             function (err, singleData) {
                 callback(null, singleData);
             });
@@ -184,28 +184,28 @@ var model = {
     },
     generateExcelCadForVendor: function (match, callback) {
         async.concatSeries(match, function (mainData, callback) {
-                var obj = {};
-                obj["Mission ID"] = mainData.mission.missionId;
-                if (mainData.acreage) {
-                    obj["ACREAGE"] = mainData.acreage;
-                } else {
-                    obj["ACREAGE"] = "-";
-                }
-                if (mainData.instruction) {
-                    obj["DESCRIPTION"] = mainData.instruction;
-                } else {
-                    obj["DESCRIPTION"] = "-";
-                }
-                obj[" STATUS"] = mainData.status;
-                obj["DATE-OF-REQUEST"] = moment(mainData.createdAt).format("DD/MM/YYYY")
-                if (mainData.completionDate) {
-                    obj["COMPLETION DATE"] = moment(mainData.completionDate).format("DD/MM/YYYY");
-                } else {
-                    obj["COMPLETION DATE"] = "-";
-                }
+            var obj = {};
+            obj["Mission ID"] = mainData.mission.missionId;
+            if (mainData.acreage) {
+                obj["ACREAGE"] = mainData.acreage;
+            } else {
+                obj["ACREAGE"] = "-";
+            }
+            if (mainData.instruction) {
+                obj["DESCRIPTION"] = mainData.instruction;
+            } else {
+                obj["DESCRIPTION"] = "-";
+            }
+            obj[" STATUS"] = mainData.status;
+            obj["DATE-OF-REQUEST"] = moment(mainData.createdAt).format("DD/MM/YYYY")
+            if (mainData.completionDate) {
+                obj["COMPLETION DATE"] = moment(mainData.completionDate).format("DD/MM/YYYY");
+            } else {
+                obj["COMPLETION DATE"] = "-";
+            }
 
-                callback(null, obj);
-            },
+            callback(null, obj);
+        },
             function (err, singleData) {
                 callback(null, singleData);
             });
@@ -239,24 +239,24 @@ var model = {
             count: maxRow
         };
         CadLineWork.find({
-                user: data.user
-            })
+            user: data.user
+        })
             .deepPopulate("serviceId user DFMSubscription mission")
             .order(options)
             .keyword(options)
             .page(options,
-                function (err, found) {
-                    // console.log("inside paggingtion cadline file", found)
+            function (err, found) {
+                // console.log("inside paggingtion cadline file", found)
 
-                    if (err) {
-                        console.log(err);
-                        callback(err, null);
-                    } else if (found) {
-                        callback(null, found);
-                    } else {
-                        callback("Invalid data", null);
-                    }
-                });
+                if (err) {
+                    console.log(err);
+                    callback(err, null);
+                } else if (found) {
+                    callback(null, found);
+                } else {
+                    callback("Invalid data", null);
+                }
+            });
     },
 
 
@@ -429,16 +429,16 @@ var model = {
             .order(options)
             .keyword(options)
             .page(options,
-                function (err, found) {
-                    if (err) {
-                        console.log(err);
-                        callback(err, null);
-                    } else if (found) {
-                        callback(null, found);
-                    } else {
-                        callback("Invalid data", null);
-                    }
-                });
+            function (err, found) {
+                if (err) {
+                    console.log(err);
+                    callback(err, null);
+                } else if (found) {
+                    callback(null, found);
+                } else {
+                    callback("Invalid data", null);
+                }
+            });
     },
 
     getCadForVendor: function (data, callback) {
@@ -472,16 +472,16 @@ var model = {
             .order(options)
             .keyword(options)
             .page(options,
-                function (err, found) {
-                    if (err) {
-                        console.log(err);
-                        callback(err, null);
-                    } else if (found) {
-                        callback(null, found);
-                    } else {
-                        callback("Invalid data", null);
-                    }
-                });
+            function (err, found) {
+                if (err) {
+                    console.log(err);
+                    callback(err, null);
+                } else if (found) {
+                    callback(null, found);
+                } else {
+                    callback("Invalid data", null);
+                }
+            });
     },
 
     //******************** END *********************//
@@ -697,7 +697,7 @@ var model = {
                         var test = [];
                         i = 1
                         for (var i = 1; i <= lastMonthDaysCount; i++) {
-                            var createdDt = new Date('2017-11-01T11:53:01.412Z').setDate(i)
+                            var createdDt = new Date().setDate(i)
                             createdDt = new Date(createdDt).setMonth(prevMonth)
                             test[i - 1] = _.countBy(data, function (o) {
                                 return moment((o.createdAt)).isSame(createdDt, 'day');
