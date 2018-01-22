@@ -181,7 +181,7 @@ module.exports = {
 
     getOrtho: function (req, res) {
         res.set('Content-Type', "application/octet-stream");
-        files = fs.readFileSync(sails.config.appPath + "/pix4dUpload/" + req.param("filename"));
+        files = fs.readFileSync("/mymountpoint/" + req.param("filename"));
         res.send(files);
     },
 

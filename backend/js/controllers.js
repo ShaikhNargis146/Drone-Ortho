@@ -2660,6 +2660,9 @@ firstapp
         $scope.downloadOrtho = function (data) {
             window.open(adminurl + 'getOrtho/' + data, '_self');
         }
+        $scope.downloadOrthoMission = function (idForDownload, missionIdForDownload) {
+            window.open(adminurl + 'getOrthoM/' + idForDownload + "/" + missionIdForDownload + ".tif", '_self');
+        }
 
 
         //vendor end

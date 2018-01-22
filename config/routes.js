@@ -120,7 +120,7 @@ module.exports.routes = {
         action: "getMeshObj"
     },
 
-    'GET /api/getOrtho/:id/:filename': {
+    'GET /api/getOrtho/:filename': {
         controller: "WebController",
         action: "getOrtho"
     },

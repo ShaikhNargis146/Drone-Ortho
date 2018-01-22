@@ -1,5 +1,6 @@
 module.exports = _.cloneDeep(require("sails-wohlig-controller"));
 var fs = require('fs');
+var fse = require('fs-extra')
 // var geotiff = require('geotiff');
 // var epsg = require('epsg-to-proj');
 // var extents = require('geotiff-extents');
@@ -219,160 +220,164 @@ var controller = {
         // console.log("cadData", req);
         var cadData = req;
         async.waterfall([
-                function (callback) {
-                    try {
-                        var ds = gdal.open(path.join(path.join(process.cwd(), "pix4dUpload"), cadData.orthoFile.file));
-                        // raster dimensions
-                        var size = ds.rasterSize;
-                        // console.log('Size is ' + size.x + ', ' + size.y);
+            function (callback) {
+                try {
+                    var ds = gdal.open(path.join(path.join(process.cwd(), "pix4dUpload"), cadData.orthoFile.file));
+                    // raster dimensions
+                    var size = ds.rasterSize;
+                    // console.log('Size is ' + size.x + ', ' + size.y);
 
-                        // geotransform
-                        var geotransform = ds.geoTransform;
-                        // console.log('GeoTransform =');
-                        // console.log(geotransform);
+                    // geotransform
+                    var geotransform = ds.geoTransform;
+                    // console.log('GeoTransform =');
+                    // console.log(geotransform);
 
-                        // corners
-                        var corners = {
-                            'upperLeft': {
-                                x: 0,
-                                y: 0
-                            },
-                            'upperRight': {
-                                x: size.x,
-                                y: 0
-                            },
-                            'lowerRight': {
-                                x: size.x,
-                                y: size.y
-                            },
-                            'lowerLeft': {
-                                x: 0,
-                                y: size.y
-                            },
-                            'center': {
-                                x: size.x / 2,
-                                y: size.y / 2
-                            }
+                    // corners
+                    var corners = {
+                        'upperLeft': {
+                            x: 0,
+                            y: 0
+                        },
+                        'upperRight': {
+                            x: size.x,
+                            y: 0
+                        },
+                        'lowerRight': {
+                            x: size.x,
+                            y: size.y
+                        },
+                        'lowerLeft': {
+                            x: 0,
+                            y: size.y
+                        },
+                        'center': {
+                            x: size.x / 2,
+                            y: size.y / 2
+                        }
+                    };
+
+                    var wgs84 = gdal.SpatialReference.fromEPSG(4326);
+                    var coord_transform = new gdal.CoordinateTransformation(ds.srs, wgs84);
+
+                    // console.log('Corner Coordinates:');
+                    var corner_names = Object.keys(corners);
+                    var cornList = {}
+
+                    corner_names.forEach(function (corner_name) {
+                        // convert pixel x,y to the coordinate system of the raster
+                        // then transform it to WGS84
+                        var corner = corners[corner_name];
+                        var pt_orig = {
+                            x: geotransform[0] + corner.x * geotransform[1] + corner.y * geotransform[2],
+                            y: geotransform[3] + corner.x * geotransform[4] + corner.y * geotransform[5]
                         };
+                        var pt_wgs84 = coord_transform.transformPoint(pt_orig);
+                        var cord = [];
+                        cord.push(pt_wgs84.x);
+                        cord.push(pt_wgs84.y);
+                        cornList[corner_name] = cord.reverse();
+                    });
+                    // console.log(cornList)
+                    callback(null, cornList);
+                } catch (err) {
+                    console.log("errrrrrrrr", err);
+                    callback(null, "error");
+                }
 
-                        var wgs84 = gdal.SpatialReference.fromEPSG(4326);
-                        var coord_transform = new gdal.CoordinateTransformation(ds.srs, wgs84);
-
-                        // console.log('Corner Coordinates:');
-                        var corner_names = Object.keys(corners);
-                        var cornList = {}
-
-                        corner_names.forEach(function (corner_name) {
-                            // convert pixel x,y to the coordinate system of the raster
-                            // then transform it to WGS84
-                            var corner = corners[corner_name];
-                            var pt_orig = {
-                                x: geotransform[0] + corner.x * geotransform[1] + corner.y * geotransform[2],
-                                y: geotransform[3] + corner.x * geotransform[4] + corner.y * geotransform[5]
-                            };
-                            var pt_wgs84 = coord_transform.transformPoint(pt_orig);
-                            var cord = [];
-                            cord.push(pt_wgs84.x);
-                            cord.push(pt_wgs84.y);
-                            cornList[corner_name] = cord.reverse();
-                        });
-                        // console.log(cornList)
-                        callback(null, cornList);
-                    } catch (err) {
-                        console.log("errrrrrrrr", err);
-                        callback(null, "error");
-                    }
-
-                    // fs.readFile(path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile.file, function (err, data) {
-                    //     if (err) {
-                    //         console.log("err", err);
-                    //         callback(null, "err");
-                    //     } else {
-                    //         console.log("data f1 ", data);
-                    //         callback(null, data);
-                    //     }
-                    // });
-                },
-                // function (data, callback) {
-                //     console.log("data inside f2 ", data);
-                //     if (data != "err") {
-                //         dataArray = data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength);
-                //         var tiff = geotiff.parse(dataArray);
-                //         var im = geotiff.parse(dataArray).getImage()
-                //         var fd = im.getFileDirectory()
-                //         var gk = im.getGeoKeys()
-                //         var geoLoc;
-                //         try {
-                //             var geoLoc = extents({
-                //                 tiePoint: fd.ModelTiepoint,
-                //                 pixelScale: fd.ModelPixelScale,
-                //                 width: fd.ImageWidth,
-                //                 height: fd.ImageLength,
-                //                 proj: require('proj4'),
-                //                 from: epsg[gk.ProjectedCSTypeGeoKey || gk.GeographicTypeGeoKey],
-                //                 to: epsg[4326]
-                //             });
-                //             console.log("geoLocation ", geoLoc);
-                //             callback(null, geoLoc);
-                //         } catch (err) {
-                //             console.log("errrrrrrrr", err);
-                //             callback(null, "error");
-                //         }
+                // fs.readFile(path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile.file, function (err, data) {
+                //     if (err) {
+                //         console.log("err", err);
+                //         callback(null, "err");
                 //     } else {
-                //         console.log("errrrrrrrr in else");
-                //         callback(null, "error");
+                //         console.log("data f1 ", data);
+                //         callback(null, data);
                 //     }
-                // },
-                function (geoLocation, callback) {
-                    // console.log("geoLocation inside f3 ", geoLocation);
-                    if (geoLocation != "error") {
-                        cadData.status = "initialized";
-                        cadData.geoLocation = geoLocation;
-                        CadLineWork.saveData(cadData, function (err, data) {
-                            if (err) {
-                                console.log("error occured");
-                                callback(null, err);
-                            } else {
-                                // console.log("value.geoLocation", data.geoLocation);
-                                callback(null, "done");
-                            }
-                        });
-                    } else {
-                        callback(null, "error");
-                    }
-                },
-                function (msg, callback) {
-                    // console.log("fileName[0]----", cadData.orthoFile.file);
-                    var firstName = cadData.orthoFile.file.split(".");
-                    var extension = cadData.orthoFile.file.split(".").pop();
-                    var inputFile = path.join(path.join(process.cwd(), "pix4dUpload"), cadData.orthoFile.file);
-                    var outputFile = global["env"].ORTHOFOLDER + firstName[0] + '.jpg';
-                    exec('gdal_translate -of JPEG -B 1 -B 2 -B 3 -co "QUALITY=70" ' + inputFile + ' ' + outputFile, {
-                        maxBuffer: 1024 * 500000
-                    }, function (error, stdout, stderr) {
-                        if (error) {
-                            console.log("\n error inside gdal_translate", error);
-                            callback(null, error);
-                        } else if (stdout) {
-                            console.log("stdout inside----c -n---->>>>>>>>>>>> ", stdout);
-                            if (stdout.includes("done")) {
-                                console.log("found------>>>>>>>>>>>", stdout.indexOf("done"));
-                                callback(null, "done");
-                            }
+                // });
+            },
+            // function (data, callback) {
+            //     console.log("data inside f2 ", data);
+            //     if (data != "err") {
+            //         dataArray = data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength);
+            //         var tiff = geotiff.parse(dataArray);
+            //         var im = geotiff.parse(dataArray).getImage()
+            //         var fd = im.getFileDirectory()
+            //         var gk = im.getGeoKeys()
+            //         var geoLoc;
+            //         try {
+            //             var geoLoc = extents({
+            //                 tiePoint: fd.ModelTiepoint,
+            //                 pixelScale: fd.ModelPixelScale,
+            //                 width: fd.ImageWidth,
+            //                 height: fd.ImageLength,
+            //                 proj: require('proj4'),
+            //                 from: epsg[gk.ProjectedCSTypeGeoKey || gk.GeographicTypeGeoKey],
+            //                 to: epsg[4326]
+            //             });
+            //             console.log("geoLocation ", geoLoc);
+            //             callback(null, geoLoc);
+            //         } catch (err) {
+            //             console.log("errrrrrrrr", err);
+            //             callback(null, "error");
+            //         }
+            //     } else {
+            //         console.log("errrrrrrrr in else");
+            //         callback(null, "error");
+            //     }
+            // },
+            function (geoLocation, callback) {
+                // console.log("geoLocation inside f3 ", geoLocation);
+                if (geoLocation != "error") {
+                    cadData.status = "initialized";
+                    cadData.geoLocation = geoLocation;
+                    CadLineWork.saveData(cadData, function (err, data) {
+                        if (err) {
+                            console.log("error occured");
+                            callback(null, err);
                         } else {
-                            console.log("stderr", stderr);
-                            callback(null, stderr);
+                            // console.log("value.geoLocation", data.geoLocation);
+                            callback(null, "done");
                         }
                     });
-                    // console.log("fileName[0] ", 'C:/Users/unifli/Documents/googleTile-Mosaic/' + firstName[0] + '.jpg', path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile.file)
-                    // sharp(path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile.file)
-                    //     .jpeg()
-                    //     .toFile('C:/Users/unifli/Documents/googleTile-Mosaic/' + firstName[0] + '.jpg', function (err, info) {
-                    //         // console.log("done");
-                    //         callback(null, "done");
-                    //     });
+                } else {
+                    callback(null, "error");
                 }
-            ],
+            },
+            function (msg, callback) {
+                // console.log("fileName[0]----", cadData.orthoFile.file);
+                var firstName = cadData.orthoFile.file.split(".");
+                var extension = cadData.orthoFile.file.split(".").pop();
+                var inputFile = path.join(path.join(process.cwd(), "pix4dUpload"), cadData.orthoFile.file);
+                var outputFile = global["env"].ORTHOFOLDER + firstName[0] + '.jpg';
+                exec('gdal_translate -of JPEG -B 1 -B 2 -B 3 -co "QUALITY=70" ' + inputFile + ' ' + outputFile, {
+                    maxBuffer: 1024 * 500000
+                }, function (error, stdout, stderr) {
+                    if (error) {
+                        console.log("\n error inside gdal_translate", error);
+                        callback(null, error);
+                    } else if (stdout) {
+                        console.log("stdout inside----c -n---->>>>>>>>>>>> ", stdout);
+                        if (stdout.includes("done")) {
+                            console.log("found------>>>>>>>>>>>", stdout.indexOf("done"));
+                            callback(null, "done");
+                            fse.move(inputFile, '/mymountpoint/' + cadData.orthoFile.file, function (err) {
+                                if (err) { console.error(err) }
+                                console.log("success!")
+                            })
+                        }
+                    } else {
+                        console.log("stderr", stderr);
+                        callback(null, stderr);
+                    }
+                });
+                // console.log("fileName[0] ", 'C:/Users/unifli/Documents/googleTile-Mosaic/' + firstName[0] + '.jpg', path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile.file)
+                // sharp(path.join(process.cwd(), "pix4dUpload") + '/' + cadData.orthoFile.file)
+                //     .jpeg()
+                //     .toFile('C:/Users/unifli/Documents/googleTile-Mosaic/' + firstName[0] + '.jpg', function (err, info) {
+                //         // console.log("done");
+                //         callback(null, "done");
+                //     });
+            }
+        ],
             function (err, data) {
                 if (err) {
                     console.log("error occured")
@@ -413,9 +418,9 @@ var controller = {
         }, function () {
             //Generate Zip file
             zip.generateNodeStream({
-                    type: 'nodebuffer',
-                    streamFiles: true
-                })
+                type: 'nodebuffer',
+                streamFiles: true
+            })
                 .pipe(fs.createWriteStream(finalPath))
                 .on('finish', function (zipData) {
                     // JSZip generates a readable stream with a "end" event,

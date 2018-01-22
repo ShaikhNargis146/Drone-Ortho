@@ -316,7 +316,9 @@
 								</tr>-->
 
 								</table>
-								<button type="submit" class="btn green btn-outline" ng-click="downloadOrtho(cadForVendorData.orthoFile.file)">Download Orthomosaic</button>
+								<button ng-if="cadForVendorData.mission" type="submit" class="btn green btn-outline" ng-click="downloadOrthoMission(cadForVendorData.mission._id,cadForVendorData.mission.missionId)">Download Orthomosaic</button>
+								<button ng-if="!cadForVendorData.mission" type="submit" class="btn green btn-outline" ng-click="downloadOrtho(cadForVendorData.orthoFile.file)">Download Orthomosaic</button>
+
 								<button type="button" class="btn green btn-outline " ng-click="uploadvendorOpen();">
 									Upload Final CAD File</button>
 							</div>
@@ -391,7 +393,7 @@
 						<label class="control-label col-sm-4" for="pwd">Acreage</label>
 						<div class="col-sm-6">
 							<input type="text" ng-model="cadLineDetails.acreage" class="form-control" id="acreage" placeholder="Enter Acreage" disabled
-							    name="acreage" required>
+							 name="acreage" required>
 							<span class="errormsg" ng-show="cadFile.acreage.$touched && cadFile.acreage.$invalid">The acreage is required.</span>
 						</div>
 					</div>
@@ -415,7 +417,7 @@
 						<label class="control-label col-sm-4" for="pwd">Amount</label>
 						<div class="col-sm-6">
 							<input type="text" ng-model="cadLineDetails.amount" class="form-control" id="pwd" placeholder="Calculated Amount" name="pwd"
-							    disabled>
+							 disabled>
 						</div>
 					</div>
 
