@@ -5,7 +5,7 @@
         <!-- BEGIN LOGO -->
         <div class="page-logo">
             <!--<a href="#/dashboard"> <img class="logo-default" alt="logo" src="img/logo.png"> </a> (logo for admin)-->
-            <a href="#/dashboard"> <img class="logo-default" alt="logo" src="img/productDetail/Unifli-Logo.png"> </a>
+            <a ui-sref="dashboard"> <img class="logo-default" alt="logo" src="img/productDetail/Unifli-Logo.png"> </a>
         </div>
         <!-- END LOGO -->
         <div class="library-menu"> <span class="one">-</span> <span class="two">-</span> <span class="three">-</span> </div>
@@ -17,14 +17,14 @@
                 <div>
                     <ul class="nav navbar-nav pull-right">
                         <li class="dropdown dropdown-user" ng-if="acessLevel=='User'">
-                            <a data-close-others="true" data-hover="dropdown" data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">  <span class="username username-hide-on-mobile"></span>        {{name1}}                <i class="fa fa-angle-down"></i> </a>
+                            <a data-close-others="true" data-hover="dropdown" data-toggle="dropdown" class="dropdown-toggle" href="javascript:;"> <span class="username username-hide-on-mobile"></span> {{name1}} <i class="fa fa-angle-down"></i>                                </a>
                             <ul class="dropdown-menu dropdown-menu-default user-profile">
                                 <li>
                                     <a ui-sref="acc-and-sub"> <i class="icon-user"></i> My Profile </a>
                                 </li>
 
                                 <li ng-click="logout()">
-                                    <a>   <i class="icon-key"></i> Log Out </a>
+                                    <a> <i class="icon-key"></i> Log Out </a>
                                 </li>
                             </ul>
                         </li>
@@ -33,10 +33,10 @@
                 <div class="">
                     <ul class="nav navbar-nav pull-right">
                         <li class="dropdown dropdown-user" ng-if="acessLevel=='Admin'">
-                            <a data-close-others="true" data-hover="dropdown" data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">  <span class="username username-hide-on-mobile"></span>        {{name1}}                <i class="fa fa-angle-down"></i> </a>
+                            <a data-close-others="true" data-hover="dropdown" data-toggle="dropdown" class="dropdown-toggle" href="javascript:;"> <span class="username username-hide-on-mobile"></span> {{name1}} <i class="fa fa-angle-down"></i>                                </a>
                             <ul class="dropdown-menu dropdown-menu-default">
                                 <li ng-click="logout()">
-                                    <a>   <i class="icon-key"></i> Log Out </a>
+                                    <a> <i class="icon-key"></i> Log Out </a>
                                 </li>
                             </ul>
                         </li>
@@ -45,10 +45,10 @@
                 <div class="">
                     <ul class="nav navbar-nav pull-right">
                         <li class="dropdown dropdown-user" ng-if="acessLevel=='Vendor'">
-                            <a data-close-others="true" data-hover="dropdown" data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">  <span class="username username-hide-on-mobile"></span>        {{name1}}                <i class="fa fa-angle-down"></i> </a>
+                            <a data-close-others="true" data-hover="dropdown" data-toggle="dropdown" class="dropdown-toggle" href="javascript:;"> <span class="username username-hide-on-mobile"></span> {{name1}} <i class="fa fa-angle-down"></i>                                </a>
                             <ul class="dropdown-menu dropdown-menu-default">
                                 <li ng-click="logout()">
-                                    <a>   <i class="icon-key"></i> Log Out </a>
+                                    <a> <i class="icon-key"></i> Log Out </a>
                                 </li>
                             </ul>
                         </li>
