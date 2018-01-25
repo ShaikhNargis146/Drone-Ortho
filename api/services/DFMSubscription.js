@@ -134,72 +134,74 @@ var model = {
         });
     },
 
-    arbSubReqest: function (data,callback) {
-		async.waterfall([
-			function (callback) {
-				DFMSubscription.findOneAndUpdate({
-					_id: data._id
-				},{
-                    autoRenewal:true
-                },{
-                    new:true
-                }).exec(function (err, data) {
-					if (err || _.isEmpty(data)) {
-						callback(err, []);
-					} else {
-						callback(null, data);
-					}
-				});
-			},
-			function (transactionIdData, callback) {
-                var sendData={};
-                sendData.transactionid=transactionIdData.transactionId;
-                ProductOrders.recursivePayment(sendData);                
-			}
-		], function () {
-			console.log("finished")
-			// nothing at all
-		});
-    },
+    //auto renewal
+
+    // arbSubReqest: function (data,callback) {
+	// 	async.waterfall([
+	// 		function (callback) {
+	// 			DFMSubscription.findOneAndUpdate({
+	// 				_id: data._id
+	// 			},{
+    //                 autoRenewal:true
+    //             },{
+    //                 new:true
+    //             }).exec(function (err, data) {
+	// 				if (err || _.isEmpty(data)) {
+	// 					callback(err, []);
+	// 				} else {
+	// 					callback(null, data);
+	// 				}
+	// 			});
+	// 		},
+	// 		function (transactionIdData, callback) {
+    //             var sendData={};
+    //             sendData.transactionid=transactionIdData.transactionId;
+    //             ProductOrders.recursivePayment(sendData);                
+	// 		}
+	// 	], function () {
+	// 		console.log("finished")
+	// 		// nothing at all
+	// 	});
+    // },
     
-    arbSubCancelReqest: function (data,callback) {
-		async.waterfall([
-			function (callback) {
-				DFMSubscription.findOneAndUpdate({
-					_id: data._id
-				},{
-                    autoRenewal:false
-                },{
-                    new:true
-                }).exec(function (err, data) {
-					if (err || _.isEmpty(data)) {
-						callback(err, []);
-					} else {
-						callback(null, data);
-					}
-				});
-			},
-			function (dfmData, callback) {
-            	ProductOrders.findOne({
-					transactionId: dfmData.transactionId
-				}).exec(function (err, data) {
-					if (err || _.isEmpty(data)) {
-						callback(err, []);
-					} else {
-						callback(null, data);
-					}
-				});              
-            },
-            function (transactionIdData, callback) {
-                var sendData={};
-                sendData.subId=transactionIdData.paymentResponseForArbSub.subscriptionId;
-                ProductOrders.cancelSubscription(sendData);                
-			}
-		], function () {
-			console.log("finished")
-			// nothing at all
-		});
-	},
+    // arbSubCancelReqest: function (data,callback) {
+	// 	async.waterfall([
+	// 		function (callback) {
+	// 			DFMSubscription.findOneAndUpdate({
+	// 				_id: data._id
+	// 			},{
+    //                 autoRenewal:false
+    //             },{
+    //                 new:true
+    //             }).exec(function (err, data) {
+	// 				if (err || _.isEmpty(data)) {
+	// 					callback(err, []);
+	// 				} else {
+	// 					callback(null, data);
+	// 				}
+	// 			});
+	// 		},
+	// 		function (dfmData, callback) {
+    //         	ProductOrders.findOne({
+	// 				transactionId: dfmData.transactionId
+	// 			}).exec(function (err, data) {
+	// 				if (err || _.isEmpty(data)) {
+	// 					callback(err, []);
+	// 				} else {
+	// 					callback(null, data);
+	// 				}
+	// 			});              
+    //         },
+    //         function (transactionIdData, callback) {
+    //             var sendData={};
+    //             sendData.subId=transactionIdData.paymentResponseForArbSub.subscriptionId;
+    //             ProductOrders.cancelSubscription(sendData);                
+	// 		}
+	// 	], function () {
+	// 		console.log("finished")
+	// 		// nothing at all
+	// 	});
+	// },
 };
 
 module.exports = _.assign(module.exports, exports, model);
