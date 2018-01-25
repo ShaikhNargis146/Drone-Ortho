@@ -233,7 +233,7 @@ var model = {
     },
 
     totalMissionCount: function (data, callback) {
-        console.log("inside totalMissionCount",data)
+        // console.log("inside totalMissionCount",data)
         var currentSubscriptionDate = data.currentSubscriptionDate
         var ltDate = new Date();
         // console.log(currentSubscriptionDate)
@@ -255,8 +255,8 @@ var model = {
                 };
                 callback(null, data);
             } else if (found) {
-                console.log("*********data",found)
-                console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55")
+                // console.log("*********data",found)
+                // console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55")
                 var countFiles = 0;
                 var a = 0;
                 var foundLength = found.length;
