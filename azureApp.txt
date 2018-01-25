@@ -1,7 +1,9 @@
 username for ubuntu: unifliubuntu ip 13.65.103.46
 unifliwindows01
 unifliwindows02
+unifliwindows03
 unifli-file-share
+MAlaKKA@12345
 
 
 username:nargis@infounifli.onmicrosoft.com
