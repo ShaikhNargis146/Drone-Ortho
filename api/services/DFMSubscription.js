@@ -156,7 +156,7 @@ var model = {
 			function (transactionIdData, callback) {
                 var sendData={};
                 sendData.transactionid=transactionIdData.transactionId;
-                ProductOrders.recursivePayment(sendData);                
+                ProductOrdersController.recursivePayment(sendData);                
 			}
 		], function () {
 			console.log("finished")
@@ -195,7 +195,7 @@ var model = {
             function (transactionIdData, callback) {
                 var sendData={};
                 sendData.subId=transactionIdData.paymentResponseForArbSub.subscriptionId;
-                ProductOrders.cancelSubscription(sendData);                
+                ProductOrdersController.cancelSubscription(sendData);                
 			}
 		], function () {
 			console.log("finished")
