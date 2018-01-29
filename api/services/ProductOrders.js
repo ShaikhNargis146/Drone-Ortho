@@ -253,7 +253,8 @@ var model = {
             });
 
     },
- getuserwiseProduct: function (data, callback) {
+    
+    getuserwiseProduct: function (data, callback) {
         ProductOrders.find({
             user: data._id
         }).deepPopulate('user cadLineWork dfmSubscription products.product').exec(function (err, data) {
