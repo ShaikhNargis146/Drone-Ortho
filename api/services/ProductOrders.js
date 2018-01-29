@@ -137,7 +137,7 @@ var model = {
             }
         })
     },
-    
+
     exceltotalProductOrders: function (data, callback) {
         ProductOrders.find({}).deepPopulate("user dfmSubscription products.product cadLineWork ").exec(function (err, data) {
             if (err || _.isEmpty(data)) {
@@ -981,7 +981,7 @@ var model = {
 
     recursivePayment: function (recData) {
         async.waterfall([
-            function (data) {
+            function (callback) {
                 ProductOrders.findOne({
                     transactionId: recData.transactionid
                 }).exec(function (err, data) {
