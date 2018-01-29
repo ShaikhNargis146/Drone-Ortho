@@ -137,6 +137,7 @@ var model = {
             }
         })
     },
+    
     exceltotalProductOrders: function (data, callback) {
         ProductOrders.find({}).deepPopulate("user dfmSubscription products.product cadLineWork ").exec(function (err, data) {
             if (err || _.isEmpty(data)) {
