@@ -101,8 +101,6 @@ var schema = new Schema({
 
 });
 
-
-
 schema.plugin(deepPopulate, {
     populate: {
         products: {
@@ -982,7 +980,7 @@ var model = {
 
     recursivePayment: function (recData) {
         async.waterfall([
-            function (data, callback) {
+            function (data) {
                 ProductOrders.findOne({
                     transactionId: recData.transactionid
                 }).exec(function (err, data) {
