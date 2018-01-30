@@ -1002,7 +1002,7 @@ var model = {
                 });
             },
             function (transactionIdData, callback) {
-                console.log("transactionIdData", transactionIdData);
+                // console.log("transactionIdData", transactionIdData);
                 ProductOrders.createCustomerProfileFromTransaction(transactionIdData, function (err, data) {
                     if (err || _.isEmpty(data)) {
                         callback(err, []);
@@ -1012,15 +1012,11 @@ var model = {
                 })
             },
             function (profileIdData, callback) {
-                console.log("createCustomerProfileFromTransaction", profileIdData)
+                // console.log("createCustomerProfileFromTransaction", profileIdData)
                 ProductOrders.getCustomerProfile(profileIdData, function (err, data) {
                     if (err || _.isEmpty(data)) {
                         callback(err, []);
                     } else {
-                        // console.log("-----------------$$$$$$$$$$$--------------------")
-                        // console.log("-getCustomerProfile--", data)
-                        // console.log("-getCustomerProfile--", data.profile)                        
-                        // console.log("-----------------$$$$$$$$$$$-------------------")
                         var dataToSend = {};
                         dataToSend.profiledata = data.profile;
                         dataToSend.transactiondate = transactionDate.toISOString().substring(0, 10);
@@ -1030,7 +1026,7 @@ var model = {
                 })
             },
             function (profileData, callback) {
-                console.log("getCustomerProfile", profileData)
+                // console.log("getCustomerProfile", profileData)
                 ProductOrders.createSubscriptionFromCustomerProfile(profileData, function (err, data) {
                     if (err || _.isEmpty(data)) {
                         callback(err, []);
@@ -1040,6 +1036,7 @@ var model = {
                 })
             },
             function (subData, callback) {
+                console.log("subData-----------",subData)
                 ProductOrders.findOneAndUpdate({
                     transactionId: recData.transactionid
                 }, {
@@ -1050,6 +1047,7 @@ var model = {
                     if (err || _.isEmpty(data)) {
                         callback(err, []);
                     } else {
+                        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!",data);
                         callback(null, data);
                     }
                 });
