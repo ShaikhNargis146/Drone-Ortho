@@ -904,7 +904,7 @@ var model = {
         arbSubscription.setName(utils.getRandomString('Name'));
         arbSubscription.setPaymentSchedule(paymentScheduleType);
         arbSubscription.setAmount(profileData.transactionamt);
-        // arbSubscription.setTrialAmount(utils.getRandomAmount());
+        arbSubscription.setTrialAmount(profileData.transactionamt);
         arbSubscription.setProfile(customerProfileIdType);
 
         var createRequest = new ApiContracts.ARBCreateSubscriptionRequest();
