@@ -805,6 +805,7 @@ var model = {
         //console.log(JSON.stringify(createRequest.getJSON(), null, 2));
 
         var ctrl = new ApiControllers.CreateCustomerProfileFromTransactionController(createRequest.getJSON());
+        ctrl.setEnvironment(SDKConstants.endpoint.production);
 
         ctrl.execute(function () {
 
@@ -846,6 +847,7 @@ var model = {
         //console.log(JSON.stringify(createRequest.getJSON(), null, 2));
 
         var ctrl = new ApiControllers.GetCustomerProfileController(getRequest.getJSON());
+        ctrl.setEnvironment(SDKConstants.endpoint.production);
 
         ctrl.execute(function () {
 
@@ -913,6 +915,7 @@ var model = {
         console.log(JSON.stringify(createRequest.getJSON(), null, 2));
 
         var ctrl = new ApiControllers.ARBCreateSubscriptionController(createRequest.getJSON());
+        ctrl.setEnvironment(SDKConstants.endpoint.production);
 
         ctrl.execute(function () {
 
@@ -953,6 +956,7 @@ var model = {
         console.log(JSON.stringify(cancelRequest.getJSON(), null, 2));
 
         var ctrl = new ApiControllers.ARBCancelSubscriptionController(cancelRequest.getJSON());
+        ctrl.setEnvironment(SDKConstants.endpoint.production);
 
         ctrl.execute(function () {
 
@@ -996,6 +1000,7 @@ var model = {
                 });
             },
             function (transactionIdData, callback) {
+                console.log("transactionIdData",transactionIdData);
                 ProductOrders.createCustomerProfileFromTransaction(transactionIdData, function (err, data) {
                     if (err || _.isEmpty(data)) {
                         callback(err, []);
