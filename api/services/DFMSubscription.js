@@ -156,12 +156,19 @@ var model = {
             function (transactionIdData, callback) {
                 var sendData = {};
                 sendData.transactionid = transactionIdData.transactionId;
-                ProductOrders.recursivePayment(sendData, callback);
+                ProductOrders.recursivePayment(sendData, function (err, data) {
+                    if (err || _.isEmpty(data)) {
+                        callback(err, []);
+                    } else {
+                        callback(null, data);
+                    }
+                });
             }
         ], function (err, results) {
             console.log("results", results)
+            console.log("ERRRR",err)            
             if (err || _.isEmpty(results)) {
-                console.log("ERRRR")
+                console.log("ERRRR",err)
                 callback(err);
             } else {
                 console.log("Success")
