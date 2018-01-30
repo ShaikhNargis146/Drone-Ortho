@@ -843,7 +843,6 @@ var controller = {
 	 */
 
 	acceptPaymentPage: function (req, res) {
-		unifli.aero
 		console.log(req.query);
 		if (req.query.amount && req.query.invoiceNumber) {
 
