@@ -305,7 +305,7 @@ firstapp.directive('uploadImage', function ($http, $filter, $timeout) {
             callback: "&ngCallback"
         },
         link: function ($scope, element, attrs) {
-            $scope.showImage = function () {};
+            $scope.showImage = function () { };
             $scope.check = true;
             if (!$scope.type) {
                 $scope.type = "image";
@@ -428,7 +428,7 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
         },
         link: function ($scope, element, attrs) {
 
-            $scope.showImage = function () {};
+            $scope.showImage = function () { };
             $scope.check = true;
             if (!$scope.type) {
                 $scope.type = "image";
@@ -475,12 +475,20 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
 
                                     if (data.data.value == true) {
                                         var missionData = data.data.data;
+                                        console.log("newVal.length", newVal.length);
+                                        missionData.fileSize = missionData.fileSize + newVal.length;
                                         var currentSub = currentSubscription;
                                         var sizeLimit = currentSub.UploadSize.trim()
                                         sizeLimit = sizeLimit.substring(0, sizeLimit.length - 2)
+                                       var uploadSize=0;
+                                       uploadSize=_.sumBy(newVal, function(o) { return o.file.size; });
+                                        console.log("_.sumBy(objects)----->>>>",uploadSize)
                                         var usedSize = missionData.folderSize;
-                                        usedSize = usedSize.split(' ')[0];
-                                        console.log("sizeLimit", Number(currentSub.UploadPhoto) < Number(missionData.fileSize), Number(sizeLimit) < Number(usedSize), Number(currentSub.missions) <= Number(missionData.missionCount));
+                                         usedSize = usedSize.split(' ')[0];
+                                         if(uploadSize>0){ 
+                                              usedSize = Number(usedSize)+Number(uploadSize / 1000000000).toFixed(8);
+                                        }
+                                        console.log("sizeLimit missionData.fileSize", missionData.fileSize, "------------->>>>>",usedSize, Number(currentSub.UploadPhoto) < Number(missionData.fileSize), Number(sizeLimit) < Number(usedSize), Number(currentSub.missions) <= Number(missionData.missionCount));
                                         if (Number(currentSub.UploadPhoto) <= Number(missionData.fileSize) || Number(sizeLimit) <= Number(usedSize) || Number(currentSub.missions) <= Number(missionData.missionCount)) {
                                             console.log("data-----count---...", currentSub.UploadPhoto, missionData)
                                             $("#myAlertModal").modal();
@@ -490,7 +498,7 @@ firstapp.directive('uploadImageFiles', function ($http, $filter, $timeout, $stat
                                             $timeout(function () {
                                                 async.eachLimit(newVal, 1, function (image, callback) {
                                                     // Perform operation on file here.
-                                                    console.log('Processing file ' + image);
+                                                    console.log('Processing file ---->>>', image);
                                                     if (image && image.file) {
                                                         $scope.fileprogressbar = 0;
                                                         $scope.uploadStatus = "uploading";
@@ -1273,11 +1281,11 @@ firstapp.directive('mapBox', function ($http, $filter, JsonService, $rootScope, 
                 ];
             }
             var map = L.mapbox.map('map', 'mapbox.streets', {
-                    infoControl: false,
-                    attributionControl: false,
-                    maxZoom: zoomLevel[1],
-                    minZoom: zoomLevel[0]
-                })
+                infoControl: false,
+                attributionControl: false,
+                maxZoom: zoomLevel[1],
+                minZoom: zoomLevel[0]
+            })
                 .fitBounds(imageBounds)
             var attribution = L.control.attribution();
             attribution.setPrefix('<a href="https://cloud.unifli.aero/">Unifli</a>');
@@ -1490,7 +1498,7 @@ firstapp.directive('pagination', function () {
             // item: "=value"
         },
         templateUrl: 'views/directive/pagination.html',
-        link: function () {}
+        link: function () { }
     }
 });
 firstapp.directive('commonView', function () {
