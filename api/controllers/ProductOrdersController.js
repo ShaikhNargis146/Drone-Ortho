@@ -1047,7 +1047,7 @@ var controller = {
 
 						var transactionCustomerDataType = new ApiContracts.CustomerDataType();
 						transactionCustomerDataType.setEmail(data.user.email);
-						transactionCustomerDataType.setId(data.user._id);						
+						transactionCustomerDataType.setId(data.user.dataId);						
 						transactionRequestType.setCustomer(transactionCustomerDataType);
 
 						var transactionBillTo = new ApiContracts.CustomerAddressType();
