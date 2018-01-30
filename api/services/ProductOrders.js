@@ -1004,7 +1004,6 @@ var model = {
                     if (err || _.isEmpty(data)) {
                         callback(err, []);
                     } else {
-                        console.log("data.customerProfileIddata.customerProfileId",data)
                         callback(null, data.customerProfileId);
                     }
                 })

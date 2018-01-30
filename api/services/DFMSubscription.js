@@ -165,13 +165,11 @@ var model = {
                 });
             }
         ], function (err, results) {
-            console.log("results", results)
-            console.log("ERRRR",err)            
             if (err || _.isEmpty(results)) {
                 console.log("ERRRR",err)
                 callback(err);
             } else {
-                console.log("Success")
+                console.log("Success",results)
                 callback(null, results);
             }
         });
