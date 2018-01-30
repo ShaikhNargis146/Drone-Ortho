@@ -365,7 +365,7 @@ var controller = {
 	// 			console.log('Null response received');
 	// 		}
 
-	// 	callback(response);
+	// 		callback(response);
 
 	// 	});
 	// },
@@ -424,7 +424,7 @@ var controller = {
 
 	// 	var interval = new ApiContracts.PaymentScheduleType.Interval();
 	// 	interval.setLength(1);
-	// 	interval.setUnit(ApiContracts.ARBSubscriptionUnitEnum.MONTHS);
+	// 	interval.setUnit(ApiContracts.ARBSubscriptionUnitEnum.DAYS);
 
 	// 	var paymentScheduleType = new ApiContracts.PaymentScheduleType();
 	// 	paymentScheduleType.setInterval(interval);
@@ -587,6 +587,32 @@ var controller = {
 	// 	});
 	// },
 
+	recursivePayment: function (req, res) {
+		if (req.body) {
+			ProductOrders.recursivePayment(req.body, res.callback);
+		} else {
+			res.json({
+				value: false,
+				data: {
+					message: "Invalid Request"
+				}
+			});
+		}
+	},
+
+	cancelSubscription: function (req, res) {
+		if (req.body) {
+			ProductOrders.cancelSubscription(req.body, res.callback);
+		} else {
+			res.json({
+				value: false,
+				data: {
+					message: "Invalid Request"
+				}
+			});
+		}
+	},
+
 	//recursive payment end
 
 	/**
@@ -705,6 +731,109 @@ var controller = {
 
 	},
 
+	RecursivePaymentNotify: function (req, res) {
+		console.log("notify RecursivePaymentNotify");
+		console.log(req.body);
+		console.log("notify RecursivePaymentNotify");
+
+		if (req.body.payload.id) {
+			var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
+			merchantAuthenticationType.setName(constants.apiLoginKey);
+			merchantAuthenticationType.setTransactionKey(constants.transactionKey);
+
+			var getRequest = new ApiContracts.GetTransactionDetailsRequest();
+			getRequest.setMerchantAuthentication(merchantAuthenticationType);
+			getRequest.setTransId(req.body.payload.id);
+
+			console.log(JSON.stringify(getRequest.getJSON(), null, 2));
+
+			var ctrl = new ApiControllers.GetTransactionDetailsController(getRequest.getJSON());
+			ctrl.setEnvironment(SDKConstants.endpoint.production);
+
+			ctrl.execute(function () {
+
+				var apiResponse = ctrl.getResponse();
+
+				var response = new ApiContracts.GetTransactionDetailsResponse(apiResponse);
+
+				var paymentRes = JSON.parse(JSON.stringify(response, null, 2))
+				console.log("response-----------", paymentRes);
+
+				if (response != null) {
+					if (response.getMessages().getResultCode() == ApiContracts.MessageTypeEnum.OK) {
+						async.waterfall([
+							function (callback) {
+								ProductOrders.findOne({
+									invoiceNo: response.getTransaction().getOrder().getInvoiceNumber()
+								}).exec(function (err, data) {
+									if (err || _.isEmpty(data)) {
+										callback(err, []);
+									} else {
+										if (data.dfmSubscription) {
+											var dfmData = data.toObject();;
+											delete data.createdAt;
+											delete data._id;
+											delete data.updatedAt;
+											delete data.invoiceNo;
+											delete data.__v;
+											delete data.paymentResponse;
+											delete data.transactionId;
+											delete data.transactionDate;
+											delete data.status;
+											callback(null, dfmData);
+										} else {
+											callback(err, []);
+										}
+									}
+								});
+							},
+							function (dfmData, callback) {
+								dfmData.paymentResponse = paymentRes,
+									dfmData.status = 'Paid',
+									dfmData.transactionId = paymentRes.transaction.transId,
+									dfmData.transactionDate = paymentRes.transaction.submitTimeUTC
+								if (dfmData) {
+									ProductOrders.createInvoice(dfmData, function (err, data) {
+										if (err || _.isEmpty(data)) {
+											callback(err, []);
+										} else {
+											callback(null, data)
+										}
+									})
+								} else {
+									callback(err, []);
+								}
+							},
+							function (invoiceData, callback) {
+								var invData = {};
+								invData.invoiceNo = invoiceData.invoiceNo;
+								ProductOrders.invoiceGenerate(invData, function (err, data) {
+									if (err || _.isEmpty(data)) {
+										callback(err, []);
+									} else {
+										callback(null, data)
+									}
+								})
+							}
+						], function () {
+							console.log("finished------");
+							// nothing at all
+						});
+
+					} else {
+						console.log('Result Code: ' + response.getMessages().getResultCode());
+						console.log('Error Code: ' + response.getMessages().getMessage()[0].getCode());
+						console.log('Error message: ' + response.getMessages().getMessage()[0].getText());
+					}
+				} else {
+					console.log('Null Response.');
+				}
+				// callback(response);
+			});
+		}
+
+	},
+
 	/**
 	 * Start of transaction:
 	 * As per which type of transaction it excecute paypal or card transaction 
@@ -714,10 +843,8 @@ var controller = {
 	 */
 
 	acceptPaymentPage: function (req, res) {
-		unifli.aero
 		console.log(req.query);
 		if (req.query.amount && req.query.invoiceNumber) {
-
 			ProductOrders.findOne({
 				invoiceNo: req.query.invoiceNumber
 			}).deepPopulate('user products.product').exec(function (err, data) {
@@ -920,6 +1047,7 @@ var controller = {
 
 						var transactionCustomerDataType = new ApiContracts.CustomerDataType();
 						transactionCustomerDataType.setEmail(data.user.email);
+						transactionCustomerDataType.setId(data.user.dataId);						
 						transactionRequestType.setCustomer(transactionCustomerDataType);
 
 						var transactionBillTo = new ApiContracts.CustomerAddressType();

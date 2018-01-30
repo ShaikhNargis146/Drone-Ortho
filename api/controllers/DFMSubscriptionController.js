@@ -15,31 +15,31 @@ var controller = {
         }
     },
 
-    // arbSubReqest: function (req, res) {
-    //     if (req.body) {
-    //         DFMSubscription.arbSubReqest(req.body, res.callback);
-    //     } else {
-    //         res.json({
-    //             value: false,
-    //             data: {
-    //                 message: "Invalid Request"
-    //             }
-    //         });
-    //     }
-    // },
+    arbSubReqest: function (req, res) {
+        if (req.body) {
+            DFMSubscription.arbSubReqest(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            });
+        }
+    },
 
-    // arbSubCancelReqest: function (req, res) {
-    //     if (req.body) {
-    //         DFMSubscription.arbSubCancelReqest(req.body, res.callback);
-    //     } else {
-    //         res.json({
-    //             value: false,
-    //             data: {
-    //                 message: "Invalid Request"
-    //             }
-    //         });
-    //     }
-    // }
+    arbSubCancelReqest: function (req, res) {
+        if (req.body) {
+            DFMSubscription.arbSubCancelReqest(req.body, res.callback);
+        } else {
+            res.json({
+                value: false,
+                data: {
+                    message: "Invalid Request"
+                }
+            });
+        }
+    }
 };
 cron.schedule('1 * * * *', function () {
     DFMSubscription.find({
