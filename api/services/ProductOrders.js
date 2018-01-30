@@ -827,7 +827,7 @@ var model = {
             } else {
                 console.log('Null response received');
             }
-
+            console.log('response response response',response);            
             callback(response);
 
         });
@@ -1005,6 +1005,7 @@ var model = {
                     if (err || _.isEmpty(data)) {
                         callback(err, []);
                     } else {
+                        console.log("data.customerProfileIddata.customerProfileId",data)
                         callback(null, data.customerProfileId);
                     }
                 })

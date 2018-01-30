@@ -136,29 +136,74 @@ var model = {
 
     //auto renewal
 
-    arbSubReqest: function (data,callback) {
-		async.waterfall([
-			function (callback) {
-				DFMSubscription.findOneAndUpdate({
-					_id: data._id
-				},{
-                    autoRenewal:true
-                },{
-                    new:true
+    arbSubReqest: function (data, callback) {
+        async.waterfall([
+            function (callback) {
+                DFMSubscription.findOneAndUpdate({
+                    _id: data._id
+                }, {
+                    autoRenewal: true
+                }, {
+                    new: true
                 }).exec(function (err, data) {
-					if (err || _.isEmpty(data)) {
-						callback(err, []);
-					} else {
-						callback(null, data);
-					}
-				});
-			},
-			function (transactionIdData, callback) {
-                var sendData={};
-                sendData.transactionid=transactionIdData.transactionId;
-                ProductOrders.recursivePayment(sendData,callback);                
-			}
-		],function (err, results) {
+                    if (err || _.isEmpty(data)) {
+                        callback(err, []);
+                    } else {
+                        callback(null, data);
+                    }
+                });
+            },
+            function (transactionIdData, callback) {
+                var sendData = {};
+                sendData.transactionid = transactionIdData.transactionId;
+                ProductOrders.recursivePayment(sendData, callback);
+            }
+        ], function (err, results) {
+            console.log("results", results)
+            if (err || _.isEmpty(results)) {
+                console.log("ERRRR")
+                callback(err);
+            } else {
+                console.log("Success")
+                callback(null, results);
+            }
+        });
+    },
+
+    arbSubCancelReqest: function (data, callback) {
+        async.waterfall([
+            function (callback) {
+                DFMSubscription.findOneAndUpdate({
+                    _id: data._id
+                }, {
+                    autoRenewal: false
+                }, {
+                    new: true
+                }).exec(function (err, data) {
+                    if (err || _.isEmpty(data)) {
+                        callback(err, []);
+                    } else {
+                        callback(null, data);
+                    }
+                });
+            },
+            function (dfmData, callback) {
+                ProductOrders.findOne({
+                    transactionId: dfmData.transactionId
+                }).exec(function (err, data) {
+                    if (err || _.isEmpty(data)) {
+                        callback(err, []);
+                    } else {
+                        callback(null, data);
+                    }
+                });
+            },
+            function (transactionIdData, callback) {
+                var sendData = {};
+                sendData.subId = transactionIdData.paymentResponseForArbSub.subscriptionId;
+                ProductOrders.cancelSubscription(sendData, callback);
+            }
+        ], function (err, results) {
             if (err || _.isEmpty(results)) {
                 callback(err);
             } else {
@@ -166,48 +211,6 @@ var model = {
             }
         });
     },
-    
-    arbSubCancelReqest: function (data,callback) {
-		async.waterfall([
-			function (callback) {
-				DFMSubscription.findOneAndUpdate({
-					_id: data._id
-				},{
-                    autoRenewal:false
-                },{
-                    new:true
-                }).exec(function (err, data) {
-					if (err || _.isEmpty(data)) {
-						callback(err, []);
-					} else {
-						callback(null, data);
-					}
-				});
-			},
-			function (dfmData, callback) {
-            	ProductOrders.findOne({
-					transactionId: dfmData.transactionId
-				}).exec(function (err, data) {
-					if (err || _.isEmpty(data)) {
-						callback(err, []);
-					} else {
-						callback(null, data);
-					}
-				});              
-            },
-            function (transactionIdData, callback) {
-                var sendData={};
-                sendData.subId=transactionIdData.paymentResponseForArbSub.subscriptionId;
-                ProductOrders.cancelSubscription(sendData,callback);                
-			}
-		],function (err, results) {
-            if (err || _.isEmpty(results)) {
-                callback(err);
-            } else {
-                callback(null, results);
-            }
-        });
-	},
 };
 
 module.exports = _.assign(module.exports, exports, model);
