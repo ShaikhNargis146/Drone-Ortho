@@ -156,12 +156,15 @@ var model = {
 			function (transactionIdData, callback) {
                 var sendData={};
                 sendData.transactionid=transactionIdData.transactionId;
-                ProductOrders.recursivePayment(sendData);                
+                ProductOrders.recursivePayment(sendData,callback);                
 			}
-		], function () {
-			console.log("finished")
-			// nothing at all
-		});
+		],function (err, results) {
+            if (err || _.isEmpty(results)) {
+                callback(err);
+            } else {
+                callback(null, results);
+            }
+        });
     },
     
     arbSubCancelReqest: function (data,callback) {
@@ -195,12 +198,15 @@ var model = {
             function (transactionIdData, callback) {
                 var sendData={};
                 sendData.subId=transactionIdData.paymentResponseForArbSub.subscriptionId;
-                ProductOrders.cancelSubscription(sendData);                
+                ProductOrders.cancelSubscription(sendData,callback);                
 			}
-		], function () {
-			console.log("finished")
-			// nothing at all
-		});
+		],function (err, results) {
+            if (err || _.isEmpty(results)) {
+                callback(err);
+            } else {
+                callback(null, results);
+            }
+        });
 	},
 };
 

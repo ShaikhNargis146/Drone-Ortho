@@ -979,7 +979,7 @@ var model = {
         });
     },
 
-    recursivePayment: function (recData) {
+    recursivePayment: function (recData,callback) {
         async.waterfall([
             function (callback) {
                 ProductOrders.findOne({
@@ -1043,9 +1043,12 @@ var model = {
                     }
                 });
             }
-        ], function () {
-            console.log("finished")
-            // nothing at all
+        ], function (err, results) {
+            if (err || _.isEmpty(results)) {
+                callback(err);
+            } else {
+                callback(null, results);
+            }
         });
     },
 
