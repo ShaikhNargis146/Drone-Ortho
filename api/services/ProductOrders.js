@@ -983,6 +983,9 @@ var model = {
     },
 
     recursivePayment: function (recData,callback) {
+        var transactionDate;
+        var transactionAmt;
+        var transactionId 
         async.waterfall([
             function (callback) {
                 ProductOrders.findOne({
@@ -991,9 +994,9 @@ var model = {
                     if (err || _.isEmpty(data)) {
                         callback(err, []);
                     } else {
-                        var transactionId = data.transactionId;
-                        var transactionDate = data.transactionDate;
-                        var transactionAmt = data.totalAmount;
+                        transactionId = data.transactionId;
+                        transactionDate = data.transactionDate;
+                        transactionAmt = data.totalAmount;
                         callback(null, transactionId);
                     }
                 });
@@ -1014,10 +1017,13 @@ var model = {
                     if (err || _.isEmpty(data)) {
                         callback(err, []);
                     } else {
+                        console.log("----------------------------")
+                        console.log("-getCustomerProfile--",data)
+                        console.log("------------------------------------")
                         var dataToSend = {};
                         dataToSend.profiledata = data;
-                        dataToSend.transactiondate = data.transactionDate;
-                        dataToSend.transactionamt = data.transactionAmt
+                        dataToSend.transactiondate = transactionDate;
+                        dataToSend.transactionamt = transactionAmt
                         callback(null, dataToSend);
                     }
                 })
