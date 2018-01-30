@@ -845,7 +845,6 @@ var controller = {
 	acceptPaymentPage: function (req, res) {
 		console.log(req.query);
 		if (req.query.amount && req.query.invoiceNumber) {
-
 			ProductOrders.findOne({
 				invoiceNo: req.query.invoiceNumber
 			}).deepPopulate('user products.product').exec(function (err, data) {
@@ -1048,7 +1047,8 @@ var controller = {
 
 						var transactionCustomerDataType = new ApiContracts.CustomerDataType();
 						transactionCustomerDataType.setEmail(data.user.email);
-						transactionRequestType.setCustomer(data.user._id);
+						transactionCustomerDataType.setId(data.user._id);						
+						transactionRequestType.setCustomer(transactionCustomerDataType);
 
 						var transactionBillTo = new ApiContracts.CustomerAddressType();
 						transactionBillTo.setFirstName(data.billingAddress.fname);
