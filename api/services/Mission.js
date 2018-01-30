@@ -71,8 +71,8 @@ var schema = new Schema({
         default: 0
     }
 }, {
-    usePushEach: true
-});
+        usePushEach: true
+    });
 
 schema.plugin(deepPopulate, {
     Populate: {
@@ -108,24 +108,24 @@ var model = {
 
     generateExcelMission: function (match, callback) {
         async.concatSeries(match, function (mainData, callback) {
-                var obj = {};
-                obj["MISSION ID"] = mainData.missionId;
-                if (mainData.user) {
-                    obj["USER ID"] = mainData.user.dataId;
-                } else {
-                    obj["USER ID"] = "-";
-                }
+            var obj = {};
+            obj["MISSION ID"] = mainData.missionId;
+            if (mainData.user) {
+                obj["USER ID"] = mainData.user.dataId;
+            } else {
+                obj["USER ID"] = "-";
+            }
 
-                obj["MISSION NAME"] = mainData.name;
-                obj["STATUS"] = mainData.status;
-                obj[" DATE"] = moment(mainData.createdAt).format("DD/MM/YYYY")
-                if (mainData.cadline[0]) {
-                    obj[" CADRQUEST"] = "Yes";
-                } else {
-                    obj[" CADRQUEST"] = "No";
-                }
-                callback(null, obj);
-            },
+            obj["MISSION NAME"] = mainData.name;
+            obj["STATUS"] = mainData.status;
+            obj[" DATE"] = moment(mainData.createdAt).format("DD/MM/YYYY")
+            if (mainData.cadline[0]) {
+                obj[" CADRQUEST"] = "Yes";
+            } else {
+                obj[" CADRQUEST"] = "No";
+            }
+            callback(null, obj);
+        },
             function (err, singleData) {
                 callback(null, singleData);
             });
@@ -145,13 +145,13 @@ var model = {
 
     generateExcelMissionforUser: function (match, callback) {
         async.concatSeries(match, function (mainData, callback) {
-                var obj = {};
-                obj["MISSION ID"] = mainData.missionId;
-                obj["MISSION NAME"] = mainData.name;
-                obj["STATUS"] = mainData.status;
-                obj[" DATE"] = moment(mainData.createdAt).format("DD/MM/YYYY")
-                callback(null, obj);
-            },
+            var obj = {};
+            obj["MISSION ID"] = mainData.missionId;
+            obj["MISSION NAME"] = mainData.name;
+            obj["STATUS"] = mainData.status;
+            obj[" DATE"] = moment(mainData.createdAt).format("DD/MM/YYYY")
+            callback(null, obj);
+        },
             function (err, singleData) {
                 callback(null, singleData);
             });
@@ -186,21 +186,21 @@ var model = {
             count: maxRow
         };
         Mission.find({
-                user: data.user
-            })
+            user: data.user
+        })
             .deepPopulate("others.serviceId user DFMSubscription")
             .order(options)
             .keyword(options)
             .page(options,
-                function (err, found) {
-                    if (err) {
-                        callback(err, null);
-                    } else if (found) {
-                        callback(null, found);
-                    } else {
-                        callback("Invalid data", null);
-                    }
-                });
+            function (err, found) {
+                if (err) {
+                    callback(err, null);
+                } else if (found) {
+                    callback(null, found);
+                } else {
+                    callback("Invalid data", null);
+                }
+            });
     },
 
     getMissionForCad: function (data, callback) {
@@ -263,13 +263,23 @@ var model = {
                 var totalSizeLenght = 0;
                 _.forEach(found, function (x) {
                     countFiles = countFiles + x.files.length
-                    console.log("1st console",countFiles)
+                    console.log("1st console", countFiles)
                     var getSize = require('get-folder-size');
                     var path = '/mymountpoint/' + x._id;
                     console.log("2nd console")
                     if (!fs.existsSync(path)) {
                         console.log("3rd console")
                         totalSizeLenght++;
+                        if (totalSizeLenght == foundLength) {
+                            // console.log("exe 3:");
+                            var toShow = (a / 1000000000).toFixed(8) + " GB";
+                            data = {
+                                folderSize: toShow,
+                                fileSize: countFiles,
+                                missionCount: found.length
+                            };
+                            callback(null, data);
+                        }
                     } else {
                         console.log("4th console")
                         getSize(path, function (err, bytes) {
@@ -280,7 +290,7 @@ var model = {
                             totalSizeLenght++;
                             if (totalSizeLenght == foundLength) {
                                 // console.log("exe 3:");
-                                var toShow = (a / 1000000000).toFixed(5) + " GB";
+                                var toShow = (a / 1000000000).toFixed(8) + " GB";
                                 data = {
                                     folderSize: toShow,
                                     fileSize: countFiles,
@@ -392,32 +402,32 @@ var model = {
 
     uploadFileToServer: function (directoryName, image, callback) {
         async.waterfall([
-                // function (callback) {
-                //     request(global["env"].realHost + '/api/upload/readFile?file=' + image.file).pipe(fs.createWriteStream(image.file)).on('finish', function (myImg) {
-                //         console.log("imagessssssssssss", myImg);
-                //         callback(null, myImg, image);
-                //     }).on("error", function () {
-                //         callback("Error while reading the file");
-                //     });
-                // },
-                function (callback) {
-                    var oldPath = path.join(path.join(process.cwd(), "pix4dUpload"), image.file);
-                    // Uploading a local file to the directory created above
-                    console.log('3. Uploading a file to directory', ++counter);
-                    fileService.createFileFromLocalFile(shareName, directoryName, image.file, oldPath, function (error) {
-                        if (error) {
-                            console.log("error", error);
-                            callback(error, null);
-                        } else {
-                            // List all files/directories under the root directory
-                            fs.unlink(oldPath);
-                            console.log('file saved successfully');
-                            callback(null, path.join(directoryName, image.file));
-                        }
-                    });
+            // function (callback) {
+            //     request(global["env"].realHost + '/api/upload/readFile?file=' + image.file).pipe(fs.createWriteStream(image.file)).on('finish', function (myImg) {
+            //         console.log("imagessssssssssss", myImg);
+            //         callback(null, myImg, image);
+            //     }).on("error", function () {
+            //         callback("Error while reading the file");
+            //     });
+            // },
+            function (callback) {
+                var oldPath = path.join(path.join(process.cwd(), "pix4dUpload"), image.file);
+                // Uploading a local file to the directory created above
+                console.log('3. Uploading a file to directory', ++counter);
+                fileService.createFileFromLocalFile(shareName, directoryName, image.file, oldPath, function (error) {
+                    if (error) {
+                        console.log("error", error);
+                        callback(error, null);
+                    } else {
+                        // List all files/directories under the root directory
+                        fs.unlink(oldPath);
+                        console.log('file saved successfully');
+                        callback(null, path.join(directoryName, image.file));
+                    }
+                });
 
-                }
-            ],
+            }
+        ],
             function (err, data) {
                 if (err) {
                     callback(null, err);
@@ -578,15 +588,15 @@ var model = {
             .order(options)
             .keyword(options)
             .page(options,
-                function (err, found) {
-                    if (err) {
-                        callback(err, null);
-                    } else if (found) {
-                        callback(null, found);
-                    } else {
-                        callback("Invalid data", null);
-                    }
-                });
+            function (err, found) {
+                if (err) {
+                    callback(err, null);
+                } else if (found) {
+                    callback(null, found);
+                } else {
+                    callback("Invalid data", null);
+                }
+            });
     },
 
     missionIdGenerate: function (data, callback) {
@@ -668,64 +678,64 @@ var model = {
 
     sendMissionRequestMail: function (data, callback) {
         async.parallel({
-                forUser: function (callback) {
-                    var emailData = {}
-                    emailData.email = data.email;
-                    emailData.filename = "Mission Started";
-                    emailData.subject = "MISSION STARTED";
-                    emailData.merge_vars = [{
-                        "name": "MISSION_ID",
-                        "content": data.missionId
-                    }];
-                    Config.email(emailData, function (err, emailRespo) {
-                        // console.log("emailRespo", emailRespo);
-                        if (err) {
-                            console.log(err);
-                            callback(err, null);
-                        } else if (emailRespo) {
-                            callback(null, "Contact us form saved successfully!!!");
-                        } else {
-                            callback("Invalid data", null);
-                        }
-                    });
-                },
-                forAdmin: function (callback) {
-                    var creationDate = new Date();
-                    var emailData = {}
-                    emailData.email = global["env"].adminEmail;
-                    emailData.filename = "New Mission Request (Admin)";
-                    emailData.name = data.name;
-                    emailData.subject = "NEW MISSION REQUEST";
-                    emailData.merge_vars = [{
-                        "name": "USER_NAME",
-                        "content": data.userName
-                    }, {
-                        "name": "USER_ID",
-                        "content": data.userId
-                    }, {
-                        "name": "MISSION_ID",
-                        "content": data.missionId
-                    }, {
-                        "name": "MISSION_NAME",
-                        "content": data.missionName
-                    }, {
-                        "name": "DATE_OF_CREATION",
-                        "content": creationDate
-                    }];
-
-                    Config.email(emailData, function (err, emailRespo) {
-                        // console.log("emailRespo", emailRespo);
-                        if (err) {
-                            console.log(err);
-                            callback(err, null);
-                        } else if (emailRespo) {
-                            callback(null, "Contact us form saved successfully!!!");
-                        } else {
-                            callback("Invalid data", null);
-                        }
-                    });
-                }
+            forUser: function (callback) {
+                var emailData = {}
+                emailData.email = data.email;
+                emailData.filename = "Mission Started";
+                emailData.subject = "MISSION STARTED";
+                emailData.merge_vars = [{
+                    "name": "MISSION_ID",
+                    "content": data.missionId
+                }];
+                Config.email(emailData, function (err, emailRespo) {
+                    // console.log("emailRespo", emailRespo);
+                    if (err) {
+                        console.log(err);
+                        callback(err, null);
+                    } else if (emailRespo) {
+                        callback(null, "Contact us form saved successfully!!!");
+                    } else {
+                        callback("Invalid data", null);
+                    }
+                });
             },
+            forAdmin: function (callback) {
+                var creationDate = new Date();
+                var emailData = {}
+                emailData.email = global["env"].adminEmail;
+                emailData.filename = "New Mission Request (Admin)";
+                emailData.name = data.name;
+                emailData.subject = "NEW MISSION REQUEST";
+                emailData.merge_vars = [{
+                    "name": "USER_NAME",
+                    "content": data.userName
+                }, {
+                    "name": "USER_ID",
+                    "content": data.userId
+                }, {
+                    "name": "MISSION_ID",
+                    "content": data.missionId
+                }, {
+                    "name": "MISSION_NAME",
+                    "content": data.missionName
+                }, {
+                    "name": "DATE_OF_CREATION",
+                    "content": creationDate
+                }];
+
+                Config.email(emailData, function (err, emailRespo) {
+                    // console.log("emailRespo", emailRespo);
+                    if (err) {
+                        console.log(err);
+                        callback(err, null);
+                    } else if (emailRespo) {
+                        callback(null, "Contact us form saved successfully!!!");
+                    } else {
+                        callback("Invalid data", null);
+                    }
+                });
+            }
+        },
             function (err, result) {
                 if (err || _.isEmpty(result)) {
                     // callback(err, []);
