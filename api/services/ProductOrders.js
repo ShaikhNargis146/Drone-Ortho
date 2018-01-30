@@ -827,7 +827,7 @@ var model = {
             } else {
                 console.log('Null response received');
             }
-            callback(null,response);
+            callback(null, response);
 
         });
     },
@@ -871,7 +871,7 @@ var model = {
                 console.log('Null response received');
             }
 
-            callback(null,response);
+            callback(null, response);
         });
     },
 
@@ -938,7 +938,7 @@ var model = {
                 console.log('Null Response.');
             }
 
-            callback(null,response);
+            callback(null, response);
         });
     },
 
@@ -978,14 +978,14 @@ var model = {
                 console.log('Null Response.');
             }
 
-            callback(null,response);
+            callback(null, response);
         });
     },
 
-    recursivePayment: function (recData,callback) {
+    recursivePayment: function (recData, callback) {
         var transactionDate;
         var transactionAmt;
-        var transactionId 
+        var transactionId
         async.waterfall([
             function (callback) {
                 ProductOrders.findOne({
@@ -1002,7 +1002,7 @@ var model = {
                 });
             },
             function (transactionIdData, callback) {
-                console.log("transactionIdData",transactionIdData);
+                console.log("transactionIdData", transactionIdData);
                 ProductOrders.createCustomerProfileFromTransaction(transactionIdData, function (err, data) {
                     if (err || _.isEmpty(data)) {
                         callback(err, []);
@@ -1017,11 +1017,14 @@ var model = {
                     if (err || _.isEmpty(data)) {
                         callback(err, []);
                     } else {
-                        console.log("----------------------------")
-                        console.log("-getCustomerProfile--",data)
-                        console.log("------------------------------------")
+                        console.log("-----------------$$$$$$$$$$$--------------------")
+                        console.log("-getCustomerProfile--", data)
+                        console.log("-getCustomerProfile--", data.profile)                        
+                        // console.log("-getCustomerProfile--", data.shipToList[0].customerAddressId)
+                        // console.log("-getCustomerProfile--", data.paymentProfiles[0].customerPaymentProfileId)
+                        console.log("-----------------$$$$$$$$$$$-------------------")
                         var dataToSend = {};
-                        dataToSend.profiledata = data;
+                        dataToSend.profiledata = data.profile;
                         dataToSend.transactiondate = transactionDate;
                         dataToSend.transactionamt = transactionAmt
                         callback(null, dataToSend);
