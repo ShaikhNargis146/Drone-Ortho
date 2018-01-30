@@ -827,7 +827,6 @@ var model = {
             } else {
                 console.log('Null response received');
             }
-            console.log('response response response',response);            
             callback(null,response);
 
         });
@@ -1018,8 +1017,8 @@ var model = {
                     } else {
                         var dataToSend = {};
                         dataToSend.profiledata = data;
-                        dataToSend.transactiondate = transactionDate;
-                        dataToSend.transactionamt = transactionAmt
+                        dataToSend.transactiondate = data.transactionDate;
+                        dataToSend.transactionamt = data.transactionAmt
                         callback(null, dataToSend);
                     }
                 })
