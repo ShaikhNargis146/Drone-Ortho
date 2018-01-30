@@ -1017,15 +1017,13 @@ var model = {
                     if (err || _.isEmpty(data)) {
                         callback(err, []);
                     } else {
-                        console.log("-----------------$$$$$$$$$$$--------------------")
-                        console.log("-getCustomerProfile--", data)
-                        console.log("-getCustomerProfile--", data.profile)                        
-                        // console.log("-getCustomerProfile--", data.shipToList[0].customerAddressId)
-                        // console.log("-getCustomerProfile--", data.paymentProfiles[0].customerPaymentProfileId)
-                        console.log("-----------------$$$$$$$$$$$-------------------")
+                        // console.log("-----------------$$$$$$$$$$$--------------------")
+                        // console.log("-getCustomerProfile--", data)
+                        // console.log("-getCustomerProfile--", data.profile)                        
+                        // console.log("-----------------$$$$$$$$$$$-------------------")
                         var dataToSend = {};
                         dataToSend.profiledata = data.profile;
-                        dataToSend.transactiondate = transactionDate;
+                        dataToSend.transactiondate = transactionDate.toISOString().substring(0, 10);
                         dataToSend.transactionamt = transactionAmt
                         callback(null, dataToSend);
                     }
