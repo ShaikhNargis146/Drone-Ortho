@@ -828,7 +828,7 @@ var model = {
                 console.log('Null response received');
             }
             console.log('response response response',response);            
-            callback(response);
+            callback(null,response);
 
         });
     },
@@ -872,7 +872,7 @@ var model = {
                 console.log('Null response received');
             }
 
-            callback(response);
+            callback(null,response);
         });
     },
 
@@ -939,7 +939,7 @@ var model = {
                 console.log('Null Response.');
             }
 
-            callback(response);
+            callback(null,response);
         });
     },
 
@@ -979,7 +979,7 @@ var model = {
                 console.log('Null Response.');
             }
 
-            callback(response);
+            callback(null,response);
         });
     },
 
