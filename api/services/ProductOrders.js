@@ -886,7 +886,7 @@ var model = {
         merchantAuthenticationType.setTransactionKey(constants.transactionKey);
 
         var interval = new ApiContracts.PaymentScheduleType.Interval();
-        interval.setLength(1);
+        interval.setLength(9);
         interval.setUnit(ApiContracts.ARBSubscriptionUnitEnum.DAYS);
 
         var paymentScheduleType = new ApiContracts.PaymentScheduleType();
