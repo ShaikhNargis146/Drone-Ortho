@@ -380,7 +380,7 @@ var model = {
                             if (err) {
                                 callback(err, null);
                             } else {
-                                // console.log("---1---");
+                                console.log("---1---");
                                 // callback(null, asyncData);
                                 Mission.sendMissionRequestMail(sendAllData, callback); //sending mail
                                 // model.pix4dCommandExecution(folder, missionIdWithSub, callback);
@@ -688,7 +688,7 @@ var model = {
                     "content": data.missionId
                 }];
                 Config.email(emailData, function (err, emailRespo) {
-                    // console.log("emailRespo", emailRespo);
+                    console.log("emailRespo", emailRespo);
                     if (err) {
                         console.log(err);
                         callback(err, null);
