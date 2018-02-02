@@ -891,7 +891,7 @@ var model = {
 
         var paymentScheduleType = new ApiContracts.PaymentScheduleType();
         paymentScheduleType.setInterval(interval);
-        paymentScheduleType.setStartDate(profileData.transactiondate);
+        paymentScheduleType.setStartDate((new Date()).toISOString().substring(0, 10));
         paymentScheduleType.setTotalOccurrences(9999);
         paymentScheduleType.setTrialOccurrences(0);
 
