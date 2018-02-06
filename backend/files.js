@@ -44,7 +44,7 @@ module.exports = [
   "bower_components/moment/min/moment.min.js",
   "bower_components/angular-ui-sortable/sortable.js",
   "bower_components/intl-tel-input/lib/libphonenumber/build/utils.js",
-  
+
   "bower_components/intl-tel-input/build/js/intlTelInput.js",
 
   "bower_components/international-phone-number/releases/international-phone-number.js",
@@ -57,10 +57,10 @@ module.exports = [
   // *******my bower component********
   // "bower_components/angular-morris/build/module/angular-morris/angular-morris.js",
   // *******my bower component********
-"bower_components/ng-file-upload/ng-file-upload.min.js",
+  "bower_components/ng-file-upload/ng-file-upload.min.js",
   // "bower_components/highcharts-ng/dist/highcharts-ng.js",
 
-  // "bower_components/angularjs-slider/dist/rzslider.js",
+  "bower_components/angularjs-slider/dist/rzslider.js",
 
   "bower_components/mapbox.js/mapbox.js",
 
@@ -69,14 +69,14 @@ module.exports = [
   // "node_modules/@turf/turf/turf.min.js",
 
   // "node_modules/leaflet-draw/dist/leaflet.draw.js",
-  
+
 
   // "node_modules/leaflet-geodesy/leaflet-geodesy.js",
 
   "node_modules/async/dist/async.js",
 
   // "bower_components/ng-file-upload/ng-file-upload.min.js",
- 
+
   // "bower_components/crypto-js/hmac.js",
   // "bower_components/crypto-js/cre.js",
   // "bower_components/crypto-js/md5.js",
@@ -104,7 +104,7 @@ module.exports = [
   'backend/js/plugins/summernote/summernote.min.js',
   'backend/js/plugins/summernote/angular-summernote.min.js',
 
-  // 'backend/js/plugins/datapicker/angular-datepicker.js',
+  'backend/js/plugins/datapicker/angular-datepicker.js',
 
 
   // 'backend/js/plugins/amcharts/10/pie.js',
