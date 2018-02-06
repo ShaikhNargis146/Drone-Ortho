@@ -49,8 +49,7 @@ module.exports = [
 
   "bower_components/international-phone-number/releases/international-phone-number.js",
 
-  "bower_components/angular-ui-select/dist/select.js",
-  "https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.20.0/select.js",
+  // "bower_components/angular-ui-select/dist/select.js",
 
   // "bower_components/angular-mapboxgl-directive/dist/angular-mapboxgl-directive.js",
   // "bower_components/raphael/raphael.min.js",
@@ -62,26 +61,22 @@ module.exports = [
   // "bower_components/highcharts-ng/dist/highcharts-ng.js",
 
   // "bower_components/angularjs-slider/dist/rzslider.js",
-  "https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.4.3/rzslider.js",
 
   "bower_components/mapbox.js/mapbox.js",
 
   // "node_modules/mapbox-gl-draw/dist/mapbox-gl-draw.js",
-  "https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.0.4/mapbox-gl-draw.js",
 
   // "node_modules/@turf/turf/turf.min.js",
-  "https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js",
 
   // "node_modules/leaflet-draw/dist/leaflet.draw.js",
-  "https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.2/leaflet.draw.js",
+  
 
   // "node_modules/leaflet-geodesy/leaflet-geodesy.js",
-  "https://api.mapbox.com/mapbox.js/plugins/leaflet-geodesy/v0.1.0/leaflet-geodesy.js",
 
   "node_modules/async/dist/async.js",
 
   // "bower_components/ng-file-upload/ng-file-upload.min.js",
-  "https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.13/ng-file-upload.min.js",
+ 
   // "bower_components/crypto-js/hmac.js",
   // "bower_components/crypto-js/cre.js",
   // "bower_components/crypto-js/md5.js",
@@ -110,14 +105,13 @@ module.exports = [
   'backend/js/plugins/summernote/angular-summernote.min.js',
 
   // 'backend/js/plugins/datapicker/angular-datepicker.js',
-  "https://cdnjs.cloudflare.com/ajax/libs/angularjs-datepicker/2.1.23/angular-datepicker.js",
+
 
   // 'backend/js/plugins/amcharts/10/pie.js',
   // 'backend/js/plugins/amcharts/10/plugins/export/export.js',
   // 'backend/js/plugins/amcharts/10/radar.js',
 
   // 'backend/js/plugins/iCheck/icheck.min.js',
-  "https://cdn.jsdelivr.net/npm/icheck@1.0.2/icheck.min.js"
 
   // 'backend/js/plugins/ionRangeSlider/ion.rangeSlider.min.js',
   // 'backend/js/plugins/ion.rangeslider-angularjs/ionic-range-slider.js',
