@@ -33,17 +33,17 @@ module.exports = [
   'bower_components/angular-translate/angular-translate.js',
   'bower_components/lodash/lodash.js',
   'bower_components/angulartics/dist/angulartics.min.js',
-  // 'bower_components/angulartics-google-analytics/dist/angulartics-ga.min.js',
+  'bower_components/angulartics-google-analytics/dist/angulartics-ga.min.js',
   'bower_components/angular-ui-tinymce/src/tinymce.js',
   'bower_components/angularjs-imageupload-directive/public/javascripts/imageupload.js',
   'bower_components/ngmap/build/scripts/ng-map.min.js',
   "bower_components/angular-bootstrap-toggle-switch/angular-toggle-switch.min.js",
-  // "bower_components/angular-toastr/dist/angular-toastr.js",
-  // "bower_components/angular-toastr/dist/angular-toastr.tpls.js",
-  // "bower_components/angular-hotkeys/build/hotkeys.js",
-  // "bower_components/moment/min/moment.min.js",
-  // "bower_components/angular-ui-sortable/sortable.js",
-  // "bower_components/intl-tel-input/lib/libphonenumber/build/utils.js",
+  "bower_components/angular-toastr/dist/angular-toastr.js",
+  "bower_components/angular-toastr/dist/angular-toastr.tpls.js",
+  "bower_components/angular-hotkeys/build/hotkeys.js",
+  "bower_components/moment/min/moment.min.js",
+  "bower_components/angular-ui-sortable/sortable.js",
+  "bower_components/intl-tel-input/lib/libphonenumber/build/utils.js",
 
   "bower_components/intl-tel-input/build/js/intlTelInput.js",
 
@@ -60,7 +60,7 @@ module.exports = [
   "bower_components/ng-file-upload/ng-file-upload.min.js",
   // "bower_components/highcharts-ng/dist/highcharts-ng.js",
 
-  // "bower_components/angularjs-slider/dist/rzslider.js",
+  "bower_components/angularjs-slider/dist/rzslider.js",
 
   "bower_components/mapbox.js/mapbox.js",
 
@@ -97,12 +97,12 @@ module.exports = [
   'backend/js/templateservice.js',
   'backend/js/jsonService.js',
   'backend/sass/plugins/chartJs/angles.js',
-  // 'backend/sass/plugins/chartJs/Chart.min.js',
+  'backend/sass/plugins/chartJs/Chart.min.js',
   'backend/js/adminbox.js',
   // 'backend/js/plugins/flot/angular-flot.js',
   // 'backend/js/plugins/flot/curvedLines.js',
-  // 'backend/js/plugins/summernote/summernote.min.js',
-  // 'backend/js/plugins/summernote/angular-summernote.min.js',
+  'backend/js/plugins/summernote/summernote.min.js',
+  'backend/js/plugins/summernote/angular-summernote.min.js',
 
   'backend/js/plugins/datapicker/angular-datepicker.js',
 
