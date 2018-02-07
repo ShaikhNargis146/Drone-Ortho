@@ -20,7 +20,7 @@ module.exports = [
 
   // *****************************************************************************************************
 
-  '../../js/tinymce/tinymce.js',
+  // '../../js/tinymce/tinymce.js',
   '../../js/tinymce/themes/modern/theme.js',
   'bower_components/angular/angular.min.js',
   'bower_components/angular-flot/angular-flot.js',
@@ -103,7 +103,6 @@ module.exports = [
   // 'backend/js/plugins/flot/curvedLines.js',
   // 'backend/js/plugins/summernote/summernote.min.js',
   'backend/js/plugins/summernote/angular-summernote.min.js',
-
   'backend/js/plugins/datapicker/angular-datepicker.js',
 
 
