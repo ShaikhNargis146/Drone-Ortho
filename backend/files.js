@@ -39,11 +39,11 @@ module.exports = [
   'bower_components/ngmap/build/scripts/ng-map.min.js',
   "bower_components/angular-bootstrap-toggle-switch/angular-toggle-switch.min.js",
   "bower_components/angular-toastr/dist/angular-toastr.js",
-  "bower_components/angular-toastr/dist/angular-toastr.tpls.js",
+  // "bower_components/angular-toastr/dist/angular-toastr.tpls.js",
   "bower_components/angular-hotkeys/build/hotkeys.js",
-  "bower_components/moment/min/moment.min.js",
+  // "bower_components/moment/min/moment.min.js",
   "bower_components/angular-ui-sortable/sortable.js",
-  "bower_components/intl-tel-input/lib/libphonenumber/build/utils.js",
+  // "bower_components/intl-tel-input/lib/libphonenumber/build/utils.js",
 
   "bower_components/intl-tel-input/build/js/intlTelInput.js",
 
@@ -97,11 +97,11 @@ module.exports = [
   'backend/js/templateservice.js',
   'backend/js/jsonService.js',
   'backend/sass/plugins/chartJs/angles.js',
-  'backend/sass/plugins/chartJs/Chart.min.js',
+  // 'backend/sass/plugins/chartJs/Chart.min.js',
   'backend/js/adminbox.js',
   // 'backend/js/plugins/flot/angular-flot.js',
   // 'backend/js/plugins/flot/curvedLines.js',
-  'backend/js/plugins/summernote/summernote.min.js',
+  // 'backend/js/plugins/summernote/summernote.min.js',
   'backend/js/plugins/summernote/angular-summernote.min.js',
 
   'backend/js/plugins/datapicker/angular-datepicker.js',
