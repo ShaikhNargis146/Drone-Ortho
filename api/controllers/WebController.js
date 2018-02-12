@@ -139,6 +139,10 @@ module.exports = {
         res.set('Content-Type', "application/octet-stream");
         // var name = req.param("filename").split('.')[0];
         var id = req.param("id");
+        console.log("id", req.param("missionName"));
+        console.log("missionName", req.param("missionName"));
+        console.log("filename", req.param("filename"));
+
         var filePath = "/mymountpoint/" + id + "/" + req.param("missionName") + "/2_densification/point_cloud/" + req.param("filename");
         files = fs.readFileSync(filePath);
         res.send(files);
