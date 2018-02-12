@@ -65,18 +65,18 @@ firstapp
         //
 
         $scope.pieDataset = [{
-            label: "Total CAD Amount",
-            // data: 20,
-            color: '#48b5d5',
-        }, {
-            label: "Total DFM Amount",
-            // data: 30,
-            color: '#82ddcb'
-        }, {
-            label: "Total Drones Amount",
-            // data: 90,
-            color: '#979fd2'
-        },
+                label: "Total CAD Amount",
+                // data: 20,
+                color: '#48b5d5',
+            }, {
+                label: "Total DFM Amount",
+                // data: 30,
+                color: '#82ddcb'
+            }, {
+                label: "Total Drones Amount",
+                // data: 90,
+                color: '#979fd2'
+            },
 
         ];
         $scope.pieOptions = {
@@ -188,18 +188,18 @@ firstapp
         //
 
         $scope.pieDatasetOrder = [{
-            label: "CAD",
-            // data: 120,
-            color: '#48b5d5',
-        }, {
-            label: "DFM",
-            // data: 30,
-            color: '#82ddcb'
-        }, {
-            label: "DRONE",
-            // data: 90,
-            color: '#979fd2'
-        },
+                label: "CAD",
+                // data: 120,
+                color: '#48b5d5',
+            }, {
+                label: "DFM",
+                // data: 30,
+                color: '#82ddcb'
+            }, {
+                label: "DRONE",
+                // data: 90,
+                color: '#979fd2'
+            },
 
         ];
         $scope.pieOptionsOrder = {
@@ -231,18 +231,18 @@ firstapp
         //
 
         $scope.pieDatasetRevenue = [{
-            label: "CAD",
-            // data: 200,
-            color: '#48b5d5',
-        }, {
-            label: "DFM",
-            // data: 120,
-            color: '#82ddcb'
-        }, {
-            label: "DRONE",
-            // data: 50,
-            color: '#979fd2'
-        },
+                label: "CAD",
+                // data: 200,
+                color: '#48b5d5',
+            }, {
+                label: "DFM",
+                // data: 120,
+                color: '#82ddcb'
+            }, {
+                label: "DRONE",
+                // data: 50,
+                color: '#979fd2'
+            },
 
         ];
         $scope.pieOptionsRevenue = {
@@ -290,7 +290,7 @@ firstapp
             label: "QC CAD Files",
             // data: 90,
             color: '#979fd2'
-        },];
+        }, ];
         $scope.pieOptionsCad = {
             series: {
                 pie: {
@@ -318,14 +318,14 @@ firstapp
         //
 
         $scope.pieDatasetMonth = [{
-            label: "Outstanding Amount",
-            // data: 120,
-            color: '#82ddcb'
-        }, {
-            label: "Paid Amount",
-            // data: 50,
-            color: '#979fd2'
-        },
+                label: "Outstanding Amount",
+                // data: 120,
+                color: '#82ddcb'
+            }, {
+                label: "Paid Amount",
+                // data: 50,
+                color: '#979fd2'
+            },
 
         ];
         $scope.pieOptionsMonth = {
@@ -440,40 +440,40 @@ firstapp
                     });
 
                     $scope.datasetadmin = [{
-                        label: "Exterrnal CAD",
-                        grow: {
-                            stepMode: "linear"
-                        },
-                        data: $scope.data4,
-                        color: "#41d0c8",
-                        bars: {
-                            show: true,
-                            align: "center",
-                            barWidth: 24 * 60 * 60 * 600,
-                            lineWidth: 0
-                        }
+                            label: "Exterrnal CAD",
+                            grow: {
+                                stepMode: "linear"
+                            },
+                            data: $scope.data4,
+                            color: "#41d0c8",
+                            bars: {
+                                show: true,
+                                align: "center",
+                                barWidth: 24 * 60 * 60 * 600,
+                                lineWidth: 0
+                            }
 
-                    }, {
-                        label: " Internal CAD",
-                        grow: {
-                            stepMode: "linear"
-                        },
-                        data: $scope.data3,
-                        yaxis: 2,
-                        color: "#2a2a2a",
-                        lines: {
-                            lineWidth: 1,
-                            show: true,
-                            fill: true,
-                            fillColor: {
-                                colors: [{
-                                    opacity: 0.2
-                                }, {
-                                    opacity: 0.2
-                                }]
+                        }, {
+                            label: " Internal CAD",
+                            grow: {
+                                stepMode: "linear"
+                            },
+                            data: $scope.data3,
+                            yaxis: 2,
+                            color: "#2a2a2a",
+                            lines: {
+                                lineWidth: 1,
+                                show: true,
+                                fill: true,
+                                fillColor: {
+                                    colors: [{
+                                        opacity: 0.2
+                                    }, {
+                                        opacity: 0.2
+                                    }]
+                                }
                             }
                         }
-                    }
 
                     ];
                     $scope.template = TemplateService.changecontent("dashboard");
@@ -598,40 +598,40 @@ firstapp
 
 
                     $scope.dataset = [{
-                        label: "Number of orders",
-                        grow: {
-                            stepMode: "linear"
-                        },
-                        data: $scope.data2,
-                        color: "#41d0c8",
-                        bars: {
-                            show: true,
-                            align: "center",
-                            barWidth: 24 * 60 * 60 * 600,
-                            lineWidth: 0
-                        }
+                            label: "Number of orders",
+                            grow: {
+                                stepMode: "linear"
+                            },
+                            data: $scope.data2,
+                            color: "#41d0c8",
+                            bars: {
+                                show: true,
+                                align: "center",
+                                barWidth: 24 * 60 * 60 * 600,
+                                lineWidth: 0
+                            }
 
-                    }, {
-                        label: "Payments",
-                        grow: {
-                            stepMode: "linear"
-                        },
-                        data: $scope.data1,
-                        yaxis: 2,
-                        color: "#2a2a2a",
-                        lines: {
-                            lineWidth: 1,
-                            show: true,
-                            fill: true,
-                            fillColor: {
-                                colors: [{
-                                    opacity: 0.2
-                                }, {
-                                    opacity: 0.2
-                                }]
+                        }, {
+                            label: "Payments",
+                            grow: {
+                                stepMode: "linear"
+                            },
+                            data: $scope.data1,
+                            yaxis: 2,
+                            color: "#2a2a2a",
+                            lines: {
+                                lineWidth: 1,
+                                show: true,
+                                fill: true,
+                                fillColor: {
+                                    colors: [{
+                                        opacity: 0.2
+                                    }, {
+                                        opacity: 0.2
+                                    }]
+                                }
                             }
                         }
-                    }
 
                     ];
                     $scope.template = TemplateService.changecontent("dashboard");
@@ -910,12 +910,12 @@ firstapp
             });
         };
         $scope.generateExcel = function () {
-            NavigationService.generateExcelWithName("Ticket/exceltotalTicket", excelName, function (data) { });
+            NavigationService.generateExcelWithName("Ticket/exceltotalTicket", excelName, function (data) {});
         };
 
 
         $scope.generateExcelforUser = function () {
-            NavigationService.generateExcelWithName("Ticket/exceltotalTicketforUser", excelName, function (data) { });
+            NavigationService.generateExcelWithName("Ticket/exceltotalTicketforUser", excelName, function (data) {});
         };
         if ($scope.accessLevel == "User") {
 
@@ -951,13 +951,13 @@ firstapp
                 if (keywordChange != undefined && keywordChange != true) {
                     $scope.maxCount = keywordChange;
                     $scope.totalItems = undefined;
-                    if (keywordChange) { }
+                    if (keywordChange) {}
                     NavigationService.searchCall("Ticket/getTicket", {
-                        page: $scope.currentPage,
-                        keyword: $scope.search.keyword,
-                        count: $scope.maxCount,
-                        user: formdata.user
-                    }, ++i,
+                            page: $scope.currentPage,
+                            keyword: $scope.search.keyword,
+                            count: $scope.maxCount,
+                            user: formdata.user
+                        }, ++i,
                         function (data, ini) {
                             if (ini == i) {
                                 $scope.ticketInfo = data.data.results;
@@ -967,13 +967,13 @@ firstapp
                         });
                 } else {
                     $scope.totalItems = undefined;
-                    if (keywordChange) { }
+                    if (keywordChange) {}
                     NavigationService.searchCall("Ticket/getTicket", {
-                        page: $scope.currentPage,
-                        keyword: $scope.search.keyword,
-                        count: $scope.maxCount,
-                        user: formdata.user
-                    }, ++i,
+                            page: $scope.currentPage,
+                            keyword: $scope.search.keyword,
+                            count: $scope.maxCount,
+                            user: formdata.user
+                        }, ++i,
                         function (data, ini) {
                             if (ini == i) {
                                 $scope.ticketInfo = data.data.results;
@@ -1021,12 +1021,12 @@ firstapp
                 if (keywordChange != undefined && keywordChange != true) {
                     $scope.maxCount = keywordChange;
                     $scope.totalItems = undefined;
-                    if (keywordChange) { }
+                    if (keywordChange) {}
                     NavigationService.searchCall("Ticket/getAllTickets", {
-                        page: $scope.currentPage,
-                        keyword: $scope.search.keyword,
-                        count: $scope.maxCount
-                    }, ++i,
+                            page: $scope.currentPage,
+                            keyword: $scope.search.keyword,
+                            count: $scope.maxCount
+                        }, ++i,
                         function (data, ini) {
                             if (ini == i) {
                                 $scope.allTicketData = data.data.results;
@@ -1036,12 +1036,12 @@ firstapp
                         });
                 } else {
                     $scope.totalItems = undefined;
-                    if (keywordChange) { }
+                    if (keywordChange) {}
                     NavigationService.searchCall("Ticket/getAllTickets", {
-                        page: $scope.currentPage,
-                        keyword: $scope.search.keyword,
-                        count: $scope.maxCount
-                    }, ++i,
+                            page: $scope.currentPage,
+                            keyword: $scope.search.keyword,
+                            count: $scope.maxCount
+                        }, ++i,
                         function (data, ini) {
                             if (ini == i) {
                                 $scope.allTicketData = data.data.results;
@@ -1102,11 +1102,11 @@ firstapp
         };
 
         $scope.generateExcel = function () {
-            NavigationService.generateExcelWithName("Mission/exceltotalMission", excelName, function (data) { });
+            NavigationService.generateExcelWithName("Mission/exceltotalMission", excelName, function (data) {});
         };
 
         $scope.generateExcelforUser = function () {
-            NavigationService.generateExcelWithName("Mission/exceltotalMissionforUser", excelName, function (data) { });
+            NavigationService.generateExcelWithName("Mission/exceltotalMissionforUser", excelName, function (data) {});
         };
 
         if ($scope.accessLevel == "Admin") {
@@ -1143,12 +1143,12 @@ firstapp
                 if (keywordChange != undefined && keywordChange != true) {
                     $scope.maxCount = keywordChange;
                     $scope.totalItems = undefined;
-                    if (keywordChange) { }
+                    if (keywordChange) {}
                     NavigationService.searchCall("Mission/getMission", {
-                        page: $scope.currentPage,
-                        keyword: $scope.search.keyword,
-                        count: $scope.maxCount
-                    }, ++i,
+                            page: $scope.currentPage,
+                            keyword: $scope.search.keyword,
+                            count: $scope.maxCount
+                        }, ++i,
                         function (data, ini) {
                             if (ini == i) {
                                 $scope.allMissionData = data.data.results;
@@ -1158,13 +1158,13 @@ firstapp
                         });
                 } else {
                     $scope.totalItems = undefined;
-                    if (keywordChange) { }
+                    if (keywordChange) {}
                     TemplateService.mainClass = ['page-sidebar-closed', 'active'];
                     NavigationService.searchCall("Mission/getMission", {
-                        page: $scope.currentPage,
-                        keyword: $scope.search.keyword,
-                        count: $scope.maxCount
-                    }, ++i,
+                            page: $scope.currentPage,
+                            keyword: $scope.search.keyword,
+                            count: $scope.maxCount
+                        }, ++i,
                         function (data, ini) {
                             if (ini == i) {
                                 $scope.allMissionData = data.data.results;
@@ -1218,13 +1218,13 @@ firstapp
                 if (keywordChange != undefined && keywordChange != true) {
                     $scope.maxCount = keywordChange;
                     $scope.totalItems = undefined;
-                    if (keywordChange) { }
+                    if (keywordChange) {}
                     NavigationService.searchCall("Mission/getMissionUser", {
-                        page: $scope.currentPage,
-                        keyword: $scope.search.keyword,
-                        count: $scope.maxCount,
-                        user: formdata.user
-                    }, ++i,
+                            page: $scope.currentPage,
+                            keyword: $scope.search.keyword,
+                            count: $scope.maxCount,
+                            user: formdata.user
+                        }, ++i,
                         function (data, ini) {
                             if (ini == i) {
                                 $scope.missionInfo = data.data.results;
@@ -1234,13 +1234,13 @@ firstapp
                         });
                 } else {
                     $scope.totalItems = undefined;
-                    if (keywordChange) { }
+                    if (keywordChange) {}
                     NavigationService.searchCall("Mission/getMissionUser", {
-                        page: $scope.currentPage,
-                        keyword: $scope.search.keyword,
-                        user: formdata.user,
-                        count: $scope.maxCount
-                    }, ++i,
+                            page: $scope.currentPage,
+                            keyword: $scope.search.keyword,
+                            user: formdata.user,
+                            count: $scope.maxCount
+                        }, ++i,
                         function (data, ini) {
                             if (ini == i) {
                                 $scope.missionInfo = data.data.results;
@@ -1750,7 +1750,7 @@ firstapp
         }
         $scope.downloadPointCloud = function (file) {
             // window.open('http://cloud.unifli.aero/api/getPointCloud/' + missionIdForDownload + ".las", '_self');
-            window.open(adminurl + 'getPointCloud/' + missionIdForDownload + '/' + idForDownload + "/" + file, '_self');
+            window.open(adminurl + 'getPointCloud/' + idForDownload + '/' + missionIdForDownload + "/" + file, '_self');
             window.close();
         }
         // $scope.downloadQualityReports = function () {
@@ -1915,9 +1915,9 @@ firstapp
             var userId = $.jStorage.get("user")._id;
         }
         excelName = {
-            name: "InvoiceList",
-            _id: $.jStorage.get("user")._id
-        },
+                name: "InvoiceList",
+                _id: $.jStorage.get("user")._id
+            },
             $scope.csvFileForUser = function () {
                 console.log("inside csvFile ")
                 NavigationService.generateCsvithName("ProductOrders/generatecsvForUser", excelName, function (data) {
@@ -1931,7 +1931,7 @@ firstapp
             });
         };
         $scope.generateExcelforUser = function () {
-            NavigationService.generateExcelWithName("ProductOrders/exceltotalProductOrdersforUser", excelName, function (data) { });
+            NavigationService.generateExcelWithName("ProductOrders/exceltotalProductOrdersforUser", excelName, function (data) {});
         };
         //pagination user
         var formdata = {};
@@ -1965,13 +1965,13 @@ firstapp
             if (keywordChange != undefined && keywordChange != true) {
                 $scope.maxCount = keywordChange;
                 $scope.totalItems = undefined;
-                if (keywordChange) { }
+                if (keywordChange) {}
                 NavigationService.searchCall("ProductOrders/getProductData", {
-                    page: $scope.currentPage,
-                    keyword: $scope.search.keyword,
-                    count: $scope.maxCount,
-                    user: formdata.user
-                }, ++i,
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount,
+                        user: formdata.user
+                    }, ++i,
                     function (data, ini) {
                         if (ini == i) {
                             $scope.productData = data.data.results;
@@ -1997,13 +1997,13 @@ firstapp
                     });
             } else {
                 $scope.totalItems = undefined;
-                if (keywordChange) { }
+                if (keywordChange) {}
                 NavigationService.searchCall("ProductOrders/getProductData", {
-                    page: $scope.currentPage,
-                    keyword: $scope.search.keyword,
-                    user: userId,
-                    count: $scope.maxCount
-                }, ++i,
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        user: userId,
+                        count: $scope.maxCount
+                    }, ++i,
                     function (data, ini) {
                         if (ini == i) {
                             $scope.productData = data.data.results;
@@ -2588,7 +2588,7 @@ firstapp
                     data1._id = $stateParams.cadId;
                     data1.vendorPaymentStatus = 'Paid';
                     NavigationService.apiCallWithData("CadLineWork/save", data1, function (data1) {
-                        if (data1.value == true) { }
+                        if (data1.value == true) {}
                     });
                     toastr.success("Payment in progress");
                     $state.go("cadfile-request");
@@ -2603,7 +2603,7 @@ firstapp
                 if (data.value == true) {
                     var sendDataForMail = {};
                     sendDataForMail._id = $stateParams.cadId;
-                    NavigationService.apiCallWithData("CadLineWork/sendCadCompletedMail", sendDataForMail, function (data) { });
+                    NavigationService.apiCallWithData("CadLineWork/sendCadCompletedMail", sendDataForMail, function (data) {});
                     toastr.success("File uploaded successfully");
                     $state.reload();
                 }
@@ -2755,13 +2755,13 @@ firstapp
             });
         };
         $scope.generateExcelForVendor = function () {
-            NavigationService.generateExcelWithName("CadLineWork/exceltotalCadforVendor", excelName, function (data) { });
+            NavigationService.generateExcelWithName("CadLineWork/exceltotalCadforVendor", excelName, function (data) {});
         };
         $scope.generateExcel = function () {
-            NavigationService.generateExcelWithName("CadLineWork/exceltotalCad", excelName, function (data) { });
+            NavigationService.generateExcelWithName("CadLineWork/exceltotalCad", excelName, function (data) {});
         };
         $scope.generateExcelforUser = function () {
-            NavigationService.generateExcelWithName("CadLineWork/exceltotalCadforUser", excelName, function (data) { });
+            NavigationService.generateExcelWithName("CadLineWork/exceltotalCadforUser", excelName, function (data) {});
         };
 
 
@@ -2860,13 +2860,13 @@ firstapp
                 if (keywordChange != undefined && keywordChange != true) {
                     $scope.maxCount = keywordChange;
                     $scope.totalItems = undefined;
-                    if (keywordChange) { }
+                    if (keywordChange) {}
                     NavigationService.searchCall("CadLineWork/getCadByUSer", {
-                        page: $scope.currentPage,
-                        keyword: $scope.search.keyword,
-                        count: $scope.maxCount,
-                        user: userId
-                    }, ++i,
+                            page: $scope.currentPage,
+                            keyword: $scope.search.keyword,
+                            count: $scope.maxCount,
+                            user: userId
+                        }, ++i,
                         function (data, ini) {
                             if (ini == i) {
                                 $scope.cadUserDetail = data.data.results;
@@ -2876,13 +2876,13 @@ firstapp
                         });
                 } else {
                     $scope.totalItems = undefined;
-                    if (keywordChange) { }
+                    if (keywordChange) {}
                     NavigationService.searchCall("CadLineWork/getCadByUSer", {
-                        page: $scope.currentPage,
-                        keyword: $scope.search.keyword,
-                        count: $scope.maxCount,
-                        user: userId
-                    }, ++i,
+                            page: $scope.currentPage,
+                            keyword: $scope.search.keyword,
+                            count: $scope.maxCount,
+                            user: userId
+                        }, ++i,
                         function (data, ini) {
                             if (ini == i) {
                                 $scope.cadUserDetail = data.data.results;
@@ -2934,12 +2934,12 @@ firstapp
                     console.log("inside if")
                     $scope.maxCount = keywordChange;
                     $scope.totalItems = undefined;
-                    if (keywordChange) { }
+                    if (keywordChange) {}
                     NavigationService.searchCall("CadLineWork/getCad", {
-                        page: $scope.currentPage,
-                        keyword: $scope.search.keyword,
-                        count: $scope.maxCount
-                    }, ++i,
+                            page: $scope.currentPage,
+                            keyword: $scope.search.keyword,
+                            count: $scope.maxCount
+                        }, ++i,
                         function (data, ini) {
                             if (ini == i) {
                                 $scope.allCadLineData = data.data.results;
@@ -2950,12 +2950,12 @@ firstapp
                 } else {
                     console.log("inside else")
                     $scope.totalItems = undefined;
-                    if (keywordChange) { }
+                    if (keywordChange) {}
                     NavigationService.searchCall("CadLineWork/getCad", {
-                        page: $scope.currentPage,
-                        keyword: $scope.search.keyword,
-                        count: $scope.maxCount
-                    }, ++i,
+                            page: $scope.currentPage,
+                            keyword: $scope.search.keyword,
+                            count: $scope.maxCount
+                        }, ++i,
                         function (data, ini) {
                             if (ini == i) {
                                 $scope.allCadLineData = data.data.results;
@@ -3002,13 +3002,13 @@ firstapp
                 if (keywordChange != undefined && keywordChange != true) {
                     $scope.maxCount = keywordChange;
                     $scope.totalItems = undefined;
-                    if (keywordChange) { }
+                    if (keywordChange) {}
                     NavigationService.searchCall("CadLineWork/getCadForVendor", {
-                        page: $scope.currentPage,
-                        keyword: $scope.search.keyword,
-                        count: $scope.maxCount
-                        // vendorId: userId //replace it with jstorage ID
-                    }, ++i,
+                            page: $scope.currentPage,
+                            keyword: $scope.search.keyword,
+                            count: $scope.maxCount
+                            // vendorId: userId //replace it with jstorage ID
+                        }, ++i,
                         function (data, ini) {
                             if (ini == i) {
                                 $scope.allCadLineVendorData = data.data.results;
@@ -3018,13 +3018,13 @@ firstapp
                         });
                 } else {
                     $scope.totalItems = undefined;
-                    if (keywordChange) { }
+                    if (keywordChange) {}
                     NavigationService.searchCall("CadLineWork/getCadForVendor", {
-                        page: $scope.currentPage,
-                        keyword: $scope.search.keyword,
-                        count: $scope.maxCount
-                        // vendorId: userId //replace it with jstorage ID
-                    }, ++i,
+                            page: $scope.currentPage,
+                            keyword: $scope.search.keyword,
+                            count: $scope.maxCount
+                            // vendorId: userId //replace it with jstorage ID
+                        }, ++i,
                         function (data, ini) {
                             if (ini == i) {
                                 $scope.allCadLineVendorData = data.data.results;
@@ -3254,12 +3254,12 @@ firstapp
             if (keywordChange != undefined && keywordChange != true) {
                 $scope.maxCount = keywordChange;
                 $scope.totalItems = undefined;
-                if (keywordChange) { }
+                if (keywordChange) {}
                 NavigationService.searchCall("Products/getAllProducts", {
-                    page: $scope.currentPage,
-                    keyword: $scope.search.keyword,
-                    count: $scope.maxCount
-                }, ++i,
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
                     function (data, ini) {
                         if (ini == i) {
                             $scope.Products = data.data.results;
@@ -3269,12 +3269,12 @@ firstapp
                     });
             } else {
                 $scope.totalItems = undefined;
-                if (keywordChange) { }
+                if (keywordChange) {}
                 NavigationService.searchCall("Products/getAllProducts", {
-                    page: $scope.currentPage,
-                    keyword: $scope.search.keyword,
-                    count: $scope.maxCount
-                }, ++i,
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
                     function (data, ini) {
                         if (ini == i) {
                             $scope.Products = data.data.results;
@@ -3338,7 +3338,7 @@ firstapp
         };
 
         $scope.generateExcel = function () {
-            NavigationService.generateExcelWithName("User/exceltotalUser", excelName, function (data) { });
+            NavigationService.generateExcelWithName("User/exceltotalUser", excelName, function (data) {});
         };
 
 
@@ -3373,12 +3373,12 @@ firstapp
             if (keywordChange != undefined && keywordChange != true) {
                 $scope.maxCount = keywordChange;
                 $scope.totalItems = undefined;
-                if (keywordChange) { }
+                if (keywordChange) {}
                 NavigationService.searchCall("User/getUser", {
-                    page: $scope.currentPage,
-                    keyword: $scope.search.keyword,
-                    count: $scope.maxCount
-                }, ++i,
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
                     function (data, ini) {
                         if (ini == i) {
                             $scope.userInfo = data.data.results;
@@ -3388,12 +3388,12 @@ firstapp
                     });
             } else {
                 $scope.totalItems = undefined;
-                if (keywordChange) { }
+                if (keywordChange) {}
                 NavigationService.searchCall("User/getUser", {
-                    page: $scope.currentPage,
-                    keyword: $scope.search.keyword,
-                    count: $scope.maxCount
-                }, ++i,
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
                     function (data, ini) {
                         if (ini == i) {
                             $scope.userInfo = data.data.results;
@@ -3518,7 +3518,7 @@ firstapp
         };
 
         $scope.generateExcel = function () {
-            NavigationService.generateExcelWithName("ProductOrders/exceltotalProductOrders", excelName, function (data) { });
+            NavigationService.generateExcelWithName("ProductOrders/exceltotalProductOrders", excelName, function (data) {});
         };
 
         //pagination ecommerce
@@ -3552,12 +3552,12 @@ firstapp
             if (keywordChange != undefined && keywordChange != true) {
                 $scope.maxCount = keywordChange;
                 $scope.totalItems = undefined;
-                if (keywordChange) { }
+                if (keywordChange) {}
                 NavigationService.searchCall("ProductOrders/getProductOrders", {
-                    page: $scope.currentPage,
-                    keyword: $scope.search.keyword,
-                    count: $scope.maxCount
-                }, ++i,
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
                     function (data, ini) {
                         if (ini == i) {
                             $scope.allOrderData = data.data.results;
@@ -3578,12 +3578,12 @@ firstapp
                     });
             } else {
                 $scope.totalItems = undefined;
-                if (keywordChange) { }
+                if (keywordChange) {}
                 NavigationService.searchCall("ProductOrders/getProductOrders", {
-                    page: $scope.currentPage,
-                    keyword: $scope.search.keyword,
-                    count: $scope.maxCount
-                }, ++i,
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
                     function (data, ini) {
                         if (ini == i) {
                             $scope.allOrderData = data.data.results;
@@ -3730,7 +3730,7 @@ firstapp
         };
 
         $scope.generateExcel = function () {
-            NavigationService.generateExcelWithName("User/exceltotalVendor", excelName, function (data) { });
+            NavigationService.generateExcelWithName("User/exceltotalVendor", excelName, function (data) {});
         };
 
         //pagination
@@ -3764,12 +3764,12 @@ firstapp
             if (keywordChange != undefined && keywordChange != true) {
                 $scope.maxCount = keywordChange;
                 $scope.totalItems = undefined;
-                if (keywordChange) { }
+                if (keywordChange) {}
                 NavigationService.searchCall("User/getVendor", {
-                    page: $scope.currentPage,
-                    keyword: $scope.search.keyword,
-                    count: $scope.maxCount
-                }, ++i,
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
                     function (data, ini) {
                         if (ini == i) {
                             $scope.allVendors = data.data.results;
@@ -3779,12 +3779,12 @@ firstapp
                     });
             } else {
                 $scope.totalItems = undefined;
-                if (keywordChange) { }
+                if (keywordChange) {}
                 NavigationService.searchCall("User/getVendor", {
-                    page: $scope.currentPage,
-                    keyword: $scope.search.keyword,
-                    count: $scope.maxCount
-                }, ++i,
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
                     function (data, ini) {
                         if (ini == i) {
                             $scope.allVendors = data.data.results;
@@ -4077,7 +4077,7 @@ firstapp
             $scope.setAccLevel = function (accessLevel1) {
                 console.log("inside setAccLevel", accessLevel1)
                 $scope.formdata.accessLevel = accessLevel1.accessLevel
-                NavigationService.apiCallWithData("User/save", $scope.formdata, function (dfm) { });
+                NavigationService.apiCallWithData("User/save", $scope.formdata, function (dfm) {});
             }
         }
     })
@@ -4110,7 +4110,7 @@ firstapp
             });
         };
         $scope.generateExcelforVendor = function () {
-            NavigationService.generateExcelWithName("VendorBill/exceltotalVendorBill", excelName, function (data) { });
+            NavigationService.generateExcelWithName("VendorBill/exceltotalVendorBill", excelName, function (data) {});
         };
         //pagination
         var i = 0;
@@ -4142,12 +4142,12 @@ firstapp
             if (keywordChange != undefined && keywordChange != true) {
                 $scope.maxCount = keywordChange;
                 $scope.totalItems = undefined;
-                if (keywordChange) { }
+                if (keywordChange) {}
                 NavigationService.searchCall("VendorBill/getBill", {
-                    page: $scope.currentPage,
-                    keyword: $scope.search.keyword,
-                    count: $scope.maxCount
-                }, ++i,
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
                     function (data, ini) {
                         if (ini == i) {
                             $scope.allBillData = data.data.results;
@@ -4157,12 +4157,12 @@ firstapp
                     });
             } else {
                 $scope.totalItems = undefined;
-                if (keywordChange) { }
+                if (keywordChange) {}
                 NavigationService.searchCall("VendorBill/getBill", {
-                    page: $scope.currentPage,
-                    keyword: $scope.search.keyword,
-                    count: $scope.maxCount
-                }, ++i,
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
                     function (data, ini) {
                         if (ini == i) {
                             $scope.allBillData = data.data.results;
