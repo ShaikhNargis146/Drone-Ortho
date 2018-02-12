@@ -1018,7 +1018,7 @@ var models = {
         var env = {};
         var allprod = [];
         var allprodCost = [];
-        // console.log("pagepage", page);
+        console.log("pagepage------------", page);
         obj.name = page.shippingAddress.fname;
         obj.lname = page.shippingAddress.lname;
         obj.organization = page.shippingAddress.comapny;
