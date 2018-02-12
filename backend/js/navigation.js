@@ -241,12 +241,12 @@ var navigationservice = angular.module('navigationservice', [])
                 });
             },
 
-            generateExcelWithData: function (url, data, callback) {
+            generateExcelWithData: function (name,url, data, callback) {
                 $http.post(adminurl + url, data, {
                     responseType: 'arraybuffer'
                 }).then(function (response) {
                     var header = response.headers('Content-Disposition')
-                    var fileName = "CADREPORT" + "-" + moment().format("MMM-DD-YYYY-hh-mm-ss-a") + ".xlsx";
+                    var fileName = name + "-" + moment().format("MMM-DD-YYYY-hh-mm-ss-a") + ".xlsx";
                     var blob = new Blob([response.data], {
                         type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation;charset=UTF-8'
                     });

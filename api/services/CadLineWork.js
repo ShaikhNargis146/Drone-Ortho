@@ -588,8 +588,8 @@ var model = {
                         var test = [];
                         i = 1
                         for (var i = 1; i <= lastMonthDaysCount; i++) {
-                            var createdDt = new Date().setDate(i)
-                            createdDt = new Date(createdDt).setMonth(prevMonth)
+                            var createdDt = new Date().setMonth(prevMonth)
+                            createdDt = new Date(createdDt).setDate(i)
                             test[i - 1] = _.countBy(data, function (o) {
                                 return moment((o.createdAt)).isSame(createdDt, 'day');
                             });
@@ -636,8 +636,8 @@ var model = {
                         var test = [];
                         i = 1
                         for (var i = 1; i <= lastMonthDaysCount; i++) {
-                            var createdDt = new Date().setDate(i)
-                            createdDt = new Date(createdDt).setMonth(prevMonth)
+                            var createdDt = new Date().setMonth(prevMonth)
+                            createdDt = new Date(createdDt).setDate(i)
                             test[i - 1] = _.countBy(data, function (o) {
                                 return moment((o.createdAt)).isSame(createdDt, 'day');
                             });
@@ -697,8 +697,8 @@ var model = {
                         var test = [];
                         i = 1
                         for (var i = 1; i <= lastMonthDaysCount; i++) {
-                            var createdDt = new Date().setDate(i)
-                            createdDt = new Date(createdDt).setMonth(prevMonth)
+                            var createdDt = new Date().setMonth(prevMonth)
+                            createdDt = new Date(createdDt).setDate(i)
                             test[i - 1] = _.countBy(data, function (o) {
                                 return moment((o.createdAt)).isSame(createdDt, 'day');
                             });
@@ -744,8 +744,8 @@ var model = {
                         var test = [];
                         i = 1
                         for (var i = 1; i <= lastMonthDaysCount; i++) {
-                            var createdDt = new Date().setDate(i)
-                            createdDt = new Date(createdDt).setMonth(prevMonth)
+                            var createdDt = new Date().setMonth(prevMonth)
+                            createdDt = new Date(createdDt).setDate(i)
                             test[i - 1] = {};
                             test[i - 1].true = _.sumBy(data, function (o) {
                                 if (moment((o.createdAt)).isSame(createdDt, 'day')) {

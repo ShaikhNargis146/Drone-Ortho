@@ -145,43 +145,44 @@ firstapp
         // Pie Chart Example of order
         //
 
-        $scope.pieDatasetRevenue = [{
-            label: "CAD",
-            data: 200,
-            color: '#48b5d5',
-        }, {
-            label: "DFM",
-            data: 120,
-            color: '#82ddcb'
-        }, {
-            label: "DRONE",
-            data: 50,
-            color: '#979fd2'
-        },
+        // $scope.pieDatasetRevenue = [{
+        //     label: "CAD",
+        //     data: 200,
+        //     color: '#48b5d5',
+        // }, {
+        //     label: "DFM",
+        //     data: 120,
+        //     color: '#82ddcb'
+        // }, {
+        //     label: "DRONE",
+        //     data: 50,
+        //     color: '#979fd2'
+        // },
 
-        ];
-        $scope.pieOptionsRevenue = {
-            series: {
-                pie: {
-                    innerRadius: 0.5,
-                    show: true,
-                    textinfo: "none",
-                    label: {
-                        show: true,
-                        formatter: function (label, point) {
-                            return (point.percent.toFixed(2) + '$');
+        // ];
+        // $scope.pieOptionsRevenue = {
+        //     series: {
+        //         pie: {
+        //             innerRadius: 0.5,
+        //             show: true,
+        //             textinfo: "none",
+        //             label: {
+        //                 show: true,
+        //                 formatter: function (label, point) {
+        //                     return (point.percent.toFixed(2) + '$');
 
-                        }
-                    }
-                }
-            },
-            legend: {
-                show: false
-            },
-            grid: {
-                hoverable: true
-            }
-        };
+        //                 }
+        //             }
+        //         }
+        //     },
+        //     legend: {
+        //         show: false
+        //     },
+        //     grid: {
+        //         hoverable: true
+        //     }
+        // };
+
         //
         // Pie Chart Example Revenue
         //
@@ -3614,7 +3615,7 @@ firstapp
             // window.open(adminurl + 'downloadWithName/' + data, '_self');
             // console.log("data-------", data);
             console.log("data", data);
-            window.open(realhosturl + '/orthoFiles/' + data, '_self');
+            window.open(realhosturl + '/orthoFiles/invoice/' + data, '_self');
             // if (data) {
             //     window.open(adminurl + '../pdf/' + data, '_self');
             // } else {
@@ -3682,19 +3683,19 @@ firstapp
             getByDate.fromDate = moment(data.fromDate).format();
             getByDate.toDate = moment(data.toDate).format();
             if (data.type == 'Mission') {
-                NavigationService.generateExcelWithData("VendorBill/exceltotalMission", getByDate, function (data) { });
+                NavigationService.generateExcelWithData("MISSIONEXCEL","VendorBill/exceltotalMission", getByDate, function (data) { });
             } else if (data.type == 'Cad') {
-                NavigationService.generateExcelWithData("VendorBill/exceltotalCadRequest", getByDate, function (data) { });
+                NavigationService.generateExcelWithData("CADEXCEL","VendorBill/exceltotalCadRequest", getByDate, function (data) { });
             } else if (data.type == 'DroneSales') {
-                NavigationService.generateExcelWithData("VendorBill/droneSales", getByDate, function (data) { });
+                NavigationService.generateExcelWithData("DRONESALES","VendorBill/droneSales", getByDate, function (data) { });
             } else if (data.type == 'DfmSales') {
-                NavigationService.generateExcelWithData("VendorBill/dfmSales", getByDate, function (data) { });
+                NavigationService.generateExcelWithData("DFMSALES","VendorBill/dfmSales", getByDate, function (data) { });
             } else if (data.type == 'DfmSub') {
-                NavigationService.generateExcelWithData("VendorBill/allDfmSub", getByDate, function (data) { });
+                NavigationService.generateExcelWithData("DFMSUBEXCEL","VendorBill/allDfmSub", getByDate, function (data) { });
             } else if (data.type == 'CadRev') {
-                NavigationService.generateExcelWithData("VendorBill/cadRevenue", getByDate, function (data) { });
+                NavigationService.generateExcelWithData("CADREVENUE","VendorBill/cadRevenue", getByDate, function (data) { });
             } else if (data.type == 'VendorBill') {
-                NavigationService.generateExcelWithData("VendorBill/vendorBill", getByDate, function (data) { });
+                NavigationService.generateExcelWithData("VENDORBILL","VendorBill/vendorBill", getByDate, function (data) { });
             }
         }
     })

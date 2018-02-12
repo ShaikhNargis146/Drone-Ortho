@@ -1459,7 +1459,7 @@ var models = {
     },
 
     generateExcel: function (name, found, res) {
-        name = _.kebabCase(name);
+        var name1 = _.kebabCase(name);
         var excelData = [];
         _.each(found, function (singleData) {
             var singleExcel = {};
@@ -1472,7 +1472,7 @@ var models = {
         });
         var xls = json2xls(excelData);
         var folder = "./.tmp/";
-        var path = name + "-" + moment().format("MMM-DD-YYYY-hh-mm-ss-amoment") + ".xlsx";
+        var path = name1 + "-" + moment().format("MMM-DD-YYYY-hh-mm-ss-amoment") + ".xlsx";
         var finalPath = folder + path;
         fs.writeFile(finalPath, xls, 'binary', function (err) {
             if (err) {

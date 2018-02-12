@@ -167,11 +167,20 @@ var model = {
         async.concatSeries(match, function (mainData, callback) {
                 var obj = {};
                 obj["MISSION ID"] = mainData.missionId;
+                if (mainData.user) {
+                    obj["USER ID"] = mainData.user.dataId;
+                } else {
+                    obj["USER ID"] = "-";
+                }
+
+                obj["MISSION NAME"] = mainData.name;
                 obj["STATUS"] = mainData.status;
-                obj["NAME"] = mainData.name;
-                // obj["USER"] = mainData.user.name;
-                // obj["DFM SUBSCRIPTION"] = mainData.DFMSubscription.name;
-                obj["DATE"] = mainData.date;
+                obj[" DATE"] = moment(mainData.createdAt).format("DD/MM/YYYY")
+                if (mainData.cadline[0]) {
+                    obj[" CADRQUEST"] = "Yes";
+                } else {
+                    obj[" CADRQUEST"] = "No";
+                }
                 callback(null, obj);
             },
             function (err, singleData) {
@@ -200,7 +209,7 @@ var model = {
                 var obj = {};
                 obj["CAD ID"] = mainData.cadId;
                 obj["STATUS"] = mainData.status;
-                obj["NAME"] = mainData.name;
+                obj["NAME"] = mainData.cadLineName;
                 obj["CONTOURS"] = mainData.contours;
                 obj["ACREAGE"] = mainData.acreage;
                 obj["AMOUNT"] = mainData.amount;
@@ -236,7 +245,11 @@ var model = {
                 var obj = {};
                 obj["CAD ID"] = mainData.cadId;
                 obj["STATUS"] = mainData.status;
-                obj["NAME"] = mainData.name;
+                if (mainData.user) {
+                    obj["USER NAME"] = mainData.user.name;
+                } else {
+                    obj["USER NAME"] = "-";
+                }
                 obj["CONTOURS"] = mainData.contours;
                 obj["ACREAGE"] = mainData.acreage;
                 obj["AMOUNT"] = mainData.amount;
@@ -272,7 +285,11 @@ var model = {
                 var obj = {};
                 obj["INVOICE NUMBER"] = mainData.invoiceNo;
                 obj["STATUS"] = mainData.status;
-                obj["USER NAME"] = mainData.user.name;
+                if (mainData.user) {
+                    obj["USER NAME"] = mainData.user.name;
+                } else {
+                    obj["USER NAME"] = "-";
+                }
                 obj["TAX AMOUNT"] = mainData.taxAmount;
                 obj["SHIPPING AMOUNT"] = mainData.shippingAmount;
                 obj["DISCOUNT AMOUNT"] = mainData.discountAmount;
@@ -308,8 +325,17 @@ var model = {
                 var obj = {};
                 obj["INVOICE NUMBER"] = mainData.invoiceNo;
                 obj["STATUS"] = mainData.status;
-                obj["USER NAME"] = mainData.user.name;
-                obj["DFM NAME"] = mainData.dfmSubscription.name;
+                if (mainData.user) {
+                    obj["USER NAME"] = mainData.user.name;
+                } else {
+                    obj["USER NAME"] = "-";
+                }
+                if (mainData.dfmSubscription) {
+                    obj["DFM NAME"] = mainData.dfmSubscription.name;
+                } else {
+                    obj["DFM NAME"] = "-";
+                }
+
                 obj["TAX AMOUNT"] = mainData.taxAmount;
                 obj["SHIPPING AMOUNT"] = mainData.shippingAmount;
                 obj["DISCOUNT AMOUNT"] = mainData.discountAmount;
@@ -340,7 +366,11 @@ var model = {
     generateExcelDfm: function (match, callback) {
         async.concatSeries(match, function (mainData, callback) {
                 var obj = {};
-                obj["USER NAME"] = mainData.user.name;
+                if (mainData.user) {
+                    obj["USER NAME"] = mainData.user.name;
+                } else {
+                    obj["USER NAME"] = "-";
+                }
                 obj["EXPIRY DATE"] = mainData.expiryDate;
                 obj["DISCOUNT AMOUNT"] = mainData.DiscountAmount;
                 obj["MOSAIC"] = mainData.Mosaic;
