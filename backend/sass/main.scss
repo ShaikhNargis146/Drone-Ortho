@@ -4379,8 +4379,16 @@ WIDGETS
         background-position: -228px -1px;
     }
 
+    .leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-remove {
+        background-position: -197px -1px;
+    }
+
+    .leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-edit {
+        background-position: -165px -1px;
+    }
+
     .leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-edit.leaflet-disabled {
-        background-position: -196px -1px;
+        background-position: -168px -1px;
     } // .leaflet-draw-toolbar .leaflet-draw-edit-edit.leaflet-disabled {
     //     background-position: -226px -2px;
     // }
@@ -4388,7 +4396,7 @@ WIDGETS
     //     background-position: -257px -2px;
     // }
     .leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-remove.leaflet-disabled {
-        background-position: -168px -2px;
+        background-position: -198px -2px;
     }
 
     .rzslider .rz-pointer {
