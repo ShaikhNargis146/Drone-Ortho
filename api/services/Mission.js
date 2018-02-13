@@ -279,7 +279,7 @@ var model = {
                     console.log("countFilescountFilescountFilescountFiles", countFiles)
 
                     var getSize = require('get-folder-size');
-                    var path =  '/mymountpoint/' + x._id;
+                    var path = '/mymountpoint/' + x._id;
                     console.log("2nd console", path)
                     if (!fs.existsSync(path)) {
                         console.log("if folder not found")
@@ -299,7 +299,7 @@ var model = {
                         var sFolderPath = path + '/' + x.missionId
                         if (!fs.existsSync(sFolderPath)) {
                             console.log("------------------------");
-                            console.log("else folder found", x.missionId)
+                            console.log("else if folder found", x.missionId)
                             getSize(path,  function (err, bytes) {
                                 if (err) {
                                     throw err;
