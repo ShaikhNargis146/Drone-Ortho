@@ -1018,7 +1018,7 @@ var models = {
         var env = {};
         var allprod = [];
         var allprodCost = [];
-        console.log("pagepage------------", page);
+        // console.log("pagepage------------", page);
         obj.name = page.shippingAddress.fname;
         obj.lname = page.shippingAddress.lname;
         obj.organization = page.shippingAddress.comapny;
@@ -1033,6 +1033,7 @@ var models = {
         if (page.dfmSubscription) {
             obj.SoldItem = page.dfmSubscription.name;
             obj.price = page.dfmSubscription.amount;
+            obj.qty = 1;
         } else if (page.products[0]) {
             var myVal = ''
             var foo = ''
@@ -1043,9 +1044,11 @@ var models = {
             })
             obj.SoldItem = foo;
             obj.price = allprodCost;
+            obj.qty = page.products.length;
         } else if (page.cadLineWork) {
             obj.SoldItem = "cadLineWork";
             obj.price = page.cadLineWork.amount;
+            obj.qty = 1;
         }
         var i = 0;
         var file = "cad_invoice";
@@ -1054,7 +1057,7 @@ var models = {
                 console.log("errr", err);
                 callback(err);
             } else {
-                var path = global["env"].ORTHOFOLDER+"invoice/";
+                var path = global["env"].ORTHOFOLDER + "invoice/";
                 // var path = "pdf/";
                 var newFilename = page.invoiceNo + ".pdf";
                 var writestream = fs.createWriteStream(path + newFilename);
