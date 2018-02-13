@@ -232,10 +232,11 @@ var model = {
         });
     },
 
-    totalMissionCount: function (data, callback) {
-        // console.log("inside totalMissionCount",data)
+     totalMissionCount: function (data, callback) {
+        console.log("inside totalMissionCount", data)
         var currentSubscriptionDate = data.currentSubscriptionDate
         var ltDate = new Date();
+        var data1;
         // console.log(currentSubscriptionDate)
         Mission.find({
             user: data.user,
@@ -247,7 +248,7 @@ var model = {
             if (err) {
                 callback(err, null);
             } else if (_.isEmpty(found)) {
-                console.log("error")
+                console.log("emapty")
                 data = {
                     folderSize: 0 + " GB",
                     fileSize: 0,
@@ -255,33 +256,36 @@ var model = {
                 };
                 callback(null, data);
             } else if (found) {
-                // console.log("*********data",found)
-                // console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55")
+                console.log("FFFFound0", found.length)
                 var countFiles = 0;
                 var a = 0;
                 var foundLength = found.length;
                 var totalSizeLenght = 0;
-                _.forEach(found, function (x) {
+
+                async.each(found, function (x, cb1) {
+                    console.log("----", x._id)
                     countFiles = countFiles + x.files.length
-                    console.log("1st console", countFiles)
+                    console.log("countFilescountFilescountFilescountFiles", countFiles)
+
                     var getSize = require('get-folder-size');
                     var path = '/mymountpoint/' + x._id;
-                    console.log("2nd console")
+                    console.log("2nd console", path)
                     if (!fs.existsSync(path)) {
-                        console.log("3rd console")
+                        console.log("if folder not found")
                         totalSizeLenght++;
                         if (totalSizeLenght == foundLength) {
                             // console.log("exe 3:");
                             var toShow = (a / 1000000000).toFixed(8) + " GB";
-                            data = {
+                            data1 = {
                                 folderSize: toShow,
                                 fileSize: countFiles,
                                 missionCount: found.length
                             };
-                            callback(null, data);
+                             console.log("Callback 11111111", data1)
+                            callback(null, data1);
                         }
                     } else {
-                        console.log("4th console")
+                        console.log("else folder found")
                         getSize(path, function (err, bytes) {
                             if (err) {
                                 throw err;
@@ -289,19 +293,65 @@ var model = {
                             a = a + bytes;
                             totalSizeLenght++;
                             if (totalSizeLenght == foundLength) {
-                                // console.log("exe 3:");
                                 var toShow = (a / 1000000000).toFixed(8) + " GB";
-                                data = {
+                                data1 = {
                                     folderSize: toShow,
                                     fileSize: countFiles,
                                     missionCount: found.length
                                 };
-                                callback(null, data);
+                                console.log("Callback 222222", data1)
+                                callback(null, data1);
                             }
                         });
                     }
 
+
+                }, function (err) {
+                    console.log("ERRRRRRRRRRRRrrrrr", err)
+                    callback(err, null);
                 })
+                // _.forEach(found, function (x) {
+                //     countFiles = countFiles + x.files.length
+                //     console.log("1st console", countFiles)
+                //     var getSize = require('get-folder-size');
+                //     var path = '/mymountpoint/' + x._id;
+                //     console.log("2nd console")
+                // if (!fs.existsSync(path)) {
+                //     console.log("3rd console")
+                //     totalSizeLenght++;
+                //     if (totalSizeLenght == foundLength) {
+                //         // console.log("exe 3:");
+                //         var toShow = (a / 1000000000).toFixed(8) + " GB";
+                //         data = {
+                //             folderSize: toShow,
+                //             fileSize: countFiles,
+                //             missionCount: found.length
+                //         };
+                //         callback(null, data);
+                //     }
+                // } else {
+                //         console.log("4th console")
+                //         getSize(path, function (err, bytes) {
+                //             if (err) {
+                //                 throw err;
+                //             }
+                //             a = a + bytes;
+                //             totalSizeLenght++;
+                //             if (totalSizeLenght == foundLength) {
+                //                 // console.log("exe 3:");
+                //                 var toShow = (a / 1000000000).toFixed(8) + " GB";
+                //                 data = {
+                //                     folderSize: toShow,
+                //                     fileSize: countFiles,
+                //                     missionCount: found.length
+                //                 };
+                //                 callback(null, data);
+                //             }
+                //         });
+                //     }
+
+                // })
+
             } else {
                 callback("Invalid data", null);
             }
