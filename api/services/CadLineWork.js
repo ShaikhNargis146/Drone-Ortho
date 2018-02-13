@@ -109,33 +109,33 @@ var model = {
     generateExcelCad: function (match, callback) {
         async.concatSeries(match, function (mainData, callback) {
 
-            var obj = {};
-            obj["CAD ID"] = mainData.cadId;
-            if (mainData.user) {
-                obj["USER ID"] = mainData.user.dataId;
-            } else {
-                obj["USER ID"] = "-";
-            }
-            if (mainData.acreage) {
-                obj["ACREAGE"] = mainData.acreage;
-            } else {
-                obj["ACREAGE"] = "-";
-            }
-            if (mainData.instruction) {
-                obj["DESCRIPTION"] = mainData.instruction;
-            } else {
-                obj["DESCRIPTION"] = "-";
-            }
+                var obj = {};
+                obj["CAD ID"] = mainData.cadId;
+                if (mainData.user) {
+                    obj["USER ID"] = mainData.user.dataId;
+                } else {
+                    obj["USER ID"] = "-";
+                }
+                if (mainData.acreage) {
+                    obj["ACREAGE"] = mainData.acreage;
+                } else {
+                    obj["ACREAGE"] = "-";
+                }
+                if (mainData.instruction) {
+                    obj["DESCRIPTION"] = mainData.instruction;
+                } else {
+                    obj["DESCRIPTION"] = "-";
+                }
 
-            obj[" STATUS"] = mainData.status;
-            obj["DATE-OF-REQUEST"] = moment(mainData.createdAt).format("DD/MM/YYYY")
-            if (mainData.completionDate) {
-                obj["COMPLETION DATE"] = moment(mainData.completionDate).format("DD/MM/YYYY");
-            } else {
-                obj["COMPLETION DATE"] = "-";
-            }
-            callback(null, obj);
-        },
+                obj[" STATUS"] = mainData.status;
+                obj["DATE-OF-REQUEST"] = moment(mainData.createdAt).format("DD/MM/YYYY")
+                if (mainData.completionDate) {
+                    obj["COMPLETION DATE"] = moment(mainData.completionDate).format("DD/MM/YYYY");
+                } else {
+                    obj["COMPLETION DATE"] = "-";
+                }
+                callback(null, obj);
+            },
             function (err, singleData) {
                 callback(null, singleData);
             });
@@ -155,28 +155,28 @@ var model = {
 
     generateExcelCadforUser: function (match, callback) {
         async.concatSeries(match, function (mainData, callback) {
-            var obj = {};
-            obj["CAD ID"] = mainData.cadId;
-            if (mainData.acreage) {
-                obj["ACREAGE"] = mainData.acreage;
-            } else {
-                obj["ACREAGE"] = "-";
-            }
-            if (mainData.instruction) {
-                obj["DESCRIPTION"] = mainData.instruction;
-            } else {
-                obj["DESCRIPTION"] = "-";
-            }
-            obj[" STATUS"] = mainData.status;
-            obj["DATE-OF-REQUEST"] = moment(mainData.createdAt).format("DD/MM/YYYY")
-            if (mainData.completionDate) {
-                obj["COMPLETION DATE"] = moment(mainData.completionDate).format("DD/MM/YYYY");
-            } else {
-                obj["COMPLETION DATE"] = "-";
-            }
+                var obj = {};
+                obj["CAD ID"] = mainData.cadId;
+                if (mainData.acreage) {
+                    obj["ACREAGE"] = mainData.acreage;
+                } else {
+                    obj["ACREAGE"] = "-";
+                }
+                if (mainData.instruction) {
+                    obj["DESCRIPTION"] = mainData.instruction;
+                } else {
+                    obj["DESCRIPTION"] = "-";
+                }
+                obj[" STATUS"] = mainData.status;
+                obj["DATE-OF-REQUEST"] = moment(mainData.createdAt).format("DD/MM/YYYY")
+                if (mainData.completionDate) {
+                    obj["COMPLETION DATE"] = moment(mainData.completionDate).format("DD/MM/YYYY");
+                } else {
+                    obj["COMPLETION DATE"] = "-";
+                }
 
-            callback(null, obj);
-        },
+                callback(null, obj);
+            },
             function (err, singleData) {
                 callback(null, singleData);
             });
@@ -184,28 +184,28 @@ var model = {
     },
     generateExcelCadForVendor: function (match, callback) {
         async.concatSeries(match, function (mainData, callback) {
-            var obj = {};
-            obj["Mission ID"] = mainData.mission.missionId;
-            if (mainData.acreage) {
-                obj["ACREAGE"] = mainData.acreage;
-            } else {
-                obj["ACREAGE"] = "-";
-            }
-            if (mainData.instruction) {
-                obj["DESCRIPTION"] = mainData.instruction;
-            } else {
-                obj["DESCRIPTION"] = "-";
-            }
-            obj[" STATUS"] = mainData.status;
-            obj["DATE-OF-REQUEST"] = moment(mainData.createdAt).format("DD/MM/YYYY")
-            if (mainData.completionDate) {
-                obj["COMPLETION DATE"] = moment(mainData.completionDate).format("DD/MM/YYYY");
-            } else {
-                obj["COMPLETION DATE"] = "-";
-            }
+                var obj = {};
+                obj["Mission ID"] = mainData.mission.missionId;
+                if (mainData.acreage) {
+                    obj["ACREAGE"] = mainData.acreage;
+                } else {
+                    obj["ACREAGE"] = "-";
+                }
+                if (mainData.instruction) {
+                    obj["DESCRIPTION"] = mainData.instruction;
+                } else {
+                    obj["DESCRIPTION"] = "-";
+                }
+                obj[" STATUS"] = mainData.status;
+                obj["DATE-OF-REQUEST"] = moment(mainData.createdAt).format("DD/MM/YYYY")
+                if (mainData.completionDate) {
+                    obj["COMPLETION DATE"] = moment(mainData.completionDate).format("DD/MM/YYYY");
+                } else {
+                    obj["COMPLETION DATE"] = "-";
+                }
 
-            callback(null, obj);
-        },
+                callback(null, obj);
+            },
             function (err, singleData) {
                 callback(null, singleData);
             });
@@ -239,24 +239,24 @@ var model = {
             count: maxRow
         };
         CadLineWork.find({
-            user: data.user
-        })
+                user: data.user
+            })
             .deepPopulate("serviceId user DFMSubscription mission")
             .order(options)
             .keyword(options)
             .page(options,
-            function (err, found) {
-                // console.log("inside paggingtion cadline file", found)
+                function (err, found) {
+                    // console.log("inside paggingtion cadline file", found)
 
-                if (err) {
-                    console.log(err);
-                    callback(err, null);
-                } else if (found) {
-                    callback(null, found);
-                } else {
-                    callback("Invalid data", null);
-                }
-            });
+                    if (err) {
+                        console.log(err);
+                        callback(err, null);
+                    } else if (found) {
+                        callback(null, found);
+                    } else {
+                        callback("Invalid data", null);
+                    }
+                });
     },
 
 
@@ -429,16 +429,16 @@ var model = {
             .order(options)
             .keyword(options)
             .page(options,
-            function (err, found) {
-                if (err) {
-                    console.log(err);
-                    callback(err, null);
-                } else if (found) {
-                    callback(null, found);
-                } else {
-                    callback("Invalid data", null);
-                }
-            });
+                function (err, found) {
+                    if (err) {
+                        console.log(err);
+                        callback(err, null);
+                    } else if (found) {
+                        callback(null, found);
+                    } else {
+                        callback("Invalid data", null);
+                    }
+                });
     },
 
     getCadForVendor: function (data, callback) {
@@ -472,16 +472,16 @@ var model = {
             .order(options)
             .keyword(options)
             .page(options,
-            function (err, found) {
-                if (err) {
-                    console.log(err);
-                    callback(err, null);
-                } else if (found) {
-                    callback(null, found);
-                } else {
-                    callback("Invalid data", null);
-                }
-            });
+                function (err, found) {
+                    if (err) {
+                        console.log(err);
+                        callback(err, null);
+                    } else if (found) {
+                        callback(null, found);
+                    } else {
+                        callback("Invalid data", null);
+                    }
+                });
     },
 
     //******************** END *********************//
@@ -594,6 +594,7 @@ var model = {
                                 return moment((o.createdAt)).isSame(createdDt, 'day');
                             });
                             test[i - 1].createdAt = moment(createdDt).format('YYYY,M,D');
+                            test[i - 1].createdAt= new Date(test[i - 1].createdAt).getTime();
                         }
                         var finalArr = [];
                         var i = 0;
@@ -642,6 +643,7 @@ var model = {
                                 return moment((o.createdAt)).isSame(createdDt, 'day');
                             });
                             test[i - 1].createdAt = moment(createdDt).format('YYYY,M,D');
+                            test[i - 1].createdAt= new Date(test[i - 1].createdAt).getTime();
                         }
                         var finalArr = [];
                         var i = 0;
@@ -676,7 +678,7 @@ var model = {
     //graph api for user
     getGraphDataForUser: function (data, callback) {
         async.waterfall([
-            function (callback) { // Internal Cad
+            function (callback) { // orders
                 var addData = [];
                 var currentDate = new Date();
                 var lastMonthDaysCount = moment(currentDate).subtract(1, 'months').daysInMonth();
@@ -703,6 +705,7 @@ var model = {
                                 return moment((o.createdAt)).isSame(createdDt, 'day');
                             });
                             test[i - 1].createdAt = moment(createdDt).format('YYYY,M,D');
+                            test[i - 1].createdAt= new Date(test[i - 1].createdAt).getTime();
                         }
                         var finalArr = [];
                         var i = 0;
@@ -722,7 +725,7 @@ var model = {
                     }
                 })
             },
-            function (orderData, callback) { //External Cad
+            function (orderData, callback) { //paymnets
                 var addData = [];
                 var currentDate = new Date();
                 var lastMonthDaysCount = moment(currentDate).subtract(1, 'months').daysInMonth();
@@ -745,14 +748,19 @@ var model = {
                         i = 1
                         for (var i = 1; i <= lastMonthDaysCount; i++) {
                             var createdDt = new Date().setMonth(prevMonth)
-                            createdDt = new Date(createdDt).setDate(i)
-                            test[i - 1] = {};
-                            test[i - 1].true = _.sumBy(data, function (o) {
-                                if (moment((o.createdAt)).isSame(createdDt, 'day')) {
-                                    return o.totalAmount;
-                                }
+                            createdDt = new Date(createdDt).setDate(i);
+                            test[i - 1] = _.countBy(data, function (o) {
+                                return moment((o.createdAt)).isSame(createdDt, 'day');
                             });
                             test[i - 1].createdAt = moment(createdDt).format('YYYY,M,D');
+                            test[i - 1].createdAt= new Date(test[i - 1].createdAt).getTime();
+                            // test[i - 1] = {};
+                            // test[i - 1].true = _.sumBy(data, function (o) {
+                            //     if (moment((o.createdAt)).isSame(createdDt, 'day')) {
+                            //         return o.totalAmount;
+                            //     }
+                            // });
+                            // test[i - 1].createdAt = moment(createdDt).format('YYYY,M,D');
                         }
                         var finalArr = [];
                         var i = 0;
