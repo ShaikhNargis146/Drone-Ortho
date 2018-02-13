@@ -421,23 +421,95 @@ firstapp
                 }
             });
 
+
+            // function gd(year, month, day) {
+            //     return new Date(year, month - 1, day).getTime();
+            // }
+
+            // $scope.data3 = [
+            //     [gd(2012, 1, 1), 7],
+            //     [gd(2012, 1, 2), 6],
+            //     [gd(2012, 1, 3), 4],
+            //     [gd(2012, 1, 4), 8],
+            //     [gd(2012, 1, 5), 9],
+            //     [gd(2012, 1, 6), 7],
+            //     [gd(2012, 1, 7), 5],
+            //     [gd(2012, 1, 8), 4],
+            //     [gd(2012, 1, 9), 7],
+            //     [gd(2012, 1, 10), 8],
+            //     [gd(2012, 1, 11), 9],
+            //     [gd(2012, 1, 12), 6],
+            //     [gd(2012, 1, 13), 4],
+            //     [gd(2012, 1, 14), 5],
+            //     [gd(2012, 1, 15), 11],
+            //     [gd(2012, 1, 16), 8],
+            //     [gd(2012, 1, 17), 8],
+            //     [gd(2012, 1, 18), 11],
+            //     [gd(2012, 1, 19), 11],
+            //     [gd(2012, 1, 20), 6],
+            //     [gd(2012, 1, 21), 6],
+            //     [gd(2012, 1, 22), 8],
+            //     [gd(2012, 1, 23), 11],
+            //     [gd(2012, 1, 24), 13],
+            //     [gd(2012, 1, 25), 7],
+            //     [gd(2012, 1, 26), 9],
+            //     [gd(2012, 1, 27), 9],
+            //     [gd(2012, 1, 28), 8],
+            //     [gd(2012, 1, 29), 5],
+            //     [gd(2012, 1, 30), 8],
+            //     [gd(2012, 1, 31), 25]
+            // ];
+            // $scope.data4 = [
+            //     [gd(2012, 1, 1), 21],
+            //     [gd(2012, 1, 2), 13],
+            //     [gd(2012, 1, 3), 25],
+            //     [gd(2012, 1, 4), 50],
+            //     [gd(2012, 1, 5), 50],
+            //     [gd(2012, 1, 6), 45],
+            //     [gd(2012, 1, 7), 80],
+            //     [gd(2012, 1, 8), 58],
+            //     [gd(2012, 1, 9), 46],
+            //     [gd(2012, 1, 10), 86],
+            //     [gd(2012, 1, 11), 69],
+            //     [gd(2012, 1, 12), 70],
+            //     [gd(2012, 1, 13), 50],
+            //     [gd(2012, 1, 14), 60],
+            //     [gd(2012, 1, 15), 70],
+            //     [gd(2012, 1, 16), 78],
+            //     [gd(2012, 1, 17), 34],
+            //     [gd(2012, 1, 18), 88],
+            //     [gd(2012, 1, 19), 88],
+            //     [gd(2012, 1, 20), 88],
+            //     [gd(2012, 1, 21), 98],
+            //     [gd(2012, 1, 22), 44],
+            //     [gd(2012, 1, 23), 99],
+            //     [gd(2012, 1, 24), 56],
+            //     [gd(2012, 1, 25), 78],
+            //     [gd(2012, 1, 26), 66],
+            //     [gd(2012, 1, 27), 88],
+            //     [gd(2012, 1, 28), 90],
+            //     [gd(2012, 1, 29), 17],
+            //     [gd(2012, 1, 30), 55],
+            //     [gd(2012, 1, 31), 99]
+            // ];
+
             NavigationService.apiCallWithoutData("CadLineWork/getGraphDataForAdmin", function (data) {
                 if (data.value === true) {
                     $scope.data4 = data.data.InternalData;
                     $scope.data3 = data.data.ExternalData;
 
-                    var i = 0
-                    _.forEach($scope.data4, function (x) {
-                        $scope.data4[i][0] = new Date($scope.data4[i][0]).getTime();
-                        $scope.data4[i][1] = $scope.data4[i][1] * 100
-                        i++;
-                    });
-                    var i = 0
-                    _.forEach($scope.data3, function (x) {
-                        $scope.data3[i][0] = new Date($scope.data3[i][0]).getTime();
-                        // $scope.data3[i][1] = $scope.data3[i][1] * 100
-                        i++;
-                    });
+                    // var i = 0
+                    // _.forEach($scope.data4, function (x) {
+                    //     $scope.data4[i][0] = new Date($scope.data4[i][0]).getTime();
+                    //     $scope.data4[i][1] = $scope.data4[i][1] * 100
+                    //     i++;
+                    // });
+                    // var i = 0
+                    // _.forEach($scope.data3, function (x) {
+                    //     $scope.data3[i][0] = new Date($scope.data3[i][0]).getTime();
+                    //     // $scope.data3[i][1] = $scope.data3[i][1] * 100
+                    //     i++;
+                    // });
 
                     $scope.datasetadmin = [{
                             label: "Exterrnal CAD",
@@ -576,27 +648,98 @@ firstapp
                     $scope.pieDataset[2].data = 90;
                 }
             });
+
+            // function gd(year, month, day) {
+            //     return new Date(year, month - 1, day).getTime();
+            // }
+
+            // $scope.data1 = [
+            //     [gd(2012, 1, 1), 7],
+            //     [gd(2012, 1, 2), 6],
+            //     [gd(2012, 1, 3), 4],
+            //     [gd(2012, 1, 4), 8],
+            //     [gd(2012, 1, 5), 9],
+            //     [gd(2012, 1, 6), 7],
+            //     [gd(2012, 1, 7), 5],
+            //     [gd(2012, 1, 8), 4],
+            //     [gd(2012, 1, 9), 7],
+            //     [gd(2012, 1, 10), 8],
+            //     [gd(2012, 1, 11), 9],
+            //     [gd(2012, 1, 12), 6],
+            //     [gd(2012, 1, 13), 4],
+            //     [gd(2012, 1, 14), 5],
+            //     [gd(2012, 1, 15), 11],
+            //     [gd(2012, 1, 16), 8],
+            //     [gd(2012, 1, 17), 8],
+            //     [gd(2012, 1, 18), 11],
+            //     [gd(2012, 1, 19), 11],
+            //     [gd(2012, 1, 20), 6],
+            //     [gd(2012, 1, 21), 6],
+            //     [gd(2012, 1, 22), 8],
+            //     [gd(2012, 1, 23), 11],
+            //     [gd(2012, 1, 24), 13],
+            //     [gd(2012, 1, 25), 7],
+            //     [gd(2012, 1, 26), 9],
+            //     [gd(2012, 1, 27), 9],
+            //     [gd(2012, 1, 28), 8],
+            //     [gd(2012, 1, 29), 5],
+            //     [gd(2012, 1, 30), 8],
+            //     [gd(2012, 1, 31), 25]
+            // ];
+
+            // $scope.data2 = [
+            //     [gd(2012, 1, 1), 800],
+            //     [gd(2012, 1, 2), 500],
+            //     [gd(2012, 1, 3), 600],
+            //     [gd(2012, 1, 4), 700],
+            //     [gd(2012, 1, 5), 500],
+            //     [gd(2012, 1, 6), 456],
+            //     [gd(2012, 1, 7), 800],
+            //     [gd(2012, 1, 8), 589],
+            //     [gd(2012, 1, 9), 467],
+            //     [gd(2012, 1, 10), 876],
+            //     [gd(2012, 1, 11), 689],
+            //     [gd(2012, 1, 12), 700],
+            //     [gd(2012, 1, 13), 500],
+            //     [gd(2012, 1, 14), 600],
+            //     [gd(2012, 1, 15), 700],
+            //     [gd(2012, 1, 16), 786],
+            //     [gd(2012, 1, 17), 345],
+            //     [gd(2012, 1, 18), 888],
+            //     [gd(2012, 1, 19), 888],
+            //     [gd(2012, 1, 20), 888],
+            //     [gd(2012, 1, 21), 987],
+            //     [gd(2012, 1, 22), 444],
+            //     [gd(2012, 1, 23), 999],
+            //     [gd(2012, 1, 24), 567],
+            //     [gd(2012, 1, 25), 786],
+            //     [gd(2012, 1, 26), 666],
+            //     [gd(2012, 1, 27), 888],
+            //     [gd(2012, 1, 28), 900],
+            //     [gd(2012, 1, 29), 178],
+            //     [gd(2012, 1, 30), 555],
+            //     [gd(2012, 1, 31), 993]
+            // ];
             var dataToSend1 = {}
             dataToSend1.userId = userId;
             NavigationService.apiCallWithData("CadLineWork/getGraphDataForUser", dataToSend1, function (data) {
                 if (data.value === true) {
-                    $scope.data2 = data.data.OrderData;
-                    $scope.data1 = data.data.Payment;
+                    $scope.data3 = data.data.OrderData;
+                    $scope.data4 = data.data.Payment;
 
-                    var i = 0
-                    _.forEach($scope.data2, function (x) {
-                        $scope.data2[i][0] = new Date($scope.data2[i][0]).getTime();
-                        // $scope.data2[i][1] = $scope.data2[i][1] * 100
-                        i++;
-                    });
-                    var i = 0
-                    _.forEach($scope.data1, function (x) {
-                        $scope.data1[i][0] = new Date($scope.data1[i][0]).getTime();
-                        // $scope.data1[i][1] = $scope.data1[i][1] * 100
-                        i++;
-                    });
-
-
+                    // var i = 0
+                    // _.forEach($scope.data2, function (x) {
+                    //     $scope.data2[i][0] = new Date($scope.data2[i][0]).getTime();
+                    //     // $scope.data2[i][1] = $scope.data2[i][1] * 100
+                    //     i++;
+                    // });
+                    // var i = 0
+                    // _.forEach($scope.data1, function (x) {
+                    //     $scope.data1[i][0] = new Date($scope.data1[i][0]).getTime();
+                    //     // $scope.data1[i][1] = $scope.data1[i][1] * 100
+                    //     i++;
+                    // });
+  
                     $scope.dataset = [{
                             label: "Number of orders",
                             grow: {
@@ -3683,19 +3826,19 @@ firstapp
             getByDate.fromDate = moment(data.fromDate).format();
             getByDate.toDate = moment(data.toDate).format();
             if (data.type == 'Mission') {
-                NavigationService.generateExcelWithData("MISSIONEXCEL","VendorBill/exceltotalMission", getByDate, function (data) { });
+                NavigationService.generateExcelWithData("MISSIONEXCEL", "VendorBill/exceltotalMission", getByDate, function (data) {});
             } else if (data.type == 'Cad') {
-                NavigationService.generateExcelWithData("CADEXCEL","VendorBill/exceltotalCadRequest", getByDate, function (data) { });
+                NavigationService.generateExcelWithData("CADEXCEL", "VendorBill/exceltotalCadRequest", getByDate, function (data) {});
             } else if (data.type == 'DroneSales') {
-                NavigationService.generateExcelWithData("DRONESALES","VendorBill/droneSales", getByDate, function (data) { });
+                NavigationService.generateExcelWithData("DRONESALES", "VendorBill/droneSales", getByDate, function (data) {});
             } else if (data.type == 'DfmSales') {
-                NavigationService.generateExcelWithData("DFMSALES","VendorBill/dfmSales", getByDate, function (data) { });
+                NavigationService.generateExcelWithData("DFMSALES", "VendorBill/dfmSales", getByDate, function (data) {});
             } else if (data.type == 'DfmSub') {
-                NavigationService.generateExcelWithData("DFMSUBEXCEL","VendorBill/allDfmSub", getByDate, function (data) { });
+                NavigationService.generateExcelWithData("DFMSUBEXCEL", "VendorBill/allDfmSub", getByDate, function (data) {});
             } else if (data.type == 'CadRev') {
-                NavigationService.generateExcelWithData("CADREVENUE","VendorBill/cadRevenue", getByDate, function (data) { });
+                NavigationService.generateExcelWithData("CADREVENUE", "VendorBill/cadRevenue", getByDate, function (data) {});
             } else if (data.type == 'VendorBill') {
-                NavigationService.generateExcelWithData("VENDORBILL","VendorBill/vendorBill", getByDate, function (data) { });
+                NavigationService.generateExcelWithData("VENDORBILL", "VendorBill/vendorBill", getByDate, function (data) {});
             }
         }
     })
