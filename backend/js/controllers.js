@@ -724,8 +724,8 @@ firstapp
             dataToSend1.userId = userId;
             NavigationService.apiCallWithData("CadLineWork/getGraphDataForUser", dataToSend1, function (data) {
                 if (data.value === true) {
-                    $scope.data3 = data.data.OrderData;
-                    $scope.data4 = data.data.Payment;
+                    $scope.data2 = data.data.OrderData;
+                    $scope.data1 = data.data.Payment;
 
                     // var i = 0
                     // _.forEach($scope.data2, function (x) {
