@@ -279,7 +279,7 @@ var model = {
                     console.log("countFilescountFilescountFilescountFiles", countFiles)
 
                     var getSize = require('get-folder-size');
-                    var path = 'pix4dUpload/' + x._id;
+                    var path = '/mymountpoint/' + x._id;
                     console.log("2nd console", path)
                     if (!fs.existsSync(path)) {
                         console.log("if folder not found")
