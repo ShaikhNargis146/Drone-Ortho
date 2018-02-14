@@ -279,12 +279,12 @@ var model = {
                     console.log("countFilescountFilescountFilescountFiles", countFiles)
 
                     var getSize = require('get-folder-size');
-                    var path = 'pix4dUpload/' + x._id;
+                    var path = "/mymountpoint/"+ x._id;
                     console.log("Path for folder", path)
 
                     console.log("else folder found")
                     path1 = path + '/' + x.missionId;
-                    path2 = path + '/' + x.missionId + '.pdf'
+                    path2 = path + '/' + x.missionId + '.p4d'
                     if (!fs.existsSync(path)) {
                         totalSizeLenght++;
                         if (totalSizeLenght == foundLength) {
@@ -367,6 +367,35 @@ var model = {
                             })
                         } else if (fs.existsSync(path2)) {
                             console.log("inside path 2 found")
+                             getSize(path, function (err, bytes) {
+                                if (err) {
+                                    throw err;
+                                }
+                                getSize(path2, function (err, b2) {
+                                    if (err) {
+                                        throw err;
+                                    }
+                                    console.log("inner folder********************", b2)
+                                    console.log("oter folder %%%%%%%%%%%%%%%%%", bytes)
+                                    var b3 = b2
+                                    bytes = bytes - b3
+                                    console.log("bytessssssssssss", bytes)
+                                    a = a + bytes;
+                                    totalSizeLenght++;
+                                    if (totalSizeLenght == foundLength) {
+                                        var toShow = (a / 1000000000).toFixed(8) + " GB";
+                                        data1 = {
+                                            folderSize: toShow,
+                                            fileSize: countFiles,
+                                            missionCount: found.length
+                                        };
+                                        console.log("Callback 111111111", data1)
+                                        callback(null, data1);
+                                    }
+
+                                })
+
+                            })
                         } else {
                             console.log("Only  folder size")
                             getSize(path, function (err, bytes) {
