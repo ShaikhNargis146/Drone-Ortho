@@ -279,7 +279,7 @@ var model = {
                     console.log("countFilescountFilescountFilescountFiles", countFiles)
 
                     var getSize = require('get-folder-size');
-                   var path = '/mymountpoint/' + x._id;
+                    var path = '/mymountpoint/' + x._id;
                     console.log("Path for folder", path)
                     path1 = path + '/' + x.missionId;
                     path2 = path + '/' + x.missionId + '.p4d'
@@ -313,8 +313,8 @@ var model = {
                                             throw err;
                                         }
                                         console.log("************b1,b2,b3", bytes, b1, b2)
-                                        var c=b1
-                                        var c1 = c-b2
+                                        var c = b1
+                                        var c1 = c - b2
                                         bytes = bytes - c1
                                         console.log("bytessssssssssss", bytes)
                                         a = a + bytes;
@@ -367,7 +367,7 @@ var model = {
                             })
                         } else if (fs.existsSync(path2)) {
                             console.log("inside path 2 found")
-                             getSize(path, function (err, bytes) {
+                            getSize(path, function (err, bytes) {
                                 if (err) {
                                     throw err;
                                 }
@@ -397,7 +397,7 @@ var model = {
 
                             })
                         } else {
-                            console.log("Only  folder size",path)
+                            console.log("Only  folder size", path)
                             getSize(path, function (err, bytes) {
                                 if (err) {
                                     throw err;
@@ -419,7 +419,7 @@ var model = {
                         }
                     }
 
-                   
+
                 }, function (err) {
                     console.log("ERRRRRRRRRRRRrrrrr", err)
                     callback(err, null);
@@ -432,6 +432,502 @@ var model = {
         });
     },
 
+
+
+
+    totalMissionCount1: function (data, callback) {
+        async.waterfall([
+            function (callback1) {
+
+                console.log("inside totalMissionCount", data)
+                var currentSubscriptionDate = data.currentSubscriptionDate
+                var ltDate = new Date();
+                var data1;
+                // console.log(currentSubscriptionDate)
+                Mission.find({
+                    user: data.user,
+                    createdAt: {
+                        $gte: currentSubscriptionDate,
+                        $lte: ltDate
+                    }
+                }).exec(function (err, found) {
+                    if (err) {
+                        callback1(err, null);
+                    } else if (_.isEmpty(found)) {
+                        console.log("emapty found")
+                        data1 = {
+                            folderSize: 0 + " GB",
+                            fileSize: 0,
+                            missionCount: 0
+
+                        };
+                        callback1(null, data1);
+                    } else if (found) {
+                        callback1(null, found);
+                    }
+                });
+            },
+            function (data, callback2) {
+                console.log("ddddddddaaaata", data)
+                var countFiles = 0;
+                var a = 0;
+                var foundLength = data.length;
+                var totalSizeLenght = 0;
+
+                async.each(data, function (x, cb1) {
+                    console.log("----", x._id)
+                    countFiles = countFiles + x.files.length
+
+                    var getSize = require('get-folder-size');
+                    var path = 'pix4dUpload/' + x._id;
+                    if (!fs.existsSync(path)) {
+                        console.log("If main Folder Not  FOund")
+                        totalSizeLenght++;
+                        if (totalSizeLenght == foundLength) {
+                            var toShow = (a / 1000000000).toFixed(8) + " GB";
+                            data1 = {
+                                folderSize: toShow,
+                                fileSize: countFiles,
+                                missionCount: data.length
+                            };
+                            console.log("Callback 111111", data1)
+                            callback2(null, data1, data);
+                        }
+                    } else {
+                        console.log("If main Folder  FOund")
+                        getSize(path, function (err, bytes) {
+                            if (err) {
+                                throw err;
+                            }
+                            a = a + bytes;
+                            totalSizeLenght++;
+                            if (totalSizeLenght == foundLength) {
+                                var toShow = (a / 1000000000).toFixed(8) + " GB";
+                                data1 = {
+                                    folderSize: toShow,
+                                    fileSize: countFiles,
+                                    missionCount: data.length,
+                                };
+                                console.log("Callback 222222", data1)
+                                callback2(null, data1, data);
+                            }
+                        })
+                    }
+
+
+                }, function (err) {
+                    console.log("ERRRRRRRRRRRRrrrrr", err)
+                    callback(err, null);
+                })
+
+            },
+            function (data, data1, callback3) {
+                console.log("datadatadatadata", data)
+                console.log("**********", data1)
+
+
+
+            }
+        ], function (err, data) {
+
+            if (err || _.isEmpty(data)) {
+                callback(err, [])
+            } else {
+                callback(null, data)
+            }
+        });
+    },
+
+
+    totalMissionCount2: function (data, callback) {
+        var currentSubscriptionDate = data.currentSubscriptionDate
+        var ltDate = new Date();
+        var data1;
+        Mission.find({
+            user: data.user,
+            createdAt: {
+                $gte: currentSubscriptionDate,
+                $lte: ltDate
+            }
+        }).exec(function (err, found) {
+            if (err) {
+                callback(err, null);
+            } else if (_.isEmpty(found)) {
+                console.log("emapty found")
+                data1 = {
+                    folderSize: 0 + " GB",
+                    fileSize: 0,
+                    missionCount: 0
+
+                };
+                callback(null, data1);
+            } else if (found) {
+                var countFiles = 0;
+                var a = 0;
+                var foundLength = found.length;
+                var totalSizeLenght = 0;
+
+                async.each(found, function (x, cb1) {
+                    var path = 'pix4dUpload/' + x._id;
+                    if (!fs.existsSync(path)) {
+                        var toShow = (a / 1000000000).toFixed(8) + " GB";
+                        data1 = {
+                            folderSize: toShow,
+                            fileSize: countFiles,
+                            missionCount: found.length
+                        };
+                        console.log("Callback 111111", data1)
+                        cb1(null, data1);
+                    } else {
+                        async.waterfall([
+                            function (callback1) {
+                                console.log("----", x._id)
+                                countFiles = countFiles + x.files.length
+
+                                var getSize = require('get-folder-size');
+                                var path = 'pix4dUpload/' + x._id;
+
+                                console.log("If main Folder  FOund")
+                                getSize(path, function (err, bytes) {
+                                    if (err) {
+                                        throw err;
+                                    }
+                                    a = a + bytes;
+                                    console.log("totalSizeLenght", totalSizeLenght)
+                                    var toShow = (a / 1000000000).toFixed(8) + " GB";
+                                    data1 = {
+                                        folderSize: toShow,
+                                        fileSize: countFiles,
+                                        missionCount: found.length,
+                                    };
+                                    console.log("Callback 222222", data1)
+                                    callback1(null, data1);
+
+                                })
+
+                            },
+                            function (data, callback2) {
+                                path1 = path + '/' + x.missionId;
+                                // path2 = path + '/' + x.missionId + '.p4d'
+                                var getSize = require('get-folder-size');
+                                console.log("#####################2222", data)
+                                if (fs.existsSync(path)) {
+                                    getSize(path1, function (err, p1) {
+                                        if (err) {
+                                            throw err;
+                                        }
+                                        a = data.folderSize - p1;
+                                        console.log("totalSizeLenght", a)
+                                        var toShow = (a / 1000000000).toFixed(8) + " GB";
+                                        data1 = {
+                                            folderSize: toShow,
+                                            fileSize: countFiles,
+                                            missionCount: found.length,
+                                        };
+                                        console.log("Callback 222222", data1)
+                                        callback2(null, data);
+
+                                    })
+                                }
+
+
+                            },
+                            function (data, callback3) {
+
+                                path2 = path + '/' + x.missionId + '.pdf'
+                                var getSize = require('get-folder-size');
+                                console.log("############33333", data)
+                                if (fs.existsSync(path2)) {
+                                    getSize(path2, function (err, p2) {
+                                        if (err) {
+                                            throw err;
+                                        }
+                                        a = data.folderSize - p2;
+                                        console.log("totalSizeLenght", a)
+                                        var toShow = (a / 1000000000).toFixed(8) + " GB";
+                                        data1 = {
+                                            folderSize: toShow,
+                                            fileSize: countFiles,
+                                            missionCount: found.length,
+                                        };
+                                        console.log("Callback 222222", data1)
+                                        callback3(null, data1);
+
+                                    })
+                                } else {
+                                    console.log('path2 not found')
+                                    callback3(null, data);
+                                }
+
+                            }
+                        ], function (err, data) {
+                            console.log("%%%%%%%%final callback", data)
+
+                            if (err || _.isEmpty(data)) {
+                                callback(err, [])
+                            } else {
+                                callback(null, data)
+                            }
+                        });
+
+                    }
+
+
+
+                }, function (err) {
+                    console.log("ERRRRRRRRRRRRrrrrr", err)
+                    callback(err, null);
+                })
+            }
+        });
+    },
+
+
+    totalMissionCount: function (data, callback) {
+        console.log("inside totalMissionCount", data)
+        var currentSubscriptionDate = data.currentSubscriptionDate
+        var ltDate = new Date();
+        var data1;
+        // console.log(currentSubscriptionDate)
+        Mission.find({
+            user: data.user,
+            createdAt: {
+                $gte: currentSubscriptionDate,
+                $lte: ltDate
+            }
+        }).exec(function (err, found) {
+            if (err) {
+                callback(err, null);
+            } else if (_.isEmpty(found)) {
+                console.log("emapty found")
+                data = {
+                    folderSize: 0 + " GB",
+                    fileSize: 0,
+                    missionCount: 0
+                };
+                callback(null, data);
+            } else if (found) {
+                console.log("FFFFound", found.length)
+                var countFiles = 0;
+                var a = 0;
+                var foundLength = found.length;
+                var totalSizeLenght = 0;
+
+                async.each(found, function (x, cb1) {
+                    console.log("----", x._id)
+                    countFiles = countFiles + x.files.length
+                    console.log("countFilescountFilescountFilescountFiles", countFiles)
+
+                    var getSize = require('get-folder-size');
+                   var path = '/mymountpoint/' + x._id;
+                    console.log("Path for folder", path)
+                    path1 = path + '/' + x.missionId;
+                    path2 = path + '/' + x.missionId + '.p4d'
+                    if (!fs.existsSync(path)) {
+                        console.log("If main Folder Not  FOund")
+                        totalSizeLenght++;
+                        if (totalSizeLenght == foundLength) {
+                            var toShow = (a / 1000000000).toFixed(8) + " GB";
+                            data1 = {
+                                folderSize: toShow,
+                                fileSize: countFiles,
+                                missionCount: found.length
+                            };
+                            console.log("Callback 222222", data1)
+                            callback(null, data1);
+                        }
+                    } else {
+                        console.log("If main Folder FOund",path1,path2)
+                        if (fs.existsSync(path1) && fs.existsSync(path2)) {
+                            console.log("inside both files found");
+                            var mainFolderSize;
+                            var subFolderSize1;
+                            var subFolderSize2;
+                            async.parallel([
+                                function (callback) {
+                                    getSize(path, function (err, bytes) {
+                                        if (err) {
+                                            // throw err;
+                                            callback(err,null);
+                                        }else{
+                                            mainFolderSize = bytes;
+                                            console.log("mainFolderSize inside",mainFolderSize);
+                                              callback(null,"sucess");
+                                        }
+                                    })
+                                },
+                                function (callback) {
+                                    getSize(path1, function (err, bytes) {
+                                        if (err) {
+                                            // throw err;
+                                            callback(err,null);
+                                        }else{
+                                            subFolderSize1 = bytes;
+                                            callback(null,"sucess");
+                                        }
+                                    })
+                                },
+                                function (callback) {
+                                    getSize(path2, function (err, bytes) {
+                                        if (err) {
+                                            // throw err;
+                                            callback(err,null);
+                                        }else{
+                                            subFolderSize2 = bytes;
+                                              callback(null,"sucess");
+                                        }
+                                    })
+                                }
+                            ], function (err,data) {
+                                if(err){
+                                    callback(err,null);
+                                }else{
+                                    mainFolderSize=mainFolderSize -(subFolderSize2+subFolderSize1);
+                                     totalSizeLenght++;
+                                        if (totalSizeLenght == foundLength) {
+                                            var toShow = (mainFolderSize / 1000000000).toFixed(8) + " GB";
+                                             console.log("mainFolderSize",mainFolderSize);
+                                            console.log("toShow",toShow);
+                                            data1 = {
+                                                folderSize: toShow,
+                                                fileSize: countFiles,
+                                                missionCount: found.length
+                                            };
+                                            console.log("Callback 222222", data1)
+                                            callback(null, data1);
+                                        }
+                                }
+                            });
+                        } else if (fs.existsSync(path1)) {
+                            console.log("inside path 1 found")
+
+                            var mainFolderSize;
+                            var subFolderSize1;
+                            var subFolderSize2;
+                            async.parallel([
+                                function (callback) {
+                                    getSize(path, function (err, bytes) {
+                                        if (err) {
+                                            // throw err;
+                                            callback(err,null);
+                                        }else{
+                                            mainFolderSize = bytes;
+                                              callback(null,"sucess");
+                                        }
+                                    })
+                                },
+                                function (callback) {
+                                    getSize(path1, function (err, bytes) {
+                                        if (err) {
+                                            // throw err;
+                                            callback(err,null);
+                                        }else{
+                                            subFolderSize1 = bytes;
+                                              callback(null,"sucess");
+                                        }
+                                    })
+                                }
+                            ], function (err,data) {
+                                if(err){
+                                    callback(err,null);
+                                }else{
+                                    mainFolderSize=mainFolderSize -subFolderSize1;
+                                     totalSizeLenght++;
+                                        if (totalSizeLenght == foundLength) {
+                                            var toShow = (mainFolderSize / 1000000000).toFixed(8) + " GB";
+                                            data1 = {
+                                                folderSize: toShow,
+                                                fileSize: countFiles,
+                                                missionCount: found.length
+                                            };
+                                            console.log("Callback 222222", data1)
+                                            callback(null, data1);
+                                        }
+                                }
+                            });
+                        } else if (fs.existsSync(path2)) {
+                            console.log("inside path 2 found")
+                            var mainFolderSize;
+                            var subFolderSize1;
+                            var subFolderSize2;
+                            async.parallel([
+                                function (callback) {
+                                    getSize(path, function (err, bytes) {
+                                        if (err) {
+                                            // throw err;
+                                            callback(err,null);
+                                        }else{
+                                            mainFolderSize = bytes;
+                                              callback(null,"sucess");
+                                        }
+                                    })
+                                },
+                                function (callback) {
+                                    getSize(path2, function (err, bytes) {
+                                        if (err) {
+                                            // throw err;
+                                            callback(err,null);
+                                        }else{
+                                            subFolderSize1 = bytes;
+                                              callback(null,"sucess");
+                                        }
+                                    })
+                                }
+                            ], function (err,data) {
+                                if(err){
+                                    callback(err,null);
+                                }else{
+                                    mainFolderSize=mainFolderSize -subFolderSize1;
+                                     totalSizeLenght++;
+                                        if (totalSizeLenght == foundLength) {
+                                            var toShow = (mainFolderSize / 1000000000).toFixed(8) + " GB";
+                                           
+                                            data1 = {
+                                                folderSize: toShow,
+                                                fileSize: countFiles,
+                                                missionCount: found.length
+                                            };
+                                            console.log("Callback 222222", data1)
+                                            callback(null, data1);
+                                        }
+                                }
+                            });
+                        } else {
+                            console.log("Only  folder size", path)
+                            getSize(path, function (err, bytes) {
+                                if (err) {
+                                    // throw err;
+                                    callback(err,null);
+                                }
+                                // a = a + bytes;
+                                totalSizeLenght++;
+                                if (totalSizeLenght == foundLength) {
+                                    var toShow = (bytes / 1000000000).toFixed(8) + " GB";
+                                    data1 = {
+                                        folderSize: toShow,
+                                        fileSize: countFiles,
+                                        missionCount: found.length
+                                    };
+                                    console.log("Callback 222222", data1)
+                                    callback(null, data1);
+                                }
+                            })
+
+                        }
+                    }
+
+
+                }, function (err) {
+                    console.log("ERRRRRRRRRRRRrrrrr", err)
+                    callback(err, null);
+                })
+
+
+            } else {
+                callback("Invalid data", null);
+            }
+        });
+    },
 
     createMission: function (data, callback) {
         // console.log("data", data);
