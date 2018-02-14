@@ -4123,6 +4123,7 @@ firstapp
             NavigationService.apiCallWithData("ProductOrders/getuserwiseProduct", $scope.formdata, function (data) {
                 console.log(" $scope.formdata  $scope.formdata ", data);
                 if (data.value == true) {
+                      $(".loading-img").css("display", "block");
                     $scope.dfmCount = 0;
                     $scope.cadCount = 0;
                     $scope.proCount = 0;
@@ -4161,7 +4162,7 @@ firstapp
             NavigationService.apiCallWithData("User/getOne", $scope.formdata, function (user) {
                 console.log("user", user);
                 if (user.value == true) {
-                     $(".loading-img").css("display", "block");
+                   
                     // $scope.user = user.data;
                     $scope.dfmDeatils = {}
                     $scope.dfmDeatils._id = user.data.currentSubscription;
