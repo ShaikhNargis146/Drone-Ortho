@@ -279,13 +279,12 @@ var model = {
                     console.log("countFilescountFilescountFilescountFiles", countFiles)
 
                     var getSize = require('get-folder-size');
-                    var path = "/mymountpoint/"+ x._id;
+                   var path = '/mymountpoint/' + x._id;
                     console.log("Path for folder", path)
-
-                    console.log("else folder found")
                     path1 = path + '/' + x.missionId;
                     path2 = path + '/' + x.missionId + '.p4d'
                     if (!fs.existsSync(path)) {
+                        console.log("If main Folder Not  FOund")
                         totalSizeLenght++;
                         if (totalSizeLenght == foundLength) {
                             var toShow = (a / 1000000000).toFixed(8) + " GB";
@@ -298,6 +297,7 @@ var model = {
                             callback(null, data1);
                         }
                     } else {
+                        console.log("If main Folder FOund")
                         if (fs.existsSync(path1) && fs.existsSync(path2)) {
                             console.log("inside both files found")
                             getSize(path, function (err, bytes) {
