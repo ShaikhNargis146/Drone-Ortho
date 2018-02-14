@@ -4113,9 +4113,8 @@ firstapp
         $scope.navigation = NavigationService.getnav();
         TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
+            console.log("--------");
 
-            $(".loading-img").css("display", "block");
-            $(".loading-img-modal").css("display", "block");
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
             $scope.formdata1 = {};
             $scope.formdata1.user = $stateParams.userId;
@@ -4162,6 +4161,7 @@ firstapp
             NavigationService.apiCallWithData("User/getOne", $scope.formdata, function (user) {
                 console.log("user", user);
                 if (user.value == true) {
+                     $(".loading-img").css("display", "block");
                     // $scope.user = user.data;
                     $scope.dfmDeatils = {}
                     $scope.dfmDeatils._id = user.data.currentSubscription;
@@ -4175,6 +4175,7 @@ firstapp
                             $scope.formdata1.currentSubscriptionDate = $scope.createdAt,
                                 console.log(" $scope.formdata1 $scope.formdata1", $scope.formdata1)
                             NavigationService.apiCallWithData("Mission/totalMissionCount", $scope.formdata1, function (mission1) {
+
                                 console.log("*****mission1****", mission1)
                                 if (mission1.value == false) {
                                     $scope.UploadSize = "0";
@@ -4182,7 +4183,7 @@ firstapp
 
                                 } else {
                                     $(".loading-img").css("display", "none");
-                                    $(".loading-img-modal").css("display", "none");
+                                
                                     $scope.user = user.data;
                                     $scope.dfmData = dfm.data;
                                     $scope.foldersize = mission1.data.folderSize + "/" + $scope.dfmData.UploadSize;
@@ -4220,6 +4221,10 @@ firstapp
                 $scope.formdata.accessLevel = accessLevel1.accessLevel
                 NavigationService.apiCallWithData("User/save", $scope.formdata, function (dfm) {});
             }
+        }
+        else{
+             $(".loading-img").css("display", "none");
+           
         }
     })
     // ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** FOR ADMIN ONLY ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** *
