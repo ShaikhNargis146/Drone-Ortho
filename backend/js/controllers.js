@@ -4170,13 +4170,13 @@ firstapp
             NavigationService.apiCallWithData("User/getOne", $scope.formdata, function (user) {
                 console.log("user", user);
                 if (user.value == true) {
-                    $scope.user = user.data;
+                    // $scope.user = user.data;
                     $scope.dfmDeatils = {}
                     $scope.dfmDeatils._id = user.data.currentSubscription;
                     NavigationService.apiCallWithData("DFMSubscription/getOne", $scope.dfmDeatils, function (dfm) {
                         console.log("dfm info is", dfm);
                         if (dfm.value == true) {
-                            $scope.dfmData = dfm.data;
+                            // $scope.dfmData = dfm.data;
                             $scope.createdAt = dfm.data.createdAt;
                             console.log("*********************", $scope.createdAt)
                             console.log("$scope.createdAt$scope.createdAt", $scope.createdAt)
@@ -4190,6 +4190,8 @@ firstapp
                                 } else {
                                     $scope.foldersize = mission1.data.folderSize + "/" + $scope.dfmData.UploadSize;
                                     $scope.UploadSize = mission1.data.fileSize + "/" + $scope.dfmData.UploadPhoto;
+                                     $scope.user = user.data;
+                                       $scope.dfmData = dfm.data;
                                 }
 
                             })
