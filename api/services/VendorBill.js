@@ -177,9 +177,9 @@ var model = {
                 obj["STATUS"] = mainData.status;
                 obj[" DATE"] = moment(mainData.createdAt).format("DD/MM/YYYY")
                 if (mainData.cadline[0]) {
-                    obj[" CADRQUEST"] = "Yes";
+                    obj["CAD REQUEST"] = "Yes";
                 } else {
-                    obj[" CADRQUEST"] = "No";
+                    obj["CAD REQUEST"] = "No";
                 }
                 callback(null, obj);
             },

@@ -798,76 +798,88 @@ var model = {
 
     getOrdersDetails: function (data, callback) {
         var currentDate = new Date();
+        var currentMonthStart = moment(currentDate).startOf('month').format();
+        var currentMonthEnd = moment(currentDate).endOf('month').format();      
         var lastMonthStart = moment(currentDate).subtract(1, 'months').startOf('month').format();
         var lastMonthEnd = moment(currentDate).subtract(1, 'months').endOf('month').format();
         var last1MonthStart = moment(currentDate).subtract(2, 'months').startOf('month').format();
         var last1MonthEnd = moment(currentDate).subtract(2, 'months').endOf('month').format();
-        var last2MonthStart = moment(currentDate).subtract(3, 'months').startOf('month').format();
-        var last2MonthEnd = moment(currentDate).subtract(3, 'months').endOf('month').format();
+        var currentMonth=moment().format("MMMM");
         var lastMonth = moment(lastMonthStart).format("MMMM");
         var last1Month = moment(last1MonthStart).format("MMMM");
-        var last2Month = moment(last2MonthStart).format("MMMM");
         var allData = {};
         async.waterfall([
                 function (callback) {
-                    CadLineWork.find({
+                    ProductOrders.find({
                         user: data.userId,
+                        "cadLineWork": {
+                            $exists: true
+                        },
+                        status:'Paid',
                         createdAt: {
-                            $gte: lastMonthStart,
-                            $lte: lastMonthEnd
+                            $gte: currentMonthStart,
+                            $lte: currentMonthEnd
                         }
-                    }).select('_id amount').exec(function (err, data) {
+                    }).select('_id totalAmount').exec(function (err, data) {
                         if (err) {
                             callback(err, null)
                         } else {
                             var totalAmount = 0;
                             _.forEach(data, function (value) {
-                                totalAmount = totalAmount + value.amount;
+                                totalAmount = totalAmount + value.totalAmount;
                             });
-                            allData.lastMonthData = totalAmount;
-                            allData.lastMonth = lastMonth;
+                            allData.currentMonthData = totalAmount;
+                            allData.currentMonth = currentMonth;
                             callback(null, data);
                         }
                     })
                 },
-                function (data, callback) {
-                    CadLineWork.find({
+                function (data1, callback) {
+                    ProductOrders.find({
                         user: data.userId,
+                        "cadLineWork": {
+                            $exists: true
+                        },
+                        status:'Paid',
                         createdAt: {
-                            $gte: last1MonthStart,
-                            $lte: last1MonthEnd
+                            $gte: lastMonthStart,
+                            $lte: lastMonthEnd
                         }
-                    }).select('_id amount').exec(function (err, data) {
+                    }).select('_id totalAmount').exec(function (err, data) {
                         if (err) {
                             callback(err, null)
                         } else {
                             var totalAmount1 = 0;
                             _.forEach(data, function (value) {
-                                totalAmount1 = totalAmount1 + value.amount;
+                                totalAmount1 = totalAmount1 + value.totalAmount;
                             });
-                            allData.last1MonthData = totalAmount1;
-                            allData.last1Month = last1Month;
+                            allData.lastMonthData = totalAmount1;
+                            allData.lastMonth = lastMonth;
                             callback(null, data);
                         }
                     })
                 },
-                function (data, callback) {
-                    CadLineWork.find({
+                function (data2, callback) {
+                    ProductOrders.find({
                         user: data.userId,
+                        "cadLineWork": {
+                            $exists: true
+                        },
+                        status:'Paid',
                         createdAt: {
                             $gte: last1MonthStart,
                             $lte: last1MonthEnd
                         }
-                    }).select('_id amount').exec(function (err, data) {
+                    }).select('_id totalAmount').exec(function (err, data) {
                         if (err) {
                             callback(err, null)
                         } else {
                             var totalAmount2 = 0;
                             _.forEach(data, function (value) {
-                                totalAmount2 = totalAmount2 + value.amount;
+                                totalAmount2 = totalAmount2 + value.totalAmount;
                             });
-                            allData.last2MonthData = totalAmount2;
-                            allData.last2Month = last2Month;
+                            allData.last1MonthData = totalAmount2;
+                            allData.last1Month = last1Month;
                             callback(null, allData);
                         }
                     })
