@@ -397,7 +397,7 @@ var model = {
 
                             })
                         } else {
-                            console.log("Only  folder size")
+                            console.log("Only  folder size",path)
                             getSize(path, function (err, bytes) {
                                 if (err) {
                                     throw err;
