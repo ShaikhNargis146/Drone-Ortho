@@ -719,10 +719,10 @@ var model = {
                     console.log("countFilescountFilescountFilescountFiles", countFiles)
 
                     var getSize = require('get-folder-size');
-                   var path = '/mymountpoint/' + x._id;
+                  var path = '/mymountpoint/' + x._id;
                     console.log("Path for folder", path)
                     path1 = path + '/' + x.missionId;
-                    path2 = path + '/' + x.missionId + '.p4d'
+                    path2 = path + '/' + x.missionId + '.pdf'
                     if (!fs.existsSync(path)) {
                         console.log("If main Folder Not  FOund")
                         totalSizeLenght++;
@@ -783,9 +783,11 @@ var model = {
                                     callback(err,null);
                                 }else{
                                     mainFolderSize=mainFolderSize -(subFolderSize2+subFolderSize1);
+                                     a=a+mainFolderSize
                                      totalSizeLenght++;
                                         if (totalSizeLenght == foundLength) {
-                                            var toShow = (mainFolderSize / 1000000000).toFixed(8) + " GB";
+                                     
+                                            var toShow = (a / 1000000000).toFixed(8) + " GB";
                                              console.log("mainFolderSize",mainFolderSize);
                                             console.log("toShow",toShow);
                                             data1 = {
@@ -832,9 +834,11 @@ var model = {
                                     callback(err,null);
                                 }else{
                                     mainFolderSize=mainFolderSize -subFolderSize1;
+                                     a=a+mainFolderSize
                                      totalSizeLenght++;
                                         if (totalSizeLenght == foundLength) {
-                                            var toShow = (mainFolderSize / 1000000000).toFixed(8) + " GB";
+                                              
+                                            var toShow = (a / 1000000000).toFixed(8) + " GB";
                                             data1 = {
                                                 folderSize: toShow,
                                                 fileSize: countFiles,
@@ -878,9 +882,11 @@ var model = {
                                     callback(err,null);
                                 }else{
                                     mainFolderSize=mainFolderSize -subFolderSize1;
+                                        a=a+mainFolderSize
                                      totalSizeLenght++;
                                         if (totalSizeLenght == foundLength) {
-                                            var toShow = (mainFolderSize / 1000000000).toFixed(8) + " GB";
+                                          
+                                            var toShow = (a / 1000000000).toFixed(8) + " GB";
                                            
                                             data1 = {
                                                 folderSize: toShow,
@@ -899,10 +905,11 @@ var model = {
                                     // throw err;
                                     callback(err,null);
                                 }
-                                // a = a + bytes;
+                                a = a + bytes;
                                 totalSizeLenght++;
                                 if (totalSizeLenght == foundLength) {
-                                    var toShow = (bytes / 1000000000).toFixed(8) + " GB";
+                                  
+                                    var toShow = (a / 1000000000).toFixed(8) + " GB";
                                     data1 = {
                                         folderSize: toShow,
                                         fileSize: countFiles,
