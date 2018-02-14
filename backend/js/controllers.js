@@ -736,7 +736,7 @@ firstapp
                     //     // $scope.data1[i][1] = $scope.data1[i][1] * 100
                     //     i++;
                     // });
-  
+
                     $scope.dataset = [{
                             label: "Number of orders",
                             grow: {
@@ -4113,6 +4113,9 @@ firstapp
         $scope.navigation = NavigationService.getnav();
         TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
+
+            $(".loading-img").css("display", "block");
+            $(".loading-img-modal").css("display", "block");
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
             $scope.formdata1 = {};
             $scope.formdata1.user = $stateParams.userId;
@@ -4159,13 +4162,13 @@ firstapp
             NavigationService.apiCallWithData("User/getOne", $scope.formdata, function (user) {
                 console.log("user", user);
                 if (user.value == true) {
-                    $scope.user = user.data;
+                    // $scope.user = user.data;
                     $scope.dfmDeatils = {}
                     $scope.dfmDeatils._id = user.data.currentSubscription;
                     NavigationService.apiCallWithData("DFMSubscription/getOne", $scope.dfmDeatils, function (dfm) {
                         console.log("dfm info is", dfm);
                         if (dfm.value == true) {
-                            $scope.dfmData = dfm.data;
+                            // $scope.dfmData = dfm.data;
                             $scope.createdAt = dfm.data.createdAt;
                             console.log("*********************", $scope.createdAt)
                             console.log("$scope.createdAt$scope.createdAt", $scope.createdAt)
@@ -4176,9 +4179,15 @@ firstapp
                                 if (mission1.value == false) {
                                     $scope.UploadSize = "0";
                                     $scope.foldersize = "0";
+
                                 } else {
+                                    $(".loading-img").css("display", "none");
+                                    $(".loading-img-modal").css("display", "none");
+                                    $scope.user = user.data;
+                                    $scope.dfmData = dfm.data;
                                     $scope.foldersize = mission1.data.folderSize + "/" + $scope.dfmData.UploadSize;
                                     $scope.UploadSize = mission1.data.fileSize + "/" + $scope.dfmData.UploadPhoto;
+
                                 }
 
                             })
