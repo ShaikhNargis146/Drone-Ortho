@@ -722,7 +722,7 @@ var model = {
                  var path = '/mymountpoint/' + x._id;
                     console.log("Path for folder", path)
                     path1 = path + '/' + x.missionId;
-                    path2 = path + '/' + x.missionId + '.pdf'
+                    path2 = path + '/' + x.missionId + '.p4d'
                     if (!fs.existsSync(path)) {
                         console.log("If main Folder Not  FOund")
                         totalSizeLenght++;
