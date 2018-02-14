@@ -719,7 +719,7 @@ var model = {
                     console.log("countFilescountFilescountFilescountFiles", countFiles)
 
                     var getSize = require('get-folder-size');
-                  var path = '/mymountpoint/' + x._id;
+                  var path = 'pix4dUpload/' + x._id;
                     console.log("Path for folder", path)
                     path1 = path + '/' + x.missionId;
                     path2 = path + '/' + x.missionId + '.pdf'

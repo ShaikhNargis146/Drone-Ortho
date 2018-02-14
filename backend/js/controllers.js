@@ -739,7 +739,7 @@ firstapp
                     //     // $scope.data1[i][1] = $scope.data1[i][1] * 100
                     //     i++;
                     // });
-  
+
                     $scope.dataset = [{
                             label: "Number of orders",
                             grow: {
@@ -4124,6 +4124,9 @@ firstapp
         $scope.navigation = NavigationService.getnav();
         TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
+
+            $(".loading-img").css("display", "block");
+            $(".loading-img-modal").css("display", "block");
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
             $scope.formdata1 = {};
             $scope.formdata1.user = $stateParams.userId;
@@ -4187,12 +4190,15 @@ firstapp
                                 if (mission1.value == false) {
                                     $scope.UploadSize = "0";
                                     $scope.foldersize = "0";
+
                                 } else {
-                                      $scope.user = user.data;
-                                       $scope.dfmData = dfm.data;
+                                    $(".loading-img").css("display", "none");
+                                    $(".loading-img-modal").css("display", "none");
+                                    $scope.user = user.data;
+                                    $scope.dfmData = dfm.data;
                                     $scope.foldersize = mission1.data.folderSize + "/" + $scope.dfmData.UploadSize;
                                     $scope.UploadSize = mission1.data.fileSize + "/" + $scope.dfmData.UploadPhoto;
-                                   
+
                                 }
 
                             })
