@@ -4188,10 +4188,11 @@ firstapp
                                     $scope.UploadSize = "0";
                                     $scope.foldersize = "0";
                                 } else {
+                                      $scope.user = user.data;
+                                       $scope.dfmData = dfm.data;
                                     $scope.foldersize = mission1.data.folderSize + "/" + $scope.dfmData.UploadSize;
                                     $scope.UploadSize = mission1.data.fileSize + "/" + $scope.dfmData.UploadPhoto;
-                                     $scope.user = user.data;
-                                       $scope.dfmData = dfm.data;
+                                   
                                 }
 
                             })
