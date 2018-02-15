@@ -4114,8 +4114,6 @@ firstapp
         TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
 
-            $(".loading-img").css("display", "block");
-            $(".loading-img-modal").css("display", "block");
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
             $scope.formdata1 = {};
             $scope.formdata1.user = $stateParams.userId;
@@ -4124,6 +4122,7 @@ firstapp
             NavigationService.apiCallWithData("ProductOrders/getuserwiseProduct", $scope.formdata, function (data) {
                 console.log(" $scope.formdata  $scope.formdata ", data);
                 if (data.value == true) {
+                    $(".loading-img").css("display", "block");                    
                     $scope.dfmCount = 0;
                     $scope.cadCount = 0;
                     $scope.proCount = 0;
@@ -4182,14 +4181,12 @@ firstapp
 
                                 } else {
                                     $(".loading-img").css("display", "none");
-                                    $(".loading-img-modal").css("display", "none");
                                     $scope.user = user.data;
                                     $scope.dfmData = dfm.data;
                                     $scope.foldersize = mission1.data.folderSize + "/" + $scope.dfmData.UploadSize;
                                     $scope.UploadSize = mission1.data.fileSize + "/" + $scope.dfmData.UploadPhoto;
 
                                 }
-
                             })
                         } else {
                             $scope.foldersize = "0"
