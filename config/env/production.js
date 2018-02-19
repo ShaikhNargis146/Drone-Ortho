@@ -26,7 +26,7 @@ module.exports = {
    ***************************************************************************/
 
   port: 82,
-  realHost: "http://52.168.39.36",
+  realHost: "http://52.168.39.36:82",
   // realHost: "https://cloud.unifli.aero",
   emails: ["chintan@wohlig.com", "jagruti@wohlig.com", "tushar@wohlig.com", "chirag@wohlig.com", "harsh@wohlig.com", "nargis.shaikh@wohlig.com"],
   adminEmail: 'info@unifli.aero',
