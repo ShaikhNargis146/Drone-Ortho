@@ -128,6 +128,7 @@ var controller = {
 			});
 		}
 	},
+
 	getuserwiseProduct: function (req, res) {
 		if (req.body) {
 			ProductOrders.getuserwiseProduct(req.body, res.callback);
@@ -288,6 +289,15 @@ var controller = {
 							console.log("saved successfully");
 						}
 
+					})
+					var autoRecData={};
+					autoRecData._id=found.dfmSubscription;
+					DFMSubscription.arbSubReqest(autoRecData,function (err, data) {
+						if (err) {
+							console.log("error occured while recursive payment initialisation");
+						} else {
+							console.log("auto recursive activated successfully");
+						}
 					})
 				}
 				if (found.products[0]) {

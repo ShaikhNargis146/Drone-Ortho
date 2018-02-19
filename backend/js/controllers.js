@@ -65,15 +65,15 @@ firstapp
         //
 
         $scope.pieDataset = [{
-                label: "Total CAD Amount",
+                label: "CAD",
                 // data: 20,
                 color: '#48b5d5',
             }, {
-                label: "Total DFM Amount",
+                label: "DFM",
                 // data: 30,
                 color: '#82ddcb'
             }, {
-                label: "Total Drones Amount",
+                label: "Drones",
                 // data: 90,
                 color: '#979fd2'
             },
@@ -88,8 +88,7 @@ firstapp
                     label: {
                         show: true,
                         formatter: function (label, point) {
-                            return (label + point.percent.toFixed(2) + '');
-
+                            return (label +' '+ '$' + point.percent.toFixed(2));
                         }
                     }
                 }
@@ -211,7 +210,7 @@ firstapp
                     label: {
                         show: true,
                         formatter: function (label, point) {
-                            return (label + ' ' + point.percent.toFixed(2));
+                            return (label + ' ' +'$'+ point.percent.toFixed(2));
 
                         }
                     }
@@ -390,6 +389,7 @@ firstapp
 
 
             $scope.getAllData = function (data) {
+                $scope.dayData=data;
                 var sendData = {};
                 sendData.timeData = data;
                 NavigationService.apiCallWithData("User/getCadOrderDetails", sendData, function (data) {
@@ -406,6 +406,7 @@ firstapp
                     }
                 });
             };
+            
 
             $scope.getAllData('Today');
 
@@ -628,12 +629,12 @@ firstapp
 
             NavigationService.apiCallWithData("User/getOrdersDetails", dataToSend, function (data) {
                 if (data.value === true) {
-                    $scope.last1Month = data.data.last1Month;
-                    $scope.last1MonthData = data.data.last1MonthData;
-                    $scope.last2Month = data.data.last2Month;
-                    $scope.last2MonthData = data.data.last2MonthData;
                     $scope.lastMonth = data.data.lastMonth;
                     $scope.lastMonthData = data.data.lastMonthData;
+                    $scope.last1Month = data.data.last1Month;
+                    $scope.last1MonthData = data.data.last1MonthData;
+                    $scope.currentMonth = data.data.currentMonth;
+                    $scope.currentMonthData = data.data.currentMonthData;
                 }
             });
 
@@ -642,10 +643,6 @@ firstapp
                     $scope.pieDataset[0].data = data.data.totalCadSum;
                     $scope.pieDataset[1].data = data.data.totalDfmSum;
                     $scope.pieDataset[2].data = data.data.totalProductSum;
-                } else {
-                    $scope.pieDataset[0].data = 20;
-                    $scope.pieDataset[1].data = 30;
-                    $scope.pieDataset[2].data = 90;
                 }
             });
 
@@ -739,7 +736,7 @@ firstapp
                     //     // $scope.data1[i][1] = $scope.data1[i][1] * 100
                     //     i++;
                     // });
-  
+
                     $scope.dataset = [{
                             label: "Number of orders",
                             grow: {
@@ -865,11 +862,6 @@ firstapp
                     $scope.pieDatasetCad[1].data = data.data.totalCompletedCount;
                     $scope.pieDatasetCad[2].data = data.data.totalProcessingCount;
                     $scope.pieDatasetCad[3].data = data.data.totalQcCount;
-                } else {
-                    $scope.pieDatasetCad[0].data = 30;
-                    $scope.pieDatasetCad[1].data = 2;
-                    $scope.pieDatasetCad[2].data = 4;
-                    $scope.pieDatasetCad[3].data = 5;
                 }
             });
 
@@ -877,9 +869,6 @@ firstapp
                 if (data.value === true && data.data != 'noData') {
                     $scope.pieDatasetMonth[0].data = data.data.totalOutstandingCount;
                     $scope.pieDatasetMonth[1].data = data.data.totalPaidCount;
-                } else {
-                    $scope.pieDatasetMonth[0].data = 30;
-                    $scope.pieDatasetMonth[1].data = 20;
                 }
             });
             $scope.template = TemplateService.changecontent("dashboard");
@@ -4124,6 +4113,7 @@ firstapp
         $scope.navigation = NavigationService.getnav();
         TemplateService.mainClass = [];
         if ($.jStorage.get("user")) {
+
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
             $scope.formdata1 = {};
             $scope.formdata1.user = $stateParams.userId;
@@ -4132,6 +4122,7 @@ firstapp
             NavigationService.apiCallWithData("ProductOrders/getuserwiseProduct", $scope.formdata, function (data) {
                 console.log(" $scope.formdata  $scope.formdata ", data);
                 if (data.value == true) {
+                    $(".loading-img").css("display", "block");                    
                     $scope.dfmCount = 0;
                     $scope.cadCount = 0;
                     $scope.proCount = 0;
@@ -4170,13 +4161,13 @@ firstapp
             NavigationService.apiCallWithData("User/getOne", $scope.formdata, function (user) {
                 console.log("user", user);
                 if (user.value == true) {
-                    $scope.user = user.data;
+                    // $scope.user = user.data;
                     $scope.dfmDeatils = {}
                     $scope.dfmDeatils._id = user.data.currentSubscription;
                     NavigationService.apiCallWithData("DFMSubscription/getOne", $scope.dfmDeatils, function (dfm) {
                         console.log("dfm info is", dfm);
                         if (dfm.value == true) {
-                            $scope.dfmData = dfm.data;
+                            // $scope.dfmData = dfm.data;
                             $scope.createdAt = dfm.data.createdAt;
                             console.log("*********************", $scope.createdAt)
                             console.log("$scope.createdAt$scope.createdAt", $scope.createdAt)
@@ -4187,11 +4178,15 @@ firstapp
                                 if (mission1.value == false) {
                                     $scope.UploadSize = "0";
                                     $scope.foldersize = "0";
+
                                 } else {
+                                    $(".loading-img").css("display", "none");
+                                    $scope.user = user.data;
+                                    $scope.dfmData = dfm.data;
                                     $scope.foldersize = mission1.data.folderSize + "/" + $scope.dfmData.UploadSize;
                                     $scope.UploadSize = mission1.data.fileSize + "/" + $scope.dfmData.UploadPhoto;
-                                }
 
+                                }
                             })
                         } else {
                             $scope.foldersize = "0"

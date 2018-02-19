@@ -6,7 +6,7 @@ var epsg = require('epsg-to-proj');
 var extents = require('geotiff-extents');
 var storage = require('azure-storage');
 var util = require('util');
-var fileService = storage.createFileService('DefaultEndpointsProtocol=https;AccountName=storageacineastus;AccountKey=A0O81hMzfmZ4Z8hPIWWnnjfBgEsG/T+sxNcvEpM7b8O6IFilvF29kLD9pAmD3f05M2uck1UyOQDS8KVttoYUGw==;EndpointSuffix=core.windows.net');
+var fileService = storage.createFileService('DefaultEndpointsProtocol=https;AccountName=uniflirgdiag391;AccountKey=hEiJdKu0GiMFwVtVCqKTJ8n7+7netu5Y4yd4rDjAg8x8RGxZA7E0a4BI3v1V8EkrDBlakpUu1aiqNNIESMWXMg==;EndpointSuffix=core.windows.net');
 var shareName = "unifli-file-share";
 var counter;
 var schema = new Schema({
@@ -120,9 +120,9 @@ var model = {
                 obj["STATUS"] = mainData.status;
                 obj[" DATE"] = moment(mainData.createdAt).format("DD/MM/YYYY")
                 if (mainData.cadline[0]) {
-                    obj[" CADRQUEST"] = "Yes";
+                    obj[" CAD REQUEST"] = "Yes";
                 } else {
-                    obj[" CADRQUEST"] = "No";
+                    obj[" CAD REQUEST"] = "No";
                 }
                 callback(null, obj);
             },
@@ -157,9 +157,9 @@ var model = {
                 obj["STATUS"] = mainData.status;
                 obj[" DATE"] = moment(mainData.createdAt).format("DD/MM/YYYY")
                 if (mainData.cadline[0]) {
-                    obj[" CADRQUEST"] = "Yes";
+                    obj[" CAD REQUEST"] = "Yes";
                 } else {
-                    obj[" CADRQUEST"] = "No";
+                    obj[" CAD REQUEST"] = "No";
                 }
                 callback(null, obj);
             },
@@ -299,7 +299,7 @@ var model = {
                         var sFolderPath = path + '/' + x.missionId
                         if (!fs.existsSync(sFolderPath)) {
                             console.log("------------------------");
-                            console.log("else if folder found", x.missionId)
+                            console.log("else folder found", x.missionId)
                             getSize(path, function (err, bytes) {
                                 if (err) {
                                     throw err;
@@ -319,27 +319,50 @@ var model = {
                                 }
                             });
                         } else {
+                            var file = path + '/' + x.missionId + '.p4d'
                             console.log("-----------XXXXXXXXXXXXXXXXXXXXXx");
                             console.log("else folder found", x.missionId)
-                            getSize(path, new RegExp(x.missionId + '|' + x.missionId + 'p4d'), function (err, bytes) {
+                            if (fs.existsSync(file)) {
+                                getSize(path, new RegExp(x.missionId + '|' + x.missionId + 'p4d'), function (err, bytes) {
 
-                                if (err) {
-                                    throw err;
-                                }
-                                console.log("Byetsssssssss", bytes)
-                                a = a + bytes;
-                                totalSizeLenght++;
-                                if (totalSizeLenght == foundLength) {
-                                    var toShow = (a / 1000000000).toFixed(8) + " GB";
-                                    data1 = {
-                                        folderSize: toShow,
-                                        fileSize: countFiles,
-                                        missionCount: found.length
-                                    };
-                                    console.log("Callback 222222", data1)
-                                    callback(null, data1);
-                                }
-                            });
+                                    if (err) {
+                                        throw err;
+                                    }
+                                    console.log("Byetsssssssss", bytes)
+                                    a = a + bytes;
+                                    totalSizeLenght++;
+                                    if (totalSizeLenght == foundLength) {
+                                        var toShow = (a / 1000000000).toFixed(8) + " GB";
+                                        data1 = {
+                                            folderSize: toShow,
+                                            fileSize: countFiles,
+                                            missionCount: found.length
+                                        };
+                                        console.log("Callback 222222", data1)
+                                        callback(null, data1);
+                                    }
+                                });
+                            } else {
+                                getSize(path, new RegExp(x.missionId), function (err, bytes) {
+
+                                    if (err) {
+                                        throw err;
+                                    }
+                                    console.log("Byetsssssssss", bytes)
+                                    a = a + bytes;
+                                    totalSizeLenght++;
+                                    if (totalSizeLenght == foundLength) {
+                                        var toShow = (a / 1000000000).toFixed(8) + " GB";
+                                        data1 = {
+                                            folderSize: toShow,
+                                            fileSize: countFiles,
+                                            missionCount: found.length
+                                        };
+                                        console.log("Callback 222222", data1)
+                                        callback(null, data1);
+                                    }
+                                });
+                            }
                         }
 
                     }
@@ -349,53 +372,13 @@ var model = {
                     console.log("ERRRRRRRRRRRRrrrrr", err)
                     callback(err, null);
                 })
-                // _.forEach(found, function (x) {
-                //     countFiles = countFiles + x.files.length
-                //     console.log("1st console", countFiles)
-                //     var getSize = require('get-folder-size');
-                //     var path = '/mymountpoint/' + x._id;
-                //     console.log("2nd console")
-                // if (!fs.existsSync(path)) {
-                //     console.log("3rd console")
-                //     totalSizeLenght++;
-                //     if (totalSizeLenght == foundLength) {
-                //         // console.log("exe 3:");
-                //         var toShow = (a / 1000000000).toFixed(8) + " GB";
-                //         data = {
-                //             folderSize: toShow,
-                //             fileSize: countFiles,
-                //             missionCount: found.length
-                //         };
-                //         callback(null, data);
-                //     }
-                // } else {
-                //         console.log("4th console")
-                //         getSize(path, function (err, bytes) {
-                //             if (err) {
-                //                 throw err;
-                //             }
-                //             a = a + bytes;
-                //             totalSizeLenght++;
-                //             if (totalSizeLenght == foundLength) {
-                //                 // console.log("exe 3:");
-                //                 var toShow = (a / 1000000000).toFixed(8) + " GB";
-                //                 data = {
-                //                     folderSize: toShow,
-                //                     fileSize: countFiles,
-                //                     missionCount: found.length
-                //                 };
-                //                 callback(null, data);
-                //             }
-                //         });
-                //     }
-
-                // })
 
             } else {
                 callback("Invalid data", null);
             }
         });
     },
+
 
     createMission: function (data, callback) {
         // console.log("data", data);
@@ -870,4 +853,3 @@ var model = {
 };
 
 module.exports = _.assign(module.exports, exports, model);
-``
