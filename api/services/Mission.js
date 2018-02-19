@@ -6,7 +6,7 @@ var epsg = require('epsg-to-proj');
 var extents = require('geotiff-extents');
 var storage = require('azure-storage');
 var util = require('util');
-var fileService = storage.createFileService('DefaultEndpointsProtocol=https;AccountName=uniflirgdiag391;AccountKey=hEiJdKu0GiMFwVtVCqKTJ8n7+7netu5Y4yd4rDjAg8x8RGxZA7E0a4BI3v1V8EkrDBlakpUu1aiqNNIESMWXMg==;EndpointSuffix=core.windows.net');
+var fileService = storage.createFileService('DefaultEndpointsProtocol=https;AccountName=storageacineastus;AccountKey=A0O81hMzfmZ4Z8hPIWWnnjfBgEsG/T+sxNcvEpM7b8O6IFilvF29kLD9pAmD3f05M2uck1UyOQDS8KVttoYUGw==;EndpointSuffix=core.windows.net');
 var shareName = "unifli-file-share";
 var counter;
 var schema = new Schema({
