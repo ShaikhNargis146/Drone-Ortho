@@ -19,6 +19,9 @@ new : e67K/jEBfaNlyR69NSDBULSduGIaU5csBXPKXaFkLRg=
 directoryId: zuMsshfyk/tnFpYlqb1+eCJMKCQvCPaEqz78aF3UIf8=
 
 
+  port: 27017
+  bindIpAll: true
+  bindIp: 0.0.0.0
 
 "apiVersions": [
                         "2016-08-01"
