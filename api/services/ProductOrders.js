@@ -903,7 +903,7 @@ var model = {
         var arbSubscription = new ApiContracts.ARBSubscriptionType();
         arbSubscription.setName(utils.getRandomString('Name'));
         arbSubscription.setPaymentSchedule(paymentScheduleType);
-        arbSubscription.setAmount(1);
+        arbSubscription.setAmount(data.totalAmount);
         arbSubscription.setTrialAmount(1);
         arbSubscription.setProfile(customerProfileIdType);
 

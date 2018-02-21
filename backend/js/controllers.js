@@ -4126,8 +4126,10 @@ firstapp
                     $scope.dfmCount = 0;
                     $scope.cadCount = 0;
                     $scope.proCount = 0;
+                    $scope.productPresent=false;
                     _.forEach(data.data, function (value) {
                         if (value.products[0]) {
+                            $scope.productPresent=true;
                             $scope.proCount = parseInt($scope.proCount) + parseInt(value.totalAmount)
                         } else if (value.dfmSubscription && !value.products[0]) {
                             $scope.dfmCount = parseInt($scope.dfmCount) + parseInt(value.totalAmount)
