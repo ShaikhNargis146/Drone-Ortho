@@ -59,6 +59,7 @@ var controller = {
     generatePdf: function (page, response) {
         var pdf = require('html-pdf');
         var destinationPath = "/mymountpoint/" + page.body.id + "/" + page.body.path + "/1_initial/report/" + page.body.path + '_generatedReport.pdf';
+        console.log("inside generatePdf", destinationPath);
 
         var options = {
             "phantomPath": "node_modules/phantomjs/bin/phantomjs",
@@ -87,7 +88,7 @@ var controller = {
             // "filename": page.filename + ".pdf"
         };
         pdf.create(page.body.htmlData, options).toFile(destinationPath, function (err, res) {
-            if (err) return console.log(err);
+            if (err) return console.log("error in generatePdf---", err);
             // console.log(res); // { filename: '/app/businesscard.pdf' }
             response.json({
                 value: true,
