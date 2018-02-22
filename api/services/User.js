@@ -503,11 +503,11 @@ var model = {
 
     getCadOrderDetails: function (data, callback) {
         var currentDate = new Date();
-        var dateFrom = moment(currentDate).subtract(1, 'months').startOf('month').format();
-        var dateTo = moment(currentDate).subtract(1, 'months').endOf('month').format();
+        var dateFrom = moment(currentDate).startOf('month').format();
+        var dateTo = moment(currentDate).endOf('month').format();
         var previousYear = moment(currentDate).subtract(1, 'year').format();
         var currentYear = moment(currentDate).format();
-        var previousDay = moment(currentDate).subtract(1, 'days').format();
+        var previousDay = moment(currentDate).subtract(1, 'days').format();        
         if (data.timeData == 'Today') {
             ProductOrders.find({
                 createdAt: {

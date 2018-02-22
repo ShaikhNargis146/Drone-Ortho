@@ -55,6 +55,7 @@ var controller = {
             }
         });
     },
+    
     generatePdf: function (page, response) {
         var pdf = require('html-pdf');
         var destinationPath = "/mymountpoint/" + page.body.id + "/" + page.body.path + "/1_initial/report/" + page.body.path + '_generatedReport.pdf';
