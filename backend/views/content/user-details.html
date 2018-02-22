@@ -64,7 +64,14 @@
 							<tr>
 								<td>Drone Bought</td>
 								<td>:</td>
-								<td>Yes/No</td>
+								<td ng-if="productPresent==true">Yes</td>
+								<td ng-if="productPresent==false">No</td>								
+							</tr>
+							<tr>
+								<td>Auto Renewal</td>
+								<td>:</td>
+								<td ng-if="dfmData.autoRenewal"> {{dfmData.autoRenewal}}</td>
+								<td ng-if="!dfmData.autoRenewal"> No</td>
 							</tr>
 						</table>
 					</div>

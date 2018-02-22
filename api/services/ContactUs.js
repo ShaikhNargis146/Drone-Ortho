@@ -47,7 +47,7 @@ var model = {
                         var emailData = {}
                         emailData.email = data.email;
                         emailData.filename = "UNIFLI Inquiry";
-                        emailData.subject = "UNIFLI Inquiry";
+                        emailData.subject = "UNIFLI INQUIRY";
                         Config.email(emailData, function (err, emailRespo) {
                             // console.log("emailRespo", emailRespo);
                             if (err) {
@@ -64,7 +64,7 @@ var model = {
                         var emailData = {}
                         emailData.email = global["env"].adminEmail;
                         emailData.filename = "New Inquiry (Admin)";
-                        emailData.subject = "INQUIEY DETAILS";
+                        emailData.subject = "INQUIRY DETAILS";
                         emailData.merge_vars = [{
                             "name": "NAME",
                             "content": data1.name

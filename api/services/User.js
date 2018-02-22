@@ -1316,8 +1316,8 @@ var model = {
                                     emailData.filename = "DFM Free Trial";
                                     emailData.subject = "DFM FREE TRIAL";
                                     emailData.merge_vars = [{
-                                        "name": "USER_ID",
-                                        "content": created.dataId
+                                        "name": "USER_NAME",
+                                        "content": created.name
                                     }];
                                     Config.email(emailData, function (err, emailRespo) {
                                         if (err) {
