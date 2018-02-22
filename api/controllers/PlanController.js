@@ -57,9 +57,9 @@ var controller = {
     },
     generatePdf: function (page, response) {
         var pdf = require('html-pdf');
-        console.log("inside generatePdf");
-
         var destinationPath = "/mymountpoint/" + page.body.id + "/" + page.body.path + "/1_initial/report/" + page.body.path + '_generatedReport.pdf';
+        console.log("inside generatePdf", destinationPath);
+
         var options = {
             "phantomPath": "node_modules/phantomjs/bin/phantomjs",
             // "phantomPath": "C:/Windows/System32/phantomjs",
