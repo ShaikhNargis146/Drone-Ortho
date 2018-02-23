@@ -7,9 +7,13 @@
 				<div class="col-lg-12">
 					<h2>Mission Details</h2>
 					<ol class="breadcrumb">
-						<li> <a ui-sref="dashboard">Home</a> </li>
-						<li class="active"> <strong>Mission Details 
-      </strong> </li>
+						<li>
+							<a ui-sref="dashboard">Home</a>
+						</li>
+						<li class="active">
+							<strong>Mission Details
+							</strong>
+						</li>
 					</ol>
 				</div>
 
@@ -28,7 +32,9 @@
 									<div class="form-group">
 										<div class="form-check">
 											<div class="i-checks">
-												<input type="checkbox" ng-model="setOpacity"> <strong>DSM</strong></div>
+												<input type="checkbox" ng-model="setOpacity">
+												<strong>DSM</strong>
+											</div>
 										</div>
 									</div>
 									<div class="form-group" ng-show="setOpacity">
@@ -47,13 +53,19 @@
 								<div class="form-group">
 									<div class="form-check">
 										<div class="i-checks">
-											<input type="checkbox" ng-model="setCadr"><strong> CAD REQUEST</strong></div>
+											<input type="checkbox" ng-model="setCadr">
+											<strong> CAD REQUEST</strong>
+										</div>
 									</div>
 								</div>
 								<div ng-show="setCadr">
-									<p> Use Icon <button class="btn btn-polygon" type="button" tooltip-placement="Bottom" popover-placement="bottom" title=""
-										    uib-tooltip="SELECT AREA"><img src="img/icon/polygon.png"></button> to measure area on the map below <i class="fa fa-info-circle"
-										    aria-hidden="true" style="font-size: 20px;cursor: pointer" ng-click="mapOpen();"></i>
+									<p> Use Icon
+										<button class="btn btn-polygon" type="button" tooltip-placement="Bottom" popover-placement="bottom" title=""
+										    uib-tooltip="SELECT AREA">
+											<img src="img/icon/polygon.png">
+										</button> to measure area on the map below
+										<i class="fa fa-info-circle" aria-hidden="true" style="font-size: 20px;cursor: pointer"
+										    ng-click="mapOpen();"></i>
 									</p>
 								</div>
 
@@ -72,29 +84,49 @@
 										    " popover-placement="bottom " title=" " uib-tooltip="Orthomoiac (.TIFF) " ng-click="downloadOrthoM()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-globe "></i> </button>-->
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
 										    " popover-placement="bottom " title=" " uib-tooltip="ZIP OF ORTHOMOSAIC & TFW" ng-click="downloadThree()"
-										    ng-disabled="missionDetails.status !='ready'"><i class="fa fa-delicious "></i> </button>
+										    ng-disabled="missionDetails.status !='ready'">
+											<i class="fa fa-delicious "></i>
+										</button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
-										    " popover-placement="bottom " title=" " uib-tooltip="DSM (.TIFF) " ng-click="downloadDsm()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-delicious "></i> </button>
+										    " popover-placement="bottom " title=" " uib-tooltip="DSM (.TIFF) " ng-click="downloadDsm()" ng-disabled="missionDetails.status !='ready'">
+											<i class="fa fa-delicious "></i>
+										</button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
-										    " popover-placement="bottom " title=" " uib-tooltip="Mesh (.Obj)" ng-click="downloadMeshObj()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-desktop "></i> </button>
+										    " popover-placement="bottom " title=" " uib-tooltip="Mesh (.Obj)" ng-click="downloadMeshObj()" ng-disabled="missionDetails.status !='ready'">
+											<i class="fa fa-desktop "></i>
+										</button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
-										    " popover-placement="bottom " title=" " uib-tooltip="Mesh (.FBX) " ng-click="downloadMeshFbx()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-diamond "></i> </button>
+										    " popover-placement="bottom " title=" " uib-tooltip="Mesh (.FBX) " ng-click="downloadMeshFbx()" ng-disabled="missionDetails.status !='ready'">
+											<i class="fa fa-diamond "></i>
+										</button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
-										    " popover-placement="bottom " title=" " uib-tooltip="Point Cloud (.LAS) " ng-click="listPointCloud()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-mixcloud "></i> </button>
+										    " popover-placement="bottom " title=" " uib-tooltip="Point Cloud (.LAS) " ng-click="listPointCloud()" ng-disabled="missionDetails.status !='ready'">
+											<i class="fa fa-mixcloud "></i>
+										</button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
 										    " popover-placement="bottom " title=" " uib-tooltip="Contour Lines(.SHP)" ng-click="downloadContoursLines()"
-										    ng-disabled="missionDetails.status !='ready'"><i class="fa fa-book "></i> </button>
+										    ng-disabled="missionDetails.status !='ready'">
+											<i class="fa fa-book "></i>
+										</button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
-										    " popover-placement="bottom " title=" " uib-tooltip="Contour Pdf(.PDF)" ng-click="downloadContoursPdf()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-book "></i> </button>
+										    " popover-placement="bottom " title=" " uib-tooltip="Contour Pdf(.PDF)" ng-click="downloadContoursPdf()" ng-disabled="missionDetails.status !='ready'">
+											<i class="fa fa-book "></i>
+										</button>
 
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
-										    " popover-placement="bottom " title=" " uib-tooltip="AutoCAD(.DXF)" ng-click="downloadAutocadDXF()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-book "></i> </button>
+										    " popover-placement="bottom " title=" " uib-tooltip="AutoCAD(.DXF)" ng-click="downloadAutocadDXF()" ng-disabled="missionDetails.status !='ready'">
+											<i class="fa fa-book "></i>
+										</button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
 										    " popover-placement="bottom " title=" " uib-tooltip="Quality Reports (.PDF) " ng-click="downloadQualityReports()"
-										    ng-disabled="missionDetails.status !='ready'"><i class="fa fa-book "></i> </button>
+										    ng-disabled="missionDetails.status !='ready'">
+											<i class="fa fa-book "></i>
+										</button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
 										    " popover-placement="bottom " title=" " uib-tooltip="Processing Log (.LOG) " ng-click="downloadProcessingLog()"
-										    ng-disabled="missionDetails.status !='ready'"><i class="fa fa-desktop "></i> </button>
+										    ng-disabled="missionDetails.status !='ready'">
+											<i class="fa fa-desktop "></i>
+										</button>
 									</div>
 								</div>
 
@@ -213,12 +245,16 @@
 
 					<div class="form-group">
 						<div class="col-sm-offset-6 col-sm-4">
-							<button type="button" ng-disabled="inteCad.$invalid" ng-click="cadSave(cadLineDetails)" data-dismiss="modal" class="btn green btn-outline pull-right">Proceed to Pay</button>
+							<div class="text-center">
+								<button type="button" ng-disabled="inteCad.$invalid" ng-click="cadSave(cadLineDetails,'card')" data-dismiss="modal" class="btn green btn-outline pull-right">Proceed to Pay</button>
+								<div class="">
+									<input type="image" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="Submit" class="paypal-button" ng-disabled="inteCad.$invalid" ng-click="cadSave(cadLineDetails,'paypal')">								
+								</div>
+							</div>
+
 						</div>
 					</div>
-
 				</form>
-
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn green btn-outline" data-dismiss="modal">Close</button>
@@ -264,9 +300,13 @@ $("#showCheckoutCadR").change(function(event){
 				<div class="col-lg-12">
 					<h2>Mission Details</h2>
 					<ol class="breadcrumb">
-						<li> <a ui-sref="dashboard">Home</a> </li>
-						<li class="active"> <strong>Mission Details 
-      </strong> </li>
+						<li>
+							<a ui-sref="dashboard">Home</a>
+						</li>
+						<li class="active">
+							<strong>Mission Details
+							</strong>
+						</li>
 					</ol>
 				</div>
 
@@ -323,28 +363,48 @@ $("#showCheckoutCadR").change(function(event){
 										    " popover-placement="bottom " title=" " uib-tooltip="Orthomoiac (.TIFF) " ng-click="downloadOrthoM()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-globe "></i> </button>-->
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
 										    " popover-placement="bottom " title=" " uib-tooltip="ZIP OF ORTHOMOSAIC & TFW" ng-click="downloadThree()"
-										    ng-disabled="missionDetails.status !='ready'"><i class="fa fa-delicious "></i> </button>
+										    ng-disabled="missionDetails.status !='ready'">
+											<i class="fa fa-delicious "></i>
+										</button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
-										    " popover-placement="bottom " title=" " uib-tooltip="DSM (.TIFF) " ng-click="downloadDsm()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-delicious "></i> </button>
+										    " popover-placement="bottom " title=" " uib-tooltip="DSM (.TIFF) " ng-click="downloadDsm()" ng-disabled="missionDetails.status !='ready'">
+											<i class="fa fa-delicious "></i>
+										</button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
-										    " popover-placement="bottom " title=" " uib-tooltip="Mesh (.Obj)" ng-click="downloadMeshObj()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-desktop "></i> </button>
+										    " popover-placement="bottom " title=" " uib-tooltip="Mesh (.Obj)" ng-click="downloadMeshObj()" ng-disabled="missionDetails.status !='ready'">
+											<i class="fa fa-desktop "></i>
+										</button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
-										    " popover-placement="bottom " title=" " uib-tooltip="Mesh (.FBX) " ng-click="downloadMeshFbx()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-diamond "></i> </button>
+										    " popover-placement="bottom " title=" " uib-tooltip="Mesh (.FBX) " ng-click="downloadMeshFbx()" ng-disabled="missionDetails.status !='ready'">
+											<i class="fa fa-diamond "></i>
+										</button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
-										    " popover-placement="bottom " title=" " uib-tooltip="Point Cloud (.LAS) " ng-click="listPointCloud()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-mixcloud "></i> </button>
+										    " popover-placement="bottom " title=" " uib-tooltip="Point Cloud (.LAS) " ng-click="listPointCloud()" ng-disabled="missionDetails.status !='ready'">
+											<i class="fa fa-mixcloud "></i>
+										</button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
 										    " popover-placement="bottom " title=" " uib-tooltip="Contour Lines(.SHP)" ng-click="downloadContoursLines()"
-										    ng-disabled="missionDetails.status !='ready'"><i class="fa fa-book "></i> </button>
+										    ng-disabled="missionDetails.status !='ready'">
+											<i class="fa fa-book "></i>
+										</button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
-										    " popover-placement="bottom " title=" " uib-tooltip="Contour Pdf(.PDF)" ng-click="downloadContoursPdf()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-book "></i> </button>
+										    " popover-placement="bottom " title=" " uib-tooltip="Contour Pdf(.PDF)" ng-click="downloadContoursPdf()" ng-disabled="missionDetails.status !='ready'">
+											<i class="fa fa-book "></i>
+										</button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
-										    " popover-placement="bottom " title=" " uib-tooltip="AutoCAD(.DXF)" ng-click="downloadAutocadDXF()" ng-disabled="missionDetails.status !='ready'"><i class="fa fa-book "></i> </button>
+										    " popover-placement="bottom " title=" " uib-tooltip="AutoCAD(.DXF)" ng-click="downloadAutocadDXF()" ng-disabled="missionDetails.status !='ready'">
+											<i class="fa fa-book "></i>
+										</button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
 										    " popover-placement="bottom " title=" " uib-tooltip="Quality Reports (.PDF) " ng-click="downloadQualityReports()"
-										    ng-disabled="missionDetails.status !='ready'"><i class="fa fa-book "></i> </button>
+										    ng-disabled="missionDetails.status !='ready'">
+											<i class="fa fa-book "></i>
+										</button>
 										<button class="btn aqua btn-circle btn-outline btn-sm " type="button " tooltip-placement="Bottom
 										    " popover-placement="bottom " title=" " uib-tooltip="Processing Log (.LOG) " ng-click="downloadProcessingLog()"
-										    ng-disabled="missionDetails.status !='ready'"><i class="fa fa-desktop "></i> </button>
+										    ng-disabled="missionDetails.status !='ready'">
+											<i class="fa fa-desktop "></i>
+										</button>
 									</div>
 								</div>
 
@@ -385,7 +445,9 @@ $("#showCheckoutCadR").change(function(event){
 				<table ng-if="fileList!=null" class="table table-bordered">
 					<tr ng-repeat="file in fileList">
 						<td>#{{$index+1}}.</td>
-						<td><a type="button" ng-click="downloadPointCloud(file)" ng-disabled="missionDetails.status !='ready'">{{file}}</a></td>
+						<td>
+							<a type="button" ng-click="downloadPointCloud(file)" ng-disabled="missionDetails.status !='ready'">{{file}}</a>
+						</td>
 						<td>
 							<a ng-click="downloadPointCloud(file)" class="fa fa-download padLeft5" aria-hidden="true"></a>
 						</td>

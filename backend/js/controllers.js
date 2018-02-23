@@ -1740,7 +1740,7 @@ firstapp
         }
 
         var cardDetails;
-        $scope.cadSave = function (data) {
+        $scope.cadSave = function (data,paymentType) {
             $scope.cadLineDetails.mission = $scope.missionDetails._id;
             $scope.cadLineDetails.geoLocation = $scope.missionDetails.geoLocation
             $scope.cadLineDetails.user = $.jStorage.get("user")._id;
@@ -1755,7 +1755,7 @@ firstapp
                             $scope.productOrder = data.data;
                             var invoiceNumber = data.data.invoiceNo;
 
-                            window.location.href = adminurl + "ProductOrders/acceptPaymentPage?amount=" + $scope.cadLineDetails.amount + "&invoiceNumber=" + invoiceNumber;
+                            window.location.href = adminurl + "ProductOrders/acceptPaymentPage?amount=" + $scope.cadLineDetails.amount + "&invoiceNumber=" + invoiceNumber + "&paymentType=" + paymentType;
                         } else {
                             //  toastr.warning('Error submitting the form', 'Please try again');
                         }
@@ -1892,8 +1892,7 @@ firstapp
             var path = {}
             path.path = missionIdForDownload;
             path.id = idForDownload;
-            NavigationService.apiCallWithData("Plan/pdfEditor1", path, function (data) {
-                // console.log("data", data.data.html);
+            NavigationService.apiCallWithData("Plan/pdfEditor1", path, function (data) {    
                 // $.get('http://files.unifli.aero/report/' + missionIdForDownload + '_report.html', function (data) {
                 // $("#data1").html(data);
 
@@ -1907,16 +1906,16 @@ firstapp
                 $(".printleft").css("right", right);
                 $(".pdf-bg-holder").addClass("printleft");
                 var sendHtmlData = {};
-
-                sendHtmlData.htmlData = $('#render-pdfholder').html();
+                // sendHtmlData.htmlData = $('#render-pdfholder').html();
+                sendHtmlData.htmlData = data.data.html;
                 sendHtmlData.path = missionIdForDownload;
                 sendHtmlData.id = idForDownload;
                 console.log("sendHtmlData", sendHtmlData);
-                NavigationService.apiCallWithData("Plan/generatePdf", sendHtmlData, function (data) {
-                    window.open(adminurl + 'getQualityReports/' + idForDownload + "/" + missionIdForDownload + ".pdf", '_self');
+                // NavigationService.apiCallWithData("Plan/generatePdf", sendHtmlData, function (data) {
+                //     // window.open(adminurl + 'getQualityReports/' + idForDownload + "/" + missionIdForDownload + ".pdf", '_self');
 
-                    // console.log("data", data);
-                });
+                //     // console.log("data", data);
+                // });
 
                 // });
 
