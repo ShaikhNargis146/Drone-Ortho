@@ -195,8 +195,8 @@ var controller = {
 						var txnRequest = new ApiContracts.TransactionRequestType();
 						txnRequest.setTransactionType(ApiContracts.TransactionTypeEnum.AUTHCAPTURECONTINUETRANSACTION);
 						txnRequest.setPayment(paymentType);
-						txnRequest.setAmount(found.totalAmount);
-						// txnRequest.setAmount(1);						
+						// txnRequest.setAmount(found.totalAmount);
+						txnRequest.setAmount(1);						
 						txnRequest.setRefTransId(found.transactionId);
 
 						var createRequest = new ApiContracts.CreateTransactionRequest();
