@@ -1892,7 +1892,8 @@ firstapp
             var path = {}
             path.path = missionIdForDownload;
             path.id = idForDownload;
-            NavigationService.apiCallWithData("Plan/pdfEditor1", path, function (data) {    
+            NavigationService.apiCallWithData("Plan/pdfEditor1", path, function (data) {
+                // console.log("data", data.data.html);
                 // $.get('http://files.unifli.aero/report/' + missionIdForDownload + '_report.html', function (data) {
                 // $("#data1").html(data);
 
@@ -1906,16 +1907,16 @@ firstapp
                 $(".printleft").css("right", right);
                 $(".pdf-bg-holder").addClass("printleft");
                 var sendHtmlData = {};
-                // sendHtmlData.htmlData = $('#render-pdfholder').html();
-                sendHtmlData.htmlData = data.data.html;
+
+                sendHtmlData.htmlData = $('#render-pdfholder').html();
                 sendHtmlData.path = missionIdForDownload;
                 sendHtmlData.id = idForDownload;
                 console.log("sendHtmlData", sendHtmlData);
-                // NavigationService.apiCallWithData("Plan/generatePdf", sendHtmlData, function (data) {
-                //     // window.open(adminurl + 'getQualityReports/' + idForDownload + "/" + missionIdForDownload + ".pdf", '_self');
+                NavigationService.apiCallWithData("Plan/generatePdf", sendHtmlData, function (data) {
+                    window.open(adminurl + 'getQualityReports/' + idForDownload + "/" + missionIdForDownload + ".pdf", '_self');
 
-                //     // console.log("data", data);
-                // });
+                    // console.log("data", data);
+                });
 
                 // });
 
