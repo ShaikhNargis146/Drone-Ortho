@@ -88,7 +88,7 @@ firstapp
                     label: {
                         show: true,
                         formatter: function (label, point) {
-                            return (label +' '+ '$' + point.percent.toFixed(2));
+                            return (label + ' ' + '$' + point.percent.toFixed(2));
                         }
                     }
                 }
@@ -210,7 +210,7 @@ firstapp
                     label: {
                         show: true,
                         formatter: function (label, point) {
-                            return (label + ' ' +'$'+ point.percent.toFixed(2));
+                            return (label + ' ' + '$' + point.percent.toFixed(2));
 
                         }
                     }
@@ -389,7 +389,7 @@ firstapp
 
 
             $scope.getAllData = function (data) {
-                $scope.dayData=data;
+                $scope.dayData = data;
                 var sendData = {};
                 sendData.timeData = data;
                 NavigationService.apiCallWithData("User/getCadOrderDetails", sendData, function (data) {
@@ -406,7 +406,7 @@ firstapp
                     }
                 });
             };
-            
+
 
             $scope.getAllData('Today');
 
@@ -1389,6 +1389,131 @@ firstapp
         //pagination end user
 
     })
+    .controller('ShippingCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("shipping");
+        $scope.menutitle = NavigationService.makeactive("Shipping");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        TemplateService.mainClass = [];
+        $scope.cadId = {}
+        $scope.cadId._id = $stateParams.cadId
+        NavigationService.apiCallWithData("CadLineWork/getOne", $scope.cadId, function (data2) {
+
+            if (data2.value == true) {
+                $scope.amount = data2.data.amount
+            }
+        })
+        $scope.profileDetails = $.jStorage.get("user");
+        $scope.saveData = function (data, paymentType) {
+            console.log("inside saveData", paymentType)
+            if (data.deliveryAddress == undefined || !data.deliveryAddress.name || !data.deliveryAddress.lname || !data.deliveryAddress.address || !data.deliveryAddress.city || !data.deliveryAddress.oraganization || !data.deliveryAddress.phonenumber || !data.deliveryAddress.state || !data.deliveryAddress.zip) {
+                toastr.error("Enter Shipping Details");
+            } else {
+                console.log("inside else  condition")
+
+                $scope.deliveryAddress = {
+                    city: data.deliveryAddress.city,
+                    state: data.deliveryAddress.state,
+                    zip: data.deliveryAddress.zip,
+                    fname: data.deliveryAddress.name,
+                    lname: data.deliveryAddress.lname,
+                    comapny: data.deliveryAddress.oraganization,
+                    phonenumber: data.deliveryAddress.phonenumber,
+                    streetAddress: data.deliveryAddress.address
+                }
+                $scope.billingAddress = {
+                        city: data.address.city,
+                        zip: data.address.zip,
+                        state: data.address.state,
+                        fname: data.address.name,
+                        lname: data.address.lname,
+                        comapny: data.address.oraganization,
+                        phonenumber: data.address.phonenumber,
+                        streetAddress: data.address.address1
+                    },
+                    data.shippingAddress = $scope.deliveryAddress
+                data.billingAddress = $scope.billingAddress
+                console.log("final data is", data)
+                $scope.cadId = {}
+                $scope.cadId._id = $stateParams.cadId
+                NavigationService.apiCallWithData("CadLineWork/getOne", $scope.cadId, function (data1) {
+
+                    if (data1.value === true) {
+                        var formdata = {}
+                        formdata.cadLineWork = data1.data._id;
+                        formdata.user = $scope.profileDetails._id;
+                        formdata.totalAmount = data1.data.amount;
+                        var formdata = {}
+                        formdata.cadLineWork = data1.data._id;
+                        formdata.user = $.jStorage.get("user")._id;
+                        formdata.totalAmount = data1.data.amount;
+                        NavigationService.apiCall("ProductOrders/createInvoice", formdata, function (data) {
+                            if (data.value === true) {
+                                $scope.productOrder = data.data;
+                                var invoiceNumber = data.data.invoiceNo;
+
+                                window.location.href = adminurl + "ProductOrders/acceptPaymentPage?amount=" + formdata.totalAmount + "&invoiceNumber=" + invoiceNumber + "&paymentType=" + paymentType;
+                            } else {
+                                //  toastr.warning('Error submitting the form', 'Please try again');
+                            }
+                        });
+                    }
+                })
+
+            }
+
+        }
+
+        $scope.formData = {};
+        // formdata._id = $.jStorage.get("user")._id;
+        NavigationService.apiCallWithData("User/getOne", $.jStorage.get("user"), function (data) {
+            if (data.value === true) {
+                console.log("data is", data);
+                $scope.userData = data.data;
+                $scope.formData.address = {};
+                $scope.formData.address.name = data.data.name;
+                $scope.formData.address.city = data.data.city;
+                $scope.formData.address.address1 = data.data.address;
+                $scope.formData.address.state = data.data.state;
+                $scope.formData.address.phonenumber = data.data.mobile;
+                $scope.formData.address.oraganization = data.data.organization;
+                $scope.formData.address.zip = data.data.zip;
+            } else {
+                //  toastr.warning('Error submitting the form', 'Please try again');
+            }
+        });
+        $scope.setShippingAddress = function (data) {
+            if (!$scope.formData.deliveryAddress) {
+                $scope.formData.deliveryAddress = {};
+            }
+            // console.log("formddta", $scope.formData, "data", data);
+            if (document.getElementById("agree").checked) {
+                $scope.formData.deliveryAddress.name = $scope.formData.address.name;
+                $scope.formData.deliveryAddress.lname = $scope.formData.address.lname;
+                $scope.formData.deliveryAddress.oraganization = $scope.formData.address.oraganization;
+                $scope.formData.deliveryAddress.address = $scope.formData.address.address1;
+                $scope.formData.deliveryAddress.city = $scope.formData.address.city;
+                $scope.formData.deliveryAddress.state = $scope.formData.address.state;
+                $scope.formData.deliveryAddress.phonenumber = $scope.formData.address.phonenumber;
+                $scope.formData.deliveryAddress.zip = $scope.formData.address.zip;
+
+                // console.log("formdafterdta", $scope.formData, "data", data);
+            } else {
+                console.log("------");
+                // $scope.formdata.deliveryAddress = {};
+                $scope.formData.deliveryAddress.name = "";
+                $scope.formData.deliveryAddress.lname = "";
+                $scope.formData.deliveryAddress.oraganization = "";
+                $scope.formData.deliveryAddress.address1 = "";
+                $scope.formData.deliveryAddress.city = "";
+                $scope.formData.deliveryAddress.state = "";
+                $scope.formData.deliveryAddress.phonenumber = "";
+                $scope.formData.deliveryAddress.zip = "";
+            }
+        };
+
+    })
 
     .controller('MissionsDetailsCtrl', function ($scope, $rootScope, TemplateService, $http, NavigationService, $uibModal, $timeout, $state, toastr, $stateParams) {
         TemplateService.mainClass = ['page-sidebar-closed', 'active'];
@@ -1740,37 +1865,35 @@ firstapp
         }
 
         var cardDetails;
-        $scope.cadSave = function (data,paymentType) {
+        $scope.cadSave = function (data1) {
             $scope.cadLineDetails.mission = $scope.missionDetails._id;
             $scope.cadLineDetails.geoLocation = $scope.missionDetails.geoLocation
             $scope.cadLineDetails.user = $.jStorage.get("user")._id;
+
             NavigationService.apiCall("CadLineWork/createCad", $scope.cadLineDetails, function (data) {
                 if (data.value === true) {
-                    var formdata = {}
-                    formdata.cadLineWork = data.data._id;
-                    formdata.user = $scope.profileDetails._id;
-                    formdata.totalAmount = $scope.cadLineDetails.amount;
-                    NavigationService.apiCall("ProductOrders/createInvoice", formdata, function (data) {
-                        if (data.value === true) {
-                            $scope.productOrder = data.data;
-                            var invoiceNumber = data.data.invoiceNo;
+                    $state.go('shipping', {
+                        cadId: data.data._id
+                    })
+                    // var formdata = {}
+                    // formdata.cadLineWork = data.data._id;
+                    // formdata.user = $scope.profileDetails._id;
+                    // formdata.totalAmount = $scope.cadLineDetails.amount;
+                    // NavigationService.apiCall("ProductOrders/createInvoice", formdata, function (data) {
+                    //     if (data.value === true) {
+                    //         $scope.productOrder = data.data;
+                    //         var invoiceNumber = data.data.invoiceNo;
 
-                            window.location.href = adminurl + "ProductOrders/acceptPaymentPage?amount=" + $scope.cadLineDetails.amount + "&invoiceNumber=" + invoiceNumber + "&paymentType=" + paymentType;
-                        } else {
-                            //  toastr.warning('Error submitting the form', 'Please try again');
-                        }
-                    });
+                    //         window.location.href = adminurl + "ProductOrders/acceptPaymentPage?amount=" + $scope.cadLineDetails.amount + "&invoiceNumber=" + invoiceNumber + "&paymentType=" + paymentType;
+                    //     } else {
+                    //         //  toastr.warning('Error submitting the form', 'Please try again');
+                    //     }
+                    // });
                 } else {
                     //  toastr.warning('Error submitting the form', 'Please try again');
                 }
             });
-            // cardDetails = $uibModal.open({
-            //     animation: true,
-            //     templateUrl: 'views/modal/card-detail.html',
-            //     scope: $scope,
-            //     size: 'sm',
 
-            // });
         };
         // $scope.cadpayment = function (data) {
         //     var formdata = {};
@@ -4122,14 +4245,14 @@ firstapp
             NavigationService.apiCallWithData("ProductOrders/getuserwiseProduct", $scope.formdata, function (data) {
                 console.log(" $scope.formdata  $scope.formdata ", data);
                 if (data.value == true) {
-                    $(".loading-img").css("display", "block");                    
+                    $(".loading-img").css("display", "block");
                     $scope.dfmCount = 0;
                     $scope.cadCount = 0;
                     $scope.proCount = 0;
-                    $scope.productPresent=false;
+                    $scope.productPresent = false;
                     _.forEach(data.data, function (value) {
                         if (value.products[0]) {
-                            $scope.productPresent=true;
+                            $scope.productPresent = true;
                             $scope.proCount = parseInt($scope.proCount) + parseInt(value.totalAmount)
                         } else if (value.dfmSubscription && !value.products[0]) {
                             $scope.dfmCount = parseInt($scope.dfmCount) + parseInt(value.totalAmount)
