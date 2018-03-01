@@ -62,8 +62,8 @@ var controller = {
         console.log("inside generatePdf", destinationPath);
 
         var options = {
-            "phantomPath": "node_modules/phantomjs/bin/phantomjs",
-            // "phantomPath": "C:/Windows/System32/phantomjs",
+            // "phantomPath": "node_modules/phantomjs/bin/phantomjs",
+            "phantomPath": "/usr/local/share/phantomjs-2.1.1-linux-x86_64/bin/phantomjs",
             "format": "A4",
             // Export options 
             "directory": "/.tmp",
