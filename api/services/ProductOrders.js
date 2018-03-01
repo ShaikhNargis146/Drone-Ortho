@@ -44,6 +44,9 @@ var schema = new Schema({
         type: Number,
         default: 0
     },
+    paymentType: {
+        type: String,
+    },
     discountCoupon: String,
     shippingAmount: {
         type: Number,
@@ -1037,7 +1040,7 @@ var model = {
                 })
             },
             function (subData, callback) {
-                console.log("subData-----------",subData)
+                console.log("subData-----------", subData)
                 ProductOrders.findOneAndUpdate({
                     transactionId: recData.transactionid
                 }, {
@@ -1048,7 +1051,7 @@ var model = {
                     if (err || _.isEmpty(data)) {
                         callback(err, []);
                     } else {
-                        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!",data);
+                        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!", data);
                         callback(null, data);
                     }
                 });

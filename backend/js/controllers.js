@@ -1432,9 +1432,8 @@ firstapp
                         phonenumber: data.address.phonenumber,
                         streetAddress: data.address.address1
                     },
-                    data.shippingAddress = $scope.deliveryAddress
-                data.billingAddress = $scope.billingAddress
-                console.log("final data is", data)
+
+                    console.log("final data is", data)
                 $scope.cadId = {}
                 $scope.cadId._id = $stateParams.cadId
                 NavigationService.apiCallWithData("CadLineWork/getOne", $scope.cadId, function (data1) {
@@ -1448,12 +1447,17 @@ firstapp
                         formdata.cadLineWork = data1.data._id;
                         formdata.user = $.jStorage.get("user")._id;
                         formdata.totalAmount = data1.data.amount;
+                        formdata.shippingAddress = $scope.deliveryAddress
+                        formdata.billingAddress = $scope.billingAddress
+                        formdata.paymentType=paymentType
+                        console.log("*****************************8", formdata)
+
                         NavigationService.apiCall("ProductOrders/createInvoice", formdata, function (data) {
                             if (data.value === true) {
                                 $scope.productOrder = data.data;
                                 var invoiceNumber = data.data.invoiceNo;
 
-                                window.location.href = adminurl + "ProductOrders/acceptPaymentPage?amount=" + formdata.totalAmount + "&invoiceNumber=" + invoiceNumber + "&paymentType=" + paymentType;
+                                // window.location.href = adminurl + "ProductOrders/acceptPaymentPage?amount=" + formdata.totalAmount + "&invoiceNumber=" + invoiceNumber + "&paymentType=" + paymentType;
                             } else {
                                 //  toastr.warning('Error submitting the form', 'Please try again');
                             }
@@ -2761,11 +2765,11 @@ firstapp
         }
 
         $scope.cadSave = function (formdata) {
-            console.log("$$$$$$$$$$$$$$$$$$$$$$$$4",formdata._id)
+            console.log("$$$$$$$$$$$$$$$$$$$$$$$$4", formdata._id)
             NavigationService.apiCall("CadLineWork/save", formdata, function (data) {
                 if (data.value === true) {
-                      $state.go('shipping', {
-                        cadId:formdata._id
+                    $state.go('shipping', {
+                        cadId: formdata._id
                     })
                     //     console.log("******************************",data)
                     // var formdata = {}
