@@ -2761,23 +2761,28 @@ firstapp
         }
 
         $scope.cadSave = function (formdata) {
+            console.log("$$$$$$$$$$$$$$$$$$$$$$$$4",formdata._id)
             NavigationService.apiCall("CadLineWork/save", formdata, function (data) {
                 if (data.value === true) {
-                    var formdata = {}
-                    formdata.cadLineWork = data.data._id;
-                    formdata.user = $scope.profileDetails._id;
-                    formdata.totalAmount = $scope.cadLineDetails.amount;
-                    NavigationService.apiCall("ProductOrders/createInvoice", formdata, function (data) {
-                        if (data.value === true) {
-                            $scope.productOrder = data.data;
-                            var invoiceNumber = data.data.invoiceNo;
+                      $state.go('shipping', {
+                        cadId:formdata._id
+                    })
+                    //     console.log("******************************",data)
+                    // var formdata = {}
+                    // formdata.cadLineWork = data.data._id;
+                    // formdata.user = $scope.profileDetails._id;
+                    // formdata.totalAmount = $scope.cadLineDetails.amount;
+                    // NavigationService.apiCall("ProductOrders/createInvoice", formdata, function (data) {
+                    //     // if (data.value === true) {
+                    //     //     $scope.productOrder = data.data;
+                    //     //     var invoiceNumber = data.data.invoiceNo;
 
-                            window.location.href = adminurl + "ProductOrders/acceptPaymentPage?amount=" + $scope.cadLineDetails.amount + "&invoiceNumber=" + invoiceNumber;
+                    //     //     window.location.href = adminurl + "ProductOrders/acceptPaymentPage?amount=" + $scope.cadLineDetails.amount + "&invoiceNumber=" + invoiceNumber;
 
-                        } else {
-                            //  toastr.warning('Error submitting the form', 'Please try again');
-                        }
-                    });
+                    //     // } else {
+                    //     //     //  toastr.warning('Error submitting the form', 'Please try again');
+                    //     // }
+                    // });
                 } else {
                     //  toastr.warning('Error submitting the form', 'Please try again');
                 }
