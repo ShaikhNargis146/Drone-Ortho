@@ -366,6 +366,8 @@ firstapp
             NavigationService.apiCallWithoutData("User/getTotalDronesSold", function (data) {
                 if (data.value === true) {
                     $scope.totalDronesSold = data.data;
+                }else{
+                    $scope.totalDronesSold=0;
                 }
             });
 
