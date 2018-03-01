@@ -148,8 +148,10 @@ var model = {
                     new: true
                 }).exec(function (err, data) {
                     if (err || _.isEmpty(data)) {
+                        console.log("Inside arbsubRequest W1---", err);
                         callback(err, []);
                     } else {
+                        console.log("Inside arbsubRequestW1---", data);
                         callback(null, data);
                     }
                 });
@@ -160,17 +162,19 @@ var model = {
                 ProductOrders.recursivePayment(sendData, function (err, data) {
                     if (err || _.isEmpty(data)) {
                         callback(err, []);
+                        console.log("Inside arbsubRequest W2---", err);
                     } else {
                         callback(null, data);
+                        console.log("Inside arbsubRequestW2---", data);
                     }
                 });
             }
         ], function (err, results) {
             if (err || _.isEmpty(results)) {
-                console.log("ERRRR",err)
+                console.log("ERRRR", err)
                 callback(err);
             } else {
-                console.log("Success",results)
+                console.log("Success", results)
                 callback(null, results);
             }
         });
