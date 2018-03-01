@@ -1456,8 +1456,7 @@ firstapp
                             if (data.value === true) {
                                 $scope.productOrder = data.data;
                                 var invoiceNumber = data.data.invoiceNo;
-
-                                // window.location.href = adminurl + "ProductOrders/acceptPaymentPage?amount=" + formdata.totalAmount + "&invoiceNumber=" + invoiceNumber + "&paymentType=" + paymentType;
+                                window.location.href = adminurl + "ProductOrders/acceptPaymentPage?amount=" + formdata.totalAmount + "&invoiceNumber=" + invoiceNumber + "&paymentType=" + paymentType;
                             } else {
                                 //  toastr.warning('Error submitting the form', 'Please try again');
                             }
