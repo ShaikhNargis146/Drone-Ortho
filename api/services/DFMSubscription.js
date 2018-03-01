@@ -137,6 +137,7 @@ var model = {
     //auto renewal
 
     arbSubReqest: function (data, callback) {
+        console.log("Inside arbsubRequest");
         async.waterfall([
             function (callback) {
                 DFMSubscription.findOneAndUpdate({
