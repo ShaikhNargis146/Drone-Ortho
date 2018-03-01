@@ -88,7 +88,7 @@ firstapp
                     label: {
                         show: true,
                         formatter: function (label, point) {
-                            return (label + ' ' + '$' + point.percent.toFixed(2));
+                            return (label + ' ' + point.percent.toFixed(2)+ '%');
                         }
                     }
                 }
@@ -210,7 +210,7 @@ firstapp
                     label: {
                         show: true,
                         formatter: function (label, point) {
-                            return (label + ' ' + '$' + point.percent.toFixed(2));
+                            return (label + ' ' + point.percent.toFixed(2)+ '%');
 
                         }
                     }
@@ -254,7 +254,7 @@ firstapp
                         show: true,
                         formatter: function (label, point) {
 
-                            return (label + ' $' + point.percent.toFixed(2));
+                            return (label + ' ' + point.percent.toFixed(2) + '%');
 
                         }
                     }
@@ -299,7 +299,7 @@ firstapp
                     label: {
                         show: true,
                         formatter: function (label, point) {
-                            return (point.percent.toFixed(2) + '');
+                            return (point.percent.toFixed(2) + '%');
 
                         }
                     }
@@ -336,7 +336,7 @@ firstapp
                     label: {
                         show: true,
                         formatter: function (label, point) {
-                            return (point.percent.toFixed(2) + '');
+                            return (point.percent.toFixed(2) + '%');
 
                         }
                     }
