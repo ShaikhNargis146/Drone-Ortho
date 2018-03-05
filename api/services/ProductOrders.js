@@ -895,7 +895,7 @@ var model = {
         var paymentScheduleType = new ApiContracts.PaymentScheduleType();
         paymentScheduleType.setInterval(interval);
         paymentScheduleType.setStartDate((new Date()).toISOString().substring(0, 10));
-        paymentScheduleType.setTotalOccurrences(9999);
+        paymentScheduleType.setTotalOccurrences(30);
         paymentScheduleType.setTrialOccurrences(0);
 
         var customerProfileIdType = new ApiContracts.CustomerProfileIdType();
@@ -906,8 +906,8 @@ var model = {
         var arbSubscription = new ApiContracts.ARBSubscriptionType();
         arbSubscription.setName(utils.getRandomString('Name'));
         arbSubscription.setPaymentSchedule(paymentScheduleType);
-        // arbSubscription.setAmount(data.totalAmount);
-        arbSubscription.setAmount(1);
+        arbSubscription.setAmount(data.totalAmount);
+        // arbSubscription.setAmount(1);
         arbSubscription.setTrialAmount(1);
         arbSubscription.setProfile(customerProfileIdType);
 
