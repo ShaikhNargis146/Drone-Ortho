@@ -46,7 +46,7 @@
 							<tr>
 								<td>CAD Request Amount </td>
 								<td>:</td>
-								<td> {{cadLineDetails.amount}}</td>
+								<td> ${{cadLineDetails.amount}} </td>
 							</tr>
 							<tr>
 								<td>Payment Status </td>
@@ -127,7 +127,7 @@
 									<tr>
 										<td>CAD Request Amount </td>
 										<td>:</td>
-										<td> {{cadLineDetails.amount}}</td>
+										<td> ${{cadLineDetails.amount}} </td>
 									</tr>
 									<tr>
 										<td>Payment Status </td>
@@ -137,7 +137,7 @@
 									<tr>
 										<td>Vendor Charge </td>
 										<td>:</td>
-										<td ng-if="cadLineDetails.vendorCharges"> {{cadLineDetails.vendorCharges}}</td>
+										<td ng-if="cadLineDetails.vendorCharges"> ${{cadLineDetails.vendorCharges}}</td>
 										<td ng-if="!cadLineDetails.vendorCharges"> Pending</td>
 									</tr>
 									<tr>
@@ -302,7 +302,7 @@
 										<td>Vendor Charge </td>
 										<td>:</td>
 
-										<td>{{cadForVendorData.vendorCharges}} <button ng-hide="hidebutton==true" type="submit" ng-click="earningOpen();" class="btn green btn-md">Set Earning</button></td>
+										<td>${{cadForVendorData.vendorCharges}} <button ng-hide="hidebutton==true" type="submit" ng-click="earningOpen();" class="btn green btn-md">Set Earning</button></td>
 									</tr>
 									<tr>
 										<td>Payment Status </td>

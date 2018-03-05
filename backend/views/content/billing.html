@@ -67,10 +67,10 @@
                                                     <td>{{billData.paymentStatus}}</td>
                                                     <td>{{billData.additionalInfo}}</td>
                                                     <td>{{billData.createdAt}}</td>
-                                                    <td>{{billData.paidAmount}}</td>
-                                                    <td><span ng-if="billData.cad.vendorCharges>billData.paidAmount">{{billData.cad.vendorCharges-billData.paidAmount}}</span>
+                                                    <td>${{billData.paidAmount}}</td>
+                                                    <td><span ng-if="billData.cad.vendorCharges>billData.paidAmount">${{billData.cad.vendorCharges-billData.paidAmount}}</span>
                                                         <span ng-if="!billData.cad.vendorCharges>billData.paidAmount">   -  </span></td>
-                                                    <td><span ng-if="billData.cad.vendorCharges<billData.paidAmount">{{billData.paidAmount-billData.cad.vendorCharges}}</span>
+                                                    <td><span ng-if="billData.cad.vendorCharges<billData.paidAmount">${{billData.paidAmount-billData.cad.vendorCharges}}</span>
                                                         <span ng-if="!billData.cad.vendorCharges<billData.paidAmount">   -  </span></td>
 
                                                     <!-- <td><button type="button" ui-sref="invoice_view" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;<button type="button" class="btn green btn-outline btn-xs">Download</button></td>-->

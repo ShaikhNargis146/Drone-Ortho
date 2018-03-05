@@ -68,7 +68,7 @@
                                                 <span ng-if="orderData.dfmSubscription">{{ orderData.dfmSubscription.name}}</span>
                                                 <span ng-if="orderData.products[0]">{{orderData.name}}</span>
                                             </td>
-                                            <td>{{orderData.totalAmount}}</td>
+                                            <td>${{orderData.totalAmount}}</td>
                                             <td>{{orderData.user.lisence}}</td>
                                             <td>{{orderData.discountCoupon}}</td>
                                             <td>{{orderData.shippingAddress.city}}</td>

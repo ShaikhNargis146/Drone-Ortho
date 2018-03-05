@@ -291,15 +291,6 @@ var controller = {
 						}
 
 					})
-					var autoRecData={};
-					autoRecData._id=found.dfmSubscription;
-					DFMSubscription.arbSubReqest(autoRecData,function (err, data) {
-						if (err) {
-							console.log("error occured while recursive payment initialisation");
-						} else {
-							console.log("auto recursive activated successfully");
-						}
-					})
 				}
 				if (found.products[0]) {
 					console.log("inside if found product ")
@@ -711,6 +702,8 @@ var controller = {
 										status: 'Active',
 										expiryDate: moment(currentDate).add(1, 'M'),
 										transactionId: response.getTransaction().getTransId()
+									},{
+										new:true
 									}).exec(function (err, data) {
 										if (err || _.isEmpty(data)) {
 											callback(err, []);
@@ -718,9 +711,18 @@ var controller = {
 											callback(null, data)
 										}
 									});
-								} else {
-									callback(err, []);
 								}
+							},
+							function (dfmUpdatedData, callback) {
+								var autoRecData = {};
+								autoRecData._id = dfmUpdatedData._id;
+								DFMSubscription.arbSubReqest(autoRecData, function (err, data) {
+									if (err) {
+										console.log("error occured while recursive payment initialisation");
+									} else {
+										console.log("auto recursive activated successfully");
+									}
+								})
 							}
 						], function () {
 							console.log("finished------");
@@ -844,7 +846,7 @@ var controller = {
 						transactionRequestType.setPayment(paymentType);
 						transactionRequestType.setAmount(data.totalAmount);
 						// transactionRequestType.setAmount(1);
-						
+
 
 
 						var transactionOrderType = new ApiContracts.OrderType();
@@ -1017,7 +1019,7 @@ var controller = {
 						transactionRequestType.setTransactionType(ApiContracts.TransactionTypeEnum.AUTHCAPTURETRANSACTION);
 						transactionRequestType.setAmount(data.totalAmount);
 						// transactionRequestType.setAmount(1);
-						
+
 
 						var transactionOrderType = new ApiContracts.OrderType();
 						transactionOrderType.setInvoiceNumber(req.query.invoiceNumber);
