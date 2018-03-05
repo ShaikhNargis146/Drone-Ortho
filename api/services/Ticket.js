@@ -132,6 +132,18 @@ var model = {
                         callback(null, data2)
                     }
                 })
+            },
+            function (ticketData, callback) { //save invoice
+                Ticket.findOne({
+                    _id:ticketData._id
+                }).deepPopulate('user').exec(function (err, data) {
+                    if (err || _.isEmpty(data)) {
+                        callback(err, [])
+                    } else {
+                        Ticket.sendMailOnTicketRaised(data2, callback);                        
+                        callback(null, data)
+                    }
+                })
             }
         ], function (err, data) {
             if (err || _.isEmpty(data)) {
@@ -341,7 +353,6 @@ var model = {
             } else if (_.isEmpty(found)) {
                 callback(null, "noDataound");
             } else {
-                Ticket.sendMailOnTicketRaised(found, callback);
                 callback(null, found);
             }
         });
