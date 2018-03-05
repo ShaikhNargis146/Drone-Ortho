@@ -140,7 +140,7 @@ var model = {
                     if (err || _.isEmpty(data)) {
                         callback(err, [])
                     } else {
-                        Ticket.sendMailOnTicketRaised(data2, callback);                        
+                        Ticket.sendMailOnTicketRaised(data, callback);                        
                         callback(null, data)
                     }
                 })
