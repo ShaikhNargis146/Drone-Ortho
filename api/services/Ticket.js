@@ -39,6 +39,7 @@ module.exports = mongoose.model('Ticket', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "user", "user"));
 var model = {
+
     exceltotalTicketforUser: function (data, callback) {
         Ticket.find({
             user: data._id
@@ -275,6 +276,76 @@ var model = {
     },
     //end ticketId
 
+
+    sendMailOnTicketRaised: function (data, callback) {
+        async.parallel({
+                forUser: function (callback) {
+                    var emailData = {};
+                    emailData.filename = "Support Ticket Request - Customer Email";
+                    emailData.subject = "Support Ticket Request";
+                    emailData.email = data.user.email;
+                    emailData.merge_vars = [{
+                        "name": "USERNAME",
+                        "content": data.user.name
+                    }];
+                    Config.email(emailData, function (err, emailRespo) {
+                        if (err) {
+                            console.log(err);
+                            callback(err, null);
+                        } else if (emailRespo) {
+                            callback(null, "Support Ticket Request successfully!!!");
+                        } else {
+                            callback("Invalid data", null);
+                        }
+                    });
+                },
+                forAdmin: function (callback) {
+                    var emailData = {};
+                    emailData.filename = "Support Ticket Request - Admin Email";
+                    emailData.subject = "Support Ticket Request";
+                    emailData.email = global["env"].adminEmail;
+                    Config.email(emailData, function (err, emailRespo) {
+                        // console.log("emailRespo", emailRespo);
+                        if (err) {
+                            console.log(err);
+                            callback(err, null);
+                        } else if (emailRespo) {
+                            callback(null, "Support Ticket Request successfully!!!");
+                        } else {
+                            callback("Invalid data", null);
+                        }
+                    });
+                }
+            },
+            function (err, result) {
+                if (err || _.isEmpty(result)) {
+                    // callback(err, []);
+                } else {
+                    // callback(null, result);
+                }
+            });
+    },
+
+    submitTicketData: function (data, callback) {
+        Ticket.findOneAndUpdate({
+            _id: data._id
+        }, {
+            status:"Closed",
+            replyDate:new Date(),
+            reply:data.reply
+        },{
+            new:true
+        }).deepPopulate('user').exec(function (err, found) {
+            if (err) {
+                callback(err, null);
+            } else if (_.isEmpty(found)) {
+                callback(null, "noDataound");
+            } else {
+                Ticket.sendMailOnTicketRaised(found, callback);
+                callback(null, found);
+            }
+        });
+    },
 
 };
 module.exports = _.assign(module.exports, exports, model);

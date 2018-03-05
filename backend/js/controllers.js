@@ -2115,11 +2115,7 @@ firstapp
             $scope.accessLevel = $.jStorage.get("user").accessLevel;
         }
         $scope.submitTicket = function (data1) {
-            console.log("inside submitTicket", data1);
-            $scope.data = {
-                status: "active",
-            }
-            data1.status = "active"
+            data1.status = "Active"
             data1.user = $.jStorage.get("user")._id;
             NavigationService.apiCallWithData("Ticket/createTicketForUser", data1, function (data2) {
                 if (data2.value == true) {
@@ -4228,9 +4224,8 @@ firstapp
 
 
         $scope.saveReply = function (ticketData) {
-            ticketData.replyDate = new Date();
-            ticketData.status="Closed";
-            NavigationService.apiCallWithData("Ticket/save", ticketData, function (data) {
+            console.log("ticketDataticketData",ticketData);
+            NavigationService.apiCallWithData("Ticket/submitTicketData", ticketData, function (data) {
                 if (data.value == true) {
                     $state.go("support");
                 }
