@@ -1115,6 +1115,13 @@ firstapp.filter('ageFilter', function () {
         return calculateAge(birthdate);
     };
 });
+
+firstapp.filter('html', ['$sce', function ($sce) { 
+    return function (text) {
+        return $sce.trustAsHtml(text);
+    };    
+}])
+
 firstapp.filter('momentDate', function () {
     return function (date, format) {
         if (!format) {

@@ -4229,6 +4229,7 @@ firstapp
 
         $scope.saveReply = function (ticketData) {
             ticketData.replyDate = new Date();
+            ticketData.status="Closed";
             NavigationService.apiCallWithData("Ticket/save", ticketData, function (data) {
                 if (data.value == true) {
                     $state.go("support");

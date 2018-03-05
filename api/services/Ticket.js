@@ -15,6 +15,8 @@ var schema = new Schema({
     },
     status: {
         type: String,
+        enum: ["Closed", "Active"],
+        default: "Active"
     },
     closingDate: {
         type: Date,
