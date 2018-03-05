@@ -58,7 +58,7 @@
                           <td><a ui-sref="ticket-history({'ticketId' : ticket._id})">{{ticket.ticketId}}</a></td>
                           <td><a ui-sref="ticket-history({'ticketId' : ticket._id})">{{ticket.createdAt | date}}</a></td>
                           <td><a ui-sref="ticket-history({'ticketId' : ticket._id})">{{ticket.subject}}</a></td>
-                          <td><a ui-sref="ticket-history({'ticketId' : ticket._id})">{{ticket.description}}</a></td>
+                          <td><a ui-sref="ticket-history({'ticketId' : ticket._id})"><span ng-bind-html = "ticket.description | html"></span></a></td>
                           <td><a ui-sref="ticket-history({'ticketId' : ticket._id})">{{ticket.status}}</a></td>
                           <td>
                             <a ui-sref="ticket-history({'ticketId' : ticket._id})"></a>{{ticket.replyDate | date}}</td>
