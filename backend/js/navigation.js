@@ -250,12 +250,18 @@ var navigationservice = angular.module('navigationservice', [])
                     var blob = new Blob([response.data], {
                         type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation;charset=UTF-8'
                     });
-                    var objectUrl = (window.URL || window.webkitURL).createObjectURL(blob);
-                    var link = angular.element('<a/>');
-                    link.attr({
-                        href: objectUrl,
-                        download: fileName
-                    })[0].click();
+                    // var url = (window.URL || window.webkitURL).createObjectURL(blob);
+                    var url = window.URL.createObjectURL(blob);
+                    var a = document.createElement('a');
+                    a.href = url;
+                    // a.download = fileName;
+                    // a.target = '_blank';
+                    // a.click();
+                    // window.URL.revokeObjectURL(url);
+                    a.download = fileName;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
                 })
             },
 
