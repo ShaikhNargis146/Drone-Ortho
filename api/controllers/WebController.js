@@ -67,7 +67,7 @@ module.exports = {
         res.set('Content-Type', "application/octet-stream");
         var name = req.param("filename").split('.')[0];
         var id = req.param("id");
-        var filePath = "/mymountpoint/" + id + "/" + name + "/3_dsm_ortho/extras/contours/" + name + "_elev30m_res40cm_size20_DSM.dxf";
+        var filePath = "/mymountpoint/" + id + "/" + name + "/3_dsm_ortho/extras/contours/" + name + "_elev30cm_res40cm_size20_DSM.dxf";
         files = fs.readFileSync(filePath);
         res.send(files);
     },
@@ -76,7 +76,7 @@ module.exports = {
         res.set('Content-Type', "application/octet-stream");
         var name = req.param("filename").split('.')[0]
         var id = req.param("id");
-        var filePath = "/mymountpoint/" + id + "/" + name + "/3_dsm_ortho/extras/contours/" + name + "_elev30m_res40cm_size20_DSM.shp";
+        var filePath = "/mymountpoint/" + id + "/" + name + "/3_dsm_ortho/extras/contours/" + name + "_elev30cm_res40cm_size20_DSM.shp";
         files = fs.readFileSync(filePath);
         res.send(files);
     },
@@ -85,7 +85,7 @@ module.exports = {
         res.set('Content-Type', "application/octet-stream");
         var name = req.param("filename").split('.')[0];
         var id = req.param("id");
-        var filePath = "/mymountpoint/" + id + "/" + name + "/3_dsm_ortho/extras/contours/" + name + "_elev30m_res40cm_size20_DSM.pdf";
+        var filePath = "/mymountpoint/" + id + "/" + name + "/3_dsm_ortho/extras/contours/" + name + "_elev30cm_res40cm_size20_DSM.pdf";
         files = fs.readFileSync(filePath);
         res.send(files);
     },

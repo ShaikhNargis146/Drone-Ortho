@@ -1,4 +1,4 @@
-username for ubuntu: unifliubuntu ip 13.65.103.46
+username for ubuntu: unifliubuntu ip 13.65.103.46  52.168.39.36
 unifliwindows01
 unifliwindows02
 unifliwindows03
