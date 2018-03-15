@@ -251,6 +251,9 @@ var model = {
         // console.log(currentSubscriptionDate)
         Mission.find({
             user: data.user,
+            status: {
+                $ne: 'failed'
+            },
             createdAt: {
                 $gte: currentSubscriptionDate,
                 $lte: ltDate
