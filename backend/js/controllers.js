@@ -3383,7 +3383,7 @@ firstapp
             $scope.dfmData = dfm.data;
             if (dfm.value == true) {
                 $("#accLoader").css("display", "block");
-                console.log("inside loader block----",$("#accLoader"));
+                // console.log("inside loader block----",$("#accLoader"));
                 NavigationService.apiCallWithData("Mission/totalMission", $scope.formdata1, function (mission) {
                     if (mission.value == true) {
                         $scope.totalMission = mission.data;
