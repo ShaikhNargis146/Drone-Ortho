@@ -3401,7 +3401,7 @@ firstapp
                     } else {
                         $scope.foldersize = mission1.data.folderSize + "/" + $scope.dfmData.UploadSize;
                         $scope.dfmData.UploadPhoto = mission1.data.fileSize + "/" + $scope.dfmData.UploadPhoto;
-                        // $(".loading-img").css("display", "none");
+                        $("#accLoader").css("display", "none");
                     }
 
                 })
