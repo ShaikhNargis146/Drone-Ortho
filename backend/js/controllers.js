@@ -3382,6 +3382,8 @@ firstapp
         NavigationService.apiCallWithData("DFMSubscription/getOne", $scope.dfmDeatils, function (dfm) {
             $scope.dfmData = dfm.data;
             if (dfm.value == true) {
+                $(".loading-img").css("display", "block");
+
                 NavigationService.apiCallWithData("Mission/totalMission", $scope.formdata1, function (mission) {
                     if (mission.value == true) {
                         $scope.totalMission = mission.data;
@@ -3399,6 +3401,7 @@ firstapp
                     } else {
                         $scope.foldersize = mission1.data.folderSize + "/" + $scope.dfmData.UploadSize;
                         $scope.dfmData.UploadPhoto = mission1.data.fileSize + "/" + $scope.dfmData.UploadPhoto;
+                        $(".loading-img").css("display", "none");
                     }
 
                 })
