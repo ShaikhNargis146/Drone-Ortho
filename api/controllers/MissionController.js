@@ -1179,6 +1179,10 @@ cron.schedule('*/5 * * * *', function () {
                                 }
                             });
                         }
+                        else{
+                            console.log("something is missing");
+                            callback1();
+                        }
                     }
                     // write their api to update status if changed
                 },
